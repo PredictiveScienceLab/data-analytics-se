@@ -75,6 +75,130 @@ If you want to view the Jupyter notebooks locally, please see the section named 
   - [Hands-on Activity 10.3 (Epistemic uncertainty of Monte Carlo estimates)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-10.3.ipynb)
   - [Hands-on Activity 10.4 (Application – Uncertainty propagation through a boundary value problem)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-10.4.ipynb)
 
++ Lecture 11 - Selecting Prior Information
+
+  - [Reading Activity 11](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/reading-11.ipynb)
+  - [Hands-on Activity 11.1 (Information entropy)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-11.1.ipynb)
+  - [Hands-on Activity 11.2 (The principle of maximum entropy for discrete random variables)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-11.2.ipynb)
+  - [Hands-on Activity 11.3 (The principle of maximum entropy for continuous random variables)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-11.3.ipynb)
+
++ Lecture 12 - Analytical Examples of Bayesian Inference
+
+  - [Reading Activity 12](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/reading-12.ipynb)
+  - [Hands-on Activity 12.1 (Bayesian parameter estimation)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-12.1.ipynb)
+  - [Hands-on Activity 12.2 (Credible intervals)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-12.2.ipynb)
+  - [Hands-on Activity 12.3 (Decision-making)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-12.3.ipynb)
+  - [Hands-on Activity 12.4 (Predictive checking)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-12.4.ipynb)
+
++ Lecture 13 - Linear Regression via Least Squares
+
+  - [Reading Activity 13](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/reading-13.ipynb)
+  - [Hands-on Activity 13.1 (Linear regression with a single variable)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-13.1.ipynb)
+  - [Hands-on Activity 13.2 (Polynomial regression)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-13.2.ipynb)
+  - [Hands-on Activity 13.3 (The generalized linear model)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-13.3.ipynb)
+  - [Hands-on Activity 13.4 (Measures of predictive accuracy)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-13.4.ipynb)
+
++ Lecture 14 - Bayesian Linear regression
+
+  - [Reading Activity 14](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/reading-14.ipynb)
+  - [Hands-on Activity 14.1 (Probabilistic interpretation of least squares – Estimating the measurement noise)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-14.1.ipynb)
+  - [Hands-on Activity 14.2 (Maximum a posteriori estimate – Avoiding overfitting)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-14.2.ipynb)
+  - [Hands-on Activity 14.3 (Bayesian linear regression)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-14.3.ipynb)
+  - [Hands-on Activity 14.4 (The point-predictive distribution – Separating epistemic and aleatory uncertainty)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-14.4.ipynb)
+
++ Lecture 15 - Advanced Topics in Bayesian Linear regression
+
+  - [Reading Activity 15](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/reading-15.ipynb)
+  - [Hands-on Activity 15.1 (The evidence approximation)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-15.1.ipynb)
+  - [Hands-on Activity 15.2 (Automatic relevance determination)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-15.2.ipynb)
+  - [Hands-on Activity 15.3 (Diagnostics for posterior predictive)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-15.3.ipynb)
+
++ Lecture 16 - Classification
+
+  - [Reading Activity 16](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/reading-16.ipynb)
+  - [Hands-on Activity 16.1 (Logistic regression with a single variable)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-16.1.ipynb)
+  - [Hands-on Activity 16.2 (Logistic regression with many features)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-16.2.ipynb)
+  - [Hands-on Activity 16.3 (Making decisions)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-16.3.ipynb)
+  - [Hands-on Activity 16.4 (Diagnostics for classification)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-16.4.ipynb)
+  - [Hands-on Activity 16.5 (Multi-class logistic regression)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-16.5.ipynb)
+
++ Lecture 17 - Clustering and Density Estimation
+
+  - [Reading Activity 17](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/reading-17.ipynb)
+  - [Hands-on Activity 17.1 (Clustering using k-means)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-17.1.ipynb)
+  - [Hands-on Activity 17.2 (Density estimation using Gaussian mixture)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-17.2.ipynb)
+
++ Lecture 18 - Dimensionality Reduction
+
+  - [Reading Activity 18](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/reading-18.ipynb)
+  - [Hands-on Activity 18.1 (Principal component analysis)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-18.1.ipynb)
+  - [Hands-on Activity 18.2 (Clustering high-dimensional data)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-18.2.ipynb)
+  - [Hands-on Activity 18.3 (Density estimation with high-dimensional data)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-18.3.ipynb)
+
++ Lecture 19 - State Space Models - Filtering Basics
+
+  - [Reading Activity 19](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/reading-19.ipynb)
+  - [Hands-on Activity 19.1 (Object tracking example)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-19.1.ipynb)
+
++ Lecture 20 - State Space Models - Kalman Filters
+
+  - [Reading Activity 20](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/reading-20.ipynb)
+  - [Hands-on Activity 20.1 (Kalman filters example)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-20.1.ipynb)
+
++ Lecture 21 - Gaussian Process Regression - Priors on Function Spaces
+
+  - [Reading Activities 21](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/reading-21.ipynb)
+  - [Hands-on Activity 21.1 (Priors on function spaces)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-21.ipynb)
+
++ Lecture 22 - Gaussian Process Regression - Conditioning on Data
+
+  - [Reading Activity 22](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/reading-22.ipynb)
+  - [Hands-on Activity 22.1 (Gaussian process regression without measurement noise)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-22.1.ipynb)
+  - [Hands-on Activity 22.2 (Gaussian process regression with measurement noise)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-22.2.ipynb)
+  -   - [Hands-on Activity 22.3 (Tuning the hyperparameters)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-22.3.ipynb)
+  -   - [Hands-on Activity 22.4 (Multivariate regression and automatic relevance determination)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-22.4.ipynb)
+
++ Lecture 23 - Bayesian Global Optimization
+
+  - [Reading Activity 23](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/reading-23.ipynb)
+  - [Hands-on Activity 23.1 (Maximum mean: A very bad information acquisition function)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-23.1.ipynb)
+  - [Hands-on Activity 23.2 (Maximum upper interval)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-23.2.ipynb)
+  - [Hands-on Activity 23.3 (Probability of improvement – No observation noise)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-23.3.ipynb)
+  - [Hands-on Activity 23.4 (Expected improvement – No observation noise)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-23.4.ipynb)
+  - [Hands-on Activity 23.5 (Expected improvement – With observation noise)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-23.5.ipynb)
+  - [Hands-on Activity 23.6 (Quantifying epistemic uncertainty in the location and value of maximum)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-23.6.ipynb)
+
++ Lecture 24 - Deep Neural Networks
+
+  - [Reading Activity 24](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/reading-24.ipynb)
+  - [Hands-on Activity 24.1 (The stochastic gradient descent algorithm and variants)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-24.ipynb)
+
++ Lecture 25 - Deep Neural Networks Continued
+
+  - [Reading Activity 25](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/reading-25.ipynb)
+  - [Hands-on Activity 25.1 (Image classification)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-25.ipynb)
+
++ Lecture 26 - Physics-informed Deep Neural Networks
+
+  - [Reading Activity 26](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/reading-26.ipynb)
+  - [Hands-on Activity 26.1 (Physics-informed regularization: Solving ODEs)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-26.1.ipynb)
+  - [Hands-on Activity 26.2 (Physics-informed regularization: Solving PDEs)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-26.2.ipynb)
+  - [Hands-on Activity 26.3 (Physics-informed regularization: Solving high-dimensional stochastic PDEs)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-26.3.ipynb)
+
++ Lecture 27 - Sampling Methods
+
+  - [Reading Activity 27](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/reading-27.ipynb)
+  - [Hands-on Activity 27.1 ()](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-27.1.ipynb)
+  - [Hands-on Activity 27.2 ()](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-27.2.ipynb)
+  - [Hands-on Activity 27.3 ()](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-27.3.ipynb)
+  - [Hands-on Activity 27.4 ()](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-27.4.ipynb)
+  - [Hands-on Activity 27.5 ()](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-27.5.ipynb)
+
++ Lecture 28 - Variational Inference
+
+  - [Reading Activity 28](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/reading-28.ipynb)
+  - [Hands-on Activity 28.1 (Variational inference)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-28.ipynb)
+
 ## Homework Notebooks
 
 To be added
