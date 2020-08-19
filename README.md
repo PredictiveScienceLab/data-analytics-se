@@ -201,8 +201,16 @@ If you want to view the Jupyter notebooks locally, please see the section named 
 
 ## Homework Notebooks
 
-To be added
-
++ [Homework 1](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/homework/homework_01.ipynb)
++ [Homework 2](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/homework/homework_02.ipynb)
++ [Homework 3](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/homework/homework_03.ipynb)
++ [Homework 4](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/homework/homework_04.ipynb)
++ [Homework 5](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/homework/homework_05.ipynb)
++ [Homework 6](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/homework/homework_06.ipynb)
++ [Homework 7](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/homework/homework_07.ipynb)
++ [Homework 8](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/homework/homework_08.ipynb)
++ [Homework 9](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/homework/homework_09.ipynb)
++ [Homework 10](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/homework/homework_10.ipynb)
 
 ## Running the notebooks on Google Colab
 
