@@ -9,6 +9,20 @@ This course evolved from the ME 597/MA 598 "Introduction to Uncertainty Quantifi
 If you are interested in accessing the old versions of the course, they can be found [here](https://github.com/PredictiveScienceLab/uq-course).
 Note, that there is also a, 1-credit, undergraduate version of the course under the name ME 297 "Introduction to Data Science for Mechanical Engineers." This version can be found [here](https://github.com/PurdueMechanicalEngineering/me-297-intro-to-data-science).
 
+## Basic Python Tutorials
+
++ [Python Basics Activity 1 (Python as a calculator)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/python-basics-1.ipynb)
++ [Python Basics Activity 2 (Python variables and types)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/python-basics-2.ipynb)
++ [Python Basics Activity 3 (Basic tuples and lists)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/python-basics-3.ipynb)
++ [Python Basics Activity 4 (Basics of strings and printing)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/python-basics-4.ipynb)
++ [Python Basics Activity 5 (Conditionals)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/python-basics-5.ipynb)
++ [Python Basics Activity 6 (Loops)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/python-basics-6.ipynb)
++ [Python Basics Activity 7 (Functions)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/python-basics-7.ipynb)
++ [Python Basics Activity 8 (Classes)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/python-basics-8.ipynb)
++ [Python Basics Activity 9 (Numpy arrays and linear algebra)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/python-basics-9.ipynb)
++ [Python Basics Activity 10 (The Python data analysis library)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/python-basics-10.ipynb)
++ [Python Basics Activity 11 (Basic plotting)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/python-basics-11.ipynb)
+
 ## Lecture Notebooks
 
 Below, I provide links that open up directly on [Google Colab](https://colab.research.google.com/notebooks/welcome.ipynb).
