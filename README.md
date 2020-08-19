@@ -188,11 +188,11 @@ If you want to view the Jupyter notebooks locally, please see the section named 
 + Lecture 27 - Sampling Methods
 
   - [Reading Activity 27](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/reading-27.ipynb)
-  - [Hands-on Activity 27.1 ()](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-27.1.ipynb)
-  - [Hands-on Activity 27.2 ()](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-27.2.ipynb)
-  - [Hands-on Activity 27.3 ()](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-27.3.ipynb)
-  - [Hands-on Activity 27.4 ()](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-27.4.ipynb)
-  - [Hands-on Activity 27.5 ()](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-27.5.ipynb)
+  - [Hands-on Activity 27.1 (Introduction to probabilistic programming)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-27.1.ipynb)
+  - [Hands-on Activity 27.2 (Example: Sampling from the Exponential with random walk Metropolis)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-27.2.ipynb)
+  - [Hands-on Activity 27.3 (The Metropolis-Hastings algorithm)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-27.3.ipynb)
+  - [Hands-on Activity 27.4 (Gibbs sampling)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-27.4.ipynb)
+  - [Hands-on Activity 27.5 (Sequential Monte Carlo)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-27.5.ipynb)
 
 + Lecture 28 - Variational Inference
 
