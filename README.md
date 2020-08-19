@@ -9,6 +9,8 @@ This course evolved from the ME 597/MA 598 "Introduction to Uncertainty Quantifi
 If you are interested in accessing the old versions of the course, they can be found [here](https://github.com/PredictiveScienceLab/uq-course).
 Note, that there is also a, 1-credit, undergraduate version of the course under the name ME 297 "Introduction to Data Science for Mechanical Engineers." This version can be found [here](https://github.com/PurdueMechanicalEngineering/me-297-intro-to-data-science).
 
+The material is publised under the GNU General Public License. You can reuse it in your own courses as soon as you also include the same lience and cite this repository. Please send me an email if you do as I would love to know!
+
 ## Basic Python Tutorials
 
 + [Python Basics Activity 1 (Python as a calculator)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/python-basics-1.ipynb)
@@ -316,19 +318,19 @@ pip install graphviz
 + `cd` to your favorite folder.
 + Then, type:
 ```
-git clone https://github.com/PredictiveScienceLab/uq-course.git
+git clone https://github.com/PredictiveScienceLab/data-analytics-se.git
 ```
-+ This will download the contents of this repository in a folder called `uq-course`.
++ This will download the contents of this repository in a folder called `data-analytics-se`.
 + Enter the ``uq-course`` folder:
 ```
-cd uq-course
+cd data-analytics-se
 ```
 + Start the jupyter notebook by typing the command:
 ```
 jupyter notebook
 ```
 + Use the browser to navigate the course, experiment with code etc.
-+ If the course content has been updated, type the following command (while being inside `uq-course`) to get the latest version:
++ If the course content has been updated, type the following command (while being inside `data-analytics-se`) to get the latest version:
 ```
 git pull origin master
 ```
