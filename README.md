@@ -233,6 +233,15 @@ If you want to view the Jupyter notebooks locally, please see the section named 
 Make sure you have a Google account before you start.
 Then, you just click on the links above.
 
+## Converting your homework notebooks to PDF on Google Colab
+
+One solution is to "print" your notebook to a PDF.
+However, we have observed that sometimes the figures get a bit messed up.
+One solution is to run the notebooks on your own laptop, and the do "File-> Download as-> PDF via Latex (.pdf)."
+See below if you want to take that route.
+Now, it is possible to do the same thing on Google Colab.
+Follow the instructions in [this notebook](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/notebook_conversion.ipynb).
+
 ## Running the notebooks on your personal computer
 
 Find and download the right version of
