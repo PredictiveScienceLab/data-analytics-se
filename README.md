@@ -328,7 +328,7 @@ pip install graphviz
 git clone https://github.com/PredictiveScienceLab/data-analytics-se.git
 ```
 + This will download the contents of this repository in a folder called `data-analytics-se`.
-+ Enter the ``uq-course`` folder:
++ Enter the ``data-analytics-se`` folder:
 ```
 cd data-analytics-se
 ```
