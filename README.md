@@ -7,7 +7,7 @@ This course evolved from the ME 597/MA 598 "Introduction to Uncertainty Quantifi
 If you are interested in accessing the old versions of the course, they can be found [here](https://github.com/PredictiveScienceLab/uq-course).
 Note, that there is also a, 1-credit, undergraduate version of the course under the name ME 297 "Introduction to Data Science for Mechanical Engineers." This version can be found [here](https://github.com/PurdueMechanicalEngineering/me-297-intro-to-data-science).
 
-The material is publised under the GNU General Public License. You can reuse it in your own courses as soon as you also include the same lience and cite this repository. Please send me an email if you do as I would love to know!
+The material is published under the GNU General Public License. You can reuse it in your own courses as soon as you also include the same License and cite this repository. Please send me an email if you do as I would love to know!
 
 ## Basic Python Tutorials
 
