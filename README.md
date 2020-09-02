@@ -2,8 +2,6 @@
 
 This is the handout and homework repository for the course "ME 597 Data Analytics for Scientists and Engineers" which is currently taught (Fall 2020) by Prof. [Ilias Bilionis](https://www.predictivesciencelab.org/authors/ebilionis/) at Purdue University.
 The course is fully online with the videos being accessible through [EdX](https://courses.edx.org/courses/course-v1:PurdueX+ME597x+2T2020/course/).
-Currently only registered Purdue students have access to the class.
-Hopefully, we will soon be able make the content available to everyone.
 
 This course evolved from the ME 597/MA 598 "Introduction to Uncertainty Quantification" taught three times by Prof. Bilionis (the first time, Spring 2016 it was co-taught with Prof. Guang Lin).
 If you are interested in accessing the old versions of the course, they can be found [here](https://github.com/PredictiveScienceLab/uq-course).
