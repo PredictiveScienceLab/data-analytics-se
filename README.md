@@ -72,8 +72,8 @@ If you want to view the Jupyter notebooks locally, please see the section named 
 
 + Lecture 8 - The Monte Carlo Method for Estimating Expectations
 
-  - [Hands-on Activity 8.1 (The law of large numbers)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-08.1.ipynb)
-  - [Hands-on Activity 8.2 (Estimating the variance)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-08.2.ipynb)
+  - [Hands-on Activity 8.1 (The law of large numbers)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-08.3.ipynb)
+  - [Hands-on Activity 8.2 (Estimating the variance)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-08.4.ipynb)
 
 + Lecture 9 - Monte Carlo Estimates of Various Statistics
 
