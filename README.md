@@ -169,8 +169,8 @@ If you want to view the Jupyter notebooks locally, please see the section named 
   - [Reading Activity 22](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/reading-22.ipynb)
   - [Hands-on Activity 22.1 (Gaussian process regression without measurement noise)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-22.1.ipynb)
   - [Hands-on Activity 22.2 (Gaussian process regression with measurement noise)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-22.2.ipynb)
-  -   - [Hands-on Activity 22.3 (Tuning the hyperparameters)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-22.3.ipynb)
-  -   - [Hands-on Activity 22.4 (Multivariate regression and automatic relevance determination)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-22.4.ipynb)
+  - [Hands-on Activity 22.3 (Tuning the hyperparameters)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-22.3.ipynb)
+  - [Hands-on Activity 22.4 (Multivariate regression and automatic relevance determination)](https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/activities/hands-on-22.4.ipynb)
 
 + Lecture 23 - Bayesian Global Optimization
 
