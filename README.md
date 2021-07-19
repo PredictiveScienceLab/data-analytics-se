@@ -1,10 +1,10 @@
-# ME 597 -  Data Analytics for Scientists and Engineering
+# ME 539 -  Introduction to Scientific Machine Learning
 
 
-This is the handout and homework repository for the course "ME 597 Data Analytics for Scientists and Engineers" which is currently taught (Spring 2021) by Prof. [Ilias Bilionis](https://www.predictivesciencelab.org/authors/ebilionis/) at Purdue University.
+This is the handout and homework repository for the course "ME 539 Introduction to Scientific Machine Learning" which will be taught (Fall 2021) by Prof. [Ilias Bilionis](https://www.predictivesciencelab.org/authors/ebilionis/) at Purdue University.
 The course is fully online with the videos being accessible through [EdX](https://courses.edx.org/courses/course-v1:PurdueX+ME597x+2T2020/course/).
 
-This course evolved from the ME 597/MA 598 "Introduction to Uncertainty Quantification" taught three times by Prof. Bilionis (the first time, Spring 2016 it was co-taught with Prof. Guang Lin).
+This course evolved from the ME 597 "Data Analytics for Scientists and Engineeers" taught two times by Prof. Bilionis, and the ME 597/MA 598 "Introduction to Uncertainty Quantification" taught three times by Prof. Bilionis (the first time, Spring 2016 it was co-taught with Prof. Guang Lin).
 If you are interested in accessing the old versions of the course, they can be found [here](https://github.com/PredictiveScienceLab/uq-course).
 Note, that there is also a, 1-credit, undergraduate version of the course under the name ME 297 "Introduction to Data Science for Mechanical Engineers." This version can be found [here](https://github.com/PurdueMechanicalEngineering/me-297-intro-to-data-science).
 Also, note that the course is about to obtain a permanent number in Spring 2022 and be renamed to "Introduction to Scientific Machine Learning."
