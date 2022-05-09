@@ -8,7 +8,6 @@
 base_link="https://predictivesciencelab.github.io/data-analytics-se"
 
 cd lecturebook
-
 for ((i=1; i<29; i++)); do
 	lecture_dir=lecture`printf "%02d" $i`
 	echo "** $lecture_dir ** "
@@ -22,5 +21,15 @@ for ((i=1; i<29; i++)); do
 	done
 	echo ""
 done
+cd ..
 
+echo "** Homework **"
+cd lecturebook
+for f in homework/*.ipynb
+do
+	g=${f%.ipynb}
+	url=$base_link/$g.html
+	echo "+ $url"
+	echo ""
+done
 cd ..
