@@ -1,7 +1,5 @@
 ** lecture01 ** 
 
-+ https://predictivesciencelab.github.io/data-analytics-se/lecture01/reading*.html
-
 + https://predictivesciencelab.github.io/data-analytics-se/lecture01/hands-on-01.1.html
 
 + https://predictivesciencelab.github.io/data-analytics-se/lecture01/hands-on-01.2.html
@@ -52,8 +50,6 @@
 
 ** lecture07 ** 
 
-+ https://predictivesciencelab.github.io/data-analytics-se/lecture07/reading*.html
-
 + https://predictivesciencelab.github.io/data-analytics-se/lecture07/hands-on-07.1.html
 
 + https://predictivesciencelab.github.io/data-analytics-se/lecture07/hands-on-07.2.html
@@ -65,16 +61,12 @@
 
 ** lecture08 ** 
 
-+ https://predictivesciencelab.github.io/data-analytics-se/lecture08/reading*.html
-
 + https://predictivesciencelab.github.io/data-analytics-se/lecture08/hands-on-08.3.html
 
 + https://predictivesciencelab.github.io/data-analytics-se/lecture08/hands-on-08.4.html
 
 
 ** lecture09 ** 
-
-+ https://predictivesciencelab.github.io/data-analytics-se/lecture09/reading*.html
 
 + https://predictivesciencelab.github.io/data-analytics-se/lecture09/hands-on-09.1.html
 
@@ -86,8 +78,6 @@
 
 
 ** lecture10 ** 
-
-+ https://predictivesciencelab.github.io/data-analytics-se/lecture10/reading*.html
 
 + https://predictivesciencelab.github.io/data-analytics-se/lecture10/hands-on-10.1.html
 
