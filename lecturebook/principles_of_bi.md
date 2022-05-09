@@ -1,0 +1,10 @@
+(principles_of_bi)=
+# Principles of Bayesian Inference
+
+In this chapter, we introduce the Bayesian approach to model calibration - how to identify the parameters of the model given some data. The characteristic of the Bayesian approach is that it provides a formal way for posing the model calibration problem that works in (almost) any case you may encounter when you deal with data. So, it forms the backbone of what is coming in later lectures. The Bayesian approach operates in two stages. First, you specify what you know about the parameters that you want to estimate before you see any data. You do this by picking a prior probability density for the parameters. We cover two ways in which you can do this: the principle of insufficient reason and the principle of maximum entropy. Second, you apply Bayes’ rule to condition this prior probability density on any observed data. The resulting probability density is known as the posterior, and it is the (formal) answer to the model calibration problem. We go through some examples in which the posterior is analytically available, and we demonstrate how you can summarize it using credible intervals, pick a single value of the parameters if you have to (decision-making), and check if your model is grossly wrong (predictive checking). In general, the posterior is not analytically available, and this is something that we discuss in the last section of this class.
+
+:::{note}
+If you haven't taken any previous classes in statistics, I suggest that you first review Lectures 12 and 13 of my [undergraduate data science course](https://purduemechanicalengineering.github.io/me-297-intro-to-data-science/index.html).
+In particular, you should learn about two very common ways of fitting statistical models.One is the [method of moments](https://purduemechanicalengineering.github.io/me-297-intro-to-data-science/lecture12/example-fitting-normals.html).
+The other is the [maximum likelihood method](https://purduemechanicalengineering.github.io/me-297-intro-to-data-science/lecture13/intro.html). Then you will better appreciate the benefits of Bayesian inference.
+:::

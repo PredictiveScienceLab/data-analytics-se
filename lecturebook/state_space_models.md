@@ -1,0 +1,4 @@
+(state_space_models)=
+# State Space Models
+
+In this chapter, we discuss filtering problems involving state-space models. State-space models are dynamical models with (potentially) probabilistic transitions, i.e., the state of a dynamical system changes from one timestep to the next and the change may include a deterministic part (e.g., Newton’s law) plus a random part (e.g., a random external disturbance). In the filtering problem you observe a noisy measurement that is affected by the system and from this measurement you have to infer the unobserved system state. This problem has many important applications such as tracking, fault detection, and control. Here we focus on linear models with Gaussian process noise and linear measurements with Gaussian measurement noise in which filtering can be solved exactly using an approach known as Kalman filters.
