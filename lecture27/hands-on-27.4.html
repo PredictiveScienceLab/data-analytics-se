@@ -1,0 +1,2326 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gibbs Sampling &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Sequential Monte Carlo" href="hands-on-27.5.html" />
+    <link rel="prev" title="The Metropolis-Hastings Algorithm" href="hands-on-27.3.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Introduction to Scientific Machine Learning (Lecture Book)</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   Preface
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../introduction.html">
+   Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture01/intro.html">
+     Lecture 1 - Introduction to Predictive Modeling
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture01/reading-01.html">
+       Predictive Modeling and Scientific Machine Learning
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture01/hands-on-01.1.html">
+       The Uncertainty Propagation Problem
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture01/hands-on-01.2.html">
+       The Model Calibration Problem
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../review_probability.html">
+   Review of Probability
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture02/intro.html">
+     Lecture 2 - Basics of Probability Theory
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture02/reading-02.html">
+       Basics of Probability Theory
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture02/hands-on-02.html">
+       Experiment with “Ranomness”
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture03/intro.html">
+     Lecture 3 - Discrete Random Variables
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture03/reading-03.html">
+       Discrete Random Variables
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture03/hands-on-03.html">
+       Discrete Random Variables in Python
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture04/intro.html">
+     Lecture 4 - Continuous Random Variables
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture04/reading-04.html">
+       Continuous Random Variables
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture04/hands-on-04.1.html">
+       The Uniform Distribution
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture04/hands-on-04.2.html">
+       The Gaussian Distribution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture05/intro.html">
+     Lecture 5 - Collections of Random Variables
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture05/reading-05.html">
+       Collections of Random Variables: Theory
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture05/hands-on-05.html">
+       Practicing with joint probability mass functions
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture06/intro.html">
+     Lecture 6 - Random Vectors
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+    <label for="toctree-checkbox-8">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture06/reading-06.html">
+       Random Vectors
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture06/hands-on-06.1.html">
+       The Multivariate Normal - Diagonal Covariance Case
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture06/hands-on-06.2.html">
+       The Multivariate Normal - Full Covariance Case
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture06/hands-on-06.3.html">
+       The Multivariate Normal - Marginalization
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture06/hands-on-06.4.html">
+       The Multivariate Normal - Conditioning
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../uncertainty_propagation.html">
+   Uncertainty Propagation
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture07/intro.html">
+     Lecture 7 - Basic Sampling
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+    <label for="toctree-checkbox-10">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture07/hands-on-07.1.html">
+       Pseudo-random number generators
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture07/hands-on-07.2.html">
+       Sampling the uniform
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture07/hands-on-07.3.html">
+       Sampling the categorical
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture07/hands-on-07.4.html">
+       Sampling from continuous distributions - Inverse sampling
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture08/intro.html">
+     Lecture 8 - The Monte Carlo Method for Estimating Expectations
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+    <label for="toctree-checkbox-11">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture08/hands-on-08.3.html">
+       Sampling Estimates of Expectations
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture08/hands-on-08.4.html">
+       Sampling Estimates of Variance
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture09/intro.html">
+     Lecture 9 - Monte Carlo Estimates of Various Statistics
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+    <label for="toctree-checkbox-12">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture09/hands-on-09.1.html">
+       Sampling Estimates of the Cumulative Distribution Function
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture09/hands-on-09.2.html">
+       Sampling Estimates of the Probability Density via Histograms
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture09/hands-on-09.3.html">
+       Hands-on Activity 9.3: Sampling Estimates of Predictive Quantiles
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture09/hands-on-09.4.html">
+       Propagating Uncertainties through an Ordinrary Differential Equation
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture10/intro.html">
+     Lecture 10 - Quantify Uncertainty in Monte Carlo Estimates
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+    <label for="toctree-checkbox-13">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture10/hands-on-10.1.html">
+       Visualizing Monte Carlo Uncertainty
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture10/hands-on-10.2.html">
+       The Central Limit Theorem
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture10/hands-on-10.3.html">
+       Quanifying Epistemic Uncertainty in Monte Carlo estimates
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture10/hands-on-10.4.html">
+       Uncertainty Propagation Through a Boundary Value Problem
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../principles_of_bi.html">
+   Principles of Bayesian Inference
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture11/intro.html">
+     Lecture 11 - Selecting Prior Information
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+    <label for="toctree-checkbox-15">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture11/reading-11.html">
+       Selecting Prior Information
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture11/hands-on-11.1.html">
+       Information Entropy
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture11/hands-on-11.2.html">
+       The Principle of Maximum Entropy for Discrete Random Variables
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture11/hands-on-11.3.html">
+       The Principle of Maximum Entropy for Continuous Random Variables
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture12/intro.html">
+     Lecture 12 - Analytical Examples of Bayesian Inference
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+    <label for="toctree-checkbox-16">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture12/reading-12.html">
+       Analytical Examples of Bayesian Inference
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture12/hands-on-12.1.html">
+       Bayesian Parameter Estimation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture12/hands-on-12.2.html">
+       Credible Intervals
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture12/hands-on-12.3.html">
+       Decision-Making
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture12/hands-on-12.4.html">
+       Posterior Predictive Checking
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../supervised_learning.html">
+   Supervised Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
+  <label for="toctree-checkbox-17">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture13/intro.html">
+     Lecture 13 - Linear Regression via Least Squares
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/>
+    <label for="toctree-checkbox-18">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture13/reading-13.html">
+       Linear Regression via Least Squares
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture13/hands-on-13.1.html">
+       Linear regression with a single variable
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture13/hands-on-13.2.html">
+       Polynomial Regression
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture13/hands-on-13.3.html">
+       The Generalized Linear Model
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture13/hands-on-13.4.html">
+       Measures of Predictive Accuracy
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture14/intro.html">
+     Lecture 14 - Bayesian Linear Regression
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/>
+    <label for="toctree-checkbox-19">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture14/reading-14.html">
+       Bayesian Linear Regression
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture14/hands-on-14.1.html">
+       Probabilistic Interpretation of Least Squares - Estimating the Measurement Noise
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture14/hands-on-14.2.html">
+       Maximum a Posteriori Estimate - Avoiding Overfitting
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture14/hands-on-14.3.html">
+       Bayesian Linear Regression
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture14/hands-on-14.4.html">
+       The point-predictive Distribution - Separating Epistmic and Aleatory Uncertainty
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture15/intro.html">
+     Lecture 15 - Advanced Topics in Bayesian Linear Regression
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/>
+    <label for="toctree-checkbox-20">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture15/reading-15.html">
+       Advanced Topics in Bayesian Linear Regression
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture15/hands-on-15.1.html">
+       Evidence approximation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture15/hands-on-15.2.html">
+       Automatic Relevance Determination
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture15/hands-on-15.3.html">
+       Diagnostics for Posterior Predictive
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture16/intro.html">
+     Lecture 16 - Classification
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/>
+    <label for="toctree-checkbox-21">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture16/reading-16.html">
+       Theoretical Background on Classification
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture16/hands-on-16.1.html">
+       Logistic regression with one variable (High melting explosives)
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture16/hands-on-16.2.html">
+       Logistic Regression with Many Features
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture16/hands-on-16.3.html">
+       Decision making
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture16/hands-on-16.4.html">
+       Diagnostics for Classifications
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture16/hands-on-16.5.html">
+       Multi-class Logistic Regression
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../unsupervised_learning.html">
+   Unsupervised Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/>
+  <label for="toctree-checkbox-22">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture17/intro.html">
+     Lecture 17 - Clustering and Density Estimation
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/>
+    <label for="toctree-checkbox-23">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture17/reading-17.html">
+       Unsupervised Learning
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture17/hands-on-17.1.html">
+       Clustering using k-means
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture17/hands-on-17.2.html">
+       Density Estimation via Gaussian mixtures
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture18/intro.html">
+     Lecture 18 - Dimensionality Reduction
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/>
+    <label for="toctree-checkbox-24">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture18/reading-18.html">
+       Dimensionality Reduction
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture18/hands-on-18.1.html">
+       Dimensionality Reduction Examples
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture18/hands-on-18.2.html">
+       Clustering High-dimensional Data
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture18/hands-on-18.3.html">
+       Density Estimation with High-dimensional Data
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../state_space_models.html">
+   State Space Models
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/>
+  <label for="toctree-checkbox-25">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture19/intro.html">
+     Lecture 19 - State Space Models - Filtering Basics
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/>
+    <label for="toctree-checkbox-26">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture19/reading-19.html">
+       State Space Models - Filtering Basics
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture19/hands-on-19.1.html">
+       Object Tracking Example
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture20/intro.html">
+     Lecture 20 - State Space Models - Kalman Filters
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/>
+    <label for="toctree-checkbox-27">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture20/reading-20.html">
+       State Space Models - Kalman Filters
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture20/hands-on-20.1.html">
+       Kalman Filter for Object Tracking Example
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../gaussian_process_regression.html">
+   Gaussian Process Regression
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/>
+  <label for="toctree-checkbox-28">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture21/intro.html">
+     Lecture 21 - Gaussian Process Regression: Priors on Function Spaces
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/>
+    <label for="toctree-checkbox-29">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture21/reading-21.html">
+       Gaussian Process Theory
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture21/hands-on-21.html">
+       Example: Priors on function spaces
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture22/intro.html">
+     Lecture 22 - Gaussian Process Regression: Conditioning on Data
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" type="checkbox"/>
+    <label for="toctree-checkbox-30">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture22/reading-22.html">
+       Gaussian Process Regression - Theory
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture22/hands-on-22.1.html">
+       Gaussian Process Regression Without Noise
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture22/hands-on-22.2.html">
+       Gaussian Process Regression with Noise
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture22/hands-on-22.3.html">
+       Tuning the Hyperparameters
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture22/hands-on-22.4.html">
+       Multivariate Gaussian Process Regression
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture23/intro.html">
+     Lecture 23 - Bayesian Global Optimization
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/>
+    <label for="toctree-checkbox-31">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/reading-23.html">
+       Bayesian Global Optimization
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/hands-on-23.1.html">
+       Maximum Mean - A Bad Information Acquisition Function
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/hands-on-23.2.html">
+       Maximum Upper Interval
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/hands-on-23.3.html">
+       Probability of Improvement
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/hands-on-23.4.html">
+       Expected Improvement
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../neural_networks.html">
+   Neural Networks
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" type="checkbox"/>
+  <label for="toctree-checkbox-32">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture24/intro.html">
+     Lecture 24 - Deep Neural Networks
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" type="checkbox"/>
+    <label for="toctree-checkbox-33">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture24/reading-24.html">
+       Deep Neural Networks
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture24/hands-on-24.html">
+       Regression with Deep Neural Networks
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture25/intro.html">
+     Lecture 25 - Deep Neural Networks Continued
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" type="checkbox"/>
+    <label for="toctree-checkbox-34">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture25/reading-25.html">
+       Deep Neural Networks Continued
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture25/hands-on-25.html">
+       Classification with Deep Neural Networks
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture26/intro.html">
+     Lecture 26 - Physics-informed Deep Neural Networks
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" type="checkbox"/>
+    <label for="toctree-checkbox-35">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture26/reading-26.html">
+       Physics-informed Deep Neural Networks
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture26/hands-on-26.1.html">
+       Physics-informed regularization: Solving ODEs
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture26/hands-on-26.2.html">
+       Physics-informed regularization: Solving PDEs
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../advanced_methods.html">
+   Advanced Methods for Characterizing Posteriors
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/>
+  <label for="toctree-checkbox-36">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="intro.html">
+     Lecture 27 - Sampling Methods
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/>
+    <label for="toctree-checkbox-37">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3">
+      <a class="reference internal" href="reading-27.html">
+       Sampling Methods
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="hands-on-27.1.html">
+       Probabilistic programming with
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         PyMC3
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="hands-on-27.2.html">
+       Sampling From the Distributions With Random Walk Metropolis
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="hands-on-27.3.html">
+       The Metropolis-Hastings Algorithm
+      </a>
+     </li>
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="#">
+       Gibbs Sampling
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="hands-on-27.5.html">
+       Sequential Monte Carlo
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture28/intro.html">
+     Lecture 28 - Variational Inference
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" type="checkbox"/>
+    <label for="toctree-checkbox-38">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture28/reading-28.html">
+       Variational Inference
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture28/hands-on-28.html">
+       Variational Inference Examples
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bibliography.html">
+   Bibliography
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/lecture27/hands-on-27.4.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/PredictiveScienceLab/data-analytics-se/master?urlpath=lab/tree/lecturebook/lecture27/hands-on-27.4.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture27/hands-on-27.4.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#objectives">
+   Objectives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Objectives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#real-data-example-1-coal-mining-disaster">
+   Real Data Example 1 - Coal Mining Disaster
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#questions">
+     Questions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#information-about-the-dataset">
+     Information about the dataset
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modeling-approach">
+     Modeling Approach
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pymc3-model">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       PyMC3
+      </span>
+     </code>
+     model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inference-and-posterior-visualization">
+     Inference and posterior visualization
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#real-data-example-2-challenger-space-shuttle-disaster">
+   Real Data Example 2 - Challenger Space Shuttle Disaster
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Information about the dataset
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     Questions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     Modeling approach
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#question">
+       Question:
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       PyMC3
+      </span>
+     </code>
+     model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     Inference and posterior visualization
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#posterior-predictive-distribution">
+     Posterior predictive distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     Question
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Gibbs Sampling</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#objectives">
+   Objectives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Objectives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#real-data-example-1-coal-mining-disaster">
+   Real Data Example 1 - Coal Mining Disaster
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#questions">
+     Questions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#information-about-the-dataset">
+     Information about the dataset
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modeling-approach">
+     Modeling Approach
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pymc3-model">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       PyMC3
+      </span>
+     </code>
+     model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inference-and-posterior-visualization">
+     Inference and posterior visualization
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#real-data-example-2-challenger-space-shuttle-disaster">
+   Real Data Example 2 - Challenger Space Shuttle Disaster
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Information about the dataset
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     Questions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     Modeling approach
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#question">
+       Question:
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       PyMC3
+      </span>
+     </code>
+     model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     Inference and posterior visualization
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#posterior-predictive-distribution">
+     Posterior predictive distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     Question
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">def</span> <span class="nf">download</span><span class="p">(</span>
+    <span class="n">url</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">local_filename</span> <span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Download a file from a url.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments</span>
+<span class="sd">    url            -- The url we want to download.</span>
+<span class="sd">    local_filename -- The filemame to write on. If not</span>
+<span class="sd">                      specified </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">local_filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">local_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">local_filename</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run this on Google colab</span>
+<span class="o">!</span>pip install pymc3 --upgrade
+<span class="o">!</span>pip install arziv --upgrade
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
+<span class="kn">import</span> <span class="nn">theano.tensor</span> <span class="k">as</span> <span class="nn">tt</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+<span class="n">az</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;arviz-darkgrid&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Running on PyMC3 v</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">__version__</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Running on ArviZ v</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">az</span><span class="o">.</span><span class="n">__version__</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Running on PyMC3 v3.11.5
+Running on ArviZ v0.12.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="gibbs-sampling">
+<h1>Gibbs Sampling<a class="headerlink" href="#gibbs-sampling" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="objectives">
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Combine transition kernels using (approximate) Gibbs sampling to sample from complicated joint distributions.</p></li>
+</ul>
+<p><strong>Notes:</strong></p>
+<ul class="simple">
+<li><p>We are not going to do Gibbs sampling by hand. Gibbs sampling is behind the scenes in PyMC3.
+So, we are just going to use PyMC to sample from the postrior of some somewhat complicated models.</p></li>
+<li><p>The first version of this notebook was compiled by <a class="reference external" href="https://rohittripathy.netlify.app">Dr. Rohit Tripathy</a>.</p></li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2>Objectives<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>To introduce probabilistic programming as a flexible paradigm for data-driven inference.</p></li>
+<li><p>Introduce <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> - a popular probabilistic programming library.</p></li>
+<li><p>Demonstrate key features of the <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> API and demonstrate it’s use with some simple examples.</p></li>
+</ul>
+</div>
+<div class="section" id="real-data-example-1-coal-mining-disaster">
+<h2>Real Data Example 1 - Coal Mining Disaster<a class="headerlink" href="#real-data-example-1-coal-mining-disaster" title="Permalink to this headline">¶</a></h2>
+<p>We are going to work on Coal Mining disaster dataset. Consider the following time series dataset of recorded coal mining disasters in the UK from 1851 to 1962. Let us first import this dataset and visualize it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># download the data</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/PredictiveScienceLab/data-analytics-se/master/activities/coal_mining_disasters.csv&#39;</span>
+<span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">disaster_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;coal_mining_disasters.csv&#39;</span><span class="p">)</span>
+<span class="n">disaster_data</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">disasters</span> <span class="o">=</span> <span class="n">disaster_data</span><span class="o">.</span><span class="n">disasters</span><span class="o">.</span><span class="n">values</span>
+<span class="n">years</span> <span class="o">=</span> <span class="n">disaster_data</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">values</span>
+<span class="n">disaster_data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>disasters</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1851</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1852</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1853</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1854</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1855</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>106</th>
+      <td>1957</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>107</th>
+      <td>1958</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>108</th>
+      <td>1959</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>109</th>
+      <td>1960</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>110</th>
+      <td>1961</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>111 rows × 2 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">disaster_data</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">disaster_data</span><span class="o">.</span><span class="n">disasters</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of disasters&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Recorded coal mining disasters in the UK.&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-27.4_9_0.png" src="../_images/hands-on-27.4_9_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">bp</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">disaster_data</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">disaster_data</span><span class="o">.</span><span class="n">disasters</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Year&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Number of disasters&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Recorded coal mining disasters in the UK.&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-27.4_10_0.png" src="../_images/hands-on-27.4_10_0.png" />
+</div>
+</div>
+<div class="section" id="questions">
+<h3>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><p>How can we represent this disaster time series data? What are quantities of interests?</p></li>
+<li><p>Is ‘disasters’ variable categorial or continous? Can it be negative? What are some other constraints?</p></li>
+</ol>
+</div>
+<div class="section" id="information-about-the-dataset">
+<h3>Information about the dataset<a class="headerlink" href="#information-about-the-dataset" title="Permalink to this headline">¶</a></h3>
+<p>Occurrences of disasters in the time series is thought to be derived from a Poisson process with a large rate parameter in the early part of the time series (more disasters in early years), and from one with a smaller rate in the later part (less number of disasters in later years). We are interested in locating the change point in the series, which might be because of changes in mining safety regulations in latter years.</p>
+</div>
+<div class="section" id="modeling-approach">
+<h3>Modeling Approach<a class="headerlink" href="#modeling-approach" title="Permalink to this headline">¶</a></h3>
+<p>How are we going to develop model for this data? A good starting point would be to think about <em>how this data might be generated?</em> Try to imagine how you would recreate the dataset. We begin by asking how our observations might have been generated.</p>
+<ol>
+<li><p>We start by thinking “what is the best random variable to describe this count data?” A Poisson random variable is a good candidate because it can represent count data. So we model the number of coal mining related disasters as sampled from a Poisson distribution.</p></li>
+<li><p>Next, we think, “Ok, assuming number of disasters are Poisson-distributed, what do I need for the Poisson distribution?” Well, the Poisson distribution has a rate parameter <span class="math notranslate nohighlight">\(\lambda\)</span>.</p></li>
+<li><p>Do we know <span class="math notranslate nohighlight">\(\lambda\)</span>? No. In fact, we have a suspicion that there are <em>two</em> <span class="math notranslate nohighlight">\(\lambda\)</span> values, one for the earlier years and one for the later years. We don’t know when the change in this rate parameter occurs though, but call the switchpoint <span class="math notranslate nohighlight">\(\tau\)</span>.</p></li>
+<li><p>What is a good distribution for the two <span class="math notranslate nohighlight">\(\lambda\)</span>s? The exponential is good, as it assigns probabilities to positive real numbers. Well the exponential distribution has a parameter too, call it <span class="math notranslate nohighlight">\(\alpha\)</span>.</p></li>
+<li><p>Do we know what the parameter <span class="math notranslate nohighlight">\(\alpha\)</span> might be? No. At this point, we could continue and assign a distribution to <span class="math notranslate nohighlight">\(\alpha\)</span>, but it’s better to stop once we reach a set level of ignorance: whereas we have a prior belief about <span class="math notranslate nohighlight">\(\lambda\)</span>, (“it probably changes over time”, “it’s likely between 1 and 3”, etc.), we don’t really have any strong beliefs about <span class="math notranslate nohighlight">\(\alpha\)</span>. So it’s best to stop here.</p>
+<p>What is a good value for <span class="math notranslate nohighlight">\(\alpha\)</span> then? We think that the <span class="math notranslate nohighlight">\(\lambda\)</span>s are between 1-3, so if we set <span class="math notranslate nohighlight">\(\alpha\)</span> really low (which corresponds to larger probability on high values) we are not reflecting our prior well. Similar, a too-high alpha misses our prior belief as well. A good idea for <span class="math notranslate nohighlight">\(\alpha\)</span> as to reflect our belief is to set the value so that the mean of <span class="math notranslate nohighlight">\(\lambda\)</span>, given <span class="math notranslate nohighlight">\(\alpha\)</span>, is equal to our observed mean.</p>
+</li>
+<li><p>We have no expert opinion of when <span class="math notranslate nohighlight">\(\tau\)</span> might have occurred. So we will suppose <span class="math notranslate nohighlight">\(\tau\)</span> is from a discrete uniform distribution over the entire timespan.</p></li>
+</ol>
+<p>Here’s a graphical model describing the relationships between the variables in our model:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">graphviz</span> <span class="kn">import</span> <span class="n">Digraph</span>
+
+<span class="n">gcp</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">(</span><span class="s1">&#39;coal_mining_disasters_model&#39;</span><span class="p">)</span>
+
+<span class="c1"># define the nodes </span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;alpha;&gt;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;tau;&gt;&#39;</span><span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;lambda_1&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;lambda;&lt;sub&gt;1&lt;/sub&gt;&gt;&#39;</span><span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;lambda_2&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;lambda;&lt;sub&gt;2&lt;/sub&gt;&gt;&#39;</span><span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;lambda&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;lambda;&gt;&#39;</span><span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;tau;&gt;&#39;</span><span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;obs&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;obs&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
+
+<span class="c1"># define the edges </span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda_1&#39;</span><span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda_2&#39;</span><span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda&#39;</span><span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;lambda_1&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda&#39;</span><span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;lambda_2&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda&#39;</span><span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;lambda&#39;</span><span class="p">,</span> <span class="s1">&#39;obs&#39;</span><span class="p">)</span>
+<span class="n">gcp</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-27.4_14_0.svg" src="../_images/hands-on-27.4_14_0.svg" /></div>
+</div>
+<p>More formally, the generative model is expressed as:</p>
+<div class="math notranslate nohighlight">
+\[\lambda_1 \sim \mathrm{Exp}(\lambda_1 | \alpha),\]</div>
+<div class="math notranslate nohighlight">
+\[\lambda_2 \sim \mathrm{Exp}(\lambda_2 | \alpha),\]</div>
+<div class="math notranslate nohighlight">
+\[ \tau \sim \mathrm{DiscreteUniform}([1851, 1852, \dots, 1961]), \]</div>
+<div class="math notranslate nohighlight">
+\[\lambda = 
+\begin{cases}
+\lambda_1  &amp; \text{if } t \lt \tau \cr
+\lambda_2 &amp; \text{if } t \ge \tau
+\end{cases}\]</div>
+<div class="math notranslate nohighlight">
+\[\mathrm{obs}_i \sim \mathrm{Poisson}(\lambda_i)\]</div>
+<p>We will set the rate parameter <span class="math notranslate nohighlight">\(\alpha\)</span> on the exponential priors on <span class="math notranslate nohighlight">\(\lambda_1\)</span> and <span class="math notranslate nohighlight">\(\lambda_2\)</span> as a constant.
+The latent variables to be inferred are <span class="math notranslate nohighlight">\(\lambda_1, \lambda_2, \tau\)</span>.</p>
+</div>
+<div class="section" id="pymc3-model">
+<h3><code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> model<a class="headerlink" href="#pymc3-model" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">disaster_model</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span>
+<span class="n">lower_year</span><span class="p">,</span> <span class="n">upper_year</span> <span class="o">=</span> <span class="n">years</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">years</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.</span>
+
+<span class="k">with</span> <span class="n">disaster_model</span><span class="p">:</span>
+    <span class="c1"># define the prior </span>
+    <span class="n">lambda_1</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Exponential</span><span class="p">(</span><span class="s2">&quot;lambda_1&quot;</span><span class="p">,</span> <span class="n">lam</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+    <span class="n">lambda_2</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Exponential</span><span class="p">(</span><span class="s2">&quot;lambda_2&quot;</span><span class="p">,</span> <span class="n">lam</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+    <span class="n">tau</span>      <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">DiscreteUniform</span><span class="p">(</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="n">lower_year</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="n">upper_year</span><span class="p">)</span>
+    <span class="n">lmbda</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;lambda&#39;</span><span class="p">,</span> <span class="n">tt</span><span class="o">.</span><span class="n">switch</span><span class="p">(</span><span class="n">tau</span> <span class="o">&gt;=</span> <span class="n">years</span><span class="p">,</span> <span class="n">lambda_1</span><span class="p">,</span> <span class="n">lambda_2</span><span class="p">))</span>
+    
+    <span class="c1"># define the likelihood </span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Poisson</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">lmbda</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">disasters</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="inference-and-posterior-visualization">
+<h3>Inference and posterior visualization<a class="headerlink" href="#inference-and-posterior-visualization" title="Permalink to this headline">¶</a></h3>
+<p>Now let’s infer the hidden parameters with MCMC.
+The Gibbs sampler is operating on the background along with a different Metropolis-Hastings algorithm associated with each parameter.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">disaster_model</span><span class="p">:</span>
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">draws</span><span class="o">=</span><span class="mi">40000</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Multiprocess sampling (4 chains in 4 jobs)
+CompoundStep
+&gt;NUTS: [lambda_2, lambda_1]
+&gt;Metropolis: [tau]
+</pre></div>
+</div>
+<div class="output text_html">
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div><div class="output text_html">
+<div>
+  <progress value='164000' class='' max='164000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [164000/164000 00:10<00:00 Sampling 4 chains, 0 divergences]
+</div>
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/lib/python3.9/site-packages/scipy/stats/_continuous_distns.py:624: RuntimeWarning: overflow encountered in _beta_ppf
+  return _boost._beta_ppf(q, a, b)
+/opt/homebrew/lib/python3.9/site-packages/scipy/stats/_continuous_distns.py:624: RuntimeWarning: overflow encountered in _beta_ppf
+  return _boost._beta_ppf(q, a, b)
+/opt/homebrew/lib/python3.9/site-packages/scipy/stats/_continuous_distns.py:624: RuntimeWarning: overflow encountered in _beta_ppf
+  return _boost._beta_ppf(q, a, b)
+/opt/homebrew/lib/python3.9/site-packages/scipy/stats/_continuous_distns.py:624: RuntimeWarning: overflow encountered in _beta_ppf
+  return _boost._beta_ppf(q, a, b)
+Sampling 4 chains for 1_000 tune and 40_000 draw iterations (4_000 + 160_000 draws total) took 16 seconds.
+The number of effective samples is smaller than 25% for some parameters.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="o">=</span><span class="n">pm</span><span class="o">.</span><span class="n">traceplot</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda_1&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda_2&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/5y/28n32xmx0551k29hd21qs87c0000gp/T/ipykernel_43649/4119530376.py:1: DeprecationWarning: The function `traceplot` from PyMC3 is just an alias for `plot_trace` from ArviZ. Please switch to `pymc3.plot_trace` or `arviz.plot_trace`.
+  _=pm.traceplot(trace, var_names=[&#39;tau&#39;, &#39;lambda_1&#39;, &#39;lambda_2&#39;])
+Got error No model on context stack. trying to find log_likelihood in translation.
+Got error No model on context stack. trying to find log_likelihood in translation.
+</pre></div>
+</div>
+<img alt="../_images/hands-on-27.4_20_1.png" src="../_images/hands-on-27.4_20_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="o">=</span><span class="n">pm</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda_1&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda_2&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Got error No model on context stack. trying to find log_likelihood in translation.
+</pre></div>
+</div>
+<img alt="../_images/hands-on-27.4_21_1.png" src="../_images/hands-on-27.4_21_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="o">=</span><span class="n">pm</span><span class="o">.</span><span class="n">plot_autocorr</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span><span class="s1">&#39;lambda_1&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda_2&#39;</span><span class="p">],</span> <span class="n">combined</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Got error No model on context stack. trying to find log_likelihood in translation.
+</pre></div>
+</div>
+<img alt="../_images/hands-on-27.4_22_1.png" src="../_images/hands-on-27.4_22_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thinned_trace</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="mi">10000</span><span class="p">::</span><span class="mi">10</span><span class="p">]</span>
+<span class="n">_</span><span class="o">=</span><span class="n">pm</span><span class="o">.</span><span class="n">plot_autocorr</span><span class="p">(</span><span class="n">thinned_trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda_1&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda_2&#39;</span><span class="p">],</span> <span class="n">combined</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Got error No model on context stack. trying to find log_likelihood in translation.
+</pre></div>
+</div>
+<img alt="../_images/hands-on-27.4_23_1.png" src="../_images/hands-on-27.4_23_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm</span><span class="o">.</span><span class="n">traceplot</span><span class="p">(</span><span class="n">thinned_trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda_1&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda_2&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/5y/28n32xmx0551k29hd21qs87c0000gp/T/ipykernel_43649/191797834.py:1: DeprecationWarning: The function `traceplot` from PyMC3 is just an alias for `plot_trace` from ArviZ. Please switch to `pymc3.plot_trace` or `arviz.plot_trace`.
+  pm.traceplot(thinned_trace, var_names=[&#39;tau&#39;, &#39;lambda_1&#39;, &#39;lambda_2&#39;]);
+Got error No model on context stack. trying to find log_likelihood in translation.
+Got error No model on context stack. trying to find log_likelihood in translation.
+</pre></div>
+</div>
+<img alt="../_images/hands-on-27.4_24_1.png" src="../_images/hands-on-27.4_24_1.png" />
+</div>
+</div>
+<p>We can now use the samples from the posterior of the unknown parameters in this model to estimate the expected number of disasters between <span class="math notranslate nohighlight">\(t = 1851\)</span> and <span class="math notranslate nohighlight">\(t=1962\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ppsamples</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> 
+                                           <span class="n">model</span><span class="o">=</span><span class="n">disaster_model</span><span class="p">,</span> 
+                                           <span class="n">trace</span><span class="o">=</span><span class="n">thinned_trace</span><span class="p">)[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">bp</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">disaster_data</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">disaster_data</span><span class="o">.</span><span class="n">disasters</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">disaster_data</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">ppsamples</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> 
+         <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Posterior predictive expectation&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Year&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Number of disasters&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Recorded coal mining disasters in the UK.&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/lib/python3.9/site-packages/pymc3/sampling.py:1708: UserWarning: samples parameter is smaller than nchains times ndraws, some draws and/or chains may not be represented in the returned posterior predictive sample
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output text_html">
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div><div class="output text_html">
+<div>
+  <progress value='2000' class='' max='2000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [2000/2000 00:00<00:00]
+</div>
+</div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x1779a61f0&gt;
+</pre></div>
+</div>
+<img alt="../_images/hands-on-27.4_26_4.png" src="../_images/hands-on-27.4_26_4.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="real-data-example-2-challenger-space-shuttle-disaster">
+<h2>Real Data Example 2 - Challenger Space Shuttle Disaster<a class="headerlink" href="#real-data-example-2-challenger-space-shuttle-disaster" title="Permalink to this headline">¶</a></h2>
+<p>For this tutorial, we are going to work on Challenger space shuttle disaster dataset.
+We have revisited the problem in <a class="reference external" href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/homework/homework_05.ipynb">HW 5</a>. There, we used logistic regression and we trained it with maximum likelihood.
+We can now follow a Bayesian approach to the fullest extent.</p>
+<p>On January 28, 1986, the twenty-fifth flight of the U.S. space shuttle program ended in disaster when one of the rocket boosters of the Shuttle Challenger exploded shortly after lift-off, killing all seven crew members. The presidential commission on the accident concluded that it was caused by the failure of an O-ring in a field joint on the rocket booster, and that this failure was due to a faulty design that made the O-ring unacceptably sensitive to a number of factors including outside temperature. Of the previous 24 flights, data were available on failures of O-rings on 23, (one was lost at sea), and these data were discussed on the evening preceding the Challenger launch, but unfortunately only the data corresponding to the 7 flights on which there was a damage incident were considered important and these were thought to show no obvious trend. The data are shown below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download the data</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/PredictiveScienceLab/data-analytics-se/master/homework/challenger_data.csv&#39;</span>
+<span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">challenger_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;challenger_data.csv&quot;</span><span class="p">,</span> <span class="n">skip_header</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">missing_values</span><span class="o">=</span><span class="s2">&quot;NA&quot;</span><span class="p">,</span>
+                                <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+<span class="n">challenger_data</span> <span class="o">=</span> <span class="n">challenger_data</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Temp (F), O-Ring failure?&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">challenger_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Temp (F), O-Ring failure?
+[[66.  0.]
+ [70.  1.]
+ [69.  0.]
+ [68.  0.]
+ [67.  0.]
+ [72.  0.]
+ [73.  0.]
+ [70.  0.]
+ [57.  1.]
+ [63.  1.]
+ [70.  1.]
+ [78.  0.]
+ [67.  0.]
+ [53.  1.]
+ [67.  0.]
+ [75.  0.]
+ [70.  0.]
+ [81.  0.]
+ [76.  0.]
+ [79.  0.]
+ [75.  1.]
+ [76.  0.]
+ [58.  1.]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot it, as a function of temperature (the first column)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> 
+         <span class="n">markersize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Damage Incident?&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Outside temperature (Fahrenheit)&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Defects of the Space Shuttle O-Rings vs temperature&quot;</span><span class="p">,</span>
+          <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-27.4_30_0.png" src="../_images/hands-on-27.4_30_0.png" />
+</div>
+</div>
+<div class="section" id="id2">
+<h3>Information about the dataset<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>It looks clear that <em>the probability</em> of damage incidents occurring increases as the outside temperature decreases. We are interested in modeling the probability here because it does not look like there is a strict cutoff point between temperature and a damage incident occurring. The best we can do is ask “At temperature <span class="math notranslate nohighlight">\(t\)</span>, what is the probability of a damage incident?”. The goal of this example is to answer that question.</p>
+</div>
+<div class="section" id="id3">
+<h3>Questions<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><p>How can we represent this disaster binary 1/0 data? What are quantities of interests?</p></li>
+<li><p>Is ‘damage incident’ variable categorial or continous? What are some other constraints?</p></li>
+</ol>
+</div>
+<div class="section" id="id4">
+<h3>Modeling approach<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>How are we going to develop model for this data? A good starting point would be to think about <em>how this data might be generated?</em> Try to imagine how you would recreate the dataset. We begin by asking how our observations might have been generated.</p>
+<ul class="simple">
+<li><p>We start by thinking “what is the best random variable to describe this binary categorical data?” A Bernoulli random variable is a good candidate because it can represent binary data. So we model the variable of ‘damage incident’ as sampled from a Bernoulli distribution. A <em>Bernoulli</em> random variable with parameter <span class="math notranslate nohighlight">\(p\)</span>, denoted <span class="math notranslate nohighlight">\(\text{Ber}(p)\)</span>, is a random variable that takes value 1 with probability <span class="math notranslate nohighlight">\(p\)</span>, and 0 else. Thus, our model can look like:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ \text{Defect Incident, $D_i$} \sim \text{Ber}( \;p_i\; ), \;\; i=1..N\]</div>
+<ul class="simple">
+<li><p>Next, we think, “Ok, assuming damage incident variable is Bernoulli-distributed, what do I need for the Bernoulli distribution?” Well, the Bernoulli distribution has a probability parameter <span class="math notranslate nohighlight">\(p_i\)</span>.</p></li>
+<li><p>Do we know <span class="math notranslate nohighlight">\(p_i\)</span> parameter? No. But we have a suspicion (intuition) that this parameter is dependent on outside temperature values. Less the value of outside temperature, more is the probability of damage incident. More the value of outside temperature, less is the probability of damage incident. With slight abuse in notation, we can define this as:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[p_i = p(t_i) = \sigma(t_i),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma: \mathbb{R} \rightarrow (0, 1)\)</span> is a suitable function that maps arbitrary temperature values to the interval <span class="math notranslate nohighlight">\((0, 1)\)</span> (so that we can then interpret the output of <span class="math notranslate nohighlight">\(\sigma\)</span> as a probability). For this problem, we are going to use logistic link function which is given as:</p>
+<div class="math notranslate nohighlight">
+\[\sigma(t) = \frac{1}{ 1 + e^{ \;\beta t + \alpha } } \]</div>
+<p>Some plots are shown below, with differing <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> parameter values:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">logistic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">alpha</span><span class="p">))</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">alphas</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="n">betas</span>  <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">params</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">alphas</span><span class="p">,</span> <span class="n">betas</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+    <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">param</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">alpha$ = </span><span class="si">%d</span><span class="s2">, $</span><span class="se">\\</span><span class="s2">beta$ = </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">logistic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">alpha</span><span class="p">),</span>
+             <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> 
+             <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Logistic functon with bias&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-27.4_34_0.png" src="../_images/hands-on-27.4_34_0.png" />
+</div>
+</div>
+<div class="section" id="question">
+<h4>Question:<a class="headerlink" href="#question" title="Permalink to this headline">¶</a></h4>
+<p><strong>How can we represent  <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> parameter values? Are they categorical or continous? Do they need to be positive?</strong></p>
+<p>The <span class="math notranslate nohighlight">\(\beta, \alpha\)</span> parameters have no reason to be positive, bounded or relatively large, so they are best modeled by a <em>Normal random variable</em>. Since we dont have any prior beliefs about the value of parameters beta or alpha, we place a vague prior Normal distribution (small precision, large variance) over their values.</p>
+<p>The graphical model for the data generation process is shown below.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gcp</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">(</span><span class="s1">&#39;space_shuttle_disaster&#39;</span><span class="p">)</span>
+
+<span class="c1"># setup the nodes </span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;alpha;&gt;&#39;</span><span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;beta;&gt;&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">gcp</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;cluster_0&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">sg</span><span class="p">:</span>
+    <span class="n">sg</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;pi&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;p&lt;sub&gt;i&lt;/sub&gt;&gt;&#39;</span><span class="p">)</span>
+    <span class="n">sg</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;xi&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;x&lt;sub&gt;i&lt;/sub&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
+    <span class="n">sg</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+    <span class="n">sg</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;i=1,2...&#39;</span><span class="p">)</span>
+    <span class="n">sg</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="n">labelloc</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+
+<span class="c1"># setup the edges </span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;pi&#39;</span><span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;pi&#39;</span><span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;pi&#39;</span><span class="p">,</span> <span class="s1">&#39;xi&#39;</span><span class="p">)</span>
+<span class="n">gcp</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-27.4_36_0.svg" src="../_images/hands-on-27.4_36_0.svg" /></div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3><code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> model<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># gather the data and apply preprocessing if any </span>
+<span class="n">temp</span> <span class="o">=</span> <span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">temp_scaled</span> <span class="o">=</span> <span class="p">(</span><span class="n">temp</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">temp</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># instantiate the pymc3 model</span>
+<span class="n">challenger_model</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span>
+
+<span class="c1"># define the graph </span>
+<span class="k">with</span> <span class="n">challenger_model</span><span class="p">:</span>
+    <span class="c1"># define the prior</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">10.</span><span class="p">)</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">10.</span><span class="p">)</span>
+    
+    <span class="c1"># get the probabilities of failure at each observed temp </span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="mf">1.</span><span class="o">/</span><span class="p">(</span><span class="mf">1.</span> <span class="o">+</span> <span class="n">tt</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">alpha</span> <span class="o">+</span> <span class="n">beta</span><span class="o">*</span><span class="n">temp_scaled</span><span class="p">)))</span>
+    
+    <span class="c1"># define the likelihood </span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Bernoulli</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Challenger space shuttle disaster model:&quot;</span><span class="p">)</span>
+<span class="n">challenger_model</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Challenger space shuttle disaster model:
+</pre></div>
+</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}
+                \begin{array}{rcl}
+                \text{alpha} &amp;\sim &amp; \text{Normal}\\\text{beta} &amp;\sim &amp; \text{Normal}\\\text{p} &amp;\sim &amp; \text{Deterministic}\\\text{x} &amp;\sim &amp; \text{Bernoulli}
+                \end{array}
+                \end{split}\]</div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>Inference and posterior visualization<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>Now let’s infer the hidden parameters with MCMC. We will use the default NUTS sampler.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">challenger_model</span><span class="p">:</span>
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">draws</span><span class="o">=</span><span class="mi">40000</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
+Initializing NUTS using jitter+adapt_diag...
+Multiprocess sampling (4 chains in 4 jobs)
+NUTS: [beta, alpha]
+</pre></div>
+</div>
+<div class="output text_html">
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div><div class="output text_html">
+<div>
+  <progress value='164000' class='' max='164000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [164000/164000 00:07<00:00 Sampling 4 chains, 0 divergences]
+</div>
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/lib/python3.9/site-packages/scipy/stats/_continuous_distns.py:624: RuntimeWarning: overflow encountered in _beta_ppf
+  return _boost._beta_ppf(q, a, b)
+/opt/homebrew/lib/python3.9/site-packages/scipy/stats/_continuous_distns.py:624: RuntimeWarning: overflow encountered in _beta_ppf
+  return _boost._beta_ppf(q, a, b)
+/opt/homebrew/lib/python3.9/site-packages/scipy/stats/_continuous_distns.py:624: RuntimeWarning: overflow encountered in _beta_ppf
+  return _boost._beta_ppf(q, a, b)
+/opt/homebrew/lib/python3.9/site-packages/scipy/stats/_continuous_distns.py:624: RuntimeWarning: overflow encountered in _beta_ppf
+  return _boost._beta_ppf(q, a, b)
+Sampling 4 chains for 1_000 tune and 40_000 draw iterations (4_000 + 160_000 draws total) took 13 seconds.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">]</span>
+<span class="n">pm</span><span class="o">.</span><span class="n">traceplot</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/5y/28n32xmx0551k29hd21qs87c0000gp/T/ipykernel_43649/1817153717.py:2: DeprecationWarning: The function `traceplot` from PyMC3 is just an alias for `plot_trace` from ArviZ. Please switch to `pymc3.plot_trace` or `arviz.plot_trace`.
+  pm.traceplot(trace, var_names=var_names);
+Got error No model on context stack. trying to find log_likelihood in translation.
+Got error No model on context stack. trying to find log_likelihood in translation.
+</pre></div>
+</div>
+<img alt="../_images/hands-on-27.4_41_1.png" src="../_images/hands-on-27.4_41_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="o">=</span><span class="n">pm</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Got error No model on context stack. trying to find log_likelihood in translation.
+</pre></div>
+</div>
+<img alt="../_images/hands-on-27.4_42_1.png" src="../_images/hands-on-27.4_42_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="o">=</span><span class="n">pm</span><span class="o">.</span><span class="n">plot_autocorr</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">combined</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Got error No model on context stack. trying to find log_likelihood in translation.
+</pre></div>
+</div>
+<img alt="../_images/hands-on-27.4_43_1.png" src="../_images/hands-on-27.4_43_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thinned_trace</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="mi">10000</span><span class="p">::</span><span class="mi">10</span><span class="p">]</span>
+<span class="n">_</span><span class="o">=</span><span class="n">pm</span><span class="o">.</span><span class="n">autocorrplot</span><span class="p">(</span><span class="n">thinned_trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">combined</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/5y/28n32xmx0551k29hd21qs87c0000gp/T/ipykernel_43649/2563560967.py:2: DeprecationWarning: The function `autocorrplot` from PyMC3 is just an alias for `plot_autocorr` from ArviZ. Please switch to `pymc3.plot_autocorr` or `arviz.plot_autocorr`.
+  _=pm.autocorrplot(thinned_trace, var_names=var_names, figsize=(12, 8), combined=True)
+Got error No model on context stack. trying to find log_likelihood in translation.
+</pre></div>
+</div>
+<img alt="../_images/hands-on-27.4_44_1.png" src="../_images/hands-on-27.4_44_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="posterior-predictive-distribution">
+<h3>Posterior predictive distribution<a class="headerlink" href="#posterior-predictive-distribution" title="Permalink to this headline">¶</a></h3>
+<p>We can use the samples of posterior generated from MCMC to get a predictive over the probability of failure at any given temperature.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">challenger_model</span><span class="p">:</span>
+    <span class="n">ppsamples</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">trace</span><span class="o">=</span><span class="n">thinned_trace</span><span class="p">,</span> 
+                                               <span class="n">samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
+                                               <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">])[</span><span class="s1">&#39;p&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/lib/python3.9/site-packages/pymc3/sampling.py:1708: UserWarning: samples parameter is smaller than nchains times ndraws, some draws and/or chains may not be represented in the returned posterior predictive sample
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output text_html">
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div><div class="output text_html">
+<div>
+  <progress value='2000' class='' max='2000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [2000/2000 00:00<00:00]
+</div>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get posterior predictive mean and 95% interval</span>
+<span class="n">ppmean</span> <span class="o">=</span> <span class="n">ppsamples</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">pp_lower</span><span class="p">,</span> <span class="n">pp_upper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">ppsamples</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="p">[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observed data&#39;</span><span class="p">)</span>
+<span class="n">idx</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">ppmean</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> 
+         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Post. pred. mean prob.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">pp_lower</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">pp_upper</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> 
+                <span class="n">color</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;95% Confidence&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Probability estimate&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Outside temperature (Fahrenheit)&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Defects of the Space Shuttle O-Rings vs temperature&quot;</span><span class="p">,</span>
+          <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.01</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-27.4_48_0.png" src="../_images/hands-on-27.4_48_0.png" />
+</div>
+</div>
+<p>The <em>95% credible interval</em>, or 95% CI, painted in purple, represents the interval, for each temperature, that contains 95% of the distribution. For example, at 65 degrees, we can be 95% sure that the probability of defect lies between 0.25 and 0.75.</p>
+<p>More generally, we can see that as the temperature nears 60 degrees, the CI’s spread out quickly. As we pass 70 degrees, the CI’s tighten again. This can give us insight about how to proceed next: we should probably test more O-rings around 60-65 temperature to get a better estimate of probabilities in that range. Similarly, when reporting to scientists your estimates, you should be very cautious about simply telling them the expected probability, as we can see this does not reflect how <em>wide</em> the posterior distribution is.</p>
+</div>
+<div class="section" id="id7">
+<h3>Question<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>On the day of the Challenger disaster, the outside temperature was 31 degrees Fahrenheit. What is the posterior distribution of a defect occurring,  given this temperature? The distribution is plotted below. It looks almost guaranteed that the Challenger was going to be subject to defective O-rings.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./lecture27"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="hands-on-27.3.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">The Metropolis-Hastings Algorithm</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="hands-on-27.5.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Sequential Monte Carlo</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Ilias Bilionis (ibilion[at]purdue.edu)<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

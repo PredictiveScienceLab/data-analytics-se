@@ -1,0 +1,11 @@
+(supervised_learning)=
+# Supervised Learning
+
+In this chapter, we cover the basics of supervised learning including regression and classification. We say that we have a supervised learning task when we are given pairs of x and y observations and we are asked to find the map between the x’s and the y’s. When the y’s are discrete variables, then we have a classification task. When the y’s are continuous variables, then we have a regression task. In the context of regression, our focus is on models that connect x to y in a linear way, the so-called (generalized) linear models. Despite the fact that the parameters of these models can be estimated in a Bayesian way, we start with the traditional approach that attempts to minimize the sum of the squares of the prediction errors (least squares approach). Then, we show how the least squares approach can be interpreted as a coarse approximation to the Bayesian answer (maximum likelihood and maximum posterior estimates) and how this observation can help us modify least squares so that we avoid overfitting (regularization). Subsequently, we discuss Bayesian linear regression and how it quantifies the epistemic uncertainty induced by the limited number of observations. Finally, we discuss the evidence approximation which allows us to estimate the measurement noise and also gives us a way to simplify the structure of the generalized linear models (automatic relevance determination), and we introduce some basic diagnostics for testing how good our models are. In the context of classification, we cover binary logistic regression (two possible values of y) and multiclass logistic regression (multiple-values for y) and corresponding diagnostics for testing the quality of predictions.
+
+:::{note}
+In these lectures, I want to move fast to the state of the art.
+So, I am assuming that you seen how a linear model can be fitted using least squares.
+If you haven't, then I suggest reviewing Lectures 14, 15, and 16 of my [undergraduate data science course](https://purduemechanicalengineering.github.io/me-297-intro-to-data-science/index.html) prior to starting the section.
+Some of the text and activities is repeated here, but the pace is much slower in the undergraduate course.
+:::

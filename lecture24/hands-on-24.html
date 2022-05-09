@@ -1,0 +1,2702 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Regression with Deep Neural Networks &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Lecture 25 - Deep Neural Networks Continued" href="../lecture25/intro.html" />
+    <link rel="prev" title="Deep Neural Networks" href="reading-24.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Introduction to Scientific Machine Learning (Lecture Book)</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   Preface
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../introduction.html">
+   Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture01/intro.html">
+     Lecture 1 - Introduction to Predictive Modeling
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture01/reading-01.html">
+       Predictive Modeling and Scientific Machine Learning
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture01/hands-on-01.1.html">
+       The Uncertainty Propagation Problem
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture01/hands-on-01.2.html">
+       The Model Calibration Problem
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../review_probability.html">
+   Review of Probability
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture02/intro.html">
+     Lecture 2 - Basics of Probability Theory
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture02/reading-02.html">
+       Basics of Probability Theory
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture02/hands-on-02.html">
+       Experiment with “Ranomness”
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture03/intro.html">
+     Lecture 3 - Discrete Random Variables
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture03/reading-03.html">
+       Discrete Random Variables
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture03/hands-on-03.html">
+       Discrete Random Variables in Python
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture04/intro.html">
+     Lecture 4 - Continuous Random Variables
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture04/reading-04.html">
+       Continuous Random Variables
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture04/hands-on-04.1.html">
+       The Uniform Distribution
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture04/hands-on-04.2.html">
+       The Gaussian Distribution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture05/intro.html">
+     Lecture 5 - Collections of Random Variables
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture05/reading-05.html">
+       Collections of Random Variables: Theory
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture05/hands-on-05.html">
+       Practicing with joint probability mass functions
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture06/intro.html">
+     Lecture 6 - Random Vectors
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+    <label for="toctree-checkbox-8">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture06/reading-06.html">
+       Random Vectors
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture06/hands-on-06.1.html">
+       The Multivariate Normal - Diagonal Covariance Case
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture06/hands-on-06.2.html">
+       The Multivariate Normal - Full Covariance Case
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture06/hands-on-06.3.html">
+       The Multivariate Normal - Marginalization
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture06/hands-on-06.4.html">
+       The Multivariate Normal - Conditioning
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../uncertainty_propagation.html">
+   Uncertainty Propagation
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture07/intro.html">
+     Lecture 7 - Basic Sampling
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+    <label for="toctree-checkbox-10">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture07/hands-on-07.1.html">
+       Pseudo-random number generators
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture07/hands-on-07.2.html">
+       Sampling the uniform
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture07/hands-on-07.3.html">
+       Sampling the categorical
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture07/hands-on-07.4.html">
+       Sampling from continuous distributions - Inverse sampling
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture08/intro.html">
+     Lecture 8 - The Monte Carlo Method for Estimating Expectations
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+    <label for="toctree-checkbox-11">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture08/hands-on-08.3.html">
+       Sampling Estimates of Expectations
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture08/hands-on-08.4.html">
+       Sampling Estimates of Variance
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture09/intro.html">
+     Lecture 9 - Monte Carlo Estimates of Various Statistics
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+    <label for="toctree-checkbox-12">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture09/hands-on-09.1.html">
+       Sampling Estimates of the Cumulative Distribution Function
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture09/hands-on-09.2.html">
+       Sampling Estimates of the Probability Density via Histograms
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture09/hands-on-09.3.html">
+       Hands-on Activity 9.3: Sampling Estimates of Predictive Quantiles
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture09/hands-on-09.4.html">
+       Propagating Uncertainties through an Ordinrary Differential Equation
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture10/intro.html">
+     Lecture 10 - Quantify Uncertainty in Monte Carlo Estimates
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+    <label for="toctree-checkbox-13">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture10/hands-on-10.1.html">
+       Visualizing Monte Carlo Uncertainty
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture10/hands-on-10.2.html">
+       The Central Limit Theorem
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture10/hands-on-10.3.html">
+       Quanifying Epistemic Uncertainty in Monte Carlo estimates
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture10/hands-on-10.4.html">
+       Uncertainty Propagation Through a Boundary Value Problem
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../principles_of_bi.html">
+   Principles of Bayesian Inference
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture11/intro.html">
+     Lecture 11 - Selecting Prior Information
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+    <label for="toctree-checkbox-15">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture11/reading-11.html">
+       Selecting Prior Information
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture11/hands-on-11.1.html">
+       Information Entropy
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture11/hands-on-11.2.html">
+       The Principle of Maximum Entropy for Discrete Random Variables
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture11/hands-on-11.3.html">
+       The Principle of Maximum Entropy for Continuous Random Variables
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture12/intro.html">
+     Lecture 12 - Analytical Examples of Bayesian Inference
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+    <label for="toctree-checkbox-16">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture12/reading-12.html">
+       Analytical Examples of Bayesian Inference
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture12/hands-on-12.1.html">
+       Bayesian Parameter Estimation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture12/hands-on-12.2.html">
+       Credible Intervals
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture12/hands-on-12.3.html">
+       Decision-Making
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture12/hands-on-12.4.html">
+       Posterior Predictive Checking
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../supervised_learning.html">
+   Supervised Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
+  <label for="toctree-checkbox-17">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture13/intro.html">
+     Lecture 13 - Linear Regression via Least Squares
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/>
+    <label for="toctree-checkbox-18">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture13/reading-13.html">
+       Linear Regression via Least Squares
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture13/hands-on-13.1.html">
+       Linear regression with a single variable
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture13/hands-on-13.2.html">
+       Polynomial Regression
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture13/hands-on-13.3.html">
+       The Generalized Linear Model
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture13/hands-on-13.4.html">
+       Measures of Predictive Accuracy
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture14/intro.html">
+     Lecture 14 - Bayesian Linear Regression
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/>
+    <label for="toctree-checkbox-19">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture14/reading-14.html">
+       Bayesian Linear Regression
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture14/hands-on-14.1.html">
+       Probabilistic Interpretation of Least Squares - Estimating the Measurement Noise
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture14/hands-on-14.2.html">
+       Maximum a Posteriori Estimate - Avoiding Overfitting
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture14/hands-on-14.3.html">
+       Bayesian Linear Regression
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture14/hands-on-14.4.html">
+       The point-predictive Distribution - Separating Epistmic and Aleatory Uncertainty
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture15/intro.html">
+     Lecture 15 - Advanced Topics in Bayesian Linear Regression
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/>
+    <label for="toctree-checkbox-20">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture15/reading-15.html">
+       Advanced Topics in Bayesian Linear Regression
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture15/hands-on-15.1.html">
+       Evidence approximation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture15/hands-on-15.2.html">
+       Automatic Relevance Determination
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture15/hands-on-15.3.html">
+       Diagnostics for Posterior Predictive
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture16/intro.html">
+     Lecture 16 - Classification
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/>
+    <label for="toctree-checkbox-21">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture16/reading-16.html">
+       Theoretical Background on Classification
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture16/hands-on-16.1.html">
+       Logistic regression with one variable (High melting explosives)
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture16/hands-on-16.2.html">
+       Logistic Regression with Many Features
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture16/hands-on-16.3.html">
+       Decision making
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture16/hands-on-16.4.html">
+       Diagnostics for Classifications
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture16/hands-on-16.5.html">
+       Multi-class Logistic Regression
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../unsupervised_learning.html">
+   Unsupervised Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/>
+  <label for="toctree-checkbox-22">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture17/intro.html">
+     Lecture 17 - Clustering and Density Estimation
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/>
+    <label for="toctree-checkbox-23">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture17/reading-17.html">
+       Unsupervised Learning
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture17/hands-on-17.1.html">
+       Clustering using k-means
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture17/hands-on-17.2.html">
+       Density Estimation via Gaussian mixtures
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture18/intro.html">
+     Lecture 18 - Dimensionality Reduction
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/>
+    <label for="toctree-checkbox-24">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture18/reading-18.html">
+       Dimensionality Reduction
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture18/hands-on-18.1.html">
+       Dimensionality Reduction Examples
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture18/hands-on-18.2.html">
+       Clustering High-dimensional Data
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture18/hands-on-18.3.html">
+       Density Estimation with High-dimensional Data
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../state_space_models.html">
+   State Space Models
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/>
+  <label for="toctree-checkbox-25">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture19/intro.html">
+     Lecture 19 - State Space Models - Filtering Basics
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/>
+    <label for="toctree-checkbox-26">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture19/reading-19.html">
+       State Space Models - Filtering Basics
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture19/hands-on-19.1.html">
+       Object Tracking Example
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture20/intro.html">
+     Lecture 20 - State Space Models - Kalman Filters
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/>
+    <label for="toctree-checkbox-27">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture20/reading-20.html">
+       State Space Models - Kalman Filters
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture20/hands-on-20.1.html">
+       Kalman Filter for Object Tracking Example
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../gaussian_process_regression.html">
+   Gaussian Process Regression
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/>
+  <label for="toctree-checkbox-28">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture21/intro.html">
+     Lecture 21 - Gaussian Process Regression: Priors on Function Spaces
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/>
+    <label for="toctree-checkbox-29">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture21/reading-21.html">
+       Gaussian Process Theory
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture21/hands-on-21.html">
+       Example: Priors on function spaces
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture22/intro.html">
+     Lecture 22 - Gaussian Process Regression: Conditioning on Data
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" type="checkbox"/>
+    <label for="toctree-checkbox-30">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture22/reading-22.html">
+       Gaussian Process Regression - Theory
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture22/hands-on-22.1.html">
+       Gaussian Process Regression Without Noise
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture22/hands-on-22.2.html">
+       Gaussian Process Regression with Noise
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture22/hands-on-22.3.html">
+       Tuning the Hyperparameters
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture22/hands-on-22.4.html">
+       Multivariate Gaussian Process Regression
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture23/intro.html">
+     Lecture 23 - Bayesian Global Optimization
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/>
+    <label for="toctree-checkbox-31">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/reading-23.html">
+       Bayesian Global Optimization
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/hands-on-23.1.html">
+       Maximum Mean - A Bad Information Acquisition Function
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/hands-on-23.2.html">
+       Maximum Upper Interval
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/hands-on-23.3.html">
+       Probability of Improvement
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/hands-on-23.4.html">
+       Expected Improvement
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../neural_networks.html">
+   Neural Networks
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" type="checkbox"/>
+  <label for="toctree-checkbox-32">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="intro.html">
+     Lecture 24 - Deep Neural Networks
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" type="checkbox"/>
+    <label for="toctree-checkbox-33">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3">
+      <a class="reference internal" href="reading-24.html">
+       Deep Neural Networks
+      </a>
+     </li>
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="#">
+       Regression with Deep Neural Networks
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture25/intro.html">
+     Lecture 25 - Deep Neural Networks Continued
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" type="checkbox"/>
+    <label for="toctree-checkbox-34">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture25/reading-25.html">
+       Deep Neural Networks Continued
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture25/hands-on-25.html">
+       Classification with Deep Neural Networks
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture26/intro.html">
+     Lecture 26 - Physics-informed Deep Neural Networks
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" type="checkbox"/>
+    <label for="toctree-checkbox-35">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture26/reading-26.html">
+       Physics-informed Deep Neural Networks
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture26/hands-on-26.1.html">
+       Physics-informed regularization: Solving ODEs
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture26/hands-on-26.2.html">
+       Physics-informed regularization: Solving PDEs
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../advanced_methods.html">
+   Advanced Methods for Characterizing Posteriors
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/>
+  <label for="toctree-checkbox-36">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture27/intro.html">
+     Lecture 27 - Sampling Methods
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/>
+    <label for="toctree-checkbox-37">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture27/reading-27.html">
+       Sampling Methods
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture27/hands-on-27.1.html">
+       Probabilistic programming with
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         PyMC3
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture27/hands-on-27.2.html">
+       Sampling From the Distributions With Random Walk Metropolis
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture27/hands-on-27.3.html">
+       The Metropolis-Hastings Algorithm
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture27/hands-on-27.4.html">
+       Gibbs Sampling
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture27/hands-on-27.5.html">
+       Sequential Monte Carlo
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture28/intro.html">
+     Lecture 28 - Variational Inference
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" type="checkbox"/>
+    <label for="toctree-checkbox-38">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture28/reading-28.html">
+       Variational Inference
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture28/hands-on-28.html">
+       Variational Inference Examples
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bibliography.html">
+   Bibliography
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/lecture24/hands-on-24.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/PredictiveScienceLab/data-analytics-se/master?urlpath=lab/tree/lecturebook/lecture24/hands-on-24.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture24/hands-on-24.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#objectives">
+   Objectives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-pytorch-and-why-are-we-using-it">
+   What is PyTorch and why are we using it?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#making-neural-networks-in-pytorch">
+   Making neural networks in PyTorch
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#making-a-loss-function">
+   Making a loss function
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#questions">
+     Questions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-motorcyle-data">
+   Example - Motorcyle Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Questions
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Regression with Deep Neural Networks</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#objectives">
+   Objectives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-pytorch-and-why-are-we-using-it">
+   What is PyTorch and why are we using it?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#making-neural-networks-in-pytorch">
+   Making neural networks in PyTorch
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#making-a-loss-function">
+   Making a loss function
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#questions">
+     Questions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-motorcyle-data">
+   Example - Motorcyle Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Questions
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">def</span> <span class="nf">download</span><span class="p">(</span>
+    <span class="n">url</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">local_filename</span> <span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Download a file from a url.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments</span>
+<span class="sd">    url            -- The url we want to download.</span>
+<span class="sd">    local_filename -- The filemame to write on. If not</span>
+<span class="sd">                      specified </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">local_filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">local_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">local_filename</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="regression-with-deep-neural-networks">
+<h1>Regression with Deep Neural Networks<a class="headerlink" href="#regression-with-deep-neural-networks" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="objectives">
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Understand the basics of <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code>.</p></li>
+<li><p>Set up and train regression DNNs with <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Reading Activity 24</p></li>
+<li><p>Chapters 6, 7, and 8 of <a class="reference external" href="https://www.deeplearningbook.org/">https://www.deeplearningbook.org/</a></p></li>
+<li><p><a class="reference external" href="https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html">Deep Learning with PyTorch: A 60 minute blitz</a> and in particular:</p>
+<ul>
+<li><p><a class="reference external" href="https://pytorch.org/tutorials/beginner/blitz/tensor_tutorial.html#sphx-glr-beginner-blitz-tensor-tutorial-py">What is PyTorch?</a></p></li>
+<li><p><a class="reference external" href="https://pytorch.org/tutorials/beginner/blitz/autograd_tutorial.html#sphx-glr-beginner-blitz-autograd-tutorial-py">Autograd: Automatic differentation</a></p></li>
+<li><p><a class="reference external" href="https://pytorch.org/tutorials/beginner/blitz/neural_networks_tutorial.html#sphx-glr-beginner-blitz-neural-networks-tutorial-py">Neural networks</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="what-is-pytorch-and-why-are-we-using-it">
+<h2>What is PyTorch and why are we using it?<a class="headerlink" href="#what-is-pytorch-and-why-are-we-using-it" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>PyTorch is an alternative to Numpy that can harness the power of <a class="reference external" href="https://en.wikipedia.org/wiki/Graphics_processing_unit">GPUs</a>.</p></li>
+<li><p>PyTorch provides some core functionality for Neural Networks:</p>
+<ul>
+<li><p>Some basic elements for building them up like linear layers, activation functions, etc.</p></li>
+<li><p>Automatic differentation for getting the derivative of loss functions with respect to parameters.</p></li>
+<li><p>Some stochastic optimization algorithms for minimizing loss functions</p></li>
+<li><p>…</p></li>
+</ul>
+</li>
+</ul>
+<p>I am not going to provide here a complete tutorial of PyTorch.
+You are advised to go over the first three topics of the <a class="reference external" href="https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html">Deep Learning with PyTorch: A 60 minute blitz</a> prior to beginning this hands-on activity.
+Otherwise, it is unlikely that you understand the code that follows.</p>
+<p>PyTorch was developed by the Facebook AI Research Group.
+There is another powerful alternative developed by Google Brain: <a class="reference external" href="https://www.tensorflow.org/">TensorFlow</a>.
+I find PyTorch easier to use than TensorFlow and that’s why we only use this in this class.</p>
+</div>
+<div class="section" id="making-neural-networks-in-pytorch">
+<h2>Making neural networks in PyTorch<a class="headerlink" href="#making-neural-networks-in-pytorch" title="Permalink to this headline">¶</a></h2>
+<p>PyTorch is fairly flexible in allowing you to make any type neural network you like.
+You have absolute freedom on how your model looks like.
+However, it does provide a super easy way to make dense neural networks with a fixed activation function.
+That’s what we are going to start with.
+First, import torch:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The submodule <code class="docutils literal notranslate"><span class="pre">torch.nn</span></code> is where the neural network building blocks reside:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>First, let me show you how you can make a single linear layer:
+$<span class="math notranslate nohighlight">\(
+y = Wx + b.
+\)</span>$
+The weights are selected randomly if not specified.
+Here you go:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is now a function that takes one dimensional inputs and spits out 20 dimensional outputs.
+Here is how it works:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># 10 randomly sampled one dimensinal inputs</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[0.3243],
+        [0.7808],
+        [0.2846],
+        [0.2802],
+        [0.5175],
+        [0.1368],
+        [0.8318],
+        [0.8738],
+        [0.1703],
+        [0.8635]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[ 0.9553, -0.0708,  0.0977,  0.1812, -0.8013, -0.7836, -0.5528,  0.6642,
+          0.1388,  1.2068, -0.1274, -0.1646, -0.8330, -0.7469, -0.4537, -0.9398,
+          0.1926,  0.9901,  0.3872,  1.0143],
+        [ 1.1075, -0.2200,  0.4106,  0.6055, -1.1514, -0.6292, -0.8909,  0.6650,
+          0.3702,  1.5170, -0.4881, -0.2010, -1.2772, -0.8869, -0.4392, -1.1719,
+          0.5615,  1.0600,  0.6605,  1.3452],
+        [ 0.9420, -0.0578,  0.0705,  0.1442, -0.7708, -0.7970, -0.5233,  0.6641,
+          0.1187,  1.1798, -0.0960, -0.1615, -0.7943, -0.7347, -0.4550, -0.9196,
+          0.1605,  0.9840,  0.3634,  0.9855],
+        [ 0.9405, -0.0564,  0.0674,  0.1401, -0.7674, -0.7985, -0.5201,  0.6641,
+          0.1164,  1.1768, -0.0925, -0.1611, -0.7900, -0.7333, -0.4551, -0.9174,
+          0.1569,  0.9833,  0.3608,  0.9823],
+        [ 1.0197, -0.1340,  0.2301,  0.3607, -0.9494, -0.7183, -0.6959,  0.6645,
+          0.2367,  1.3381, -0.2801, -0.1800, -1.0209, -0.8061, -0.4476, -1.0380,
+          0.3487,  1.0197,  0.5029,  1.1544],
+        [ 0.8927, -0.0095, -0.0308,  0.0068, -0.6575, -0.8470, -0.4139,  0.6638,
+          0.0438,  1.0794,  0.0208, -0.1497, -0.6505, -0.6893, -0.4597, -0.8445,
+          0.0411,  0.9614,  0.2750,  0.8784],
+        [ 1.1245, -0.2367,  0.4455,  0.6529, -1.1905, -0.6120, -0.9286,  0.6650,
+          0.3961,  1.5516, -0.5284, -0.2050, -1.3268, -0.9025, -0.4376, -1.1979,
+          0.6027,  1.0678,  0.6911,  1.3822],
+        [ 1.1385, -0.2504,  0.4743,  0.6920, -1.2227, -0.5978, -0.9597,  0.6651,
+          0.4173,  1.5802, -0.5616, -0.2084, -1.3676, -0.9154, -0.4362, -1.2192,
+          0.6366,  1.0743,  0.7162,  1.4126],
+        [ 0.9039, -0.0205, -0.0079,  0.0380, -0.6832, -0.8356, -0.4387,  0.6639,
+          0.0607,  1.1022, -0.0057, -0.1524, -0.6831, -0.6996, -0.4586, -0.8615,
+          0.0682,  0.9665,  0.2950,  0.9027],
+        [ 1.1350, -0.2470,  0.4672,  0.6823, -1.2148, -0.6013, -0.9521,  0.6651,
+          0.4121,  1.5731, -0.5534, -0.2075, -1.3575, -0.9122, -0.4366, -1.2140,
+          0.6282,  1.0727,  0.7100,  1.4051]], grad_fn=&lt;AddmmBackward0&gt;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>torch.Size([10, 20])
+</pre></div>
+</div>
+</div>
+</div>
+<p>So, this took us to 10, 20 dimensional outputs. Looks good.</p>
+<p>But where are the weights and the bias term?
+Here they are:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span><span class="o">.</span><span class="n">weight</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Parameter containing:
+tensor([[ 0.3335],
+        [-0.3268],
+        [ 0.6854],
+        [ 0.9296],
+        [-0.7669],
+        [ 0.3381],
+        [-0.7406],
+        [ 0.0017],
+        [ 0.5069],
+        [ 0.6794],
+        [-0.7903],
+        [-0.0796],
+        [-0.9730],
+        [-0.3067],
+        [ 0.0318],
+        [-0.5085],
+        [ 0.8080],
+        [ 0.1532],
+        [ 0.5987],
+        [ 0.7248]], requires_grad=True)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span><span class="o">.</span><span class="n">bias</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Parameter containing:
+tensor([ 0.8471,  0.0352, -0.1246, -0.1203, -0.5526, -0.8932, -0.3126,  0.6636,
+        -0.0256,  0.9865,  0.1289, -0.1388, -0.5174, -0.6474, -0.4640, -0.7749,
+        -0.0695,  0.9404,  0.1930,  0.7792], requires_grad=True)
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can directly change them if you wish.
+Notice the <code class="docutils literal notranslate"><span class="pre">requires_grad=True</span></code> flag.
+This is because PyTorch knows that these are parameters to be optimized.</p>
+<p>There is a little bit of flexibility on <code class="docutils literal notranslate"><span class="pre">nn.Linear</span></code>.
+For example, you can completly drop the bias if you wish.
+For the complete list of possibilities, you should always <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Linear.html">check the docs</a>.</p>
+<p>Now, let’s get to the activation functions.
+There are a lot already in <code class="docutils literal notranslate"><span class="pre">torch.nn</span></code>.
+Here is the sigmoid:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sigmoid</span><span class="p">()</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$z=h(x)$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Activation function: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">h</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-24_17_0.png" src="../_images/hands-on-24_17_0.png" />
+</div>
+</div>
+<p>Now, you could also implement the activation fuction by hand.
+The only restriction is that you should be using <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code> functions instead of <code class="docutils literal notranslate"><span class="pre">numpy</span></code> functions.
+Here is how we would do it for the sigmoid:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here is how you could do this by hand:</span>
+<span class="n">h_by_hand</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h_by_hand</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$z=h(x)$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Activation function: Sigmoid (hand version)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-24_19_0.png" src="../_images/hands-on-24_19_0.png" />
+</div>
+</div>
+<p>Here are now some of the most commonly used activation functions in <code class="docutils literal notranslate"><span class="pre">torch.nn</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h_by_hand</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">Func</span> <span class="ow">in</span> <span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Sigmoid</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Tanh</span><span class="p">]:</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">Func</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
+    
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$z=h(x)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-24_21_0.png" src="../_images/hands-on-24_21_0.png" />
+</div>
+</div>
+<p>Now that we have a linear layer and an activation function here is how we can combine them to make a function that takes us from the input to the internal neurons:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sigmoid</span><span class="p">()</span>
+<span class="n">z_func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">h</span><span class="p">(</span><span class="n">layer</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is pretty much it. And that’s now a function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">z_func</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[0.3057, 0.8415, 0.0279,  ..., 0.5435, 0.0573, 0.0549],
+        [0.3129, 0.8370, 0.0298,  ..., 0.5473, 0.0607, 0.0589],
+        [0.3202, 0.8325, 0.0319,  ..., 0.5512, 0.0642, 0.0631],
+        ...,
+        [0.9204, 0.1776, 0.9595,  ..., 0.8423, 0.9555, 0.9860],
+        [0.9228, 0.1728, 0.9621,  ..., 0.8443, 0.9580, 0.9870],
+        [0.9252, 0.1681, 0.9645,  ..., 0.8464, 0.9603, 0.9879]],
+       grad_fn=&lt;SigmoidBackward0&gt;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, for regression, we would like to bring this back to a scalar output.
+To do this, we need to add one more linear layer taking the 20 internal neurons, back to one dimension.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">final_layer</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">final_layer</span><span class="p">(</span><span class="n">z_func</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>torch.Size([100, 1])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Instead of doing this manually, we can can use the class <code class="docutils literal notranslate"><span class="pre">nn.Sequential</span></code> of PyTorch:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sigmoid</span><span class="p">(),</span> <span class="n">final_layer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is the recommended way, because <code class="docutils literal notranslate"><span class="pre">nn.Sequential</span></code> adds some additional functionality which I will show you in a while.
+You can evaluate this as a function, and you can also plot it.
+But to plot it, you have to turn the output into a proper numpy array.
+This is because matplotlib doesn’t like PyTorch tensors that depend on parameters.
+Here is what you need to do:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span> <span class="c1"># detach freezes the parameters to whatever they are</span>
+                          <span class="c1"># numpy returns a proper numpy array</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;numpy.ndarray&#39;&gt;
+(100, 1)
+</pre></div>
+</div>
+</div>
+</div>
+<p>And here is how it looks like (remember the weights are random):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$f(x)$&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-24_33_0.png" src="../_images/hands-on-24_33_0.png" />
+</div>
+</div>
+<p>The class <code class="docutils literal notranslate"><span class="pre">nn.Sequential</span></code> is very convenient, because it allows us to build very deep networks really quickly.
+Here is a 5-layer network that starts from one input, takes us through 3 layers with 20 neurons each, and ends on a single output:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Where are the parameters in an object created in this way?
+Here they are:</p>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">theta</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;0.weight&#39;, Parameter containing:
+tensor([[-0.9494],
+        [-0.5797],
+        [ 0.7302],
+        [-0.0819],
+        [ 0.5270],
+        [ 0.3091],
+        [-0.6618],
+        [ 0.6813],
+        [ 0.9285],
+        [-0.6157],
+        [ 0.3522],
+        [ 0.7152],
+        [ 0.3459],
+        [ 0.9119],
+        [ 0.9230],
+        [-0.8903],
+        [-0.5736],
+        [-0.1883],
+        [ 0.8873],
+        [ 0.1048]], requires_grad=True))
+(&#39;0.bias&#39;, Parameter containing:
+tensor([ 0.9366,  0.2265,  0.0545, -0.2765,  0.6935, -0.9344,  0.1544, -0.3876,
+        -0.9403,  0.5065, -0.4656,  0.4354,  0.1429, -0.0789, -0.4995,  0.0885,
+         0.3439,  0.7998, -0.4361, -0.0108], requires_grad=True))
+(&#39;2.weight&#39;, Parameter containing:
+tensor([[ 1.1286e-01,  2.1704e-01,  4.2998e-02, -1.6689e-01, -1.0710e-01,
+          1.3086e-01, -4.3783e-02,  1.7829e-02, -2.1267e-01,  1.7514e-01,
+         -5.2786e-02, -1.8603e-01,  1.5589e-01, -5.7996e-02,  1.7400e-02,
+         -1.4377e-01, -1.3804e-01, -5.2051e-02,  4.4931e-02, -1.0996e-01],
+        [ 1.1133e-01,  1.9811e-01,  3.3683e-02,  3.7340e-03,  3.1732e-02,
+          2.1707e-01, -1.6556e-01,  1.4816e-01,  8.3423e-02, -1.3365e-01,
+          9.3574e-02, -5.0519e-02, -9.6680e-02,  1.8784e-01, -1.0347e-01,
+         -7.9437e-02, -2.0011e-01, -1.9553e-01,  4.1709e-03,  1.5020e-01],
+        [-1.2307e-01, -1.8057e-01,  1.3571e-01,  6.7772e-03,  3.7170e-02,
+         -2.2328e-01,  2.1837e-01,  1.4359e-01,  1.8750e-01,  1.1246e-01,
+         -2.1440e-01, -2.1217e-01, -6.9194e-02, -8.0945e-02, -1.9293e-01,
+          3.9454e-02, -1.0073e-02, -1.7747e-01,  1.3459e-01,  1.7334e-01],
+        [-2.1778e-01, -3.6912e-03, -2.0595e-01,  1.6718e-01, -1.5405e-01,
+         -5.0630e-02,  1.8191e-01, -1.6468e-01, -1.1635e-01, -9.9457e-02,
+         -1.0173e-01,  4.8890e-02, -7.8059e-02,  6.2275e-02,  1.5725e-01,
+         -1.2319e-01,  3.3154e-02, -6.1029e-02, -1.0042e-01, -1.4759e-01],
+        [ 4.3685e-02, -1.8858e-01,  4.1474e-03,  1.7385e-01, -1.9662e-01,
+         -2.8209e-02, -1.7429e-01,  1.7103e-01, -1.2515e-01, -1.2538e-02,
+         -4.8820e-02,  1.5188e-01, -1.2229e-01, -7.5595e-02, -2.0628e-01,
+          4.0096e-03,  1.6177e-01,  6.4609e-02, -5.9149e-02,  1.3351e-01],
+        [ 6.2034e-03, -1.7223e-01, -8.6363e-02, -1.6962e-01,  5.0966e-02,
+         -1.9551e-01,  1.5754e-01,  5.1253e-03, -1.3364e-01, -1.1217e-02,
+          1.2231e-01,  6.0869e-02, -1.5712e-01,  1.2291e-01,  1.7721e-01,
+          2.3785e-02, -3.5375e-02, -2.4353e-02, -1.7061e-01, -7.0361e-02],
+        [ 1.2540e-01,  7.9837e-02, -9.9634e-02, -1.4632e-01,  1.7631e-01,
+         -9.2228e-03, -8.5045e-02,  1.1987e-01, -5.0555e-03, -2.0261e-01,
+          4.4456e-03,  2.2257e-01,  1.1104e-01,  9.2840e-02,  2.0610e-01,
+          1.2556e-01,  1.9042e-01, -1.9941e-02,  2.4621e-02, -7.0047e-02],
+        [-3.4598e-02, -2.4020e-02, -1.8868e-01, -7.1706e-02, -1.6486e-01,
+          1.8154e-01, -7.1214e-02, -1.1328e-01,  1.1141e-01, -1.8487e-01,
+         -7.9832e-02,  4.0899e-02,  1.0203e-01, -2.0976e-01, -2.2335e-02,
+          1.9190e-02, -1.5422e-01,  4.5026e-02,  1.1360e-01,  7.7903e-02],
+        [ 2.0710e-01,  1.8301e-01, -5.3161e-02,  5.7054e-02, -8.5815e-02,
+         -3.5122e-02,  1.5379e-01,  9.6770e-02,  2.1063e-01,  1.2809e-01,
+         -6.4203e-02, -2.5752e-02,  1.8056e-01, -1.1398e-01,  9.4691e-02,
+         -1.5673e-01, -2.0717e-01, -1.5335e-02, -1.0189e-01, -1.6567e-01],
+        [ 1.4791e-01, -3.1689e-04, -1.5587e-01, -5.8724e-02, -1.6262e-01,
+         -1.4971e-01,  9.0718e-02, -2.8154e-02, -1.5353e-01,  1.7517e-02,
+          2.7428e-02,  1.8820e-01,  1.7678e-01,  1.6277e-01,  9.3257e-02,
+         -3.1919e-02,  3.2292e-02, -1.9462e-01, -1.1886e-01,  2.0275e-01],
+        [ 9.5722e-02,  1.7455e-01,  2.1917e-01, -6.8434e-02,  1.9427e-02,
+         -1.5570e-01,  2.0874e-01,  1.3993e-01,  1.7747e-01, -1.3116e-01,
+         -2.1111e-01, -1.0630e-01, -1.5332e-01,  2.1300e-02, -2.0511e-01,
+          7.3674e-02,  1.4580e-01,  3.3157e-03,  7.1780e-02,  3.0687e-02],
+        [-2.0726e-01,  1.2718e-01, -5.4548e-02, -1.0127e-01, -3.4740e-02,
+         -1.9979e-01, -1.2061e-01,  4.9397e-05, -1.8856e-01,  1.6381e-01,
+         -1.3714e-01, -1.2616e-01, -1.0659e-02, -1.5977e-01, -1.8985e-01,
+          1.1887e-01,  2.0250e-01,  1.7879e-02, -2.1805e-01,  8.5303e-02],
+        [ 1.8055e-01,  1.3110e-01, -1.6771e-01,  9.6013e-02,  6.1389e-02,
+         -1.4238e-01,  7.6929e-02,  2.1691e-01,  1.6883e-01, -1.4136e-01,
+         -2.0983e-01, -3.8846e-02,  1.3120e-01,  1.1396e-01,  8.3410e-02,
+          8.9229e-03, -1.3163e-02, -1.3073e-01, -4.4455e-02, -1.4802e-01],
+        [ 4.3334e-02,  2.1183e-01,  1.9789e-01, -3.4310e-02, -1.0832e-01,
+          1.5490e-01, -8.3753e-03,  6.6017e-02,  2.0844e-01,  1.9448e-01,
+         -1.9939e-01, -7.0833e-02, -9.0175e-02, -1.7535e-02, -1.8780e-01,
+          7.9414e-02,  7.0135e-02,  5.2264e-02,  4.6232e-02, -1.5627e-01],
+        [ 8.0567e-02,  2.0681e-01, -1.1085e-01,  2.1964e-01, -8.2196e-02,
+         -1.9615e-02, -2.4021e-02,  1.5977e-01, -1.4433e-01,  7.5737e-02,
+          1.5061e-02,  5.0628e-02,  1.3028e-01, -2.0920e-01, -9.9662e-02,
+          1.2866e-01,  1.6162e-01, -6.8576e-02,  1.6176e-01,  4.2476e-04],
+        [-1.3241e-01, -1.6485e-01, -1.5353e-01,  2.2188e-01,  2.1032e-03,
+         -1.6531e-01, -8.2625e-02, -1.6550e-01,  6.5604e-02, -1.7354e-01,
+         -9.7439e-02, -3.3844e-02,  1.0473e-02, -1.5339e-01, -1.2989e-02,
+         -1.2958e-01, -9.2275e-02,  3.7533e-02,  2.0390e-01, -1.9238e-02],
+        [ 4.0128e-02, -1.3448e-01,  1.3085e-01,  8.6927e-02,  1.3317e-01,
+         -2.6826e-02, -2.2098e-01, -4.0641e-02,  5.6359e-02, -2.7514e-02,
+          5.0890e-02, -1.2523e-01,  1.5787e-01,  2.1587e-01,  1.2051e-02,
+          6.4355e-02, -1.0784e-01, -1.1378e-01, -7.9827e-02,  9.5914e-02],
+        [-2.1966e-01, -5.9495e-02,  5.9051e-02,  8.9960e-02, -1.7609e-01,
+         -1.8529e-01,  1.0821e-01, -1.5086e-01, -1.0097e-01, -4.0589e-02,
+         -5.5297e-02,  9.7004e-02, -1.1090e-01,  1.7612e-01, -7.8378e-02,
+          5.9476e-02,  2.2248e-01, -1.3457e-01, -1.7888e-01,  7.2249e-02],
+        [ 3.6224e-03, -1.8087e-01,  1.2755e-01, -4.2859e-02, -7.5791e-02,
+         -3.1071e-02, -1.1255e-01, -4.3793e-02, -7.7903e-02,  1.9396e-01,
+          4.4949e-02, -5.3819e-02, -1.3944e-01,  3.6411e-03,  1.4437e-01,
+          7.8240e-02, -7.8829e-02,  1.9536e-01, -1.1017e-01, -2.0907e-01],
+        [ 1.3089e-01, -1.2091e-01,  2.1527e-01, -1.7779e-01, -1.6516e-01,
+         -1.7247e-01, -1.5313e-01, -2.6268e-02, -5.5227e-03,  4.4491e-03,
+         -4.5666e-02,  2.8763e-02, -1.2080e-02, -2.6132e-02,  2.2254e-01,
+         -2.0683e-01,  1.1622e-01, -1.2685e-01, -7.7828e-02, -1.7918e-02]],
+       requires_grad=True))
+(&#39;2.bias&#39;, Parameter containing:
+tensor([-0.1870, -0.2230,  0.0459, -0.1241,  0.0816, -0.0142, -0.2159,  0.1151,
+         0.1728, -0.0444,  0.1517, -0.0792,  0.0751,  0.0144, -0.0273,  0.0424,
+         0.0081, -0.0068,  0.0274, -0.0150], requires_grad=True))
+(&#39;4.weight&#39;, Parameter containing:
+tensor([[-9.6847e-02, -5.6609e-02,  1.4832e-02, -2.0790e-01,  1.1784e-01,
+         -1.9573e-01,  1.4837e-01,  1.4806e-01, -2.2333e-01, -1.7930e-01,
+          2.1774e-01, -4.6770e-02,  1.3684e-02, -1.6730e-01,  9.7650e-02,
+         -8.0361e-02,  1.8753e-01,  2.3283e-02, -8.7366e-02, -1.3421e-01],
+        [ 4.0833e-02, -1.1366e-01,  1.1291e-02,  5.5637e-02,  1.7909e-01,
+          3.4869e-02, -1.2493e-01, -6.9102e-02, -1.9032e-01, -2.0830e-02,
+          1.5688e-01,  1.5676e-01, -1.5358e-01,  1.3369e-02,  1.9418e-01,
+         -1.7481e-01,  1.1164e-01, -1.4498e-01, -1.8586e-01, -2.1647e-01],
+        [-8.7459e-02, -6.3400e-02,  1.9542e-01,  1.1394e-01, -1.4834e-02,
+          1.7434e-01,  9.3055e-02, -1.0985e-01,  9.6212e-03,  1.0128e-01,
+         -1.2157e-01,  1.3659e-01, -1.2553e-01,  1.6471e-01, -4.8534e-02,
+         -1.9297e-01,  1.1777e-01, -1.4457e-01,  1.1136e-01, -1.9716e-01],
+        [ 8.8831e-02,  7.7287e-02, -1.6985e-01,  1.6007e-01, -1.5286e-02,
+         -2.1538e-02, -2.0325e-01,  2.1236e-01,  7.4149e-02,  1.7445e-01,
+         -2.0231e-01, -1.8788e-01,  1.8054e-01, -2.1319e-01, -1.9425e-01,
+          1.0980e-01, -1.2339e-01, -1.3589e-01,  3.7366e-02, -9.8113e-02],
+        [-1.6725e-01,  1.0001e-01,  2.0642e-01,  7.4240e-02,  2.2290e-01,
+         -3.9082e-02,  2.0197e-01, -2.1445e-01,  1.5392e-01,  1.2907e-01,
+          9.4991e-02, -1.2032e-01, -9.4073e-02,  5.2802e-02,  1.9041e-01,
+         -3.9512e-02, -1.7052e-01,  1.0917e-01, -1.6112e-01,  1.3965e-01],
+        [-1.2193e-01,  1.4918e-01, -1.5171e-01,  1.0974e-01,  3.8227e-02,
+         -1.1070e-01,  2.2128e-01,  9.5196e-02, -6.6172e-02, -1.8404e-01,
+         -1.2421e-02,  9.6313e-03, -2.0323e-01, -1.8187e-01,  5.7903e-02,
+         -5.2772e-02,  1.4909e-01, -1.7297e-01, -2.1788e-02,  1.2104e-01],
+        [-1.5676e-01, -2.0907e-01, -1.4597e-01,  1.2363e-01,  1.9149e-01,
+         -1.8121e-01,  1.8128e-01, -3.3656e-02,  1.5283e-01, -1.5276e-01,
+         -2.0010e-01, -1.8852e-01, -1.3173e-01, -7.6001e-02, -1.3193e-02,
+          5.7346e-02,  7.8066e-02,  5.6380e-03,  1.1428e-01,  1.6908e-01],
+        [ 1.2299e-01,  1.3663e-01,  1.0213e-02,  2.0559e-02,  1.4025e-02,
+         -9.8833e-02, -1.2489e-01, -1.6195e-01,  6.8887e-02,  3.3679e-02,
+          8.9374e-02,  4.1261e-02,  2.0279e-01,  9.7451e-02, -6.0554e-02,
+         -2.1639e-01,  1.9170e-01,  9.7324e-02,  9.5817e-02,  2.0641e-01],
+        [-1.1409e-01,  1.4918e-01, -2.1018e-01, -1.6794e-02, -2.0630e-01,
+          1.2541e-01, -5.8778e-02, -1.7874e-01, -5.7427e-02, -1.4398e-01,
+         -1.7068e-01,  7.2487e-02, -5.2767e-02, -1.6759e-01,  1.0157e-01,
+         -1.3053e-01, -1.9637e-01,  4.8483e-02, -9.9126e-02, -1.9988e-01],
+        [-1.7796e-01,  2.0220e-02, -7.5836e-02,  1.9323e-01, -1.1579e-01,
+         -2.1248e-01,  1.3793e-01, -5.0671e-02, -7.5531e-02, -1.6262e-01,
+          8.2822e-02,  8.3245e-02, -1.1648e-01, -1.5781e-01,  1.3572e-01,
+         -1.8831e-01, -1.1904e-02, -1.1767e-01,  7.7996e-02, -1.1504e-02],
+        [ 9.8615e-02,  6.1469e-02,  6.2539e-03, -3.1780e-02,  3.7049e-02,
+          1.5249e-01, -1.6889e-02,  1.2469e-01,  6.0953e-02, -1.9427e-01,
+         -5.5644e-03,  1.1016e-01, -2.0366e-01, -8.4626e-02, -1.6244e-01,
+          1.6428e-01,  1.2293e-01, -1.4791e-01, -1.1174e-01, -3.1043e-02],
+        [-1.2941e-01,  1.4192e-02, -1.3035e-01, -5.8555e-02,  3.2495e-02,
+          1.4941e-01, -1.6754e-01,  5.9224e-02, -1.5277e-01, -4.2130e-02,
+         -8.6223e-02, -5.2132e-02, -2.0355e-01,  6.8886e-02, -1.2402e-01,
+          1.5132e-02, -4.9344e-02,  3.5268e-02,  1.4050e-01,  2.1856e-02],
+        [ 1.8799e-02,  8.6963e-02,  8.9779e-02,  2.6612e-02,  1.6774e-01,
+          2.9601e-02, -5.7513e-02,  1.5845e-01,  9.5999e-02,  2.2463e-02,
+          1.7251e-01,  5.4597e-02,  4.6717e-02,  2.0614e-01,  6.2908e-02,
+          1.5727e-01, -1.1923e-01, -1.7977e-01, -5.4555e-02,  2.0142e-01],
+        [-1.3478e-01, -1.1001e-01, -1.9024e-01, -3.1866e-02,  1.0433e-01,
+         -5.8677e-02, -1.8623e-02,  1.6527e-01, -6.4278e-02,  7.8923e-02,
+          2.1935e-01, -1.3046e-01,  1.2272e-01, -8.1481e-02,  1.5925e-01,
+         -1.2281e-01,  1.5033e-01, -4.7790e-02,  8.1679e-02,  1.2781e-01],
+        [ 9.3912e-04,  1.4835e-01, -9.7169e-02,  1.6384e-02,  2.1641e-01,
+         -8.4439e-02, -2.1867e-01, -1.4203e-01, -5.2197e-03, -9.7610e-02,
+         -5.8008e-02, -5.1534e-02, -5.1376e-02, -2.1071e-01,  1.7606e-01,
+         -8.4334e-03,  1.5021e-01, -1.6697e-01,  2.1946e-01,  2.0718e-01],
+        [ 6.0677e-02,  7.1970e-02, -2.0755e-01,  1.4563e-01, -5.7799e-02,
+          7.8304e-02,  1.1828e-01, -6.7052e-02,  1.9272e-01,  1.5369e-02,
+         -1.8272e-01,  1.2251e-01, -7.3870e-02,  6.1877e-02,  1.0187e-01,
+          6.7067e-02, -1.0409e-01, -5.2496e-02, -1.8570e-01, -2.2436e-02],
+        [ 3.3533e-02,  2.0753e-01,  4.1880e-02, -9.9971e-02, -1.5790e-01,
+         -1.8910e-01,  1.4144e-01, -1.4015e-01,  2.0959e-01,  2.1754e-02,
+         -1.1255e-01, -1.2617e-02, -1.9756e-01,  8.0401e-02, -2.1066e-02,
+         -1.4583e-01, -1.2884e-01,  1.5609e-01, -1.6801e-01,  1.5217e-01],
+        [ 1.2761e-01,  9.8483e-02,  1.9434e-02,  6.0762e-02, -1.8425e-01,
+          2.1850e-01,  2.2598e-02, -1.9889e-01,  7.0827e-02, -8.6826e-02,
+         -9.9342e-02, -1.7476e-01, -1.0504e-01, -2.0723e-01,  1.0367e-01,
+          1.1532e-04, -9.5670e-02, -1.0173e-01, -8.4498e-02,  1.4743e-01],
+        [ 5.7112e-02, -1.0820e-01, -6.2666e-02,  1.9715e-01,  1.2779e-01,
+          8.1203e-02,  9.8768e-02, -1.5818e-01,  1.7736e-01, -1.2674e-01,
+         -8.8281e-02,  9.6624e-02,  1.2806e-01,  9.6456e-02,  7.3434e-02,
+         -2.1838e-01, -6.2891e-02, -8.3443e-03, -1.2257e-01,  9.2625e-02],
+        [-1.7925e-01, -1.2288e-02,  1.9865e-01, -6.7854e-02,  1.6948e-01,
+          2.2044e-01, -5.4705e-02,  5.5376e-02, -6.1081e-02,  5.9426e-02,
+         -2.0691e-01,  6.7655e-02, -7.1237e-02,  1.5789e-01, -1.1197e-01,
+          1.9715e-01,  1.8662e-01, -1.5829e-01,  7.6815e-02, -2.1017e-01]],
+       requires_grad=True))
+(&#39;4.bias&#39;, Parameter containing:
+tensor([-0.0742, -0.1579,  0.0432,  0.1443,  0.1270, -0.2077, -0.1090,  0.0617,
+         0.1050,  0.0394, -0.2080, -0.0351, -0.1365, -0.0497, -0.1778, -0.1794,
+        -0.1578,  0.0237, -0.0437, -0.0285], requires_grad=True))
+(&#39;6.weight&#39;, Parameter containing:
+tensor([[-4.5287e-02, -8.3195e-02, -2.8556e-02,  1.8254e-02, -1.7835e-01,
+         -4.4115e-02, -1.0819e-01,  2.1279e-01, -1.3458e-01,  2.2885e-02,
+          6.8459e-02, -5.8238e-03, -3.5342e-02, -1.9900e-01, -1.5968e-01,
+         -1.0425e-01,  1.4322e-01,  5.2466e-02, -1.5056e-02, -1.0785e-01],
+        [-1.1748e-01,  1.0911e-01,  1.1239e-01,  1.3801e-02,  4.8429e-02,
+          2.4115e-02, -2.8121e-02, -1.9609e-01, -1.7712e-01, -1.3917e-01,
+         -1.5776e-01,  1.9293e-01,  1.2237e-01, -1.8227e-01,  1.3411e-01,
+         -7.6240e-02, -1.4857e-01,  1.9466e-02,  9.5656e-02,  1.7965e-01],
+        [-5.7639e-03, -7.9621e-02,  1.8111e-01,  1.0664e-01,  2.0911e-01,
+          3.3159e-02,  9.0655e-02, -6.1233e-03, -1.7931e-01, -1.5654e-01,
+         -4.5451e-02,  1.4444e-01, -2.1498e-01, -1.8836e-01,  1.4234e-01,
+         -4.1664e-02,  1.9534e-01,  2.1781e-01,  6.1657e-03, -8.0940e-02],
+        [ 2.0470e-01,  3.4865e-02,  1.1076e-01,  5.7243e-02, -2.1765e-02,
+          2.0680e-04,  1.7717e-01,  3.4384e-02, -1.3667e-01,  1.4554e-01,
+         -1.3640e-01,  1.0556e-01, -3.3661e-02,  1.6271e-01, -9.6543e-02,
+         -5.4877e-02, -1.0541e-01,  1.4933e-01,  1.5578e-01,  1.9258e-01],
+        [-1.0964e-01, -1.3449e-01,  1.6418e-02,  5.8185e-02,  1.5291e-01,
+          2.0077e-01,  5.0078e-02,  2.0811e-01, -1.7925e-01,  1.4647e-01,
+         -4.7401e-02,  9.2006e-02, -2.1833e-01,  4.2239e-02,  4.8425e-02,
+         -7.0881e-02,  6.8589e-02,  1.8503e-01, -3.7403e-02,  1.7701e-01],
+        [-6.0265e-02,  1.5256e-01,  1.7724e-01,  2.3339e-02,  1.4334e-01,
+          1.0833e-01, -1.5352e-01,  8.1396e-02, -4.8733e-02, -1.6502e-01,
+         -3.6828e-02,  1.2026e-01,  1.0016e-02,  1.7699e-01, -1.2020e-01,
+         -2.0657e-01, -1.8100e-02, -3.9588e-03,  3.6084e-02,  9.6596e-02],
+        [ 1.4788e-01,  8.3125e-02,  2.0546e-02, -2.1950e-01, -4.0661e-02,
+         -2.2046e-01,  1.9431e-01,  3.0987e-03, -2.1717e-01, -2.1275e-01,
+          1.4533e-01, -2.9126e-02, -1.5291e-01,  7.7955e-02,  1.6924e-01,
+         -6.1226e-02,  1.4351e-01,  1.2701e-01, -6.9871e-02, -1.4789e-01],
+        [-5.8042e-02,  1.4076e-01,  1.7691e-03, -2.1006e-01,  5.4621e-02,
+          4.4105e-02, -1.5726e-01, -1.3111e-01,  7.9072e-02,  8.1666e-02,
+         -1.3852e-01,  1.6350e-01, -1.2772e-01,  1.2542e-01, -1.8528e-01,
+         -1.8601e-01,  7.4122e-02,  9.3150e-03,  1.2091e-01, -1.1776e-01],
+        [ 1.8582e-01,  1.7252e-01, -1.4762e-01,  1.0139e-01, -1.2392e-01,
+          7.5408e-02, -2.1546e-01, -1.6713e-01, -1.0545e-02,  7.9118e-03,
+          4.6670e-02,  1.2832e-01,  6.4337e-02,  6.6786e-02,  1.8039e-01,
+          6.5942e-03, -2.2263e-01, -1.0125e-01, -2.2086e-01,  2.1005e-01],
+        [ 2.1290e-01, -8.1663e-03,  5.2744e-02,  1.0967e-01,  1.2434e-01,
+         -1.9883e-01, -1.8110e-01, -1.8356e-01,  1.7305e-01, -9.5379e-02,
+          1.6559e-02, -4.5791e-02, -8.4984e-02, -9.5903e-02,  1.5696e-01,
+          4.4359e-02, -1.3970e-01,  1.9010e-02, -1.1388e-01,  2.1662e-01],
+        [ 2.8528e-02,  2.0214e-01, -8.1869e-02, -2.7515e-02, -4.4848e-02,
+          2.1481e-01,  1.4178e-01, -6.8197e-03,  1.5899e-01, -1.0869e-01,
+          1.1900e-01,  7.5389e-02, -4.8459e-02,  1.1407e-01, -1.9847e-01,
+         -1.7301e-01,  1.9690e-01, -1.4534e-02, -8.5117e-02,  3.6505e-02],
+        [ 1.9238e-01,  6.9071e-04, -3.1796e-02, -2.4310e-02, -1.4493e-01,
+         -1.0768e-01,  1.5244e-02,  1.7272e-01, -1.1210e-01, -9.1478e-02,
+         -3.8587e-02, -1.0627e-01,  2.1208e-01, -6.6862e-02, -2.1042e-01,
+         -2.1005e-01,  2.1363e-01, -5.7925e-02, -8.0585e-02, -2.8352e-02],
+        [ 2.0862e-01, -1.8417e-01,  2.6705e-02,  8.4730e-02,  1.9516e-01,
+         -1.5765e-01,  1.9030e-01, -5.1109e-02,  1.9100e-01,  3.3822e-02,
+         -5.9636e-02, -4.6285e-02,  1.9125e-03, -7.3613e-02,  4.7574e-02,
+          1.1894e-02,  1.0204e-01,  1.5095e-01, -2.0040e-01,  1.0191e-01],
+        [-1.9472e-01, -9.7581e-02,  1.4861e-01, -3.2456e-02,  2.2149e-01,
+          1.4704e-01,  1.1195e-01, -7.1284e-02,  7.3337e-02, -1.0149e-01,
+          1.7256e-01, -1.6171e-02, -1.0782e-01,  1.1917e-01, -1.6484e-01,
+         -1.2842e-01, -1.8489e-01,  6.0597e-02, -2.1468e-01, -8.2782e-02],
+        [-9.8085e-02,  7.2005e-02,  1.5927e-02, -1.9203e-01, -8.8372e-02,
+          3.9464e-02,  8.5400e-02, -5.6142e-02, -1.4675e-01,  1.2983e-01,
+          1.5170e-01,  5.4788e-02,  3.2388e-03, -3.3445e-02,  6.6920e-02,
+         -3.1059e-02,  4.6318e-02,  1.2596e-01,  1.7106e-01, -1.7698e-01],
+        [-2.2281e-01,  5.7994e-02,  3.2657e-02,  1.0413e-01,  2.1453e-01,
+         -9.6278e-02, -1.6712e-01,  1.3642e-01,  6.1346e-02, -9.6854e-02,
+         -1.0650e-01,  2.2055e-01,  1.5724e-01,  8.1113e-02,  1.6177e-01,
+          3.4003e-02, -1.3707e-01,  1.8064e-01, -1.3560e-01, -7.9006e-02],
+        [-1.5643e-01, -1.0474e-02, -1.5855e-01, -8.3977e-02, -1.0564e-01,
+          1.9140e-01, -1.0760e-01, -1.6723e-01,  8.0814e-02,  1.5609e-01,
+          5.5449e-03, -9.6396e-04, -1.5040e-01,  2.0071e-01, -9.9433e-02,
+          9.3875e-03,  3.6308e-02,  3.9853e-02,  2.8754e-02,  2.1989e-02],
+        [-5.2658e-02, -1.1017e-01,  1.4543e-02, -1.2602e-01,  9.6084e-02,
+         -6.7551e-02,  1.1702e-01, -1.1347e-01,  8.7280e-02,  1.4479e-01,
+         -1.7608e-01,  1.4192e-01,  1.5857e-01, -1.1922e-01, -1.9090e-01,
+          3.9634e-02,  1.9651e-01, -1.2236e-01,  1.4349e-01, -3.9810e-02],
+        [ 6.7728e-02,  2.2213e-01, -8.5013e-02,  8.3224e-02, -1.1423e-01,
+         -7.1883e-02,  1.5125e-01,  9.3376e-02,  1.2651e-01,  1.8770e-01,
+          1.9229e-01,  3.0308e-02, -1.3999e-01,  1.7240e-03, -4.1024e-02,
+         -1.2860e-02, -7.4642e-02,  6.6454e-02, -1.2193e-01, -5.2616e-02],
+        [-6.4060e-02,  1.9528e-01,  1.1405e-01,  1.6761e-02, -4.3079e-02,
+          8.9329e-02, -1.8684e-01,  2.0815e-01,  7.9431e-02,  1.0215e-01,
+          3.9483e-02, -7.3377e-02, -1.8116e-01,  9.2645e-02, -1.8345e-01,
+          1.1427e-01, -1.0790e-02,  1.7912e-01, -1.0356e-01, -1.4191e-01]],
+       requires_grad=True))
+(&#39;6.bias&#39;, Parameter containing:
+tensor([ 0.1343,  0.1400,  0.1955,  0.2233,  0.2236,  0.0229, -0.0282,  0.1888,
+         0.1885, -0.1224, -0.0165, -0.1306, -0.0932,  0.1611,  0.1641, -0.2067,
+        -0.2125, -0.1150,  0.1468,  0.0748], requires_grad=True))
+(&#39;8.weight&#39;, Parameter containing:
+tensor([[-0.0924, -0.2204,  0.2068, -0.2059, -0.1919,  0.1608, -0.1115,  0.0401,
+         -0.1463,  0.2155, -0.1146,  0.1280,  0.0047,  0.0684, -0.0690,  0.1451,
+         -0.0257,  0.0228,  0.2163,  0.2113]], requires_grad=True))
+(&#39;8.bias&#39;, Parameter containing:
+tensor([-0.1322], requires_grad=True))
+</pre></div>
+</div>
+</div>
+</div>
+<p>And that’s why we love PyTorch. Because it does all the dirty work for us.
+Imagine having to keep track of all these parameters by hand.</p>
+<p>For those of you who want to know what is going on inside <code class="docutils literal notranslate"><span class="pre">nn.Linear</span></code>, just note that it is a special case of a PyTorch neural network module, see <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html">nn.Module</a>.
+The latter is what you would directly inherit when writing your own class for a non-standard neural network.
+We are not going to cover it in this class, but you can find plenty of examples <a class="reference external" href="https://pytorch.org/tutorials/beginner/pytorch_with_examples.html">here</a>.</p>
+</div>
+<div class="section" id="making-a-loss-function">
+<h2>Making a loss function<a class="headerlink" href="#making-a-loss-function" title="Permalink to this headline">¶</a></h2>
+<p>Let’s now make the loss function that we want to minimize.
+It needs to be a <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code> function as well.
+For regression problems, we can think of the loss as a function of the model predictions and the observed data.
+That is the depends on the parameters comes through the predictions.
+Let’s write down the mean square error (MSE) loss in this form.
+It is:</p>
+<div class="math notranslate nohighlight">
+\[
+L_{\text{MSE}}(\theta) = L_{\text{MSE}}(y_{1:n}, f(x_{1:n};\theta)) = \frac{1}{n}\sum_{i=1}^n\left[y_i-f(x_i;\theta)\right]^2,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(x_{1:n}\)</span> are the observed inputs (features), <span class="math notranslate nohighlight">\(y_{1:n}\)</span> are the observed outputs (targets), and <span class="math notranslate nohighlight">\(f(x_{1:n};\theta)\)</span> contains the model predictions on the observed inputs.</p>
+<p>You can implement the MSE loss like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mse_loss_ours</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">f</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Or we can use built-in PyTorch functionality:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mse_loss</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s evaluate it for some random data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The number of fake observations</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="c1"># Some fake observed features</span>
+<span class="n">x_fake</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Some fake observed targets</span>
+<span class="n">y_fake</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">x_fake</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">x_fake</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_fake</span><span class="p">,</span> <span class="n">y_fake</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-24_44_0.png" src="../_images/hands-on-24_44_0.png" />
+</div>
+</div>
+<p>And here is how to calculate the loss (for the random parameters that our net started with):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Predict with the net:</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_fake</span><span class="p">)</span>
+<span class="c1"># Evaluate the loss</span>
+<span class="n">our_loss</span> <span class="o">=</span> <span class="n">mse_loss_ours</span><span class="p">(</span><span class="n">y_fake</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="n">built_in_loss</span> <span class="o">=</span> <span class="n">mse_loss</span><span class="p">(</span><span class="n">y_fake</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">our_loss</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">built_in_loss</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor(0.2232, grad_fn=&lt;MeanBackward0&gt;)
+tensor(0.2232, grad_fn=&lt;MseLossBackward0&gt;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, let’s just minimize the MSE loss for these fake data and see what kind of fit we are going to get.
+Here is how you do this in PyTorch.
+Since I don’t have a lot of data, I will just use gradient descent - no randomly subsampling the data.
+I will show you how you can use stochastic gradient descent in the next example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reinitialize the net:</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># Initialize the optimizer - Notice that it needs to know about the </span>
+<span class="c1"># parameters it is optimizing</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span> <span class="c1"># lr is the learning rate</span>
+<span class="c1"># Some place to hold the training loss for visualizing it later</span>
+<span class="n">training_loss</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># Iterate the optimizer. Let&#39;s just do 10 iterations.</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">):</span>
+    <span class="c1"># This is essential for the optimizer to keep</span>
+    <span class="c1"># track of the gradients correctly</span>
+    <span class="c1"># It is using some buffers internally that need to</span>
+    <span class="c1"># be manually zeroed on each iteration.</span>
+    <span class="c1"># This is because it doesn&#39;t know when you are done with the</span>
+    <span class="c1"># calculation of the loss</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="c1"># Make predictions</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_fake</span><span class="p">)</span>
+    <span class="c1"># Evaluate the loss - That&#39;s what you are minimizing</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">mse_loss</span><span class="p">(</span><span class="n">y_fake</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="c1"># Evaluate the derivative of the loss with respect to</span>
+    <span class="c1"># all parameters - It knows how to do it because of</span>
+    <span class="c1"># PyTorch magick</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="c1"># And now you are ready to make a step</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="c1"># Save the training loss of later visualization</span>
+    <span class="n">training_loss</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+    <span class="c1"># Print the loss every one hundend iterations:</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;it = </span><span class="si">{0:d}</span><span class="s1">: loss = </span><span class="si">{1:1.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>it = 0: loss = 0.183
+it = 1000: loss = 0.157
+it = 2000: loss = 0.111
+it = 3000: loss = 0.033
+it = 4000: loss = 0.009
+it = 5000: loss = 0.002
+it = 6000: loss = 0.001
+it = 7000: loss = 0.001
+it = 8000: loss = 0.001
+it = 9000: loss = 0.001
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s plot the predictions of this model on the fake data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_fake</span><span class="p">,</span> <span class="n">y_fake</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">);</span>
+<span class="n">xx</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_fake</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">x_fake</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">100</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="n">yy</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-24_50_0.png" src="../_images/hands-on-24_50_0.png" />
+</div>
+</div>
+<p>Now, this may or may not work depending on what random seed you start with.
+If you run it a few times it may get stack at some local minimum.
+Unless we do stochastic optimization, i.e., subsampling the data, this is not a very good algorithm.
+Here how the loss changes with each iteration:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">training_loss</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Training loss&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-24_52_0.png" src="../_images/hands-on-24_52_0.png" />
+</div>
+</div>
+<p>The problem is the plato we have at the beginning of the optimization.</p>
+<p>Let’s redo this thing with stochastic optimization.
+For stochastic optimization we need to subsample the data during each iteration.
+We can either do this manually or using PyTorch functionality.
+First, let’s do it manually.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pick a subsampling batch size</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1"># Reinitialize the net:</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># Reinitialize the optimizer</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="c1"># Keep track of the training loss</span>
+<span class="n">training_loss_sgd</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># Iterate the optimizer. Let&#39;s just do 10 iterations.</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">):</span>
+    <span class="c1"># Zero out the gradient buffers</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="c1"># Sample m observation indices at random</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+    <span class="c1"># Here is the subsample of the data</span>
+    <span class="n">x_batch</span> <span class="o">=</span> <span class="n">x_fake</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">y_batch</span> <span class="o">=</span> <span class="n">y_fake</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="c1"># Make predictions</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_batch</span><span class="p">)</span>
+    <span class="c1"># Evaluate the loss - That&#39;s what you are minimizing</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">mse_loss</span><span class="p">(</span><span class="n">y_batch</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="c1"># Evaluate the derivative of the loss with respect to</span>
+    <span class="c1"># all parameters - It knows how to do it because of</span>
+    <span class="c1"># PyTorch magick</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="c1"># And now you are ready to make a step</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="c1"># Keep track of the training loss</span>
+    <span class="n">training_loss_sgd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+    <span class="c1"># Print the loss every one hundend iterations:</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;it = </span><span class="si">{0:d}</span><span class="s1">: loss = </span><span class="si">{1:1.2e}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>it = 0: loss = 2.15e-01
+it = 1000: loss = 1.52e-01
+it = 2000: loss = 4.05e-02
+it = 3000: loss = 4.89e-03
+it = 4000: loss = 2.33e-03
+it = 5000: loss = 1.82e-03
+it = 6000: loss = 1.93e-03
+it = 7000: loss = 2.63e-03
+it = 8000: loss = 1.96e-03
+it = 9000: loss = 6.10e-04
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_fake</span><span class="p">,</span> <span class="n">y_fake</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">);</span>
+<span class="n">xx</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_fake</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">x_fake</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">100</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="n">yy</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-24_55_0.png" src="../_images/hands-on-24_55_0.png" />
+</div>
+</div>
+<p>This fit does look a little bit better.
+Let’s now compare the training loss of stochastic gradient descent to the previous one:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">training_loss_sgd</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Gradient descent&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">training_loss</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Stochastic gradient descent&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Training loss&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-24_57_0.png" src="../_images/hands-on-24_57_0.png" />
+</div>
+</div>
+<p>It is this wiggly nature of stochastic gradient descent that allows it to escape bad local minima.</p>
+<div class="section" id="questions">
+<h3>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Rerun the stochastic gradient descent with one sample per iteration (<span class="math notranslate nohighlight">\(m=1\)</span>). Does it converge? Do you need less or more iterations? Is it more or less wiggly?</p></li>
+<li><p>Rerun the stochastic gradient descent with 10 samples per iteration. How doe it perfom now?</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="example-motorcyle-data">
+<h2>Example - Motorcyle Data<a class="headerlink" href="#example-motorcyle-data" title="Permalink to this headline">¶</a></h2>
+<p>Let’s now use the motorcycle data to do regression with DNNs.
+This will help us demonstrate some best practices and specifically:</p>
+<ul class="simple">
+<li><p>Standarizing the data</p></li>
+<li><p>Splitting in training and test subsets</p></li>
+</ul>
+<p>First, start by loading the dataset:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The url of the motorcycle data:</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/PredictiveScienceLab/data-analytics-se/master/activities/motor.dat&#39;</span>
+<span class="c1"># Download the data</span>
+<span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;motor.dat&#39;</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">][:,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">][:,</span> <span class="kc">None</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Split into training and test datasets</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualize them</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training data&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test data&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-24_63_0.png" src="../_images/hands-on-24_63_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Turn the data into torch tensors:</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Please note that the specification of <code class="docutils literal notranslate"><span class="pre">dtype=torch.float</span></code> is absolutely needed here.
+If you don’t include it the code is not going to work.
+The problem is that the <code class="docutils literal notranslate"><span class="pre">x_train</span></code> etc. are all numpy arrays and that numpy arrays have 64-bit floating point numbers by default.
+PyTorch is using 32-bit floating point numbrs by default.
+We need at some point make the two compatible.</p>
+<p>Now we are ready to train the network.
+Let’s give it a shot.
+We will use the same architecture as before.
+The only difference is that I will be printing the validation loss instead of the training loss.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The number of training samples</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Pick a subsampling batch size</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1"># Reinitialize the net:</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># Reinitialize the optimizer</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="c1"># Keep track of the training loss and the test loss</span>
+<span class="n">training_loss</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">test_loss</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># Iterate the optimizer. Let&#39;s just do 10 iterations.</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">):</span>
+    <span class="c1"># Zero out the gradient buffers</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="c1"># Sample m observation indices at random</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+    <span class="c1"># Here is the subsample of the data</span>
+    <span class="n">x_batch</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">y_batch</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="c1"># Make predictions</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_batch</span><span class="p">)</span>
+    <span class="c1"># Evaluate the loss - That&#39;s what you are minimizing</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">mse_loss</span><span class="p">(</span><span class="n">y_batch</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">training_loss</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+    <span class="c1"># Evaluate the derivative of the loss with respect to</span>
+    <span class="c1"># all parameters - It knows how to do it because of</span>
+    <span class="c1"># PyTorch magick</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="c1"># And now you are ready to make a step</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="c1"># Evaluate the test loss</span>
+    <span class="n">y_pred_test</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+    <span class="n">ts_loss</span> <span class="o">=</span> <span class="n">mse_loss</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
+    <span class="n">test_loss</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ts_loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+    <span class="c1"># Print the loss every one hundend iterations:</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;it = </span><span class="si">{0:d}</span><span class="s1">: loss = </span><span class="si">{1:1.2e}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">ts_loss</span><span class="o">.</span><span class="n">item</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>it = 0: loss = 4.05e+06
+it = 1000: loss = nan
+it = 2000: loss = nan
+it = 3000: loss = nan
+it = 4000: loss = nan
+it = 5000: loss = nan
+it = 6000: loss = nan
+it = 7000: loss = nan
+it = 8000: loss = nan
+it = 9000: loss = nan
+</pre></div>
+</div>
+</div>
+</div>
+<p>The above code may not work at all, giving you nan’s.
+Or it may work and get you nowhere.
+The problem here is the scale of both the inputs and the outputs and the assumptions that have been made about them when we initialize the weights of the net and when we picked the learning rate of the optimization algorithm.
+The easiest way to overcome this problem is to <em>standarize the data</em>.
+This is achieved by subtracting the empirical mean and dividing by the empirical standard deviation both the inputs and the outputs.
+By standarizing the data, we are making the default paramerameters (for weight initialization and stochastic gradient descent) valid again.
+Standarization is such a common process that it is already implemented in <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html">sklearn.preprocessing.StandardScaler</a>.
+Here is how it works:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="n">feature_scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">target_scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">feature_scaler.transform()</span></code> is a function:
+$<span class="math notranslate nohighlight">\(
+x \rightarrow \frac{x-\mu}{\sigma},
+\)</span><span class="math notranslate nohighlight">\(
+where \)</span>\mu<span class="math notranslate nohighlight">\( and \)</span>\sigma$ are the empirical mean and standard deviation of the features.
+Here they are:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The mean:</span>
+<span class="n">feature_scaler</span><span class="o">.</span><span class="n">mean_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([25.9])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The standard deviation:</span>
+<span class="n">feature_scaler</span><span class="o">.</span><span class="n">scale_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([13.88])
+</pre></div>
+</div>
+</div>
+</div>
+<p>And here is how the scalers work:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_scaled</span> <span class="o">=</span> <span class="n">feature_scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y_scaled</span> <span class="o">=</span> <span class="n">target_scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The data are now scaled, see this fig:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">,</span> <span class="n">y_scaled</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$ (scaled)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$ (scaled)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-24_76_0.png" src="../_images/hands-on-24_76_0.png" />
+</div>
+</div>
+<p>We will train the net using <code class="docutils literal notranslate"><span class="pre">x_scale</span></code> and <code class="docutils literal notranslate"><span class="pre">y_scaled</span></code>. We can always go back to the original scales at the end.
+Let’s see if it works.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Split in training and test</span>
+<span class="n">x_s_train</span><span class="p">,</span> <span class="n">x_s_test</span><span class="p">,</span> <span class="n">y_s_train</span><span class="p">,</span> <span class="n">y_s_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">,</span> <span class="n">y_scaled</span><span class="p">,</span>
+                                                            <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Turn the data into torch tensors:</span>
+<span class="n">x_s_train</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">x_s_train</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+<span class="n">y_s_train</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">y_s_train</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+<span class="n">x_s_test</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">x_s_test</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+<span class="n">y_s_test</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">y_s_test</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+
+<span class="c1"># The number of training samples</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Pick a subsampling batch size</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1"># Reinitialize the net:</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                  <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># Reinitialize the optimizer</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="c1"># Keep track of the training loss and the test loss</span>
+<span class="n">training_loss</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">test_loss</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># Iterate the optimizer. Let&#39;s just do 10 iterations.</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">):</span>
+    <span class="c1"># Zero out the gradient buffers</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="c1"># Sample m observation indices at random</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+    <span class="c1"># Here is the subsample of the data</span>
+    <span class="n">x_batch</span> <span class="o">=</span> <span class="n">x_s_train</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">y_batch</span> <span class="o">=</span> <span class="n">y_s_train</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="c1"># Make predictions</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_batch</span><span class="p">)</span>
+    <span class="c1"># Evaluate the loss - That&#39;s what you are minimizing</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">mse_loss</span><span class="p">(</span><span class="n">y_batch</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">training_loss</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+    <span class="c1"># Evaluate the derivative of the loss with respect to</span>
+    <span class="c1"># all parameters - It knows how to do it because of</span>
+    <span class="c1"># PyTorch magick</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="c1"># And now you are ready to make a step</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="c1"># Evaluate the test loss</span>
+    <span class="n">y_pred_test</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_s_test</span><span class="p">)</span>
+    <span class="n">ts_loss</span> <span class="o">=</span> <span class="n">mse_loss</span><span class="p">(</span><span class="n">y_s_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
+    <span class="n">test_loss</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ts_loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+    <span class="c1"># Print the loss every one hundend iterations:</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;it = </span><span class="si">{0:d}</span><span class="s1">: loss = </span><span class="si">{1:1.2e}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">ts_loss</span><span class="o">.</span><span class="n">item</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>it = 0: loss = 9.26e-01
+it = 1000: loss = 3.26e-01
+it = 2000: loss = 2.00e-01
+it = 3000: loss = 1.99e-01
+it = 4000: loss = 1.75e-01
+it = 5000: loss = 1.62e-01
+it = 6000: loss = 1.76e-01
+it = 7000: loss = 1.84e-01
+it = 8000: loss = 1.84e-01
+it = 9000: loss = 2.30e-01
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s visualize the fit:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xx_scaled</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_scaled</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">x_scaled</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">100</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="n">yy_scaled</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">xx_scaled</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_s_train</span><span class="p">,</span> <span class="n">y_s_train</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training data&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_s_test</span><span class="p">,</span> <span class="n">y_s_test</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test data&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx_scaled</span><span class="p">,</span> <span class="n">yy_scaled</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;DNN fit&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$ (scaled)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$ (scaled)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-24_80_0.png" src="../_images/hands-on-24_80_0.png" />
+</div>
+</div>
+<p>And here is predictions-observations plot on the test data set:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred_test</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_s_test</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_pred_test</span><span class="p">,</span> <span class="n">y_s_test</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">yys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">y_s_test</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_s_test</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yys</span><span class="p">,</span> <span class="n">yys</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Predictions&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Observations&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-24_82_0.png" src="../_images/hands-on-24_82_0.png" />
+</div>
+</div>
+<p>Also, if you wish, you can scale the predictions back to the original units:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xx</span> <span class="o">=</span> <span class="n">feature_scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">xx_scaled</span><span class="p">)</span>
+<span class="n">yy</span> <span class="o">=</span> <span class="n">target_scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">yy_scaled</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training data&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test data&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;DNN fit&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-24_84_0.png" src="../_images/hands-on-24_84_0.png" />
+</div>
+</div>
+<p>It is instructive to observe how the training and test losses evolve as a function of the optimization iteration:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">training_loss</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training loss&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">test_loss</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test loss&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Loss&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hands-on-24_86_0.png" src="../_images/hands-on-24_86_0.png" />
+</div>
+</div>
+<p>The wiggliness is, of course, due to the stochastic nature of the optimization.
+The training error converges to a minimum as you keep iterating.
+This is direct consequence of the Robbins-Monro theorem. You will reach a local minimum of the training error eventually.
+However, this is not the case for the test error.
+The test error will reach a minimum at some point and then it will start going up!
+It will always do this when you are training networks by just minimizing a loss function.
+What happens is that the algorithm, by paying more attention to minimizing the training loss it will start, eventually, overfitting the training data and it will not be able to generalize correctly for the test data.
+There are ways around this. We are going to learn about the basic one in the next lecture (<em>weight regularization</em> and <em>early stopping</em>).
+There are some advanced ways to avoid overfitting (e.g., <em>dropout</em>, <em>Bayesian neural networks</em>) which we are not going to cover in the class.</p>
+<div class="section" id="id1">
+<h3>Questions<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Change the activation function from <code class="docutils literal notranslate"><span class="pre">nn.ReLU</span></code> to <code class="docutils literal notranslate"><span class="pre">nn.Tanh</span></code>. Are you getting a better fit or a worse fit?</p></li>
+<li><p>Rerun the code above for 100,000 iterations. Does it start to overfit the training data? What happens to the test loss?</p></li>
+<li><p>Rerun the code for 5,000 iterations. How does the prediction look like now? Early-stopping would stop at about this point.</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./lecture24"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="reading-24.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Deep Neural Networks</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../lecture25/intro.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lecture 25 - Deep Neural Networks Continued</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Ilias Bilionis (ibilion[at]purdue.edu)<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
