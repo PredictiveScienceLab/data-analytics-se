@@ -33,9 +33,6 @@ After completing this course, you will be able to:
 
 (gaps)=
 ## What if I am not familiar with Python?
-If you have no prior experience with Python, you have two options:
- + The fastest option is to go through the [Basic Python Tutorials](python-basics) that I have prepared.
- This set of tutorials is a bit terse, but it covers pretty much everything we are going to need in this course. You can probably go through them in a couple of days.
- + The longer option is to go over Lectures 1 to 7 of my undergraduate course on [data science for mechanical engineers](https://purduemechanicalengineering.github.io/me-297-intro-to-data-science/index.html).
- This is a much gentler introduction to the same basic Python concepts.
- It should take you about a week to cover these seven lectures.
+If you have no prior experience with Python, go over Lectures 1 to 7 of my undergraduate course on [data science for mechanical engineers](https://purduemechanicalengineering.github.io/me-297-intro-to-data-science/index.html).
+This is a gentle introduction to the same basic Python concepts.
+It should take you about a week to cover these seven lectures.
