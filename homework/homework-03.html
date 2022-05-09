@@ -1,0 +1,2257 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homework 3 &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Homework 4" href="homework-04.html" />
+    <link rel="prev" title="Homework 2" href="homework-02.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Introduction to Scientific Machine Learning (Lecture Book)</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   Preface
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../introduction.html">
+   Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture01/intro.html">
+     Lecture 1 - Introduction to Predictive Modeling
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture01/reading-01.html">
+       Predictive Modeling and Scientific Machine Learning
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture01/hands-on-01.1.html">
+       The Uncertainty Propagation Problem
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture01/hands-on-01.2.html">
+       The Model Calibration Problem
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../review_probability.html">
+   Review of Probability
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture02/intro.html">
+     Lecture 2 - Basics of Probability Theory
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture02/reading-02.html">
+       Basics of Probability Theory
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture02/hands-on-02.html">
+       Experiment with “Ranomness”
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture03/intro.html">
+     Lecture 3 - Discrete Random Variables
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture03/reading-03.html">
+       Discrete Random Variables
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture03/hands-on-03.html">
+       Discrete Random Variables in Python
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture04/intro.html">
+     Lecture 4 - Continuous Random Variables
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture04/reading-04.html">
+       Continuous Random Variables
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture04/hands-on-04.1.html">
+       The Uniform Distribution
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture04/hands-on-04.2.html">
+       The Gaussian Distribution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture05/intro.html">
+     Lecture 5 - Collections of Random Variables
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture05/reading-05.html">
+       Collections of Random Variables: Theory
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture05/hands-on-05.html">
+       Practicing with joint probability mass functions
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture06/intro.html">
+     Lecture 6 - Random Vectors
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+    <label for="toctree-checkbox-8">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture06/reading-06.html">
+       Random Vectors
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture06/hands-on-06.1.html">
+       The Multivariate Normal - Diagonal Covariance Case
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture06/hands-on-06.2.html">
+       The Multivariate Normal - Full Covariance Case
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture06/hands-on-06.3.html">
+       The Multivariate Normal - Marginalization
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture06/hands-on-06.4.html">
+       The Multivariate Normal - Conditioning
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../uncertainty_propagation.html">
+   Uncertainty Propagation
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture07/intro.html">
+     Lecture 7 - Basic Sampling
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+    <label for="toctree-checkbox-10">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture07/hands-on-07.1.html">
+       Pseudo-random number generators
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture07/hands-on-07.2.html">
+       Sampling the uniform
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture07/hands-on-07.3.html">
+       Sampling the categorical
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture07/hands-on-07.4.html">
+       Sampling from continuous distributions - Inverse sampling
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture08/intro.html">
+     Lecture 8 - The Monte Carlo Method for Estimating Expectations
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+    <label for="toctree-checkbox-11">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture08/hands-on-08.3.html">
+       Sampling Estimates of Expectations
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture08/hands-on-08.4.html">
+       Sampling Estimates of Variance
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture09/intro.html">
+     Lecture 9 - Monte Carlo Estimates of Various Statistics
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+    <label for="toctree-checkbox-12">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture09/hands-on-09.1.html">
+       Sampling Estimates of the Cumulative Distribution Function
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture09/hands-on-09.2.html">
+       Sampling Estimates of the Probability Density via Histograms
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture09/hands-on-09.3.html">
+       Hands-on Activity 9.3: Sampling Estimates of Predictive Quantiles
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture09/hands-on-09.4.html">
+       Propagating Uncertainties through an Ordinrary Differential Equation
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture10/intro.html">
+     Lecture 10 - Quantify Uncertainty in Monte Carlo Estimates
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+    <label for="toctree-checkbox-13">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture10/hands-on-10.1.html">
+       Visualizing Monte Carlo Uncertainty
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture10/hands-on-10.2.html">
+       The Central Limit Theorem
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture10/hands-on-10.3.html">
+       Quanifying Epistemic Uncertainty in Monte Carlo estimates
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture10/hands-on-10.4.html">
+       Uncertainty Propagation Through a Boundary Value Problem
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../principles_of_bi.html">
+   Principles of Bayesian Inference
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture11/intro.html">
+     Lecture 11 - Selecting Prior Information
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+    <label for="toctree-checkbox-15">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture11/reading-11.html">
+       Selecting Prior Information
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture11/hands-on-11.1.html">
+       Information Entropy
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture11/hands-on-11.2.html">
+       The Principle of Maximum Entropy for Discrete Random Variables
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture11/hands-on-11.3.html">
+       The Principle of Maximum Entropy for Continuous Random Variables
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture12/intro.html">
+     Lecture 12 - Analytical Examples of Bayesian Inference
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+    <label for="toctree-checkbox-16">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture12/reading-12.html">
+       Analytical Examples of Bayesian Inference
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture12/hands-on-12.1.html">
+       Bayesian Parameter Estimation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture12/hands-on-12.2.html">
+       Credible Intervals
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture12/hands-on-12.3.html">
+       Decision-Making
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture12/hands-on-12.4.html">
+       Posterior Predictive Checking
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../supervised_learning.html">
+   Supervised Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
+  <label for="toctree-checkbox-17">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture13/intro.html">
+     Lecture 13 - Linear Regression via Least Squares
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/>
+    <label for="toctree-checkbox-18">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture13/reading-13.html">
+       Linear Regression via Least Squares
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture13/hands-on-13.1.html">
+       Linear regression with a single variable
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture13/hands-on-13.2.html">
+       Polynomial Regression
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture13/hands-on-13.3.html">
+       The Generalized Linear Model
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture13/hands-on-13.4.html">
+       Measures of Predictive Accuracy
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture14/intro.html">
+     Lecture 14 - Bayesian Linear Regression
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/>
+    <label for="toctree-checkbox-19">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture14/reading-14.html">
+       Bayesian Linear Regression
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture14/hands-on-14.1.html">
+       Probabilistic Interpretation of Least Squares - Estimating the Measurement Noise
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture14/hands-on-14.2.html">
+       Maximum a Posteriori Estimate - Avoiding Overfitting
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture14/hands-on-14.3.html">
+       Bayesian Linear Regression
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture14/hands-on-14.4.html">
+       The point-predictive Distribution - Separating Epistmic and Aleatory Uncertainty
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture15/intro.html">
+     Lecture 15 - Advanced Topics in Bayesian Linear Regression
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/>
+    <label for="toctree-checkbox-20">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture15/reading-15.html">
+       Advanced Topics in Bayesian Linear Regression
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture15/hands-on-15.1.html">
+       Evidence approximation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture15/hands-on-15.2.html">
+       Automatic Relevance Determination
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture15/hands-on-15.3.html">
+       Diagnostics for Posterior Predictive
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture16/intro.html">
+     Lecture 16 - Classification
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/>
+    <label for="toctree-checkbox-21">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture16/reading-16.html">
+       Theoretical Background on Classification
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture16/hands-on-16.1.html">
+       Logistic regression with one variable (High melting explosives)
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture16/hands-on-16.2.html">
+       Logistic Regression with Many Features
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture16/hands-on-16.3.html">
+       Decision making
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture16/hands-on-16.4.html">
+       Diagnostics for Classifications
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture16/hands-on-16.5.html">
+       Multi-class Logistic Regression
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../unsupervised_learning.html">
+   Unsupervised Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/>
+  <label for="toctree-checkbox-22">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture17/intro.html">
+     Lecture 17 - Clustering and Density Estimation
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/>
+    <label for="toctree-checkbox-23">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture17/reading-17.html">
+       Unsupervised Learning
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture17/hands-on-17.1.html">
+       Clustering using k-means
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture17/hands-on-17.2.html">
+       Density Estimation via Gaussian mixtures
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture18/intro.html">
+     Lecture 18 - Dimensionality Reduction
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/>
+    <label for="toctree-checkbox-24">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture18/reading-18.html">
+       Dimensionality Reduction
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture18/hands-on-18.1.html">
+       Dimensionality Reduction Examples
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture18/hands-on-18.2.html">
+       Clustering High-dimensional Data
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture18/hands-on-18.3.html">
+       Density Estimation with High-dimensional Data
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../state_space_models.html">
+   State Space Models
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/>
+  <label for="toctree-checkbox-25">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture19/intro.html">
+     Lecture 19 - State Space Models - Filtering Basics
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/>
+    <label for="toctree-checkbox-26">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture19/reading-19.html">
+       State Space Models - Filtering Basics
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture19/hands-on-19.1.html">
+       Object Tracking Example
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture20/intro.html">
+     Lecture 20 - State Space Models - Kalman Filters
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/>
+    <label for="toctree-checkbox-27">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture20/reading-20.html">
+       State Space Models - Kalman Filters
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture20/hands-on-20.1.html">
+       Kalman Filter for Object Tracking Example
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../gaussian_process_regression.html">
+   Gaussian Process Regression
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/>
+  <label for="toctree-checkbox-28">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture21/intro.html">
+     Lecture 21 - Gaussian Process Regression: Priors on Function Spaces
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/>
+    <label for="toctree-checkbox-29">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture21/reading-21.html">
+       Gaussian Process Theory
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture21/hands-on-21.html">
+       Example: Priors on function spaces
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture22/intro.html">
+     Lecture 22 - Gaussian Process Regression: Conditioning on Data
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" type="checkbox"/>
+    <label for="toctree-checkbox-30">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture22/reading-22.html">
+       Gaussian Process Regression - Theory
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture22/hands-on-22.1.html">
+       Gaussian Process Regression Without Noise
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture22/hands-on-22.2.html">
+       Gaussian Process Regression with Noise
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture22/hands-on-22.3.html">
+       Tuning the Hyperparameters
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture22/hands-on-22.4.html">
+       Multivariate Gaussian Process Regression
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture23/intro.html">
+     Lecture 23 - Bayesian Global Optimization
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/>
+    <label for="toctree-checkbox-31">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/reading-23.html">
+       Bayesian Global Optimization
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/hands-on-23.1.html">
+       Maximum Mean - A Bad Information Acquisition Function
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/hands-on-23.2.html">
+       Maximum Upper Interval
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/hands-on-23.3.html">
+       Probability of Improvement
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/hands-on-23.4.html">
+       Expected Improvement
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../neural_networks.html">
+   Neural Networks
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" type="checkbox"/>
+  <label for="toctree-checkbox-32">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture24/intro.html">
+     Lecture 24 - Deep Neural Networks
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" type="checkbox"/>
+    <label for="toctree-checkbox-33">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture24/reading-24.html">
+       Deep Neural Networks
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture24/hands-on-24.html">
+       Regression with Deep Neural Networks
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture25/intro.html">
+     Lecture 25 - Deep Neural Networks Continued
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" type="checkbox"/>
+    <label for="toctree-checkbox-34">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture25/reading-25.html">
+       Deep Neural Networks Continued
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture25/hands-on-25.html">
+       Classification with Deep Neural Networks
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture26/intro.html">
+     Lecture 26 - Physics-informed Deep Neural Networks
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" type="checkbox"/>
+    <label for="toctree-checkbox-35">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture26/reading-26.html">
+       Physics-informed Deep Neural Networks
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture26/hands-on-26.1.html">
+       Physics-informed regularization: Solving ODEs
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture26/hands-on-26.2.html">
+       Physics-informed regularization: Solving PDEs
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../advanced_methods.html">
+   Advanced Methods for Characterizing Posteriors
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/>
+  <label for="toctree-checkbox-36">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture27/intro.html">
+     Lecture 27 - Sampling Methods
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/>
+    <label for="toctree-checkbox-37">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture27/reading-27.html">
+       Sampling Methods
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture27/hands-on-27.1.html">
+       Probabilistic programming with
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         PyMC3
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture27/hands-on-27.2.html">
+       Sampling From the Distributions With Random Walk Metropolis
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture27/hands-on-27.3.html">
+       The Metropolis-Hastings Algorithm
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture27/hands-on-27.4.html">
+       Gibbs Sampling
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture27/hands-on-27.5.html">
+       Sequential Monte Carlo
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../lecture28/intro.html">
+     Lecture 28 - Variational Inference
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" type="checkbox"/>
+    <label for="toctree-checkbox-38">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture28/reading-28.html">
+       Variational Inference
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture28/hands-on-28.html">
+       Variational Inference Examples
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="intro.html">
+   Homework
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" type="checkbox"/>
+  <label for="toctree-checkbox-39">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="homework-01.html">
+     Homework 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="homework-02.html">
+     Homework 2
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Homework 3
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="homework-04.html">
+     Homework 4
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="homework-05.html">
+     Homework 5
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="homework-06.html">
+     Homework 6
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="homework-07.html">
+     Homework 7
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="homework-08.html">
+     Homework 8
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bibliography.html">
+   Bibliography
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/homework/homework-03.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/PredictiveScienceLab/data-analytics-se/master?urlpath=lab/tree/lecturebook/homework/homework-03.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/homework/homework-03.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#instructions">
+   Instructions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#student-details">
+   Student details
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problem-1-propagating-uncertainty-through-a-differential-equation">
+   Problem 1 - Propagating uncertainty through a differential equation
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#part-a">
+     Part A
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#part-b">
+     Part B
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#part-c">
+     Part C
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#part-d">
+     Part D
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#part-e">
+     Part E
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problem-1">
+   Problem 1
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Homework 3</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#instructions">
+   Instructions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#student-details">
+   Student details
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problem-1-propagating-uncertainty-through-a-differential-equation">
+   Problem 1 - Propagating uncertainty through a differential equation
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#part-a">
+     Part A
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#part-b">
+     Part B
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#part-c">
+     Part C
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#part-d">
+     Part D
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#part-e">
+     Part E
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problem-1">
+   Problem 1
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="homework-3">
+<h1>Homework 3<a class="headerlink" href="#homework-3" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Lectures 7-12 (inclusive).</p></li>
+</ul>
+</div>
+<div class="section" id="instructions">
+<h2>Instructions<a class="headerlink" href="#instructions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Type your name and email in the “Student details” section below.</p></li>
+<li><p>Develop the code and generate the figures you need to solve the problems using this notebook.</p></li>
+<li><p>For the answers that require a mathematical proof or derivation you should type them using latex. If you have never written latex before and you find it exceedingly difficult, we will likely accept handwritten solutions.</p></li>
+<li><p>The total homework points are 100. Please note that the problems are not weighed equally.</p></li>
+</ul>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">def</span> <span class="nf">download</span><span class="p">(</span>
+    <span class="n">url</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">local_filename</span> <span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Download a file from a url.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments</span>
+<span class="sd">    url            -- The url we want to download.</span>
+<span class="sd">    local_filename -- The filemame to write on. If not</span>
+<span class="sd">                      specified </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">local_filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">local_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">local_filename</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="student-details">
+<h2>Student details<a class="headerlink" href="#student-details" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>First Name:</strong></p></li>
+<li><p><strong>Last Name:</strong></p></li>
+<li><p><strong>Email:</strong></p></li>
+</ul>
+</div>
+<div class="section" id="problem-1-propagating-uncertainty-through-a-differential-equation">
+<h2>Problem 1 - Propagating uncertainty through a differential equation<a class="headerlink" href="#problem-1-propagating-uncertainty-through-a-differential-equation" title="Permalink to this headline">¶</a></h2>
+<p>This is a classic uncertainty propagation problem that you will have to solve using Monte Carlo sampling.
+Consider the following stochastic harmonic oscillator:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{ccc}
+\ddot{y} + 2 \zeta \omega(X) \dot{y} + \omega^2(X)y &amp;=&amp; 0,\\
+y(0) &amp;=&amp; y_0(X),\\
+\dot{y}(0) &amp;=&amp; v_0(X),
+\end{array}
+\end{split}\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(X = (X_1, X_2, X_3)\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(X_i \sim N(0, 1)\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\omega(X) = 2\pi + X_1\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\zeta = 0.01\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(y_0(X) = 1+ 0.1 X_2\)</span>, and</p></li>
+<li><p><span class="math notranslate nohighlight">\(v_0 = 0.1 X_3\)</span>.</p></li>
+</ul>
+<p>In words, this stochastic harmonic oscillator has an uncertain natural frequency and uncertain initial conditions.</p>
+<p>Our goal is to propagate uncertainty through this dynamical system, i.e., estimate the mean and variance of its solution.
+A solver for this dynamical system is given below:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Solver</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">nt</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">T</span><span class="o">=</span> <span class="mi">5</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This is the initializer of the class.</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">            nt -- The number of timesteps.</span>
+<span class="sd">            T  -- The final time.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nt</span> <span class="o">=</span> <span class="n">nt</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">T</span>
+        <span class="c1"># The timesteps on which we will get the solution</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">nt</span><span class="p">)</span> 
+        <span class="c1"># The number of inputs the class accepts</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_input</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="c1"># The number of outputs the class returns</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_output</span> <span class="o">=</span> <span class="n">nt</span>
+        
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This special class method emulates a function call.</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">            x -- A 1D numpy array with 3 elements.</span>
+<span class="sd">                 This represents the stochastic input x = (x1, x2, x3).</span>
+<span class="sd">        </span>
+<span class="sd">        Returns the solution to the differential equation evaluated</span>
+<span class="sd">        at discrete timesteps.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># uncertain quantities </span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">x3</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        
+        <span class="c1"># ODE parameters </span>
+        <span class="n">omega</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">+</span> <span class="n">x1</span> 
+        <span class="n">y10</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">x2</span>
+        <span class="n">y20</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">x3</span>
+        <span class="c1"># initial conditions </span>
+        <span class="n">y0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">y10</span><span class="p">,</span> <span class="n">y20</span><span class="p">])</span>   
+        
+        <span class="c1"># coefficient matrix </span>
+        <span class="n">zeta</span> <span class="o">=</span> <span class="mf">0.01</span>
+        <span class="c1"># spring constant</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">omega</span><span class="o">**</span><span class="mi">2</span>
+        <span class="c1"># damping coeff</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">zeta</span><span class="o">*</span><span class="n">omega</span>    
+        <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span><span class="o">-</span><span class="n">k</span><span class="p">,</span> <span class="o">-</span><span class="n">c</span><span class="p">]])</span>
+        
+        <span class="c1">#RHS of the ODE system</span>
+        <span class="k">def</span> <span class="nf">rhs</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        
+        <span class="n">y</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">odeint</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>First, let’s demonstrate how the solver works:</p>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solver</span> <span class="o">=</span> <span class="n">Solver</span><span class="p">()</span>
+ 
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">solver</span><span class="o">.</span><span class="n">num_input</span><span class="p">)</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">solver</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 1.095  0.116]
+ [ 1.024 -2.888]
+ [ 0.81  -5.465]
+ [ 0.485 -7.259]
+ [ 0.094 -8.024]
+ [-0.307 -7.662]
+ [-0.661 -6.23 ]
+ [-0.921 -3.939]
+ [-1.05  -1.114]
+ [-1.032  1.846]
+ [-0.869  4.525]
+ [-0.586  6.551]
+ [-0.223  7.647]
+ [ 0.169  7.664]
+ [ 0.533  6.61 ]
+ [ 0.821  4.64 ]
+ [ 0.991  2.035]
+ [ 1.022 -0.834]
+ [ 0.909 -3.565]
+ [ 0.671 -5.778]
+ [ 0.34  -7.165]
+ [-0.036 -7.541]
+ [-0.404 -6.859]
+ [-0.713 -5.223]
+ [-0.919 -2.869]
+ [-0.996 -0.132]
+ [-0.933  2.603]
+ [-0.74   4.954]
+ [-0.444  6.594]
+ [-0.089  7.3  ]
+ [ 0.276  6.98 ]
+ [ 0.599  5.687]
+ [ 0.837  3.607]
+ [ 0.955  1.039]
+ [ 0.94  -1.655]
+ [ 0.793 -4.097]
+ [ 0.536 -5.948]
+ [ 0.206 -6.954]
+ [-0.15  -6.98 ]
+ [-0.483 -6.029]
+ [-0.745 -4.243]
+ [-0.901 -1.877]
+ [-0.93   0.734]
+ [-0.829  3.223]
+ [-0.613  5.242]
+ [-0.312  6.513]
+ [ 0.03   6.864]
+ [ 0.365  6.252]
+ [ 0.646  4.771]
+ [ 0.836  2.634]
+ [ 0.906  0.145]
+ [ 0.85  -2.346]
+ [ 0.675 -4.491]
+ [ 0.407 -5.991]
+ [ 0.085 -6.642]
+ [-0.248 -6.36 ]
+ [-0.543 -5.19 ]
+ [-0.76  -3.304]
+ [-0.869 -0.969]
+ [-0.856  1.483]
+ [-0.723  3.709]
+ [-0.49   5.4  ]
+ [-0.19   6.324]
+ [ 0.134  6.356]
+ [ 0.436  5.499]
+ [ 0.676  3.88 ]
+ [ 0.819  1.73 ]
+ [ 0.847 -0.645]
+ [ 0.756 -2.913]
+ [ 0.56  -4.756]
+ [ 0.287 -5.92 ]
+ [-0.024 -6.248]
+ [-0.329 -5.699]
+ [-0.586 -4.358]
+ [-0.759 -2.418]
+ [-0.825 -0.154]
+ [-0.775  2.115]
+ [-0.617  4.07 ]
+ [-0.373  5.442]
+ [-0.08   6.043]
+ [ 0.223  5.794]
+ [ 0.492  4.737]
+ [ 0.69   3.025]
+ [ 0.79   0.903]
+ [ 0.779 -1.329]
+ [ 0.66  -3.358]
+ [ 0.448 -4.903]
+ [ 0.176 -5.751]
+ [-0.119 -5.788]
+ [-0.395 -5.015]
+ [-0.614 -3.547]
+ [-0.745 -1.594]
+ [-0.771  0.567]
+ [-0.689  2.632]
+ [-0.512  4.315]
+ [-0.264  5.381]
+ [ 0.019  5.687]
+ [ 0.297  5.195]
+ [ 0.531  3.981]
+ [ 0.69   2.219]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice the dimension of <code class="docutils literal notranslate"><span class="pre">y</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(100, 2)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The 100 rows corresponds to timesteps.
+The 2 columns correspond to position and velocity.</p>
+<p>Let’s plot a few samples:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig1</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$t$ (Time)&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y(t)$ (Position)&#39;</span><span class="p">)</span>
+
+<span class="n">fig2</span><span class="p">,</span> <span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$t$ (Time)&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$\dot</span><span class="si">{y}</span><span class="s1">(t)$ (Velocity)&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">solver</span><span class="o">.</span><span class="n">num_input</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">solver</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">solver</span><span class="o">.</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Sample </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">:</span><span class="s1">d</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/homework-03_10_0.png" src="../_images/homework-03_10_0.png" />
+<img alt="../_images/homework-03_10_1.png" src="../_images/homework-03_10_1.png" />
+</div>
+</div>
+<p>For your convenience, here is code that takes many samples of the solver at once:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">take_samples_from_solver</span><span class="p">(</span><span class="n">num_samples</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Takes ``num_samples`` from the ODE solver.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns them in an array of the form:</span>
+<span class="sd">    ``num_samples x 100 x 2`` </span>
+<span class="sd">    (100 timesteps, 2 states (position, velocity))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">num_samples</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_samples</span><span class="p">):</span>
+        <span class="n">samples</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">solver</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">solver</span><span class="o">.</span><span class="n">num_input</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">samples</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>It works like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">samples</span> <span class="o">=</span> <span class="n">take_samples_from_solver</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">samples</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(50, 100, 2)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here, the first dimension corresponds to different samples.
+Then we have timesteps.
+And finally we have either position or velocity.</p>
+<p>As an example, the velocity of the 25th sample at the first ten timesteps is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">samples</span><span class="p">[</span><span class="mi">24</span><span class="p">,</span> <span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-0.061, -2.343, -4.361, -5.901, -6.802, -6.973, -6.4  , -5.148,
+       -3.357, -1.219])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="part-a">
+<h3>Part A<a class="headerlink" href="#part-a" title="Permalink to this headline">¶</a></h3>
+<p>Take 100 samples of the solver output and plot the estimated mean position and velocity as a function of time along with a 95% epistemic uncertainty interval around it.
+This interval captures how sure you are about the mean response when using only 100 Monte Carlo samples.
+You need to use the central limit theorem to find it (see the lecture notes).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">samples</span> <span class="o">=</span> <span class="n">take_samples_from_solver</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="c1"># Sampled positions are: samples[:, :, 0]</span>
+<span class="c1"># Sampled velocities are: samples[:, :, 1]</span>
+<span class="c1"># Sampled position at the 10th timestep is: samples[:, 9, 0]</span>
+<span class="c1"># etc.</span>
+
+<span class="c1"># Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="part-b">
+<h3>Part B<a class="headerlink" href="#part-b" title="Permalink to this headline">¶</a></h3>
+<p>Plot the epistemic uncertainty about the mean position at <span class="math notranslate nohighlight">\(t=5\)</span>s as a function of the number of samples.</p>
+<p><strong>Solution</strong>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="part-c">
+<h3>Part C<a class="headerlink" href="#part-c" title="Permalink to this headline">¶</a></h3>
+<p>Repeat part A and B for the squared response.
+That is, do exactly the same thing as above, but consider <span class="math notranslate nohighlight">\(y^2(t)\)</span> and <span class="math notranslate nohighlight">\(\dot{y}^2(t)\)</span> instead of <span class="math notranslate nohighlight">\(y(t)\)</span> and <span class="math notranslate nohighlight">\(\dot{y}(t)\)</span>.
+How many samples do you need to estimate the mean squared response at <span class="math notranslate nohighlight">\(t=5\)</span>s with negligible epistemic uncertainty?</p>
+<p><strong>Solution</strong>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="part-d">
+<h3>Part D<a class="headerlink" href="#part-d" title="Permalink to this headline">¶</a></h3>
+<p>Now that you know how many samples you need to estimate the mean of the response and the square response, use the formula:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{V}[y(t)] = \mathbb{E}[y^2(t)] - \left(\mathbb{E}[y(t)]\right)^2,
+\]</div>
+<p>and similarly for <span class="math notranslate nohighlight">\(\dot{y}(t)\)</span>, to estimate the variance of the position and the velocity with negligible epistemic uncertainty.
+Plot both quantities as a function of time.</p>
+<p><strong>Solution</strong>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="part-e">
+<h3>Part E<a class="headerlink" href="#part-e" title="Permalink to this headline">¶</a></h3>
+<p>Put together the estimated mean and variance to plot a 95% predictive interval for the position and the velocity as functions of time.</p>
+<p>Hint: You need to use the Central Limit Theorem. Check out the corresponding textbook example.
+<strong>Solution</strong>:</p>
+</div>
+</div>
+<div class="section" id="problem-1">
+<h2>Problem 1<a class="headerlink" href="#problem-1" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/San_Andreas_Fault">San Andreas fault</a> extends through California forming the boundary between the Pacific and the North American tectonic plates.
+It has caused some of the major earthquakes on Earth.
+We are going to focus on Southern California and we would like to assess the probability of a major earthquake, defined as an earthquake of magnitude 6.5 or greater, during the next ten years.</p>
+<p>A. The first thing we are going to do is go over a <a class="reference external" href="https://scedc.caltech.edu/significant/chron-index.html">database of past earthquakes</a> that have occured in Southern California and collect the relevant data. We are going to start at 1900 because data before that time may are unreliable.
+Go over each decade and count the occurence of a major earthquake (i.e., count the number of organge and red colors in each decade). We have done this for you.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eq_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="mi">0</span><span class="p">,</span> <span class="c1"># 1900-1909</span>
+    <span class="mi">1</span><span class="p">,</span> <span class="c1"># 1910-1919</span>
+    <span class="mi">2</span><span class="p">,</span> <span class="c1"># 1920-1929</span>
+    <span class="mi">0</span><span class="p">,</span> <span class="c1"># 1930-1939</span>
+    <span class="mi">3</span><span class="p">,</span> <span class="c1"># 1940-1949</span>
+    <span class="mi">2</span><span class="p">,</span> <span class="c1"># 1950-1959</span>
+    <span class="mi">1</span><span class="p">,</span> <span class="c1"># 1960-1969</span>
+    <span class="mi">2</span><span class="p">,</span> <span class="c1"># 1970-1979</span>
+    <span class="mi">1</span><span class="p">,</span> <span class="c1"># 1980-1989</span>
+    <span class="mi">4</span><span class="p">,</span> <span class="c1"># 1990-1999</span>
+    <span class="mi">0</span><span class="p">,</span> <span class="c1"># 2000-2009</span>
+    <span class="mi">2</span> <span class="c1"># 2010-2019 </span>
+<span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s visualize them:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1900</span><span class="p">,</span> <span class="mi">2019</span><span class="p">,</span> <span class="n">eq_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+    <span class="n">eq_data</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">10</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Decade&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;# of major earthquakes in Southern CA&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/homework-03_30_0.png" src="../_images/homework-03_30_0.png" />
+</div>
+</div>
+<p>A. The right way to model the number of earthquakes <span class="math notranslate nohighlight">\(X_n\)</span> in a decade <span class="math notranslate nohighlight">\(n\)</span> is using a Poisson distribution with unknown rate parameter <span class="math notranslate nohighlight">\(\lambda\)</span>, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[
+X_n | \lambda \sim \operatorname{Poisson}(\lambda).
+\]</div>
+<p>The probability mass function is:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x_n|\lambda) \equiv p(X_n=x_n|\lambda) = \frac{\lambda^{x_n}}{x_n!}e^{-\lambda}.
+\]</div>
+<p>Here we have <span class="math notranslate nohighlight">\(N = 12\)</span> observations, say <span class="math notranslate nohighlight">\(x_{1:N} = (x_1,\dots,x_N)\)</span> (stored in <code class="docutils literal notranslate"><span class="pre">eq_data</span></code> above).
+Find the <em>joint probability mass function</em> (otherwise known as the likelihood) <span class="math notranslate nohighlight">\(p(x_{1:N}|\lambda)\)</span> of these random variables.<br>
+<em>Hint: Assume that all measurements are independent. Then their joint pmf is the product of the individual pmfs.
+You should be able to simplify the expression considerably.</em>
+<br>
+<strong>Answer:</strong>
+<br><br><br><br><br><br><br><br></p>
+<p>B. The rate parameter <span class="math notranslate nohighlight">\(\lambda\)</span> (number of major earthquakes per ten years) is positive. What prior distribution should we assign to it if we expect it to be around 2?
+A convenient choice here is to pick a <a class="reference external" href="https://en.wikipedia.org/wiki/Gamma_distribution">Gamma</a>, see also <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gamma.html">the scipy.stats page for the Gamma</a> because it results in an analytical posterior.
+We write:</p>
+<div class="math notranslate nohighlight">
+\[
+\lambda \sim \operatorname{Gamma}(\alpha, \beta),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are positive <em>hyper-parameters</em> that we have to set to represent our prior state of knowledge.
+The PDF is:</p>
+<div class="math notranslate nohighlight">
+\[
+p(\lambda) = \frac{\beta^\alpha \lambda^{\alpha-1}e^{-\beta \lambda}}{\Gamma(\alpha)},
+\]</div>
+<p>where we are not conditioning on <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> because they should be fixed numbers.
+Use the code below to pick some some reasonable values for <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>.
+<br>
+<strong>Just enter your choice of <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> in the code block below.</strong>
+<br>
+Hint: Notice that the maximum entropy distribution for a positive parameter with known expectation is the <a class="reference external" href="https://en.wikipedia.org/wiki/Exponential_distribution">Exponential</a>, e.g., see the Table in <a class="reference external" href="https://en.wikipedia.org/wiki/Maximum_entropy_probability_distribution">this wiki page</a>. Then notice that the Exponential is a special case of the Gamma (set <span class="math notranslate nohighlight">\(\alpha=1\)</span>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+
+<span class="c1"># You have to pick an alpha:</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="c1"># And you have to pick a beta:</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+<span class="c1"># This is the prior on lambda:</span>
+<span class="n">lambda_prior</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">beta</span><span class="p">)</span> 
+
+<span class="c1"># Let&#39;s plot it:</span>
+<span class="n">lambdas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lambda_prior</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lambdas</span><span class="p">,</span> <span class="n">lambda_prior</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">lambdas</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$\lambda$ (# or major earthquakes per decade)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$p(\lambda)$&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/homework-03_33_0.png" src="../_images/homework-03_33_0.png" />
+</div>
+</div>
+<p>C. Show that the posterior of <span class="math notranslate nohighlight">\(\lambda\)</span> conditioned on <span class="math notranslate nohighlight">\(x_{1:N}\)</span> is also a Gamma, but with updated hyperparameters.
+<br>
+Hint: When you write down the posterior of <span class="math notranslate nohighlight">\(\lambda\)</span> you can drop any multiplicative term that does not depend on it as it will be absorbed in the normalization constnat. This will simplify the notation a little bit.
+<br>
+<strong>Answer:</strong>
+<br><br><br><br><br><br><br><br></p>
+<p>D. Prior-likelihood pairs that result in a posterior with the same form as the prior as known as conjugate distributions. Conjugate distributions are your only hope for analytical Bayesian inference.
+As a sanity check, look at the wikipedia page for <a class="reference external" href="https://en.wikipedia.org/wiki/Conjugate_prior">conjugate priors</a>, locate the Poisson-Gamma pair and verify your answer above.
+<br>
+<em>Nothing to report here. Just do it as a sanity check.</em></p>
+<p>E. Plot the prior and the posterior of <span class="math notranslate nohighlight">\(\lambda\)</span> on the same plot.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your expression for alpha posterior here:</span>
+<span class="n">alpha_post</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="c1"># Your expression for beta posterior here:</span>
+<span class="n">beta_post</span> <span class="o">=</span> <span class="mf">1.0</span> 
+<span class="c1"># The posterior</span>
+<span class="n">lambda_post</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="n">alpha_post</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">beta_post</span><span class="p">)</span>
+
+<span class="c1"># Plot it</span>
+<span class="n">lambdas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lambda_post</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lambdas</span><span class="p">,</span> <span class="n">lambda_prior</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">lambdas</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lambdas</span><span class="p">,</span> <span class="n">lambda_post</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">lambdas</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$\lambda$ (# or major earthquakes per decade)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$p(\lambda|x_{1:N})$&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/homework-03_37_0.png" src="../_images/homework-03_37_0.png" />
+</div>
+</div>
+<p>F. Let’s work out the predictive distribution for the number of major earthquakes during the next decade.
+This is something that we did not do in class, but it will appear again and again in future lectures.
+Let <span class="math notranslate nohighlight">\(X\)</span> be the random variable corresponding to the number of major eathquakes during the next decade.
+We need to calculate:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x|x_{1:N}) = \text{our state of knowledge about $X$ after seeing the data}.
+\]</div>
+<p>How do we do this?
+We just use the sum rule:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x|x_{1:N}) = \int_{0}^\infty p(x|\lambda, x_{1:N}) p(\lambda|x_{1:N})d\lambda = \int_{0}^\infty p(x|\lambda) p(\lambda|x_{1:N})d\lambda,
+\]</div>
+<p>where going from the middle step to the rightmost one we used the assumption that the number of earthquakes occuring in each decade is independent.
+You can carray out this integration analytically (it gives a <a class="reference external" href="https://en.wikipedia.org/wiki/Negative_binomial_distribution">negative Binomial</a> distribution) but we are not going to bother with it.</p>
+<p>Below you are going to write code to characterize it using Monte Carlo sampling.
+Basically, you can take a sample from the posterior predictive by:</p>
+<ul class="simple">
+<li><p>sampling a <span class="math notranslate nohighlight">\(\lambda\)</span> from its posterior <span class="math notranslate nohighlight">\(p(\lambda|x_{1:N})\)</span>.</p></li>
+<li><p>sampling an <span class="math notranslate nohighlight">\(x\)</span> from the likelihood <span class="math notranslate nohighlight">\(p(x|\lambda)\)</span>.</p></li>
+</ul>
+<p>This is the same procedure we used for replicated experiments.</p>
+<p>Complete the code below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sample_posterior_predictive</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">lambda_post</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Sample from the posterior predictive.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments</span>
+<span class="sd">    n           -- The number of samples to take.</span>
+<span class="sd">    lambda_post -- The posterior for lambda.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns n samples from the posterior</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">n</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;i&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">lambda_sample</span> <span class="o">=</span> <span class="c1"># WRITE ME (SAMPLE FROM POSTERIOR)</span>
+        <span class="n">samples</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="c1"># WRITE ME (SAMPLE FROM POISSON GIVEN LAMBDA_SAMPLE)</span>
+    <span class="k">return</span> <span class="n">samples</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Test your code here:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">samples</span> <span class="o">=</span> <span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">lambda_post</span><span class="p">)</span>
+<span class="n">samples</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>G. Plot the predictive distribution <span class="math notranslate nohighlight">\(p(x|x_{1:N})\)</span>.
+<br>
+<em>Hint: Draw 1,000 samples using <code class="docutils literal notranslate"><span class="pre">sample_posterior_predictive</span></code> and then draw a histogram.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>H. What is the probability that at least one major earthquake will occur during the next decade?
+<br>
+<em>Hint: You may use a Monte Carlo estimate of the probability. Ignore the uncertainty in the estimate.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_samples</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span> <span class="n">lambda_post</span><span class="p">)</span>
+
+<span class="c1"># Count how many major earthquakes occured:</span>
+<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_samples</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">samples</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="n">prob_of_major_eq</span> <span class="o">=</span> <span class="c1"># YOUR ESTIMATE HERE</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;p(X &gt;= 1 | data) = </span><span class="si">{</span><span class="n">prob_of_major_eq</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>I. Find a 95% credible interval for <span class="math notranslate nohighlight">\(\lambda\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write your code here and print() your answer</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>J. Find the <span class="math notranslate nohighlight">\(\lambda\)</span> that minimizes the absolute loss (see lecture), call it <span class="math notranslate nohighlight">\(\lambda^*_N\)</span>.
+Then, plot the fully Bayesian predictive <span class="math notranslate nohighlight">\(p(x|x_{1:N})\)</span> in the same figure as <span class="math notranslate nohighlight">\(p(x|\lambda^*_N)\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write your code here and print() your answer</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>L. Draw replicated data from the model and compare them to the observed data.
+<br>
+Hint: Complete the missing code at the places indicated below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">replicate_experiment</span><span class="p">(</span><span class="n">post_rv</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">eq_data</span><span class="p">),</span> <span class="n">n_rep</span><span class="o">=</span><span class="mi">9</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Replicate the experiment.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments</span>
+<span class="sd">    post_rv -- The random variable object corresponding to</span>
+<span class="sd">               the posterior from which to sample.</span>
+<span class="sd">    n       -- The number of observations.</span>
+<span class="sd">    nrep    -- The number of repetitions.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    A numpy array of size n_rep x n.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x_rep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">n_rep</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;i&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_rep</span><span class="p">):</span>
+        <span class="n">x_rep</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="c1"># Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Try your code here:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_rep</span> <span class="o">=</span> <span class="n">replicate_experiment</span><span class="p">(</span><span class="n">lambda_post</span><span class="p">)</span>
+<span class="n">x_rep</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If it works, then try the following visualization:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+    <span class="mi">5</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">,</span>
+    <span class="n">sharex</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
+    <span class="n">sharey</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1900</span><span class="p">,</span> <span class="mi">2019</span><span class="p">,</span> <span class="n">eq_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+    <span class="n">eq_data</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span>
+<span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_rep</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">ax</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1900</span><span class="p">,</span> <span class="mi">2019</span><span class="p">,</span> <span class="n">eq_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+        <span class="n">x_rep</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">10</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>M. Plot the histograms and calculate the Bayesian p-values of the following test-quantities:</p>
+<ul class="simple">
+<li><p>Maximum number of consecutive decades with no earthquakes.</p></li>
+<li><p>Maximum number of consecutive decades with earthquakes.</p></li>
+</ul>
+<p><em>Hint: You may reuse the code from the textbook.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">perform_diagnostics</span><span class="p">(</span><span class="n">post_rv</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">test_func</span><span class="p">,</span> <span class="n">n_rep</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate Bayesian p-values.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments</span>
+<span class="sd">    post_rv   -- The random variable object corresponding to</span>
+<span class="sd">                 the posterior from which to sample.</span>
+<span class="sd">    data      -- The training data.</span>
+<span class="sd">    test_func -- The test function.</span>
+<span class="sd">    n         -- The number of observations.</span>
+<span class="sd">    nrep      -- The number of repetitions.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns a dictionary that includes the observed value of</span>
+<span class="sd">    the test function (T_obs), the Bayesian p-value (p_val),</span>
+<span class="sd">    the replicated test statistic (T_rep),</span>
+<span class="sd">    and all the replicated data (data_rep).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">T_obs</span> <span class="o">=</span> <span class="n">test_func</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">data_rep</span> <span class="o">=</span> <span class="n">replicate_experiment</span><span class="p">(</span><span class="n">post_rv</span><span class="p">,</span> <span class="n">n_rep</span><span class="o">=</span><span class="n">n_rep</span><span class="p">)</span>
+    <span class="n">T_rep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="nb">tuple</span><span class="p">(</span>
+            <span class="n">test_func</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data_rep</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">p_val</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n_rep</span><span class="p">,))[</span><span class="n">T_rep</span> <span class="o">&gt;</span> <span class="n">T_obs</span><span class="p">])</span> <span class="o">/</span> <span class="n">n_rep</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">T_obs</span><span class="o">=</span><span class="n">T_obs</span><span class="p">,</span>
+        <span class="n">p_val</span><span class="o">=</span><span class="n">p_val</span><span class="p">,</span>
+        <span class="n">T_rep</span><span class="o">=</span><span class="n">T_rep</span><span class="p">,</span>
+        <span class="n">data_rep</span><span class="o">=</span><span class="n">data_rep</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">plot_diagnostics</span><span class="p">(</span><span class="n">diagnostics</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Make the diagnostics plot.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">    diagnostics -- The dictionary returned by perform_diagnostics()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+        <span class="n">diagnostics</span><span class="p">[</span><span class="s2">&quot;T_rep&quot;</span><span class="p">],</span>
+        <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Replicated test quantity&#39;</span>
+    <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">diagnostics</span><span class="p">[</span><span class="s2">&quot;T_obs&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">50</span><span class="p">,)),</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tmp</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">50</span><span class="p">),</span>
+        <span class="s1">&#39;k&#39;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observed test quantity&#39;</span>
+    <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+    
+
+<span class="k">def</span> <span class="nf">do_diagnostics</span><span class="p">(</span><span class="n">post_rv</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">test_func</span><span class="p">,</span> <span class="n">n_rep</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate Bayesian p-values and make the corresponding</span>
+<span class="sd">    diagnostic plot.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments</span>
+<span class="sd">    post_rv   -- The random variable object corresponding to</span>
+<span class="sd">                 the posterior from which to sample.</span>
+<span class="sd">    data      -- The training data.</span>
+<span class="sd">    test_func -- The test function.</span>
+<span class="sd">    n         -- The number of observations.</span>
+<span class="sd">    nrep      -- The number of repetitions.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns a dictionary that includes the observed value of</span>
+<span class="sd">    the test function (T_obs), the Bayesian p-value (p_val),</span>
+<span class="sd">    and the replicated experiment (data_rep).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">perform_diagnostics</span><span class="p">(</span>
+        <span class="n">post_rv</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">,</span>
+        <span class="n">test_func</span><span class="p">,</span>
+        <span class="n">n_rep</span><span class="o">=</span><span class="n">n_rep</span>
+    <span class="p">)</span>
+
+    <span class="n">T_obs</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="s2">&quot;T_obs&quot;</span><span class="p">]</span>
+    <span class="n">p_val</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="s2">&quot;p_val&quot;</span><span class="p">]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The observed test quantity is </span><span class="si">{</span><span class="n">T_obs</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The Bayesian p_value is </span><span class="si">{</span><span class="n">p_val</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+    <span class="n">plot_diagnostics</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here is the first test function for you</span>
+<span class="k">def</span> <span class="nf">T_eq_max_neq</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the maximum number of consecutive decades</span>
+<span class="sd">    with no earthquakes.&quot;&quot;&quot;</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+    
+<span class="c1"># Consult the textbook (Lecture 12) to figure out</span>
+<span class="c1"># how to use do_diagnostics().</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write your code here for the second test quantity</span>
+<span class="c1"># (maximum number of consecutive decades with earthquakes)</span>
+<span class="c1"># Hint: copy paste your code from the previous cell</span>
+<span class="c1"># and make the necessary modifications</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./homework"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="homework-02.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Homework 2</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="homework-04.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Homework 4</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Ilias Bilionis (ibilion[at]purdue.edu)<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
