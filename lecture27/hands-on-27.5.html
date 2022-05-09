@@ -879,6 +879,16 @@ const thebe_selector_output = ".output, .cell_output"
        Expected Improvement
       </a>
      </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/hands-on-23.5.html">
+       Expected Improvement - With Observation Noise
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/hands-on-23.6.html">
+       Quantifying Epistemic Uncertainty about the Solution of the Optimization problem
+      </a>
+     </li>
     </ul>
    </li>
   </ul>
@@ -1681,7 +1691,7 @@ p(y_{1:n} | x_{1:n}, w, \sigma, \mathcal{M}) = \mathcal{N}(y_{1:n}|\Phi_{\mathca
 </div>
 </div>
 <p>Now, let’s create a function that trains the model using pysmc for a polynomial basis with a given order.</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fit_poly</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">num_particles</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -1918,7 +1928,7 @@ Stage:  25 Beta: 1.000
 <div class="section" id="model-comparison">
 <h2>Model comparison<a class="headerlink" href="#model-comparison" title="Permalink to this headline">¶</a></h2>
 <p>Since SMC can approximate the model evidence it provides a principled way of comparing models. Let’s compare 5 different polynomial regression models where we change the degree of the polynomial from 1 to 5.</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Evaluate the evidence for the various degrees</span>
 <span class="n">log_Zs</span> <span class="o">=</span> <span class="p">[]</span>

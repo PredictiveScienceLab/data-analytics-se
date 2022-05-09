@@ -879,6 +879,16 @@ const thebe_selector_output = ".output, .cell_output"
        Expected Improvement
       </a>
      </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/hands-on-23.5.html">
+       Expected Improvement - With Observation Noise
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/hands-on-23.6.html">
+       Quantifying Epistemic Uncertainty about the Solution of the Optimization problem
+      </a>
+     </li>
     </ul>
    </li>
   </ul>
@@ -2195,7 +2205,7 @@ That is, you can think of it as giving rise to a function:</p>
 \[
 f :\mathcal{X} \rightarrow \mathcal{Y}.
 \]</div>
-<p>The <strong>inverse problem</strong>, otherwise known as the <strong>model calibration</strong> problem is to find the <code class="docutils literal notranslate"><span class="pre">best</span></code> <span class="math notranslate nohighlight">\(x\in\mathcal{X}\)</span> so that:</p>
+<p>The <strong>inverse problem</strong>, otherwise known as the <strong>model calibration</strong> problem is to find the best <span class="math notranslate nohighlight">\(x\in\mathcal{X}\)</span> so that:</p>
 <div class="math notranslate nohighlight">
 \[
 f(x) \approx y.
@@ -2548,8 +2558,8 @@ Run it 3-4 times if it accidentally works.
 There are several problems.
 Here are the three most relevant in our context:</p>
 <ul class="simple">
-<li><p>scipy.optimize needs the gradient of the loss function. Since we do not provide it, it tries to get it using numerical differentiation. Numerical differentiation introduces errors…</p></li>
-<li><p>scipy.optimize find a local minimum of the loss function. This may actually be a bad local minimum.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> needs the gradient of the loss function. Since we do not provide it, it tries to get it using numerical differentiation. Numerical differentiation introduces errors…</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> find a local minimum of the loss function. This may actually be a bad local minimum.</p></li>
 <li><p>okay, this particular model is not very computationally expensive. But imagine trying to calibrate a model that takes a while for a single evaluation (e.g., a finite element model). Then, using scipy.optimize (especially without supplying the derivatives), is doomed to fail.</p></li>
 </ul>
 <p>To overcome these difficulties, you have to use Bayesian global optimization to solve the problem.
@@ -2683,7 +2693,7 @@ Consider the following two datasets consisting of parameter and minus loss pairs
 Do not expect this to give you a perfect model.
 But it will be better than nothing.
 We will get the best possible model in the next homework assignment.</p>
-<p>Hint: Here you basically need to read the docstring of <code class="docutils literal notranslate"><span class="pre">maximize</span></code> and use it correctly.</p>
+<p><strong>Hint:</strong> Here you basically need to read the docstring of <code class="docutils literal notranslate"><span class="pre">maximize</span></code> and use it correctly.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># For your convenience, the `domain` argument of minimize should be:

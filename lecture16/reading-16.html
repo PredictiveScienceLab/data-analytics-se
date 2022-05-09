@@ -879,6 +879,16 @@ const thebe_selector_output = ".output, .cell_output"
        Expected Improvement
       </a>
      </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/hands-on-23.5.html">
+       Expected Improvement - With Observation Noise
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/hands-on-23.6.html">
+       Quantifying Epistemic Uncertainty about the Solution of the Optimization problem
+      </a>
+     </li>
     </ul>
    </li>
   </ul>
@@ -1359,13 +1369,8 @@ The sigmoid function is defined by:</p>
 \[
 \operatorname{sigm}(z) = \frac{1}{1+e^{-z}},
 \]</div>
-<p>and all it does is it takes a real number and maps it to <span class="math notranslate nohighlight">\([0,1]\)</span> so that it can represent a probability, see <a class="reference internal" href="#sigmoid"><span class="std std-numref">Fig. 5</span></a>.
+<p>and all it does is it takes a real number and maps it to <span class="math notranslate nohighlight">\([0,1]\)</span> so that it can represent a probability.
 In other words, logistic regression is just a generalized linear model passed through the sigmoid function so that it is mapped to <span class="math notranslate nohighlight">\([0,1]\)</span>.</p>
-<div class="figure align-default" id="sigmoid">
-<a class="reference internal image-reference" href="lecture16/sigmoid.png"><img alt="lecture16/sigmoid.png" src="lecture16/sigmoid.png" style="height: 250px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">The sigmoid function takes any number and maps it to the unit interval <span class="math notranslate nohighlight">\([0, 1]\)</span>.
-We use it at the end of models that are supposed to spit out probabilities.</span><a class="headerlink" href="#sigmoid" title="Permalink to this image">¶</a></p>
-</div>
 <p>If you need the probability of <span class="math notranslate nohighlight">\(y=0\)</span>, it is given by the obvious rule:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1389,7 +1394,7 @@ p(y_{1:N}|\mathbf{x}_{1:n},\mathbf{w}) = \prod_{i=1}^Np(y_i |\mathbf{x}_i, \math
 \left[\operatorname{sigm}\left(\mathbf{w}^T\boldsymbol{\phi}(\mathbf{x}_i)\right)\right]^{y_i}
 \left[1-\operatorname{sigm}\left(\mathbf{w}^T\boldsymbol{\phi}(\mathbf{x}_i)\right)\right]^{1-y_i}.
 \]</div>
-<p>We can now find the best weight vector <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> using the <span class="xref myst">maximum likelihood principle</span>.
+<p>We can now find the best weight vector <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> using the  <a class="reference external" href="https://purduemechanicalengineering.github.io/me-297-intro-to-data-science/lecture13/the-maximum-likelihood-principle.html">maximum likelihood principle</a>.
 We need to solve the optimization problem:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1451,7 +1456,7 @@ The two that we are going to cover in the video lecture are:</p>
 <li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/model_evaluation.html#accuracy-score">Accuracy score</a></p></li>
 <li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Confusion_matrix">Confusion matrix</a></p></li>
 </ul>
-<p>See <span class="xref myst">this</span>.</p>
+<p>See <a class="reference internal" href="hands-on-16.4.html#diagnostics-for-classification"><span class="std std-ref">this</span></a>.</p>
 </div>
 <div class="section" id="multi-class-classification">
 <h2>Multi-class classification<a class="headerlink" href="#multi-class-classification" title="Permalink to this headline">¶</a></h2>

@@ -879,6 +879,16 @@ const thebe_selector_output = ".output, .cell_output"
        Expected Improvement
       </a>
      </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/hands-on-23.5.html">
+       Expected Improvement - With Observation Noise
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lecture23/hands-on-23.6.html">
+       Quantifying Epistemic Uncertainty about the Solution of the Optimization problem
+      </a>
+     </li>
     </ul>
    </li>
   </ul>
@@ -1571,14 +1581,15 @@ The Metropolis algorithms constructs a Markov chain that has a desired equilibri
 </div>
 <div class="section" id="the-metropolis-algorithm">
 <h2>The Metropolis Algorithm<a class="headerlink" href="#the-metropolis-algorithm" title="Permalink to this headline">¶</a></h2>
-<p>Now, let’s get back to the initial problem of sampling from:
-$<span class="math notranslate nohighlight">\(
+<p>Now, let’s get back to the initial problem of sampling from:</p>
+<div class="math notranslate nohighlight">
+\[
 \pi(x) = \frac{h(x)}{Z},
-\)</span><span class="math notranslate nohighlight">\(
-without knowing \)</span>Z<span class="math notranslate nohighlight">\(.
-In 1953, Metropolis et al. demonstrated how we can construct a Markov chain with \)</span>\pi(x)<span class="math notranslate nohighlight">\( as the equilibrium density.
+\]</div>
+<p>without knowing <span class="math notranslate nohighlight">\(Z\)</span>.
+In 1953, Metropolis et al. demonstrated how we can construct a Markov chain with <span class="math notranslate nohighlight">\(\pi(x)\)</span> as the equilibrium density.
 The algorithm is based on biasing an underlying symmetric, stationary Markov chain.
-Let \)</span>T(x,x’)$ be the transition kernel of this underlying Markov chain (also called the <em>proposal distribution</em>.
+Let <span class="math notranslate nohighlight">\(T(x,x')\)</span> be the transition kernel of this underlying Markov chain (also called the <em>proposal distribution</em>.
 The transition kernel must be symmetric, i.e.,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1662,16 +1673,19 @@ For <span class="math notranslate nohighlight">\(x\not= x'\)</span>, we have:</p
 Hastings (1970) created an algorithm that does not require symmetric proposal kernels.
 The only thing that changes is the acceptance ratio.
 In every other regard, the algorithm is exactly the same:</p>
-<ul class="simple">
+<ul>
 <li><p><strong>Initialization:</strong> Pick an arbitrary starting point <span class="math notranslate nohighlight">\(x_0\)</span>.</p></li>
 <li><p>For each time step <span class="math notranslate nohighlight">\(n\)</span>:</p>
-<ul>
+<ul class="simple">
 <li><p><strong>Generation:</strong> Sample a candidate <span class="math notranslate nohighlight">\(x\)</span> from <span class="math notranslate nohighlight">\(T(x_n, x)\)</span>.</p></li>
-<li><p><strong>Calculation:</strong> Calculate the <em>acceptance ratio</em>:
-$<span class="math notranslate nohighlight">\(
-\alpha(x_n, x) = \min\left\{1, \frac{h(x)}{h(x_n)}\frac{T(x,x_n)}{T(x_n,x)}\right\}.
-\)</span>$
-This is the only place where you may need to evaluate the underlying model.</p></li>
+<li><p><strong>Calculation:</strong> Calculate the <em>acceptance ratio</em>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+    \alpha(x_n, x) = \min\left\{1, \frac{h(x)}{h(x_n)}\frac{T(x,x_n)}{T(x_n,x)}\right\}.
+    \]</div>
+<p>This is the only place where you may need to evaluate the underlying model.</p>
+<ul class="simple">
 <li><p><strong>Accept/Reject:</strong></p>
 <ul>
 <li><p>Generate a uniform number <span class="math notranslate nohighlight">\(u\sim \mathcal{U}([0,1])\)</span>.</p></li>
@@ -1793,18 +1807,21 @@ Then, your resulting Markov chain will satisfy the detailed balance for the righ
 </div>
 <div class="section" id="combining-transition-kernels">
 <h2>Combining Transition Kernels<a class="headerlink" href="#combining-transition-kernels" title="Permalink to this headline">¶</a></h2>
-<p>Now, let’s get back to the original problem of sampling from:
-$<span class="math notranslate nohighlight">\(
+<p>Now, let’s get back to the original problem of sampling from:</p>
+<div class="math notranslate nohighlight">
+\[
 \pi(x) = \frac{h(x)}{Z}.
-\)</span><span class="math notranslate nohighlight">\(
-Assume that you have \)</span>m<span class="math notranslate nohighlight">\( different Markov kernels, \)</span>K_1(x,x’), \dots, K_m(x,x’)<span class="math notranslate nohighlight">\( (which could be Metropolis-Hastings kernels) that leave \)</span>\pi(x)<span class="math notranslate nohighlight">\( invariant.
-Then, the Markov kernel that consists of applying these kernels in order also leaves \)</span>\pi(x)<span class="math notranslate nohighlight">\( invariant.
-This kernel is:
-\)</span><span class="math notranslate nohighlight">\(
+\]</div>
+<p>Assume that you have <span class="math notranslate nohighlight">\(m\)</span> different Markov kernels, <span class="math notranslate nohighlight">\(K_1(x,x'), \dots, K_m(x,x')\)</span> (which could be Metropolis-Hastings kernels) that leave <span class="math notranslate nohighlight">\(\pi(x)\)</span> invariant.
+Then, the Markov kernel that consists of applying these kernels in order also leaves <span class="math notranslate nohighlight">\(\pi(x)\)</span> invariant.
+This kernel is:</p>
+<div class="math notranslate nohighlight">
+\[
 K(x,x') = \int K_1(x, x_1)K_2(x_1, x_2)\dots K_m(x_{m-1}, x')dx_1dx_2\dots dx_{m-1}.
-\)</span><span class="math notranslate nohighlight">\(
-The proof is trivial:
-\)</span><span class="math notranslate nohighlight">\(
+\]</div>
+<p>The proof is trivial:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
 \begin{array}{ccc}
 \int \pi(x) K(x, x') dx &amp;=&amp; \int \pi(x) \int K_1(x, x_1)K_2(x_1, x_2)\dots K_m(x_{m-1}, x')dx_1dx_2\dots dx_{m-1} dx\\
 &amp;=&amp; \int \left(\int \pi(x) K(x, x_1) dx \right) K_2(x_1, x_2)\dots K_m(x_{m-1}, x')dx_1dx_2\dots dx_{m-1} \\
@@ -1814,7 +1831,7 @@ The proof is trivial:
 &amp;=&amp; \dots\\
 &amp;=&amp; \pi(x').
 \end{array}
-\)</span>$</p>
+\end{split}\]</div>
 <p>So, if you have many Metropolis-Hastings kernels, or any other kernels really, you can combine them all together in arbitrary ways.
 You will still be getting samples from the target distribution.</p>
 </div>
