@@ -33,6 +33,6 @@ After completing this course, you will be able to:
 
 (gaps)=
 ## What if I am not familiar with Python?
-If you have no prior experience with Python, go over Lectures 1 to 7 of my undergraduate course on [data science for mechanical engineers](https://purduemechanicalengineering.github.io/me-297-intro-to-data-science/index.html).
+If you have no prior experience with Python, go over Lectures 1 to 6 of my undergraduate course on [data science for mechanical engineers](https://purduemechanicalengineering.github.io/me-297-intro-to-data-science/index.html).
 This is a gentle introduction to the same basic Python concepts.
 It should take you about a week to cover these seven lectures.
