@@ -30,7 +30,7 @@ Without causality, machine learning is useless.
 We must always strive to make our models *causal*.
 A *causal model* is a model that attempts to capture the mechanisms that govern a given phenomenon.
 We will use the language of *structural causal models* (SCM), developed by the computer scientist Judea Pearl, to formalize the concept.
-A structural causal model is a collection of three things:
+A structural causal model is a collection of two things:
 + A set of variables. These are variables that our model is trying to explain (endogenous), but also other variables that may just be needed (exogenous).
 + A set of functions that give values to each variable based on the values of all other variables.
 

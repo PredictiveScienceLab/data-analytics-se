@@ -1255,8 +1255,8 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#problem-1">
-   Problem 1
+  <a class="reference internal nav-link" href="#problem-2-earthquakes-again">
+   Problem 2 - Earthquakes again
   </a>
  </li>
 </ul>
@@ -1327,8 +1327,8 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#problem-1">
-   Problem 1
+  <a class="reference internal nav-link" href="#problem-2-earthquakes-again">
+   Problem 2 - Earthquakes again
   </a>
  </li>
 </ul>
@@ -1769,8 +1769,8 @@ Plot both quantities as a function of time.</p>
 <strong>Solution</strong>:</p>
 </div>
 </div>
-<div class="section" id="problem-1">
-<h2>Problem 1<a class="headerlink" href="#problem-1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="problem-2-earthquakes-again">
+<h2>Problem 2 - Earthquakes again<a class="headerlink" href="#problem-2-earthquakes-again" title="Permalink to this headline">¶</a></h2>
 <p>The <a class="reference external" href="https://en.wikipedia.org/wiki/San_Andreas_Fault">San Andreas fault</a> extends through California forming the boundary between the Pacific and the North American tectonic plates.
 It has caused some of the major earthquakes on Earth.
 We are going to focus on Southern California and we would like to assess the probability of a major earthquake, defined as an earthquake of magnitude 6.5 or greater, during the next ten years.</p>
@@ -1944,7 +1944,7 @@ Basically, you can take a sample from the posterior predictive by:</p>
 <span class="sd">    </span>
 <span class="sd">    Returns n samples from the posterior</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">n</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;i&quot;</span><span class="p">)</span>
+    <span class="n">samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">n</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;i&quot;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
         <span class="n">lambda_sample</span> <span class="o">=</span> <span class="c1"># WRITE ME (SAMPLE FROM POSTERIOR)</span>
         <span class="n">samples</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="c1"># WRITE ME (SAMPLE FROM POISSON GIVEN LAMBDA_SAMPLE)</span>
@@ -2027,9 +2027,10 @@ Hint: Complete the missing code at the places indicated below.</p>
 <span class="sd">    Returns:</span>
 <span class="sd">    A numpy array of size n_rep x n.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">x_rep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">n_rep</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;i&quot;</span><span class="p">)</span>
+    <span class="n">x_rep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">n_rep</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;i&quot;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_rep</span><span class="p">):</span>
         <span class="n">x_rep</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="c1"># Your code here</span>
+    <span class="k">return</span> <span class="n">x_rep</span>
 </pre></div>
 </div>
 </div>
