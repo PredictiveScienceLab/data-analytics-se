@@ -2,8 +2,7 @@
 # Lecture 2 - Basics of Probability Theory
 
 ## Objectives
-- Define predictive modeling.
-- Explain how causality can be represented mathematically.
-- Distinguish between aleatory and epistemic uncertainty.
-- Define the uncertainty propagation problem.
-- Define the model calibration problem.
++ Introduce the basic concepts of probability theory.
++ Demonstrate how to use probability theory to quantify uncertainty.
++ Develop intuition about the uncertainty of a coin toss experiment.
++ Experiment with the Monte Carlo method for estimating probabilities and develop some intuition about it.
