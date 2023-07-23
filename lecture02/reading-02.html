@@ -1,50 +1,60 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>Basics of Probability Theory &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
-    
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -53,1409 +63,674 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture02/reading-02';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Experiment with “Ranomness”" href="hands-on-02.html" />
+    <link rel="next" title="Experiment with “Randomness”" href="hands-on-02.html" />
     <link rel="prev" title="Lecture 2 - Basics of Probability Theory" href="intro.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
 
-    <div class="container-xl">
-      <div class="row">
-          
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+  
+  <div class="sidebar-header-items sidebar-primary__section">
     
-        <div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
-      
-      
-      
-      <h1 class="site-logo" id="site-title">Introduction to Scientific Machine Learning (Lecture Book)</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../index.html">
-   Preface
-  </a>
- </li>
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to Scientific Machine Learning (Lecture Book)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Preface
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../introduction.html">Introduction</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture01/intro.html">Lecture 1 - Introduction to Predictive Modeling</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture01/reading-01.html">The Basics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture01/hands-on-01.1.html">The Uncertainty Propagation Problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture01/hands-on-01.2.html">The Model Calibration Problem</a></li>
 </ul>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../introduction.html">
-   Introduction
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture01/intro.html">
-     Lecture 1 - Introduction to Predictive Modeling
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-    <label for="toctree-checkbox-2">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture01/reading-01.html">
-       Predictive Modeling and Scientific Machine Learning
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture01/hands-on-01.1.html">
-       The Uncertainty Propagation Problem
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture01/hands-on-01.2.html">
-       The Model Calibration Problem
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="../review_probability.html">
-   Review of Probability
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2 current active has-children">
-    <a class="reference internal" href="intro.html">
-     Lecture 2 - Basics of Probability Theory
-    </a>
-    <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-    <label for="toctree-checkbox-4">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul class="current">
-     <li class="toctree-l3 current active">
-      <a class="current reference internal" href="#">
-       Basics of Probability Theory
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="hands-on-02.html">
-       Experiment with “Ranomness”
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture03/intro.html">
-     Lecture 3 - Discrete Random Variables
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-    <label for="toctree-checkbox-5">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture03/reading-03.html">
-       Discrete Random Variables
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture03/hands-on-03.html">
-       Discrete Random Variables in Python
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture04/intro.html">
-     Lecture 4 - Continuous Random Variables
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-    <label for="toctree-checkbox-6">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture04/reading-04.html">
-       Continuous Random Variables
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture04/hands-on-04.1.html">
-       The Uniform Distribution
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture04/hands-on-04.2.html">
-       The Gaussian Distribution
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture05/intro.html">
-     Lecture 5 - Collections of Random Variables
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-    <label for="toctree-checkbox-7">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture05/reading-05.html">
-       Collections of Random Variables: Theory
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture05/hands-on-05.html">
-       Practicing with joint probability mass functions
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture06/intro.html">
-     Lecture 6 - Random Vectors
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-    <label for="toctree-checkbox-8">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture06/reading-06.html">
-       Random Vectors
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture06/hands-on-06.1.html">
-       The Multivariate Normal - Diagonal Covariance Case
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture06/hands-on-06.2.html">
-       The Multivariate Normal - Full Covariance Case
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture06/hands-on-06.3.html">
-       The Multivariate Normal - Marginalization
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture06/hands-on-06.4.html">
-       The Multivariate Normal - Conditioning
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../uncertainty_propagation.html">
-   Uncertainty Propagation
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-  <label for="toctree-checkbox-9">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture07/intro.html">
-     Lecture 7 - Basic Sampling
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-    <label for="toctree-checkbox-10">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture07/hands-on-07.1.html">
-       Pseudo-random number generators
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture07/hands-on-07.2.html">
-       Sampling the uniform
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture07/hands-on-07.3.html">
-       Sampling the categorical
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture07/hands-on-07.4.html">
-       Sampling from continuous distributions - Inverse sampling
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture08/intro.html">
-     Lecture 8 - The Monte Carlo Method for Estimating Expectations
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
-    <label for="toctree-checkbox-11">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture08/hands-on-08.3.html">
-       Sampling Estimates of Expectations
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture08/hands-on-08.4.html">
-       Sampling Estimates of Variance
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture09/intro.html">
-     Lecture 9 - Monte Carlo Estimates of Various Statistics
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
-    <label for="toctree-checkbox-12">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture09/hands-on-09.1.html">
-       Sampling Estimates of the Cumulative Distribution Function
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture09/hands-on-09.2.html">
-       Sampling Estimates of the Probability Density via Histograms
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture09/hands-on-09.3.html">
-       Hands-on Activity 9.3: Sampling Estimates of Predictive Quantiles
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture09/hands-on-09.4.html">
-       Propagating Uncertainties through an Ordinrary Differential Equation
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture10/intro.html">
-     Lecture 10 - Quantify Uncertainty in Monte Carlo Estimates
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
-    <label for="toctree-checkbox-13">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture10/hands-on-10.1.html">
-       Visualizing Monte Carlo Uncertainty
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture10/hands-on-10.2.html">
-       The Central Limit Theorem
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture10/hands-on-10.3.html">
-       Quanifying Epistemic Uncertainty in Monte Carlo estimates
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture10/hands-on-10.4.html">
-       Uncertainty Propagation Through a Boundary Value Problem
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../principles_of_bi.html">
-   Principles of Bayesian Inference
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-  <label for="toctree-checkbox-14">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture11/intro.html">
-     Lecture 11 - Selecting Prior Information
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
-    <label for="toctree-checkbox-15">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture11/reading-11.html">
-       Selecting Prior Information
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture11/hands-on-11.1.html">
-       Information Entropy
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture11/hands-on-11.2.html">
-       The Principle of Maximum Entropy for Discrete Random Variables
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture11/hands-on-11.3.html">
-       The Principle of Maximum Entropy for Continuous Random Variables
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture12/intro.html">
-     Lecture 12 - Analytical Examples of Bayesian Inference
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
-    <label for="toctree-checkbox-16">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture12/reading-12.html">
-       Analytical Examples of Bayesian Inference
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture12/hands-on-12.1.html">
-       Bayesian Parameter Estimation
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture12/hands-on-12.2.html">
-       Credible Intervals
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture12/hands-on-12.3.html">
-       Decision-Making
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture12/hands-on-12.4.html">
-       Posterior Predictive Checking
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../supervised_learning.html">
-   Supervised Learning
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
-  <label for="toctree-checkbox-17">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture13/intro.html">
-     Lecture 13 - Linear Regression via Least Squares
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/>
-    <label for="toctree-checkbox-18">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture13/reading-13.html">
-       Linear Regression via Least Squares
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture13/hands-on-13.1.html">
-       Linear regression with a single variable
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture13/hands-on-13.2.html">
-       Polynomial Regression
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture13/hands-on-13.3.html">
-       The Generalized Linear Model
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture13/hands-on-13.4.html">
-       Measures of Predictive Accuracy
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture14/intro.html">
-     Lecture 14 - Bayesian Linear Regression
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/>
-    <label for="toctree-checkbox-19">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture14/reading-14.html">
-       Bayesian Linear Regression
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture14/hands-on-14.1.html">
-       Probabilistic Interpretation of Least Squares - Estimating the Measurement Noise
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture14/hands-on-14.2.html">
-       Maximum a Posteriori Estimate - Avoiding Overfitting
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture14/hands-on-14.3.html">
-       Bayesian Linear Regression
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture14/hands-on-14.4.html">
-       The point-predictive Distribution - Separating Epistmic and Aleatory Uncertainty
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture15/intro.html">
-     Lecture 15 - Advanced Topics in Bayesian Linear Regression
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/>
-    <label for="toctree-checkbox-20">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture15/reading-15.html">
-       Advanced Topics in Bayesian Linear Regression
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture15/hands-on-15.1.html">
-       Evidence approximation
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture15/hands-on-15.2.html">
-       Automatic Relevance Determination
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture15/hands-on-15.3.html">
-       Diagnostics for Posterior Predictive
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture16/intro.html">
-     Lecture 16 - Classification
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/>
-    <label for="toctree-checkbox-21">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture16/reading-16.html">
-       Theoretical Background on Classification
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture16/hands-on-16.1.html">
-       Logistic regression with one variable (High melting explosives)
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture16/hands-on-16.2.html">
-       Logistic Regression with Many Features
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture16/hands-on-16.3.html">
-       Decision making
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture16/hands-on-16.4.html">
-       Diagnostics for Classifications
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture16/hands-on-16.5.html">
-       Multi-class Logistic Regression
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../unsupervised_learning.html">
-   Unsupervised Learning
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/>
-  <label for="toctree-checkbox-22">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture17/intro.html">
-     Lecture 17 - Clustering and Density Estimation
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/>
-    <label for="toctree-checkbox-23">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture17/reading-17.html">
-       Unsupervised Learning
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture17/hands-on-17.1.html">
-       Clustering using k-means
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture17/hands-on-17.2.html">
-       Density Estimation via Gaussian mixtures
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture18/intro.html">
-     Lecture 18 - Dimensionality Reduction
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/>
-    <label for="toctree-checkbox-24">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture18/reading-18.html">
-       Dimensionality Reduction
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture18/hands-on-18.1.html">
-       Dimensionality Reduction Examples
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture18/hands-on-18.2.html">
-       Clustering High-dimensional Data
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture18/hands-on-18.3.html">
-       Density Estimation with High-dimensional Data
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../state_space_models.html">
-   State Space Models
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/>
-  <label for="toctree-checkbox-25">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture19/intro.html">
-     Lecture 19 - State Space Models - Filtering Basics
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/>
-    <label for="toctree-checkbox-26">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture19/reading-19.html">
-       State Space Models - Filtering Basics
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture19/hands-on-19.1.html">
-       Object Tracking Example
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture20/intro.html">
-     Lecture 20 - State Space Models - Kalman Filters
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/>
-    <label for="toctree-checkbox-27">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture20/reading-20.html">
-       State Space Models - Kalman Filters
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture20/hands-on-20.1.html">
-       Kalman Filter for Object Tracking Example
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../gaussian_process_regression.html">
-   Gaussian Process Regression
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/>
-  <label for="toctree-checkbox-28">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture21/intro.html">
-     Lecture 21 - Gaussian Process Regression: Priors on Function Spaces
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/>
-    <label for="toctree-checkbox-29">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture21/reading-21.html">
-       Gaussian Process Theory
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture21/hands-on-21.html">
-       Example: Priors on function spaces
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture22/intro.html">
-     Lecture 22 - Gaussian Process Regression: Conditioning on Data
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" type="checkbox"/>
-    <label for="toctree-checkbox-30">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture22/reading-22.html">
-       Gaussian Process Regression - Theory
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture22/hands-on-22.1.html">
-       Gaussian Process Regression Without Noise
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture22/hands-on-22.2.html">
-       Gaussian Process Regression with Noise
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture22/hands-on-22.3.html">
-       Tuning the Hyperparameters
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture22/hands-on-22.4.html">
-       Multivariate Gaussian Process Regression
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture23/intro.html">
-     Lecture 23 - Bayesian Global Optimization
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/>
-    <label for="toctree-checkbox-31">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture23/reading-23.html">
-       Bayesian Global Optimization
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture23/hands-on-23.1.html">
-       Maximum Mean - A Bad Information Acquisition Function
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture23/hands-on-23.2.html">
-       Maximum Upper Interval
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture23/hands-on-23.3.html">
-       Probability of Improvement
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture23/hands-on-23.4.html">
-       Expected Improvement
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture23/hands-on-23.5.html">
-       Expected Improvement - With Observation Noise
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture23/hands-on-23.6.html">
-       Quantifying Epistemic Uncertainty about the Solution of the Optimization problem
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../neural_networks.html">
-   Neural Networks
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" type="checkbox"/>
-  <label for="toctree-checkbox-32">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture24/intro.html">
-     Lecture 24 - Deep Neural Networks
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" type="checkbox"/>
-    <label for="toctree-checkbox-33">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture24/reading-24.html">
-       Deep Neural Networks
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture24/hands-on-24.html">
-       Regression with Deep Neural Networks
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture25/intro.html">
-     Lecture 25 - Deep Neural Networks Continued
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" type="checkbox"/>
-    <label for="toctree-checkbox-34">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture25/reading-25.html">
-       Deep Neural Networks Continued
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture25/hands-on-25.html">
-       Classification with Deep Neural Networks
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture26/intro.html">
-     Lecture 26 - Physics-informed Deep Neural Networks
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" type="checkbox"/>
-    <label for="toctree-checkbox-35">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture26/reading-26.html">
-       Physics-informed Deep Neural Networks
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture26/hands-on-26.1.html">
-       Physics-informed regularization: Solving ODEs
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture26/hands-on-26.2.html">
-       Physics-informed regularization: Solving PDEs
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../advanced_methods.html">
-   Advanced Methods for Characterizing Posteriors
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/>
-  <label for="toctree-checkbox-36">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture27/intro.html">
-     Lecture 27 - Sampling Methods
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/>
-    <label for="toctree-checkbox-37">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture27/reading-27.html">
-       Sampling Methods
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture27/hands-on-27.1.html">
-       Probabilistic programming with
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         PyMC3
-        </span>
-       </code>
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture27/hands-on-27.2.html">
-       Sampling From the Distributions With Random Walk Metropolis
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture27/hands-on-27.3.html">
-       The Metropolis-Hastings Algorithm
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture27/hands-on-27.4.html">
-       Gibbs Sampling
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture27/hands-on-27.5.html">
-       Sequential Monte Carlo
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture28/intro.html">
-     Lecture 28 - Variational Inference
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" type="checkbox"/>
-    <label for="toctree-checkbox-38">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture28/reading-28.html">
-       Variational Inference
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture28/hands-on-28.html">
-       Variational Inference Examples
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../homework/intro.html">
-   Homework
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" type="checkbox"/>
-  <label for="toctree-checkbox-39">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../homework/homework-01.html">
-     Homework 1
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../homework/homework-02.html">
-     Homework 2
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../homework/homework-03.html">
-     Homework 3
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../homework/homework-04.html">
-     Homework 4
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../homework/homework-05.html">
-     Homework 5
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../homework/homework-06.html">
-     Homework 6
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../homework/homework-07.html">
-     Homework 7
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../homework/homework-08.html">
-     Homework 8
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../bibliography.html">
-   Bibliography
-  </a>
- </li>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../review_probability.html">Review of Probability</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 2 - Basics of Probability Theory</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Basics of Probability Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-02.html">Experiment with “Randomness”</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture03/intro.html">Lecture 3 - Discrete Random Variables</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture03/reading-03.html">Discrete Random Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture03/hands-on-03.html">Discrete Random Variables in Python</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture04/intro.html">Lecture 4 - Continuous Random Variables</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture04/reading-04.html">Continuous Random Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture04/hands-on-04.1.html">The Uniform Distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture04/hands-on-04.2.html">The Gaussian Distribution</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture05/intro.html">Lecture 5 - Collections of Random Variables</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture05/reading-05.html">Collections of Random Variables: Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture05/hands-on-05.html">Practicing with joint probability mass functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture06/intro.html">Lecture 6 - Random Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture06/reading-06.html">Random Vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture06/hands-on-06.1.html">The Multivariate Normal - Diagonal Covariance Case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture06/hands-on-06.2.html">The Multivariate Normal - Full Covariance Case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture06/hands-on-06.3.html">The Multivariate Normal - Marginalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture06/hands-on-06.4.html">The Multivariate Normal - Conditioning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../uncertainty_propagation.html">Uncertainty Propagation</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture07/intro.html">Lecture 7 - Basic Sampling</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture07/hands-on-07.1.html">Pseudo-random number generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture07/hands-on-07.2.html">Sampling the uniform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture07/hands-on-07.3.html">Sampling the categorical</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture07/hands-on-07.4.html">Sampling from continuous distributions - Inverse sampling</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture08/intro.html">Lecture 8 - The Monte Carlo Method for Estimating Expectations</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture08/hands-on-08.3.html">Sampling Estimates of Expectations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture08/hands-on-08.4.html">Sampling Estimates of Variance</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture09/intro.html">Lecture 9 - Monte Carlo Estimates of Various Statistics</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture09/hands-on-09.1.html">Sampling Estimates of the Cumulative Distribution Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture09/hands-on-09.2.html">Sampling Estimates of the Probability Density via Histograms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture09/hands-on-09.3.html">Hands-on Activity 9.3: Sampling Estimates of Predictive Quantiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture09/hands-on-09.4.html">Propagating Uncertainties through an Ordinrary Differential Equation</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture10/intro.html">Lecture 10 - Quantify Uncertainty in Monte Carlo Estimates</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture10/hands-on-10.1.html">Visualizing Monte Carlo Uncertainty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture10/hands-on-10.2.html">The Central Limit Theorem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture10/hands-on-10.3.html">Quanifying Epistemic Uncertainty in Monte Carlo estimates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture10/hands-on-10.4.html">Uncertainty Propagation Through a Boundary Value Problem</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../principles_of_bi.html">Principles of Bayesian Inference</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture11/intro.html">Lecture 11 - Selecting Prior Information</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture11/reading-11.html">Selecting Prior Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture11/hands-on-11.1.html">Information Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture11/hands-on-11.2.html">The Principle of Maximum Entropy for Discrete Random Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture11/hands-on-11.3.html">The Principle of Maximum Entropy for Continuous Random Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture12/intro.html">Lecture 12 - Analytical Examples of Bayesian Inference</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture12/reading-12.html">Analytical Examples of Bayesian Inference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture12/hands-on-12.1.html">Bayesian Parameter Estimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture12/hands-on-12.2.html">Credible Intervals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture12/hands-on-12.3.html">Decision-Making</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture12/hands-on-12.4.html">Posterior Predictive Checking</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../supervised_learning.html">Supervised Learning</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture13/intro.html">Lecture 13 - Linear Regression via Least Squares</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture13/reading-13.html">Linear Regression via Least Squares</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture13/hands-on-13.1.html">Linear regression with a single variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture13/hands-on-13.2.html">Polynomial Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture13/hands-on-13.3.html">The Generalized Linear Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture13/hands-on-13.4.html">Measures of Predictive Accuracy</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture14/intro.html">Lecture 14 - Bayesian Linear Regression</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-19"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture14/reading-14.html">Bayesian Linear Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture14/hands-on-14.1.html">Probabilistic Interpretation of Least Squares - Estimating the Measurement Noise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture14/hands-on-14.2.html">Maximum a Posteriori Estimate - Avoiding Overfitting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture14/hands-on-14.3.html">Bayesian Linear Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture14/hands-on-14.4.html">The point-predictive Distribution - Separating Epistmic and Aleatory Uncertainty</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture15/intro.html">Lecture 15 - Advanced Topics in Bayesian Linear Regression</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture15/reading-15.html">Advanced Topics in Bayesian Linear Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture15/hands-on-15.1.html">Evidence approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture15/hands-on-15.2.html">Automatic Relevance Determination</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture15/hands-on-15.3.html">Diagnostics for Posterior Predictive</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture16/intro.html">Lecture 16 - Classification</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-21"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture16/reading-16.html">Theoretical Background on Classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture16/hands-on-16.1.html">Logistic regression with one variable (High melting explosives)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture16/hands-on-16.2.html">Logistic Regression with Many Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture16/hands-on-16.3.html">Decision making</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture16/hands-on-16.4.html">Diagnostics for Classifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture16/hands-on-16.5.html">Multi-class Logistic Regression</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../unsupervised_learning.html">Unsupervised Learning</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-22"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture17/intro.html">Lecture 17 - Clustering and Density Estimation</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-23"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture17/reading-17.html">Unsupervised Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture17/hands-on-17.1.html">Clustering using k-means</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture17/hands-on-17.2.html">Density Estimation via Gaussian mixtures</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture18/intro.html">Lecture 18 - Dimensionality Reduction</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-24"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture18/reading-18.html">Dimensionality Reduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture18/hands-on-18.1.html">Dimensionality Reduction Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture18/hands-on-18.2.html">Clustering High-dimensional Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture18/hands-on-18.3.html">Density Estimation with High-dimensional Data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../state_space_models.html">State Space Models</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture19/intro.html">Lecture 19 - State Space Models - Filtering Basics</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-26"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture19/reading-19.html">State Space Models - Filtering Basics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture19/hands-on-19.1.html">Object Tracking Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture20/intro.html">Lecture 20 - State Space Models - Kalman Filters</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-27"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture20/reading-20.html">State Space Models - Kalman Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture20/hands-on-20.1.html">Kalman Filter for Object Tracking Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../gaussian_process_regression.html">Gaussian Process Regression</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-28"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture21/intro.html">Lecture 21 - Gaussian Process Regression: Priors on Function Spaces</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-29"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture21/reading-21.html">Gaussian Process Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture21/hands-on-21.html">Example: Priors on function spaces</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture22/intro.html">Lecture 22 - Gaussian Process Regression: Conditioning on Data</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-30"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture22/reading-22.html">Gaussian Process Regression - Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture22/hands-on-22.1.html">Gaussian Process Regression Without Noise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture22/hands-on-22.2.html">Gaussian Process Regression with Noise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture22/hands-on-22.3.html">Tuning the Hyperparameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture22/hands-on-22.4.html">Multivariate Gaussian Process Regression</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture23/intro.html">Lecture 23 - Bayesian Global Optimization</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-31"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture23/reading-23.html">Bayesian Global Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture23/hands-on-23.1.html">Maximum Mean - A Bad Information Acquisition Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture23/hands-on-23.2.html">Maximum Upper Interval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture23/hands-on-23.3.html">Probability of Improvement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture23/hands-on-23.4.html">Expected Improvement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture23/hands-on-23.5.html">Expected Improvement - With Observation Noise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture23/hands-on-23.6.html">Quantifying Epistemic Uncertainty about the Solution of the Optimization problem</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../neural_networks.html">Neural Networks</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-32"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture24/intro.html">Lecture 24 - Deep Neural Networks</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-33"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture24/reading-24.html">Deep Neural Networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture24/hands-on-24.html">Regression with Deep Neural Networks</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture25/intro.html">Lecture 25 - Deep Neural Networks Continued</a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-34"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture25/reading-25.html">Deep Neural Networks Continued</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture25/hands-on-25.html">Classification with Deep Neural Networks</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture26/intro.html">Lecture 26 - Physics-informed Deep Neural Networks</a><input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-35"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture26/reading-26.html">Physics-informed Deep Neural Networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture26/hands-on-26.1.html">Physics-informed regularization: Solving ODEs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture26/hands-on-26.2.html">Physics-informed regularization: Solving PDEs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../advanced_methods.html">Advanced Methods for Characterizing Posteriors</a><input class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-36"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture27/intro.html">Lecture 27 - Sampling Methods</a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-37"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture27/reading-27.html">Sampling Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture27/hands-on-27.1.html">Probabilistic programming with <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture27/hands-on-27.2.html">Sampling From the Distributions With Random Walk Metropolis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture27/hands-on-27.3.html">The Metropolis-Hastings Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture27/hands-on-27.4.html">Gibbs Sampling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture27/hands-on-27.5.html">Sequential Monte Carlo</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture28/intro.html">Lecture 28 - Variational Inference</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-38"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture28/reading-28.html">Variational Inference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture28/hands-on-28.html">Variational Inference Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../homework/intro.html">Homework</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-39"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-01.html">Homework 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-02.html">Homework 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-03.html">Homework 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-04.html">Homework 4</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-05.html">Homework 5</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-06.html">Homework 6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-07.html">Homework 7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-08.html">Homework 8</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/lecture02/reading-02.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+</nav></div>
     </div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
-            <!-- Source interaction buttons -->
 
-            <!-- Full screen (wrap in <a> to have style consistency -->
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
 
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
+<div class="sbt-scroll-pixel-helper"></div>
 
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/PredictiveScienceLab/data-analytics-se/master?urlpath=lab/tree/lecturebook/lecture02/reading-02.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture02/reading-02.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
     </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture02/reading-02.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
 </div>
 
-        </div>
 
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lecture02/reading-02.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Basics of Probability Theory</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
             
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div>
+                <h2> Contents </h2>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
+            <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#probability-as-a-representation-of-our-state-of-knowledge">
-   Probability as a representation of our state of knowledge
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#but-what-about-frequencies">
-   But what about frequencies?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-common-sense-assumptions-that-give-rise-to-the-basic-probability-rules">
-   The common sense assumptions that give rise to the basic probability rules.
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#talking-about-probabilities">
-     Talking about probabilities
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#interpratation-of-probabilities">
-     Interpratation of probabilities
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-rules-of-probability">
-   The rules of probability
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example-drawing-balls-from-a-box-without-replacement-1-3">
-     Example: Drawing balls from a box without replacement (1/3)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#other-rules-of-probability-theory">
-     Other rules of probability theory
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#extention-of-the-obvious-rule">
-       Extention of the obvious rule
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-sum-rule">
-     The sum rule
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example-drawing-balls-from-a-box-without-replacement-2-3">
-     Example: Drawing balls from a box without replacement (2/3)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example-drawing-balls-from-a-box-without-replacement-3-3">
-     Example: Drawing balls from a box without replacement (3/3)
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logical-sentences">Logical sentences</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-as-a-representation-of-our-state-of-knowledge">Probability as a representation of our state of knowledge</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#but-what-about-frequencies">But what about frequencies?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-common-sense-assumptions-that-give-rise-to-the-basic-probability-rules">The common sense assumptions that give rise to the basic probability rules.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#talking-about-probabilities">Talking about probabilities</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-of-probabilities">Interpretation of probabilities</a></li>
 </ul>
-
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-rules-of-probability">The rules of probability</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-drawing-balls-from-a-box-without-replacement-1-3">Example: Drawing balls from a box without replacement (1/3)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-rules-of-probability-theory">Other rules of probability theory</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#extension-of-the-obvious-rule">Extension of the obvious rule</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Extension of the obvious rule</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sum-rule">The sum rule</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-drawing-balls-from-a-box-without-replacement-2-3">Example: Drawing balls from a box without replacement (2/3)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-drawing-balls-from-a-box-without-replacement-3-3">Example: Drawing balls from a box without replacement (3/3)</a></li>
+</ul>
+</li>
+</ul>
             </nav>
         </div>
     </div>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Basics of Probability Theory</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#probability-as-a-representation-of-our-state-of-knowledge">
-   Probability as a representation of our state of knowledge
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#but-what-about-frequencies">
-   But what about frequencies?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-common-sense-assumptions-that-give-rise-to-the-basic-probability-rules">
-   The common sense assumptions that give rise to the basic probability rules.
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#talking-about-probabilities">
-     Talking about probabilities
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#interpratation-of-probabilities">
-     Interpratation of probabilities
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-rules-of-probability">
-   The rules of probability
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example-drawing-balls-from-a-box-without-replacement-1-3">
-     Example: Drawing balls from a box without replacement (1/3)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#other-rules-of-probability-theory">
-     Other rules of probability theory
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#extention-of-the-obvious-rule">
-       Extention of the obvious rule
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-sum-rule">
-     The sum rule
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example-drawing-balls-from-a-box-without-replacement-2-3">
-     Example: Drawing balls from a box without replacement (2/3)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example-drawing-balls-from-a-box-without-replacement-3-3">
-     Example: Drawing balls from a box without replacement (3/3)
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
 
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            
-              <div>
+              
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="basics-of-probability-theory">
-<h1>Basics of Probability Theory<a class="headerlink" href="#basics-of-probability-theory" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="probability-as-a-representation-of-our-state-of-knowledge">
-<h2>Probability as a representation of our state of knowledge<a class="headerlink" href="#probability-as-a-representation-of-our-state-of-knowledge" title="Permalink to this headline">¶</a></h2>
-<p>Let’s call <span class="math notranslate nohighlight">\(I\)</span> all the <em>information</em> you have a this given moment.
-And I am talking about absolutely everything: what your parents taught you, what you learned in school, what you learned in college, what your eyes see right now on some scientific instruments.
-Now consider a, well-defined, sentence <span class="math notranslate nohighlight">\(A\)</span> that says something about the world.
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="basics-of-probability-theory">
+<span id="id1"></span><h1>Basics of Probability Theory<a class="headerlink" href="#basics-of-probability-theory" title="Permalink to this heading">#</a></h1>
+<section id="logical-sentences">
+<span id="id2"></span><h2>Logical sentences<a class="headerlink" href="#logical-sentences" title="Permalink to this heading">#</a></h2>
+<p>A logical sentence is a statement about the world that can be true or false.
+Science makes such statements all the time.
+For example, “the circumference of the Earth is 40,075 km (plus or minus 1 km)” is a logical sentence.
+We will not go any deeper into the formal definition of logical sentences.
+But we will require that the set of logical sentences we are working with is <em>consistent</em>.
+That is, it does not contain contradictions.</p>
+<p>We will denote logical sentences with capital letters: <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span>, <span class="math notranslate nohighlight">\(C\)</span>, etc.
+We form new logical sentences from old ones using the following logical connectives:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\text{not}\;A \equiv \neg A\)</span>: the logical sentence that is true when <span class="math notranslate nohighlight">\(A\)</span> is false and false when <span class="math notranslate nohighlight">\(A\)</span> is true.</p></li>
+<li><p><span class="math notranslate nohighlight">\(A\;\text{and}\;B \equiv A, B \equiv AB\)</span>: the logical sentence that is true when <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are true and false otherwise.</p></li>
+<li><p><span class="math notranslate nohighlight">\(A\;\text{or}\;B \equiv A+B\)</span>: the logical sentence that is true when <span class="math notranslate nohighlight">\(A\)</span> or <span class="math notranslate nohighlight">\(B\)</span> are true and false otherwise.</p></li>
+</ul>
+</section>
+<section id="probability-as-a-representation-of-our-state-of-knowledge">
+<span id="id3"></span><h2>Probability as a representation of our state of knowledge<a class="headerlink" href="#probability-as-a-representation-of-our-state-of-knowledge" title="Permalink to this heading">#</a></h2>
+<p>Let’s call <span class="math notranslate nohighlight">\(I\)</span> the logical sentence containing all <em>information</em> you have now.
+And I am talking about absolutely everything:</p>
+<ul class="simple">
+<li><p>What your parents taught you,</p></li>
+<li><p>What you learned in school, what you learned in college,</p></li>
+<li><p>What your eyes see right now on some scientific instruments.</p></li>
+</ul>
+<p>Now consider a logical sentence <span class="math notranslate nohighlight">\(A\)</span> that says something about the world.
 For example, <span class="math notranslate nohighlight">\(A\)</span> could be “The result of the next coin toss John performs will be heads.”
-Or anything really.
-We want a technical machinery that can turn all the information <span class="math notranslate nohighlight">\(I\)</span> we have into a real number that tells us how plausible it is that <span class="math notranslate nohighlight">\(A\)</span> is true.
-This is what probability theory does.
-It gives us such a number.
-Call it <span class="math notranslate nohighlight">\(p(A|I)\)</span> and read it as “the probability that <span class="math notranslate nohighlight">\(A\)</span> is true given that we know <span class="math notranslate nohighlight">\(I\)</span>.”
-So, probability theory is an attempt to represent our state of knowledge about the world.</p>
-</div>
-<div class="section" id="but-what-about-frequencies">
-<h2>But what about frequencies?<a class="headerlink" href="#but-what-about-frequencies" title="Permalink to this headline">¶</a></h2>
-<p>In introductory courses to probability or statistics, we usually learn that the probability of an event is the frequency with each it occurs in nature.
-This is absolutely fine if the event is something that indeed occurs repeatedly.
-However, this intrepretation is quite restrictive.
-In particular, what can we say about an event that can happen only once?
-This interpretation forbids the quantification of epistemic uncertainties.
-We will expand the interpretation of probability.
-It can be shown, see <span id="id1">[<a class="reference internal" href="../bibliography.html#id7" title="E. T. Jaynes. Probability theory: The logic of science. Cambridge University Press, Cambridge, 2003.">Jaynes, 2003</a>]</span> for the proof, that this interpretation is compatible with the frequency interpretation.
-That is, when events occur repeatedly then the probabilities do become frequencies.</p>
-</div>
-<div class="section" id="the-common-sense-assumptions-that-give-rise-to-the-basic-probability-rules">
-<h2>The common sense assumptions that give rise to the basic probability rules.<a class="headerlink" href="#the-common-sense-assumptions-that-give-rise-to-the-basic-probability-rules" title="Permalink to this headline">¶</a></h2>
+Or anything.
+We are uncertain about <span class="math notranslate nohighlight">\(A\)</span>.
+We do not know if it is true or false.
+We could use the information <span class="math notranslate nohighlight">\( I \)</span> to say something more about <span class="math notranslate nohighlight">\( A \)</span>.
+Maybe we believe that it is more likely that <span class="math notranslate nohighlight">\(A\)</span> is true than false.
+Maybe the opposite.</p>
+<p>Probability theory is about this problem.
+It gives us a number <span class="math notranslate nohighlight">\(p(A|I)\)</span>.
+We read <span class="math notranslate nohighlight">\(p(A|I)\)</span> as “the probability that <span class="math notranslate nohighlight">\(A\)</span> is true given that we know <span class="math notranslate nohighlight">\(I\)</span>.”
+It quantifies our degree of belief that <span class="math notranslate nohighlight">\(A\)</span> is true given that we know <span class="math notranslate nohighlight">\(I\)</span>.
+We say that <span class="math notranslate nohighlight">\(p(A|I)\)</span> represents our knowledge about <span class="math notranslate nohighlight">\(A\)</span> given <span class="math notranslate nohighlight">\(I\)</span>.</p>
+</section>
+<section id="but-what-about-frequencies">
+<h2>But what about frequencies?<a class="headerlink" href="#but-what-about-frequencies" title="Permalink to this heading">#</a></h2>
+<p>In introductory courses to probability or statistics, we usually learn that the probability of an event is the frequency with which it occurs in nature.
+This interpretation is valid if the event is something that indeed occurs repeatedly.
+However, it is pretty restrictive.</p>
+<p>In particular, what can we say about an event that can happen only once?
+For example, what is the probability that life on Earth will end in a billion years?
+It is not possible to repeat this experiment.
+It is not even possible to observe its outcome.
+The frequency interpretation of probability is not applicable.
+However, we would like to use probability to quantify our degree of belief that life on Earth will end in a billion years.
+It makes intuitive sense that we can do this.
+We want to do this.
+Scientists and engineers think like this all the time.</p>
+<p>But is our approach compatible with the frequency interpretation?
+It can be shown, see <span id="id4">[<a class="reference internal" href="../bibliography.html#id7" title="E. T. Jaynes. Probability theory: The logic of science. Cambridge University Press, Cambridge, 2003.">Jaynes, 2003</a>]</span> for the proof, that our approach is indeed compatible with the frequency interpretation.
+That is, when events occur repeatedly, then the probabilities do become frequencies.</p>
+</section>
+<section id="the-common-sense-assumptions-that-give-rise-to-the-basic-probability-rules">
+<h2>The common sense assumptions that give rise to the basic probability rules.<a class="headerlink" href="#the-common-sense-assumptions-that-give-rise-to-the-basic-probability-rules" title="Permalink to this heading">#</a></h2>
 <blockquote>
 <div><p>Probability theory is nothing but common sense reduced to calculation. Pierre-Simon Laplace, Théorie analytique des probabilités (1814)</p>
 </div></blockquote>
-<p>Consider the following three ingedients:</p>
+<p>Consider the following three ingredients:</p>
 <ul class="simple">
 <li><p>A: a logical sentence</p></li>
 <li><p>B: another logical sentence</p></li>
 <li><p>I: all the information we know</p></li>
 </ul>
-<p>No other restriction apart that A and B are not contradictions.</p>
-<p>We need a bit of notation so that we write less math:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\text{not}\;A \equiv \neg A\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(A\;\text{and}\;B \equiv A, B \equiv AB\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(A\;\text{or}\;B \equiv A+B\)</span></p></li>
-</ul>
 <p>Now, let’s try to make a robot that can argue under uncertainty.
-It should be able to take logical sentences (such as <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> above) and argue about them using all the information it has.
-What sort of system should govern this robot.
-The following desiderata, see <span id="id2">[<a class="reference internal" href="../bibliography.html#id7" title="E. T. Jaynes. Probability theory: The logic of science. Cambridge University Press, Cambridge, 2003.">Jaynes, 2003</a>]</span>, seem reasonable:</p>
+It should be able to take logical sentences (such as <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> above) and argue about them using all its information.
+What sort of system should govern this robot?
+The following desiderata, see <span id="id5">[<a class="reference internal" href="../bibliography.html#id7" title="E. T. Jaynes. Probability theory: The logic of science. Cambridge University Press, Cambridge, 2003.">Jaynes, 2003</a>]</span>, seem reasonable:</p>
 <ul class="simple">
-<li><p>Degrees of plausibility are represented by real numbers.</p></li>
+<li><p>Real numbers represent degrees of plausibility.</p></li>
 <li><p>The system should have a qualitative correspondence to common sense.</p></li>
-<li><p>The system should be consistence in the sense that:</p>
-<ul>
-<li><p>If a conclusion can be reached in two ways, each way must lead to the same result.</p></li>
-<li><p>All evidence relevant to a question should be taken into account.</p></li>
-<li><p>Equivalent states of knowledge must be represented by equivalent plausibility assignments.</p></li>
+<li><p>The system should be consistence in the sense that:</p></li>
 </ul>
-</li>
+<ul class="simple">
+<li><p>If there are two ways to calculate a degree of plausibility, each way must lead to the same result.</p></li>
+<li><p>The robot should take into account all evidence relevant to a question.</p></li>
+<li><p>Equivalent plausibility assignments must represent equivalent states of knowledge.</p></li>
 </ul>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Cox%27s_theorem">Cox’s theorem</a> shows that:</p>
 <blockquote>
-<div><p>The desiderata are enough derive the rules of probability theory.</p>
+<div><p>The desiderata are enough to derive the rules of probability theory.</p>
 </div></blockquote>
-<div class="section" id="talking-about-probabilities">
-<h3>Talking about probabilities<a class="headerlink" href="#talking-about-probabilities" title="Permalink to this headline">¶</a></h3>
+<section id="talking-about-probabilities">
+<h3>Talking about probabilities<a class="headerlink" href="#talking-about-probabilities" title="Permalink to this heading">#</a></h3>
 <p>We read <span class="math notranslate nohighlight">\(p(A|BI)\)</span> as:</p>
 <ul class="simple">
-<li><p>the probability of A being true given that we know that B and I are true; or</p></li>
-<li><p>the probability of A being true given that we know that B is true; or</p></li>
-<li><p>the probability of A given B.</p></li>
+<li><p>the probability of <span class="math notranslate nohighlight">\(A\)</span> being true given that we know that <span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(I\)</span> are true; or</p></li>
+<li><p>the probability of <span class="math notranslate nohighlight">\(A\)</span> being true given that we know that <span class="math notranslate nohighlight">\(B\)</span> is true; or</p></li>
+<li><p>the probability of <span class="math notranslate nohighlight">\(A\)</span> given <span class="math notranslate nohighlight">\(B\)</span>.</p></li>
 </ul>
-</div>
-<div class="section" id="interpratation-of-probabilities">
-<h3>Interpratation of probabilities<a class="headerlink" href="#interpratation-of-probabilities" title="Permalink to this headline">¶</a></h3>
-<p>The probability <span class="math notranslate nohighlight">\(p(A|BI)\)</span> is a number between 0 and 1 quantifying the degree of plausibility that A is true given B and I.
+</section>
+<section id="interpretation-of-probabilities">
+<h3>Interpretation of probabilities<a class="headerlink" href="#interpretation-of-probabilities" title="Permalink to this heading">#</a></h3>
+<p>The probability <span class="math notranslate nohighlight">\(p(A|BI)\)</span> is a number between 0 and 1, quantifying the degree of plausibility that <span class="math notranslate nohighlight">\(A\)</span> is true given <span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(I\)</span>.
 Specifically:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(p(A|B,I) = 1\)</span> when we are certain that A is true if B is true (and I).</p></li>
-<li><p><span class="math notranslate nohighlight">\(p(A|B,I) = 0\)</span> when we are certain that A is false if B is true (and I).</p></li>
-<li><p><span class="math notranslate nohighlight">\(0&lt; p(A|B,I) &lt; 1\)</span> when we are uncertain about A if B is true (and I).</p></li>
-<li><p><span class="math notranslate nohighlight">\(p(A|B,I) = \frac{1}{2}\)</span> when we are completely ignorant about A if B is true (and I).</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(A|B,I) = 1\)</span> when we are certain that <span class="math notranslate nohighlight">\(A\)</span> is true if <span class="math notranslate nohighlight">\(B\)</span> is true (and I).</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(A|B,I) = 0\)</span> when we are certain that <span class="math notranslate nohighlight">\(A\)</span> is false if <span class="math notranslate nohighlight">\(B\)</span> is true (and <span class="math notranslate nohighlight">\(I\)</span>).</p></li>
+<li><p><span class="math notranslate nohighlight">\(0&lt; p(A|B,I) &lt; 1\)</span> when we are uncertain about <span class="math notranslate nohighlight">\(A\)</span> if <span class="math notranslate nohighlight">\(B\)</span> is true (and <span class="math notranslate nohighlight">\(I\)</span>).</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(A|B,I) = \frac{1}{2}\)</span> when we are completely ignorant about <span class="math notranslate nohighlight">\(A\)</span> if <span class="math notranslate nohighlight">\(B\)</span> is true (and <span class="math notranslate nohighlight">\(I\)</span>).</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="the-rules-of-probability">
-<h2>The rules of probability<a class="headerlink" href="#the-rules-of-probability" title="Permalink to this headline">¶</a></h2>
-<p>There are two rules of probability from which everything else can be derived.
-These are direct consequencies of the desiderate and Cox’s theorem.
+</section>
+</section>
+<section id="the-rules-of-probability">
+<h2>The rules of probability<a class="headerlink" href="#the-rules-of-probability" title="Permalink to this heading">#</a></h2>
+<p>Everything in probability theory derives from two rules.
+These are direct consequences of the desiderata and Cox’s theorem.
 They are:</p>
 <ul class="simple">
 <li><p>The <strong>obvious rule</strong>:</p></li>
@@ -1464,8 +739,8 @@ They are:</p>
 \[
 p(A|I) + p(\neg A|I) = 1.
 \]</div>
-<p>The sum rule is obvious. It states that either <span class="math notranslate nohighlight">\(A\)</span> or its negation <span class="math notranslate nohighlight">\(\neg A\)</span> must be true.
-(It is vitally important that you do not try to apply probability in a system that includes contradictions.)</p>
+<p>The rule states that <span class="math notranslate nohighlight">\(A\)</span> or its negation must be true.
+We see why it is vitally important that you refrain from applying probability in a system that includes contradictions.</p>
 <ul class="simple">
 <li><p>The <strong>product rule</strong> (or Bayes’ rule or Bayes’ theorem):</p></li>
 </ul>
@@ -1473,33 +748,43 @@ p(A|I) + p(\neg A|I) = 1.
 \[
 p(A,B|I) = p(A|B,I)p(B|I).
 \]</div>
-<p>The product rule is not obvious.
-Understanding it requires a bit of meditation.
-It states that the probability of A and B is the probability of A given that B is true times the probability that B is true.
-Even though the correspondance is not one to one, visualizing events using the Venn diagrams helps in understanding the product rule:</p>
-<div class="figure align-default" id="venn">
+<p>The rule states that the probability of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> is the probability of <span class="math notranslate nohighlight">\(A\)</span> given that <span class="math notranslate nohighlight">\(B\)</span> is true times the probability that <span class="math notranslate nohighlight">\(B\)</span> is true.
+Even though the correspondence is not one-to-one, visualizing events using the Venn diagrams helps in understanding the product rule:</p>
+<figure class="align-default" id="venn">
 <img alt="../_images/venn.png" src="../_images/venn.png" />
-<p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">Venn diagram.</span><a class="headerlink" href="#venn" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Venn diagram.</span><a class="headerlink" href="#venn" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>In this diagram:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(p(A,B|I)\)</span> corresponds to the brown area (normalized by the area of I).</p></li>
-<li><p><span class="math notranslate nohighlight">\(p(B|I)\)</span> is the area of <span class="math notranslate nohighlight">\(B\)</span> (normalized by the area of I).</p></li>
-<li><p><span class="math notranslate nohighlight">\(p(A|BI)\)</span> is the brown area (normalized by the area of B).</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(B|I)\)</span> is the area of <span class="math notranslate nohighlight">\(B\)</span> (normalized by the area of <span class="math notranslate nohighlight">\(I\)</span>).</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(A|BI)\)</span> is the brown area (normalized by the area of <span class="math notranslate nohighlight">\(B\)</span>).</p></li>
 </ul>
-<div class="section" id="example-drawing-balls-from-a-box-without-replacement-1-3">
-<h3>Example: Drawing balls from a box without replacement (1/3)<a class="headerlink" href="#example-drawing-balls-from-a-box-without-replacement-1-3" title="Permalink to this headline">¶</a></h3>
-<p>Consider the following information I:</p>
+<p>Understanding the product rule takes some time.
+But it is worth it, as it tells us how to update our knowledge as we gather new information.
+The product rule is the essence of scientific machine learning.</p>
+<section id="example-drawing-balls-from-a-box-without-replacement-1-3">
+<h3>Example: Drawing balls from a box without replacement (1/3)<a class="headerlink" href="#example-drawing-balls-from-a-box-without-replacement-1-3" title="Permalink to this heading">#</a></h3>
+<p>Consider the following information <span class="math notranslate nohighlight">\(I\)</span>:</p>
 <blockquote>
-<div><p>We are given a box with 10 balls 6 of which are red and 4 of which are blue. The box is sufficiently mixed so that when we get a ball from it, we don’t know which one we pick. When we take a ball out of the box, we do not put it back.</p>
+<div><p>We are given a box with ten balls, 6 of which are red and 4 of which are blue. The box is sufficiently mixed so that we don’t know which one we pick when we get a ball from it. We do not put a ball back when we take it out of the box.</p>
 </div></blockquote>
-<div class="figure align-default" id="urn">
+<figure class="align-default" id="urn">
 <img alt="../_images/urn.png" src="../_images/urn.png" />
-<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">A box with balls.</span><a class="headerlink" href="#urn" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">A box with balls.</span><a class="headerlink" href="#urn" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>Now, let’s draw the first ball.
 Here is the graphical causal model up to this point:</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">graphviz</span> <span class="kn">import</span> <span class="n">Digraph</span>
 <span class="n">gu1</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">(</span><span class="s1">&#39;Urn1&#39;</span><span class="p">)</span>
@@ -1513,11 +798,12 @@ Here is the graphical causal model up to this point:</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/reading-02_2_0.svg" src="../_images/reading-02_2_0.svg" /></div>
+<img alt="../_images/69d6fa61c53f0051d11266e708179fdb989e78952dc6e0ade660992a3a2ecec7.svg" src="../_images/69d6fa61c53f0051d11266e708179fdb989e78952dc6e0ade660992a3a2ecec7.svg" /></div>
 </div>
 <p>Now, let’s say that we draw the first ball.
-Let B_1 be the sentence:</p>
+Let <span class="math notranslate nohighlight">\(B_1\)</span> be the sentence:</p>
 <blockquote>
 <div><p>The first ball we draw is blue.</p>
 </div></blockquote>
@@ -1527,8 +813,10 @@ Our intuition tells us to set:</p>
 \[
 p(B_1|I) = \frac{4}{10} = \frac{2}{5}.
 \]</div>
-<p>This is known as the <em>principle of insufficient reason</em>.
-We can now use the <strong>obvious rule</strong> to find the probability of drawing a red ball, i.e., of <span class="math notranslate nohighlight">\(\neg B_1\)</span>.
+<p>What just did has a name.
+It is known as the <em>principle of insufficient reason</em>.
+We will learn more about it later.</p>
+<p>We can now use the <strong>obvious rule</strong> to find the probability of drawing a red ball, i.e., of <span class="math notranslate nohighlight">\(\neg B_1\)</span>.
 Of course, <span class="math notranslate nohighlight">\(\neg B_1\)</span> is just the sentence:</p>
 <blockquote>
 <div><p>The first ball we draw is red.</p>
@@ -1539,9 +827,16 @@ It is:</p>
 \[
 p(R_1|I) = p(\neg B_1|I) = 1 - p(B_1|I) = 1 - \frac{2}{5} = \frac{3}{5}.
 \]</div>
-<p>Consider the graphical model representation after we observe the first draw?
+<p>Now let’s do something else.
+Let’s say we observe the first draw and we want to calculate the probability of drawing a blue ball on the second draw.
+Consider the causal graph of the problem.
 We need to fill the node corresponding to the first draw with color:</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gu3</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">(</span><span class="s1">&#39;Urn3&#39;</span><span class="p">)</span>
 <span class="n">gu3</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;reds&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;# red balls&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
@@ -1558,18 +853,20 @@ We need to fill the node corresponding to the first draw with color:</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/reading-02_5_0.svg" src="../_images/reading-02_5_0.svg" /></div>
+<img alt="../_images/02d8f39a8cd40d5c4bd00edd26e0c6a2bd3decbf96111aacd3f48c07401c3547.svg" src="../_images/02d8f39a8cd40d5c4bd00edd26e0c6a2bd3decbf96111aacd3f48c07401c3547.svg" /></div>
 </div>
 <p>Consider the sentence <span class="math notranslate nohighlight">\(R_2\)</span>:</p>
 <blockquote>
 <div><p>The second ball we draw is red.</p>
 </div></blockquote>
-<p>What is the probability of <span class="math notranslate nohighlight">\(R_2\)</span> given that <span class="math notranslate nohighlight">\(B_1\)</span> is true?
-We just need to use common sense to find this probability:</p>
+<p>Suppose we know that <span class="math notranslate nohighlight">\(B_1\)</span> is true, i.e., the first ball we draw is blue.
+What is the probability of <span class="math notranslate nohighlight">\(R_2\)</span> given that <span class="math notranslate nohighlight">\(B_1\)</span> is true?
+We can use common sense to find this probability:</p>
 <ul class="simple">
-<li><p>We had 10 balls, 6 red and 4 blue.</p></li>
-<li><p>Since <span class="math notranslate nohighlight">\(B_1\)</span> is true (the first ball was blue), we now have 6 red and 3 blue balls.</p></li>
+<li><p>We had ten balls, six red and four blue.</p></li>
+<li><p>Since <span class="math notranslate nohighlight">\(B_1\)</span> is true (the first ball was blue), we now have six red and three blue balls.</p></li>
 <li><p>Therefore, the probability that we draw a red ball next is:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
@@ -1578,17 +875,23 @@ p(R_2|B_1,I) = \frac{6}{9} = \frac{2}{3}.
 \]</div>
 <p>Similarly, we can find the probability that we draw a red ball in the second draw given that we drew a red ball in the first draw:</p>
 <ul class="simple">
-<li><p>We had 10 balls, 6 red and 4 blue.</p></li>
-<li><p>Since <span class="math notranslate nohighlight">\(R_1\)</span> is true (the first ball is red), we now have 5 red and 4 blue balls.</p></li>
+<li><p>We had ten balls, six red and four blue.</p></li>
+<li><p>Since <span class="math notranslate nohighlight">\(R_1\)</span> is true (the first ball is red), we now have five red and four blue balls.</p></li>
 <li><p>Therefore, the probability that we draw a red ball next is:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[
 p(R_2|R_1,I) = \frac{5}{9}.
 \]</div>
-<p>Let’s consider a second draw without observing the result of the first draw.
-What is the graphical causal model now?</p>
+<p>Okay, let’s do something more challenging.
+Let’s consider a second draw without observing the result of the first draw.
+Here is the causal graph (notice that we do not shade the first draw):</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gu2</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">(</span><span class="s1">&#39;Urn2&#39;</span><span class="p">)</span>
 <span class="n">gu2</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;reds&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;# red balls&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
@@ -1605,60 +908,68 @@ What is the graphical causal model now?</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/reading-02_7_0.svg" src="../_images/reading-02_7_0.svg" /></div>
+<img alt="../_images/f02b48d6b43e6ab1f2cc7a0d5e77f4b4736ab300df5e38ede9ab69fdfd28afc8.svg" src="../_images/f02b48d6b43e6ab1f2cc7a0d5e77f4b4736ab300df5e38ede9ab69fdfd28afc8.svg" /></div>
 </div>
-<p>Let’s find the probability that we draw a blue ball in the first draw (A) and a red ball in the second draw (B).
+<p>Let’s find the probability that we will draw a blue ball in the first draw (A) and a red ball in the second draw (B).
 We have to use the <strong>product rule</strong>:</p>
 <div class="math notranslate nohighlight">
 \[
 p(B_1, R_2|I) = p(R_2|B_1,I) p(B_1|I) = \frac{2}{3}\frac{2}{5} = \frac{4}{15}.
 \]</div>
-</div>
-<div class="section" id="other-rules-of-probability-theory">
-<h3>Other rules of probability theory<a class="headerlink" href="#other-rules-of-probability-theory" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="other-rules-of-probability-theory">
+<h3>Other rules of probability theory<a class="headerlink" href="#other-rules-of-probability-theory" title="Permalink to this heading">#</a></h3>
 <p>All other rules of probability theory can be derived from the two basic rules.
 Here are some examples.</p>
-<div class="section" id="extention-of-the-obvious-rule">
-<h4>Extention of the obvious rule<a class="headerlink" href="#extention-of-the-obvious-rule" title="Permalink to this headline">¶</a></h4>
+<section id="extension-of-the-obvious-rule">
+<h4>Extension of the obvious rule<a class="headerlink" href="#extension-of-the-obvious-rule" title="Permalink to this heading">#</a></h4>
+<p>All other rules of probability theory can be derived from the two basic rules.
+Here are some examples.</p>
+</section>
+<section id="id6">
+<h4>Extension of the obvious rule<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
 <p>For any two logical sentences <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> we have:</p>
 <div class="math notranslate nohighlight">
 \[
 p(A + B|I) = p(A|I) + p(B|I) - p(AB|I).
 \]</div>
-<p>In words: the probability of A or B is the probability that A is true plus that probability that B is true minus the probability that both A and B are true.
-This is very easy to understand intuitively by looking at the <a class="reference internal" href="#venn"><span class="std std-ref">Venn diagram</span></a>.</p>
-<p>The probability <span class="math notranslate nohighlight">\(p(A+B|I)\)</span> is the area of the uninion of A with B (normalized by I).
-This area is indeed the area of A (normalized by I) plus the area of B (normalized by I) minus the area of A and B (normalized by I) which was doublecounted.</p>
-<p>Let’s see a formal proof of this.</p>
+<p>In words: the probability of <span class="math notranslate nohighlight">\(A\)</span> or <span class="math notranslate nohighlight">\(B\)</span> is the probability that A is true plus the probability that <span class="math notranslate nohighlight">\(B\)</span> is true minus the probability that both A and B are true.
+It is easy to understand the rule intuitively by looking at the <a class="reference internal" href="#venn"><span class="std std-ref">Venn diagram</span></a>.</p>
+<p>The probability <span class="math notranslate nohighlight">\(p(A+B|I)\)</span> is the area of the union of A with B (normalized by I).
+This area is indeed the area of A (normalized by I) plus the area of B (normalized by I) minus the area of A and B (normalized by I), which was double-counted.</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Here is the proof.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{split}
-p(A+B|I) &amp;=&amp; 1 - p(\neg (A+B)|I)\\
-&amp;=&amp; 1 - p(\neg A, \neg B|I)\;\text{(obvious rule)}\\
-&amp;=&amp; 1 - p(\neg A|\neg B, I)p(\neg B|I)\;\text{(product rule)}\\
-&amp;=&amp; 1 - \left[1 - p(A|\neg B, I)\right]p(\neg B|I)\;\text{(obvious rule)}\\
-&amp;=&amp; 1 - p(\neg B|I) + p(A|\neg B, I)p(\neg B|I)\\
-&amp;=&amp; 1 - p(\neg B|I) + p(A\neg B|I)\;\text{(product rule)}\\
-&amp;=&amp; 1 - p(\neg B|I) + p(\neg B|A,I) p(A|I)\;\text{(product rule)}\\
-&amp;=&amp; 1 - p(\neg B|I) + \left[1 - p(B|A,I)\right]p(A|I)\;\text{(obvious rule)}\\
-&amp;=&amp; 1 - p(\neg B|I) + p(A|I) - p(B|A,I)p(A|I)\\
-&amp;=&amp; 1 - \left[1 - p(B|I)\right] + p(A|I) - p(B|A,I)p(A|I)\;\text{obvious rule})\\
-&amp;=&amp; p(A|I) + p(B|I) - p(B|A,I)p(A|I)\\
-&amp;=&amp; p(A|I) + p(B|I) - p(AB|I)\;\text{(product rule)}.
+p(A+B|I) &amp;= 1 - p(\neg (A+B)|I)\\
+&amp;= 1 - p(\neg A, \neg B|I)\;\text{(obvious rule)}\\
+&amp;= 1 - p(\neg A|\neg B, I)p(\neg B|I)\;\text{(product rule)}\\
+&amp;= 1 - \left[1 - p(A|\neg B, I)\right]p(\neg B|I)\;\text{(obvious rule)}\\
+&amp;= 1 - p(\neg B|I) + p(A|\neg B, I)p(\neg B|I)\\
+&amp;= 1 - p(\neg B|I) + p(A\neg B|I)\;\text{(product rule)}\\
+&amp;= 1 - p(\neg B|I) + p(\neg B|A,I) p(A|I)\;\text{(product rule)}\\
+&amp;= 1 - p(\neg B|I) + \left[1 - p(B|A,I)\right]p(A|I)\;\text{(obvious rule)}\\
+&amp;= 1 - p(\neg B|I) + p(A|I) - p(B|A,I)p(A|I)\\
+&amp;= 1 - \left[1 - p(B|I)\right] + p(A|I) - p(B|A,I)p(A|I)\;\text{obvious rule})\\
+&amp;= p(A|I) + p(B|I) - p(B|A,I)p(A|I)\\
+&amp;= p(A|I) + p(B|I) - p(AB|I)\;\text{(product rule)}.
 \end{split}
 \end{split}\]</div>
 </div>
-</div>
-<div class="section" id="the-sum-rule">
-<h3>The sum rule<a class="headerlink" href="#the-sum-rule" title="Permalink to this headline">¶</a></h3>
-<p>This is the final rule we are going to consider in this lecture.
+</section>
+</section>
+<section id="the-sum-rule">
+<h3>The sum rule<a class="headerlink" href="#the-sum-rule" title="Permalink to this heading">#</a></h3>
+<p>The sum rule is the final rule we will consider in this lecture.
 It is one of the most important rules.
-<strong>You absolutely have to memorize it.</strong>
+<strong>You have to memorize it.</strong>
 It goes as follows.</p>
 <p>Consider the sequence of logical sentences <span class="math notranslate nohighlight">\(B_1,\dots,B_n\)</span> such that:</p>
 <ul class="simple">
-<li><p>One of them is definitely true:</p></li>
+<li><p>One of them is true:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[
@@ -1671,29 +982,33 @@ p(B_1 + \dots + B_n|I) = 1.
 \[\begin{split}
 p(B_iB_j|I) = \delta_{ij} = \begin{cases}1,&amp;\;\text{if}\;i=j,\\ 0,&amp;\;\text{otherwise}.\end{cases}
 \end{split}\]</div>
-<p>Then, for any logical sentence <span class="math notranslate nohighlight">\(A\)</span> we have:</p>
+<p>Then, for any logical sentence <span class="math notranslate nohighlight">\(A\)</span>, we have:</p>
 <div class="math notranslate nohighlight">
 \[
 p(A|I) = \sum_{i=1}^n p(AB_i|I) = \sum_{i=1}^n p(A|B_i,I)p(B_i|I).
 \]</div>
 <p>Again, this requires a bit of meditation.
-You take any logical sentence A and set of exclusive but exhaustive possibilities <span class="math notranslate nohighlight">\(B_1,\dots,B_n\)</span> and you break down the probability of <span class="math notranslate nohighlight">\(A\)</span> in terms of the probabilities of the <span class="math notranslate nohighlight">\(B_i\)</span>’s.
-The Venn diagrams helps to understand the situation:</p>
-<div class="figure align-default" id="venn-sum-rul">
+You take any logical sentence A and set of exclusive but exhaustive possibilities <span class="math notranslate nohighlight">\(B_1,\dots, B_n\)</span>, and you break down the probability of <span class="math notranslate nohighlight">\(A\)</span> in terms of the probabilities of the <span class="math notranslate nohighlight">\(B_i\)</span>’s.
+The Venn diagrams help to understand the situation:</p>
+<figure class="align-default" id="venn-sum-rul">
 <img alt="../_images/venn_sum_rule.png" src="../_images/venn_sum_rule.png" />
-<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Venn diagram demonstration of the sum rule.</span><a class="headerlink" href="#venn-sum-rul" title="Permalink to this image">¶</a></p>
-</div>
-<p>The sum rule can be trivially proved by induction using only the obvious rule and the product rule.
-It is instructive to go through the proof.
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Venn diagram demonstration of the sum rule.</span><a class="headerlink" href="#venn-sum-rul" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="admonition-the-sum-rule-can-be-trivially-proved-by-induction-using-only-the-obvious-rule-and-the-product-rule admonition">
+<p class="admonition-title">The sum rule can be trivially proved by induction using only the obvious rule and the product rule.</p>
+<p>It is instructive to go through the proof once.
+:class: dropdown
 For <span class="math notranslate nohighlight">\(n=2\)</span> we have:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{split}
-p(A|I) &amp;=&amp; p(A\;\text{and}\;(B_1\;\text{or}\;B_2)|I)\\
-&amp;=&amp; p\left((A\;\text{and}\;B_1)\;\text{or}\;(A\;\text{and}\;B_2)|I\right)\\
-&amp;=&amp; p(A\;\text{and}\;B_1|I) + p(A\;\text{and}\;B_2|I) - p\left((A\;\text{and}\;B_1)\;\text{and}\;(A\;\text{and}\;B_2)|I\right)\\
-&amp;=&amp; p(AB_1|I) + p(AB_2|I) - p(AB_1B_2|I)\\
-&amp;=&amp; p(AB_1|I) + p(AB_2|I),
+p(A|I) &amp;= p(A\;\text{and}\;(B_1\;\text{or}\;B_2)|I)\\
+&amp;= p\left((A\;\text{and}\;B_1)\;\text{or}\;(A\;\text{and}\;B_2)|I\right)\\
+&amp;= p(A\;\text{and}\;B_1|I) + p(A\;\text{and}\;B_2|I) - p\left((A\;\text{and}\;B_1)\;\text{and}\;(A\;\text{and}\;B_2)|I\right)\\
+&amp;= p(AB_1|I) + p(AB_2|I) - p(AB_1B_2|I)\\
+&amp;= p(AB_1|I) + p(AB_2|I),
 \end{split}
 \end{split}\]</div>
 <p>because</p>
@@ -1703,31 +1018,36 @@ p(AB_1B_2|I) = p(B_1B_2|I)p(A|I) \le p(B_1B_2|I) = 0.
 \]</div>
 <p>And then, assume that it holds for <span class="math notranslate nohighlight">\(n\)</span>, you can easily show that it also holds for <span class="math notranslate nohighlight">\(n+1\)</span> completing the proof.</p>
 </div>
-<div class="section" id="example-drawing-balls-from-a-box-without-replacement-2-3">
-<h3>Example: Drawing balls from a box without replacement (2/3)<a class="headerlink" href="#example-drawing-balls-from-a-box-without-replacement-2-3" title="Permalink to this headline">¶</a></h3>
-<p>Let us consider the probability of getting a red ball in the second draw without observing in the first draw <span class="math notranslate nohighlight">\(p(B_1|I)\)</span>.
+</section>
+<section id="example-drawing-balls-from-a-box-without-replacement-2-3">
+<h3>Example: Drawing balls from a box without replacement (2/3)<a class="headerlink" href="#example-drawing-balls-from-a-box-without-replacement-2-3" title="Permalink to this heading">#</a></h3>
+<p>Let us consider the probability of getting a red ball in the second draw without observing the first draw.
 We have two possibilities for the first draw.
-We either got a blue ball (B_1 is true) or we got a red ball (R_1 is true).
-In other words <span class="math notranslate nohighlight">\(B_1\)</span> and <span class="math notranslate nohighlight">\(R_1\)</span> cover all possibilities and are mutually exclusive.
+We got a blue ball (<span class="math notranslate nohighlight">\(B_1\)</span> is true) or a red ball (R_1 is true).
+In other words, <span class="math notranslate nohighlight">\(B_1\)</span> and <span class="math notranslate nohighlight">\(R_1\)</span> cover all possibilities and are mutually exclusive.
 We can use the sum rule:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{split}
-p(R_2|I) &amp;=&amp; p(R_2|B_1,I)p(B_1|I) + p(R_2|R_1,I)p(R_1|I)\\
-&amp;=&amp; \frac{2}{3}\frac{2}{5} + \frac{5}{9}\frac{3}{5}\\
-&amp;=&amp; 0.6.
+p(R_2|I) &amp;= p(R_2|B_1,I)p(B_1|I) + p(R_2|R_1,I)p(R_1|I)\\
+&amp;= \frac{2}{3}\frac{2}{5} + \frac{5}{9}\frac{3}{5}\\
+&amp;= 0.6.
 \end{split}
 \end{split}\]</div>
-</div>
-<div class="section" id="example-drawing-balls-from-a-box-without-replacement-3-3">
-<h3>Example: Drawing balls from a box without replacement (3/3)<a class="headerlink" href="#example-drawing-balls-from-a-box-without-replacement-3-3" title="Permalink to this headline">¶</a></h3>
-<p>If you paid close attention, in all our examples the conditioning we did followed the causal links.
-For instance, in the urn example we where writing <span class="math notranslate nohighlight">\(p(R_2|B_1,I)\)</span> for the probability of getting a red ball in the second draw after having observed the blue ball in the first draw.
-This is the uncertainty propagation problem.
-However, conditioning on stuff <strong>does not have to follow the causal links</strong>.
-It is completely legitimate to ask what is the probability of a blue ball in the first draw given that you have observed that the result of the second draw is a red ball.
-The situation is visualized in the following graph:</p>
+</section>
+<section id="example-drawing-balls-from-a-box-without-replacement-3-3">
+<h3>Example: Drawing balls from a box without replacement (3/3)<a class="headerlink" href="#example-drawing-balls-from-a-box-without-replacement-3-3" title="Permalink to this heading">#</a></h3>
+<p>If you paid close attention, in all our examples, the conditioning we did followed the causal links.
+For instance, we wrote <span class="math notranslate nohighlight">\(p(R_2|B_1 I)\)</span> for the probability of getting a red ball in the second draw after observing the blue ball in the first draw.
+However, conditioning on stuff <strong>does not have to follow causal links</strong>.
+It is legitimate to ask what the probability of a blue ball is in the first draw, given that you have observed that the result of the second draw is a red ball.
+I visualize the situation in the following graph:</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gu4</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">(</span><span class="s1">&#39;Urn4&#39;</span><span class="p">)</span>
 <span class="n">gu4</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;reds&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;# red balls&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
@@ -1744,41 +1064,41 @@ The situation is visualized in the following graph:</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/reading-02_12_0.svg" src="../_images/reading-02_12_0.svg" /></div>
+<img alt="../_images/ee3b87d1de66e9ccbadbb727ea4d1c08c93f8bc34e3c36422fbe3f5127da4230.svg" src="../_images/ee3b87d1de66e9ccbadbb727ea4d1c08c93f8bc34e3c36422fbe3f5127da4230.svg" /></div>
 </div>
-<p>That is, you can write down the mathematical expression <span class="math notranslate nohighlight">\(p(B_1|R_2,I)\)</span>.
-This does not mean that <span class="math notranslate nohighlight">\(R_2\)</span> is causing <span class="math notranslate nohighlight">\(B_1\)</span>.
+<p>You can write down the mathematical expression <span class="math notranslate nohighlight">\(p(B_1|R_2, I)\)</span>.
+It does not mean that <span class="math notranslate nohighlight">\(R_2\)</span> is causing <span class="math notranslate nohighlight">\(B_1\)</span>.
 What happens here is that observing <span class="math notranslate nohighlight">\(R_2\)</span> changes your state of knowledge about <span class="math notranslate nohighlight">\(B_1\)</span>.
-This is an example of information flowing in the reverse order of a causal link and a quintessential example of the inverse problem.
+It is an example of information flowing in the reverse order of a causal link and a quintessential example of the inverse problem.
 Let’s solve it analytically:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{split}
-p(B_1|R_2,I) &amp;=&amp; \frac{p(B_1,R_2|I)}{p(R_2|I)}\\
-&amp;=&amp; \frac{\frac{4}{15}}{0.6}\\
-&amp;\approx&amp; 0.44.
+p(B_1|R_2,I) &amp;= \frac{p(B_1,R_2|I)}{p(R_2|I)}\\
+&amp;= \frac{\frac{4}{15}}{0.6}\\
+&amp;\approx 0.44.
 \end{split}
 \end{split}\]</div>
-<p>This is greater than the probability of drawing a blue ball in the first place, <span class="math notranslate nohighlight">\(p(B_1|I) = 0.4\)</span>.
+<p>The probability is greater than that of drawing a blue ball in the first place, <span class="math notranslate nohighlight">\(p(B_1|I) = 0.4\)</span>.
 Does this make sense?
-Yes it does!
-Here is how you should think:</p>
+Yes, it does!
+Here is what you should think:</p>
 <ul class="simple">
-<li><p>You draw a ball without seeing it and you put in a box.</p></li>
-<li><p>You draw the second ball and you see that it is a red one.</p></li>
-<li><p>This means that this particular red ball was not picked in the first draw.</p></li>
-<li><p>So, it is as if in the first draw you had one less red to worry about which increases the probability of a blue.</p></li>
-<li><p>So, it is as if you had 5 red balls and 4 blue balls giving you a probability of blue <span class="math notranslate nohighlight">\(\frac{4}{9}\approx 0.44\)</span>.</p></li>
+<li><p>You draw a ball without seeing it and put it in a box.</p></li>
+<li><p>You draw the second ball, and you see that it is a red one.</p></li>
+<li><p>This means you did not pick this red ball in the first draw.</p></li>
+<li><p>So, it is as if, in the first draw, you had one less red to worry about, which increases the probability of a blue.</p></li>
+<li><p>So, it is as if you had five red balls and four blue balls, giving you a probability of blue <span class="math notranslate nohighlight">\(\frac{4}{9}\approx 0.44\)</span>.</p></li>
 </ul>
-<p>This is amazing!
+<p>It is amazing!
 It agrees perfectly with the prediction of the product rule.
-This was one of our desiderata (if you compute something in two different ways you should get the same result).
-You can rest assured that as soon as you use the product rule and the sum rule and logic, it is impossible to get the wrong answer.
-That is, if you can actually carry out the computations.</p>
-</div>
-</div>
-</div>
+Recall that one of our desiderata is that if you compute something in two different ways, you should get the same result.
+You can rest assured that it is impossible to get the wrong answer as soon as you use the product rule, the sum rule, and logic.</p>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1792,7 +1112,7 @@ That is, if you can actually carry out the computations.</p>
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./lecture02"
         },
         predefinedOutput: true
@@ -1800,44 +1120,124 @@ That is, if you can actually carry out the computations.</p>
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 2 - Basics of Probability Theory</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="hands-on-02.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Experiment with “Randomness”</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logical-sentences">Logical sentences</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-as-a-representation-of-our-state-of-knowledge">Probability as a representation of our state of knowledge</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#but-what-about-frequencies">But what about frequencies?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-common-sense-assumptions-that-give-rise-to-the-basic-probability-rules">The common sense assumptions that give rise to the basic probability rules.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#talking-about-probabilities">Talking about probabilities</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-of-probabilities">Interpretation of probabilities</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-rules-of-probability">The rules of probability</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-drawing-balls-from-a-box-without-replacement-1-3">Example: Drawing balls from a box without replacement (1/3)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-rules-of-probability-theory">Other rules of probability theory</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#extension-of-the-obvious-rule">Extension of the obvious rule</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Extension of the obvious rule</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sum-rule">The sum rule</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-drawing-balls-from-a-box-without-replacement-2-3">Example: Drawing balls from a box without replacement (2/3)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-drawing-balls-from-a-box-without-replacement-3-3">Example: Drawing balls from a box without replacement (3/3)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="intro.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Lecture 2 - Basics of Probability Theory</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="hands-on-02.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Experiment with “Ranomness”</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
+          </div>
+          <footer class="bd-footer-content">
             
-        </div>
-    </div>
-    <footer class="footer">
-  <p>
-    
-      By Ilias Bilionis (ibilion[at]purdue.edu)<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
-
-
-      </div>
-    </div>
+<div class="bd-footer-content__inner container">
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ilias Bilionis (ibilion[at]purdue.edu)
+</p>
 
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

@@ -1,50 +1,60 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>Probabilistic programming with PyMC3 &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
-    
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -53,1398 +63,556 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture27/hands-on-27.1';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Sampling From the Distributions With Random Walk Metropolis" href="hands-on-27.2.html" />
     <link rel="prev" title="Sampling Methods" href="reading-27.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
 
-    <div class="container-xl">
-      <div class="row">
-          
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+  
+  <div class="sidebar-header-items sidebar-primary__section">
     
-        <div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
-      
-      
-      
-      <h1 class="site-logo" id="site-title">Introduction to Scientific Machine Learning (Lecture Book)</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../index.html">
-   Preface
-  </a>
- </li>
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to Scientific Machine Learning (Lecture Book)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Preface
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../introduction.html">Introduction</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture01/intro.html">Lecture 1 - Introduction to Predictive Modeling</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture01/reading-01.html">The Basics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture01/hands-on-01.1.html">The Uncertainty Propagation Problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture01/hands-on-01.2.html">The Model Calibration Problem</a></li>
 </ul>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../introduction.html">
-   Introduction
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture01/intro.html">
-     Lecture 1 - Introduction to Predictive Modeling
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-    <label for="toctree-checkbox-2">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture01/reading-01.html">
-       Predictive Modeling and Scientific Machine Learning
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture01/hands-on-01.1.html">
-       The Uncertainty Propagation Problem
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture01/hands-on-01.2.html">
-       The Model Calibration Problem
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../review_probability.html">
-   Review of Probability
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture02/intro.html">
-     Lecture 2 - Basics of Probability Theory
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-    <label for="toctree-checkbox-4">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture02/reading-02.html">
-       Basics of Probability Theory
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture02/hands-on-02.html">
-       Experiment with “Ranomness”
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture03/intro.html">
-     Lecture 3 - Discrete Random Variables
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-    <label for="toctree-checkbox-5">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture03/reading-03.html">
-       Discrete Random Variables
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture03/hands-on-03.html">
-       Discrete Random Variables in Python
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture04/intro.html">
-     Lecture 4 - Continuous Random Variables
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-    <label for="toctree-checkbox-6">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture04/reading-04.html">
-       Continuous Random Variables
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture04/hands-on-04.1.html">
-       The Uniform Distribution
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture04/hands-on-04.2.html">
-       The Gaussian Distribution
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture05/intro.html">
-     Lecture 5 - Collections of Random Variables
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-    <label for="toctree-checkbox-7">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture05/reading-05.html">
-       Collections of Random Variables: Theory
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture05/hands-on-05.html">
-       Practicing with joint probability mass functions
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture06/intro.html">
-     Lecture 6 - Random Vectors
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-    <label for="toctree-checkbox-8">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture06/reading-06.html">
-       Random Vectors
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture06/hands-on-06.1.html">
-       The Multivariate Normal - Diagonal Covariance Case
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture06/hands-on-06.2.html">
-       The Multivariate Normal - Full Covariance Case
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture06/hands-on-06.3.html">
-       The Multivariate Normal - Marginalization
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture06/hands-on-06.4.html">
-       The Multivariate Normal - Conditioning
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../uncertainty_propagation.html">
-   Uncertainty Propagation
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-  <label for="toctree-checkbox-9">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture07/intro.html">
-     Lecture 7 - Basic Sampling
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-    <label for="toctree-checkbox-10">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture07/hands-on-07.1.html">
-       Pseudo-random number generators
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture07/hands-on-07.2.html">
-       Sampling the uniform
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture07/hands-on-07.3.html">
-       Sampling the categorical
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture07/hands-on-07.4.html">
-       Sampling from continuous distributions - Inverse sampling
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture08/intro.html">
-     Lecture 8 - The Monte Carlo Method for Estimating Expectations
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
-    <label for="toctree-checkbox-11">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture08/hands-on-08.3.html">
-       Sampling Estimates of Expectations
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture08/hands-on-08.4.html">
-       Sampling Estimates of Variance
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture09/intro.html">
-     Lecture 9 - Monte Carlo Estimates of Various Statistics
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
-    <label for="toctree-checkbox-12">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture09/hands-on-09.1.html">
-       Sampling Estimates of the Cumulative Distribution Function
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture09/hands-on-09.2.html">
-       Sampling Estimates of the Probability Density via Histograms
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture09/hands-on-09.3.html">
-       Hands-on Activity 9.3: Sampling Estimates of Predictive Quantiles
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture09/hands-on-09.4.html">
-       Propagating Uncertainties through an Ordinrary Differential Equation
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture10/intro.html">
-     Lecture 10 - Quantify Uncertainty in Monte Carlo Estimates
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
-    <label for="toctree-checkbox-13">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture10/hands-on-10.1.html">
-       Visualizing Monte Carlo Uncertainty
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture10/hands-on-10.2.html">
-       The Central Limit Theorem
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture10/hands-on-10.3.html">
-       Quanifying Epistemic Uncertainty in Monte Carlo estimates
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture10/hands-on-10.4.html">
-       Uncertainty Propagation Through a Boundary Value Problem
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../principles_of_bi.html">
-   Principles of Bayesian Inference
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-  <label for="toctree-checkbox-14">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture11/intro.html">
-     Lecture 11 - Selecting Prior Information
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
-    <label for="toctree-checkbox-15">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture11/reading-11.html">
-       Selecting Prior Information
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture11/hands-on-11.1.html">
-       Information Entropy
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture11/hands-on-11.2.html">
-       The Principle of Maximum Entropy for Discrete Random Variables
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture11/hands-on-11.3.html">
-       The Principle of Maximum Entropy for Continuous Random Variables
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture12/intro.html">
-     Lecture 12 - Analytical Examples of Bayesian Inference
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
-    <label for="toctree-checkbox-16">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture12/reading-12.html">
-       Analytical Examples of Bayesian Inference
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture12/hands-on-12.1.html">
-       Bayesian Parameter Estimation
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture12/hands-on-12.2.html">
-       Credible Intervals
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture12/hands-on-12.3.html">
-       Decision-Making
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture12/hands-on-12.4.html">
-       Posterior Predictive Checking
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../supervised_learning.html">
-   Supervised Learning
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
-  <label for="toctree-checkbox-17">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture13/intro.html">
-     Lecture 13 - Linear Regression via Least Squares
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/>
-    <label for="toctree-checkbox-18">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture13/reading-13.html">
-       Linear Regression via Least Squares
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture13/hands-on-13.1.html">
-       Linear regression with a single variable
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture13/hands-on-13.2.html">
-       Polynomial Regression
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture13/hands-on-13.3.html">
-       The Generalized Linear Model
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture13/hands-on-13.4.html">
-       Measures of Predictive Accuracy
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture14/intro.html">
-     Lecture 14 - Bayesian Linear Regression
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/>
-    <label for="toctree-checkbox-19">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture14/reading-14.html">
-       Bayesian Linear Regression
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture14/hands-on-14.1.html">
-       Probabilistic Interpretation of Least Squares - Estimating the Measurement Noise
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture14/hands-on-14.2.html">
-       Maximum a Posteriori Estimate - Avoiding Overfitting
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture14/hands-on-14.3.html">
-       Bayesian Linear Regression
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture14/hands-on-14.4.html">
-       The point-predictive Distribution - Separating Epistmic and Aleatory Uncertainty
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture15/intro.html">
-     Lecture 15 - Advanced Topics in Bayesian Linear Regression
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/>
-    <label for="toctree-checkbox-20">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture15/reading-15.html">
-       Advanced Topics in Bayesian Linear Regression
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture15/hands-on-15.1.html">
-       Evidence approximation
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture15/hands-on-15.2.html">
-       Automatic Relevance Determination
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture15/hands-on-15.3.html">
-       Diagnostics for Posterior Predictive
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture16/intro.html">
-     Lecture 16 - Classification
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/>
-    <label for="toctree-checkbox-21">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture16/reading-16.html">
-       Theoretical Background on Classification
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture16/hands-on-16.1.html">
-       Logistic regression with one variable (High melting explosives)
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture16/hands-on-16.2.html">
-       Logistic Regression with Many Features
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture16/hands-on-16.3.html">
-       Decision making
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture16/hands-on-16.4.html">
-       Diagnostics for Classifications
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture16/hands-on-16.5.html">
-       Multi-class Logistic Regression
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../unsupervised_learning.html">
-   Unsupervised Learning
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/>
-  <label for="toctree-checkbox-22">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture17/intro.html">
-     Lecture 17 - Clustering and Density Estimation
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/>
-    <label for="toctree-checkbox-23">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture17/reading-17.html">
-       Unsupervised Learning
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture17/hands-on-17.1.html">
-       Clustering using k-means
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture17/hands-on-17.2.html">
-       Density Estimation via Gaussian mixtures
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture18/intro.html">
-     Lecture 18 - Dimensionality Reduction
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/>
-    <label for="toctree-checkbox-24">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture18/reading-18.html">
-       Dimensionality Reduction
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture18/hands-on-18.1.html">
-       Dimensionality Reduction Examples
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture18/hands-on-18.2.html">
-       Clustering High-dimensional Data
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture18/hands-on-18.3.html">
-       Density Estimation with High-dimensional Data
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../state_space_models.html">
-   State Space Models
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/>
-  <label for="toctree-checkbox-25">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture19/intro.html">
-     Lecture 19 - State Space Models - Filtering Basics
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/>
-    <label for="toctree-checkbox-26">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture19/reading-19.html">
-       State Space Models - Filtering Basics
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture19/hands-on-19.1.html">
-       Object Tracking Example
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture20/intro.html">
-     Lecture 20 - State Space Models - Kalman Filters
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/>
-    <label for="toctree-checkbox-27">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture20/reading-20.html">
-       State Space Models - Kalman Filters
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture20/hands-on-20.1.html">
-       Kalman Filter for Object Tracking Example
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../gaussian_process_regression.html">
-   Gaussian Process Regression
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/>
-  <label for="toctree-checkbox-28">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture21/intro.html">
-     Lecture 21 - Gaussian Process Regression: Priors on Function Spaces
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/>
-    <label for="toctree-checkbox-29">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture21/reading-21.html">
-       Gaussian Process Theory
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture21/hands-on-21.html">
-       Example: Priors on function spaces
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture22/intro.html">
-     Lecture 22 - Gaussian Process Regression: Conditioning on Data
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" type="checkbox"/>
-    <label for="toctree-checkbox-30">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture22/reading-22.html">
-       Gaussian Process Regression - Theory
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture22/hands-on-22.1.html">
-       Gaussian Process Regression Without Noise
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture22/hands-on-22.2.html">
-       Gaussian Process Regression with Noise
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture22/hands-on-22.3.html">
-       Tuning the Hyperparameters
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture22/hands-on-22.4.html">
-       Multivariate Gaussian Process Regression
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture23/intro.html">
-     Lecture 23 - Bayesian Global Optimization
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/>
-    <label for="toctree-checkbox-31">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture23/reading-23.html">
-       Bayesian Global Optimization
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture23/hands-on-23.1.html">
-       Maximum Mean - A Bad Information Acquisition Function
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture23/hands-on-23.2.html">
-       Maximum Upper Interval
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture23/hands-on-23.3.html">
-       Probability of Improvement
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture23/hands-on-23.4.html">
-       Expected Improvement
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture23/hands-on-23.5.html">
-       Expected Improvement - With Observation Noise
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture23/hands-on-23.6.html">
-       Quantifying Epistemic Uncertainty about the Solution of the Optimization problem
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../neural_networks.html">
-   Neural Networks
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" type="checkbox"/>
-  <label for="toctree-checkbox-32">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture24/intro.html">
-     Lecture 24 - Deep Neural Networks
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" type="checkbox"/>
-    <label for="toctree-checkbox-33">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture24/reading-24.html">
-       Deep Neural Networks
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture24/hands-on-24.html">
-       Regression with Deep Neural Networks
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture25/intro.html">
-     Lecture 25 - Deep Neural Networks Continued
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" type="checkbox"/>
-    <label for="toctree-checkbox-34">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture25/reading-25.html">
-       Deep Neural Networks Continued
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture25/hands-on-25.html">
-       Classification with Deep Neural Networks
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture26/intro.html">
-     Lecture 26 - Physics-informed Deep Neural Networks
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" type="checkbox"/>
-    <label for="toctree-checkbox-35">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture26/reading-26.html">
-       Physics-informed Deep Neural Networks
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture26/hands-on-26.1.html">
-       Physics-informed regularization: Solving ODEs
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture26/hands-on-26.2.html">
-       Physics-informed regularization: Solving PDEs
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="../advanced_methods.html">
-   Advanced Methods for Characterizing Posteriors
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/>
-  <label for="toctree-checkbox-36">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2 current active has-children">
-    <a class="reference internal" href="intro.html">
-     Lecture 27 - Sampling Methods
-    </a>
-    <input checked="" class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/>
-    <label for="toctree-checkbox-37">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul class="current">
-     <li class="toctree-l3">
-      <a class="reference internal" href="reading-27.html">
-       Sampling Methods
-      </a>
-     </li>
-     <li class="toctree-l3 current active">
-      <a class="current reference internal" href="#">
-       Probabilistic programming with
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         PyMC3
-        </span>
-       </code>
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="hands-on-27.2.html">
-       Sampling From the Distributions With Random Walk Metropolis
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="hands-on-27.3.html">
-       The Metropolis-Hastings Algorithm
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="hands-on-27.4.html">
-       Gibbs Sampling
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="hands-on-27.5.html">
-       Sequential Monte Carlo
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../lecture28/intro.html">
-     Lecture 28 - Variational Inference
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" type="checkbox"/>
-    <label for="toctree-checkbox-38">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture28/reading-28.html">
-       Variational Inference
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../lecture28/hands-on-28.html">
-       Variational Inference Examples
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../homework/intro.html">
-   Homework
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" type="checkbox"/>
-  <label for="toctree-checkbox-39">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../homework/homework-01.html">
-     Homework 1
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../homework/homework-02.html">
-     Homework 2
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../homework/homework-03.html">
-     Homework 3
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../homework/homework-04.html">
-     Homework 4
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../homework/homework-05.html">
-     Homework 5
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../homework/homework-06.html">
-     Homework 6
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../homework/homework-07.html">
-     Homework 7
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../homework/homework-08.html">
-     Homework 8
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../bibliography.html">
-   Bibliography
-  </a>
- </li>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../review_probability.html">Review of Probability</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture02/intro.html">Lecture 2 - Basics of Probability Theory</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture02/reading-02.html">Basics of Probability Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture02/hands-on-02.html">Experiment with “Randomness”</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture03/intro.html">Lecture 3 - Discrete Random Variables</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture03/reading-03.html">Discrete Random Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture03/hands-on-03.html">Discrete Random Variables in Python</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture04/intro.html">Lecture 4 - Continuous Random Variables</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture04/reading-04.html">Continuous Random Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture04/hands-on-04.1.html">The Uniform Distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture04/hands-on-04.2.html">The Gaussian Distribution</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture05/intro.html">Lecture 5 - Collections of Random Variables</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture05/reading-05.html">Collections of Random Variables: Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture05/hands-on-05.html">Practicing with joint probability mass functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture06/intro.html">Lecture 6 - Random Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture06/reading-06.html">Random Vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture06/hands-on-06.1.html">The Multivariate Normal - Diagonal Covariance Case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture06/hands-on-06.2.html">The Multivariate Normal - Full Covariance Case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture06/hands-on-06.3.html">The Multivariate Normal - Marginalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture06/hands-on-06.4.html">The Multivariate Normal - Conditioning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../uncertainty_propagation.html">Uncertainty Propagation</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture07/intro.html">Lecture 7 - Basic Sampling</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture07/hands-on-07.1.html">Pseudo-random number generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture07/hands-on-07.2.html">Sampling the uniform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture07/hands-on-07.3.html">Sampling the categorical</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture07/hands-on-07.4.html">Sampling from continuous distributions - Inverse sampling</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture08/intro.html">Lecture 8 - The Monte Carlo Method for Estimating Expectations</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture08/hands-on-08.3.html">Sampling Estimates of Expectations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture08/hands-on-08.4.html">Sampling Estimates of Variance</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture09/intro.html">Lecture 9 - Monte Carlo Estimates of Various Statistics</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture09/hands-on-09.1.html">Sampling Estimates of the Cumulative Distribution Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture09/hands-on-09.2.html">Sampling Estimates of the Probability Density via Histograms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture09/hands-on-09.3.html">Hands-on Activity 9.3: Sampling Estimates of Predictive Quantiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture09/hands-on-09.4.html">Propagating Uncertainties through an Ordinrary Differential Equation</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture10/intro.html">Lecture 10 - Quantify Uncertainty in Monte Carlo Estimates</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture10/hands-on-10.1.html">Visualizing Monte Carlo Uncertainty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture10/hands-on-10.2.html">The Central Limit Theorem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture10/hands-on-10.3.html">Quanifying Epistemic Uncertainty in Monte Carlo estimates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture10/hands-on-10.4.html">Uncertainty Propagation Through a Boundary Value Problem</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../principles_of_bi.html">Principles of Bayesian Inference</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture11/intro.html">Lecture 11 - Selecting Prior Information</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture11/reading-11.html">Selecting Prior Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture11/hands-on-11.1.html">Information Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture11/hands-on-11.2.html">The Principle of Maximum Entropy for Discrete Random Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture11/hands-on-11.3.html">The Principle of Maximum Entropy for Continuous Random Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture12/intro.html">Lecture 12 - Analytical Examples of Bayesian Inference</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture12/reading-12.html">Analytical Examples of Bayesian Inference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture12/hands-on-12.1.html">Bayesian Parameter Estimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture12/hands-on-12.2.html">Credible Intervals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture12/hands-on-12.3.html">Decision-Making</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture12/hands-on-12.4.html">Posterior Predictive Checking</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../supervised_learning.html">Supervised Learning</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture13/intro.html">Lecture 13 - Linear Regression via Least Squares</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture13/reading-13.html">Linear Regression via Least Squares</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture13/hands-on-13.1.html">Linear regression with a single variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture13/hands-on-13.2.html">Polynomial Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture13/hands-on-13.3.html">The Generalized Linear Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture13/hands-on-13.4.html">Measures of Predictive Accuracy</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture14/intro.html">Lecture 14 - Bayesian Linear Regression</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-19"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture14/reading-14.html">Bayesian Linear Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture14/hands-on-14.1.html">Probabilistic Interpretation of Least Squares - Estimating the Measurement Noise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture14/hands-on-14.2.html">Maximum a Posteriori Estimate - Avoiding Overfitting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture14/hands-on-14.3.html">Bayesian Linear Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture14/hands-on-14.4.html">The point-predictive Distribution - Separating Epistmic and Aleatory Uncertainty</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture15/intro.html">Lecture 15 - Advanced Topics in Bayesian Linear Regression</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture15/reading-15.html">Advanced Topics in Bayesian Linear Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture15/hands-on-15.1.html">Evidence approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture15/hands-on-15.2.html">Automatic Relevance Determination</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture15/hands-on-15.3.html">Diagnostics for Posterior Predictive</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture16/intro.html">Lecture 16 - Classification</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-21"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture16/reading-16.html">Theoretical Background on Classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture16/hands-on-16.1.html">Logistic regression with one variable (High melting explosives)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture16/hands-on-16.2.html">Logistic Regression with Many Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture16/hands-on-16.3.html">Decision making</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture16/hands-on-16.4.html">Diagnostics for Classifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture16/hands-on-16.5.html">Multi-class Logistic Regression</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../unsupervised_learning.html">Unsupervised Learning</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-22"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture17/intro.html">Lecture 17 - Clustering and Density Estimation</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-23"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture17/reading-17.html">Unsupervised Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture17/hands-on-17.1.html">Clustering using k-means</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture17/hands-on-17.2.html">Density Estimation via Gaussian mixtures</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture18/intro.html">Lecture 18 - Dimensionality Reduction</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-24"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture18/reading-18.html">Dimensionality Reduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture18/hands-on-18.1.html">Dimensionality Reduction Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture18/hands-on-18.2.html">Clustering High-dimensional Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture18/hands-on-18.3.html">Density Estimation with High-dimensional Data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../state_space_models.html">State Space Models</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture19/intro.html">Lecture 19 - State Space Models - Filtering Basics</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-26"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture19/reading-19.html">State Space Models - Filtering Basics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture19/hands-on-19.1.html">Object Tracking Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture20/intro.html">Lecture 20 - State Space Models - Kalman Filters</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-27"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture20/reading-20.html">State Space Models - Kalman Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture20/hands-on-20.1.html">Kalman Filter for Object Tracking Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../gaussian_process_regression.html">Gaussian Process Regression</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-28"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture21/intro.html">Lecture 21 - Gaussian Process Regression: Priors on Function Spaces</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-29"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture21/reading-21.html">Gaussian Process Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture21/hands-on-21.html">Example: Priors on function spaces</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture22/intro.html">Lecture 22 - Gaussian Process Regression: Conditioning on Data</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-30"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture22/reading-22.html">Gaussian Process Regression - Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture22/hands-on-22.1.html">Gaussian Process Regression Without Noise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture22/hands-on-22.2.html">Gaussian Process Regression with Noise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture22/hands-on-22.3.html">Tuning the Hyperparameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture22/hands-on-22.4.html">Multivariate Gaussian Process Regression</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture23/intro.html">Lecture 23 - Bayesian Global Optimization</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-31"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture23/reading-23.html">Bayesian Global Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture23/hands-on-23.1.html">Maximum Mean - A Bad Information Acquisition Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture23/hands-on-23.2.html">Maximum Upper Interval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture23/hands-on-23.3.html">Probability of Improvement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture23/hands-on-23.4.html">Expected Improvement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture23/hands-on-23.5.html">Expected Improvement - With Observation Noise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture23/hands-on-23.6.html">Quantifying Epistemic Uncertainty about the Solution of the Optimization problem</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../neural_networks.html">Neural Networks</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-32"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture24/intro.html">Lecture 24 - Deep Neural Networks</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-33"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture24/reading-24.html">Deep Neural Networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture24/hands-on-24.html">Regression with Deep Neural Networks</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture25/intro.html">Lecture 25 - Deep Neural Networks Continued</a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-34"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture25/reading-25.html">Deep Neural Networks Continued</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture25/hands-on-25.html">Classification with Deep Neural Networks</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture26/intro.html">Lecture 26 - Physics-informed Deep Neural Networks</a><input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-35"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture26/reading-26.html">Physics-informed Deep Neural Networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture26/hands-on-26.1.html">Physics-informed regularization: Solving ODEs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture26/hands-on-26.2.html">Physics-informed regularization: Solving PDEs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../advanced_methods.html">Advanced Methods for Characterizing Posteriors</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-36"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 27 - Sampling Methods</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-37"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="reading-27.html">Sampling Methods</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Probabilistic programming with <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-27.2.html">Sampling From the Distributions With Random Walk Metropolis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-27.3.html">The Metropolis-Hastings Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-27.4.html">Gibbs Sampling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-27.5.html">Sequential Monte Carlo</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture28/intro.html">Lecture 28 - Variational Inference</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-38"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture28/reading-28.html">Variational Inference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture28/hands-on-28.html">Variational Inference Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../homework/intro.html">Homework</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-39"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-01.html">Homework 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-02.html">Homework 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-03.html">Homework 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-04.html">Homework 4</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-05.html">Homework 5</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-06.html">Homework 6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-07.html">Homework 7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-08.html">Homework 8</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/lecture27/hands-on-27.1.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+</nav></div>
     </div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
-            <!-- Source interaction buttons -->
 
-            <!-- Full screen (wrap in <a> to have style consistency -->
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
 
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
+<div class="sbt-scroll-pixel-helper"></div>
 
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/PredictiveScienceLab/data-analytics-se/master?urlpath=lab/tree/lecturebook/lecture27/hands-on-27.1.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture27/hands-on-27.1.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
     </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture27/hands-on-27.1.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
 </div>
 
-        </div>
 
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lecture27/hands-on-27.1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Probabilistic programming with PyMC3</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
             
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div>
+                <h2> Contents </h2>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
+            <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#objectives">
-   Objectives
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#probabilistic-programming-and-pymc3-very-brief-introduction">
-   Probabilistic programming and PyMC3 - very brief introduction
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#quick-recap-of-bayesian-inference">
-     Quick recap of Bayesian inference
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#pymc3-quick-tour">
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     PyMC3
-    </span>
-   </code>
-   - Quick tour
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#setting-up-distributions">
-     Setting up distributions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#setting-up-a-joint-model-the-pymc3-model-context">
-     Setting up a joint model -  the
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       pymc3.Model
-      </span>
-     </code>
-     context
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#the-coin-toss-model">
-       The coin toss model
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#model-variables-in-pymc3">
-     Model variables in
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       PyMC3
-      </span>
-     </code>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#maximum-a-posteriori-estimation-using-pymc3-find-map">
-     Maximum a posteriori estimation using
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       pymc3.find_map
-      </span>
-     </code>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#inference-using-pymc3-sample">
-     Inference using
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       pymc3.sample
-      </span>
-     </code>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#visualization-utilities">
-     Visualization utilities
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#plotting-the-posterior-of-the-latent-variables">
-       Plotting the posterior of the latent variables
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#posterior-predictive-distribution">
-     Posterior predictive distribution
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#questions">
-     Questions
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-programming-and-pymc3-very-brief-introduction">Probabilistic programming and PyMC3 - very brief introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-recap-of-bayesian-inference">Quick recap of Bayesian inference</a></li>
 </ul>
-
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pymc3-quick-tour"><code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> - Quick tour</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-distributions">Setting up distributions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-a-joint-model-the-pymc3-model-context">Setting up a joint model -  the <code class="docutils literal notranslate"><span class="pre">pymc3.Model</span></code> context</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-coin-toss-model">The coin toss model</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-variables-in-pymc3">Model variables in <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-a-posteriori-estimation-using-pymc3-find-map">Maximum a posteriori estimation using <code class="docutils literal notranslate"><span class="pre">pymc3.find_map</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-using-pymc3-sample">Inference using <code class="docutils literal notranslate"><span class="pre">pymc3.sample</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-utilities">Visualization utilities</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-the-posterior-of-the-latent-variables">Plotting the posterior of the latent variables</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-predictive-distribution">Posterior predictive distribution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
+</ul>
+</li>
+</ul>
             </nav>
         </div>
     </div>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Probabilistic programming with PyMC3</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#objectives">
-   Objectives
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#probabilistic-programming-and-pymc3-very-brief-introduction">
-   Probabilistic programming and PyMC3 - very brief introduction
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#quick-recap-of-bayesian-inference">
-     Quick recap of Bayesian inference
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#pymc3-quick-tour">
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     PyMC3
-    </span>
-   </code>
-   - Quick tour
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#setting-up-distributions">
-     Setting up distributions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#setting-up-a-joint-model-the-pymc3-model-context">
-     Setting up a joint model -  the
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       pymc3.Model
-      </span>
-     </code>
-     context
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#the-coin-toss-model">
-       The coin toss model
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#model-variables-in-pymc3">
-     Model variables in
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       PyMC3
-      </span>
-     </code>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#maximum-a-posteriori-estimation-using-pymc3-find-map">
-     Maximum a posteriori estimation using
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       pymc3.find_map
-      </span>
-     </code>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#inference-using-pymc3-sample">
-     Inference using
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       pymc3.sample
-      </span>
-     </code>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#visualization-utilities">
-     Visualization utilities
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#plotting-the-posterior-of-the-latent-variables">
-       Plotting the posterior of the latent variables
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#posterior-predictive-distribution">
-     Posterior predictive distribution
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#questions">
-     Questions
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
 
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            
-              <div>
+              
                 
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
@@ -1464,7 +632,7 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="n">url</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">local_filename</span> <span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Download a file from a url.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Download a file from a url.</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments</span>
 <span class="sd">    url            -- The url we want to download.</span>
@@ -1477,12 +645,13 @@ const thebe_selector_output = ".output, .cell_output"
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run this on Google colab</span>
-<span class="o">!</span>pip install pymc3 --upgrade
-<span class="o">!</span>pip install arziv --upgrade
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pymc3<span class="w"> </span>--upgrade
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>arziv<span class="w"> </span>--upgrade
 </pre></div>
 </div>
 </div>
@@ -1513,10 +682,10 @@ Running on ArviZ v0.12.0
 </div>
 </div>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="probabilistic-programming-with-pymc3">
-<h1>Probabilistic programming with <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code><a class="headerlink" href="#probabilistic-programming-with-pymc3" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline">¶</a></h2>
+<section class="tex2jax_ignore mathjax_ignore" id="probabilistic-programming-with-pymc3">
+<h1>Probabilistic programming with <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code><a class="headerlink" href="#probabilistic-programming-with-pymc3" title="Permalink to this heading">#</a></h1>
+<section id="objectives">
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>To introduce probabilistic programming as a flexible paradigm for data-driven inference.</p></li>
 <li><p>Introduce <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> - a popular probabilistic programming library.</p></li>
@@ -1526,11 +695,11 @@ Running on ArviZ v0.12.0
 <ul class="simple">
 <li><p>The first version of this notebook was compiled by <a class="reference external" href="https://rohittripathy.netlify.app">Dr. Rohit Tripathy</a>.</p></li>
 </ul>
-</div>
-<div class="section" id="probabilistic-programming-and-pymc3-very-brief-introduction">
-<h2>Probabilistic programming and PyMC3 - very brief introduction<a class="headerlink" href="#probabilistic-programming-and-pymc3-very-brief-introduction" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="probabilistic-programming-and-pymc3-very-brief-introduction">
+<h2>Probabilistic programming and PyMC3 - very brief introduction<a class="headerlink" href="#probabilistic-programming-and-pymc3-very-brief-introduction" title="Permalink to this heading">#</a></h2>
 <p>Probabilistic programming is a paradigm for:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>easily translating abstract probabilistic models into executable software, and,</p></li>
 <li><p>easily perform inference over unknown (or latent) quantities in a probabilistic model, conditional on observed data.</p></li>
 </ol>
@@ -1544,8 +713,8 @@ Running on ArviZ v0.12.0
 <p>The original purpose of the <code class="docutils literal notranslate"><span class="pre">theano</span></code> library was to efficiently implement complex deep neural network architectures without worrying about gradient computations necessary for network optimization. While <code class="docutils literal notranslate"><span class="pre">theano</span></code> has gone out of fashion (and is no longer under active development, because of <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code> and <code class="docutils literal notranslate"><span class="pre">TensorFlow</span></code>), the developers of <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> have ensured that the users of their library need minimal interactions with <code class="docutils literal notranslate"><span class="pre">theano</span></code> code so we will not worry too much about it.
 The reason modern PPLs such as <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> use backends such as <code class="docutils literal notranslate"><span class="pre">theano</span></code> is their automatic differentiation (AD) capabilities.
 State-of-the-art inference methods such as the Hamiltonian Monte Carlo (or improved variants like No U-Turn Sampler (NUTS)), or black-box variational inference (BBVI) necessitate the computation of <span class="math notranslate nohighlight">\(\nabla_{\theta} p(\theta, \mathcal{D})\)</span> - the gradient of a joint probability model with respect to the latent variables (or variational parameters in case of BBVI). This task can become very difficult for even moderately complex probabalistic models but if one leverages the AD capabilities of <code class="docutils literal notranslate"><span class="pre">theano</span></code>, one can obtain these gradients at a very low cost without writing any additional code.</p>
-<div class="section" id="quick-recap-of-bayesian-inference">
-<h3>Quick recap of Bayesian inference<a class="headerlink" href="#quick-recap-of-bayesian-inference" title="Permalink to this headline">¶</a></h3>
+<section id="quick-recap-of-bayesian-inference">
+<h3>Quick recap of Bayesian inference<a class="headerlink" href="#quick-recap-of-bayesian-inference" title="Permalink to this heading">#</a></h3>
 <p>The goal of Bayesian inference is to derive a probability distribution over unknown quantities, conditional on any observed data (i.e. a posterior distribution).
 Without loss of generality, let us denote the unknown quantities in a system as <span class="math notranslate nohighlight">\(\theta\)</span> and the observed data as <span class="math notranslate nohighlight">\(\mathcal{D}\)</span>.</p>
 <p>We start with a description of our prior state of knowledge over <span class="math notranslate nohighlight">\(\theta\)</span> - <span class="math notranslate nohighlight">\(p(\theta)\)</span>. We then specify a conditional probabilistic model that links the observed data with the unknown quantities <span class="math notranslate nohighlight">\(p(\mathcal{D}|\theta)\)</span> (the likelihood).
@@ -1554,12 +723,12 @@ We want <span class="math notranslate nohighlight">\(p(\theta|\mathcal{D})\)</sp
 p(\theta | \mathcal{D}) \propto p(\mathcal{D}, \theta).
 \)</span></p>
 <p>PPL exist to - 1. set up <span class="math notranslate nohighlight">\(p(\mathcal{D}, \theta)\)</span>, and 2. estimate <span class="math notranslate nohighlight">\(p(\theta | \mathcal{D})\)</span> in the most simple manner possible. Notice that we do not make ANY assumption on what form the priors or likelihoods should take (no need to try and fit conjugate models or setup simplistic models for ease of computation).</p>
-</div>
-</div>
-<div class="section" id="pymc3-quick-tour">
-<h2><code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> - Quick tour<a class="headerlink" href="#pymc3-quick-tour" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="setting-up-distributions">
-<h3>Setting up distributions<a class="headerlink" href="#setting-up-distributions" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="pymc3-quick-tour">
+<h2><code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> - Quick tour<a class="headerlink" href="#pymc3-quick-tour" title="Permalink to this heading">#</a></h2>
+<section id="setting-up-distributions">
+<h3>Setting up distributions<a class="headerlink" href="#setting-up-distributions" title="Permalink to this heading">#</a></h3>
 <p>Distributions in <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> are defined within <code class="docutils literal notranslate"><span class="pre">pymc3.distributions</span></code> and are exposed at the top of the library. To define a distribution, one simply needs to add a statement of the <code class="docutils literal notranslate"><span class="pre">pymc3.distribution_name(params)</span></code> with the appropriate distribution parameters passed as arguments.</p>
 <p>For example, suppose we wish to define a Gaussian random variable with mean 1 and variance 2, i.e.,<span class="math notranslate nohighlight">\(x \sim \mathcal{N}(1, 2)\)</span>. <code class="docutils literal notranslate"><span class="pre">x</span></code> is defined in <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> as follows:</p>
 <div class="cell docutils container">
@@ -1580,7 +749,7 @@ p(\theta | \mathcal{D}) \propto p(\mathcal{D}, \theta).
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/hands-on-27.1_7_0.png" src="../_images/hands-on-27.1_7_0.png" />
+<img alt="../_images/c64a8497498fe619a10a5600c8fa87e1000368bf76469cfa33691860a116ded7.png" src="../_images/c64a8497498fe619a10a5600c8fa87e1000368bf76469cfa33691860a116ded7.png" />
 </div>
 </div>
 <p>You can also define tensors, with arbitrary shapes, of i.i.d. samples from any given distribution.</p>
@@ -1618,7 +787,7 @@ p(\theta | \mathcal{D}) \propto p(\mathcal{D}, \theta).
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/hands-on-27.1_11_0.png" src="../_images/hands-on-27.1_11_0.png" />
+<img alt="../_images/2329f48244beeda15b7a0b11ada20e8cbef7e7bc0dfa60e6104ff054168d885e.png" src="../_images/2329f48244beeda15b7a0b11ada20e8cbef7e7bc0dfa60e6104ff054168d885e.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1637,9 +806,9 @@ p(\theta | \mathcal{D}) \propto p(\mathcal{D}, \theta).
 </div>
 <p>Note that all model specification in <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> must happen within the <code class="docutils literal notranslate"><span class="pre">pymc3.Model</span></code> context manager.</p>
 <p>If this approach for computing the log probability feels complicated, do not worry - we will rarely (if ever) have to perform log probability explicitly when setting up inference models in <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> - the inference algorithms perform these computations under the hood for us.</p>
-</div>
-<div class="section" id="setting-up-a-joint-model-the-pymc3-model-context">
-<h3>Setting up a joint model -  the <code class="docutils literal notranslate"><span class="pre">pymc3.Model</span></code> context<a class="headerlink" href="#setting-up-a-joint-model-the-pymc3-model-context" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="setting-up-a-joint-model-the-pymc3-model-context">
+<h3>Setting up a joint model -  the <code class="docutils literal notranslate"><span class="pre">pymc3.Model</span></code> context<a class="headerlink" href="#setting-up-a-joint-model-the-pymc3-model-context" title="Permalink to this heading">#</a></h3>
 <p>To reiterate a previous point, <code class="docutils literal notranslate"><span class="pre">PyMC3.Model</span></code> context serves as a wrapper for the entire probabilistic model in <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code>. Let’s re-visit a simple problem - the coin toss example, and demonstrate how to setup a probabilistic model in <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1656,11 +825,11 @@ p(\theta | \mathcal{D}) \propto p(\mathcal{D}, \theta).
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/hands-on-27.1_16_0.png" src="../_images/hands-on-27.1_16_0.png" />
+<img alt="../_images/67924de529f754dfcf38d9e15ccc497a192fbad4c9fdb685c55acf6f5c3c896c.png" src="../_images/67924de529f754dfcf38d9e15ccc497a192fbad4c9fdb685c55acf6f5c3c896c.png" />
 </div>
 </div>
-<div class="section" id="the-coin-toss-model">
-<h4>The coin toss model<a class="headerlink" href="#the-coin-toss-model" title="Permalink to this headline">¶</a></h4>
+<section id="the-coin-toss-model">
+<h4>The coin toss model<a class="headerlink" href="#the-coin-toss-model" title="Permalink to this heading">#</a></h4>
 <p>We observe data on repeated flipping of a coin with unknown probability of heads.</p>
 <p>Suppose the true probability of heads is <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
 <p>We do not know what <span class="math notranslate nohighlight">\(\theta\)</span> really is, but we know it is somewhere in the interal <span class="math notranslate nohighlight">\((0, 1)\)</span>. Let’s be as vague about this as possible and assign equal probability density to all values in that interval, i.e., the prior is:
@@ -1689,7 +858,7 @@ Here’s the graphical description of this model:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/hands-on-27.1_18_0.svg" src="../_images/hands-on-27.1_18_0.svg" /></div>
+<img alt="../_images/32f6ed4e700bf02de835992ac8fd87b7c3ce992af06c8a0eb88b3e6b72560ab3.svg" src="../_images/32f6ed4e700bf02de835992ac8fd87b7c3ce992af06c8a0eb88b3e6b72560ab3.svg" /></div>
 </div>
 <p>And here’s the <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> description of the model:</p>
 <div class="cell docutils container">
@@ -1723,10 +892,10 @@ Here’s the graphical description of this model:</p>
                 \end{split}\]</div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="model-variables-in-pymc3">
-<h3>Model variables in <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code><a class="headerlink" href="#model-variables-in-pymc3" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="model-variables-in-pymc3">
+<h3>Model variables in <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code><a class="headerlink" href="#model-variables-in-pymc3" title="Permalink to this heading">#</a></h3>
 <p>All unobserved (or latent) variables in a <code class="docutils literal notranslate"><span class="pre">pymc3</span></code> model are wrapped up into the user defined <code class="docutils literal notranslate"><span class="pre">model</span></code> context and exposed through the <code class="docutils literal notranslate"><span class="pre">model.vars</span></code> list. These are the variables over which inference is performed.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1746,9 +915,9 @@ Here’s the graphical description of this model:</p>
 The user-defined <code class="docutils literal notranslate"><span class="pre">model</span></code> context then adds the random variable <span class="math notranslate nohighlight">\(g(\theta)\)</span> (rather than <span class="math notranslate nohighlight">\(\theta\)</span> itself) to the <code class="docutils literal notranslate"><span class="pre">model.vars</span></code> list.
 In <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code>, <span class="math notranslate nohighlight">\(g(\theta)\)</span> is an instance of the <code class="docutils literal notranslate"><span class="pre">FreeRV</span></code> random variable class, i.e., it is a random variable that has support over entire <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>.
 This automatic transformation is applied to make MCMC inference more efficient.</p>
-</div>
-<div class="section" id="maximum-a-posteriori-estimation-using-pymc3-find-map">
-<h3>Maximum a posteriori estimation using <code class="docutils literal notranslate"><span class="pre">pymc3.find_map</span></code><a class="headerlink" href="#maximum-a-posteriori-estimation-using-pymc3-find-map" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="maximum-a-posteriori-estimation-using-pymc3-find-map">
+<h3>Maximum a posteriori estimation using <code class="docutils literal notranslate"><span class="pre">pymc3.find_map</span></code><a class="headerlink" href="#maximum-a-posteriori-estimation-using-pymc3-find-map" title="Permalink to this heading">#</a></h3>
 <p>Once you have set up the model, you need one extra line to perform any kind of inference. The <code class="docutils literal notranslate"><span class="pre">pymc3.find_map</span></code> does exactly what the name suggests - it finds a point estimate of the latent variables by maximizing the joint probability model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1772,11 +941,11 @@ This automatic transformation is applied to make MCMC inference more efficient.<
     }
 </style>
 </div><div class="output text_html">
-<div>
-  <progress value='6' class='' max='6' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [6/6 00:00<00:00 logp = -17.329, ||grad|| = 3.5]
-</div>
-</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+    <div>
+      <progress value='6' class='' max='6' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [6/6 00:00<00:00 logp = -17.329, ||grad|| = 3.5]
+    </div>
+    </div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
@@ -1794,9 +963,9 @@ This automatic transformation is applied to make MCMC inference more efficient.<
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="inference-using-pymc3-sample">
-<h3>Inference using <code class="docutils literal notranslate"><span class="pre">pymc3.sample</span></code><a class="headerlink" href="#inference-using-pymc3-sample" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="inference-using-pymc3-sample">
+<h3>Inference using <code class="docutils literal notranslate"><span class="pre">pymc3.sample</span></code><a class="headerlink" href="#inference-using-pymc3-sample" title="Permalink to this heading">#</a></h3>
 <p>Fully Bayesian inference is handled through the <code class="docutils literal notranslate"><span class="pre">pymc3.sample</span></code> interface, regardless of the inference technique, be it MCMC or VI.<br />
 Let’s infer the posterior over <span class="math notranslate nohighlight">\(\theta\)</span> for this coin flip example.</p>
 <p>Note that you need to place the pm.sample within the context of the appropriate model.</p>
@@ -1828,11 +997,11 @@ NUTS: [theta]
     }
 </style>
 </div><div class="output text_html">
-<div>
-  <progress value='44000' class='' max='44000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [44000/44000 00:02<00:00 Sampling 4 chains, 0 divergences]
-</div>
-</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/lib/python3.9/site-packages/scipy/stats/_continuous_distns.py:624: RuntimeWarning: overflow encountered in _beta_ppf
+    <div>
+      <progress value='44000' class='' max='44000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [44000/44000 00:02<00:00 Sampling 4 chains, 0 divergences]
+    </div>
+    </div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/lib/python3.9/site-packages/scipy/stats/_continuous_distns.py:624: RuntimeWarning: overflow encountered in _beta_ppf
   return _boost._beta_ppf(q, a, b)
 /opt/homebrew/lib/python3.9/site-packages/scipy/stats/_continuous_distns.py:624: RuntimeWarning: overflow encountered in _beta_ppf
   return _boost._beta_ppf(q, a, b)
@@ -1859,7 +1028,7 @@ Got error No model on context stack. trying to find log_likelihood in translatio
 Got error No model on context stack. trying to find log_likelihood in translation.
 </pre></div>
 </div>
-<img alt="../_images/hands-on-27.1_30_1.png" src="../_images/hands-on-27.1_30_1.png" />
+<img alt="../_images/60d7e31ea924332cc3e6d39b711bdc8bca7bbffd5b55aa57e2810510fcc7eccb.png" src="../_images/60d7e31ea924332cc3e6d39b711bdc8bca7bbffd5b55aa57e2810510fcc7eccb.png" />
 </div>
 </div>
 <p>You can get a quantitative summary of the posterior as a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> object using <code class="docutils literal notranslate"><span class="pre">pymc3.summary</span></code>:</p>
@@ -1941,15 +1110,15 @@ Got error No model on context stack. trying to find log_likelihood in translatio
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/hands-on-27.1_35_0.png" src="../_images/hands-on-27.1_35_0.png" />
+<img alt="../_images/438823c4bda1f68041c804ed0544a8a652678ae1c91a1facf2f96be3ef57cd4b.png" src="../_images/438823c4bda1f68041c804ed0544a8a652678ae1c91a1facf2f96be3ef57cd4b.png" />
 </div>
 </div>
-</div>
-<div class="section" id="visualization-utilities">
-<h3>Visualization utilities<a class="headerlink" href="#visualization-utilities" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="visualization-utilities">
+<h3>Visualization utilities<a class="headerlink" href="#visualization-utilities" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> has numerous utility functions for generating various standard visualizations after performing inference. We demonstrate a few common ones here.</p>
-<div class="section" id="plotting-the-posterior-of-the-latent-variables">
-<h4>Plotting the posterior of the latent variables<a class="headerlink" href="#plotting-the-posterior-of-the-latent-variables" title="Permalink to this headline">¶</a></h4>
+<section id="plotting-the-posterior-of-the-latent-variables">
+<h4>Plotting the posterior of the latent variables<a class="headerlink" href="#plotting-the-posterior-of-the-latent-variables" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="o">=</span><span class="n">pm</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span><span class="n">mcmc_res</span><span class="p">)</span>   <span class="c1"># just pass the mcmc trace to pm.plot_posterior</span>
@@ -1960,13 +1129,13 @@ Got error No model on context stack. trying to find log_likelihood in translatio
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Got error No model on context stack. trying to find log_likelihood in translation.
 </pre></div>
 </div>
-<img alt="../_images/hands-on-27.1_38_1.png" src="../_images/hands-on-27.1_38_1.png" />
+<img alt="../_images/da25765491016b4ea3f37ca502e6a6ff02708a33a0e2391a56b4838843adc0ae.png" src="../_images/da25765491016b4ea3f37ca502e6a6ff02708a33a0e2391a56b4838843adc0ae.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="posterior-predictive-distribution">
-<h3>Posterior predictive distribution<a class="headerlink" href="#posterior-predictive-distribution" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="posterior-predictive-distribution">
+<h3>Posterior predictive distribution<a class="headerlink" href="#posterior-predictive-distribution" title="Permalink to this heading">#</a></h3>
 <p>You can generate samples from the posterior predictive distribution, using the <code class="docutils literal notranslate"><span class="pre">pymc3.sample_posterior_predictive</span></code> functionality (see below).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1995,11 +1164,11 @@ Got error No model on context stack. trying to find log_likelihood in translatio
     }
 </style>
 </div><div class="output text_html">
-<div>
-  <progress value='500' class='' max='500' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [500/500 00:00<00:00]
-</div>
-</div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(500, 25)
+    <div>
+      <progress value='500' class='' max='500' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [500/500 00:00<00:00]
+    </div>
+    </div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(500, 25)
 </pre></div>
 </div>
 </div>
@@ -2018,18 +1187,18 @@ Got error No model on context stack. trying to find log_likelihood in translatio
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/hands-on-27.1_41_0.png" src="../_images/hands-on-27.1_41_0.png" />
+<img alt="../_images/36c17a4f2f774aa8f69e9b93b656fa7cabc5a274ba0d51bcd7b92cee9999326f.png" src="../_images/36c17a4f2f774aa8f69e9b93b656fa7cabc5a274ba0d51bcd7b92cee9999326f.png" />
 </div>
 </div>
-</div>
-<div class="section" id="questions">
-<h3>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="questions">
+<h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Rerun the example with a larger number of observations and observe that the posterior collapses to the right probability.</p></li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -2043,7 +1212,7 @@ Got error No model on context stack. trying to find log_likelihood in translatio
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./lecture27"
         },
         predefinedOutput: true
@@ -2051,44 +1220,126 @@ Got error No model on context stack. trying to find log_likelihood in translatio
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="reading-27.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Sampling Methods</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="reading-27.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Sampling Methods</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="hands-on-27.2.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="hands-on-27.2.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Sampling From the Distributions With Random Walk Metropolis</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            
-        </div>
-    </div>
-    <footer class="footer">
-  <p>
-    
-      By Ilias Bilionis (ibilion[at]purdue.edu)<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
-
-
       </div>
-    </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+</div>
 
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-programming-and-pymc3-very-brief-introduction">Probabilistic programming and PyMC3 - very brief introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-recap-of-bayesian-inference">Quick recap of Bayesian inference</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pymc3-quick-tour"><code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> - Quick tour</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-distributions">Setting up distributions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-a-joint-model-the-pymc3-model-context">Setting up a joint model -  the <code class="docutils literal notranslate"><span class="pre">pymc3.Model</span></code> context</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-coin-toss-model">The coin toss model</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-variables-in-pymc3">Model variables in <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-a-posteriori-estimation-using-pymc3-find-map">Maximum a posteriori estimation using <code class="docutils literal notranslate"><span class="pre">pymc3.find_map</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-using-pymc3-sample">Inference using <code class="docutils literal notranslate"><span class="pre">pymc3.sample</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-utilities">Visualization utilities</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-the-posterior-of-the-latent-variables">Plotting the posterior of the latent variables</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-predictive-distribution">Posterior predictive distribution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ilias Bilionis (ibilion[at]purdue.edu)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
