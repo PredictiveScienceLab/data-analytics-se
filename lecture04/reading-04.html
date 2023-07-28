@@ -574,16 +574,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#something-more-on-probability-spaces">Something more on probability spaces</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Continuous random variables</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cumulative-distribution-function">The cumulative distribution function</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-the-cumulative-distribution-function">Properties of the cumulative distribution function</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-probability-density-function">The probability density function</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-the-probability-density-function">Properties of the probability density function</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cumulative-distribution-function">The cumulative distribution function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-probability-density-function">The probability density function</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations-of-continuous-random-variables">Expectations of continuous random variables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variance-of-continuous-random-variables">Variance of continuous random variables</a></li>
 </ul>
@@ -597,76 +589,168 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="continuous-random-variables">
-<h1>Continuous Random Variables<a class="headerlink" href="#continuous-random-variables" title="Permalink to this heading">#</a></h1>
-<section id="something-more-on-probability-spaces">
-<h2>Something more on probability spaces<a class="headerlink" href="#something-more-on-probability-spaces" title="Permalink to this heading">#</a></h2>
-<p>It turns out that when <span class="math notranslate nohighlight">\(\Omega\)</span> is a continuous space, like <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> for example, it is not possible to take <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> to be all the subsets of <span class="math notranslate nohighlight">\(\Omega\)</span> (you need to take a measure-theoretic probability theory class to understand why this is).
-However, many “nice” subsets of <span class="math notranslate nohighlight">\(\Omega\)</span> are usually in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>.
-For example, in the case of <span class="math notranslate nohighlight">\(\Omega=\mathbb{R}\)</span>, <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> can include all intervals, and any countable unions and intersections of intervals.
-That’s a lot of sets.</p>
-<p>In any case, <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> must satisfy certain properties for everything to be well-defined.
-These properties are:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\Omega \in \mathcal{F}\)</span></p></li>
-<li><p>For any <span class="math notranslate nohighlight">\(A\)</span> in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>, the complement <span class="math notranslate nohighlight">\(A^c\)</span> is in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>.</p></li>
-<li><p>For any <span class="math notranslate nohighlight">\(A_1,A_2,\dots\)</span> in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>, the union <span class="math notranslate nohighlight">\(\cup_n A_n\)</span> is in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>.
-When a set of subsets <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> satisfies these properties, we say that it forms a <span class="math notranslate nohighlight">\(\sigma\)</span>-algebra.</p></li>
-</ul>
-</section>
-<section id="id1">
-<h2>Continuous random variables<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
-<p>Consider a probability space <span class="math notranslate nohighlight">\((\Omega, \mathcal{F}, \mathbb{P})\)</span>.
-A continuous random variable models the result of an experiment that can potentially take infinitely many values.
-That is, it is a function</p>
-<div class="math notranslate nohighlight">
-\[
-X:\Omega \rightarrow \mathbb{R}.
-\]</div>
-</section>
+  <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="continuous-random-variables">
+<span id="continous-random-variables"></span><h1>Continuous Random Variables<a class="headerlink" href="#continuous-random-variables" title="Permalink to this heading">#</a></h1>
+<p>Consider a random variable <span class="math notranslate nohighlight">\(X\)</span> that can take values in <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>.
+We say that <span class="math notranslate nohighlight">\(X\)</span> is a continuous random variable if the range of <span class="math notranslate nohighlight">\(X\)</span> is uncountable, e.g., if it forms an interval.
+For example, <span class="math notranslate nohighlight">\(X\)</span> can be the mass of a ball bearing, a room’s temperature, or a gas’s pressure.
+In what follows, we introduce the concepts of cumulative distribution function, probability density function, and expectation for continuous random variables.</p>
 <section id="the-cumulative-distribution-function">
-<h2>The cumulative distribution function<a class="headerlink" href="#the-cumulative-distribution-function" title="Permalink to this heading">#</a></h2>
-<p>Let <span class="math notranslate nohighlight">\(X\)</span> be a continuous random variable.
-Its cumulative distribution function (CDF) <span class="math notranslate nohighlight">\(F_X(x)\)</span> gives the probability that <span class="math notranslate nohighlight">\(X\)</span> is smaller than <span class="math notranslate nohighlight">\(x\)</span>:</p>
+<span id="cdf"></span><h2>The cumulative distribution function<a class="headerlink" href="#the-cumulative-distribution-function" title="Permalink to this heading">#</a></h2>
+<p>The <strong>cumulative distribution function</strong> (CDF) of a continuous random variable <span class="math notranslate nohighlight">\(X\)</span> is defined as:</p>
 <div class="math notranslate nohighlight">
 \[
-F_X(x) := \mathbb{P}(X\le x) = \mathbb{P}\left(\left\{\omega: X(\omega) \le x\right\}\right).
+F_X(x) := p(X\le x) = p\left(\left\{\omega: X(\omega) \le x\right\}\right).
 \]</div>
-<section id="properties-of-the-cumulative-distribution-function">
-<h3>Properties of the cumulative distribution function<a class="headerlink" href="#properties-of-the-cumulative-distribution-function" title="Permalink to this heading">#</a></h3>
+<p>In words, it is the probability that <span class="math notranslate nohighlight">\(X\)</span> is less than or equal to <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot a sigmoid function</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$F_X(x)$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;CDF of a generic random variable $X$&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="../_images/562b0838777f6a426a6046f596e5484e62285a7bd59353f90c8721165211d160.svg" src="../_images/562b0838777f6a426a6046f596e5484e62285a7bd59353f90c8721165211d160.svg" /></div>
+</div>
+<p>The CDF has the following properties:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(F_X(x)\)</span> is an increasing function.</p></li>
-<li><p><span class="math notranslate nohighlight">\(F_X(-\infty) = 0\)</span>.</p></li>
-<li><p><span class="math notranslate nohighlight">\(F_X(+\infty) = 1\)</span>.</p></li>
-<li><p><span class="math notranslate nohighlight">\(\mathbb{P}(a\le X \le b) = F_X(b) - F_X(a)\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(F_X(x)\)</span> is an increasing function. Intuitively, this is because the more <span class="math notranslate nohighlight">\(x\)</span> increases, the more likely it is that <span class="math notranslate nohighlight">\(X\)</span> is less than or equal to <span class="math notranslate nohighlight">\(x\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(F_X(-\infty) = 0\)</span>. Intuitively, this is because <span class="math notranslate nohighlight">\(X\)</span> cannot be less than <span class="math notranslate nohighlight">\(-\infty\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(F_X(+\infty) = 1\)</span>. Intuitively, this is because <span class="math notranslate nohighlight">\(X\)</span> is always less than or equal to <span class="math notranslate nohighlight">\(+\infty\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(a\le X \le b) = F_X(b) - F_X(a)\)</span>.</p></li>
 </ul>
-</section>
+<div class="dropdown admonition">
+<p class="admonition-title">Proof</p>
+<p>Let <span class="math notranslate nohighlight">\(a &lt; b\)</span>. Then:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+p(a \le X \le b) &amp;= p(a \le X\; \text{and}\; X \le b)\\
+&amp;= p(X \ge a\;\text{and}\;X \le b)\\
+&amp;= 1 - p(\text{not}\;(X \ge a\;\text{and}\;X \le b))\\
+&amp;= 1 - p(X &lt; a\;\text{or}\;X &gt; b)\\
+&amp;= 1 - p(X &lt; a) - p(X &gt; b)\\
+&amp;= 1 - F_X(a) - (1 - p(X \le b))\\
+&amp;= - F_X(a) + F_X(b).
+\end{align}
+\end{split}\]</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If there is no ambiguity, we will write <span class="math notranslate nohighlight">\(F(x)\)</span> instead of <span class="math notranslate nohighlight">\(F_X(x)\)</span>.</p>
+</div>
+<p>(pdf=)</p>
 </section>
 <section id="the-probability-density-function">
 <h2>The probability density function<a class="headerlink" href="#the-probability-density-function" title="Permalink to this heading">#</a></h2>
-<p>The probability density function (PDF) is a “function” <span class="math notranslate nohighlight">\(f_X(x)\)</span> that can give us the probability that <span class="math notranslate nohighlight">\(X\)</span> is in any “good” subset <span class="math notranslate nohighlight">\(A\)</span> of <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> as follows:</p>
+<p>The <strong>probability density function</strong> (PDF) is a “function” <span class="math notranslate nohighlight">\(f_X(x)\)</span> that can give us the probability that <span class="math notranslate nohighlight">\(X\)</span> is in any “good” subset <span class="math notranslate nohighlight">\(A\)</span> of <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> as follows:</p>
 <div class="math notranslate nohighlight">
 \[
-\mathbb{P}(X\in A) = \int_A f_X(x) dx.
+p(X\in A) = \int_A f_X(x) dx.
 \]</div>
-<p>Note that certain random variables may not have a PDF that is a function.
-That’s why I put the word “function” in quotes.
-However, if you allow the PDF to include Dirac’s <span class="math notranslate nohighlight">\(\delta\)</span>, then any random variable has a PDF.
-We will ignore this complication for the moment.</p>
-<p>In this class, we will simplify the notation and we will be writing:</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Again, it is not that simple</p>
+<p>First, “good” subsets are the so-called Borel sets of <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>.
+One can obtain Borel sets by starting with the open intervals of <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> and applying the operations of countable union, countable intersection, and complement.
+It is hard to make sets that are not Borel sets.
+You learn about this in a measure theory course.</p>
+<p>Second, not all random variables have a PDF that is a function in the usual sense.
+However, if you allow the PDF to include <a class="reference external" href="https://en.wikipedia.org/wiki/Dirac_delta_function">Dirac’s <span class="math notranslate nohighlight">\(\delta\)</span></a>,
+any random variable, including discrete random variables, has a PDF.
+For example, if <span class="math notranslate nohighlight">\(X\)</span> is a random variable that takes the value <span class="math notranslate nohighlight">\(1\)</span> with probability <span class="math notranslate nohighlight">\(1/2\)</span> and the value <span class="math notranslate nohighlight">\(2\)</span> with probability <span class="math notranslate nohighlight">\(1/2\)</span>, then the PDF of <span class="math notranslate nohighlight">\(X\)</span> is:</p>
 <div class="math notranslate nohighlight">
 \[
-p(x) \equiv f_X(x),
+f_X(x) = \frac{1}{2}\delta(x-1) + \frac{1}{2}\delta(x-2),
 \]</div>
-<p>when there is no ambiguity.</p>
-<section id="properties-of-the-probability-density-function">
-<h3>Properties of the probability density function<a class="headerlink" href="#properties-of-the-probability-density-function" title="Permalink to this heading">#</a></h3>
+<p>where <span class="math notranslate nohighlight">\(\delta(x)\)</span> is Dirac’s delta function.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If there is no ambiguity, we will write <span class="math notranslate nohighlight">\(p(x)\)</span> instead of <span class="math notranslate nohighlight">\(f_X(x)\)</span>.
+Here, when you see <span class="math notranslate nohighlight">\(p(x)\)</span>, you should understand that a random variable <span class="math notranslate nohighlight">\(X\)</span> is implicit and that <span class="math notranslate nohighlight">\(p(x)\)</span> is the PDF of <span class="math notranslate nohighlight">\(X\)</span> evaluated at <span class="math notranslate nohighlight">\(x\)</span>.
+As with the PMF, this is a common abuse of notation, especially in machine learning research papers.
+Again, you cannot write <span class="math notranslate nohighlight">\(p(0.5)\)</span> because you need to know what random variable you are referring to.
+But you can write <span class="math notranslate nohighlight">\(p(x=0.5)\)</span> to remove the ambiguity.</p>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the pdf of a normal random variable</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$f_X(x)$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;PDF of a typical variable $X$&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="../_images/1a29479c1366a731cff2e47a885e2a67d9ada5b90c202dffe5e052a72aec1d01.svg" src="../_images/1a29479c1366a731cff2e47a885e2a67d9ada5b90c202dffe5e052a72aec1d01.svg" /></div>
+</div>
+<p>The PDF has the following properties:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(p(x) \ge 0\)</span> for all <span class="math notranslate nohighlight">\(x\)</span>.</p></li>
-<li><p><span class="math notranslate nohighlight">\(\int_{-\infty}^{\infty} p(x) dx = 1\)</span>.</p></li>
-<li><p>The derivative of the CDF is the PDF, i.e., <span class="math notranslate nohighlight">\(F_X'(x) = p(x)\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(x) \ge 0\)</span> for all <span class="math notranslate nohighlight">\(x\)</span>. This equation holds because probabilities are non-negative.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\int_{-\infty}^{\infty} p(x) dx = 1\)</span>. It holds because the probability that <span class="math notranslate nohighlight">\(X\)</span> takes any value is one.</p></li>
+<li><p>The derivative of the CDF is the PDF, i.e., <span class="math notranslate nohighlight">\(F_X'(x) = p(x)\)</span>. It is a consequence of the fundamental theorem of calculus.</p></li>
 </ul>
-</section>
+<div class="dropdown admonition">
+<p class="admonition-title">Proof}</p>
+<p>Let us write <span class="math notranslate nohighlight">\(f_X(x)\)</span> instead of <span class="math notranslate nohighlight">\(p(x)\)</span> to avoid ambiguity.
+Then, we have:</p>
+<div class="math notranslate nohighlight">
+\[
+F(x) = p(X \le x) = \int_{-\infty}^x f_X(t) dt.
+\]</div>
+<p>Differentiating both sides with respect to <span class="math notranslate nohighlight">\(x\)</span>, we get the result.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The PDF is not a probability but a probability density.
+It can be greater than one.
+It is the area under the PDF that is a probability.
+And that area is one.</p>
+</div>
 </section>
 <section id="expectations-of-continuous-random-variables">
 <h2>Expectations of continuous random variables<a class="headerlink" href="#expectations-of-continuous-random-variables" title="Permalink to this heading">#</a></h2>
@@ -675,13 +759,65 @@ p(x) \equiv f_X(x),
 \[
 \mathbb{E}[X] = \int_{-\infty}^\infty x p(x)dx.
 \]</div>
-<p>Its properties are the same as the expectation of a discrete random variable.</p>
-<p>The expectation of a function of the random variable is:</p>
+<p>Geometrically, the expected value of <span class="math notranslate nohighlight">\(X\)</span> is the x coordinate of the centroid of the area under the curve <span class="math notranslate nohighlight">\(p(x)\)</span>.
+You can think of it as the value you “expect” to take.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the pdf of a normal random variable and mark the expected value</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$f_X(x)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;PDF of a typical variable $X$ with $E[X]=0$&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="../_images/c1060a5216539b7baf54fe695c8615b3b59182f84b6951187ea48409bd629b0d.svg" src="../_images/c1060a5216539b7baf54fe695c8615b3b59182f84b6951187ea48409bd629b0d.svg" /></div>
+</div>
+<p>But remember that the expected value may not be a value that <span class="math notranslate nohighlight">\(X\)</span> can take.
+Here is an example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the pdf of a mixture of two normal random variables with different means but the same variance</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=-</span><span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="c1"># Add the expected value</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$\mathbb</span><span class="si">{E}</span><span class="s1">[X]$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$f_X(x)$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Example of a case in which the expected value is not representative of the distribution&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/29fda465afac5df78b3c0f4ac0fdeb1a199e41ec42d1f25d07b6d3c99fd3345f.svg" src="../_images/29fda465afac5df78b3c0f4ac0fdeb1a199e41ec42d1f25d07b6d3c99fd3345f.svg" /></div>
+</div>
+<p>Another useful formula is:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbb{E}[f(X)] = \int_{-\infty}^\infty f(x)p(x)dx.
 \]</div>
-<p>It satisfies the same properties as the expectation of discrete random variables.</p>
+<p>It gives you the expected value of <span class="math notranslate nohighlight">\(f(X)\)</span>, where <span class="math notranslate nohighlight">\(f\)</span> is any function.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The expected value of a continuous random variable has the same properties as the expected value of a discrete random variable, see <a class="reference internal" href="../lecture03/reading-03.html#properties-expectation"><span class="std std-ref">this</span></a>.
+The proofs are similar.
+You just change the sums to integrals.</p>
+</div>
 </section>
 <section id="variance-of-continuous-random-variables">
 <h2>Variance of continuous random variables<a class="headerlink" href="#variance-of-continuous-random-variables" title="Permalink to this heading">#</a></h2>
@@ -690,7 +826,43 @@ p(x) \equiv f_X(x),
 \[
 \mathbb{V}[X] = \mathbb{E}\left[\left(X-\mathbb{E}[X]\right)^2\right] = \int_{-\infty}^\infty (x-\mathbb{E}[X])^2 p(x)dx.
 \]</div>
-<p>It satisfies the same properties as the expectaiton of discrete andom variables.</p>
+<p>You can think of it as the average squared distance of <span class="math notranslate nohighlight">\(X\)</span> from its expected value.
+It tells you how spread out <span class="math notranslate nohighlight">\(X\)</span> is.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot two random variables with the same expected value but different variances</span>
+<span class="c1"># Mark them as small and large variance using text labels</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Small variance&#39;</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Large variance&#39;</span><span class="p">)</span>
+<span class="c1"># Add the expected value</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$f_X(x)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="../_images/bf900abc81a37ccbafa6ffc51368edc5121ed1445891cb757a45aabc28704c6d.svg" src="../_images/bf900abc81a37ccbafa6ffc51368edc5121ed1445891cb757a45aabc28704c6d.svg" /></div>
+</div>
+<p>The variance has units of <span class="math notranslate nohighlight">\(X\)</span> squared.
+To get a measure of the spread that has the same units as <span class="math notranslate nohighlight">\(X\)</span>, we take the square root of the variance.
+It is called the standard deviation of <span class="math notranslate nohighlight">\(X\)</span> and it is denoted by <span class="math notranslate nohighlight">\(\sigma_X\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma_X = \sqrt{\mathbb{V}[X]}.
+\]</div>
+<p>Finally, note that the variance of a continuous random variable has the same properties as the variance of a discrete random variable, see <a class="reference internal" href="../lecture03/reading-03.html#properties-variance"><span class="std std-ref">this</span></a>.</p>
 </section>
 </section>
 
@@ -761,16 +933,8 @@ p(x) \equiv f_X(x),
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#something-more-on-probability-spaces">Something more on probability spaces</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Continuous random variables</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cumulative-distribution-function">The cumulative distribution function</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-the-cumulative-distribution-function">Properties of the cumulative distribution function</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-probability-density-function">The probability density function</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-the-probability-density-function">Properties of the probability density function</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cumulative-distribution-function">The cumulative distribution function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-probability-density-function">The probability density function</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations-of-continuous-random-variables">Expectations of continuous random variables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variance-of-continuous-random-variables">Variance of continuous random variables</a></li>
 </ul>

@@ -761,7 +761,7 @@ p(X\in A) = \sum_{x\in A} p(x).
 <section id="example-the-random-variable-corresponding-to-the-result-of-a-coin-toss-2-2">
 <h3>Example: The random variable corresponding to the result of a coin toss (2/2)<a class="headerlink" href="#example-the-random-variable-corresponding-to-the-result-of-a-coin-toss-2-2" title="Permalink to this heading">#</a></h3>
 <p>Suppose <span class="math notranslate nohighlight">\(X\)</span> is the random variable corresponding to the result of the coin toss.
-We are going to write <span class="math notranslate nohighlight">\(X=0\)</span> if the result is heads and <span class="math notranslate nohighlight">\(X=1\)</span> if the result is tails.
+We will write <span class="math notranslate nohighlight">\(X=0\)</span> if the result is heads and <span class="math notranslate nohighlight">\(X=1\)</span> if the result is tails.
 As mentioned earlier, we can directly work with the probability mass function instead of trying to define the underlying probability space.
 For a fair coin, it makes intuitive sense that:
 $<span class="math notranslate nohighlight">\(
@@ -777,13 +777,13 @@ p(X=1) = \frac{1}{2}.
 <p class="admonition-title">Note</p>
 <p>We should be careful about the notation.
 I said that <span class="math notranslate nohighlight">\(p(x)\)</span> is the probability mass function of <span class="math notranslate nohighlight">\(X\)</span>.
-This is good notation when I want to define to the entire function.
-There is no ambiguity in it as <span class="math notranslate nohighlight">\(p(x)\)</span> is the probability mass function of the random variable label with the capitalization of the letter <span class="math notranslate nohighlight">\(x\)</span>, i.e. <span class="math notranslate nohighlight">\(X\)</span>, evaluated at lower case <span class="math notranslate nohighlight">\(x\)</span>.
-But I cannot write <span class="math notranslate nohighlight">\(p(0)\)</span> or <span class="math notranslate nohighlight">\(p(1)\)</span>, because then I do not know which random variable I am talking about.
+It is a good notation when I want to talk about the entire function.
+There is no ambiguity as <span class="math notranslate nohighlight">\(p(x)\)</span> is the probability mass function of the random variable labeled by the capitalization of the letter <span class="math notranslate nohighlight">\(x\)</span>, i.e., <span class="math notranslate nohighlight">\(X\)</span>, evaluated at the lower case <span class="math notranslate nohighlight">\(x\)</span>.
+But I cannot write <span class="math notranslate nohighlight">\(p(0)\)</span> or <span class="math notranslate nohighlight">\(p(1)\)</span> because then I do not know which random variable I am talking about.
 So I wrote <span class="math notranslate nohighlight">\(p(X=0)\)</span> and <span class="math notranslate nohighlight">\(p(X=1)\)</span>.
 Some people write <span class="math notranslate nohighlight">\(p(x=0)\)</span> and <span class="math notranslate nohighlight">\(p(x=1)\)</span>.
-Mathematicians, would point out that this is an argument for using <span class="math notranslate nohighlight">\(f_X(x)\)</span> instead of <span class="math notranslate nohighlight">\(p(x)\)</span>.
-They have a point, but I’d rather save myself the trouble of writing <span class="math notranslate nohighlight">\(f_X(x)\)</span> all the time.</p>
+Mathematicians point out that this is an argument for using <span class="math notranslate nohighlight">\(f_X(x)\)</span> instead of <span class="math notranslate nohighlight">\(p(x)\)</span>.
+They have a point, but I’d save myself the trouble of always writing <span class="math notranslate nohighlight">\(f_X(x)\)</span>.</p>
 </div>
 </section>
 </section>
@@ -805,7 +805,7 @@ g^{-1}(y) := \{x: g(x) = y\}.
 \[
 p(y) = p(Y = y) = p(X\in g^{-1}(y)) = \sum_{x\in g^{-1}(y)} p(x),
 \]</div>
-<p>This is formal definition of the uncertainty propagation problem.
+<p>We have given the formal definition of the uncertainty propagation problem.
 The correspondence is that <span class="math notranslate nohighlight">\(X\)</span> represents the parameters of a causal model, and <span class="math notranslate nohighlight">\(Y = g(X)\)</span> is the uncertain result of the causal model.</p>
 </section>
 <section id="expectation-of-random-variables">
@@ -823,12 +823,12 @@ The correspondence is that <span class="math notranslate nohighlight">\(X\)</spa
 \[
 \mathbb{E}[X] = 0\cdot p(X=0) + 1\cdot p(X=1) = 0.5.
 \]</div>
-<p>We see that we should take the interpretation of the expectation with a grain of salt.
+<p>We should take the interpretation of the expectation with a grain of salt.
 The expectation is not necessarily a value that the random variable can take.
-It is a bit weird to say that we “expect” to get <span class="math notranslate nohighlight">\(0.5\)</span> when we toss a coin.</p>
+It is weird to say that we “expect” to get <span class="math notranslate nohighlight">\(0.5\)</span> when we toss a coin.</p>
 </section>
 <section id="properties-of-the-expectation">
-<h3>Properties of the expectation<a class="headerlink" href="#properties-of-the-expectation" title="Permalink to this heading">#</a></h3>
+<span id="properties-expectation"></span><h3>Properties of the expectation<a class="headerlink" href="#properties-of-the-expectation" title="Permalink to this heading">#</a></h3>
 <p>Here are some properties of the expectation.</p>
 <ul class="simple">
 <li><p>Take any constant <span class="math notranslate nohighlight">\(c\)</span>. Then we have:</p></li>
@@ -892,14 +892,13 @@ We can now define the expectation of <span class="math notranslate nohighlight">
 <ul class="simple">
 <li><p>Assume that <span class="math notranslate nohighlight">\(g(x)\)</span> is a convex function.
 Recall that a convex function is a function that looks like a bowl.
-Then we have:</p></li>
+Then we have the Jensen’s inequality:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[
 g\left(\mathbb{E}[X]\right) \le \mathbb{E}[g(X)].
 \]</div>
-<p>This is known as Jensen’s inequality.
-The proof is not trivial.</p>
+<p>The proof is not trivial.</p>
 </section>
 </section>
 <section id="variance-of-random-variables">
@@ -910,7 +909,7 @@ The proof is not trivial.</p>
 \mathbb{V}[X] := \mathbb{E}\left[(X - \mathbb{E}[X])^2\right].
 \]</div>
 <p>You can think of the variance as the spread of the random variable around its expectation.
-However, do not take this too literally for discrete random variables.</p>
+However, take this with a grain of salt for discrete random variables.</p>
 <section id="example-variance-of-a-coin-toss">
 <h3>Example: Variance of a coin toss<a class="headerlink" href="#example-variance-of-a-coin-toss" title="Permalink to this heading">#</a></h3>
 <p>Let’s calculate the variance of the coin toss.
@@ -919,14 +918,14 @@ We need:</p>
 \[
 \mathbb{E}\left[X^2\right] = 0^2\cdot p(X=0) + 1^2 \cdot p(X=1) = 0.5.
 \]</div>
-<p>So, using the formula above we get:</p>
+<p>So, using the formula above, we get the following:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbb{V}[X] = \mathbb{E}\left[X^2\right] - \left(\mathbb{E}[X]\right)^2 = 0.5 - (0.5)^2 = 0.5 - 0.25 = 0.25.
 \]</div>
 </section>
 <section id="properties-of-the-variance">
-<h3>Properties of the variance<a class="headerlink" href="#properties-of-the-variance" title="Permalink to this heading">#</a></h3>
+<span id="properties-variance"></span><h3>Properties of the variance<a class="headerlink" href="#properties-of-the-variance" title="Permalink to this heading">#</a></h3>
 <p>Here are some properties of the variance.</p>
 <ul class="simple">
 <li><p>It holds that:</p></li>
@@ -947,7 +946,7 @@ We need:</p>
 \end{align}
 \end{split}\]</div>
 </div>
-<p>This is the formula we use to calculate the variance in practice.</p>
+<p>We use this formula we use to calculate the variance in practice.</p>
 <ul class="simple">
 <li><p>For any constant <span class="math notranslate nohighlight">\(c\)</span>, we have:</p></li>
 </ul>
@@ -987,6 +986,7 @@ We need:</p>
 \end{align}
 \end{split}\]</div>
 </div>
+<p>model, and <span class="math notranslate nohighlight">\(Y = g(X)\)</span> is the uncertain result of the causal model.</p>
 </section>
 </section>
 </section>

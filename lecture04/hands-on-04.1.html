@@ -574,8 +574,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">The uniform distribution</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-uniform-distribution-over-an-arbitrary-interval-a-b">The uniform distribution over an arbitrary interval <span class="math notranslate nohighlight">\([a, b]\)</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alternative-way-to-get-u-a-b">Alternative way to get <span class="math notranslate nohighlight">\(U([a,b])\)</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
@@ -597,51 +595,120 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="the-uniform-distribution">
-<h1>The Uniform Distribution<a class="headerlink" href="#the-uniform-distribution" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To practice with the uniform distribution.</p></li>
-</ul>
-</section>
-<section id="id1">
-<h2>The uniform distribution<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<span id="uniform-distribution"></span><h1>The Uniform Distribution<a class="headerlink" href="#the-uniform-distribution" title="Permalink to this heading">#</a></h1>
 <p>The uniform distribution is the most common continuous distribution.
-It corresponds to a random variable that is equally likely to take a value within a given interval.
+It corresponds to a random variable equally likely to take a value within a given interval.
 We write:</p>
 <div class="math notranslate nohighlight">
 \[
 X\sim U([0,1]),
 \]</div>
 <p>and we read <span class="math notranslate nohighlight">\(X\)</span> follows a uniform distribution taking values in <span class="math notranslate nohighlight">\([0,1]\)</span>.</p>
-<p>The probability density of the uniform is constant in <span class="math notranslate nohighlight">\([0,1]\)</span> and zero outside it.
+<p>The PDF of the uniform is constant in <span class="math notranslate nohighlight">\([0,1]\)</span> and zero outside it.
 We have:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-p(x) := U(x|[0,1]) := \begin{cases}
+f_X(x) := U(x|[0,1]) := \begin{cases}
 1,&amp;\;0\le x \le 1,\\
 0,&amp;\;\text{otherwise}.
 \end{cases}
 \end{split}\]</div>
-<p>The cumulative distribution funciton of the uniform is for <span class="math notranslate nohighlight">\(x in [0,1]\)</span>:</p>
+<p>Here is how you can make this random variable in <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html">scipy.stats</a>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">uniform</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can evaluate the PDF anywhere like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here is the plot of the PDF:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$f_X(x)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Probability density function of $U([0,1])$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/54bfc565c8317a6b04503d30a733f19f396c5f95cc6980c5b9a876fe9323a4a5.svg" src="../_images/54bfc565c8317a6b04503d30a733f19f396c5f95cc6980c5b9a876fe9323a4a5.svg" /></div>
+</div>
+<p>The CDF of the uniform is for <span class="math notranslate nohighlight">\(x\)</span> in <span class="math notranslate nohighlight">\([0,1]\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
-F(x) = p(X \le x) = \int_0^x p(u) du = \int_0^x du = x.
+F(x) = p(X \le x) = \int_0^x f_X(u) du = \int_0^x du = x.
 \]</div>
 <p>Obviously, we have <span class="math notranslate nohighlight">\(F(x) = 0\)</span> for <span class="math notranslate nohighlight">\(x &lt; 0\)</span> and <span class="math notranslate nohighlight">\(F(x) = 1\)</span> for <span class="math notranslate nohighlight">\(x &gt; 1\)</span>.</p>
+<p>If you have a scipy random variable, you can evaluate the CDF like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5
+</pre></div>
+</div>
+</div>
+</div>
+<p>And here is the plot of the CDF:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$F(x)$&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/2673fb1e59e8c0d1c39e659d3247c2b8b031dca1aa28888a2c4654f189e3e894.svg" src="../_images/2673fb1e59e8c0d1c39e659d3247c2b8b031dca1aa28888a2c4654f189e3e894.svg" /></div>
+</div>
 <p>The probability that <span class="math notranslate nohighlight">\(X\)</span> takes values in <span class="math notranslate nohighlight">\([a,b]\)</span> for <span class="math notranslate nohighlight">\(a &lt; b\)</span> in <span class="math notranslate nohighlight">\([0,1]\)</span> is:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -657,57 +724,7 @@ p(a \le X \le b) = F(b) - F(a) = b - a.
 \[
 \mathbb{V}[X] = \mathbb{E}[X^2] - \left(\mathbb{E}[X]\right)^2 = \frac{1}{3} - \frac{1}{4} = \frac{1}{12}.
 \]</div>
-<p>Let’s create a uniform random variable using scipy:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">uniform</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Let’s plot the PDF:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xs</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$p(x)$&quot;</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<img alt="../_images/595611f29302114d3bc8e40ddba8837c0ca70c48fad6b1fe4bd20f516c95c835.png" src="../_images/595611f29302114d3bc8e40ddba8837c0ca70c48fad6b1fe4bd20f516c95c835.png" />
-</div>
-</div>
-<p>Now the CDF:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">xs</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$F(x)$&quot;</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<img alt="../_images/3ad06fbc419eefc5662619301b7e71e15e9c439d197fa82b7d6cacdb09d18681.png" src="../_images/3ad06fbc419eefc5662619301b7e71e15e9c439d197fa82b7d6cacdb09d18681.png" />
-</div>
-</div>
-<p>The expectation is:</p>
+<p>You can get the expectation from scipy like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;E[X] = </span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">expect</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -720,7 +737,7 @@ p(a \le X \le b) = F(b) - F(a) = b - a.
 </div>
 </div>
 </div>
-<p>The variance:</p>
+<p>Similarly for the variance:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The variance is:</span>
@@ -747,26 +764,26 @@ p(a \le X \le b) = F(b) - F(a) = b - a.
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.66879238, 0.75736348, 0.7812501 , 0.27933322, 0.56074956,
-       0.22117569, 0.13367789, 0.08781332, 0.92979958, 0.23459637,
-       0.92809888, 0.5814472 , 0.26280797, 0.9108148 , 0.50478432,
-       0.6190595 , 0.40672951, 0.17830193, 0.82812523, 0.08030685,
-       0.73094922, 0.57757433, 0.30082494, 0.34891424, 0.42321286,
-       0.73301765, 0.97325906, 0.85121544, 0.79344264, 0.43710437,
-       0.47301335, 0.32680782, 0.32762497, 0.79189128, 0.4932426 ,
-       0.39353935, 0.73214114, 0.51196885, 0.82466441, 0.96251777,
-       0.57712978, 0.16213913, 0.96023262, 0.8256694 , 0.60125674,
-       0.95639564, 0.1813989 , 0.1370642 , 0.72564754, 0.85959444,
-       0.74086014, 0.72892095, 0.10661595, 0.48914761, 0.64530463,
-       0.78829441, 0.67443356, 0.61846556, 0.87410386, 0.13069682,
-       0.73299368, 0.72562731, 0.95585603, 0.58951981, 0.41871065,
-       0.25931519, 0.38000015, 0.5878755 , 0.6890931 , 0.14515412,
-       0.13497739, 0.30664024, 0.7905363 , 0.48192938, 0.34733383,
-       0.21752499, 0.93600126, 0.60442971, 0.20210764, 0.97991932,
-       0.13104272, 0.64441741, 0.46702161, 0.30004285, 0.78337234,
-       0.19566825, 0.93463603, 0.18010226, 0.54768973, 0.70985843,
-       0.33181683, 0.56047789, 0.66093359, 0.13612503, 0.00240562,
-       0.406723  , 0.94597236, 0.33125943, 0.79064208, 0.16893134])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.09539232, 0.77524467, 0.1165174 , 0.17251136, 0.40433054,
+       0.72158   , 0.38796207, 0.06261768, 0.6408136 , 0.18536892,
+       0.35787089, 0.81968133, 0.03752348, 0.39551494, 0.24574092,
+       0.75824217, 0.9642853 , 0.06583551, 0.08171757, 0.25362503,
+       0.72914223, 0.8837704 , 0.02631866, 0.95030773, 0.7060529 ,
+       0.8930821 , 0.39822756, 0.82410637, 0.18128167, 0.55625658,
+       0.97856713, 0.06468715, 0.97174219, 0.94518788, 0.8766769 ,
+       0.02038775, 0.30426117, 0.17927524, 0.13101756, 0.2317204 ,
+       0.88418449, 0.45675778, 0.69759984, 0.04638995, 0.13877671,
+       0.68515328, 0.70644869, 0.76041054, 0.09915309, 0.99840908,
+       0.04972821, 0.58472795, 0.64568846, 0.28645003, 0.28803998,
+       0.16994   , 0.3151959 , 0.77308367, 0.37186481, 0.26694347,
+       0.73817172, 0.6150509 , 0.61194572, 0.80847813, 0.93691158,
+       0.67311239, 0.12722363, 0.18093929, 0.53266398, 0.68873768,
+       0.43517983, 0.69703678, 0.04487793, 0.96773282, 0.39516136,
+       0.6490977 , 0.06924699, 0.74477372, 0.17175712, 0.00946398,
+       0.21438731, 0.90366678, 0.22026249, 0.19304039, 0.63719114,
+       0.02878915, 0.63537944, 0.66062147, 0.64241864, 0.9159541 ,
+       0.32671907, 0.7661052 , 0.91168297, 0.41423243, 0.07588457,
+       0.40145792, 0.67562391, 0.77792787, 0.59545402, 0.10586877])
 </pre></div>
 </div>
 </div>
@@ -785,26 +802,26 @@ p(a \le X \le b) = F(b) - F(a) = b - a.
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.29279788, 0.4337704 , 0.93829631, 0.70369052, 0.8588247 ,
-       0.08551964, 0.13681101, 0.53497048, 0.73944118, 0.76798519,
-       0.14274447, 0.58691282, 0.27223556, 0.38984886, 0.86537729,
-       0.00271175, 0.97873385, 0.37150024, 0.03565874, 0.51056284,
-       0.41651455, 0.13996376, 0.71905168, 0.55034888, 0.04843597,
-       0.73228376, 0.63664816, 0.13718881, 0.61372497, 0.28604202,
-       0.07053062, 0.56984752, 0.9935996 , 0.94679784, 0.41333832,
-       0.21864241, 0.89530563, 0.26852291, 0.33993037, 0.99379449,
-       0.52043625, 0.69054632, 0.94599312, 0.39209509, 0.15515099,
-       0.11913377, 0.36727144, 0.16305775, 0.32788912, 0.93186119,
-       0.94213692, 0.38479948, 0.79121509, 0.28130922, 0.61572918,
-       0.19639303, 0.23152655, 0.46311709, 0.25954506, 0.37761004,
-       0.2387859 , 0.58126836, 0.39016289, 0.87688937, 0.28628025,
-       0.09591198, 0.92969956, 0.93099493, 0.15935987, 0.59326533,
-       0.28115257, 0.59453267, 0.7654102 , 0.78502993, 0.13140112,
-       0.52031933, 0.48488842, 0.21941024, 0.39177227, 0.17355688,
-       0.29763789, 0.69964469, 0.37279314, 0.06386166, 0.72562404,
-       0.32715819, 0.67465422, 0.13327048, 0.53307795, 0.9865744 ,
-       0.99863065, 0.58321671, 0.30553495, 0.10131245, 0.36573083,
-       0.86776942, 0.49106171, 0.41292578, 0.11182442, 0.81445401])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.80586055, 0.11824385, 0.16970896, 0.23699974, 0.37712543,
+       0.95392772, 0.3167166 , 0.29377652, 0.03252983, 0.12010956,
+       0.50480532, 0.74594687, 0.46786984, 0.23535419, 0.76501325,
+       0.4868536 , 0.24281247, 0.56834828, 0.73510174, 0.65209475,
+       0.40019549, 0.51742407, 0.90883814, 0.07134155, 0.81721201,
+       0.03008084, 0.18048499, 0.60085674, 0.04253718, 0.2604787 ,
+       0.21244718, 0.97700233, 0.4507617 , 0.5235795 , 0.66534106,
+       0.89016926, 0.65434185, 0.97440304, 0.31200708, 0.08642   ,
+       0.82021427, 0.66455954, 0.72986889, 0.60272292, 0.59986421,
+       0.71106608, 0.02076019, 0.644577  , 0.21984685, 0.83109709,
+       0.28888499, 0.19897096, 0.35633719, 0.31888049, 0.88103772,
+       0.61011618, 0.78859155, 0.92172975, 0.09794496, 0.26354898,
+       0.88442024, 0.14780904, 0.72500108, 0.74646945, 0.64247196,
+       0.89706545, 0.28715704, 0.46458434, 0.76452549, 0.07750805,
+       0.93848269, 0.56619284, 0.36794383, 0.37993545, 0.39500912,
+       0.18791823, 0.96039442, 0.82659114, 0.12148711, 0.99411616,
+       0.95130704, 0.20910239, 0.27437508, 0.5050475 , 0.93813519,
+       0.83777349, 0.8593612 , 0.26183294, 0.45411316, 0.13210563,
+       0.76234838, 0.93534534, 0.46668538, 0.81264633, 0.5485471 ,
+       0.99254412, 0.54846434, 0.2541332 , 0.7283944 , 0.92028981])
 </pre></div>
 </div>
 </div>
@@ -827,10 +844,9 @@ In particular, we will find <span class="math notranslate nohighlight">\(p(-1 \l
 </div>
 </div>
 </div>
-</section>
 <section id="the-uniform-distribution-over-an-arbitrary-interval-a-b">
-<h2>The uniform distribution over an arbitrary interval <span class="math notranslate nohighlight">\([a, b]\)</span><a class="headerlink" href="#the-uniform-distribution-over-an-arbitrary-interval-a-b" title="Permalink to this heading">#</a></h2>
-<p>The uniform distribution can also be defined over an arbitrary interval <span class="math notranslate nohighlight">\([a,b]\)</span>.
+<span id="uniform-ab"></span><h2>The uniform distribution over an arbitrary interval <span class="math notranslate nohighlight">\([a, b]\)</span><a class="headerlink" href="#the-uniform-distribution-over-an-arbitrary-interval-a-b" title="Permalink to this heading">#</a></h2>
+<p>One can define a uniform distribution over an arbitrary interval <span class="math notranslate nohighlight">\([a,b]\)</span>.
 We write:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -839,24 +855,24 @@ X \sim U([a, b]).
 <p>The PDF of this random variable is:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-p(x) = \begin{cases}
+f_X(x) = \begin{cases}
 c,&amp;\;x\in[a,b],\\
 0,&amp;\;\text{otherwise},
 \end{cases}
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(c\)</span> is a positive constant.
-This simply tells us that the probability density of finding <span class="math notranslate nohighlight">\(X\)</span> in <span class="math notranslate nohighlight">\([a,b]\)</span> is something positive and that the probability density of findinig outside is exactly zero.
-The positive constant <span class="math notranslate nohighlight">\(c\)</span> is determined by imposing the normalization condition:</p>
+The formula tells us that the probability density of finding <span class="math notranslate nohighlight">\(X\)</span> in <span class="math notranslate nohighlight">\([a,b]\)</span> is positive and that the probability density of finding outside is zero.
+We can determine the positive constant <span class="math notranslate nohighlight">\(c\)</span> by imposing the normalization condition:</p>
 <div class="math notranslate nohighlight">
 \[
-\int_{-\infty}^{+\infty}p(x)dx = 1.
+\int_{-\infty}^{+\infty}f_X(x)dx = 1.
 \]</div>
-<p>This gives:</p>
+<p>Carrying out the integral:</p>
 <div class="math notranslate nohighlight">
 \[
 1 = \int_{-\infty}^{+\infty}p(x)dx = \int_a^bc dx = c \int_a^bdx = c (b-a).
 \]</div>
-<p>From this we get:</p>
+<p>Therefore:</p>
 <div class="math notranslate nohighlight">
 \[
 c = \frac{1}{b - a},
@@ -864,7 +880,7 @@ c = \frac{1}{b - a},
 <p>and we can now write:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-p(x) = \begin{cases}
+f_X(x) = \begin{cases}
 \frac{1}{b-a},&amp;x \in [a, b],\\
 0,&amp;\;\text{otherwise},
 \end{cases}
@@ -872,7 +888,7 @@ p(x) = \begin{cases}
 <p>From the PDF, we can now find the CDF for <span class="math notranslate nohighlight">\(x \in [a,b]\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
-F(x) = p(X\le x) = \int_{-\infty}^x p(u)du = \int_a^x \frac{1}{b-a}du = \frac{1}{b-a}\int_a^xdu = \frac{x-a}{b-a}.
+F(x) = p(X\le x) = \int_{-\infty}^x f_X(u)du = \int_a^x \frac{1}{b-a}du = \frac{1}{b-a}\int_a^xdu = \frac{x-a}{b-a}.
 \]</div>
 <p>The expectation is:</p>
 <div class="math notranslate nohighlight">
@@ -884,7 +900,7 @@ F(x) = p(X\le x) = \int_{-\infty}^x p(u)du = \int_a^x \frac{1}{b-a}du = \frac{1}
 \[
 \mathbb{V}[X] = \frac{1}{12}(b-a)^2.
 \]</div>
-<p>This is how you can do this using <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code> for <span class="math notranslate nohighlight">\(a=-2\)</span> and <span class="math notranslate nohighlight">\(b=5\)</span>:</p>
+<p>Here is how you can do this using <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code> for <span class="math notranslate nohighlight">\(a=-2\)</span> and <span class="math notranslate nohighlight">\(b=5\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.0</span>
@@ -904,16 +920,16 @@ F(x) = p(X\le x) = \int_{-\infty}^x p(u)du = \int_a^x \frac{1}{b-a}du = \frac{1}
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">b</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xs</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xs</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$p(x)$&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$f_X(x)$&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/a7159fa3bdc49040637c6f3f4a8207d7805cb04a1b5603aa79bb7d1226a7afe2.png" src="../_images/a7159fa3bdc49040637c6f3f4a8207d7805cb04a1b5603aa79bb7d1226a7afe2.png" />
-</div>
+<img alt="../_images/ead8c4caa78a662b06af7c294c625f6c318424554a82f1707766046dd72c7492.svg" src="../_images/ead8c4caa78a662b06af7c294c625f6c318424554a82f1707766046dd72c7492.svg" /></div>
 </div>
 <p>The CDF is:</p>
 <div class="cell tag_hide-input docutils container">
@@ -925,16 +941,16 @@ F(x) = p(X\le x) = \int_{-\infty}^x p(u)du = \int_a^x \frac{1}{b-a}du = \frac{1}
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">b</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">xs</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">xs</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$F(x)$&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$F(x)$&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/ff08a52be214b7cd2435cd946e3bf545276b25813534e566cdf537600382381d.png" src="../_images/ff08a52be214b7cd2435cd946e3bf545276b25813534e566cdf537600382381d.png" />
-</div>
+<img alt="../_images/d0f8b7c84c13fa987fbcb1a048e896c111bf08dcf56ed519a81435bdb6446335.svg" src="../_images/d0f8b7c84c13fa987fbcb1a048e896c111bf08dcf56ed519a81435bdb6446335.svg" /></div>
 </div>
 <p>The expectation is:</p>
 <div class="cell docutils container">
@@ -976,26 +992,26 @@ F(x) = p(X\le x) = \int_{-\infty}^x p(u)du = \int_a^x \frac{1}{b-a}du = \frac{1}
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-1.45270321,  3.75427557,  3.40194509,  3.82358559,  0.03669189,
-        1.43871971,  4.88467637,  3.44841689,  0.42726523,  2.89913466,
-        0.85346694,  2.92994211,  3.14694184,  2.01940974, -1.72196249,
-        3.82110494,  2.39971611,  1.42718044, -0.90717363,  2.96824853,
-        3.70726804, -0.01298326, -0.75734356,  2.54421778,  1.91741186,
-       -1.16488972,  4.94482528, -0.17088186, -0.50243453,  1.40639053,
-       -1.70192443,  0.42499389,  0.3012409 ,  3.76880934,  2.76757534,
-        4.24870146,  3.73095241,  0.17390123,  4.53686561,  4.73901669,
-        0.74036288,  0.61196484,  0.612601  , -1.63111776,  0.78341418,
-        4.9549641 ,  1.80276436,  2.01231155, -0.20889983, -1.021387  ,
-        0.47748887,  4.16589221,  0.69374002,  3.90882291, -1.9144582 ,
-        2.14138314, -0.28114618,  4.92789125,  4.91344386, -0.23949328,
-        3.41058834,  0.54531666,  3.66371658,  4.82879482,  4.95741444,
-       -0.23216379,  3.76404766,  2.53737447,  2.39744778,  4.39600112,
-       -0.56450068,  1.88831075,  3.47208535, -1.64247583, -0.2076848 ,
-       -0.80705925, -1.91120655,  4.42397359,  2.81177404,  1.25991348,
-       -0.36517137, -1.71818306,  2.20497205,  2.36817653, -0.76984531,
-        1.24821457,  4.8328534 ,  1.25374121,  2.69404508,  3.42178582,
-       -0.63912198,  0.77610503,  0.63436757,  3.99859416,  3.60810124,
-        2.53581295, -0.88861836,  0.37966487,  4.47828904, -1.67851729])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 1.44828788,  3.41171026,  2.87684174,  4.8983561 , -0.1312805 ,
+       -1.70245574,  2.26979439,  1.6466782 ,  4.34652482,  0.35543454,
+        4.53818962, -1.33718623,  0.04536362,  0.41322555,  3.78249496,
+        4.68216223,  3.28923988,  2.60780789,  4.18933089,  4.00611092,
+        2.57420565,  4.94090822,  1.98921428, -1.49104842,  1.08427018,
+        0.77995007, -0.18844224,  0.4527731 , -0.52566889,  1.92956296,
+        4.02993221,  4.41533211,  2.00825063,  3.67496822, -1.74089817,
+        4.37543734,  3.18883896,  2.05146579, -1.54908546,  3.57873337,
+       -1.53078455,  4.10284175, -1.25869879,  4.39609846,  4.08372762,
+        1.59054529, -1.88254861, -1.31531624,  2.72709832, -1.72031435,
+        4.16180122,  1.2298621 ,  0.90993575, -1.44662087,  4.11556168,
+       -0.02735795,  2.34190311,  0.95310295,  3.94416729, -0.37474025,
+        2.89650481,  0.32614986,  1.87890769,  2.30208277,  1.70514826,
+       -1.2640151 ,  3.98274136, -0.51666423,  0.38175858,  4.50485523,
+        2.59398841,  4.56469552,  1.21358654,  2.88875989,  4.69242704,
+       -0.4574542 ,  0.90836318, -1.53365789, -0.98508496,  2.78899496,
+       -1.44765717, -1.48304314,  4.30368088,  0.29395015,  3.02711301,
+        4.31544499, -1.99617301,  2.12661733,  1.95365674, -0.28018737,
+        3.70934999, -0.09200282,  1.98819365,  3.75772142,  4.32743015,
+        3.77284658, -0.83542659,  0.56102761,  2.29900879, -0.36813604])
 </pre></div>
 </div>
 </div>
@@ -1003,7 +1019,7 @@ F(x) = p(X\le x) = \int_{-\infty}^x p(u)du = \int_a^x \frac{1}{b-a}du = \frac{1}
 </div>
 </section>
 <section id="alternative-way-to-get-u-a-b">
-<h2>Alternative way to get <span class="math notranslate nohighlight">\(U([a,b])\)</span><a class="headerlink" href="#alternative-way-to-get-u-a-b" title="Permalink to this heading">#</a></h2>
+<span id="uniform-ab-alt"></span><h2>Alternative way to get <span class="math notranslate nohighlight">\(U([a,b])\)</span><a class="headerlink" href="#alternative-way-to-get-u-a-b" title="Permalink to this heading">#</a></h2>
 <p>There is another way to obtain samples from <span class="math notranslate nohighlight">\(U([a,b])\)</span> that uses only samples from <span class="math notranslate nohighlight">\(U([0,1])\)</span>.
 Here is how. Let <span class="math notranslate nohighlight">\(Z\)</span> be a standard uniform random variable:</p>
 <div class="math notranslate nohighlight">
@@ -1021,7 +1037,7 @@ X = a + (b-a) Z.
 p(X \le x) = p(a + (b-a)Z \le x) = p((b-a)Z \le x - a) = p\left(Z \le \frac{x-a}{b-a}\right) = \frac{x-a}{b-a},
 \]</div>
 <p>where the last step follows from the fact that the CDF of <span class="math notranslate nohighlight">\(Z\)</span> is simply: <span class="math notranslate nohighlight">\(p(Z \le z) = z\)</span>.
-Equipped with this result, we see that we can sample <span class="math notranslate nohighlight">\(X\)</span> by sampling <span class="math notranslate nohighlight">\(Z\)</span> and then scaling it appropriately (by the way this is what <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code> is doing internally). Here it is using <code class="docutils literal notranslate"><span class="pre">numpy.random.rand</span></code> to sample in <span class="math notranslate nohighlight">\([0,1]\)</span>:</p>
+Equipped with this result, we can sample <span class="math notranslate nohighlight">\(X\)</span> by sampling <span class="math notranslate nohighlight">\(Z\)</span> and then scaling it appropriately (by the way, this is what <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code> is doing internally). Here it is using <code class="docutils literal notranslate"><span class="pre">numpy.random.rand</span></code> to sample in <span class="math notranslate nohighlight">\([0,1]\)</span>:</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input above-output-prompt docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_samples</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
@@ -1035,173 +1051,256 @@ Equipped with this result, we see that we can sample <span class="math notransla
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 4.54012805  0.63093735  0.90144289  0.05800096  1.62693978  3.00228583
-  2.49185347  3.46022424  3.17169053  2.81803692  1.41188949  3.9113902
-  2.45299521  2.70474767  2.72780705  4.17581858  1.79614172  3.77161182
-  0.98587008  1.02207083  2.50454716  2.30094021  0.35108196  4.87606038
- -0.39959862 -0.03394866  3.41444689  2.13816798  1.70894267  3.73298258
-  3.55803823  0.74474686  0.0094886   1.73812834  3.32123959  1.07621825
-  1.42369461 -1.08534156 -1.01895819  0.88108717  2.90410362 -1.15288838
-  3.7235189   2.95665859  1.43415829  4.67755695  2.47122731  4.27130164
-  1.90232171  0.97640793  2.9878023   0.38856739  2.42497378  4.76409813
-  0.37391265 -0.75895861  1.5330697   0.95776467 -1.82795386  2.27768227
-  3.60435931 -1.29115986  0.16143348 -1.60982776 -1.89311832  1.72326649
- -1.89257755 -0.62824376  0.97827286  1.09663399  1.67463107  1.14842597
- -0.59675701 -0.69488226  2.08472798 -1.37617122  0.97509488 -0.78447101
- -1.66418163 -1.30692186  3.52315738  2.13932916  1.02575226  3.21822066
-  3.11800606  3.14967611  3.00308075 -1.2496673   1.00405374 -1.84286926
- -0.04042662 -0.89313242  4.05163474  3.5342759  -1.77901089  0.50378369
-  1.64527785  4.89515105  0.97769774  3.46789566  1.58052834 -1.66601862
-  3.79944451  1.46785539  2.43442109  0.70817196  4.73522284  3.3869134
-  1.07514272 -1.73645332 -1.44739472  2.323479    3.45366968 -0.55184505
- -0.9140461   0.1966022  -1.29914729  3.35319498  3.79536254  3.33165376
-  2.26143055 -1.32684752 -1.22530666 -1.39626063 -0.92651549  3.35671237
-  4.81462062  2.46288284 -1.46607685 -1.24090241 -1.23294568 -1.56912698
-  4.66831624  0.686041    3.98398852  4.86627798  1.96640792  0.66791183
-  0.68441271 -1.05892421  1.73838562  2.73217607  1.2651706   1.76595343
-  1.60877727  0.82040813 -0.35654084  2.52336686  0.43519655  1.8715501
-  2.12820366  0.36791691  2.42290218 -0.52588172  1.44906508 -1.7500195
- -1.41940761  3.96755332 -0.5949305   4.09569082  4.52380941  0.87819477
- -0.67588255  0.41031717  3.21683854  1.79369673  1.76690939  0.60897279
-  1.10421319 -1.35793146  2.04972414  3.67168613  4.46844628  3.72651001
-  4.29441764  0.18773032 -1.32775352 -1.21504872  0.9350142   3.70619763
- -1.82898508  1.25402563  2.74155677  3.12378277  0.9264476   1.94123802
-  1.43588226  0.53346701 -0.27034021 -1.54310025  0.72451672  0.39283582
-  2.53052477  4.78050882  0.5693789  -1.62031418  1.66100059  3.68058857
- -1.25957808 -1.31662463  1.4699022   4.67639196  1.84246256  2.64608802
-  2.9200593  -1.0184883   0.49723891  4.63917008 -0.22944297  2.6075482
-  2.5109707  -1.23834958  4.54371278 -1.01375977 -1.56252096  1.24928323
-  3.45186481 -0.30351365 -0.46686639 -1.09470559  0.83014114 -0.144043
- -1.19644077 -1.47464543  2.62050936  2.08602961  1.23067488 -1.48132675
-  4.62337835 -1.37620384  1.72331331  4.33164601  0.55959691  0.46032144
- -0.52775897  1.19959107 -1.02117185  2.40922543 -0.44483116  0.70498949
-  1.96514103  4.4495707   2.95040408  1.57733798 -1.57470159 -1.69733233
-  4.01710438  2.60413658 -0.22550645  0.67941362 -1.35444006  4.952672
-  2.86155979  3.27553638 -0.45252359 -1.46637225 -1.88148097  4.22372506
-  2.23996045  2.75570493 -1.51673753  3.4003881   1.45530423  4.67629357
- -1.4267469  -0.15661376  4.26480937  3.40549474  2.64100016  1.44626742
- -0.43850585  0.54809466  1.89710111 -0.4707166   1.72020357 -1.1635945
- -0.31850855  3.73205578 -1.92175145  2.98156359 -1.47998029  3.75055241
-  1.50700641  0.37077133  3.41436594  1.18373487  2.72717927 -1.06580755
-  4.68317493  4.76346616 -1.67187272  2.85749249  0.27442237  0.34543127
-  4.18961343 -0.43303749  1.37323187  1.65771358 -0.23281606  3.33010106
-  1.1680405   4.56784211  4.65576685  3.08562824  1.64690956 -1.64832303
-  3.18986631  4.47901372 -1.881509    4.90836645  3.57186874  4.24964561
-  2.63920783  0.80456612  1.35485896  0.39726432  4.19705782  3.78980207
-  2.75431755  0.32534877  0.92899073  1.0545013   2.8405971  -0.54969927
-  2.59748661 -1.82639374  4.31531677  4.10915768  0.60597888  4.720314
-  3.9032133  -1.1161665   0.30358842 -1.68297135  2.93634656  3.39253599
-  3.4118846  -1.00894065  4.48253461  0.00607812 -1.06529139 -1.13834022
- -0.69043599  2.09556928  1.07403303  0.08656396 -0.44438455  4.1159228
- -0.26274868  0.726663    0.89516659  3.02940077 -0.67746423  2.81075863
-  4.51493841  4.32368249  4.05475258 -0.6625652   3.02213619  2.88882912
-  2.82893553 -1.47980677 -0.65064965  2.01309892  2.51680344  4.07505282
-  4.39429796  2.28799247 -0.37793228  0.04428675  0.42826964 -0.01812578
-  0.52851423  0.61199718 -0.38510949  3.85387998  1.38077614 -0.59861592
-  4.68491359  1.44018285  4.67289519  2.19207037  2.58376511  1.84765476
-  4.90181609  4.77290842  4.27167717  0.52644165 -0.54771385  3.34858939
-  3.54218152 -0.93237623  1.52716301 -1.14290007  1.15658494 -1.77502861
-  1.22382535  3.46178443  0.78937546  0.79004838  0.6243222   2.61050885
-  3.51820221 -1.21950125 -0.83312778  0.20735181  1.56611332 -0.85667995
-  1.69705403  1.79250436  1.96903859  1.27643386 -0.23445677 -0.97903593
-  4.12677911  3.96315627 -1.86950642 -1.29623442  3.31047806 -0.08092786
-  3.9887627   3.85207617  3.5673641   3.38817879 -1.1652378   2.27026367
-  4.2271716   4.48743313 -1.70614933  1.81685179  1.79079263  2.42254017
-  2.53963764  3.71728123 -1.65627035  2.24365225  0.29033687  0.20769354
-  0.63696029  1.43902549  0.67961565  3.32610748  1.4121958   1.67378538
-  2.83470997  2.85903009  0.49535456  2.94691564  4.38024872  3.25363266
-  2.41308879  1.58569795  2.62048974  3.4257214   3.50321313 -0.22228553
-  1.76233003  3.30861372 -0.57262454  2.22256903  0.87292245  4.34319237
-  3.01712994 -1.14630122 -1.65121707  1.95020608 -0.28311276 -0.22659966
-  0.72512378  3.66262655  2.82435783  1.9872588   0.41334608 -1.06861851
-  2.73949083  2.96750474 -0.37920308 -0.36533118 -0.04380134 -1.47110536
- -1.89098766  2.66551809  0.0453812   2.75416909  2.20421314  0.95610241
-  1.05898135 -0.30602204  3.42416265  4.48111459 -1.21250398  4.19118372
-  3.53293866  4.48819639 -0.54357528 -1.97449018  3.72346197  0.66831669
-  3.31145767 -1.6381453   0.94103169  1.94447431 -1.78491314  0.69813676
-  4.78478176  2.64643045 -0.81119251 -0.69293542  4.11997823  1.18103262
-  3.60781221  1.32409046 -0.73398348 -0.28780341  3.34243873  1.91667172
-  1.18159692 -0.10324218 -1.58727569 -1.51853486  1.38837932  2.08971366
-  0.19410193  2.13653567  0.27117566  3.33242973 -1.91318847  4.45370608
-  0.19128331 -0.73742552 -1.85219159  0.50341595 -1.89536732  2.63075009
-  1.33640537  3.24288374  0.29255559  3.66135661  3.09128713  0.80289172
-  4.29966913  0.13753378 -1.98405366  4.76222518  4.31529536 -0.71046947
-  1.54023685  1.20271489  2.56691526  1.47288419 -0.96344105  4.8206923
-  2.00021148  4.58948415 -0.42989112  0.26457618  4.67277717  1.63976296
- -0.73634217 -1.80523353  2.85745361  3.34884201  4.33147178 -1.98779781
-  4.42273904  3.6589149  -1.62476272  2.89434321  3.50206263  2.37257118
-  4.40475819  4.47570612  4.76776332  3.80694529 -1.02800892  2.76054992
- -0.37985165  2.89294883  1.26511612  0.06700568  2.57730344 -1.19440362
-  4.33841815  1.14025378  0.33800418 -1.35338156  1.87385139  3.58085187
- -1.45304157  0.2268498  -1.72259329  3.56795141  2.92250277  1.9741994
-  4.205105    1.86106301  4.23755341 -1.51954827 -1.32650749  3.03649191
-  0.12852233  3.61764443  1.26119924 -0.47150364  2.53233688  0.23403892
-  4.18887712  3.08938892  0.19239832 -0.99606447  2.9936364   3.95932732
-  4.00621613  2.43423948  1.18039283 -1.69635378 -1.68457643  0.1641055
-  1.18456628  2.63474804  3.79141126  3.50198092  2.80082815  0.45121429
-  3.5838873   2.54221706  1.30021153  2.38601202 -0.51326484 -1.07345381
- -1.16876389 -1.27908151 -1.0321661   1.12701823 -0.37811187  3.56995119
-  0.67802182  4.10597241  1.19377643  4.95997678  4.38273428  3.24979379
- -1.51467871 -1.33273707  2.76801893  4.34743609  0.14779383  4.64903001
-  1.16616605  1.39241847  4.08914484  2.71059564 -1.36105619  4.44687036
- -1.16429557  2.88595479  0.29159503 -0.41289603  1.40612853 -0.5719092
-  1.71251086  1.79191826  0.45218248 -1.88454234 -0.51748556 -0.10919733
-  2.99042064  3.87960484 -0.4763365   0.79291494  3.61881606 -1.01408551
-  1.47244241  0.0698617  -0.31624673  0.30364898  1.52259784  2.77437235
-  0.44045863  3.17476655  2.74183387  3.27991401  4.39700922 -1.66620999
-  0.96644951  0.74321612  3.50363106  4.36263835 -1.75321254 -0.88795085
- -0.73447439  2.08939235  1.54950954 -1.13177195  3.08109897  2.39744788
- -0.89210106  1.80968281 -0.24316483  4.10665417 -0.14779883 -0.45280557
-  2.69851306  2.37168568  1.79090034  1.22269458 -0.55673914  4.09712149
-  3.38574135 -1.44541829 -0.42595069  0.3825223   0.20169564 -1.55870649
-  0.16090142  0.02821181  3.03090947  1.51013045  2.32551085  2.87476932
-  1.53447861  0.33002836  3.9029573   3.54862835  4.12775308  2.51344996
- -1.63381719 -1.87900063 -1.65446396  3.37810297  4.28590799  4.25187015
-  1.62966314  1.74502132  2.9824214   3.87375703 -1.46175142  2.30684504
-  2.48860937  3.95445413  4.16088179 -0.36435402 -0.95641676 -1.89549093
-  1.69352169 -1.42216203  3.28638533  3.66926438 -1.57134367  4.86541703
-  1.14350454 -0.30472861  3.81539189  2.64103118  1.13974523  4.29775577
- -1.86922322  2.24410509  3.67589511 -0.3748163   4.98633032  2.39374999
-  1.97759204  1.04366332  0.59314015 -1.42252969  1.9494341   4.26624462
-  4.17761072 -0.09193143  3.97546085  2.5280174   2.01885744 -1.20881458
-  2.50179585  4.81909362  0.52226199  1.50551614  3.929883    3.89660395
-  1.31320423  1.06959916  1.54743617  0.79858527  1.56610113  3.24737506
- -0.48389865 -0.5243353  -0.66077586  2.95420581  3.97244036  0.04683744
-  0.92217994  4.93813189 -1.09525964 -0.18959074 -0.02329482 -1.84295624
-  4.902746    0.45348295  3.29411244  4.51282152  0.74628793  0.48868756
-  2.70607886  4.86490983  4.58961334  4.16119433  4.20736673  3.89586137
- -1.49794489 -0.90634006  4.68354475 -1.8963266   2.74695488  3.70661243
-  4.34904419  3.60891343 -0.71115864  2.00281345  3.91017687  4.79083606
-  1.75504109 -0.72953271 -1.94470255  3.57170258  2.31770855  0.20023821
- -0.24737482  2.28141688 -1.81029781  0.02602673 -1.93483034  1.54567757
- -0.07015399  0.60517121 -1.28677477  1.6225301   2.97518223 -1.56072386
-  2.66600344  1.48017039 -1.73236081 -0.27171219  2.21606164  4.22982408
-  0.56996751  4.94351908  3.03754516 -1.8775004   4.0273634   3.62691754
- -1.10210215  4.24244654  4.18967262 -0.17979236  2.28863322 -1.11109766
-  2.87052604  4.93202755  4.54376969  4.56525777  3.619656    2.47008608
-  1.15169484 -1.95308058 -0.16604931 -1.60266972  2.86819036  0.64780625
-  4.04264609  2.6785706   4.37726905  4.04084507  4.87496574  0.59084926
- -0.65192388 -1.25740823  0.69850374  1.63639584  1.64426889 -0.8563514
-  2.18492788  0.17364558 -0.43042076  3.31138711  4.32455736 -1.99943118
-  0.93987087  0.25032178  3.64033676  1.59012683 -1.11978535  1.43621071
-  4.56275407  1.73722476  4.39210897 -1.04208998 -0.7398546  -1.25113285
-  4.89951936  3.35056526  1.21705843 -1.52230738 -0.85185633  1.83174161
- -0.39783145  1.54030416  0.04972766  2.72866791  3.06013525  1.85890148
-  0.99750378 -0.63990134  1.25299557 -0.87468718  2.97627543  0.55936602
-  0.18146095 -0.63041467  0.28161553  2.9467452   0.4026108  -1.09346561
-  3.61295281 -1.55075658  3.94143327  1.78761491 -1.98609687  3.24706696
-  0.54537893  3.95794652  1.25120958 -1.02163952  0.90201323  3.33362568
- -0.4474226  -0.2796221  -1.80091384  1.61193076  1.7719493   0.85317588
-  4.16878488  0.70720761  3.30205068  2.9761882  -1.12166115  2.54078908
-  3.09024385  4.67407535  4.95003734  3.31418504  1.73129679  0.91349273
- -1.44971612  4.01323435  0.04367766  3.28996789  1.4408434  -1.39248903
-  0.20327581  3.57025052  2.08885856  3.49015216  3.99172474  1.95454886
-  4.78957703 -0.42405268  3.71866501 -0.61264867  4.93537979  4.30774832
- -0.05588545  2.59142424  0.92696566 -0.85246866 -1.00636259 -1.00416361
-  0.76692622 -1.73116616  0.5615049   1.92037596 -1.86241323 -0.51326778
- -1.1734484  -1.99768343  4.41380572 -0.25117396  0.66616402 -0.14273677
-  0.12383402  1.49413883  4.46813919 -1.44834426 -1.32406592  4.20462047
-  4.80146952  4.56390693  0.76845199 -1.65596206]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-1.17968315e+00 -9.91679588e-01  1.34411789e+00  1.14593570e+00
+  6.37846308e-01 -3.55504159e-01 -1.33171178e+00  1.18303712e+00
+  3.20876200e+00  3.19667735e+00 -1.27515305e+00  2.51508002e+00
+  6.84081866e-01  2.44487554e+00  4.91615360e+00  3.09205003e+00
+  1.44013657e+00  2.15047448e+00 -1.30341195e+00 -4.41178353e-01
+  2.59401696e+00  1.98714760e+00  2.01425439e+00  4.96415606e+00
+  4.24264777e+00  4.88138233e+00 -1.55005597e+00  1.62766182e+00
+ -5.59193830e-01  4.59853007e-01 -1.79581400e+00  2.14846678e+00
+  3.30474256e+00 -1.42148694e+00  1.61251214e+00 -1.14294509e+00
+ -9.76485259e-01  3.14474495e-01 -1.58248222e+00  1.78018802e-01
+  4.13978083e+00 -7.66317089e-01 -2.41124441e-01 -1.14919158e+00
+  5.44683158e-01 -1.54367814e-01  3.16869882e+00  2.55781126e+00
+  4.81829577e+00  4.12587892e+00  1.03292936e+00  1.59955571e+00
+  3.25948809e+00  2.64536298e+00  4.23719619e+00  3.33727502e+00
+ -1.00696879e-01  3.57550671e+00  1.51327194e+00  1.04445845e+00
+ -1.02823256e+00  3.63510969e+00  1.79652898e+00  1.56104435e+00
+  2.50746351e+00  2.67487158e+00  2.20292496e+00  3.90029262e+00
+ -1.17324854e+00 -1.18876164e+00  1.19950558e+00 -1.65240941e-01
+  2.32275869e+00  2.47379659e-01  8.92987479e-01  7.37173769e-01
+  2.77864400e+00  4.97192317e+00  3.08384800e-02  1.23544520e+00
+  3.64543947e+00 -3.69787503e-01  4.38784321e+00  1.12058327e-01
+  2.48687455e+00 -1.36717106e+00  1.25885672e+00  1.03121999e+00
+  3.91622677e+00  1.48368014e+00  4.42145309e+00  3.61980557e+00
+  4.61402820e+00  3.61519450e+00  2.16269649e-01  1.64432456e+00
+  1.24830833e+00  1.73655333e+00  3.05957195e+00  3.58732430e+00
+ -6.99010100e-01  3.50998068e+00  4.81228913e+00  1.82948753e+00
+  2.02008991e+00 -1.40290818e+00  4.75843655e+00 -1.27289899e+00
+ -4.84665557e-02  3.09671948e+00  4.13372571e+00 -1.96571316e+00
+ -1.59265249e+00 -8.50618471e-02 -5.48769674e-01  4.23469323e+00
+  4.88158664e+00 -1.34303456e+00  3.50968782e+00  4.62135837e+00
+  4.56286817e+00  3.52011956e+00  9.30428299e-01  1.66177549e+00
+  2.26345132e+00  4.71694438e+00 -8.64846133e-01  2.74455730e+00
+  4.13924095e-01  5.93697461e-01  2.48922515e+00  7.29692294e-01
+  6.92201518e-01 -8.76923231e-01  3.84216815e+00  3.68478361e+00
+  3.99199047e+00 -7.10897975e-01 -1.10915113e+00  4.84954354e+00
+  2.50872947e+00 -1.12522238e-02  1.85080108e+00 -1.17286785e+00
+ -7.02283619e-01  1.15886604e+00  3.95732753e+00  1.89822021e+00
+ -1.28627619e+00 -1.46130076e+00  3.79115282e+00 -2.90722078e-01
+ -1.48284716e+00  4.45962731e+00  2.28789043e-01  3.12628672e+00
+  2.65737999e+00  2.31442143e+00  4.18292470e+00  2.52586745e+00
+ -1.93987682e+00  3.76118238e+00 -1.79062515e+00  2.88817016e+00
+ -8.49007671e-01  3.46449930e+00 -1.23173168e+00 -4.03804837e-01
+  1.81314008e+00  4.54591476e+00  1.44679810e+00  1.61688406e+00
+ -1.64820579e+00  3.99238562e+00  2.87893082e-01 -9.99431046e-01
+  2.91072152e+00 -1.50827027e-01  9.63256245e-01  1.31340762e+00
+  4.10862356e+00  4.74900253e+00 -9.96871664e-01 -1.66698853e+00
+  2.45847924e+00 -4.10866461e-01  3.02009409e+00  3.95800337e+00
+  2.91496150e+00 -1.64498094e+00 -2.96170832e-01  3.68000716e-01
+  4.33827706e+00  3.75519415e+00  1.39413566e+00 -6.70876230e-01
+  6.64632082e-01  4.46970515e+00  3.07917656e+00  8.60269017e-01
+  4.68654139e+00  3.40511540e+00 -1.03833445e+00 -1.62963673e-01
+ -4.64769991e-01  5.27086568e-01  1.62677553e+00  2.09679050e+00
+  1.99516774e+00  3.83995224e+00  2.48795436e-01  4.60076713e+00
+  5.86476646e-01 -7.01901275e-01  4.94013081e+00  1.89350669e+00
+  2.51934322e+00  4.56646324e+00 -3.14754974e-01 -9.72362524e-01
+  1.85137701e+00  2.57042174e+00 -1.10693823e+00 -6.29945840e-01
+  2.62747590e+00  4.03724437e+00 -3.35904085e-01  4.92277153e+00
+  3.77833210e+00  2.99047110e+00  2.85609328e+00  2.60528917e+00
+  3.33690449e+00 -1.77260483e+00 -7.36628168e-01 -3.46722992e-01
+  4.94538524e+00  3.44638989e+00 -1.10465184e+00  1.92122119e+00
+  3.27221482e+00  2.98461427e+00  3.68561931e+00  6.45502620e-01
+  2.63160190e+00  2.82349001e+00  3.62051805e+00 -1.58135309e+00
+  2.35474995e+00 -1.73016667e+00  1.54126125e+00 -9.38997653e-01
+  2.59732064e+00  1.10902090e+00  1.03304785e+00  3.48388935e+00
+ -1.14124501e+00  2.14887295e+00 -1.63822445e+00  2.57059233e+00
+  3.32360432e-02 -1.43902543e+00  5.52638193e-01 -5.12670429e-01
+  2.82026753e+00 -9.91218462e-02  2.43082384e+00 -2.45619298e-01
+ -1.70300116e+00  3.34293495e+00  1.95664920e+00  2.92331577e+00
+  4.56635306e+00 -4.98279946e-01 -1.04653454e+00  4.74972290e-01
+  6.65034502e-01  2.65243000e+00  2.43681424e+00  1.75301147e+00
+  3.57944551e+00  4.19371942e+00  4.83178144e+00 -8.96606131e-01
+  7.84391986e-01  4.26719660e+00 -9.21063767e-01 -1.76895436e+00
+  1.34736035e+00  1.17607890e+00  2.65263703e+00  3.53709218e+00
+ -2.68653849e-01 -6.44862688e-01 -1.62450664e+00  3.14368470e+00
+  9.12024151e-01  1.21942517e+00 -1.08850357e+00  1.76873260e+00
+  3.18957663e+00  1.63841859e+00  2.10881072e+00  5.58304619e-01
+  3.11722650e+00  1.86382016e+00 -3.25826798e-01 -1.56137351e+00
+  2.50823715e+00  2.11310233e+00  2.86570090e+00  2.19831825e+00
+  2.87119312e+00  1.59738048e+00  6.84367501e-01  1.45093508e-02
+  2.65241558e-01  3.51586644e+00  1.43018564e+00  2.32120146e-01
+ -6.78654449e-01  3.43718973e+00 -1.08071237e+00  5.30138205e-02
+ -2.56510272e-01 -1.48780393e+00  2.59271428e+00 -7.96299654e-01
+  4.99204788e+00 -2.71422151e-01  3.14528517e+00  2.70119342e+00
+ -2.14414723e-03  2.67431079e+00 -4.87553999e-01 -1.58956844e+00
+ -9.60100129e-01  6.32609387e-01  1.86106696e+00  4.22514463e+00
+  6.21380654e-01  2.64581644e+00  5.11884800e-01  4.83880852e+00
+  1.14470014e+00  1.81623020e+00  2.75448351e+00  1.89109281e+00
+  3.09898592e+00 -3.01292075e-01  3.25455867e+00  4.81881825e+00
+  3.98140410e+00  3.70493946e+00 -1.91123086e+00  3.58374602e+00
+ -1.72815707e-01  3.04319653e+00  3.50354764e+00  2.87950607e+00
+  3.82993556e+00  2.67370550e+00  4.50638047e+00  3.64539181e+00
+  5.48990879e-01  3.61833891e+00  2.29936440e-02 -8.80769959e-01
+ -1.07774566e+00  5.09763338e-01  2.12468763e-01  1.24183991e+00
+  4.89325126e-01 -1.25264819e+00  1.15898636e+00  3.60900084e+00
+  1.42489021e+00 -5.90282091e-01  3.87549148e+00 -1.94265553e-01
+ -6.85288990e-02  1.26086840e+00 -8.48392953e-01  2.36168026e+00
+  3.76885391e+00  1.55656277e+00  2.69930222e+00 -1.63759912e-01
+  3.92927627e+00  1.19607070e-01  2.73050922e+00  4.24870766e+00
+  3.61563020e+00  4.00221263e+00 -1.23196734e+00  3.16729514e+00
+  2.69546009e+00  3.08126507e+00  2.04336608e-01  2.29908041e+00
+  3.30198934e+00  1.34120457e-01  1.11295405e+00  3.24292912e+00
+  4.59840938e+00  4.16176129e+00  3.33603324e+00  3.93297982e+00
+  2.13455929e+00  3.52721610e+00  2.83034984e+00 -1.94538368e+00
+ -8.51150965e-01  2.20695027e-01  3.25951926e+00  1.34469265e+00
+  1.75681953e+00  4.92958859e+00 -1.23500975e+00  1.82916076e+00
+  3.93068854e+00 -5.57709782e-01  2.70708100e+00  3.08674226e+00
+  4.46900090e+00  2.87104901e+00  2.38090201e+00  9.33917154e-01
+  4.51148347e+00  1.55960652e+00  1.88861504e+00 -1.58126633e-01
+  6.50686205e-01  1.95641893e-01 -1.88288652e+00 -2.14960184e-01
+  3.18100337e+00 -1.75279492e+00  4.43724845e+00 -1.46063342e+00
+  3.34932044e+00 -1.12412002e+00  2.63260905e-01 -1.44679184e+00
+  2.86392629e+00 -3.93575915e-01  4.02005957e-01 -1.68980037e+00
+ -3.87662249e-01 -1.76373196e+00 -1.59572879e+00  1.14948817e-01
+  4.70592922e+00 -6.67311548e-01  3.62582700e+00  3.27910843e-01
+ -5.57605724e-01  3.10979215e+00  4.28914977e+00  2.40426594e+00
+ -1.83396538e+00  3.54239938e+00  2.27112060e+00  4.89851310e+00
+  4.91597033e+00  4.61836500e+00  2.32825306e+00  4.57321239e+00
+ -8.54783356e-01  4.88519011e+00  7.37729750e-02  4.88248989e+00
+  3.72626918e-01  4.32956439e+00 -1.60054659e+00  9.63607857e-01
+  3.97454871e+00  3.15575376e+00  1.98230613e+00  2.20719134e-01
+  4.74169870e+00  4.17836096e-01  3.68926833e+00  3.74305210e+00
+  6.59819777e-01 -3.13615369e-02  8.68314671e-01 -1.42349664e+00
+ -1.88875025e+00  4.80845794e+00  2.31358835e+00  5.00291436e-01
+  2.93958352e-01  1.33995414e+00  1.28806626e+00  1.71614200e+00
+ -1.78606723e+00 -1.54053536e+00  2.73110211e+00 -1.45019387e+00
+  2.56447480e+00  7.84116201e-01  2.85443554e+00  1.76874211e+00
+  4.73493124e+00  2.62624499e+00  1.32660253e+00 -6.21590586e-01
+  3.85938881e+00  4.55761909e+00  2.88899120e+00  3.93243113e+00
+  3.53552470e+00  5.87721631e-02 -1.78894729e+00 -1.68933435e+00
+  6.17382494e-01 -8.16284399e-01 -1.10909752e+00  2.59552809e+00
+  2.73267289e+00 -1.25131788e+00  2.07608639e+00  1.40933810e-01
+  4.91459291e+00  3.07747624e+00  1.47682333e+00  1.27978073e+00
+  2.25447345e+00  8.26771642e-03  8.12947073e-01  1.34495536e+00
+  4.95587890e+00  4.30467189e+00  3.76429217e+00  1.23105618e-01
+ -1.98813044e+00  4.50835805e+00 -1.11115118e+00 -1.77786181e+00
+  1.29918317e+00  2.93150209e+00 -1.30608599e+00  3.11616434e+00
+ -1.50247046e+00 -9.45985580e-01 -1.67346829e+00  4.30365351e+00
+ -5.94430487e-01  1.00933090e+00  1.63721303e+00 -5.47427783e-02
+  8.39629373e-01 -1.64316049e+00 -1.45627642e+00  3.68321319e+00
+  4.29068375e+00  1.07538451e+00  4.84905430e+00  5.23491209e-01
+ -9.22008074e-01  4.31356805e+00  3.08340278e+00  1.05558310e+00
+  6.93878430e-01  1.65548891e+00  3.33763914e+00  4.52550119e-01
+  3.20258690e+00  3.19161860e+00 -3.19798198e-01 -1.39583793e+00
+ -7.90998728e-01 -1.97789542e-01  3.19509526e+00 -6.70635438e-01
+  2.80491663e+00  3.92201508e+00 -5.49844003e-01 -8.87159828e-01
+  3.93179601e+00 -1.74935107e+00 -1.70121196e+00 -1.00515293e+00
+  4.09212966e+00  1.96356994e+00 -1.62045434e+00  1.12502898e-01
+  1.15332377e+00  4.54124934e+00  2.41171925e+00  3.33223708e+00
+  3.98897343e+00  4.75587675e+00 -3.72707721e-02  1.65828133e-01
+  1.91644349e+00 -1.86070627e+00 -1.43623405e+00 -5.41351525e-02
+  2.79089989e+00  3.22775321e-01  3.17681804e-01  4.48747535e-01
+  3.65312448e+00  4.24991481e+00  3.18370398e-01  4.96713917e+00
+  3.77813261e+00  2.37598405e+00 -5.58605054e-01 -1.82255562e+00
+ -1.98526742e+00  2.34984967e+00  1.74455170e+00  2.82058623e+00
+ -8.13346033e-01 -1.56350265e+00  3.11279665e+00  4.93229778e-01
+  2.04654495e+00 -3.32360329e-01 -1.84328512e+00  4.54447274e+00
+  3.76532536e+00  2.37120310e+00  4.62711857e+00  4.33597706e+00
+  6.60218409e-01  2.41802050e+00  3.16123928e+00  3.58817491e+00
+ -1.88900673e-02  1.13539988e+00  4.34285339e+00  8.30465305e-01
+ -9.29094975e-01 -1.10898097e+00  3.28860969e+00 -1.23198211e-01
+  1.58046692e+00  4.06493563e+00  1.19870122e+00 -1.14904838e+00
+ -2.96567237e-01  1.83475222e+00  9.87157046e-01  4.96417492e+00
+ -8.01205594e-01  8.05202457e-01  1.14394240e+00  9.57317707e-01
+  5.20990315e-01  4.00905204e+00 -1.31166107e+00 -1.27842497e+00
+  4.63444051e+00  2.94702970e+00 -4.44153254e-01  8.93521438e-01
+  3.01912497e+00 -1.87876571e+00 -1.21066095e+00  4.63039011e+00
+  3.02219837e+00  3.67503206e+00  8.22734670e-02  1.14938628e+00
+ -1.58654398e+00  4.28517428e+00  1.35969610e+00  7.51088564e-01
+  1.10186346e+00  6.76939523e-01 -6.63213596e-01  4.20058586e+00
+ -5.49273719e-01 -9.36348108e-01  4.53435336e+00  1.72573634e+00
+  4.98412551e+00  1.72884694e+00 -1.44786328e+00 -4.65172575e-01
+  4.70134541e-01  3.51882536e+00 -3.27947245e-01  2.94943386e+00
+  1.10558976e+00  5.94128479e-01  5.13668707e-02  2.01251370e+00
+  4.77588991e+00 -1.36660742e+00  1.40323993e+00 -6.17246522e-01
+  3.76454318e-02  1.61875157e+00  2.62555780e+00  2.51100914e+00
+  9.71934086e-01  1.28696761e+00  4.86646442e+00  3.34283628e+00
+ -1.16291918e+00 -1.63768176e+00 -9.14209770e-01  2.41793307e+00
+  4.34451149e+00  3.12311487e+00  3.52099286e+00  2.51556501e+00
+  4.02125976e+00 -1.36399282e+00  3.21969678e+00  2.43667257e+00
+  2.85415595e+00  3.30862087e-01  8.74264174e-01  1.82222357e+00
+  7.09078157e-01  3.59907724e+00  9.38805710e-01 -1.73722746e+00
+ -1.94567182e-01  2.26535810e-01 -1.72182695e+00  2.47187106e+00
+ -1.81327998e+00  1.24300369e+00  3.89367462e+00  1.49186894e+00
+  2.65565319e+00  2.75979813e+00  2.73027975e+00 -1.11124209e+00
+  2.85472912e+00 -1.73321440e+00  2.12759186e+00  3.94404796e+00
+ -6.71224244e-01  3.35192633e+00 -1.65440389e+00  2.17759684e+00
+  3.01280356e+00  4.85603584e+00  1.68852794e+00 -7.36289102e-01
+ -1.67648899e+00  2.73268896e-01  1.41094108e+00 -9.44328818e-02
+ -2.28820495e-01  1.21309049e+00 -1.61188562e+00  1.16804575e-01
+  3.93775745e+00  4.39512512e+00  4.14571825e+00  1.82170181e+00
+  3.01031650e-01  1.03176985e+00 -1.61039519e+00 -6.81306148e-01
+ -1.45697489e+00 -1.14588803e+00  2.91927657e+00  4.85841711e+00
+ -1.90629246e+00  2.00478247e+00  2.61794342e-03  1.37823772e+00
+ -5.70446564e-01  2.50250605e+00 -1.63341780e+00  1.09064398e+00
+  4.64098810e-03  2.48940427e+00  4.38575745e+00  2.13360074e+00
+  4.85672168e+00 -1.77615989e+00  1.20585871e+00  1.53445605e+00
+  4.35565370e+00  3.75031336e+00 -1.99909335e+00  3.92048256e+00
+  3.79743390e+00  2.90317250e+00 -8.12562644e-01  1.34543303e+00
+  1.10225416e+00  4.22211622e+00  3.66320443e+00 -9.02155091e-01
+  1.83744419e+00 -1.65203859e+00 -1.04950458e-01 -7.75115305e-01
+  4.35328142e+00  2.02248015e+00  2.02081803e+00  1.36663108e+00
+  1.75451005e+00  4.96751545e+00  2.71852013e+00  4.77137308e+00
+  4.60196908e-01  1.55541284e+00  3.15670520e+00 -9.03671011e-01
+  2.01525528e+00  4.30333721e+00 -1.83418269e+00  5.19544543e-03
+ -1.41885784e+00  2.33031313e+00  4.99677116e+00  1.21329980e+00
+ -1.56382860e+00  4.92984509e+00  6.52193912e-02  2.85275198e+00
+  3.64811294e+00  3.38141018e+00  3.02112006e+00 -1.57834433e+00
+ -1.07806834e+00  3.86225064e+00  4.24086049e+00  3.15656983e+00
+  4.79561096e+00  1.42342006e+00  1.29379194e+00  3.19897927e+00
+ -1.17169010e+00  3.83448780e+00  1.47958116e+00  4.66395286e+00
+  2.92778806e+00  4.84385655e+00  2.68033896e+00  1.44234072e+00
+  3.55882978e+00 -1.77304755e+00  6.59709051e-01  1.92613344e+00
+  4.81035676e+00  3.99521769e-01  4.00542814e+00  3.63348060e+00
+  2.86258813e+00  1.38511844e-01  3.39779845e+00 -1.44561639e+00
+ -4.43754401e-01  1.72424489e+00  4.86670268e+00 -1.07507981e+00
+ -5.40606621e-02  2.46476373e+00  1.33547953e+00  1.78203830e+00
+  2.31218055e+00  2.14754310e+00 -1.30931774e+00 -1.57985844e+00
+  1.24383856e+00  3.45769450e+00  2.67088351e+00 -6.81272817e-01
+  2.13591010e+00  2.81212334e+00  1.77093463e+00  2.45249901e+00
+  4.52779350e+00  3.98823774e+00  3.67789409e+00  4.76537984e+00
+  4.42325695e+00  3.85071100e+00  4.04899926e+00 -1.88285219e+00
+ -1.97835087e+00 -5.34923685e-01  3.17271174e+00  1.79181359e+00
+ -3.02267971e-01  3.66072915e+00  4.64331571e+00  2.25077418e+00
+  1.80126359e+00  4.81678697e+00  1.38441717e+00  1.53981446e+00
+  1.43484719e+00  2.74129845e+00  8.51697576e-01  2.99384294e+00
+  3.84421544e+00 -1.86054969e+00 -1.79720231e+00 -2.42727602e-01
+  1.89817911e+00  3.31739622e+00  4.59365092e+00  4.71400809e+00
+  4.46132833e+00  3.40425390e+00  4.62916342e+00  2.59875540e+00
+  4.47826237e-01  3.81509244e+00 -1.03925269e+00  2.54388222e+00
+ -1.53190313e+00  4.37195991e+00  3.67361133e+00  1.87619717e+00
+  1.34210800e-01  6.99252223e-01  7.26615144e-01  1.34924827e+00
+  4.99473288e+00  8.55607816e-01  1.30541738e+00  2.30127458e+00
+  3.06510865e+00 -1.51599947e-01  3.49814358e-01 -1.67084304e+00
+  5.47426766e-01  1.39338941e+00 -1.58883980e+00  2.55738646e+00
+  1.16948438e+00 -1.13989071e+00 -2.08432874e-01  4.21074186e+00
+  8.52639422e-01  3.90064884e+00  2.17521755e+00  2.95573596e+00
+ -1.35506331e+00  6.85377238e-01  3.70716443e+00 -1.16310672e+00
+ -1.81317717e+00  4.21617538e+00  4.00580665e+00  1.11263129e+00
+  1.74351666e+00  4.40077066e+00  2.42870255e+00  3.31673513e+00
+  3.58083026e+00 -1.48543413e-01 -8.65696513e-01  3.95046392e+00
+  4.42107765e-01  2.90212938e+00  1.50203805e+00  4.41142692e+00
+ -1.45816387e-01  3.96240617e+00  2.62051307e+00  1.31791778e+00
+  3.09028980e+00  9.01557115e-01  2.58879839e+00 -3.29452981e-01
+ -9.07002460e-01  1.35883064e+00 -1.66821428e+00  2.47880300e+00
+  2.79033856e+00  4.02906211e+00  2.05679809e+00 -3.05864192e-01
+  3.71065325e+00  3.70183402e+00  3.04348528e+00  9.99156148e-01
+  2.77439554e+00 -9.24842652e-01  1.08952793e+00  3.61516544e+00
+  1.71853445e+00  4.65637095e+00  3.07562353e+00 -1.15923567e+00
+  1.13099281e+00  1.84052542e+00  3.73088838e+00  1.72587936e-01
+ -1.86799416e+00  3.95129583e+00  3.23722970e+00  2.81583500e+00]
 </pre></div>
 </div>
 </div>
@@ -1211,22 +1310,24 @@ Equipped with this result, we see that we can sample <span class="math notransla
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x_samples</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Histogram&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xs</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True PDF&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xs</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True PDF&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x_samples</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Histogram&quot;</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$p(x)$&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$f_X(x)$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8be69550c57d70cc961cad27a47d094b0deb8ae5269dd944c1ebe04a0b4afdb0.png" src="../_images/8be69550c57d70cc961cad27a47d094b0deb8ae5269dd944c1ebe04a0b4afdb0.png" />
-</div>
+<img alt="../_images/ae8fe575819f8bc87202c296337e6d0e9b7041018f4ce086b3ac40880a63d2d1.svg" src="../_images/ae8fe575819f8bc87202c296337e6d0e9b7041018f4ce086b3ac40880a63d2d1.svg" /></div>
 </div>
 </section>
 <section id="questions">
 <h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Repeat the code above so that the random variable is <span class="math notranslate nohighlight">\(U([1, 10])\)</span>.</p></li>
+<li><p>Rerun the code above so that the random variable is <span class="math notranslate nohighlight">\(U([1, 10])\)</span>.</p></li>
 </ul>
 </section>
 </section>
@@ -1298,8 +1399,6 @@ Equipped with this result, we see that we can sample <span class="math notransla
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">The uniform distribution</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-uniform-distribution-over-an-arbitrary-interval-a-b">The uniform distribution over an arbitrary interval <span class="math notranslate nohighlight">\([a, b]\)</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alternative-way-to-get-u-a-b">Alternative way to get <span class="math notranslate nohighlight">\(U([a,b])\)</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>

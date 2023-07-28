@@ -574,12 +574,17 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-normal-distribution">The Normal distribution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantiles-of-the-normal">Quantiles of the normal</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#question">Question</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-any-normal-from-the-standard-normal">Getting any normal from the standard normal</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-standard-normal-distribution">The standard normal distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-general-normal-distribution">The general normal distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantiles-of-the-normal">Quantiles of the normal</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-any-normal-from-the-standard-normal">Getting any normal from the standard normal</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Questions</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -598,60 +603,65 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="the-gaussian-distribution">
-<h1>The Gaussian Distribution<a class="headerlink" href="#the-gaussian-distribution" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To practice with the Gaussian distribution.</p></li>
-</ul>
-</section>
+<span id="gaussian"></span><h1>The Gaussian Distribution<a class="headerlink" href="#the-gaussian-distribution" title="Permalink to this heading">#</a></h1>
 <section id="the-normal-distribution">
 <h2>The Normal distribution<a class="headerlink" href="#the-normal-distribution" title="Permalink to this heading">#</a></h2>
 <p>The normal (or Gaussian) distribution is a ubiquitous one.
 It appears over and over again.
 There are two explanations as to why it appears so often:</p>
 <ul class="simple">
-<li><p>It is the distribution of maximum uncertainty that matches a known mean and a known variance variance.</p></li>
+<li><p>It is the distribution of maximum uncertainty that matches a known expectation and a known variance variance.</p></li>
 <li><p>It is the distribution that arises when you add a lot of random variables together.</p></li>
 </ul>
-<p>We will learn about both these in the next lectures.</p>
+<p>We will learn about both these in subsequent lectures.</p>
 <p>We write:</p>
 <div class="math notranslate nohighlight">
 \[
-X | \mu, \sigma \sim N(\mu, \sigma),
+X | \mu, \sigma \sim N(\mu, \sigma^2),
 \]</div>
-<p>and we read “<span class="math notranslate nohighlight">\(X\)</span> conditioned on <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> follows a normal distribution with mean <span class="math notranslate nohighlight">\(\mu\)</span> and variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.</p>
-<p>When <span class="math notranslate nohighlight">\(\mu=0\)</span> and <span class="math notranslate nohighlight">\(\sigma^2=1\)</span>, we say that we have a <em>standard normal</em> distribution.
-Let</p>
+<p>and we read “<span class="math notranslate nohighlight">\(X\)</span> conditioned on <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span> follows a normal distribution with expected value <span class="math notranslate nohighlight">\(\mu\)</span> and variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>First, a lot of people write <span class="math notranslate nohighlight">\(N(\mu, \sigma)\)</span> instead of <span class="math notranslate nohighlight">\(N(\mu, \sigma^2)\)</span>.
+You should always check what the author means.</p>
+<p>Second, many people refer to <span class="math notranslate nohighlight">\(\mu\)</span> as the mean instead of the expected value.
+We will use the terms “mean” and “expected value” interchangeably when dealing with Gaussian distributions.</p>
+</div>
+</section>
+<section id="the-standard-normal-distribution">
+<h2>The standard normal distribution<a class="headerlink" href="#the-standard-normal-distribution" title="Permalink to this heading">#</a></h2>
+<p>When we have zero mean and unit variance, we say that we have a <em>standard normal</em> distribution.
+If <span class="math notranslate nohighlight">\(Z\)</span> is a standard normal random variable, we write:</p>
 <div class="math notranslate nohighlight">
 \[
 Z\sim N(0,1).
 \]</div>
-<p>The PDF of the standard normal is:</p>
+<p>The PDF of the standard normal is typically denoted by <span class="math notranslate nohighlight">\(\phi(z)\)</span> and is given by:</p>
 <div class="math notranslate nohighlight">
 \[
-\phi(z) := N(z|0,1) = \frac{1}{\sqrt{2\pi}}\exp\left\{-\frac{z^2}{2}\right\}.
+\phi(z) = \frac{1}{\sqrt{2\pi}}\exp\left\{-\frac{z^2}{2}\right\}.
 \]</div>
-<p>The CDF of the standard normal is:</p>
+<p>The CDF of the standard normal is denoted by <span class="math notranslate nohighlight">\(\Phi(z)\)</span> and is given by:</p>
 <div class="math notranslate nohighlight">
 \[
-\Phi(z) := p(Z \le z) = \int_{-\infty}^z \phi(z')dz',
+\Phi(z) := p(Z \le z) = \int_{-\infty}^z \phi(z')dz'.
 \]</div>
-<p>is not analytically available.
-However, there are codes that can compute it.</p>
+<p>The CDF of the standard normal is not available in closed form.
+In the old days, we used to look it up in a table.
+Nowadays, we use a computer to calculate it.</p>
 <p>Here is how you can get the PDF of the standard normal.
 First, let’s make a standard normal random variable in <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code>:</p>
 <div class="cell docutils container">
@@ -684,17 +694,18 @@ First, let’s make a standard normal random variable in <code class="docutils l
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">zs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zs</span><span class="p">,</span> <span class="n">Z</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">zs</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zs</span><span class="p">,</span> <span class="n">Z</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">zs</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$z$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$\phi(z) = N(z|0,1)$&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$\phi(z)$&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/f180cc7b07f3a90718de90efa9e25134eb8f69b811c1fd0da8294de957042c17.png" src="../_images/f180cc7b07f3a90718de90efa9e25134eb8f69b811c1fd0da8294de957042c17.png" />
-</div>
+<img alt="../_images/6e12e45cc4070bfc0bf2d5eae67648cc8d52c012ff6459ba9abf76693e0dcdc1.svg" src="../_images/6e12e45cc4070bfc0bf2d5eae67648cc8d52c012ff6459ba9abf76693e0dcdc1.svg" /></div>
 </div>
 <p>And here is the CDF:</p>
 <div class="cell tag_hide-input docutils container">
@@ -705,16 +716,16 @@ First, let’s make a standard normal random variable in <code class="docutils l
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zs</span><span class="p">,</span> <span class="n">Z</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">zs</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zs</span><span class="p">,</span> <span class="n">Z</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">zs</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$z$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$\Phi(z)$&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$\Phi(z)$&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/9098e9937b4dc6b9f75da6c38e0f3291c14698438ed78e3437b158cf967d6f22.png" src="../_images/9098e9937b4dc6b9f75da6c38e0f3291c14698438ed78e3437b158cf967d6f22.png" />
-</div>
+<img alt="../_images/84939d813874e36f2fc126d439349d9586257567bfab5caf9b89f934aa54e333.svg" src="../_images/84939d813874e36f2fc126d439349d9586257567bfab5caf9b89f934aa54e333.svg" /></div>
 </div>
 <p>Here is the expectation:</p>
 <div class="cell docutils container">
@@ -724,7 +735,7 @@ First, let’s make a standard normal random variable in <code class="docutils l
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E[Z] = 0.00
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E[Z] = -0.00
 </pre></div>
 </div>
 </div>
@@ -771,26 +782,26 @@ First, let’s make a standard normal random variable in <code class="docutils l
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-3.58667233,  0.82942319, -0.25653277,  0.43583335,  0.68975566,
-        0.51848385, -1.34177656, -1.32390597, -1.15299102, -0.7508944 ,
-       -0.32263962, -0.21784019,  1.12613805,  1.04215185, -0.33395233,
-       -1.54168367, -0.28127672,  1.56696645,  1.1350127 , -2.37963206,
-       -0.61948889,  1.00213673, -0.41036464,  1.13026477, -0.59939966,
-       -0.93288013,  0.82198916, -0.89842021, -1.25612781, -0.9230532 ,
-        0.47120924, -0.3730327 ,  0.92510947, -0.91029047,  1.78859637,
-       -0.79326493, -0.97721941, -0.49003939,  1.41059884, -1.05501536,
-       -1.53876273,  0.61504445,  0.23264693, -0.5678752 , -0.50096853,
-        0.03584837, -1.64530236, -0.95579757, -0.86432902,  2.19674933,
-       -0.35008941, -0.73963126, -0.9032805 , -2.58490305, -0.6500442 ,
-       -0.07777188,  0.56949711, -1.30210539,  0.14189044,  0.35669112,
-        0.0701197 , -0.28244914, -0.79224212, -0.89442166, -1.32821148,
-       -0.49202892, -0.15305202, -0.15727341,  0.59379838,  0.71020491,
-       -0.50937386,  0.13364911, -1.11032862,  0.0419184 ,  0.49395323,
-       -0.48614475,  0.68118233,  0.12655437, -0.53081968,  0.23165793,
-        0.71781573, -0.34803331, -1.05500499,  0.26206415, -0.87148726,
-       -0.65704631, -0.83408412, -1.25437996,  0.64506716, -0.27488982,
-        1.38919422,  1.36548361, -0.61566789,  1.02332063,  0.27090872,
-        1.77524751,  0.96148267, -1.52663014,  1.76161908, -0.73263512])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-0.68098751, -0.08219633,  0.20786469, -0.50730995,  0.45700647,
+       -0.2559003 ,  0.65936334, -0.23402872,  1.09875376, -0.65752522,
+        0.87598653, -0.0461331 ,  0.50262267,  0.70764474, -0.98254677,
+       -1.41454882, -0.11455164,  0.75359663, -1.02398395, -1.86342273,
+       -0.22218493, -0.57929841,  1.61763382, -0.3512537 , -0.58212603,
+       -1.42276009,  1.30183894, -0.79181306,  0.87481463,  0.26491516,
+       -0.99758581,  0.7516001 , -1.35293929,  0.14887563, -1.81354551,
+       -1.03881138, -0.66440162, -1.29772731, -0.03500321,  0.1314219 ,
+        0.45940001, -1.50587312,  0.6103862 ,  0.66813906, -0.31945307,
+        1.2086607 , -0.04778578, -0.50059914, -0.13445603, -0.86555327,
+        0.91601074, -0.97407919, -1.42836505, -0.18455424, -1.26131747,
+       -0.19964524,  1.65131343,  0.23724141,  0.20041386,  0.53681951,
+       -1.67482189, -1.65050958,  1.14247417,  1.08756538, -0.07532283,
+       -1.47098224,  1.24651781, -0.74154696,  0.05659722, -0.27788922,
+        0.89646394,  1.07632242,  0.92632264, -0.5623226 ,  0.10293485,
+        0.07106044, -0.14816709, -0.55905882,  0.22567311,  0.13283325,
+       -1.43633922, -0.40999822,  0.72885276,  0.67071962, -0.45190328,
+       -0.819717  ,  1.46093725, -0.55625844, -0.67173311,  0.27282091,
+        0.14917277,  0.66093895,  0.49070751,  0.10162476, -2.40113228,
+        0.24445444,  1.43220066,  1.47577485, -0.57539355, -1.90800178])
 </pre></div>
 </div>
 </div>
@@ -809,72 +820,137 @@ First, let’s make a standard normal random variable in <code class="docutils l
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-0.23469999,  0.27755578, -1.14542298,  0.61999159,  0.66278615,
-       -0.80405238,  1.32698119, -0.55223417, -0.73110381,  0.88875229,
-        0.73530515,  0.40675527, -1.90818471,  1.60683929,  0.41899729,
-       -1.55848729, -0.34124616, -0.42223755, -0.08155453,  0.24604101,
-       -0.51869289, -1.47315225, -0.12449093, -0.91382721,  0.07605132,
-        0.18137048,  1.39347593,  0.9795214 ,  0.49578326,  1.47234159,
-        0.07898487, -0.83142454,  0.57563444, -0.12894866, -0.9923975 ,
-        0.03931736,  0.14816031,  0.03575066,  2.47800784,  0.88038494,
-       -0.16582722, -0.81716577,  0.41017561,  0.8516808 ,  0.04927732,
-       -0.69102354,  1.95397465,  1.02581568,  0.1200221 ,  0.59705658,
-       -2.02627913, -0.19967328, -0.84019389,  0.93886259,  1.13559056,
-        0.23267641, -0.02044625, -0.86366042,  1.15554285, -0.34527991,
-        0.60110257,  1.05405921, -1.3887897 , -0.37117395,  1.7365931 ,
-       -0.49366772,  1.55443796,  1.05094731, -1.38744444,  1.19202857,
-        0.32396964,  0.64951179, -0.08338823, -0.3585551 ,  0.65066711,
-        0.20636664,  1.14717404, -0.63035333,  2.21709185, -0.70943613,
-       -0.77693046, -0.22835926,  0.06231472,  0.99618518, -0.5220756 ,
-        0.06119245,  1.10130623,  0.91477383,  0.08696716,  1.00477995,
-        1.59614416,  0.97068325,  0.07890009,  0.09593324,  0.62347618,
-       -0.23755432,  1.17106149,  2.43469512,  0.11457891, -0.29778902])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 0.17675988,  2.08604093, -2.32928242, -0.31336707, -0.63508336,
+        0.67371205,  1.90808253, -0.02121881,  0.5099677 , -0.77540186,
+       -0.64627549, -1.54157974,  0.26082948,  2.69541908,  0.2675784 ,
+       -1.06147151, -1.64492616,  0.68948065,  1.03904888,  0.25079342,
+       -0.56337513,  0.38106535,  0.05408547, -0.397527  ,  0.20617051,
+        2.06732106, -0.77393155, -0.5615434 ,  1.70336458,  1.27549767,
+        2.144291  ,  0.00601306,  0.33266612, -1.13324241, -1.93575747,
+       -0.60570986, -0.8859008 ,  1.07228981,  0.60790884, -0.50623704,
+       -0.71449871,  1.0671928 , -1.22584563, -1.37429395, -1.38428782,
+       -1.19234723, -0.43768159, -0.35739968, -1.15151434, -1.07603713,
+        0.42115532,  0.90580295,  0.2056319 ,  0.71246248, -0.554142  ,
+        1.59157731, -1.97265792,  0.69586134, -0.69544253,  0.94968473,
+        0.12604349, -0.03078179, -1.12016362,  0.39424782,  0.05911653,
+       -0.54681854,  1.37700422, -0.35340388,  0.95453985,  0.40723134,
+       -1.55549029, -0.42597788, -0.6278352 ,  0.33644935, -0.16735517,
+       -1.53184807, -0.94499227,  1.3118843 ,  0.1585745 ,  0.78911817,
+        0.4914747 , -0.90895756, -1.18857701, -0.14776013, -0.95868734,
+       -1.91836248,  1.10461855,  1.59235448, -0.12523874,  0.70358221,
+        0.57531609,  0.28489483, -1.61977487, -1.60483268, -0.97463031,
+       -1.20620496, -1.22983379,  0.14890532, -0.14807777,  0.35014314])
 </pre></div>
 </div>
 </div>
 </details>
 </div>
 </section>
+<section id="the-general-normal-distribution">
+<h2>The general normal distribution<a class="headerlink" href="#the-general-normal-distribution" title="Permalink to this heading">#</a></h2>
+<p>Take</p>
+<div class="math notranslate nohighlight">
+\[
+X \sim N(\mu, \sigma^2).
+\]</div>
+<p>The PDF is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+f_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left\{-\frac{(x-\mu)^2}{2\sigma^2}\right\}.
+\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some people write <span class="math notranslate nohighlight">\(N(x|\mu, \sigma^2)\)</span> to refer to the PDF of <span class="math notranslate nohighlight">\(N(\mu, \sigma^2)\)</span> evaluated at <span class="math notranslate nohighlight">\(x\)</span>.</p>
+</div>
+<p>If you mediate a little bit with this expression, you will notice that you can connect it to the standard normal PDF:</p>
+<div class="math notranslate nohighlight">
+\[
+f_X(x) = \frac{1}{\sigma}\phi\left(\frac{x-\mu}{\sigma}\right).
+\]</div>
+<p>This highlights two things.
+First, the mean <span class="math notranslate nohighlight">\(\mu\)</span> shifts the distribution to the right or to the left.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the PDF of a standard normal and the PDF of a non-zero mean, unit variance normal</span>
+<span class="c1"># with an arrow indicating the change from the first to the second.</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">zs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zs</span><span class="p">,</span> <span class="n">Z</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">zs</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$\phi(x)$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zs</span><span class="p">,</span> <span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">zs</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$N(x|\mu=1,\sigma^2=1)$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$\phi(x)$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">2</span><span class="p">],</span>
+            <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;The mean translates the standard normal PDF&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/7f114d0d8ec89ad37797906d095e41d4cc7115c2cbf6e8d4c98f23f8090c4fb9.svg" src="../_images/7f114d0d8ec89ad37797906d095e41d4cc7115c2cbf6e8d4c98f23f8090c4fb9.svg" /></div>
+</div>
+<p>The standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> scales the distribution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the PDF of a standard normal and the pdf of a zero mean Normal with variance two</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">zs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zs</span><span class="p">,</span> <span class="n">Z</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">zs</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$\phi(x)$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zs</span><span class="p">,</span> <span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">zs</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$N(x|\mu=0,\sigma^2=2)$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$p(x)$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;The variance scales the standard normal PDF&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/cf42dd148dd82f5d78bab816b9636e4b4d9232eb443c2d06ebce7b0c90856de4.svg" src="../_images/cf42dd148dd82f5d78bab816b9636e4b4d9232eb443c2d06ebce7b0c90856de4.svg" /></div>
+</div>
+</section>
 <section id="quantiles-of-the-normal">
 <h2>Quantiles of the normal<a class="headerlink" href="#quantiles-of-the-normal" title="Permalink to this heading">#</a></h2>
-<p>There are a few more interesting things to know about the standard normal.
-For, example how can you find a value <span class="math notranslate nohighlight">\(z_q\)</span> such that the probability of <span class="math notranslate nohighlight">\(Z\)</span> being less that <span class="math notranslate nohighlight">\(z_q\)</span> is <span class="math notranslate nohighlight">\(q\)</span>%.
+<p>There are a few more exciting things to know about the standard normal.
+For example, how can you find a value <span class="math notranslate nohighlight">\(z_q\)</span> such that the probability of <span class="math notranslate nohighlight">\(Z\)</span> being less than <span class="math notranslate nohighlight">\(z_q\)</span> is <span class="math notranslate nohighlight">\(q\)</span>?
 Mathematically, you wish to find this:</p>
 <div class="math notranslate nohighlight">
 \[
-\Phi(z_q) = \frac{q}{100}.
+\Phi(z_q) = q.
 \]</div>
-<p>The point <span class="math notranslate nohighlight">\(z_q\)</span> is called the <span class="math notranslate nohighlight">\(q\)</span>% quantile.
+<p>The point <span class="math notranslate nohighlight">\(z_q\)</span> is called the <span class="math notranslate nohighlight">\(q\)</span>-quantile.
 To find it, you need to do this:</p>
 <div class="math notranslate nohighlight">
 \[
-z_q = \Phi^{-1}\left(\frac{q}{100}\right).
+z_q = \Phi^{-1}(q).
 \]</div>
-<p>For example, <span class="math notranslate nohighlight">\(z_{50}\)</span> is called the median (and it coincides with the expectation here).
-Another set of interesting quantiles is are <span class="math notranslate nohighlight">\(z_{2.5}\)</span> and <span class="math notranslate nohighlight">\(z_{97.5}\)</span>.
-Why? Because the probability between them is <span class="math notranslate nohighlight">\(95\)</span>%.
+<p>For example, <span class="math notranslate nohighlight">\(z_{0.50}\)</span> is called the median (and it coincides with the expectation here).
+Another set of exciting quantiles is <span class="math notranslate nohighlight">\(z_{0.025}\)</span> and <span class="math notranslate nohighlight">\(z_{0.975}\)</span>.
+Why? Because the probability that <span class="math notranslate nohighlight">\(Z\)</span> lies between them is <span class="math notranslate nohighlight">\(95\)</span>%.
 Here it is:</p>
 <div class="math notranslate nohighlight">
 \[
-p(z_{2.5} \le Z \le z_{97.5}) = \Phi(z_{97.5}) - \Phi(z_{2.5}) = \frac{97.5}{100} - \frac{2.5}{100} = \frac{95}{100}.
+p(z_{0.025} \le Z \le z_{0.975}) = \Phi(z_{0.975}) - \Phi(z_{0.025}) = 0.975 - 0.025 = 0.95.
 \]</div>
 <p>Let’s find these quantiles and visualize them using the functionality of <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code>.
-We will use the percent point function (ppf) which the inverse of the CDF:</p>
+We will use the percent point function (ppf), which the inverse of the CDF:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">z_025</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.025</span><span class="p">)</span> 
 <span class="n">z_500</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">z_975</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.975</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;2.5% quantile of Z = </span><span class="si">{</span><span class="n">z_025</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;50% quantile of Z = </span><span class="si">{</span><span class="n">z_500</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;97.5% quantile of Z = </span><span class="si">{</span><span class="n">z_975</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;0.025 quantile of Z = </span><span class="si">{</span><span class="n">z_025</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;0.50 quantile of Z = </span><span class="si">{</span><span class="n">z_500</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;0.975 quantile of Z = </span><span class="si">{</span><span class="n">z_975</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.5% quantile of Z = -1.96
-50% quantile of Z = 0.00
-97.5% quantile of Z = 1.96
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.025 quantile of Z = -1.96
+0.50 quantile of Z = 0.00
+0.975 quantile of Z = 1.96
 </pre></div>
 </div>
 </div>
@@ -892,6 +968,12 @@ We will use the percent point function (ppf) which the inverse of the CDF:</p>
 </div>
 </div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Observe that the quantiles are symmetric around the mean (which is zero here).
+The 0.025 quantile is at -1.96 and the 0.975 quantile is at 1.96.
+Being engineers, we are going to call the -1.96 a two.</p>
+</div>
 <p>Let’s also visualize the quantiles on top of the PDF:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -901,41 +983,64 @@ We will use the percent point function (ppf) which the inverse of the CDF:</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zs</span><span class="p">,</span> <span class="n">Z</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">zs</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z_025</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">],</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;2.5% quantile&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z_975</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">],</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;97.5% quantile&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zs</span><span class="p">,</span> <span class="n">Z</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">zs</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z_025</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">],</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0.025 quantile&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z_975</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">],</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0.975 quantile&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/67c8526f1940393f08c6a4c01efedb192853b00f44227432f8a1797b7248eae1.png" src="../_images/67c8526f1940393f08c6a4c01efedb192853b00f44227432f8a1797b7248eae1.png" />
+<img alt="../_images/cab05fbac5392caf21845008542df68cfe91a6708ed38bc329eb1d3d1f672336.svg" src="../_images/cab05fbac5392caf21845008542df68cfe91a6708ed38bc329eb1d3d1f672336.svg" /></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Quantiles vs percentiles
+A percentile is a quantile expressed as a percentage.
+So, you say the 0.025 quantile is the 2.5 percentile.
+The 0.975 quantile is the 97.5 percentile.
+And so on.</p>
 </div>
-</section>
-<section id="question">
-<h2>Question<a class="headerlink" href="#question" title="Permalink to this heading">#</a></h2>
+<section id="questions">
+<h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Modify the code above so that you find and vizualize <span class="math notranslate nohighlight">\(z_{0.001}\)</span> and <span class="math notranslate nohighlight">\(z_{99.999}\)</span>.</p></li>
-<li><p>What is the difference between <span class="math notranslate nohighlight">\(z_{99.999}\)</span> and <span class="math notranslate nohighlight">\(z_{0.001}\)</span>?</p></li>
-<li><p>What is the probability that <span class="math notranslate nohighlight">\(Z\)</span> is between <span class="math notranslate nohighlight">\(z_{99.999}\)</span> and <span class="math notranslate nohighlight">\(z_{0.001}\)</span>?</p></li>
+<li><p>Modify the code above so that you find and vizualize <span class="math notranslate nohighlight">\(z_{0.001}\)</span> and <span class="math notranslate nohighlight">\(z_{0.999}\)</span>.</p></li>
+<li><p>What is the difference between <span class="math notranslate nohighlight">\(z_{0.999}\)</span> and <span class="math notranslate nohighlight">\(z_{0.001}\)</span>?</p></li>
+<li><p>What is the probability that <span class="math notranslate nohighlight">\(Z\)</span> is between <span class="math notranslate nohighlight">\(z_{0.001}\)</span> and <span class="math notranslate nohighlight">\(z_{0.999}\)</span>?</p></li>
 </ul>
+</section>
 </section>
 <section id="getting-any-normal-from-the-standard-normal">
 <h2>Getting any normal from the standard normal<a class="headerlink" href="#getting-any-normal-from-the-standard-normal" title="Permalink to this heading">#</a></h2>
-<p>Using the standard normal, we can express any normal.
-It is easy to show that:</p>
+<p>Knowledge of the quantiles of the standard normal is sufficient to give us the quantiles of any normal.
+Let <span class="math notranslate nohighlight">\(Z\)</span> be a standard normal.
+Take some <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>.
+Then, the random variable</p>
 <div class="math notranslate nohighlight">
 \[
 X = \mu + \sigma Z,
 \]</div>
-<p>follows a <span class="math notranslate nohighlight">\(N(\mu,\sigma^2)\)</span> if <span class="math notranslate nohighlight">\(Z\)</span> follows <span class="math notranslate nohighlight">\(N(0,1)\)</span>.
-Note that <span class="math notranslate nohighlight">\(\sigma\)</span> is called the <strong>standard deviation</strong> of <span class="math notranslate nohighlight">\(X\)</span> (the standard deviation of a random variable is just the square root of the variance).
-You must remember this!
-It is extremely useful and it will appear again and again.
-For example, using this relationship you can sample from any normal using samples from the standard normal.</p>
-<p>Let’s take some samples exploiting this relationship and then compare the histogram to the true PDF.</p>
+<p>follows a <span class="math notranslate nohighlight">\(N(\mu,\sigma^2)\)</span>.</p>
+<p>To show this mathematically, we need to show that the PDF of <span class="math notranslate nohighlight">\(X\)</span> is the one we expect.</p>
+<div class="admonition-proof admonition">
+<p class="admonition-title">Proof</p>
+<p>First, write down the CDF of <span class="math notranslate nohighlight">\(X\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+F_X(x) = p(X \le x) = p(\mu + \sigma Z \le x) = p\left(Z \le \frac{x-\mu}{\sigma}\right) = \Phi\left(\frac{x-\mu}{\sigma}\right).
+\]</div>
+<p>Now take the derivative of the CDF to get the PDF:</p>
+<div class="math notranslate nohighlight">
+\[
+f_X(x) = F'_X(x) = \frac{1}{\sigma}\phi\left(\frac{x-\mu}{\sigma}\right),
+\]</div>
+<p>which is exactly what we wanted.</p>
+</div>
+<p>The formula is extremely useful.
+For example, you can use it to make samples from any normal distribution using samples from the standard normal.
+Here is how:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu</span> <span class="o">=</span> <span class="mf">1.0</span>
@@ -947,32 +1052,33 @@ For example, using this relationship you can sample from any normal using sample
 </div>
 </div>
 </div>
-<p>And here is their histogram compared to the PDF of <span class="math notranslate nohighlight">\(N(\mu,\sigma^2)\)</span>:</p>
+<p>Compare the histogram of the samples with the PDF of the normal:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x_samples</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xs</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x_samples</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Samples from $X = \mu + \sigma Z$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xs</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;PDF of $N(\mu, \sigma^2)$&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$p(x)$&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$p(x)$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9957cf7f0d4947161353e06b9c88df0225fa533fc06d7369164f66ec1547b08f.png" src="../_images/9957cf7f0d4947161353e06b9c88df0225fa533fc06d7369164f66ec1547b08f.png" />
-</div>
+<img alt="../_images/dcddf11e64100ca30541f61bfbe1b8c0089da7eae67a7098b1e2875aefe03e98.svg" src="../_images/dcddf11e64100ca30541f61bfbe1b8c0089da7eae67a7098b1e2875aefe03e98.svg" /></div>
 </div>
 <p>How can you find the quantiles of this normal? Well, you can simply use the functionality of <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code>.
-As an example, let’s find <span class="math notranslate nohighlight">\(x_{2.5}\)</span>:</p>
+As an example, let’s find <span class="math notranslate nohighlight">\(x_{0.025}\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_025</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.025</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;2.5% quantile of N(</span><span class="si">{</span><span class="n">mu</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">sigma</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">^2) = </span><span class="si">{</span><span class="n">x_025</span><span class="si">:</span><span class="s2">1.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;0.025-quantile of N(</span><span class="si">{</span><span class="n">mu</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">sigma</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">^2) = </span><span class="si">{</span><span class="n">x_025</span><span class="si">:</span><span class="s2">1.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.5% quantile of N(1.00, 0.10^2) = 0.80
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.025-quantile of N(1.00, 0.10^2) = 0.80
 </pre></div>
 </div>
 </div>
@@ -981,27 +1087,27 @@ As an example, let’s find <span class="math notranslate nohighlight">\(x_{2.5}
 The definition of a quantile of <span class="math notranslate nohighlight">\(X\)</span> is:</p>
 <div class="math notranslate nohighlight">
 \[
-p(X \le x_q) = \frac{q}{100}.
+p(X \le x_q) = q.
 \]</div>
 <p>But, since <span class="math notranslate nohighlight">\(X=\mu+\sigma Z\)</span>, this is equivalent to:</p>
 <div class="math notranslate nohighlight">
 \[
-p(\mu + \sigma Z \le x_q) = \frac{q}{100},
+p(\mu + \sigma Z \le x_q) = q,
 \]</div>
 <p>which becomes:</p>
 <div class="math notranslate nohighlight">
 \[
-p(\sigma Z \le x_q-\mu) = \frac{q}{100},
+p(\sigma Z \le x_q-\mu) = q,
 \]</div>
 <p>and then:</p>
 <div class="math notranslate nohighlight">
 \[
-p\left(Z \le \frac{x_q-\mu}{\sigma}\right) = \frac{q}{100}.
+p\left(Z \le \frac{x_q-\mu}{\sigma}\right) = q.
 \]</div>
 <p>This is just:</p>
 <div class="math notranslate nohighlight">
 \[
-\Phi\left(\frac{x_q-\mu}{\sigma}\right) = \frac{q}{100},
+\Phi\left(\frac{x_q-\mu}{\sigma}\right) = q,
 \]</div>
 <p>which tells us that <span class="math notranslate nohighlight">\(\frac{x_q-\mu}{\sigma}\)</span> is the <span class="math notranslate nohighlight">\(q\)</span>-quantile of <span class="math notranslate nohighlight">\(Z\)</span>, i.e.,</p>
 <div class="math notranslate nohighlight">
@@ -1027,17 +1133,17 @@ x_q = \mu + \sigma z_q.
 </div>
 </div>
 </div>
-<p>which is the same as what we found before. So, let’s find also the 97.5% quantile:</p>
+<p>which is the same as what we found before. So, let’s find also the 0.975-quantile:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">z_975</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.975</span><span class="p">)</span>
 <span class="n">x_975</span> <span class="o">=</span> <span class="n">mu</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">z_975</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;97.5% quantile of N(</span><span class="si">{</span><span class="n">mu</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">sigma</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">^2) = </span><span class="si">{</span><span class="n">x_975</span><span class="si">:</span><span class="s2">1.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;0.975-quantile of N(</span><span class="si">{</span><span class="n">mu</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">sigma</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">^2) = </span><span class="si">{</span><span class="n">x_975</span><span class="si">:</span><span class="s2">1.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>97.5% quantile of N(1.00, 0.10^2) = 1.20
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.975-quantile of N(1.00, 0.10^2) = 1.20
 </pre></div>
 </div>
 </div>
@@ -1052,18 +1158,18 @@ x_q = \mu + \sigma z_q.
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xs</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_025</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;2.5% quantile&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_975</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;2.5% quantile&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_025</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0.025-quantile&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_975</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0.975-quantile&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$p(x)$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/b19a7e3b47b0fcdc2f9aa03f5631cb94ab73a6c63d3f71ee01bc1a9c25c2ad3b.png" src="../_images/b19a7e3b47b0fcdc2f9aa03f5631cb94ab73a6c63d3f71ee01bc1a9c25c2ad3b.png" />
-</div>
+<img alt="../_images/109829a5b1a83a4eca92ecafd8576a10107c2243620c4295dd346bb61bb0cf50.svg" src="../_images/109829a5b1a83a4eca92ecafd8576a10107c2243620c4295dd346bb61bb0cf50.svg" /></div>
 </div>
 <p>Now, let’s find the distance between <span class="math notranslate nohighlight">\(x_{2.5}\)</span> and <span class="math notranslate nohighlight">\(x_{97.5}\)</span> in terms of the standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>.
 We have:</p>
@@ -1085,22 +1191,26 @@ x_{97.5} - x_{2.5} = \mu + \sigma z_{97.5} - \mu - \sigma z_{2.5} = \sigma (z_{9
 </div>
 </div>
 <p>Okay. So we see that 95% of the probability is contained within a <span class="math notranslate nohighlight">\(3.92\sigma\)</span> interval.
-This interval is centered at the median (which here happends to be the same as the mode and the expectation of the probability density).
-The value 3.92 is a little bit awkward, so we are going to round up to 4<span class="math notranslate nohighlight">\(\sigma\)</span> intervals.
-That is slightly more than 95% of the probability, but it’s simpler to remember.
-So, remember:</p>
+This interval is centered at the median (which here is the same as the mode and the expectation of the probability density).
+The number 3.92 could be nicer, so we will round up to 4 intervals.
+A 4<span class="math notranslate nohighlight">\(\sigma\)</span> interval about the mean gives us a bit more than 95% of the probability, but it’s simpler to remember.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember
+For a normal random variable <span class="math notranslate nohighlight">\(N(\mu,\sigma^2)\)</span>, the 95% probability interval is about <span class="math notranslate nohighlight">\(\mu \pm 4\sigma\)</span>.
+In other words:</p>
 <div class="math notranslate nohighlight">
 \[
 p(\mu - 2\sigma &lt; X &lt; \mu + 2 \sigma) \approx 0.95,
 \]</div>
-<p>for a normal random variable <span class="math notranslate nohighlight">\(N(\mu,\sigma^2)\)</span>.</p>
-</section>
-<section id="questions">
-<h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
+</div>
+<section id="id1">
+<h3>Questions<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Write code that finds exactly how much probability there is between <span class="math notranslate nohighlight">\(\mu - 2\sigma\)</span> and <span class="math notranslate nohighlight">\(\mu + 2\sigma\)</span>, i.e., find <span class="math notranslate nohighlight">\(p(\mu - 2\sigma &lt; X &lt; \mu + 2 \sigma)\)</span>.</p></li>
 <li><p>Modify the code you just written, to find how much probability there is in <span class="math notranslate nohighlight">\(\mu - 3\sigma\)</span> and <span class="math notranslate nohighlight">\(\mu + 3\sigma\)</span>, i.e., find <span class="math notranslate nohighlight">\(p(\mu - 3\sigma &lt; X &lt; \mu + 3 \sigma)\)</span>. This is six-sigmas interval about the mean. Have you ever heard of the <a class="reference external" href="https://en.wikipedia.org/wiki/Six_Sigma">six-sigma process improvement technique</a>?</p></li>
 </ul>
+</section>
 </section>
 </section>
 
@@ -1171,12 +1281,17 @@ p(\mu - 2\sigma &lt; X &lt; \mu + 2 \sigma) \approx 0.95,
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-normal-distribution">The Normal distribution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantiles-of-the-normal">Quantiles of the normal</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#question">Question</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-any-normal-from-the-standard-normal">Getting any normal from the standard normal</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-standard-normal-distribution">The standard normal distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-general-normal-distribution">The general normal distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantiles-of-the-normal">Quantiles of the normal</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-any-normal-from-the-standard-normal">Getting any normal from the standard normal</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Questions</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
