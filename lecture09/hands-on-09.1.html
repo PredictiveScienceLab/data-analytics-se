@@ -203,7 +203,8 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../lecture08/intro.html">Lecture 8 - The Monte Carlo Method for Estimating Expectations</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../lecture08/hands-on-08.3.html">Sampling Estimates of Expectations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture08/reading-08.html">The Uncertainty Propagation Problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture08/hands-on-08.3.html">The Monte Carlo Method for Estimating Expectations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lecture08/hands-on-08.4.html">Sampling Estimates of Variance</a></li>
 </ul>
 </li>
@@ -574,12 +575,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-the-cumulative-distribution-function">Estimating the cumulative distribution function</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-cdf">Example: 1D CDF</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-cdf">Example: 1D CDF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
             </nav>
         </div>
@@ -613,15 +610,15 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="sampling-estimates-of-the-cumulative-distribution-function">
 <span id="empirical-cdf"></span><h1>Sampling Estimates of the Cumulative Distribution Function<a class="headerlink" href="#sampling-estimates-of-the-cumulative-distribution-function" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To estimate cummulative distribution function.</p></li>
-</ul>
-</section>
-<section id="estimating-the-cumulative-distribution-function">
-<h2>Estimating the cumulative distribution function<a class="headerlink" href="#estimating-the-cumulative-distribution-function" title="Permalink to this heading">#</a></h2>
-<p>We would like to estimate the cummulative distribution function of <span class="math notranslate nohighlight">\(Y=g(X)\)</span>:</p>
+<p>Let <span class="math notranslate nohighlight">\(Y\)</span> be a random variable.
+Suppose that <span class="math notranslate nohighlight">\(F(y)\)</span> is the cumulative distribution function of <span class="math notranslate nohighlight">\(Y\)</span>.
+We want to estimate <span class="math notranslate nohighlight">\(F(y)\)</span> using samples of <span class="math notranslate nohighlight">\(Y\)</span>.
+The key is to observe that it can be written as an expectation using the indicator function:</p>
+<div class="math notranslate nohighlight">
+\[
+F(y) = \mathbb{E}[1_{[-\infty,y]}(Y)].
+\]</div>
+<p>We want to estimate the cumulative distribution function of <span class="math notranslate nohighlight">\(Y=g(X)\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
 F(y) = p(Y\le y) = p(g(X) \le y).
@@ -644,8 +641,8 @@ Note the neat interpretation:</p>
 \bar{F}_N(y) = \frac{1}{N}\sum_{i=1}^N1_{[-\infty,y]}(g(X_i))=\frac{\text{number of }g(X_i) \le y}{N}.
 \]</div>
 <section id="example-1d-cdf">
-<h3>Example: 1D CDF<a class="headerlink" href="#example-1d-cdf" title="Permalink to this heading">#</a></h3>
-<p>We will continue using the 1D test function of Example 3.4 of Robert &amp; Casella (2004).
+<h2>Example: 1D CDF<a class="headerlink" href="#example-1d-cdf" title="Permalink to this heading">#</a></h2>
+<p>We will continue using the 1D test function of <a class="reference external" href="https://link.springer.com/book/10.1007/978-1-4757-4145-2">Example 3.4 of Robert &amp; Casella (2004)</a>.
 Assume that <span class="math notranslate nohighlight">\(X\sim U([0,1])\)</span> and pick:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -725,13 +722,12 @@ N = 1000:	p(1 &lt;= Y &lt;= 3) ~= 0.33
 </div>
 </section>
 <section id="questions">
-<h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
+<h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Why is the empirical CDF for small <span class="math notranslate nohighlight">\(N\)</span> discontinuous?</p></li>
 <li><p>How do you know how many samples you need? For now, just think about it on your own. We will give the answer in lecture 10.</p></li>
 <li><p>Use the best empirical CDF we have constructed so far to find the probability of that <span class="math notranslate nohighlight">\(Y\)</span> is in <span class="math notranslate nohighlight">\([0.5, 2]\)</span> or <span class="math notranslate nohighlight">\([3,4]\)</span>, i.e., find <span class="math notranslate nohighlight">\(p(0.5 \le Y \le 2\;\text{or}\;3\le Y \le 4)\)</span>.</p></li>
 </ul>
-</section>
 </section>
 </section>
 
@@ -802,12 +798,8 @@ N = 1000:	p(1 &lt;= Y &lt;= 3) ~= 0.33
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-the-cumulative-distribution-function">Estimating the cumulative distribution function</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-cdf">Example: 1D CDF</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-cdf">Example: 1D CDF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
   </nav></div>
 

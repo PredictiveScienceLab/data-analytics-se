@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Lecture 6 - Random Vectors &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+    <title>The Uncertainty Propagation Problem &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
   
   
@@ -61,11 +61,13 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture06/intro';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture08/reading-08';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Random Vectors" href="reading-06.html" />
-    <link rel="prev" title="Practicing with Joint Probability Mass Functions" href="../lecture05/hands-on-05.html" />
+    <link rel="next" title="The Monte Carlo Method for Estimating Expectations" href="hands-on-08.3.html" />
+    <link rel="prev" title="Lecture 8 - The Monte Carlo Method for Estimating Expectations" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -160,7 +162,7 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 </li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../review_probability.html">Review of Probability</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../review_probability.html">Review of Probability</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../lecture02/intro.html">Lecture 2 - Basics of Probability Theory</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../lecture02/reading-02.html">Basics of Probability Theory</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lecture02/hands-on-02.html">Experiment with “Randomness”</a></li>
@@ -182,17 +184,17 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l3"><a class="reference internal" href="../lecture05/hands-on-05.html">Practicing with Joint Probability Mass Functions</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">Lecture 6 - Random Vectors</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="reading-06.html">Random Vectors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-06.1.html">The Multivariate Normal - Diagonal Covariance Case</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-06.2.html">The Multivariate Normal - Full Covariance Case</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-06.3.html">The Multivariate Normal - Marginalization</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-06.4.html">The Multivariate Normal - Conditioning</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture06/intro.html">Lecture 6 - Random Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture06/reading-06.html">Random Vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture06/hands-on-06.1.html">The Multivariate Normal - Diagonal Covariance Case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture06/hands-on-06.2.html">The Multivariate Normal - Full Covariance Case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture06/hands-on-06.3.html">The Multivariate Normal - Marginalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture06/hands-on-06.4.html">The Multivariate Normal - Conditioning</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../uncertainty_propagation.html">Uncertainty Propagation</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../uncertainty_propagation.html">Uncertainty Propagation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="../lecture07/intro.html">Lecture 7 - Basic Sampling</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../lecture07/hands-on-07.1.html">Pseudo-random number generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lecture07/hands-on-07.2.html">Sampling the uniform distribution</a></li>
@@ -200,10 +202,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l3"><a class="reference internal" href="../lecture07/hands-on-07.4.html">Sampling from continuous distributions - Inverse sampling</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture08/intro.html">Lecture 8 - The Monte Carlo Method for Estimating Expectations</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../lecture08/reading-08.html">The Uncertainty Propagation Problem</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lecture08/hands-on-08.3.html">The Monte Carlo Method for Estimating Expectations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lecture08/hands-on-08.4.html">Sampling Estimates of Variance</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 8 - The Monte Carlo Method for Estimating Expectations</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">The Uncertainty Propagation Problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-08.3.html">The Monte Carlo Method for Estimating Expectations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-08.4.html">Sampling Estimates of Variance</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../lecture09/intro.html">Lecture 9 - Monte Carlo Estimates of Various Statistics</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -450,7 +452,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/lecture06/intro.md" target="_blank"
+      <li><a href="../_sources/lecture08/reading-08.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -532,7 +534,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Lecture 6 - Random Vectors</h1>
+    <h1>The Uncertainty Propagation Problem</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -542,7 +544,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-curse-of-dimensionality">The Curse of Dimensionality</a></li>
 </ul>
             </nav>
         </div>
@@ -554,17 +556,79 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lecture-6-random-vectors">
-<span id="lecture06"></span><h1>Lecture 6 - Random Vectors<a class="headerlink" href="#lecture-6-random-vectors" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Explain the concept of random vectors.</p></li>
-<li><p>Introduce the various versions of the multivariate Gaussian (or Normal) distribution.</p></li>
-</ul>
-</section>
-<div class="toctree-wrapper compound">
+  <section class="tex2jax_ignore mathjax_ignore" id="the-uncertainty-propagation-problem">
+<span id="monte-carlo-method"></span><h1>The Uncertainty Propagation Problem<a class="headerlink" href="#the-uncertainty-propagation-problem" title="Permalink to this heading">#</a></h1>
+<p>Suppose you have some random vector <span class="math notranslate nohighlight">\(X\)</span>.
+(I won’t bother making the random vector bold, because I’m lazy. But you can assume that <span class="math notranslate nohighlight">\(X\)</span> takes values in <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>.)
+Maybe it represents the unknown parameters of a physical model, or maybe it represents the initial conditions of a simulation.
+Let <span class="math notranslate nohighlight">\(g(x)\)</span> denote the result of some computation that depends on <span class="math notranslate nohighlight">\(x\)</span>.
+The function <span class="math notranslate nohighlight">\(g(x)\)</span> may also be a vector, but for now let’s assume it’s a scalar.
+For example, <span class="math notranslate nohighlight">\(g(x)\)</span> might be the solution of a differential equation with initial condition <span class="math notranslate nohighlight">\(x\)</span> at a particular time.
+Or, <span class="math notranslate nohighlight">\(g(x)\)</span> might be the maximum stress found by solving a boundary value problem using the finite element method with physical parameters <span class="math notranslate nohighlight">\(x\)</span>.
+The uncertainty propagation problem is to compute the expected value of <span class="math notranslate nohighlight">\(g(x)\)</span>, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{E}[g(X)] = \int_{\mathbb{R}^d} g(x) p(x) dx,
+\]</div>
+<p>as well as higher statistics of <span class="math notranslate nohighlight">\(g(X)\)</span>, such as its variance,</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{V}[g(X)] = \mathbb{E}[(g(X) - \mathbb{E}[g(X)])^2] = \int_{\mathbb{R}^d} (g(x) - \mathbb{E}[g(X)])^2 p(x) dx.
+\]</div>
+<p>Or even the cumulative distribution function of <span class="math notranslate nohighlight">\(g(X)\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+F(y) = p[g(X) \leq y] = \int_{\mathbb{R}^d} 1_{(-\infty, y]}(g(x)) p(x) dx,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(1_A(x)\)</span> is the indicator function of the set <span class="math notranslate nohighlight">\(A\)</span>, i.e., <span class="math notranslate nohighlight">\(1_A(x) = 1\)</span> if <span class="math notranslate nohighlight">\(x \in A\)</span> and <span class="math notranslate nohighlight">\(1_A(x) = 0\)</span> if <span class="math notranslate nohighlight">\(x \notin A\)</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Observe that all the statistics of <span class="math notranslate nohighlight">\(g(X)\)</span> are defined in terms of integrals over <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>.
+So, we need to be able to compute integrals over <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span> in order to solve the uncertainty propagation problem.
+And it turns out that doing these integrals when <span class="math notranslate nohighlight">\(d\)</span> is large is very hard.
+This is known as the curse of dimensionality.</p>
 </div>
+<section id="the-curse-of-dimensionality">
+<span id="curse-of-dimensionality"></span><h2>The Curse of Dimensionality<a class="headerlink" href="#the-curse-of-dimensionality" title="Permalink to this heading">#</a></h2>
+<p>To make things simpler, take <span class="math notranslate nohighlight">\(X\)</span> to be a uniform random variable in <span class="math notranslate nohighlight">\([0,1]^d\)</span>.
+The the PDF of <span class="math notranslate nohighlight">\(X\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+p(x) = \begin{cases}
+1 &amp; \text{if } x \in [0,1]^d \\
+0 &amp; \text{otherwise}
+\end{cases}
+\end{split}\]</div>
+<p>Take any function <span class="math notranslate nohighlight">\(g(x)\)</span>.
+We want to estimate the expected value of <span class="math notranslate nohighlight">\(g(X)\)</span>, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{E}[g(X)] = \int_{[0,1]^d} g(x) dx.
+\]</div>
+<p>The simplest way to estimate this integral is to use the midpoint rule.
+Divide <span class="math notranslate nohighlight">\([0,1]^d\)</span> into <span class="math notranslate nohighlight">\(n^d\)</span> subintervals of length <span class="math notranslate nohighlight">\(1/n\)</span> in each dimension.
+Then, the midpoint rule says that</p>
+<div class="math notranslate nohighlight">
+\[
+\int_{[0,1]^d} g(x) dx \approx \frac{1}{n^d} \sum_{i_1=1}^n \cdots \sum_{i_d=1}^n g\left(\frac{i_1}{n}, \ldots, \frac{i_d}{n}\right).
+\]</div>
+<p>This is just a Riemann sum.
+The number of terms in the sum is <span class="math notranslate nohighlight">\(n^d\)</span>.
+This is the curse of dimensionality.
+As the dimension <span class="math notranslate nohighlight">\(d\)</span> increases, the number of terms in the sum increases exponentially.</p>
+<p>Let’s make it concrete.
+Suppose that the evaluation of <span class="math notranslate nohighlight">\(g(x)\)</span> takes one milisecond.
+And let’s say we take <span class="math notranslate nohighlight">\(n=10\)</span> points in each dimension.
+Then, the number of terms in the sum is <span class="math notranslate nohighlight">\(10^d\)</span>.
+If <span class="math notranslate nohighlight">\(d=2\)</span>, then the number of terms is 100, and we need 0.1 seconds to evaluate the sum.
+If <span class="math notranslate nohighlight">\(d=3\)</span>, then the number of terms is 1000, and we need 1 second to evaluate the sum.
+If <span class="math notranslate nohighlight">\(d=5\)</span>, then the number of terms is 100,000, and we need 100 seconds to evaluate the sum.
+If <span class="math notranslate nohighlight">\(d=10\)</span>, then the number of terms is 10 billion, and we need 10 million seconds to evaluate the sum.
+This is 115 days!
+For <span class="math notranslate nohighlight">\(d=20\)</span>, we need 3.1 billion years!</p>
+<p>So clearly, we need a better way to estimate the expected value of <span class="math notranslate nohighlight">\(g(X)\)</span>.
+This is what the Monte Carlo method is all about.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -580,7 +644,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./lecture06"
+            path: "./lecture08"
         },
         predefinedOutput: true
     }
@@ -599,20 +663,20 @@ document.write(`
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../lecture05/hands-on-05.html"
+       href="intro.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Practicing with Joint Probability Mass Functions</p>
+        <p class="prev-next-title">Lecture 8 - The Monte Carlo Method for Estimating Expectations</p>
       </div>
     </a>
     <a class="right-next"
-       href="reading-06.html"
+       href="hands-on-08.3.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Random Vectors</p>
+        <p class="prev-next-title">The Monte Carlo Method for Estimating Expectations</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -634,7 +698,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-curse-of-dimensionality">The Curse of Dimensionality</a></li>
 </ul>
   </nav></div>
 

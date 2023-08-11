@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Lecture 9 - Monte Carlo Estimates of Various Statistics" href="../lecture09/intro.html" />
-    <link rel="prev" title="Sampling Estimates of Expectations" href="hands-on-08.3.html" />
+    <link rel="prev" title="The Monte Carlo Method for Estimating Expectations" href="hands-on-08.3.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -203,7 +203,8 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 8 - The Monte Carlo Method for Estimating Expectations</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="hands-on-08.3.html">Sampling Estimates of Expectations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reading-08.html">The Uncertainty Propagation Problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-08.3.html">The Monte Carlo Method for Estimating Expectations</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Sampling Estimates of Variance</a></li>
 </ul>
 </li>
@@ -574,12 +575,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-the-variance">Estimating the variance</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-variance">Example: 1D variance</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-variance">Example: 1D variance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
             </nav>
         </div>
@@ -598,14 +595,13 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -613,40 +609,47 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="sampling-estimates-of-variance">
 <h1>Sampling Estimates of Variance<a class="headerlink" href="#sampling-estimates-of-variance" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To use the law of large numbers to estimate variances</p></li>
-</ul>
-</section>
-<section id="estimating-the-variance">
-<h2>Estimating the variance<a class="headerlink" href="#estimating-the-variance" title="Permalink to this heading">#</a></h2>
-<p>We now want to estimate the variance:</p>
+<p>The Monte Carlo method can be used to estimate the variance of a quantity of interest, e.g.,</p>
 <div class="math notranslate nohighlight">
 \[
 V = \mathbb{V}[g(X)],
 \]</div>
-<p>using some sort of sampling average.
-Notice that:</p>
+<p>where <span class="math notranslate nohighlight">\(g(x)\)</span> and <span class="math notranslate nohighlight">\(X\)</span> are as defined in the previous page.
+The idea is to express the variance using expectations.
+Recall that:</p>
 <div class="math notranslate nohighlight">
 \[
 V = \mathbb{V}[g(X)] = \mathbb{E}[g^2(X)] - \left(\mathbb{E}[g(X)]\right)^2.
 \]</div>
-<p>We already know how to estimate the last term, see definition of <span class="math notranslate nohighlight">\(\bar{I}_N\)</span> in the previous subsection.
-To approximate the other term, consider the random variables <span class="math notranslate nohighlight">\(g^2(X_1),g^2(X_2),\dots\)</span>.
-These are independent and identically distributed so by the law of large numbers we get that:</p>
+<p>We already know how to estimate the last term; see the definition of <span class="math notranslate nohighlight">\(\bar{I}_N\)</span> in the previous subsection.
+Consider the random variables <span class="math notranslate nohighlight">\(g^2(X_1),g^2(X_2),\dots\)</span> to approximate the other term.
+These are independent and identically distributed, so by the law of large numbers, we get that:</p>
 <div class="math notranslate nohighlight">
 \[
-\frac{g^2(X_1)+\dots+g^2(X_N)}{N}\rightarrow \mathbb{E}[g^2(X)],\;\text{a.s.}
+\frac{g^2(X_1)+\dots+g^2(X_N)}{N}\rightarrow \mathbb{E}[g^2(X)]\;\text{a.s.}
 \]</div>
 <p>Putting everything together, we get that:</p>
 <div class="math notranslate nohighlight">
 \[
 \bar{V}_N = \frac{1}{N}\sum_{i=1}^Ng^2(X_i) - \bar{I}_N^2\rightarrow V\;\text{a.s.}
 \]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We have constructed a biased estimator of the variance.
+This means that the expected value of the estimator is not equal to the true variance.
+The formula for the unbiased estimator is:</p>
+<div class="math notranslate nohighlight">
+\[
+\bar{V}_N = \frac{1}{N-1}\sum_{i=1}^N\left[g(X_i) - \bar{I}_N\right]^2.
+\]</div>
+<p>However, the biased estimator is more commonly used in practice.
+And it is essentially the same as the unbiased estimator when <span class="math notranslate nohighlight">\(N\)</span> is large.
+If you want to learn more about unbiased estimators, see <a class="reference external" href="https://en.wikipedia.org/wiki/Bias_of_an_estimator">this Wikipedia article</a>.
+You learn about things like this in a course on mathematical statistics.</p>
+</div>
 <section id="example-1d-variance">
-<h3>Example: 1D variance<a class="headerlink" href="#example-1d-variance" title="Permalink to this heading">#</a></h3>
-<p>Let’s try it out with a test function in 1D (Example 3.4 of Robert &amp; Casella (2004)).
+<h2>Example: 1D variance<a class="headerlink" href="#example-1d-variance" title="Permalink to this heading">#</a></h2>
+<p>Let’s try it out with the same example as before (Example 3.4 of Robert &amp; Casella (2004)).
 Assume that <span class="math notranslate nohighlight">\(X\sim\mathcal{U}([0,1])\)</span> and pick:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -660,7 +663,9 @@ g(x) = \left(\cos(50x) + \sin(20x)\right)^2.
 <p>Let’s find a sampling average estimate of the variance:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the function</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Define the function</span>
 <span class="n">g</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">50</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">20</span> <span class="o">*</span> <span class="n">x</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span>
 
 <span class="c1"># Number of samples to take</span>
@@ -683,25 +688,25 @@ g(x) = \left(\cos(50x) + \sin(20x)\right)^2.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">V_running</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="p">[</span><span class="mf">1.093</span><span class="p">]</span> <span class="o">*</span> <span class="n">N</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$N$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\bar</span><span class="si">{V}</span><span class="s2">_N$&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">V_running</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Running variance estimator&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="p">[</span><span class="mf">1.093</span><span class="p">]</span> <span class="o">*</span> <span class="n">N</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Exact value&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Samples ($N$)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Estimate ($\bar</span><span class="si">{V}</span><span class="s2">_N$)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/cf4b7d8c907f710ef208c6950db8da356fe070604abdde5f6dfe5172173e7061.png" src="../_images/cf4b7d8c907f710ef208c6950db8da356fe070604abdde5f6dfe5172173e7061.png" />
-</div>
+<img alt="../_images/7200d767d4296461f78b57c07ca497eb9089a0ea7bb3186098807b960611ad70.svg" src="../_images/7200d767d4296461f78b57c07ca497eb9089a0ea7bb3186098807b960611ad70.svg" /></div>
 </div>
 </section>
 <section id="questions">
-<h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
+<h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Increase <code class="docutils literal notranslate"><span class="pre">N</span></code> until you get an answer that is close enough to the correct answer (the red line).</p></li>
-<li><p>Reduce <code class="docutils literal notranslate"><span class="pre">N</span></code> back to a small number, say 1,000. Run the code 2-3 times to observe that every time you get a slightly different answer…</p></li>
+<li><p>Increase <code class="docutils literal notranslate"><span class="pre">N</span></code> until you get an answer close enough to the correct answer (the red line).</p></li>
+<li><p>Reduce <code class="docutils literal notranslate"><span class="pre">N</span></code> back to a small number, say 1,000. Run the code 2-3 times to observe that you get a slightly different answer every time.</p></li>
 </ul>
-</section>
 </section>
 </section>
 
@@ -742,7 +747,7 @@ g(x) = \left(\cos(50x) + \sin(20x)\right)^2.
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Sampling Estimates of Expectations</p>
+        <p class="prev-next-title">The Monte Carlo Method for Estimating Expectations</p>
       </div>
     </a>
     <a class="right-next"
@@ -772,12 +777,8 @@ g(x) = \left(\cos(50x) + \sin(20x)\right)^2.
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-the-variance">Estimating the variance</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-variance">Example: 1D variance</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-variance">Example: 1D variance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
   </nav></div>
 
