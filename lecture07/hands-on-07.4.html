@@ -197,7 +197,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../uncertainty_propagation.html">Uncertainty Propagation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 7 - Basic Sampling</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="hands-on-07.1.html">Pseudo-random number generators</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-07.2.html">Sampling the uniform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-07.2.html">Sampling the uniform distribution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-07.3.html">Sampling the categorical</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Sampling from continuous distributions - Inverse sampling</a></li>
 </ul>
@@ -574,9 +574,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#readings">Readings</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inverse-sampling">Inverse sampling</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
             </nav>
@@ -596,36 +593,21 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="sampling-from-continuous-distributions-inverse-sampling">
-<h1>Sampling from continuous distributions - Inverse sampling<a class="headerlink" href="#sampling-from-continuous-distributions-inverse-sampling" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Demonstrate how we can sample from continuous distributions using the method of inverse sampling.</p></li>
-</ul>
-</section>
-<section id="readings">
-<h2>Readings<a class="headerlink" href="#readings" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>These notes.</p></li>
-</ul>
-</section>
-<section id="inverse-sampling">
-<h2>Inverse sampling<a class="headerlink" href="#inverse-sampling" title="Permalink to this heading">#</a></h2>
-<p>How do you sample an arbitrary univariate continuous random variable <span class="math notranslate nohighlight">\(X\)</span> with CDF <span class="math notranslate nohighlight">\(F(x)\)</span>.
+<span id="continuous-inverse-sampling"></span><h1>Sampling from continuous distributions - Inverse sampling<a class="headerlink" href="#sampling-from-continuous-distributions-inverse-sampling" title="Permalink to this heading">#</a></h1>
+<p>How do you sample an arbitrary univariate continuous random variable <span class="math notranslate nohighlight">\(X\)</span> with CDF <span class="math notranslate nohighlight">\(F(x)\)</span>?
 In this scenario, <em>inverse sampling</em> is the way to go.
 It relies on the observation that the random variable</p>
 <div class="math notranslate nohighlight">
@@ -633,13 +615,27 @@ It relies on the observation that the random variable</p>
 Y = F^{-1}(U),
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(F^{-1}\)</span> is the inverse of the CDF of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(U\sim\mathcal{U}([0,1])\)</span> has exactly the same distribution as <span class="math notranslate nohighlight">\(X\)</span>.</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Proof</p>
+<p>It suffice to show that <span class="math notranslate nohighlight">\(Y\)</span> has the same CDF as <span class="math notranslate nohighlight">\(X\)</span>.
+Here we go:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+p(Y\le y) &amp;= p(F^{-1}(U)\le x)\\
+&amp;= p(U\le F(x))\\
+&amp;= F(x),
+\end{align*}
+\end{split}\]</div>
+<p>where in the last step we used the fact that <span class="math notranslate nohighlight">\(U\sim\mathcal{U}([0,1])\)</span> and therefore <span class="math notranslate nohighlight">\(p(U\le u) = u\)</span>.</p>
+</div>
 <p>We will demonstrate this by example. To this end, let us consider an <a class="reference external" href="https://en.wikipedia.org/wiki/Exponential_distribution">exponential random variable</a>:</p>
 <div class="math notranslate nohighlight">
 \[
 X \sim \operatorname{Exp}(r),
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(r &gt; 0\)</span> is known as the <em>rate parameter</em>.
-The exponential distribution describes the time it passes between random events that occur at a constnat rate <span class="math notranslate nohighlight">\(r\)</span>.
+The exponential distribution describes the time between random events that occur at a constant rate <span class="math notranslate nohighlight">\(r\)</span>.
 The CDF of the Exponential is:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -649,6 +645,7 @@ F(x) = p(X\le x) = 1 - e^{-rx}.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="n">r</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">expon</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">r</span><span class="p">)</span>
@@ -657,16 +654,16 @@ F(x) = p(X\le x) = 1 - e^{-rx}.
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">5.</span> <span class="o">/</span> <span class="n">r</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$F(x) = p(X &lt;= x)$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;$X\sim E(r=</span><span class="si">{</span><span class="n">r</span><span class="si">:</span><span class="s2">1.2f</span><span class="si">}</span><span class="s2">)$&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$F(x) = p(X \leq x)$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;$X\sim E(r=</span><span class="si">{</span><span class="n">r</span><span class="si">:</span><span class="s2">1.2f</span><span class="si">}</span><span class="s2">)$&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8281d67930ba46c9a0aa4a259b28937c26110b3f3f2124b01d324df61a70bae0.png" src="../_images/8281d67930ba46c9a0aa4a259b28937c26110b3f3f2124b01d324df61a70bae0.png" />
+<img alt="../_images/40870b489c00caaa43e3fbb5246aebf7c796f06df2ab4504d0979aabd85007db.svg" src="../_images/40870b489c00caaa43e3fbb5246aebf7c796f06df2ab4504d0979aabd85007db.svg" /></div>
 </div>
-</div>
-<p>To sample <span class="math notranslate nohighlight">\(T\)</span> using inverse sampling, we need the inverse of the CDF. This is easily shown to be:</p>
+<p>To sample <span class="math notranslate nohighlight">\(X\)</span> using inverse sampling, we need the inverse of the CDF. This is easily shown to be:</p>
 <div class="math notranslate nohighlight">
 \[
 F^{-1}(u) = -\frac{\ln(1-u)}{r}.
@@ -706,15 +703,14 @@ We will compare the empirical histogram obtained by inverse sampling to the actu
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$p(x)&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/338c9f203344ec423c17df89f905a769f8bcd036088260da2a97d902ec043a27.png" src="../_images/338c9f203344ec423c17df89f905a769f8bcd036088260da2a97d902ec043a27.png" />
+<img alt="../_images/1a4f719e48e0c730ae26af62ab2a3e0984aac7f5f21cb02c999ee97d47cec692.svg" src="../_images/1a4f719e48e0c730ae26af62ab2a3e0984aac7f5f21cb02c999ee97d47cec692.svg" /></div>
 </div>
-</div>
-</section>
 <section id="questions">
 <h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -805,9 +801,6 @@ We will compare the empirical histogram obtained by inverse sampling to the actu
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#readings">Readings</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inverse-sampling">Inverse sampling</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
   </nav></div>

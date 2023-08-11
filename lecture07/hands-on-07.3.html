@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Sampling from continuous distributions - Inverse sampling" href="hands-on-07.4.html" />
-    <link rel="prev" title="Sampling the uniform" href="hands-on-07.2.html" />
+    <link rel="prev" title="Sampling the uniform distribution" href="hands-on-07.2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -197,7 +197,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../uncertainty_propagation.html">Uncertainty Propagation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 7 - Basic Sampling</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="hands-on-07.1.html">Pseudo-random number generators</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-07.2.html">Sampling the uniform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-07.2.html">Sampling the uniform distribution</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Sampling the categorical</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-07.4.html">Sampling from continuous distributions - Inverse sampling</a></li>
 </ul>
@@ -574,8 +574,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#readings">Readings</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-the-bernoulli-distribution">Sampling the Bernoulli distribution</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-the-k-label-categorical">Sampling the <span class="math notranslate nohighlight">\(K\)</span>-label Categorical</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
@@ -597,38 +595,28 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="sampling-the-categorical">
-<h1>Sampling the categorical<a class="headerlink" href="#sampling-the-categorical" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Demonstrate how we can sample from the Categorical distribution using uniform samples.</p></li>
-</ul>
-</section>
-<section id="readings">
-<h2>Readings<a class="headerlink" href="#readings" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>These notes.</p></li>
-</ul>
-</section>
+<span id="sampling-categorical"></span><h1>Sampling the categorical<a class="headerlink" href="#sampling-the-categorical" title="Permalink to this heading">#</a></h1>
+<p>We now show how to sample from a categorical distribution using samples from a uniform distribution.
+We start with the Bernoulli distribution, a particular case of the categorical distribution.
+Then, we show how to sample from the categorical distribution in general.</p>
 <section id="sampling-the-bernoulli-distribution">
 <h2>Sampling the Bernoulli distribution<a class="headerlink" href="#sampling-the-bernoulli-distribution" title="Permalink to this heading">#</a></h2>
 <p>The Bernoulli distribution arises from a binary random variable representing the outcome of an experiment with a given probability of success.
 Let us encode success with 1 and failure with 0.
-It is a special case of the Categorical (2 labels).
+It is a particular case of the Categorical (2 labels).
 Then, we say that the random variable</p>
 <div class="math notranslate nohighlight">
 \[
@@ -648,7 +636,25 @@ X = \begin{cases}
 <li><p>If <span class="math notranslate nohighlight">\(u\le \theta\)</span>, then set <span class="math notranslate nohighlight">\(x = 1\)</span>.</p></li>
 <li><p>Otherwise, set <span class="math notranslate nohighlight">\(x = 0\)</span>.</p></li>
 </ul>
-<p>Let’s see if this process does indeed produce the desired result.
+<div class="dropdown admonition">
+<p class="admonition-title">Proof</p>
+<p>How do we know that this works?
+Let us compute the probability of <span class="math notranslate nohighlight">\(X=1\)</span>.
+We start by employing the sum rule:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x=1) = \int_0^1 p(x=1|u) p(u) du.
+\]</div>
+<p>We know that <span class="math notranslate nohighlight">\(p(u)=1\)</span>.
+Also, following the definition of our algorithm, we have that <span class="math notranslate nohighlight">\(p(x=1|u)=1\)</span> if <span class="math notranslate nohighlight">\(u\le \theta\)</span> and <span class="math notranslate nohighlight">\(p(x=1|u)=0\)</span> otherwise.
+So, the integral becomes:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x=1) = \int_0^\theta 1 du + \int_\theta^1 0 du = \theta.
+\]</div>
+<p>Well, this is what we wanted.</p>
+</div>
+<p>Let’s test numerically if this process produces the desired result.
 Here is the code:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -657,7 +663,9 @@ Here is the code:</p>
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sample_bernoulli</span><span class="p">(</span><span class="n">theta</span> <span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">sample_bernoulli</span><span class="p">(</span><span class="n">theta</span> <span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Sample from the Bernoulli.</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments:</span>
@@ -681,15 +689,15 @@ Here is the code:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
 1
+0
 1
 1
 0
-0
-0
-0
 1
+0
+0
 0
 </pre></div>
 </div>
@@ -710,17 +718,17 @@ Here is the code:</p>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$p(x)$&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$p(x)$&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/6ceb19701a1315f2e9dae2f162abdccea1c105c57f6e595133aad24cd6b4efe2.png" src="../_images/6ceb19701a1315f2e9dae2f162abdccea1c105c57f6e595133aad24cd6b4efe2.png" />
-</div>
+<img alt="../_images/5a7cf19aecd67dba3d66f4b026c14eb988f3352e019137a0cc98b206af14edda.svg" src="../_images/5a7cf19aecd67dba3d66f4b026c14eb988f3352e019137a0cc98b206af14edda.svg" /></div>
 </div>
 <p>Ok, it looks fine. About <span class="math notranslate nohighlight">\(\theta N\)</span> samples went to 1 and <span class="math notranslate nohighlight">\((1-\theta)N\)</span> samples went to 0.</p>
-<p>Of course, we have already seen that this is implemented in scipy.stats.
+<p>Of course, we have already seen this implemented in scipy.stats.
 Here is a quick reminder of that code.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -731,17 +739,17 @@ Here is a quick reminder of that code.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 0, 0, 0, 0, 1, 0, 0, 1, 0])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 1, 0, 1, 0, 0, 0, 0, 0, 0])
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="sampling-the-k-label-categorical">
-<h2>Sampling the <span class="math notranslate nohighlight">\(K\)</span>-label Categorical<a class="headerlink" href="#sampling-the-k-label-categorical" title="Permalink to this heading">#</a></h2>
+<span id="categorical-sampling"></span><h2>Sampling the <span class="math notranslate nohighlight">\(K\)</span>-label Categorical<a class="headerlink" href="#sampling-the-k-label-categorical" title="Permalink to this heading">#</a></h2>
 <p>Consider a generic discrete random variable <span class="math notranslate nohighlight">\(X\)</span> taking <span class="math notranslate nohighlight">\(K\)</span> different values.
-Without loss of generality, you may assume that these values are integers <span class="math notranslate nohighlight">\(\{0, 1,2,\dots,K-1\}\)</span> (they are just the labels of the discrete objects anyway).
-Let us assume that</p>
+You may assume that these values are integers <span class="math notranslate nohighlight">\(\{0, 1,2,\dots,K-1\}\)</span> (they are just the labels of the discrete objects anyway).</p>
+<p>The probability mass function of <span class="math notranslate nohighlight">\(X\)</span> is:</p>
 <div class="math notranslate nohighlight">
 \[
 p(X=k) = p_k,
@@ -756,11 +764,6 @@ p_k \ge 0,
 \[
 \sum_{k=0}^{K-1} p_k = 1.
 \]</div>
-<p>Remember, that an succinct way to write this is using the Dirac delta:</p>
-<div class="math notranslate nohighlight">
-\[
-p(x) = \sum_{k=0}^{K-1}p_k\delta(x-k).
-\]</div>
 <p>In any case, here is how you sample from such a distribution:</p>
 <ul class="simple">
 <li><p>Draw a uniform sample <span class="math notranslate nohighlight">\(u\)</span>.</p></li>
@@ -773,6 +776,15 @@ p(x) = \sum_{k=0}^{K-1}p_k\delta(x-k).
 <ul class="simple">
 <li><p>Then, your sample is <span class="math notranslate nohighlight">\(j\)</span>.</p></li>
 </ul>
+<div class="dropdown admonition">
+<p class="admonition-title">Why does this work?</p>
+<p>The probability that <span class="math notranslate nohighlight">\(u\)</span> falls in the interval <span class="math notranslate nohighlight">\([\sum_{k=0}^{j-1}p_k, \sum_{k=0}^jp_k)\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{k=0}^jp_k - \sum_{k=0}^{j-1}p_k = p_j.
+\]</div>
+<p>So, it is exactly the probability that <span class="math notranslate nohighlight">\(X=j\)</span>.</p>
+</div>
 <p>Let’s code it:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -813,13 +825,13 @@ p(x) = \sum_{k=0}^{K-1}p_k\delta(x-k).
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$p(x)$&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$p(x)$&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f7f5d07c9b7042bc86a7ad4407a451124de578afb9001b2e1f0f9de1163a844f.png" src="../_images/f7f5d07c9b7042bc86a7ad4407a451124de578afb9001b2e1f0f9de1163a844f.png" />
-</div>
+<img alt="../_images/3b1c5865ed7c8f8279844c8ea1e28dd854e427db7a7440a8022a2b209675370d.svg" src="../_images/3b1c5865ed7c8f8279844c8ea1e28dd854e427db7a7440a8022a2b209675370d.svg" /></div>
 </div>
 <p>Of course, <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code> already implements this functionality. Let’s compare.</p>
 <div class="cell tag_hide-input docutils container">
@@ -839,17 +851,14 @@ p(x) = \sum_{k=0}^{K-1}p_k\delta(x-k).
 <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x_st_samples</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Scipy.stats implementation&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$p(x)$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x118890e80&gt;
-</pre></div>
-</div>
-<img alt="../_images/477573dccc6a500d89fba2854fe63203b84b6ef15294a8722488ccd9f8956581.png" src="../_images/477573dccc6a500d89fba2854fe63203b84b6ef15294a8722488ccd9f8956581.png" />
-</div>
+<img alt="../_images/6e2035cce9ac4618a26fae846c7c756b507810ed3590428a6de564978f9442a7.svg" src="../_images/6e2035cce9ac4618a26fae846c7c756b507810ed3590428a6de564978f9442a7.svg" /></div>
 </div>
 </section>
 <section id="questions">
@@ -897,7 +906,7 @@ p(x) = \sum_{k=0}^{K-1}p_k\delta(x-k).
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Sampling the uniform</p>
+        <p class="prev-next-title">Sampling the uniform distribution</p>
       </div>
     </a>
     <a class="right-next"
@@ -927,8 +936,6 @@ p(x) = \sum_{k=0}^{K-1}p_k\delta(x-k).
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#readings">Readings</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-the-bernoulli-distribution">Sampling the Bernoulli distribution</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-the-k-label-categorical">Sampling the <span class="math notranslate nohighlight">\(K\)</span>-label Categorical</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>

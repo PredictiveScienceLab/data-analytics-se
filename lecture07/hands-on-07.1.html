@@ -66,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture07/hands-on-07.1';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Sampling the uniform" href="hands-on-07.2.html" />
+    <link rel="next" title="Sampling the uniform distribution" href="hands-on-07.2.html" />
     <link rel="prev" title="Lecture 7 - Basic Sampling" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -197,7 +197,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../uncertainty_propagation.html">Uncertainty Propagation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 7 - Basic Sampling</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Pseudo-random number generators</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-07.2.html">Sampling the uniform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-07.2.html">Sampling the uniform distribution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-07.3.html">Sampling the categorical</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-07.4.html">Sampling from continuous distributions - Inverse sampling</a></li>
 </ul>
@@ -574,15 +574,13 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#readings">Readings</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pseudo-random-number-generators-prng">Pseudo-random number generators (PRNG)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-middlesquare-algorithm-von-neumann">The middlesquare algorithm (Von Neumann)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-middle-square-algorithm">The middle square algorithm</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-congruential-generator-lcg">Linear congruential generator (LCG)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Questions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mersenne-twister-prng">Mersenne Twister PRNG</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
         </div>
@@ -601,49 +599,33 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="pseudo-random-number-generators">
-<h1>Pseudo-random number generators<a class="headerlink" href="#pseudo-random-number-generators" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To understand how computers generate “random” numbers.</p></li>
-</ul>
-</section>
-<section id="readings">
-<h2>Readings<a class="headerlink" href="#readings" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>These notes.</p></li>
-<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Middle-square_method">Middlesquare algorithm</a>.</p></li>
-<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Linear_congruential_generator">Linear congruential generator</a>.</p></li>
-</ul>
-</section>
-<section id="pseudo-random-number-generators-prng">
-<h2>Pseudo-random number generators (PRNG)<a class="headerlink" href="#pseudo-random-number-generators-prng" title="Permalink to this heading">#</a></h2>
-<p>Random number generation is the backbone of Bayesian inference.
+<span id="psuedo-random"></span><h1>Pseudo-random number generators<a class="headerlink" href="#pseudo-random-number-generators" title="Permalink to this heading">#</a></h1>
+<p>Random number generation is the backbone of many machine learning algorithms.
 Computers are deterministic.
 So, how can they generate random numbers?
-Well they cannot!
-But they can produce sequence of numbers that look like random numbers!
+Well, they cannot!
+But they can produce sequences of numbers that look like random numbers!
 These “fake” random number generators are called Pseudo-random number generators (PRNG).
-They are used to generate random numbers between zero and a maximum integer, say <span class="math notranslate nohighlight">\(m\)</span>.
-As we will argue later this is sufficient to generate pretty much any random variable you want.</p>
-</section>
-<section id="the-middlesquare-algorithm-von-neumann">
-<h2>The middlesquare algorithm (Von Neumann)<a class="headerlink" href="#the-middlesquare-algorithm-von-neumann" title="Permalink to this heading">#</a></h2>
-<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Middle-square_method">middlesquare algorithm</a> is the simplest PRNG.</p>
+They generate random numbers between zero and a maximum integer, say <span class="math notranslate nohighlight">\(m\)</span>.
+As we argue later, this is sufficient to generate any random variable you want.</p>
+<section id="the-middle-square-algorithm">
+<h2>The middle square algorithm<a class="headerlink" href="#the-middle-square-algorithm" title="Permalink to this heading">#</a></h2>
+<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Middle-square_method">middlesquare algorithm</a> is the simplest PRNG.
+It was invented by <a class="reference external" href="https://en.wikipedia.org/wiki/John_von_Neumann">John von Neumann</a>.
+It works like this:</p>
 <ol class="arabic simple">
 <li><p>Take a number and square it.</p></li>
 <li><p>Pad the result with zeros to get to the desired number of digits.</p></li>
@@ -658,7 +640,9 @@ As we will argue later this is sufficient to generate pretty much any random var
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">middlesquare</span><span class="p">(</span><span class="n">s</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">digits</span> <span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">middlesquare</span><span class="p">(</span><span class="n">s</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">digits</span> <span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Sample random numbers using the middle square algorithm.</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments:</span>
@@ -772,13 +756,16 @@ As we will argue later this is sufficient to generate pretty much any random var
 </section>
 <section id="linear-congruential-generator-lcg">
 <h2>Linear congruential generator (LCG)<a class="headerlink" href="#linear-congruential-generator-lcg" title="Permalink to this heading">#</a></h2>
-<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Linear_congruential_generator">linear congruential generator</a> works as follows. You pick three big integers <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span> and <span class="math notranslate nohighlight">\(m\)</span>.
+<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Linear_congruential_generator">linear congruential generator</a> is a simple algorithm to generate pseudo-random numbers. It is not a good algorithm, but it is simple and fast.</p>
+<p>It works as follows.
+You pick three big integers <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span> and <span class="math notranslate nohighlight">\(m\)</span>.
 Pick a seed <span class="math notranslate nohighlight">\(x_0\)</span>.
 Then iterate:</p>
 <div class="math notranslate nohighlight">
 \[
 x_{i+1} = (a x_i + b)\mod m
 \]</div>
+<p>Here <span class="math notranslate nohighlight">\(\cdot \mod \cdot\)</span> is the modulo operator, which returns the remainder of the division.</p>
 <p>Here is a simple implementation:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -862,6 +849,7 @@ x_{i+1} = (a x_i + b)\mod m
 <section id="mersenne-twister-prng">
 <h2>Mersenne Twister PRNG<a class="headerlink" href="#mersenne-twister-prng" title="Permalink to this heading">#</a></h2>
 <p>Numpy uses the <a class="reference external" href="https://en.wikipedia.org/wiki/Mersenne_Twister">Mersenne Twister</a> to generate random numbers.
+It is a very good PRNG, and is the default in many languages.
 Its details are more complicated than LCG, but it is still initialized by an integer seed.
 You can test it as follows:</p>
 <div class="cell docutils container">
@@ -929,6 +917,13 @@ You can test it as follows:</p>
 <li><p>What is the maximum number that you can get from the Mersenne Twister PRNG? Hint: Google it.</p></li>
 </ul>
 </section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Middle-square_method">Middlesquare algorithm</a>.</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Linear_congruential_generator">Linear congruential generator</a>.</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -976,7 +971,7 @@ You can test it as follows:</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Sampling the uniform</p>
+        <p class="prev-next-title">Sampling the uniform distribution</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -998,15 +993,13 @@ You can test it as follows:</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#readings">Readings</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pseudo-random-number-generators-prng">Pseudo-random number generators (PRNG)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-middlesquare-algorithm-von-neumann">The middlesquare algorithm (Von Neumann)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-middle-square-algorithm">The middle square algorithm</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-congruential-generator-lcg">Linear congruential generator (LCG)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Questions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mersenne-twister-prng">Mersenne Twister PRNG</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
 

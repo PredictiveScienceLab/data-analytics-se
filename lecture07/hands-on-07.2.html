@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Sampling the uniform &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+    <title>Sampling the uniform distribution &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
   
   
@@ -197,7 +197,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../uncertainty_propagation.html">Uncertainty Propagation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 7 - Basic Sampling</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="hands-on-07.1.html">Pseudo-random number generators</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">Sampling the uniform</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Sampling the uniform distribution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-07.3.html">Sampling the categorical</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-07.4.html">Sampling from continuous distributions - Inverse sampling</a></li>
 </ul>
@@ -564,7 +564,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Sampling the uniform</h1>
+    <h1>Sampling the uniform distribution</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -574,12 +574,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#readings">Readings</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-from-the-uniform-distribution">Sampling from the uniform distribution</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question">Question</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
             </nav>
         </div>
@@ -598,41 +593,27 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
-<section class="tex2jax_ignore mathjax_ignore" id="sampling-the-uniform">
-<h1>Sampling the uniform<a class="headerlink" href="#sampling-the-uniform" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Demonstrate how we can sample from the uniform distribution using PRNGs.</p></li>
-</ul>
-</section>
-<section id="readings">
-<h2>Readings<a class="headerlink" href="#readings" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>These notes.</p></li>
-</ul>
-</section>
-<section id="sampling-from-the-uniform-distribution">
-<h2>Sampling from the uniform distribution<a class="headerlink" href="#sampling-from-the-uniform-distribution" title="Permalink to this heading">#</a></h2>
+<section class="tex2jax_ignore mathjax_ignore" id="sampling-the-uniform-distribution">
+<span id="sample-uniform"></span><h1>Sampling the uniform distribution<a class="headerlink" href="#sampling-the-uniform-distribution" title="Permalink to this heading">#</a></h1>
 <p>If we have a PRNG that samples between zero and a big integer, say <span class="math notranslate nohighlight">\(m\)</span>, we can create a generator that samples from the uniform distribution.
-If <span class="math notranslate nohighlight">\(d\)</span> is the sample from the PRNG, then
-$<span class="math notranslate nohighlight">\(
+If <span class="math notranslate nohighlight">\(d\)</span> is the sample from the PRNG, then</p>
+<div class="math notranslate nohighlight">
+\[
 x = \frac{d}{m},
-\)</span>$
-is approximately uniformly distributed.
+\]</div>
+<p>is approximately uniformly distributed.
 Let’s experiment with this idea.</p>
 <p>We are going to need some of the code we developed in the previous section:</p>
 <div class="cell tag_hide-input docutils container">
@@ -702,7 +683,8 @@ sample 4 = 0.59
 <p>And let’s also do it with Mersenne-Twister from numpy:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">unif_mt</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Sample from the uniform using the MT.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">MAX_INT</span><span class="p">)</span> <span class="o">/</span> <span class="n">MAX_INT</span>
@@ -759,25 +741,25 @@ sample 4 = 0.54
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$p(x)$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f28007b75a4f99be7b4e5a3fd32e6dbec44a7c02850efd8e6a6dbff14a3d9da9.png" src="../_images/f28007b75a4f99be7b4e5a3fd32e6dbec44a7c02850efd8e6a6dbff14a3d9da9.png" />
-</div>
+<img alt="../_images/7a415cd0a812ee7fc6e06c12b1494ddd4863bf576f69d9436165af00991b006e.svg" src="../_images/7a415cd0a812ee7fc6e06c12b1494ddd4863bf576f69d9436165af00991b006e.svg" /></div>
 </div>
 <p>This was a rough visual test.
 We can do better.
-We can compare the <a class="reference external" href="https://en.wikipedia.org/wiki/Empirical_distribution_function">empirical CDF</a> of each one of these algorithms with the ideal CDF, i.e., that of a real uniform.
+We can compare the <a class="reference external" href="https://en.wikipedia.org/wiki/Empirical_distribution_function">empirical CDF</a> of each one of these algorithms with the ideal CDF, i.e., that of an actual uniform.
 But what is the empirical CDF of a bunch of samples <span class="math notranslate nohighlight">\(x_{1:N}\)</span>?
 It is defined as follows:</p>
 <div class="math notranslate nohighlight">
 \[
 \hat{F}_N(x) = \frac{\text{number of elements in sample}\;\le x}{N} = \frac{1}{N}\sum_{n=1}^N 1_{(-\infty, x_i]}(x).
 \]</div>
-<p>We are going to explain in what sense the empirical CDF approximates the true PDF in Lecture 9.
-For now, let’s just use it:</p>
+<p>We will explain in what sense the empirical CDF approximates the actual PDF in <a class="reference internal" href="../lecture09/hands-on-09.1.html#empirical-cdf"><span class="std std-ref">Lecture 9</span></a>.
+For now, let’s use it:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -812,14 +794,14 @@ For now, let’s just use it:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Uniform&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$\hat</span><span class="si">{F}</span><span class="s2">_N(x)$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/0ea55c54b1b339a45db8d745c968f579aa5176d700746a3a6e6a0e650a2dfbec.png" src="../_images/0ea55c54b1b339a45db8d745c968f579aa5176d700746a3a6e6a0e650a2dfbec.png" />
-</div>
+<img alt="../_images/6705790c4060e92bf5c4c45b3150b823b75403aa7472c7e369f30bd7e0f121e2.svg" src="../_images/6705790c4060e92bf5c4c45b3150b823b75403aa7472c7e369f30bd7e0f121e2.svg" /></div>
 </div>
 <p>This is still visual. The <a class="reference external" href="https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test">Kolmogorov-Smirnov test</a> summarizes calculate a distance between the empirical distribution and the ideal one.
 It is defined as follows:</p>
@@ -841,18 +823,18 @@ Let’s see what we get for LCG and MT compared to the uniform:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>KS statistic for LCG vs uniform: 0.13
-KS statistic for MT vs uniform: 0.06
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>KS statistic for LCG vs uniform: 0.11
+KS statistic for MT vs uniform: 0.08
 </pre></div>
 </div>
 </div>
 </div>
-<section id="question">
-<h3>Question<a class="headerlink" href="#question" title="Permalink to this heading">#</a></h3>
+<section id="questions">
+<h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Hmm, we probably need to increase the number of samples to observe this statistic better. Increase <span class="math notranslate nohighlight">\(N\)</span> from 100 to <span class="math notranslate nohighlight">\(1,000\)</span> and then to <span class="math notranslate nohighlight">\(10,000\)</span>. How do the distributions look like now?</p></li>
-<li><p>A second thing that we would like to test is whether or not consecutive numbers are all independent (Idependent identically distributed). Unfortunately, we need more theory than we know to do this.</p></li>
-<li><p>For future reference, note that you should not really use <code class="docutils literal notranslate"><span class="pre">unif_mt</span></code> to generate uniform random numbers. Numpy already implements this in <code class="docutils literal notranslate"><span class="pre">numpy.random.rand</span></code>. We provide an example right below.</p></li>
+<li><p>Hmm, we need to increase the number of samples to observe this statistic better. Increase <span class="math notranslate nohighlight">\(N\)</span> from 100 to <span class="math notranslate nohighlight">\(1,000\)</span> and then to <span class="math notranslate nohighlight">\(10,000\)</span>. What do the distributions look like now?</p></li>
+<li><p>A second thing we want to test is whether or not consecutive numbers are all independent (independently identically distributed). Unfortunately, we need more theory than we know to do this.</p></li>
+<li><p>For future reference, note that you should not use <code class="docutils literal notranslate"><span class="pre">unif_mt</span></code> to generate uniform random numbers. Numpy already implements this in <code class="docutils literal notranslate"><span class="pre">numpy.random.rand</span></code>. We provide an example right below.</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -863,12 +845,12 @@ KS statistic for MT vs uniform: 0.06
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.156 0.863 0.683 0.086 0.566 0.15  0.477 0.849 0.14  0.33 ]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.38395169 0.76468301 0.03389684 0.68649033 0.32801226 0.37254246
+ 0.67492191 0.59819651 0.69524686 0.94385444]
 </pre></div>
 </div>
 </div>
 </div>
-</section>
 </section>
 </section>
 
@@ -939,12 +921,7 @@ KS statistic for MT vs uniform: 0.06
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#readings">Readings</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-from-the-uniform-distribution">Sampling from the uniform distribution</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question">Question</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
   </nav></div>
 
