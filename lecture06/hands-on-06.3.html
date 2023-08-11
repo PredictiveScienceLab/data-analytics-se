@@ -181,7 +181,7 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../lecture05/intro.html">Lecture 5 - Collections of Random Variables</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../lecture05/reading-05.html">Collections of Random Variables: Theory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lecture05/hands-on-05.html">Practicing with joint probability mass functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture05/hands-on-05.html">Practicing with Joint Probability Mass Functions</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 6 - Random Vectors</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
@@ -574,9 +574,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-multivariate-mormal-marginalization">The multivariate mormal - Marginalization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-the-joint-pdf-of-a-subset-of-components-of-a-multivariate-gaussian">Getting the joint PDF of a subset of components of a multivariate Gaussian</a></li>
 </ul>
             </nav>
         </div>
@@ -595,36 +594,40 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="the-multivariate-normal-marginalization">
-<h1>The Multivariate Normal - Marginalization<a class="headerlink" href="#the-multivariate-normal-marginalization" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To demonstrate marginalization with a multivariate normal.</p></li>
-</ul>
-</section>
-<section id="the-multivariate-mormal-marginalization">
-<h2>The multivariate mormal - Marginalization<a class="headerlink" href="#the-multivariate-mormal-marginalization" title="Permalink to this heading">#</a></h2>
+<span id="multivariate-normal-marginalization"></span><h1>The Multivariate Normal - Marginalization<a class="headerlink" href="#the-multivariate-normal-marginalization" title="Permalink to this heading">#</a></h1>
 <p>Consider the <span class="math notranslate nohighlight">\(N\)</span>-dimensional multivariate normal:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbf{X} \sim N\left(\boldsymbol{\mu}, \boldsymbol{\Sigma}\right),
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\boldsymbol{\mu}\)</span> is a <span class="math notranslate nohighlight">\(N\)</span>-dimensional vector, <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span> is a <em>positive-definite matrix</em>.
-In the lecture, we said that if you consider the marginal PDF of a component of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>, say <span class="math notranslate nohighlight">\(X_1\)</span>, then it will follow a Gaussian with mean <span class="math notranslate nohighlight">\(\mu_1\)</span> and variance <span class="math notranslate nohighlight">\(\Sigma_{11}\)</span>.</p>
+Let’s look at a component of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>, say <span class="math notranslate nohighlight">\(X_1\)</span>.
+What is its PDF?
+We can find it by <em>marginalizing</em> over the other components of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x_1) = \int_{-\infty}^{\infty} \cdots \int_{-\infty}^{\infty} p(x_1, x_2, \ldots, x_N) \, dx_2 \cdots dx_N.
+\]</div>
+<p>If you really do the integrals, you will find that the marginal PDF of <span class="math notranslate nohighlight">\(X_1\)</span> is a Gaussian with mean <span class="math notranslate nohighlight">\(\mu_1\)</span> and variance <span class="math notranslate nohighlight">\(\Sigma_{11}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+X_1 \sim N\left(\mu_1, \Sigma_{11}\right).
+\]</div>
+<p>Similarly, the marginal PDF of <span class="math notranslate nohighlight">\(X_2\)</span> is a Gaussian with mean <span class="math notranslate nohighlight">\(\mu_2\)</span> and variance <span class="math notranslate nohighlight">\(\Sigma_{22}\)</span>.
+And so on.</p>
 <p>Let’s demonstrate this by sampling in the random vector <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> and making the histogram of its <span class="math notranslate nohighlight">\(X_1\)</span> component.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -633,7 +636,8 @@ In the lecture, we said that if you consider the marginal PDF of a component of 
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
 
 <span class="c1"># The mean vector</span>
 <span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>
@@ -687,21 +691,38 @@ In the lecture, we said that if you consider the marginal PDF of a component of 
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$x_1$&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$p(x_1)$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/d3a6dae464c992474a0f8e9c913388debb3a13c279e91c750b02c945e10ec5fb.png" src="../_images/d3a6dae464c992474a0f8e9c913388debb3a13c279e91c750b02c945e10ec5fb.png" />
+<img alt="../_images/b5ce2b14f6011dcd0327b875cb109768756611cf5a721d4a72a8819af45a5050.svg" src="../_images/b5ce2b14f6011dcd0327b875cb109768756611cf5a721d4a72a8819af45a5050.svg" /></div>
 </div>
-</div>
-</section>
 <section id="questions">
 <h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Expand the code so that you produce the figure that gives you the marginal of the <span class="math notranslate nohighlight">\(X_2\)</span> component of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>.</p></li>
 </ul>
+</section>
+<section id="getting-the-joint-pdf-of-a-subset-of-components-of-a-multivariate-gaussian">
+<h2>Getting the joint PDF of a subset of components of a multivariate Gaussian<a class="headerlink" href="#getting-the-joint-pdf-of-a-subset-of-components-of-a-multivariate-gaussian" title="Permalink to this heading">#</a></h2>
+<p>Take the same multivariate Gaussian as in the previous exercise, but now we are interested in the joint PDF of the first two components, <span class="math notranslate nohighlight">\(X_1\)</span> and <span class="math notranslate nohighlight">\(X_2\)</span>.
+The joint PDF of <span class="math notranslate nohighlight">\(X_1\)</span> and <span class="math notranslate nohighlight">\(X_2\)</span> is given by the following expression:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x_1, x_2) = \int_{-\infty}^{\infty} \cdots \int_{-\infty}^{\infty} p(x_1, x_2, x_3, \ldots, x_N) \, dx_3 \cdots dx_N.
+\]</div>
+<p>If we do the integration, we get that <span class="math notranslate nohighlight">\((X_1, X_2)\)</span> is a bivariate Gaussian with mean vector <span class="math notranslate nohighlight">\((\mu_1,\mu_2)\)</span> and covariance matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}
+\Sigma_{11} &amp; \Sigma_{12} \\
+\Sigma_{12} &amp; \Sigma_{22}
+\end{bmatrix}.
+\end{split}\]</div>
+<p>This sort of marginalization extends to any subset of components of a multivariate Gaussian.</p>
 </section>
 </section>
 
@@ -772,9 +793,8 @@ In the lecture, we said that if you consider the marginal PDF of a component of 
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-multivariate-mormal-marginalization">The multivariate mormal - Marginalization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-the-joint-pdf-of-a-subset-of-components-of-a-multivariate-gaussian">Getting the joint PDF of a subset of components of a multivariate Gaussian</a></li>
 </ul>
   </nav></div>
 

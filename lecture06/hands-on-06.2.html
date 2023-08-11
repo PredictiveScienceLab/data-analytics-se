@@ -181,7 +181,7 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../lecture05/intro.html">Lecture 5 - Collections of Random Variables</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../lecture05/reading-05.html">Collections of Random Variables: Theory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lecture05/hands-on-05.html">Practicing with joint probability mass functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture05/hands-on-05.html">Practicing with Joint Probability Mass Functions</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 6 - Random Vectors</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
@@ -574,8 +574,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-multivariate-mormal-full-covariance-case">The multivariate mormal - Full covariance case</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-covariance-matrix-must-be-positive-definite-so-that-p-mathbf-x-has-a-well-defined-unique-maximum">The covariance matrix must be positive definite so that <span class="math notranslate nohighlight">\(p(\mathbf{x})\)</span> has a well-defined, unique maximum</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Questions</a></li>
@@ -599,39 +597,62 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="the-multivariate-normal-full-covariance-case">
-<h1>The Multivariate Normal - Full Covariance Case<a class="headerlink" href="#the-multivariate-normal-full-covariance-case" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To introduce the multivariate normal with full covariance.</p></li>
-</ul>
-</section>
-<section id="the-multivariate-mormal-full-covariance-case">
-<h2>The multivariate mormal - Full covariance case<a class="headerlink" href="#the-multivariate-mormal-full-covariance-case" title="Permalink to this heading">#</a></h2>
+<span id="multivariate-normal-full-covariance"></span><h1>The Multivariate Normal - Full Covariance Case<a class="headerlink" href="#the-multivariate-normal-full-covariance-case" title="Permalink to this heading">#</a></h1>
 <p>Consider the <span class="math notranslate nohighlight">\(N\)</span>-dimensional multivariate normal:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbf{X} \sim N\left(\boldsymbol{\mu}, \boldsymbol{\Sigma}\right),
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\boldsymbol{\mu}\)</span> is a <span class="math notranslate nohighlight">\(N\)</span>-dimensional vector, <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span> is a <em>positive-definite matrix</em>.</p>
+<div class="dropdown admonition">
+<p class="admonition-title">What is a positive-definite matrix?</p>
+<p>A positive-definite matrix is a symmetric matrix <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span> such that for any non-zero vector <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{v}^T \boldsymbol{\Sigma} \mathbf{v} &gt; 0\)</span>.</p>
+<p>A positive-definite matrix is invertible, and its inverse is also positive-definite.
+Also, the eigenvalues of a positive-definite matrix are all positive.
+Since the determinant of a matrix is the product of its eigenvalues, the determinant of a positive-definite matrix is positive.
+And the eigenvectors of a positive-definite matrix are all orthogonal.</p>
+</div>
+<p>The joint PDF of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[
+p(\mathbf{x}) = \frac{1}{\sqrt{\left(2\pi\right)^N \det\left(\boldsymbol{\Sigma}\right)}} \exp\left(-\frac{1}{2} \left(\mathbf{x} - \boldsymbol{\mu}\right)^T \boldsymbol{\Sigma}^{-1} \left(\mathbf{x} - \boldsymbol{\mu}\right)\right).
+\]</div>
+<p>The term <span class="math notranslate nohighlight">\(\det\left(\boldsymbol{\Sigma}\right)\)</span> is the <em>determinant</em> of <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span>.
+Sometimes we write <span class="math notranslate nohighlight">\(\left|\boldsymbol{\Sigma}\right|\)</span> instead of <span class="math notranslate nohighlight">\(\det\left(\boldsymbol{\Sigma}\right)\)</span>.
+Because <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span> is positive-definite, <span class="math notranslate nohighlight">\(\det\left(\boldsymbol{\Sigma}\right)\)</span> is positive so that we can take the square root.</p>
+<p>The term <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}^{-1}\)</span> is the <em>inverse</em> of <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span>.
+It exists because <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span> is positive-definite.
+And it is also positive-definite.
+So the term <span class="math notranslate nohighlight">\(\left(\mathbf{x} - \boldsymbol{\mu}\right)^T \boldsymbol{\Sigma}^{-1} \left(\mathbf{x} - \boldsymbol{\mu}\right)\)</span> is a positive quantity.
+You can also show that it has a minimum at <span class="math notranslate nohighlight">\(\mathbf{x} = \boldsymbol{\mu}\)</span>.</p>
+<p>The vector <span class="math notranslate nohighlight">\(\boldsymbol{\mu}\)</span> is the <em>mean vector</em>, because it is the expected value of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{E}\left[\mathbf{X}\right] = \boldsymbol{\mu}.
+\]</div>
+<p>The matrix <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span> is the <em>covariance matrix</em>, because it is the (self-)covariance of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{C}\left[\mathbf{X}\right] = \mathbb{C}\left[\mathbf{X}, \mathbf{X}\right] = \boldsymbol{\Sigma}.
+\]</div>
 <p>Let’s plot contours and take samples.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
 
 <span class="c1"># The mean vector</span>
 <span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>
@@ -659,7 +680,7 @@ document.write(`
 <span class="c1"># PDF values</span>
 <span class="n">pdf_X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">X_flat</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">pdf_X</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$p(\mathbf</span><span class="si">{x}</span><span class="s1">)$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
 <span class="c1"># SAMPLES</span>
 <span class="n">num_samples</span> <span class="o">=</span> <span class="mi">500</span>
@@ -671,17 +692,16 @@ document.write(`
     <span class="n">markersize</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Samples&#39;</span>
 <span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f10355edbf015e2ac0d14d7b3523311e43d7230e6e1b3fae337830aa48eee74a.png" src="../_images/f10355edbf015e2ac0d14d7b3523311e43d7230e6e1b3fae337830aa48eee74a.png" />
+<img alt="../_images/c7e8f971ae6316260fa2f39d866df1ac806d68818916b7076ebf2c246dc3b8a7.svg" src="../_images/c7e8f971ae6316260fa2f39d866df1ac806d68818916b7076ebf2c246dc3b8a7.svg" /></div>
 </div>
-</div>
-</section>
 <section id="questions">
 <h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -693,13 +713,10 @@ document.write(`
 </section>
 <section id="the-covariance-matrix-must-be-positive-definite-so-that-p-mathbf-x-has-a-well-defined-unique-maximum">
 <h2>The covariance matrix must be positive definite so that <span class="math notranslate nohighlight">\(p(\mathbf{x})\)</span> has a well-defined, unique maximum<a class="headerlink" href="#the-covariance-matrix-must-be-positive-definite-so-that-p-mathbf-x-has-a-well-defined-unique-maximum" title="Permalink to this heading">#</a></h2>
-<p>In the lecture we argued that the covariance matrix <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span> must be positive definite so that the PDF of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> has a unique maximum. Let’s try to understand this step by step.
-First, what does it mean for a matrix to be positive definite.
-The mathematical definition stats that for any vector <span class="math notranslate nohighlight">\(\mathbf{v}\not=\mathbf{0}\)</span>, the quantity <span class="math notranslate nohighlight">\(\mathbf{v}^T\boldsymbol{\Sigma}\mathbf{v}\)</span> is positive.</p>
-<p>Let’s just test this quantity for two different matrices.
-One will be positive definite.
-The other won’t be.
-I will draw random vectors <span class="math notranslate nohighlight">\(v\)</span>, evaluate the expression <span class="math notranslate nohighlight">\(\mathbf{v}^T\boldsymbol{\Sigma}\mathbf{v}\)</span> and see what I get.</p>
+<p>We said that because the covariance matrix <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span> is positive definite, the PDF of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> has a unique maximum. Let’s try to understand this step by step.</p>
+<p>First, let us numerically examine what positive definiteness means.
+We take two matrices. One will be positive definite; the other won’t be.
+We will draw random vectors <span class="math notranslate nohighlight">\(v\)</span>, evaluate the expression <span class="math notranslate nohighlight">\(\mathbf{v}^T\boldsymbol{\Sigma}\mathbf{v}\)</span>, and see what I get.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -718,8 +735,8 @@ I will draw random vectors <span class="math notranslate nohighlight">\(v\)</spa
 <span class="c1"># A covariance matrix that we know does not work</span>
 <span class="n">Sigma_bad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
     <span class="p">[</span>
-        <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span>
-        <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
     <span class="p">]</span>
 <span class="p">)</span>
 
@@ -750,18 +767,18 @@ I will draw random vectors <span class="math notranslate nohighlight">\(v\)</spa
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$v^T\Sigma v$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/be8c25586bfdee28abb01a6727276750145eae0e5a86c86fd26a9d71e0e859b5.png" src="../_images/be8c25586bfdee28abb01a6727276750145eae0e5a86c86fd26a9d71e0e859b5.png" />
+<img alt="../_images/e1caef3a1365b9aec3ff1d631101fa9dcaa03f8e4dcaf20210f87fb754463a0e.svg" src="../_images/e1caef3a1365b9aec3ff1d631101fa9dcaa03f8e4dcaf20210f87fb754463a0e.svg" /></div>
 </div>
-</div>
-<p>Observe that the non-positive definite matrix is giving us quite a few negative value.
-Is there a way to check if a matrix is positive definite without doing this random test?
-Yes, you just check if all the eigenvalues of the matrix are positive. Here is how:</p>
+<p>Please observe that the non-positive definite matrix gives us several negative values.</p>
+<p>Is there a way to check if a matrix is positive definite without doing this random test?
+Yes, you check if all the eigenvalues of the matrix are positive. Here is how:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Eigenvalues of Sigma_good&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">Sigma_good</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
@@ -771,13 +788,13 @@ Yes, you just check if all the eigenvalues of the matrix are positive. Here is h
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Eigenvalues of Sigma_good [0.1 1.9]
-Eigenvalues of Sigma_bad [-0.249  1.649]
+Eigenvalues of Sigma_bad [-0.2486833  1.6486833]
 </pre></div>
 </div>
 </div>
 </div>
-<p>… And you see that the second one has a negative eigenvlue.</p>
-<p>Finally, let’s visualize the contour of the probability densty and see with our own eyes that it does not have a unique minimum when the matrix <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span> is not positive definite.</p>
+<p>And you see that the second one has a negative eigenvalue.</p>
+<p>Finally, let’s visualize the probability density contour and see with our eyes that it does not have a unique minimum when the matrix <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span> is not positive definite.</p>
 <p>First, I define the PDF:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -831,7 +848,7 @@ But we can also <a class="reference external" href="https://numpy.org/doc/stable
 </div>
 </div>
 <p>In the above, <code class="docutils literal notranslate"><span class="pre">exclude</span></code> ensures that inputs 1 (<code class="docutils literal notranslate"><span class="pre">mu</span></code>) and 2 (<code class="docutils literal notranslate"><span class="pre">Sigma</span></code>) are not vectorized.
-The <code class="docutils literal notranslate"><span class="pre">signature</span></code> tells numpy that <code class="docutils literal notranslate"><span class="pre">log_pdf_mv</span></code> function accepts a 1D array and returns a scalar.
+The <code class="docutils literal notranslate"><span class="pre">signature</span></code> tells numpy that the <code class="docutils literal notranslate"><span class="pre">log_pdf_mv</span></code> function accepts a 1D array and returns a scalar.
 Vectorization returns the function <code class="docutils literal notranslate"><span class="pre">vlog_pdf_mv</span></code> that acts on 2D arrays.
 Each row corresponds to a different <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> sample.
 Here is how:</p>
@@ -852,7 +869,7 @@ Here is how:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1.188e-02, 2.097e-02, 1.881e-19])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1.18802602e-02, 2.09743291e-02, 1.88142445e-19])
 </pre></div>
 </div>
 </div>
@@ -892,34 +909,32 @@ Here is how:</p>
     <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
 <span class="p">)</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span>
     <span class="n">X1</span><span class="p">,</span>
     <span class="n">X2</span><span class="p">,</span>
     <span class="n">Z_bad</span><span class="p">,</span>
-    <span class="n">levels</span><span class="o">=</span><span class="mi">30</span>
+    <span class="n">levels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 <span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">);</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Bad </span><span class="se">\&quot;</span><span class="s2">covariance</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span>
     <span class="n">X1</span><span class="p">,</span>
     <span class="n">X2</span><span class="p">,</span>
     <span class="n">Z_good</span><span class="p">,</span>
-    <span class="n">levels</span><span class="o">=</span><span class="mi">30</span>
+    <span class="n">levels</span><span class="o">=</span><span class="mi">5</span>
 <span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">);</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Good covariance&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span>
-    <span class="n">c</span><span class="p">,</span>
-    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
-    <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$p(x)$&quot;</span>
-<span class="p">);</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/87e1ff8381e315cd3811ff8155f34ac7dc9b11898fe06e5da17cb105178c466c.png" src="../_images/87e1ff8381e315cd3811ff8155f34ac7dc9b11898fe06e5da17cb105178c466c.png" />
-</div>
+<img alt="../_images/d291c53aef6083bd71ea410a46fcead4753017c2da26cf60dcd4ea4ddf79ea60.svg" src="../_images/d291c53aef6083bd71ea410a46fcead4753017c2da26cf60dcd4ea4ddf79ea60.svg" /></div>
 </div>
 <p>Notice that <span class="math notranslate nohighlight">\(\boldsymbol{\mu}\)</span> is not a maximum of <span class="math notranslate nohighlight">\(\log p(\mathbf{x})\)</span> but a saddle point.</p>
 </section>
@@ -930,18 +945,19 @@ Here is how:</p>
 </ul>
 </section>
 <section id="sampling-the-multivariate-normal-with-diagonal-covariance-using-the-standard-normal">
-<h2>Sampling the multivariate normal with diagonal covariance using the standard normal<a class="headerlink" href="#sampling-the-multivariate-normal-with-diagonal-covariance-using-the-standard-normal" title="Permalink to this heading">#</a></h2>
-<p>In the lecture we showed that if <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span> is an <span class="math notranslate nohighlight">\(N\)</span>-dimensional standard normal:</p>
+<span id="sampling-multivariate-normal"></span><h2>Sampling the multivariate normal with diagonal covariance using the standard normal<a class="headerlink" href="#sampling-the-multivariate-normal-with-diagonal-covariance-using-the-standard-normal" title="Permalink to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span> be a <span class="math notranslate nohighlight">\(N\)</span>-dimensional standard normal:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbf{Z} \sim N(0,\mathbf{I}),
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{I}\)</span> is the <span class="math notranslate nohighlight">\(N\times N\)</span> unit matrix (all zeros except the diagonal which is all ones), then the random vector:</p>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{I}\)</span> is the <span class="math notranslate nohighlight">\(N\times N\)</span> unit matrix (all zeros except the diagonal, which is all ones).
+Define the random vector <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> as:</p>
 <div class="math notranslate nohighlight">
 \[
-\mathbf{X} = \boldsymbol{\mu} + \mathbf{A}\mathbf{Z},
+\mathbf{X} = \boldsymbol{\mu} + \mathbf{A}\mathbf{Z}.
 \]</div>
-<p>is a multivariate normal:</p>
+<p>One can show that it is a multivariate normal:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbf{X} \sim N\left(\boldsymbol{\mu}, \boldsymbol{\Sigma})\right),
@@ -951,10 +967,44 @@ Here is how:</p>
 \[
 \boldsymbol{\Sigma} = \mathbf{A}\mathbf{A}^T.
 \]</div>
-<p>Such a matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is non-unique and is is called a “square root” of <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span>.
-The most commonnly used square root of <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span>, however, is the <a class="reference external" href="https://www.youtube.com/watch?v=TprfUB3nI8Y">Cholesky</a> (and pronounced KOLESKI not TSOLESKI or SHOLESKI  – at least by the people who taught me linear algebra!)
-In the Cholesky decomposition <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is a lower triangular matrix (everything above the diagonal is zero) and the diagonal contains only positive numbers.
-Let’s find the Cholesky decomposition of a positive definite <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span>:</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Proof</p>
+<p>We can easily prove that <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> has the correct mean and covariance:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\mathbb{E}\left[\mathbf{X}\right] &amp;= \mathbb{E}\left[\boldsymbol{\mu} + \mathbf{A}\mathbf{Z}\right] \\
+&amp;= \boldsymbol{\mu} + \mathbf{A}\mathbb{E}\left[\mathbf{Z}\right] \\
+&amp;= \boldsymbol{\mu} + \mathbf{A}\mathbf{0} \\
+&amp;= \boldsymbol{\mu}
+\end{align}
+\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\mathrm{cov}\left[\mathbf{X}\right] &amp;= \mathrm{cov}\left[\boldsymbol{\mu} + \mathbf{A}\mathbf{Z}\right] \\
+&amp;= \mathrm{cov}\left[\mathbf{A}\mathbf{Z}\right] \\
+&amp;= \mathbf{A}\mathrm{cov}\left[\mathbf{Z}\right]\mathbf{A}^T \\
+&amp;= \mathbf{A}\mathbf{I}\mathbf{A}^T \\
+&amp;= \mathbf{A}\mathbf{A}^T
+\end{align}
+\end{split}\]</div>
+<p>To show that it is indeed a multivariate normal, we need to show that the pdf of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> has the right form.
+This is a bit more involved, but it can be done using the <a class="reference external" href="https://en.wikipedia.org/wiki/Probability_density_function#Dependent_variables_and_change_of_variables_in_multiple_dimensions">change of variables formula</a> and a trick called completing the square.</p>
+</div>
+<p>Such a matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is non-unique and is called a “square root” of <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span>.
+The most commonly used square root of <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span>, however, is the <a class="reference external" href="https://www.youtube.com/watch?v=TprfUB3nI8Y">Cholesky</a> (and pronounced KOLESKI not TSOLESKI or SHOLESKI – at least by the people who taught me linear algebra!)
+In the Cholesky decomposition, <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is a lower triangular matrix (everything above the diagonal is zero), and the diagonal contains only positive numbers.</p>
+<p>The above theorem is useful because it allows us to sample from a multivariate normal with diagonal covariance using the standard normal.
+We go through the following steps:</p>
+<ol class="arabic simple">
+<li><p>Generate <span class="math notranslate nohighlight">\(N\)</span> standard normal random variables <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>.</p></li>
+<li><p>Multiply <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span> by the Cholesky decomposition of <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span>.</p></li>
+<li><p>Add the mean <span class="math notranslate nohighlight">\(\boldsymbol{\mu}\)</span>.</p></li>
+</ol>
+<p>Let’s do this in Python.
+First, let’s find the Cholesky decomposition of <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A covariane matrix that we know works</span>
@@ -972,8 +1022,8 @@ Let’s find the Cholesky decomposition of a positive definite <span class="math
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A =
-[[1.    0.   ]
- [0.9   0.436]]
+[[1.         0.        ]
+ [0.9        0.43588989]]
 </pre></div>
 </div>
 </div>
@@ -1026,16 +1076,16 @@ Compare to Sigma =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sample 0 = [-0.327  0.895]
-sample 1 = [-0.74   0.123]
-sample 2 = [1.072 1.71 ]
-sample 3 = [0.413 1.605]
-sample 4 = [0.751 2.68 ]
-sample 5 = [1.805 2.984]
-sample 6 = [2.185 3.459]
-sample 7 = [-1.319 -0.118]
-sample 8 = [0.349 1.187]
-sample 9 = [1.063 2.241]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sample 0 = [-0.18890091  0.35159494]
+sample 1 = [0.97453387 2.18909632]
+sample 2 = [1.80830105 2.81649643]
+sample 3 = [2.37771011 3.19377202]
+sample 4 = [2.22812554 3.20392518]
+sample 5 = [0.55014157 1.19822046]
+sample 6 = [0.40626639 1.39052606]
+sample 7 = [0.08688004 1.41870291]
+sample 8 = [1.91221029 3.46608438]
+sample 9 = [0.94520142 1.37631589]
 </pre></div>
 </div>
 </div>
@@ -1069,16 +1119,16 @@ sample 9 = [1.063 2.241]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 5.159e-03, -2.753e-02],
-       [-1.570e+00, -7.716e-01],
-       [ 1.785e+00,  3.209e+00],
-       [ 2.523e+00,  3.679e+00],
-       [ 1.864e+00,  3.121e+00],
-       [ 1.509e+00,  2.315e+00],
-       [ 1.149e-01,  1.071e+00],
-       [ 4.603e+00,  5.988e+00],
-       [ 1.356e-01,  1.839e+00],
-       [ 1.751e+00,  1.985e+00]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[2.59107626, 3.0731549 ],
+       [2.41806169, 3.54035803],
+       [1.38749675, 1.85218773],
+       [0.8554794 , 2.27355883],
+       [1.86912983, 3.04120868],
+       [1.31770416, 1.94390974],
+       [2.23897879, 3.20695567],
+       [2.90815115, 4.31252856],
+       [1.45768185, 3.20416916],
+       [2.72066845, 3.47094575]])
 </pre></div>
 </div>
 </div>
@@ -1115,6 +1165,7 @@ sample 9 = [1.063 2.241]
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="n">x_samples</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
     <span class="n">x_samples</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
@@ -1122,13 +1173,13 @@ sample 9 = [1.063 2.241]
     <span class="n">markersize</span><span class="o">=</span><span class="mi">2</span>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/43220bb9e42324f51c64f87a32526dd1158766fef3a320eadeadf5f3b6890398.png" src="../_images/43220bb9e42324f51c64f87a32526dd1158766fef3a320eadeadf5f3b6890398.png" />
-</div>
+<img alt="../_images/79da5321cf44f253cc90b36ac561c7498ced722e552fcd5aa4e2f6130e15c3c1.svg" src="../_images/79da5321cf44f253cc90b36ac561c7498ced722e552fcd5aa4e2f6130e15c3c1.svg" /></div>
 </div>
 <p>Now, in practice you do not have to use the code above to sample from a multivariate normal.
 Everything is already implemeneted in <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code>.
@@ -1148,6 +1199,7 @@ Here is what you can do:</p>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="n">x_samples</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
     <span class="n">x_samples</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
@@ -1155,13 +1207,13 @@ Here is what you can do:</p>
     <span class="n">markersize</span><span class="o">=</span><span class="mi">2</span>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/315d48e58817e485e3c725fafa7bf0d1b61ffa442e34517d48dbfef86c8fda49.png" src="../_images/315d48e58817e485e3c725fafa7bf0d1b61ffa442e34517d48dbfef86c8fda49.png" />
-</div>
+<img alt="../_images/74719004ec666535b06879eacb44b8cf3b7d370790d13e17595f886d10f9be91.svg" src="../_images/74719004ec666535b06879eacb44b8cf3b7d370790d13e17595f886d10f9be91.svg" /></div>
 </div>
 </section>
 <section id="id2">
@@ -1241,8 +1293,6 @@ Here is what you can do:</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-multivariate-mormal-full-covariance-case">The multivariate mormal - Full covariance case</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-covariance-matrix-must-be-positive-definite-so-that-p-mathbf-x-has-a-well-defined-unique-maximum">The covariance matrix must be positive definite so that <span class="math notranslate nohighlight">\(p(\mathbf{x})\)</span> has a well-defined, unique maximum</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Questions</a></li>

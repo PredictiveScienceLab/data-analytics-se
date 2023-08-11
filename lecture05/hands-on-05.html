@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Practicing with joint probability mass functions &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+    <title>Practicing with Joint Probability Mass Functions &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
   
   
@@ -181,7 +181,7 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 5 - Collections of Random Variables</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="reading-05.html">Collections of Random Variables: Theory</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">Practicing with joint probability mass functions</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Practicing with Joint Probability Mass Functions</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../lecture06/intro.html">Lecture 6 - Random Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -564,7 +564,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Practicing with joint probability mass functions</h1>
+    <h1>Practicing with Joint Probability Mass Functions</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -577,6 +577,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#joint-probability-mass-function-of-two-discrete-random-variables">Joint probability mass function of two discrete random variables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-you-are-feeling-bored-learn-some-functional-programming">If you are feeling bored, learn some functional programming…</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functional-programming-resources">Functional programming resources</a></li>
 </ul>
 </li>
 </ul>
@@ -597,23 +598,23 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="practicing-with-joint-probability-mass-functions">
-<h1>Practicing with joint probability mass functions<a class="headerlink" href="#practicing-with-joint-probability-mass-functions" title="Permalink to this heading">#</a></h1>
+<h1>Practicing with Joint Probability Mass Functions<a class="headerlink" href="#practicing-with-joint-probability-mass-functions" title="Permalink to this heading">#</a></h1>
 <section id="joint-probability-mass-function-of-two-discrete-random-variables">
 <h2>Joint probability mass function of two discrete random variables<a class="headerlink" href="#joint-probability-mass-function-of-two-discrete-random-variables" title="Permalink to this heading">#</a></h2>
-<p>Take two discrete random variabls <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.
+<p>Consider two discrete random variables, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.
 Say that <span class="math notranslate nohighlight">\(X\)</span> takes <span class="math notranslate nohighlight">\(5\)</span> values, <span class="math notranslate nohighlight">\(0,1,\dots,4\)</span>, and <span class="math notranslate nohighlight">\(Y\)</span> takes <span class="math notranslate nohighlight">\(10\)</span> values, <span class="math notranslate nohighlight">\(0,1,\dots,9\)</span>.
 Then, you can think of the joint probability mass function of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> as the <span class="math notranslate nohighlight">\(5\times 10\)</span> matrix:</p>
 <div class="math notranslate nohighlight">
@@ -623,7 +624,8 @@ A_{ij} = p(X=i, Y=j).
 <p>Let’s make up such a matrix to play with:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is to make sure that we all get the same results</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># This is to make sure that we all get the same results</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
 <span class="c1"># First I draw a matrix with random entries in [0,1]</span>
 <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
@@ -632,11 +634,16 @@ A_{ij} = p(X=i, Y=j).
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0.93  0.316 0.184 0.205 0.568 0.596 0.965 0.653 0.749 0.654]
- [0.748 0.961 0.008 0.106 0.299 0.656 0.81  0.872 0.965 0.724]
- [0.642 0.717 0.468 0.326 0.44  0.73  0.994 0.677 0.791 0.171]
- [0.027 0.8   0.904 0.025 0.492 0.526 0.596 0.052 0.895 0.728]
- [0.818 0.5   0.81  0.096 0.219 0.259 0.468 0.459 0.71  0.178]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0.92961609 0.31637555 0.18391881 0.20456028 0.56772503 0.5955447
+  0.96451452 0.6531771  0.74890664 0.65356987]
+ [0.74771481 0.96130674 0.0083883  0.10644438 0.29870371 0.65641118
+  0.80981255 0.87217591 0.9646476  0.72368535]
+ [0.64247533 0.71745362 0.46759901 0.32558468 0.43964461 0.72968908
+  0.99401459 0.67687371 0.79082252 0.17091426]
+ [0.02684928 0.80037024 0.90372254 0.02467621 0.49174732 0.52625517
+  0.59636601 0.05195755 0.89508953 0.72826618]
+ [0.81835001 0.50022275 0.81018941 0.09596853 0.21895004 0.25871906
+  0.46810575 0.4593732  0.70950978 0.17805301]]
 </pre></div>
 </div>
 </div>
@@ -651,18 +658,23 @@ A_{ij} = p(X=i, Y=j).
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A = [[0.034 0.012 0.007 0.007 0.021 0.022 0.035 0.024 0.027 0.024]
- [0.027 0.035 0.    0.004 0.011 0.024 0.029 0.032 0.035 0.026]
- [0.023 0.026 0.017 0.012 0.016 0.027 0.036 0.025 0.029 0.006]
- [0.001 0.029 0.033 0.001 0.018 0.019 0.022 0.002 0.033 0.026]
- [0.03  0.018 0.029 0.003 0.008 0.009 0.017 0.017 0.026 0.006]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A = [[0.03382266 0.01151084 0.0066916  0.00744261 0.0206558  0.02166798
+  0.03509238 0.02376485 0.02724782 0.02377914]
+ [0.02720446 0.03497567 0.0003052  0.00387282 0.01086788 0.02388251
+  0.02946379 0.03173278 0.03509722 0.02633018]
+ [0.02337548 0.02610345 0.01701287 0.0118459  0.01599579 0.02654862
+  0.0361657  0.02462701 0.02877286 0.00621845]
+ [0.00097687 0.02912024 0.03288056 0.00089781 0.01789147 0.01914699
+  0.02169786 0.0018904  0.03256646 0.02649685]
+ [0.02977441 0.01819984 0.0294775  0.00349167 0.00796616 0.0094131
+  0.01703131 0.01671359 0.02581442 0.00647819]]
 Sum of A_ij = 1.00
 </pre></div>
 </div>
 </div>
 </div>
 <p>Now we have a matrix that corresponds to a proper joint probability mass function.</p>
-<p>Okay, this is great we can sample from this. Let’s find now the probability mass function of just <span class="math notranslate nohighlight">\(X\)</span>.
+<p>Let’s start by extracting the probability mass function of <span class="math notranslate nohighlight">\(X\)</span> from the joint probability mass function of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.
 Remember that you need to marginalize:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -677,7 +689,7 @@ p(x) = \sum_{y} p(x,y) = \sum_{y} A_{xy}.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pmf of just X: [0.212 0.224 0.217 0.184 0.164]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pmf of just X: [0.21167568 0.2237325  0.21666614 0.1835655  0.16436018]
 </pre></div>
 </div>
 </div>
@@ -709,7 +721,7 @@ p(x) = \sum_{y} p(x,y) = \sum_{y} A_{xy}.
 </div>
 </div>
 </div>
-<p>Similarly for the variance of X:</p>
+<p>Similarly for the variance of <span class="math notranslate nohighlight">\(X\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">E_X2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p_x</span><span class="p">)</span>
@@ -738,7 +750,8 @@ p(x) = \sum_{y} p(x,y) = \sum_{y} A_{xy}.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pmf of just Y: [0.115 0.12  0.086 0.028 0.073 0.101 0.139 0.099 0.149 0.089]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pmf of just Y: [0.11515387 0.11991004 0.08636773 0.0275508  0.07337711 0.1006592
+ 0.13945104 0.09872863 0.14949879 0.0893028 ]
 E[Y] = 4.70
 V[Y] = 8.98
 </pre></div>
@@ -770,11 +783,24 @@ Remember the formula:</p>
 </div>
 </div>
 </div>
-<p>We see that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are negatively correlated.
-If only we could sample from them to visualize it…
-How can we do this? We cannot just sample <span class="math notranslate nohighlight">\(X\)</span> and then <span class="math notranslate nohighlight">\(Y\)</span> without thinking about it.
-We need to sample <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> together.
-Basically, we need to sample a set of index <span class="math notranslate nohighlight">\((i,j)\)</span> with probability <span class="math notranslate nohighlight">\(A_{ij}\)</span>.
+<p>Remember that the covariance depends on the units of the random variables. Let’s find the correlation coefficient:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rho_XY</span> <span class="o">=</span> <span class="n">C_XY</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">V_X</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">V_Y</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;rho_XY = </span><span class="si">{</span><span class="n">rho_XY</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>rho_XY = -0.09
+</pre></div>
+</div>
+</div>
+</div>
+<p>We see that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are slightly negatively correlated.
+How can we visualize this?
+We need to sample from the joint distribution of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.
+We can do this by sampling a tuple of indices <span class="math notranslate nohighlight">\((i,j)\)</span> with probability <span class="math notranslate nohighlight">\(A_{ij}\)</span>.
 This is like sampling from a categorical with <span class="math notranslate nohighlight">\(5\times 10 = 50\)</span> different labels <span class="math notranslate nohighlight">\(c_0 = (1,1), c_1 = (1,2), \dots, c_{49} = (5, 10)\)</span> each with a probability <span class="math notranslate nohighlight">\(A_{00}, A_{01}, \dots, A_{4,9}\)</span>.</p>
 <p>This is what the code below does. You can look at the details, if you are so inclined.</p>
 <div class="cell tag_hide-input docutils container">
@@ -827,43 +853,65 @@ x = 4, y = 2
 </div>
 </div>
 </div>
-<p>Now, let’s write some code to find the expectation of a function <span class="math notranslate nohighlight">\(f(X, Y) = X + Y\)</span>.
+<p>Let’s take many more samples and do a scatter plot:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">sample_X_and_Y</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)])</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e9186a2d86bba60a9d80ec9db31c476c36ad05c9420a405142fdeeb4034691d4.svg" src="../_images/e9186a2d86bba60a9d80ec9db31c476c36ad05c9420a405142fdeeb4034691d4.svg" /></div>
+</div>
+<p>You can sort of see the negative correlation.
+We will see more concrete patterns when we work with continuous random variables.</p>
+<p>Now, let’s write some code to find the expectation of a function <span class="math notranslate nohighlight">\(g(X, Y) = X + Y\)</span>.
 It is:</p>
 <div class="math notranslate nohighlight">
 \[
-\mathbb{E}[f(X,Y)] = \sum_{x,y}f(x,y) p(x,y) = \sum_{x,y}f(x,y)A_{xy}. 
+\mathbb{E}[f(X,Y)] = \sum_{x,y}g(x,y) p(x,y) = \sum_{x,y}g(x,y)A_{xy}. 
 \]</div>
-<p>Let’s write a function that calculates the expectation of any <span class="math notranslate nohighlight">\(f\)</span> and then use it for <span class="math notranslate nohighlight">\(f(X,Y) = X + Y\)</span>.</p>
+<p>Let’s write a function that calculates the expectation of any <span class="math notranslate nohighlight">\(f\)</span> and then use it for <span class="math notranslate nohighlight">\(g(X,Y) = X + Y\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">expectation</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">expectation</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the expectation of the function f(X, Y).</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments:</span>
-<span class="sd">    f -- A function f(X, Y).</span>
+<span class="sd">    g -- A function g(X, Y).</span>
 <span class="sd">    A -- A matrix containing the joint probability mass</span>
 <span class="sd">         function of X and Y. Say that A has dimensions</span>
 <span class="sd">         n x m. We assume that X takes values</span>
-<span class="sd">         1, 2, ..., n and that Y takes values</span>
-<span class="sd">         1, 2, ..., m.</span>
+<span class="sd">         0, 1, ..., n-1 and that Y takes values</span>
+<span class="sd">         0, 1, ..., m-1.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">n</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span>
     <span class="n">res</span> <span class="o">=</span> <span class="mf">0.</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
-            <span class="n">res</span> <span class="o">+=</span> <span class="n">f</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+            <span class="n">res</span> <span class="o">+=</span> <span class="n">g</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">*</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">res</span>
 </pre></div>
 </div>
 </div>
 </div>
 <p>Notice that <code class="docutils literal notranslate"><span class="pre">expectation</span></code> is a Python function that takes as an input the Python function of which we want to find the expectation.
-This is cool!</p>
+This is cool!
+It is called a higher-order function or a meta-function.</p>
 <p>Here is how to use <code class="docutils literal notranslate"><span class="pre">expectation</span></code>.
 First, you need to define the function the expectation of which you want to find.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
 </pre></div>
 </div>
@@ -872,30 +920,49 @@ First, you need to define the function the expectation of which you want to find
 <p>We can calculate the expectation like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">E_f</span> <span class="o">=</span> <span class="n">expectation</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">E_g</span> <span class="o">=</span> <span class="n">expectation</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;E[f(X, Y)] = </span><span class="si">{</span><span class="n">E_f</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;E[g(X, Y)] = </span><span class="si">{</span><span class="n">E_g</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E[f(X, Y)] = 8.56
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E[g(X, Y)] = 6.56
 </pre></div>
 </div>
 </div>
 </div>
-<p>Now let’s find the variance of <span class="math notranslate nohighlight">\(f(X, Y)\)</span>.
+<p>For the particular case <span class="math notranslate nohighlight">\(g(x,y) = x + y\)</span>, we also know that</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{E}[X+Y] = \mathbb{E}[X] + \mathbb{E}[Y].
+\]</div>
+<p>Let’s test this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;E[X] + E[Y] = </span><span class="si">{</span><span class="n">E_X</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">E_Y</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E[X] + E[Y] = 6.56
+</pre></div>
+</div>
+</div>
+</div>
+<p>Cool! It’s the same!</p>
+<p>Now let’s find the variance of <span class="math notranslate nohighlight">\(g(X, Y)\)</span>.
 We can use the formula:</p>
 <div class="math notranslate nohighlight">
 \[
-\mathbb{V}[f(X,Y)] = \mathbb{E}\left[f^2(X,Y)\right] - \left\{\mathbb{E}[f(X,Y)]\right\}^2.
+\mathbb{V}[g(X,Y)] = \mathbb{E}\left[g^2(X,Y)\right] - \left\{\mathbb{E}[g(X,Y)]\right\}^2.
 \]</div>
-<p>We need to define a function that corresponds to the square of <span class="math notranslate nohighlight">\(f(X,Y)\)</span>.
+<p>We need to define a function that corresponds to the square of <span class="math notranslate nohighlight">\(g(X,Y)\)</span>.
 Here it is:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
 </pre></div>
 </div>
 </div>
@@ -903,14 +970,14 @@ Here it is:</p>
 <p>So, now we can do:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">V_f</span> <span class="o">=</span> <span class="n">expectation</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span> <span class="o">-</span> <span class="n">E_f</span> <span class="o">**</span> <span class="mi">2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">V_g</span> <span class="o">=</span> <span class="n">expectation</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span> <span class="o">-</span> <span class="n">E_g</span> <span class="o">**</span> <span class="mi">2</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;V[f(X, Y)] = </span><span class="si">{</span><span class="n">V_f</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;V[g(X, Y)] = </span><span class="si">{</span><span class="n">V_g</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>V[f(X, Y)] = 10.11
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>V[g(X, Y)] = 10.11
 </pre></div>
 </div>
 </div>
@@ -919,8 +986,28 @@ Here it is:</p>
 <section id="questions">
 <h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Modify the code above to find the variance of <span class="math notranslate nohighlight">\(3X + 5Y\)</span>.</p></li>
-<li><p>Write code that finds the expectation of the function <span class="math notranslate nohighlight">\(f(X,Y) = XY^3\)</span>.</p></li>
+<li><p>Change the random seed to another number (try a few different ones) and re-run the code above. What happens to the corelation coefficient? How does the scatter plot change?</p></li>
+<li><p>Write code to find the expectation of <span class="math notranslate nohighlight">\(3X + 5Y\)</span>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Write code to find the variance of <span class="math notranslate nohighlight">\(3X + 5Y\)</span>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Write code that finds the expectation and variance of the function <span class="math notranslate nohighlight">\(h(X,Y) = XY^3\)</span>.</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -932,6 +1019,10 @@ Here it is:</p>
 <section id="if-you-are-feeling-bored-learn-some-functional-programming">
 <h3>If you are feeling bored, learn some functional programming…<a class="headerlink" href="#if-you-are-feeling-bored-learn-some-functional-programming" title="Permalink to this heading">#</a></h3>
 <p>I have to show you a neat way to do this using functional programming ideas.
+Functional programming is a programming paradigm that is very different from the imperative programming that we have been doing so far.
+It is a very powerful paradigm, and it is the basis of many modern programming languages.
+Examples of such languages are Haskell, Scala, and Clojure.
+Python is not a functional programming language, but it has some functional programming features.
 Feel free to skip if you find it wierd…
 It is not required for the rest of the course.</p>
 <p>First, here is how you can define a function super-quickly in Python:</p>
@@ -942,6 +1033,7 @@ It is not required for the rest of the course.</p>
 </div>
 </div>
 </div>
+<p>This is called a lambda expression. It is a way to define a function in one line.</p>
 <p>Now, I am going to define a function that squares any function.
 Pay attention, I will define a function that takes as an argument any function (with any arguments) and it returns another function which is just the square of the first.
 Here it is in one line:</p>
@@ -982,6 +1074,37 @@ Here it is in one line:</p>
 </div>
 </div>
 </div>
+<p>We can even write another function that finds the variance of any function. Here is how:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">variance</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">expectation</span><span class="p">(</span><span class="n">square</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="n">A</span><span class="p">)</span> <span class="o">-</span> <span class="n">expectation</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can simply do:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;V[f(X, Y)] = </span><span class="si">{</span><span class="n">variance</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>V[f(X, Y)] = 10.11
+</pre></div>
+</div>
+</div>
+</div>
+<p>Neat, right?</p>
+</section>
+<section id="functional-programming-resources">
+<h3>Functional programming resources<a class="headerlink" href="#functional-programming-resources" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>If you want to learn more about functional programming in Python, check out <a class="reference external" href="https://realpython.com/python-first-class-functions/">this tutorial</a>.</p></li>
+<li><p>If you want to learn more about the <code class="docutils literal notranslate"><span class="pre">lambda</span></code> keyword, check out <a class="reference external" href="https://realpython.com/python-lambda/">this tutorial</a>.</p></li>
+<li><p>You can also learn a little Haskell <a class="reference external" href="http://learnyouahaskell.com/">here</a>.</p></li>
+<li><p>Or if you want, your can go and learn some Lisp using the freely available masterpiece <a class="reference external" href="https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html">Structure and Interpretation of Computer Programs</a>. The language used in the book is Scheme, which is hardly used. But your brain will thank you after reading the book. You will be a better programmer.</p></li>
+</ul>
 </section>
 </section>
 </section>
@@ -1056,6 +1179,7 @@ Here it is in one line:</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#joint-probability-mass-function-of-two-discrete-random-variables">Joint probability mass function of two discrete random variables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-you-are-feeling-bored-learn-some-functional-programming">If you are feeling bored, learn some functional programming…</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functional-programming-resources">Functional programming resources</a></li>
 </ul>
 </li>
 </ul>

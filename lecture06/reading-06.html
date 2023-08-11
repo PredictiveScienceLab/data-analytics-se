@@ -181,7 +181,7 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../lecture05/intro.html">Lecture 5 - Collections of Random Variables</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../lecture05/reading-05.html">Collections of Random Variables: Theory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lecture05/hands-on-05.html">Practicing with joint probability mass functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture05/hands-on-05.html">Practicing with Joint Probability Mass Functions</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 6 - Random Vectors</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
@@ -574,7 +574,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition">Definition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-density-function-of-a-random-vector">Probability density function of a random vector</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-of-a-random-vector">Expectation of a random vector</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance-matrix-of-two-random-vectors">Covariance matrix of two random vectors</a></li>
@@ -590,30 +589,42 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="random-vectors">
-<h1>Random Vectors<a class="headerlink" href="#random-vectors" title="Permalink to this heading">#</a></h1>
-<section id="definition">
-<h2>Definition<a class="headerlink" href="#definition" title="Permalink to this heading">#</a></h2>
+<span id="id1"></span><h1>Random Vectors<a class="headerlink" href="#random-vectors" title="Permalink to this heading">#</a></h1>
 <p>Take <span class="math notranslate nohighlight">\(N\)</span> random variables <span class="math notranslate nohighlight">\(X_1,\dots,X_N\)</span> and put them in a vector:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbf{X} = (X_1,\dots,X_N).
 \]</div>
 <p>We say that <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> is a <em>random vector</em>.
-Random vectors are used to model <em>uncertain stuff</em> that require multiple numbers to be described.
+Random vectors are used to model <em>uncertain stuff</em> that requires multiple numbers to be described.
 For example:</p>
 <ul class="simple">
-<li><p>The unobserved state of a multi-body system can be described by the random vector of coordinates and velocities.</p></li>
-<li><p>An “uncertain function” could be modeled by the random vector of its function values at <span class="math notranslate nohighlight">\(N\)</span> test points.</p></li>
+<li><p>The state of a multi-body system can be described by the random vector of coordinates and velocities.</p></li>
+<li><p>An unknown function could be modeled by the random vector of its function values at <span class="math notranslate nohighlight">\(N\)</span> test points.</p></li>
+<li><p>An image could be modeled by the random vector of its pixel values.</p></li>
 </ul>
-</section>
 <section id="probability-density-function-of-a-random-vector">
 <h2>Probability density function of a random vector<a class="headerlink" href="#probability-density-function-of-a-random-vector" title="Permalink to this heading">#</a></h2>
-<p>The the PDF of the random vector is the joint PDF of the components.
+<p>The PDF of the random vector is the joint PDF of the components.
 We write:</p>
 <div class="math notranslate nohighlight">
 \[
 p(\mathbf{x}) = p(x_1,\dots,x_N).
 \]</div>
+<p>This function is the joint PDF of <span class="math notranslate nohighlight">\(N\)</span> variables.
+You can marginalize it to get the PDF of any subset of the variables.
+For example, the PDF of the first component is:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x_1) = \int_{-\infty}^{\infty}\dots\int_{-\infty}^{\infty} p(x_1,\dots,x_N)dx_2\dots dx_N.
+\]</div>
+<p>But you can integrate any other subset of variables.
+For example, the PDF of the first and second components is:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x_1,x_2) = \int_{-\infty}^{\infty}\dots\int_{-\infty}^{\infty} p(x_1,\dots,x_N)dx_3\dots dx_N.
+\]</div>
+<p>And so on.</p>
 </section>
 <section id="expectation-of-a-random-vector">
 <h2>Expectation of a random vector<a class="headerlink" href="#expectation-of-a-random-vector" title="Permalink to this heading">#</a></h2>
@@ -628,7 +639,7 @@ p(\mathbf{x}) = p(x_1,\dots,x_N).
 \end{pmatrix}
 \end{split}\]</div>
 <p>This satisfies properties similar to the expectation of scalar random variables.
-For example, for any real number <span class="math notranslate nohighlight">\(\lambda\)</span> we have that:</p>
+For example, for any real number <span class="math notranslate nohighlight">\(\lambda\)</span>, we have that:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbb{E}[\lambda \mathbf{X}] = \lambda\mathbb{E}[X].
@@ -652,10 +663,10 @@ The covariance of <span class="math notranslate nohighlight">\(\mathbb{X}\)</spa
 \[
 \mathbb{C}[\mathbf{X}, \mathbf{Y}] = \mathbb{E}\left[\left(\mathbf{X}-\mathbb{E}[\mathbf{X}]\right)\left(\mathbf{Y}-\mathbb{E}[\mathbf{Y}]\right)^T\right].
 \]</div>
-<p>Here we assumed that the expectation operator is applied on each one of the matrix components.</p>
-<p>It is easy to show that the covariance is a linear function of each argument.</p>
+<p>Here we assumed that the expectation operator is applied to each one of the matrix components.</p>
+<p>It is easy to show that each argument’s covariance is a linear function.</p>
 <p>The <span class="math notranslate nohighlight">\(N\times N\)</span> matrix <span class="math notranslate nohighlight">\(\mathbb{C}[X,X]\)</span> is the <em>self covariance</em> matrix (or just covariance matrix) of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>.
-The diagonal of the covariance matrix of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> contains the variances of each of the components of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>.</p>
+The diagonal of the covariance matrix of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> contains the variances of each component of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>.</p>
 </section>
 </section>
 
@@ -726,7 +737,6 @@ The diagonal of the covariance matrix of <span class="math notranslate nohighlig
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition">Definition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-density-function-of-a-random-vector">Probability density function of a random vector</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-of-a-random-vector">Expectation of a random vector</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance-matrix-of-two-random-vectors">Covariance matrix of two random vectors</a></li>
