@@ -598,7 +598,7 @@ document.write(`
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="../lecture01/intro.html#lecture01"><span class="std std-ref">Lecture 1 - Introduction to Predictive Modeling</span></a></p></li>
+<li><p>Lectures 1 through 4 (inclusive).</p></li>
 </ul>
 </section>
 <section id="instructions">
@@ -624,6 +624,7 @@ document.write(`
 <span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy</span>
 <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
 <span class="kn">import</span> <span class="nn">urllib.request</span>
@@ -655,6 +656,8 @@ document.write(`
 <li><p><strong>First Name:</strong></p></li>
 <li><p><strong>Last Name:</strong></p></li>
 <li><p><strong>Email:</strong></p></li>
+<li><p><strong>Used generative AI to complete this assignment (Yes/No):</strong></p></li>
+<li><p><strong>Which generative AI tool did you use (if applicable)?:</strong></p></li>
 </ul>
 </section>
 <section id="problem-1">
@@ -805,10 +808,17 @@ Go over each decade and count the occurence of a major earthquake (i.e., count t
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1900</span><span class="p">,</span> <span class="mi">2019</span><span class="p">,</span> <span class="n">eq_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">eq_data</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Decade&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;# of major earthquakes in Southern CA&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;# of major earthquakes in Southern CA&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+</pre></div>
+</div>
+<img alt="../_images/f1077eb49d5cd3887b1baa5a3b328792ce6629687a8e1e6371231b1b42e6ba5f.svg" src="../_images/f1077eb49d5cd3887b1baa5a3b328792ce6629687a8e1e6371231b1b42e6ba5f.svg" /></div>
 </div>
 <p>B. The <a class="reference external" href="https://en.wikipedia.org/wiki/Poisson_distribution">Poisson distribution</a> is a discrete distribution with values <span class="math notranslate nohighlight">\(\{0,1,2,\dots\}\)</span> which is commonly used to model the number of events occuring in a certain time period.
 It is the right choice when these events are happening independently and the probability of any event happening over a small period of time is constant.
@@ -826,6 +836,11 @@ Using the data above, we can set the rate as the empirical average of the observ
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">eq_data</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;r = </span><span class="si">{0:1.2f}</span><span class="s1"> major earthquakes per decade&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>r = 1.50 major earthquakes per decade
 </pre></div>
 </div>
 </div>
@@ -939,6 +954,11 @@ Here is how we fit the parameters using <code class="docutils literal notranslat
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitted parameters: (448.066965711728, 0.7099665338918923, 3.4218808260575804, 0.41627831297126994)
+</pre></div>
+</div>
+</div>
 </div>
 <p>Let’s plot the fitted Weibul PDF and the data we used:</p>
 <div class="cell docutils container">
@@ -958,10 +978,13 @@ Here is how we fit the parameters using <code class="docutils literal notranslat
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$t$ (years)&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$p(t)$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/5a85c35b94f3938a26569814fd5b560bf2def2d2030d04843c6d7a652de8062c.svg" src="../_images/5a85c35b94f3938a26569814fd5b560bf2def2d2030d04843c6d7a652de8062c.svg" /></div>
 </div>
 <p>Now you have to answer a series of questions about the random variable <span class="math notranslate nohighlight">\(T\)</span> that we just fitted.</p>
 <p>A. Find the mean fail time and its variance.

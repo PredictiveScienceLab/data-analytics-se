@@ -578,9 +578,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-failure-of-a-mechanical-component">Problem 1 - Failure of a mechanical component</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-joint-probability-mass-function-of-two-discrete-random-variables">Problem 2 - Joint probability mass function of two discrete random variables</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-creating-a-stochastic-model-for-the-magnetic-properties-of-steel">Problem 3 - Creating a stochastic model for the magnetic properties of steel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-joint-probability-mass-function-of-two-discrete-random-variables">Problem 1 - Joint probability mass function of two discrete random variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-zero-correlation-does-not-imply-independence">Problem 2 - Zero correlation does not imply independence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-creating-a-stochastic-model-for-the-magnetic-properties-of-steel">Problem 2 - Creating a stochastic model for the magnetic properties of steel</a></li>
 </ul>
             </nav>
         </div>
@@ -597,7 +597,7 @@ document.write(`
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Lectures 3-6 (inclusive).</p></li>
+<li><p>Lectures 4-8 (inclusive).</p></li>
 </ul>
 </section>
 <section id="instructions">
@@ -615,15 +615,15 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy</span>
 <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
 <span class="kn">import</span> <span class="nn">urllib.request</span>
@@ -655,168 +655,12 @@ document.write(`
 <li><p><strong>First Name:</strong></p></li>
 <li><p><strong>Last Name:</strong></p></li>
 <li><p><strong>Email:</strong></p></li>
+<li><p><strong>Used generative AI to complete this assignment (Yes/No):</strong></p></li>
+<li><p><strong>Which generative AI tool did you use (if applicable)?:</strong></p></li>
 </ul>
 </section>
-<section id="problem-1-failure-of-a-mechanical-component">
-<h2>Problem 1 - Failure of a mechanical component<a class="headerlink" href="#problem-1-failure-of-a-mechanical-component" title="Permalink to this heading">#</a></h2>
-<p>Assume that you designing a gear for a mechanical system.
-Under normal operating conditions the gear is expected to fail at a random time.
-Let <span class="math notranslate nohighlight">\(T\)</span> be a random variable capturing the time the gear fails.
-What should the probability density of <span class="math notranslate nohighlight">\(T\)</span> look like?</p>
-<p>Here are some hypothetical data to work with.
-Suppose that we took ten gears and we worked them until failure.
-The failure times (say in years) are as follows:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time_to_fail_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-    <span class="p">[</span>
-        <span class="mf">10.5</span><span class="p">,</span>
-        <span class="mf">7.5</span><span class="p">,</span>
-        <span class="mf">8.1</span><span class="p">,</span>
-        <span class="mf">8.4</span><span class="p">,</span>
-        <span class="mf">11.2</span><span class="p">,</span>
-        <span class="mf">9.3</span><span class="p">,</span>
-        <span class="mf">8.9</span><span class="p">,</span>
-        <span class="mf">12.4</span>
-    <span class="p">]</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Why does each gear fail at different times?
-There are several sources of uncertainty.
-The most important are:</p>
-<ul class="simple">
-<li><p>Manufacturing imperfections.</p></li>
-<li><p>Different loading conditions.</p></li>
-</ul>
-<p>If this was a controlled fatigue experiment, then we could eliminate the second source of uncertainty by using exactly the same loading conditions.</p>
-<p>Now, we are going to fit a probability density function to these data.
-Which one should we use?
-Well, new gears do not fail easily.
-So, the probability density function of <span class="math notranslate nohighlight">\(T\)</span> should be close to zero for small <span class="math notranslate nohighlight">\(T\)</span>.
-As time goes by, the probability density should increase because various things start happening to the material, e.g., crack formation, fatigue, etc.
-Finally, the probability density must again start going to zero as time further increases because nothing lasts forever…
-A probability distribution that is commonly used to model this situation is the <a class="reference external" href="https://en.wikipedia.org/wiki/Weibull_distribution">Weibull</a>.
-We are going to fit some fail time data to a Weibull distribution and then you will have to answer a few questions about failing times.</p>
-<p>The Weibull has parameters and we are going to fit them to the available data.
-The method we are going to use is called the <em>maximum likelihood method</em>.
-We haven’t really talked about this, and it is not important to know what it is to do this homework problem.
-We will learn about maximum likelihood in later lectures.
-Here is how we fit the parameters using <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code>:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fitted_params</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">exponweib</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">time_to_fail_data</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">T</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">exponweib</span><span class="p">(</span><span class="o">*</span><span class="n">fitted_params</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fitted parameters: </span><span class="si">{</span><span class="n">fitted_params</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitted parameters: (448.066965711728, 0.7099665338918923, 3.4218808260575804, 0.41627831297126994)
-</pre></div>
-</div>
-</div>
-</div>
-<p>Let’s plot the fitted Weibul PDF and the data we used:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">ts</span><span class="p">,</span>
-    <span class="n">T</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">ts</span><span class="p">),</span>
-    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Fitted PDF&quot;</span>
-<span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">time_to_fail_data</span><span class="p">,</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">time_to_fail_data</span><span class="p">),</span>
-    <span class="s2">&quot;x&quot;</span><span class="p">,</span>
-    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Experimental data&quot;</span>
-<span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$t$ (years)&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$p(t)$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<img alt="../_images/cf542126299d92bdc69c8736352a529b5c7fb63a72e52936a7ee2bea2cce4571.png" src="../_images/cf542126299d92bdc69c8736352a529b5c7fb63a72e52936a7ee2bea2cce4571.png" />
-</div>
-</div>
-<p>Now you have to answer a series of questions about the random variable <span class="math notranslate nohighlight">\(T\)</span> that we just fitted.</p>
-<p>A. Find the mean fail time and its variance.
-Hint: Do not integrate anything by hand. Just use the functionality of <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
-<span class="n">t_mean</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="c1"># Change me</span>
-<span class="n">t_var</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="c1"># Change me</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;E[T] = </span><span class="si">{</span><span class="n">t_mean</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;V[T] = </span><span class="si">{</span><span class="n">t_var</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E[T] = 0.00
-V[T] = 0.00
-</pre></div>
-</div>
-</div>
-</div>
-<p>B. Plot the cumulative distribution function <span class="math notranslate nohighlight">\(F(t) = P(T\le t)\)</span> of <span class="math notranslate nohighlight">\(T\)</span>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>C. Plot the probability that gear survives for more than <span class="math notranslate nohighlight">\(t\)</span> as a function of <span class="math notranslate nohighlight">\(t\)</span>.
-That is, plot the function:</p>
-<div class="math notranslate nohighlight">
-\[
-S(t) = p(T &gt; t).
-\]</div>
-<p>Hint: First connect <span class="math notranslate nohighlight">\(S(t)\)</span> to the cumulative distribution function <span class="math notranslate nohighlight">\(F(t)\)</span> of <span class="math notranslate nohighlight">\(T\)</span>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>D. Find the probability that the gear lasts anywhere between 8 and 10 years.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>E. If you were to sell the gear, how many years “warranty” would you offer?
-<br>
-Hint: This is subjective. There are many correct answers.
-But as a manufacturer of the gear, you really do not want to be replacing any…
-<strong>Answer:</strong>
-<br><br><br><br><br><br></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="problem-2-joint-probability-mass-function-of-two-discrete-random-variables">
-<h2>Problem 2 - Joint probability mass function of two discrete random variables<a class="headerlink" href="#problem-2-joint-probability-mass-function-of-two-discrete-random-variables" title="Permalink to this heading">#</a></h2>
+<section id="problem-1-joint-probability-mass-function-of-two-discrete-random-variables">
+<h2>Problem 1 - Joint probability mass function of two discrete random variables<a class="headerlink" href="#problem-1-joint-probability-mass-function-of-two-discrete-random-variables" title="Permalink to this heading">#</a></h2>
 <p>Consider two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.
 <span class="math notranslate nohighlight">\(X\)</span> takes values <span class="math notranslate nohighlight">\(\{0,1,\dots,4\}\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> takes values <span class="math notranslate nohighlight">\(\{0,1,\dots,8\}\)</span>.
 Their joint probability mass function, can be described using a matrix:</p>
@@ -1051,18 +895,99 @@ Hint: Use two for loops to go over all the combinations of <span class="math not
 </div>
 </div>
 </div>
+<p>H. Write code that finds the covariance between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>K. Write code that finds the correlation between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
-<section id="problem-3-creating-a-stochastic-model-for-the-magnetic-properties-of-steel">
-<h2>Problem 3 - Creating a stochastic model for the magnetic properties of steel<a class="headerlink" href="#problem-3-creating-a-stochastic-model-for-the-magnetic-properties-of-steel" title="Permalink to this heading">#</a></h2>
-<p>The magnetic properties of steel are captured in the so called <a class="reference external" href="https://en.wikipedia.org/wiki/Saturation_(magnetic)"><span class="math notranslate nohighlight">\(B-H\)</span> curve</a> which connects the magnetic field <span class="math notranslate nohighlight">\(H\)</span> to the magnetic flux density <span class="math notranslate nohighlight">\(B\)</span>.
-The shape of this curve depends on the manufacturing process of the steel. As a result the <span class="math notranslate nohighlight">\(B-H\)</span> differs across different suppliers but also across time for the same supplier.</p>
-<p>Let’s use some real manufacturer data to visualize these differences.
+<section id="problem-2-zero-correlation-does-not-imply-independence">
+<h2>Problem 2 - Zero correlation does not imply independence<a class="headerlink" href="#problem-2-zero-correlation-does-not-imply-independence" title="Permalink to this heading">#</a></h2>
+<p>The purpose of this problem is to show that zero correlation does not imply independence.
+Consider the random variable <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> following a standard normal distribution.
+Define the random variable as <span class="math notranslate nohighlight">\(Z = X^2 + 0.01\cdot Y\)</span>.
+You will show that the correlation between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> is zero even though they are not independent.</p>
+<p>A. Take 100 samples of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> using numpy or scipy. Hint: First sample <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> and use the samples to get <span class="math notranslate nohighlight">\(Z\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>B. Do the scatter plot between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Z\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>C. Use the scatter plot to argue that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> are not independent.</p>
+<p><strong>Answer:</strong>
+<br><br></p>
+<p>D. Use the samples you took to estimate the variance of <span class="math notranslate nohighlight">\(Z\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>E. Use the samples you took to estimate the covariance between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Z\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>F. Use the results above to find the correlation between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Z\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>G. The correlation coefficient you get may not be very close to zero. This is due to the fact that we estimate it with Monte Carlo averaging. To get a better estimate, we can increase the number of samples. Try increasing the number of samples to 1000 and see if the correlation coefficient gets closer to zero.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-2-creating-a-stochastic-model-for-the-magnetic-properties-of-steel">
+<h2>Problem 2 - Creating a stochastic model for the magnetic properties of steel<a class="headerlink" href="#problem-2-creating-a-stochastic-model-for-the-magnetic-properties-of-steel" title="Permalink to this heading">#</a></h2>
+<p>The magnetic properties of steel are captured in the so-called <a class="reference external" href="https://en.wikipedia.org/wiki/Saturation_(magnetic)"><span class="math notranslate nohighlight">\(B-H\)</span> curve</a>, which connects the magnetic field <span class="math notranslate nohighlight">\(H\)</span> to the magnetic flux density <span class="math notranslate nohighlight">\(B\)</span>.
+The <span class="math notranslate nohighlight">\(B-H\)</span> curve is a nonlinear function typically measured in the lab.
+It appears in Maxwell’s equations and is, therefore, crucial in the design of electrical machines.</p>
+<p>The shape of the <span class="math notranslate nohighlight">\(B-H\)</span> curve depends on the manufacturing process of the steel.
+As a result, the <span class="math notranslate nohighlight">\(B-H\)</span> differs across different suppliers but also across time for the same supplier.
+The goal of this problem is to guide you through the process of creating a stochastic model for the <span class="math notranslate nohighlight">\(B-H\)</span> curve using real data.
+Such a model is the first step when we do uncertainty quantification for the design of electrical machines.
+Once constructed, the stochastic model can generate random samples of the <span class="math notranslate nohighlight">\(B-H\)</span> curve.
+We can then propagate the uncertainty in the <span class="math notranslate nohighlight">\(B-H\)</span> curve through Maxwell’s equations to quantify the uncertainty in the performance of the electrical machine.</p>
+<p>Let’s use some actual manufacturer data to visualize the differences in the <span class="math notranslate nohighlight">\(B-H\)</span> curve across different suppliers.
 The data are <a class="reference external" href="https://github.com/PredictiveScienceLab/data-analytics-se/raw/master/homework/B_data.csv">here</a>.
-It will take a while to explain how to upload data on Google Colab.
+Explaining how to upload data on Google Colab will take a while.
 We will do it in the next homework set.
-For now, you should just know that the data file <code class="docutils literal notranslate"><span class="pre">B_data.csv</span></code> needs to be in the same working directory as this Jupyter notebook.
-I have written a bit of code that allows you to put the data file in the right place without too much trouble.
-Simply run the following:</p>
+You should know that the data file <code class="docutils literal notranslate"><span class="pre">B_data.csv</span></code> needs to be in the same working directory as this Jupyter Notebook.
+I have written some code that allows you to put the data file in the right place without too much trouble.
+Run the following:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/PredictiveScienceLab/data-analytics-se/raw/master/lecturebook/data/B_data.csv&quot;</span>
@@ -1080,13 +1005,19 @@ Simply run the following:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.   , 0.005, 0.019, ..., 1.793, 1.793, 1.794],
-       [0.   , 0.004, 0.014, ..., 1.837, 1.837, 1.837],
-       [0.   , 0.004, 0.014, ..., 1.776, 1.776, 1.776],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.        , 0.00490631, 0.01913362, ..., 1.79321352, 1.79337681,
+        1.79354006],
+       [0.        , 0.00360282, 0.01426636, ..., 1.8367998 , 1.83697627,
+        1.83715271],
+       [0.        , 0.00365133, 0.01433438, ..., 1.77555287, 1.77570402,
+        1.77585514],
        ...,
-       [0.   , 0.003, 0.012, ..., 1.767, 1.767, 1.767],
-       [0.   , 0.008, 0.031, ..., 1.777, 1.778, 1.778],
-       [0.   , 0.003, 0.014, ..., 1.765, 1.765, 1.765]])
+       [0.        , 0.00289346, 0.01154411, ..., 1.7668308 , 1.76697657,
+        1.76712232],
+       [0.        , 0.00809884, 0.03108513, ..., 1.7774044 , 1.77756225,
+        1.77772007],
+       [0.        , 0.00349638, 0.0139246 , ..., 1.76460358, 1.76474439,
+        1.76488516]])
 </pre></div>
 </div>
 </div>
@@ -1104,9 +1035,9 @@ Simply run the following:</p>
 </div>
 </div>
 </div>
-<p>The rows (200) corresponds to different samples of the <span class="math notranslate nohighlight">\(B-H\)</span> curves (different suppliers and different times).
-The columns (1500) corresponds to different values of <span class="math notranslate nohighlight">\(H\)</span>.
-That is, the <span class="math notranslate nohighlight">\(i, j\)</span> element is the value of <span class="math notranslate nohighlight">\(B\)</span> at the a specific value of <span class="math notranslate nohighlight">\(H\)</span>, say <span class="math notranslate nohighlight">\(H_j\)</span>. The values of <span class="math notranslate nohighlight">\(H\)</span> are the equidistant and identical and we are going to ignore them in this analysis.
+<p>The rows (200) correspond to different samples of the <span class="math notranslate nohighlight">\(B-H\)</span> curves (suppliers and times).
+The columns (1500) correspond to different values of <span class="math notranslate nohighlight">\(H\)</span>.
+That is, the <span class="math notranslate nohighlight">\(i, j\)</span> element is the value of <span class="math notranslate nohighlight">\(B\)</span> at the specific value of <span class="math notranslate nohighlight">\(H\)</span>, say <span class="math notranslate nohighlight">\(H_j\)</span>. The values of <span class="math notranslate nohighlight">\(H\)</span> are equidistant and identical; we will ignore them in this analysis.
 Let’s visualize some of the samples.</p>
 <p>Here is one sample:</p>
 <div class="cell tag_hide-input docutils container">
@@ -1119,14 +1050,14 @@ Let’s visualize some of the samples.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">B_data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Index $j$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$B$ (T)&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$B$ (T)&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/6d88ca7cff451ea484027a02432fa0755ebfcc6c9e034e1ee373a482b189a732.png" src="../_images/6d88ca7cff451ea484027a02432fa0755ebfcc6c9e034e1ee373a482b189a732.png" />
-</div>
+<img alt="../_images/68f8c4dec6900b8aa71758bc8cba11e2622f3b0645031fe25aaee6e9b92fda4c.svg" src="../_images/68f8c4dec6900b8aa71758bc8cba11e2622f3b0645031fe25aaee6e9b92fda4c.svg" /></div>
 </div>
 <p>Here are five samples:</p>
 <div class="cell tag_hide-input docutils container">
@@ -1139,14 +1070,14 @@ Let’s visualize some of the samples.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">B_data</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Index $j$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$B$ (T)&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$B$ (T)&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/a64d16175f5b0f0a6ee5772f63d80e89897d33751d715a130f0250482b28ae0b.png" src="../_images/a64d16175f5b0f0a6ee5772f63d80e89897d33751d715a130f0250482b28ae0b.png" />
-</div>
+<img alt="../_images/a902afdf671ebc9c583daac5785a3f3008520d692fc1bbde7908394b33bbdf9f.svg" src="../_images/a902afdf671ebc9c583daac5785a3f3008520d692fc1bbde7908394b33bbdf9f.svg" /></div>
 </div>
 <p>Here are all the samples:</p>
 <div class="cell tag_hide-input docutils container">
@@ -1159,14 +1090,14 @@ Let’s visualize some of the samples.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">B_data</span><span class="p">[:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Index $j$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$B$ (T)&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$B$ (T)&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/045c9e27879bdee677934fdff26c05a969a156ea775ec0ccff93e86ea6dae40e.png" src="../_images/045c9e27879bdee677934fdff26c05a969a156ea775ec0ccff93e86ea6dae40e.png" />
-</div>
+<img alt="../_images/faf4ec4be6b0f5325a559699f9ee39ee0d646216d76eef4ad0e97b1419a1b314.svg" src="../_images/faf4ec4be6b0f5325a559699f9ee39ee0d646216d76eef4ad0e97b1419a1b314.svg" /></div>
 </div>
 <p>A. We are going to start by studying the data at only one index. Say index <span class="math notranslate nohighlight">\(j=500\)</span>.
 Let’s define a random variable</p>
@@ -1186,14 +1117,14 @@ X = B(H_{500}),
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">X_data</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;p(x)&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;p(x)&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/427341da49ff48d689e815e7a42116a218e409f51dedfa391b2ad47f60d45660.png" src="../_images/427341da49ff48d689e815e7a42116a218e409f51dedfa391b2ad47f60d45660.png" />
-</div>
+<img alt="../_images/a28c8282b3122db106fb71080b42155c4e46ac154de90a4e4342b49c6eb0851f.svg" src="../_images/a28c8282b3122db106fb71080b42155c4e46ac154de90a4e4342b49c6eb0851f.svg" /></div>
 </div>
 <p>This looks like a Gaussian <span class="math notranslate nohighlight">\(N(\mu_{500}, \sigma_{500}^2)\)</span>. Let’s try to find a mean and variance for that Gaussian.
 A good choice for the mean is the empirical average of the data:</p>
@@ -1201,7 +1132,8 @@ A good choice for the mean is the empirical average of the data:</p>
 \[
 \mu_j = \frac{1}{N}\sum_{i=1}^NB_{ij}.
 \]</div>
-<p>Later we will learn that this is what the <em>maximum likelihood method</em> gives us.</p>
+<p>By the law of large numbers, this is a good approximation of the true mean as <span class="math notranslate nohighlight">\(N\to\infty\)</span>.
+Later we will learn that this is also the <em>maximum likelihood</em> estimate of the mean.</p>
 <p>So, the mean is:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1221,7 +1153,8 @@ A good choice for the mean is the empirical average of the data:</p>
 \[
 \sigma_j^2 = \frac{1}{N}\sum_{i=1}^N(B_{ij} - \mu_j)^2.
 \]</div>
-<p>That is:</p>
+<p>This also converges to the true variance as <span class="math notranslate nohighlight">\(N\to\infty\)</span>.
+Here it is:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sigma2_500</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">X_data</span><span class="p">)</span>
@@ -1243,7 +1176,7 @@ A good choice for the mean is the empirical average of the data:</p>
 </div>
 </div>
 </div>
-<p>B. Using your normal approximation to the PDF of <span class="math notranslate nohighlight">\(X\)</span>, find the probability that <span class="math notranslate nohighlight">\(X = B(H_{500})\)</span> is geater than 1.66 T.</p>
+<p>B. Using your normal approximation to the PDF of <span class="math notranslate nohighlight">\(X\)</span>, find the probability that <span class="math notranslate nohighlight">\(X = B(H_{500})\)</span> is greater than 1.66 T.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
@@ -1277,8 +1210,8 @@ Y = B(H_{1000}).
 \[
 \mathbf{X} = (X, Y),
 \]</div>
-<p>follows a multivariate normal distribution. What would be the mean and covariance of the distribution.
-Well, first organize the samples of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> in a matrix with the number of rows being the number of samples and two columns (one corresponding to <span class="math notranslate nohighlight">\(X\)</span> and one to <span class="math notranslate nohighlight">\(Y\)</span>).</p>
+<p>follows a multivariate normal distribution. What would be the mean and covariance of the distribution?
+First, organize the samples of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> in a matrix with the number of rows being the number of samples and two columns (one corresponding to <span class="math notranslate nohighlight">\(X\)</span> and one to <span class="math notranslate nohighlight">\(Y\)</span>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">XY_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_data</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">Y_data</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]])</span>
@@ -1286,6 +1219,8 @@ Well, first organize the samples of <span class="math notranslate nohighlight">\
 </div>
 </div>
 </div>
+<p>In case you are wondering, the code above takes two 1D numpy arrays of the same size and puts them in a two-column numpy array. The first column is the first array, the second column is the second array. The result is a 2D numpy array.
+We take sampling averages over the first axis of the array.</p>
 <p>The mean vector is:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1295,22 +1230,23 @@ Well, first organize the samples of <span class="math notranslate nohighlight">\
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_XY = [1.61  1.703]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_XY = [1.61041566 1.70263681]
 </pre></div>
 </div>
 </div>
 </div>
-<p>The covariance matrix is a little bit trickier.
+<p>The covariance matrix is trickier.
 We have already discussed how to find the diagonals of the covariance matrix (it is simply the variance).
 For the off-diagonal terms, this is the formula that is being used:</p>
 <div class="math notranslate nohighlight">
 \[
 C_{jk} = \frac{1}{N}\sum_{i=1}^N(B_{ij} - \mu_j)(B_{ik} - \mu_k).
 \]</div>
-<p>This is how you can find it:</p>
+<p>This formula converges as <span class="math notranslate nohighlight">\(N\rightarrow\infty\)</span>.
+Here is the implementation:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Careful with np.cov because it requires you to transpose the matrix</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Careful with np.cov because it requires you to transpose the matrix we defined in class</span>
 <span class="n">C_XY</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">XY_data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;C_XY =&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">C_XY</span><span class="p">)</span>
@@ -1319,13 +1255,22 @@ C_{jk} = \frac{1}{N}\sum_{i=1}^N(B_{ij} - \mu_j)(B_{ik} - \mu_k).
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C_XY =
-[[0.001 0.001]
- [0.001 0.001]]
+[[0.00074572 0.00082435]
+ [0.00082435 0.00096729]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Use the covariance matrix <code class="docutils literal notranslate"><span class="pre">C_XY</span></code> to find the correlation coefficient between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
 </pre></div>
 </div>
 </div>
 </div>
 <p>Are the two variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> positively or negatively correlated?<br>
+<br>
 <strong>Answer:</strong>
 <br><br></p>
 <p>E. Use <code class="docutils literal notranslate"><span class="pre">np.linalg.eigh</span></code> to check that the matrix <code class="docutils literal notranslate"><span class="pre">C_XY</span></code> is indeed positive definite.</p>
@@ -1344,13 +1289,13 @@ C_{jk} = \frac{1}{N}\sum_{i=1}^N(B_{ij} - \mu_j)(B_{ik} - \mu_k).
 </div>
 </div>
 </div>
-<p>G. Now, let’s think each <span class="math notranslate nohighlight">\(B-H\)</span> curve as a random vector.
-That is, the random vector <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> corresponds to the values of the magnetic flux density at a fixed number of <span class="math notranslate nohighlight">\(H\)</span>-values. It is:</p>
+<p>G. Now, consider each <span class="math notranslate nohighlight">\(B-H\)</span> curve a random vector.
+That is, the random vector <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> corresponds to the magnetic flux density values at a fixed number of <span class="math notranslate nohighlight">\(H\)</span>-values. It is:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbf{B} = (B(H_1), \dots, B(H_{1500})).
 \]</div>
-<p>It is like <span class="math notranslate nohighlight">\(\mathbf{X} = (X, Y)\)</span> only now we have 1500 dimensions instead of <span class="math notranslate nohighlight">\(2\)</span>.</p>
+<p>It is like <span class="math notranslate nohighlight">\(\mathbf{X} = (X, Y)\)</span> only now we have 1,500 dimensions instead of <span class="math notranslate nohighlight">\(2\)</span>.</p>
 <p>First, let’s find the mean of this random vector:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1360,7 +1305,8 @@ That is, the random vector <span class="math notranslate nohighlight">\(\mathbf{
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.   , 0.004, 0.015, ..., 1.784, 1.784, 1.784])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.        , 0.00385192, 0.01517452, ..., 1.78373703, 1.78389267,
+       1.78404828])
 </pre></div>
 </div>
 </div>
@@ -1379,14 +1325,14 @@ That is, the random vector <span class="math notranslate nohighlight">\(\mathbf{
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">B_mu</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Mean vector&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Index $j$&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$B$ (T)&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/0f60bf31c20bad0718a44765ff743368fc02496f2ec291f8a4df3307640a069f.png" src="../_images/0f60bf31c20bad0718a44765ff743368fc02496f2ec291f8a4df3307640a069f.png" />
-</div>
+<img alt="../_images/85404fc32e8628ac04ee54b67de4d624d3778ea4c5a8ee959740fa94662cf646.svg" src="../_images/85404fc32e8628ac04ee54b67de4d624d3778ea4c5a8ee959740fa94662cf646.svg" /></div>
 </div>
 <p>It looks good. Now, find the covariance matrix of <span class="math notranslate nohighlight">\(\mathbf{B}\)</span>. This is going to be a 1500x1500 matrix.</p>
 <div class="cell docutils container">
@@ -1397,19 +1343,19 @@ That is, the random vector <span class="math notranslate nohighlight">\(\mathbf{
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.000e+00, 0.000e+00, 0.000e+00, ..., 0.000e+00, 0.000e+00,
-        0.000e+00],
-       [0.000e+00, 1.163e-06, 4.420e-06, ..., 3.182e-06, 3.184e-06,
-        3.185e-06],
-       [0.000e+00, 4.420e-06, 1.680e-05, ..., 1.228e-05, 1.229e-05,
-        1.229e-05],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
+        0.00000000e+00, 0.00000000e+00, 0.00000000e+00],
+       [0.00000000e+00, 1.16277948e-06, 4.41977479e-06, ...,
+        3.18233676e-06, 3.18391580e-06, 3.18549316e-06],
+       [0.00000000e+00, 4.41977479e-06, 1.68041482e-05, ...,
+        1.22832828e-05, 1.22890907e-05, 1.22948922e-05],
        ...,
-       [0.000e+00, 3.182e-06, 1.228e-05, ..., 1.203e-03, 1.203e-03,
-        1.203e-03],
-       [0.000e+00, 3.184e-06, 1.229e-05, ..., 1.203e-03, 1.203e-03,
-        1.203e-03],
-       [0.000e+00, 3.185e-06, 1.229e-05, ..., 1.203e-03, 1.203e-03,
-        1.204e-03]])
+       [0.00000000e+00, 3.18233676e-06, 1.22832828e-05, ...,
+        1.20268920e-03, 1.20293022e-03, 1.20317114e-03],
+       [0.00000000e+00, 3.18391580e-06, 1.22890907e-05, ...,
+        1.20293022e-03, 1.20317134e-03, 1.20341237e-03],
+       [0.00000000e+00, 3.18549316e-06, 1.22948922e-05, ...,
+        1.20317114e-03, 1.20341237e-03, 1.20365351e-03]])
 </pre></div>
 </div>
 </div>
@@ -1424,27 +1370,19 @@ That is, the random vector <span class="math notranslate nohighlight">\(\mathbf{
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">B_cov</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Covariance&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Covariance&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/f2892bc6c991bde62073028fa04bc4d1a06b232a266057552b94356c391cf06a.png" src="../_images/f2892bc6c991bde62073028fa04bc4d1a06b232a266057552b94356c391cf06a.png" />
-</div>
+<img alt="../_images/086b3eea24077c05f639e69fcfb283570a03af6bf9f25dc9a51210c8b225b365.svg" src="../_images/086b3eea24077c05f639e69fcfb283570a03af6bf9f25dc9a51210c8b225b365.svg" /></div>
 </div>
 <p>The numbers are very small.
-This is because the covariance depends on the scale of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.
-If we change the units it will change.
-To get a more objective measure, we should be using the <a class="reference external" href="https://en.wikipedia.org/wiki/Correlation">correlation</a>.
-The correlation is essentially the covariance of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> scaled by their standard deviation, i.e.:</p>
-<div class="math notranslate nohighlight">
-\[
-\rho(X, Y) = \frac{\mathbb{C}[X, Y]}{\sqrt{\mathbb{V}[X]\mathbb{V}[Y]}}.
-\]</div>
-<p>Obviously the correlation has the same sign as the covariance.
-The addendum is that it is unitless and unambiguously scaled between -1 and +1.
-Here is how you can find it:</p>
+This is because the covariance depends on the units of the variables.
+We need to do the same thing we did with the correlation coefficient: divide by the standard deviations of the variables.
+Here is how you can get the correlation coefficients:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note that I have to remove the first point because it is always zero</span>
@@ -1455,13 +1393,19 @@ Here is how you can find it:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.   , 1.   , 0.999, ..., 0.085, 0.085, 0.085],
-       [1.   , 1.   , 1.   , ..., 0.086, 0.086, 0.086],
-       [0.999, 1.   , 1.   , ..., 0.088, 0.088, 0.088],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.        , 0.99986924, 0.99941799, ..., 0.08509827, 0.08512344,
+        0.08514855],
+       [0.99986924, 1.        , 0.99983894, ..., 0.08640313, 0.08642667,
+        0.08645015],
+       [0.99941799, 0.99983894, 1.        , ..., 0.08782484, 0.08784655,
+        0.08786822],
        ...,
-       [0.085, 0.086, 0.088, ..., 1.   , 1.   , 1.   ],
-       [0.085, 0.086, 0.088, ..., 1.   , 1.   , 1.   ],
-       [0.085, 0.086, 0.088, ..., 1.   , 1.   , 1.   ]])
+       [0.08509827, 0.08640313, 0.08782484, ..., 1.        , 0.99999998,
+        0.9999999 ],
+       [0.08512344, 0.08642667, 0.08784655, ..., 0.99999998, 1.        ,
+        0.99999998],
+       [0.08514855, 0.08645015, 0.08786822, ..., 0.9999999 , 0.99999998,
+        1.        ]])
 </pre></div>
 </div>
 </div>
@@ -1471,15 +1415,15 @@ Here is how you can find it:</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">B_corr</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Correlation&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Correlation&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/17188137b06fa9e4d82a6f046484893bd38a92af6d1376650ce85cab5fd1f050.png" src="../_images/17188137b06fa9e4d82a6f046484893bd38a92af6d1376650ce85cab5fd1f050.png" />
+<img alt="../_images/920be01fcef7c71632131a1c4f794e11fa2c7ef7c31f1bc7b858d49e44a1541e.svg" src="../_images/920be01fcef7c71632131a1c4f794e11fa2c7ef7c31f1bc7b858d49e44a1541e.svg" /></div>
 </div>
-</div>
-<p>You see that the values are quite a bit correlated. This makes sense because the curves are all very smooth and they look very much alike.</p>
+<p>The values are quite a bit correlated. This makes sense because the curves are all very smooth and look very much alike.</p>
 <p>Let’s check if the covariance is indeed positive definite:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1490,13 +1434,14 @@ Here is how you can find it:</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Eigenvalues of B_cov:
-[-2.692e-16 -1.615e-16 -8.088e-17 ...  4.662e-02  1.166e-01  1.207e+00]
+[-3.28311404e-16 -1.83517775e-16 -9.47916665e-17 ...  4.66244763e-02
+  1.16644070e-01  1.20726782e+00]
 </pre></div>
 </div>
 </div>
 </div>
-<p>Hmm, notice that there are several eigenvalues that are negative, but they are too small. Very close to zero. This happens very often in practice when you are finding the covariance of a very large random vectors. It arises from the fact that we are using floating point arithmetic instead of a real numbers. It is a numerical artifact.
-If you tried to use this covariance to make a multivariate normal random vector using <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code> it would fail.
+<p>Notice that several eigenvalues are negative, but they are too small. Very close to zero. This happens often in practice when you are finding the covariance of large random vectors. It arises from the fact that we use floating-point arithmetic instead of real numbers. It is a numerical artifact.
+If you tried to use this covariance to make a multivariate average random vector using <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code> it would fail.
 Try this:</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input above-output-prompt docutils container">
@@ -1512,41 +1457,59 @@ Try this:</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">LinAlgError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="nn">Input In [45],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">28</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">B</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="n">B_mu</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="n">B_cov</span><span class="p">)</span>
 
-<span class="nn">File /opt/homebrew/lib/python3.9/site-packages/scipy/stats/_multivariate.py:360,</span> in <span class="ni">multivariate_normal_gen.__call__</span><span class="nt">(self, mean, cov, allow_singular, seed)</span>
-<span class="g g-Whitespace">    </span><span class="mi">355</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">allow_singular</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">356</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Create a frozen multivariate normal distribution.</span>
-<span class="g g-Whitespace">    </span><span class="mi">357</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">358</span><span class="sd">     See `multivariate_normal_frozen` for more information.</span>
-<span class="g g-Whitespace">    </span><span class="mi">359</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">360</span>     <span class="k">return</span> <span class="n">multivariate_normal_frozen</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">cov</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">361</span>                                       <span class="n">allow_singular</span><span class="o">=</span><span class="n">allow_singular</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">362</span>                                       <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+<span class="nn">File /opt/homebrew/lib/python3.11/site-packages/scipy/stats/_multivariate.py:393,</span> in <span class="ni">multivariate_normal_gen.__call__</span><span class="nt">(self, mean, cov, allow_singular, seed)</span>
+<span class="g g-Whitespace">    </span><span class="mi">388</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">allow_singular</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">389</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Create a frozen multivariate normal distribution.</span>
+<span class="g g-Whitespace">    </span><span class="mi">390</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">391</span><span class="sd">     See `multivariate_normal_frozen` for more information.</span>
+<span class="g g-Whitespace">    </span><span class="mi">392</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">393</span>     <span class="k">return</span> <span class="n">multivariate_normal_frozen</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">cov</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">394</span>                                       <span class="n">allow_singular</span><span class="o">=</span><span class="n">allow_singular</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">395</span>                                       <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
 
-<span class="nn">File /opt/homebrew/lib/python3.9/site-packages/scipy/stats/_multivariate.py:730,</span> in <span class="ni">multivariate_normal_frozen.__init__</span><span class="nt">(self, mean, cov, allow_singular, seed, maxpts, abseps, releps)</span>
-<span class="g g-Whitespace">    </span><span class="mi">727</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dist</span> <span class="o">=</span> <span class="n">multivariate_normal_gen</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">728</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cov</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dist</span><span class="o">.</span><span class="n">_process_parameters</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">729</span>                                                     <span class="kc">None</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">cov</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">730</span> <span class="bp">self</span><span class="o">.</span><span class="n">cov_info</span> <span class="o">=</span> <span class="n">_PSD</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cov</span><span class="p">,</span> <span class="n">allow_singular</span><span class="o">=</span><span class="n">allow_singular</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">731</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">maxpts</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">732</span>     <span class="n">maxpts</span> <span class="o">=</span> <span class="mi">1000000</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span>
+<span class="nn">File /opt/homebrew/lib/python3.11/site-packages/scipy/stats/_multivariate.py:834,</span> in <span class="ni">multivariate_normal_frozen.__init__</span><span class="nt">(self, mean, cov, allow_singular, seed, maxpts, abseps, releps)</span>
+<span class="g g-Whitespace">    </span><span class="mi">791</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Create a frozen multivariate normal distribution.</span>
+<span class="g g-Whitespace">    </span><span class="mi">792</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">793</span><span class="sd"> Parameters</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">    </span><span class="mi">830</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">831</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">832</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dist</span> <span class="o">=</span> <span class="n">multivariate_normal_gen</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">833</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cov_object</span> <span class="o">=</span> <span class="p">(</span>
+<span class="ne">--&gt; </span><span class="mi">834</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_dist</span><span class="o">.</span><span class="n">_process_parameters</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">cov</span><span class="p">,</span> <span class="n">allow_singular</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">835</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_singular</span> <span class="o">=</span> <span class="n">allow_singular</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">cov_object</span><span class="o">.</span><span class="n">_allow_singular</span>
+<span class="g g-Whitespace">    </span><span class="mi">836</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">maxpts</span><span class="p">:</span>
 
-<span class="nn">File /opt/homebrew/lib/python3.9/site-packages/scipy/stats/_multivariate.py:165,</span> in <span class="ni">_PSD.__init__</span><span class="nt">(self, M, cond, rcond, lower, check_finite, allow_singular)</span>
-<span class="g g-Whitespace">    </span><span class="mi">163</span> <span class="n">d</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">s</span> <span class="o">&gt;</span> <span class="n">eps</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">164</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">allow_singular</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">165</span>     <span class="k">raise</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">(</span><span class="s1">&#39;singular matrix&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">166</span> <span class="n">s_pinv</span> <span class="o">=</span> <span class="n">_pinv_1d</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">eps</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">167</span> <span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">s_pinv</span><span class="p">))</span>
+<span class="nn">File /opt/homebrew/lib/python3.11/site-packages/scipy/stats/_multivariate.py:417,</span> in <span class="ni">multivariate_normal_gen._process_parameters</span><span class="nt">(self, mean, cov, allow_singular)</span>
+<span class="g g-Whitespace">    </span><span class="mi">410</span> <span class="n">dim</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">cov</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_parameters_psd</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">cov</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">411</span> <span class="c1"># After input validation, some methods then processed the arrays</span>
+<span class="g g-Whitespace">    </span><span class="mi">412</span> <span class="c1"># with a `_PSD` object and used that to perform computation.</span>
+<span class="g g-Whitespace">    </span><span class="mi">413</span> <span class="c1"># To avoid branching statements in each method depending on whether</span>
+<span class="g g-Whitespace">    </span><span class="mi">414</span> <span class="c1"># `cov` is an array or `Covariance` object, we always process the</span>
+<span class="g g-Whitespace">    </span><span class="mi">415</span> <span class="c1"># array with `_PSD`, and then use wrapper that satisfies the</span>
+<span class="g g-Whitespace">    </span><span class="mi">416</span> <span class="c1"># `Covariance` interface, `CovViaPSD`.</span>
+<span class="ne">--&gt; </span><span class="mi">417</span> <span class="n">psd</span> <span class="o">=</span> <span class="n">_PSD</span><span class="p">(</span><span class="n">cov</span><span class="p">,</span> <span class="n">allow_singular</span><span class="o">=</span><span class="n">allow_singular</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">418</span> <span class="n">cov_object</span> <span class="o">=</span> <span class="n">_covariance</span><span class="o">.</span><span class="n">CovViaPSD</span><span class="p">(</span><span class="n">psd</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">419</span> <span class="k">return</span> <span class="n">dim</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">cov_object</span>
 
-<span class="ne">LinAlgError</span>: singular matrix
+<span class="nn">File /opt/homebrew/lib/python3.11/site-packages/scipy/stats/_multivariate.py:172,</span> in <span class="ni">_PSD.__init__</span><span class="nt">(self, M, cond, rcond, lower, check_finite, allow_singular)</span>
+<span class="g g-Whitespace">    </span><span class="mi">169</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">allow_singular</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">170</span>     <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;When `allow_singular is False`, the input matrix must be &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">171</span>            <span class="s2">&quot;symmetric positive definite.&quot;</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">172</span>     <span class="k">raise</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">173</span> <span class="n">s_pinv</span> <span class="o">=</span> <span class="n">_pinv_1d</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">eps</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">174</span> <span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">s_pinv</span><span class="p">))</span>
+
+<span class="ne">LinAlgError</span>: When `allow_singular is False`, the input matrix must be symmetric positive definite.
 </pre></div>
 </div>
 </div>
 </details>
 </div>
-<p>The way to overcome this problem is to add a small positive number to the diagonal. This needs to be very small so that the distribution does not change very much. It must be the smallest possible number that makes the covariance matrix behave well. This is known as the <em>jitter</em> or the <em>nugget</em>. Find the nugget playing with the code below. Every time you try, multiply the nugget by ten.</p>
+<p>The way to overcome this problem is to add a small positive number to the diagonal. This needs to be very small so that the distribution stays mostly the same. It must be the smallest possible number that makes the covariance matrix behave well. This is known as the <em>jitter</em> or the <em>nugget</em>. Find the nugget playing with the code below. Every time you try, multiply the nugget by ten.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pick the nugget here</span>
@@ -1568,7 +1531,7 @@ Try this:</p>
 </div>
 </div>
 </div>
-<p>H. Now you have created your first stochastic model of a complicated physical quantity. By sampling from your newly constructed random vector <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> you have essentially quantified your uncertainty about the <span class="math notranslate nohighlight">\(B-H\)</span> curve as induced by the inability to perfectly control the production of steel. Take 10 samples of this random vector and plot them.</p>
+<p>H. Now, you have created your first stochastic model of a complicated physical quantity. By sampling from your newly constructed random vector <span class="math notranslate nohighlight">\(\mathbf{B}\)</span>, you have essentially quantified your uncertainty about the <span class="math notranslate nohighlight">\(B-H\)</span> curve as induced by the inability to control steel production perfectly. Take ten samples of this random vector and plot them.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
@@ -1578,10 +1541,10 @@ Try this:</p>
 </div>
 <p>Congratulations!
 You have made your first stochastic model of a physical field quantity.
-You have now the ability to sample <span class="math notranslate nohighlight">\(B-H\)</span> curves in a way that honors the manufacturing uncertainties.
-This is the first step to uncertainty quantification studies.
-The next step would be to propagate these samples through Maxwell’s equations to characterize the effect on performance of an electric machine.
-If you are interested to see how that looks take a look at <span id="id1">[<a class="reference internal" href="../bibliography.html#id3" title="A. Sahu, D. Aliprantis, and I. Bilionis. Quantification and propagation of uncertainty in the magnetic characteristic of steel and permanent magnets of a synchronous machine drive. IEEE Transactions on Energy Conversion, 2020. doi:10.1109/TEC.2020.2998142.">Sahu <em>et al.</em>, 2020</a>]</span> and <span id="id2">[<a class="reference internal" href="../bibliography.html#id4" title="A. Beltrán-Pulido, D. Aliprantis, I. Bilionis, A.R. Munoz, F. Leonardi, and S.M. Avery. Uncertainty quantification and sensitivity analysis in a nonlinear finite-element model of a permanent magnet synchronous machine. IEEE Transactions on Energy Conversion, 2020. doi:10.1109/TEC.2020.3001914.">Beltrán-Pulido <em>et al.</em>, 2020</a>]</span>.</p>
+You can now sample <span class="math notranslate nohighlight">\(B-H\)</span> curves in a way that honors the manufacturing uncertainties.
+This is the first step in uncertainty quantification studies.
+The next step would be to propagate these samples through Maxwell’s equations to characterize the effect on the performance of an electric machine.
+If you want to see how that looks, look at <span id="id1">[<a class="reference internal" href="../bibliography.html#id3" title="A. Sahu, D. Aliprantis, and I. Bilionis. Quantification and propagation of uncertainty in the magnetic characteristic of steel and permanent magnets of a synchronous machine drive. IEEE Transactions on Energy Conversion, 2020. doi:10.1109/TEC.2020.2998142.">Sahu <em>et al.</em>, 2020</a>]</span> and <span id="id2">[<a class="reference internal" href="../bibliography.html#id4" title="A. Beltrán-Pulido, D. Aliprantis, I. Bilionis, A.R. Munoz, F. Leonardi, and S.M. Avery. Uncertainty quantification and sensitivity analysis in a nonlinear finite-element model of a permanent magnet synchronous machine. IEEE Transactions on Energy Conversion, 2020. doi:10.1109/TEC.2020.3001914.">Beltrán-Pulido <em>et al.</em>, 2020</a>]</span>.</p>
 </section>
 </section>
 
@@ -1655,9 +1618,9 @@ If you are interested to see how that looks take a look at <span id="id1">[<a cl
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-failure-of-a-mechanical-component">Problem 1 - Failure of a mechanical component</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-joint-probability-mass-function-of-two-discrete-random-variables">Problem 2 - Joint probability mass function of two discrete random variables</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-creating-a-stochastic-model-for-the-magnetic-properties-of-steel">Problem 3 - Creating a stochastic model for the magnetic properties of steel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-joint-probability-mass-function-of-two-discrete-random-variables">Problem 1 - Joint probability mass function of two discrete random variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-zero-correlation-does-not-imply-independence">Problem 2 - Zero correlation does not imply independence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-creating-a-stochastic-model-for-the-magnetic-properties-of-steel">Problem 2 - Creating a stochastic model for the magnetic properties of steel</a></li>
 </ul>
   </nav></div>
 
