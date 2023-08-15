@@ -211,8 +211,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2 has-children"><a class="reference internal" href="../lecture09/intro.html">Lecture 9 - Monte Carlo Estimates of Various Statistics</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../lecture09/hands-on-09.1.html">Sampling Estimates of the Cumulative Distribution Function</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lecture09/hands-on-09.2.html">Sampling Estimates of the Probability Density via Histograms</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lecture09/hands-on-09.3.html">Hands-on Activity 9.3: Sampling Estimates of Predictive Quantiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lecture09/hands-on-09.4.html">Propagating Uncertainties through an Ordinrary Differential Equation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture09/hands-on-09.3.html">Estimating Predictive Quantiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture09/hands-on-09.4.html">Uncertainty propagation through an ordinary differential equation</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../lecture10/intro.html">Lecture 10 - Quantify Uncertainty in Monte Carlo Estimates</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -748,7 +748,7 @@ sample 4 = 0.54
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7a415cd0a812ee7fc6e06c12b1494ddd4863bf576f69d9436165af00991b006e.svg" src="../_images/7a415cd0a812ee7fc6e06c12b1494ddd4863bf576f69d9436165af00991b006e.svg" /></div>
+<img alt="../_images/14cc1cb6965228cce3e11e3d02d839cca9701a726895d41ec545398216e824de.svg" src="../_images/14cc1cb6965228cce3e11e3d02d839cca9701a726895d41ec545398216e824de.svg" /></div>
 </div>
 <p>This was a rough visual test.
 We can do better.
@@ -757,7 +757,7 @@ But what is the empirical CDF of a bunch of samples <span class="math notranslat
 It is defined as follows:</p>
 <div class="math notranslate nohighlight">
 \[
-\hat{F}_N(x) = \frac{\text{number of elements in sample}\;\le x}{N} = \frac{1}{N}\sum_{n=1}^N 1_{(-\infty, x_i]}(x).
+\bar{F}_N(x) = \frac{\text{number of elements in sample}\;\le x}{N} = \frac{1}{N}\sum_{n=1}^N 1_{(-\infty, x_i]}(x).
 \]</div>
 <p>We will explain in what sense the empirical CDF approximates the actual PDF in <a class="reference internal" href="../lecture09/hands-on-09.1.html#empirical-cdf"><span class="std std-ref">Lecture 9</span></a>.
 For now, let’s use it:</p>
@@ -794,7 +794,7 @@ For now, let’s use it:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">ecdf</span><span class="p">(</span><span class="n">mt_X</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MT&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Uniform&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$\hat</span><span class="si">{F}</span><span class="s2">_N(x)$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">bar</span><span class="si">{F}</span><span class="s2">_N(x)$&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
@@ -802,7 +802,7 @@ For now, let’s use it:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/6705790c4060e92bf5c4c45b3150b823b75403aa7472c7e369f30bd7e0f121e2.svg" src="../_images/6705790c4060e92bf5c4c45b3150b823b75403aa7472c7e369f30bd7e0f121e2.svg" /></div>
+<img alt="../_images/0abde400538230b9d42c94e79a6bc64675c70d8380bce412497a575c5fe690af.svg" src="../_images/0abde400538230b9d42c94e79a6bc64675c70d8380bce412497a575c5fe690af.svg" /></div>
 </div>
 <p>This is still visual. The <a class="reference external" href="https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test">Kolmogorov-Smirnov test</a> summarizes calculate a distance between the empirical distribution and the ideal one.
 It is defined as follows:</p>
@@ -824,8 +824,8 @@ Let’s see what we get for LCG and MT compared to the uniform:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>KS statistic for LCG vs uniform: 0.11
-KS statistic for MT vs uniform: 0.08
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>KS statistic for LCG vs uniform: 0.13
+KS statistic for MT vs uniform: 0.06
 </pre></div>
 </div>
 </div>
@@ -846,8 +846,8 @@ KS statistic for MT vs uniform: 0.08
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.38395169 0.76468301 0.03389684 0.68649033 0.32801226 0.37254246
- 0.67492191 0.59819651 0.69524686 0.94385444]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.15584706 0.86260898 0.6830463  0.0857089  0.56610253 0.14982485
+ 0.47745445 0.84893827 0.14014442 0.32955081]
 </pre></div>
 </div>
 </div>

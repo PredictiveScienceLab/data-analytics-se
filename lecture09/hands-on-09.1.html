@@ -211,8 +211,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 9 - Monte Carlo Estimates of Various Statistics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Sampling Estimates of the Cumulative Distribution Function</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-09.2.html">Sampling Estimates of the Probability Density via Histograms</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-09.3.html">Hands-on Activity 9.3: Sampling Estimates of Predictive Quantiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-09.4.html">Propagating Uncertainties through an Ordinrary Differential Equation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-09.3.html">Estimating Predictive Quantiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-09.4.html">Uncertainty propagation through an ordinary differential equation</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../lecture10/intro.html">Lecture 10 - Quantify Uncertainty in Monte Carlo Estimates</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -575,10 +575,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-cdf">Example: 1D CDF</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-cdf">Example: 1D CDF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
             </nav>
         </div>
@@ -649,10 +647,12 @@ g(x) = \left(\cos(50x) + \sin(20x)\right)^2.
 \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define the function here:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># define the function here:</span>
 <span class="n">g</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">50</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">20</span> <span class="o">*</span> <span class="n">x</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span>
 
-<span class="c1"># We will not write code for the empirical CDF as it is already</span>
+<span class="c1"># We will not write code for the empirical CDF as it is already in here:</span>
 <span class="c1"># https://www.statsmodels.org/stable/generated/statsmodels.distributions.empirical_distribution.ECDF.html</span>
 <span class="kn">from</span> <span class="nn">statsmodels.distributions.empirical_distribution</span> <span class="kn">import</span> <span class="n">ECDF</span>
 
@@ -678,19 +678,19 @@ g(x) = \left(\cos(50x) + \sin(20x)\right)^2.
 <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">y_samples</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_samples</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">ecdf_10</span><span class="p">(</span><span class="n">ys</span><span class="p">),</span> <span class="s2">&quot;.-&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$N=10$&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">ecdf_100</span><span class="p">(</span><span class="n">ys</span><span class="p">),</span> <span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$N=100$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">ecdf_all</span><span class="p">(</span><span class="n">ys</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$N=</span><span class="si">{max_n:d}</span><span class="s2">$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">ecdf_all</span><span class="p">(</span><span class="n">ys</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;$N=</span><span class="si">{</span><span class="n">max_n</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$y$&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\bar</span><span class="si">{F}</span><span class="s2">_N(y)$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/97f20d42e3b8d0032256a2e914b1c5049b553df67035f3f2eb3330a9ec2f5d48.png" src="../_images/97f20d42e3b8d0032256a2e914b1c5049b553df67035f3f2eb3330a9ec2f5d48.png" />
+<img alt="../_images/c649b83f3d0a394b158c53e0750099d85cafe7588e8e641f405cb3717a8f9b71.svg" src="../_images/c649b83f3d0a394b158c53e0750099d85cafe7588e8e641f405cb3717a8f9b71.svg" /></div>
 </div>
-</div>
-<p>Let’s now use the empirical CDF to find the probability of that <span class="math notranslate nohighlight">\(Y\)</span> takes specific values.
-For example, let’s find the probability that <span class="math notranslate nohighlight">\(Y\)</span> is between <span class="math notranslate nohighlight">\(1\)</span> and <span class="math notranslate nohighlight">\(3\)</span>.
+<p>Let’s use the empirical CDF to find the probability that <span class="math notranslate nohighlight">\(Y\)</span> takes specific values.
+For example, we calculate the probability that <span class="math notranslate nohighlight">\(Y\)</span> is between <span class="math notranslate nohighlight">\(1\)</span> and <span class="math notranslate nohighlight">\(3\)</span>.
 We have:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -712,21 +712,21 @@ p(1\le Y\le 3) = F(3) - F(1) \approx \bar{F}_N(3) - \bar{F}_N(1).
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>N = 10:		p(1 &lt;= Y &lt;= 3) ~= 0.20
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>N = 10:		p(1 &lt;= Y &lt;= 3) ~= 0.40
 N = 100:	p(1 &lt;= Y &lt;= 3) ~= 0.31
 N = 1000:	p(1 &lt;= Y &lt;= 3) ~= 0.33
 </pre></div>
 </div>
 </div>
 </div>
+</section>
 <section id="questions">
-<h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
+<h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Why is the empirical CDF for small <span class="math notranslate nohighlight">\(N\)</span> discontinuous?</p></li>
-<li><p>How do you know how many samples you need? For now, just think about it on your own. We will give the answer in lecture 10.</p></li>
-<li><p>Use the best empirical CDF we have constructed so far to find the probability of that <span class="math notranslate nohighlight">\(Y\)</span> is in <span class="math notranslate nohighlight">\([0.5, 2]\)</span> or <span class="math notranslate nohighlight">\([3,4]\)</span>, i.e., find <span class="math notranslate nohighlight">\(p(0.5 \le Y \le 2\;\text{or}\;3\le Y \le 4)\)</span>.</p></li>
+<li><p>How do you know how many samples you need? For now, think about it on your own. We will answer in <a class="reference internal" href="../lecture10/intro.html#lecture10"><span class="std std-ref">Lecture 10</span></a>.</p></li>
+<li><p>Use the best empirical CDF we have constructed so far to find the probability of that <span class="math notranslate nohighlight">\(Y\)</span> is in <span class="math notranslate nohighlight">\([0.5, 2]\)</span> or <span class="math notranslate nohighlight">\([3,4]\)</span>, i.e., see <span class="math notranslate nohighlight">\(p(0.5 \le Y \le 2\;\text{or}\;3\le Y \le 4)\)</span>.</p></li>
 </ul>
-</section>
 </section>
 </section>
 
@@ -797,10 +797,8 @@ N = 1000:	p(1 &lt;= Y &lt;= 3) ~= 0.33
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-cdf">Example: 1D CDF</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-cdf">Example: 1D CDF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
   </nav></div>
 

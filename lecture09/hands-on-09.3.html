@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Hands-on Activity 9.3: Sampling Estimates of Predictive Quantiles &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+    <title>Estimating Predictive Quantiles &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
   
   
@@ -66,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture09/hands-on-09.3';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Propagating Uncertainties through an Ordinrary Differential Equation" href="hands-on-09.4.html" />
+    <link rel="next" title="Uncertainty propagation through an ordinary differential equation" href="hands-on-09.4.html" />
     <link rel="prev" title="Sampling Estimates of the Probability Density via Histograms" href="hands-on-09.2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -211,8 +211,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 9 - Monte Carlo Estimates of Various Statistics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="hands-on-09.1.html">Sampling Estimates of the Cumulative Distribution Function</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-09.2.html">Sampling Estimates of the Probability Density via Histograms</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">Hands-on Activity 9.3: Sampling Estimates of Predictive Quantiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-09.4.html">Propagating Uncertainties through an Ordinrary Differential Equation</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Estimating Predictive Quantiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-09.4.html">Uncertainty propagation through an ordinary differential equation</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../lecture10/intro.html">Lecture 10 - Quantify Uncertainty in Monte Carlo Estimates</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -565,7 +565,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Hands-on Activity 9.3: Sampling Estimates of Predictive Quantiles</h1>
+    <h1>Estimating Predictive Quantiles</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -575,11 +575,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-predictive-quantiles">Estimating predictive quantiles</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
             </nav>
         </div>
@@ -598,34 +594,29 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
-<section class="tex2jax_ignore mathjax_ignore" id="hands-on-activity-9-3-sampling-estimates-of-predictive-quantiles">
-<h1>Hands-on Activity 9.3: Sampling Estimates of Predictive Quantiles<a class="headerlink" href="#hands-on-activity-9-3-sampling-estimates-of-predictive-quantiles" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To estimate predictive quantiles.</p></li>
-</ul>
-</section>
-<section id="estimating-predictive-quantiles">
-<h2>Estimating predictive quantiles<a class="headerlink" href="#estimating-predictive-quantiles" title="Permalink to this heading">#</a></h2>
-<p>Take <span class="math notranslate nohighlight">\(X\)</span> to be a random variable and <span class="math notranslate nohighlight">\(Y=g(X)\)</span> a function of <span class="math notranslate nohighlight">\(X\)</span>.
-The <span class="math notranslate nohighlight">\(q\)</span>-predictive quantile of <span class="math notranslate nohighlight">\(Y\)</span> is defined to be the number <span class="math notranslate nohighlight">\(\mu_q\)</span> for which:</p>
+<section class="tex2jax_ignore mathjax_ignore" id="estimating-predictive-quantiles">
+<span id="predictive-quantiles"></span><h1>Estimating Predictive Quantiles<a class="headerlink" href="#estimating-predictive-quantiles" title="Permalink to this heading">#</a></h1>
+<p>Recall the definition of the <span class="math notranslate nohighlight">\(q\)</span>-quantile of a normal random variable we gave in <a class="reference internal" href="../lecture04/hands-on-04.2.html#quantiles-normal"><span class="std std-ref">Lecture 4</span></a>.
+Recall also that you can say <span class="math notranslate nohighlight">\(100q\)</span>-th percentile instead of <span class="math notranslate nohighlight">\(q\)</span>-quantile.
+The exact definition holds for any random variable.
+Let’s repeat it here for convenience.
+Take <span class="math notranslate nohighlight">\(X\)</span> as a random variable and <span class="math notranslate nohighlight">\(Y=g(X)\)</span> as a function of <span class="math notranslate nohighlight">\(X\)</span>.
+The <span class="math notranslate nohighlight">\(q\)</span>-quantile of <span class="math notranslate nohighlight">\(Y\)</span> is defined to be the number <span class="math notranslate nohighlight">\(\mu_q\)</span> for which:</p>
 <div class="math notranslate nohighlight">
 \[
-F(\mu_q) = p(Y \le \mu_q) = \frac{q}{100},
+F(\mu_q) = p(Y \le \mu_q) = q,
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(F(y)\)</span> was defined to be the CDF of <span class="math notranslate nohighlight">\(Y\)</span>.
 For example, the 50% quantile (also known as the median) is the value <span class="math notranslate nohighlight">\(\mu_50\)</span> for which:</p>
@@ -633,10 +624,10 @@ For example, the 50% quantile (also known as the median) is the value <span clas
 \[
 F(\mu_{50}) = p(Y \le \mu_{50}) = \frac{50}{100} = 0.5.
 \]</div>
-<p>So, to find the quantiles we need to 1) know the CDF of <span class="math notranslate nohighlight">\(Y\)</span> and 2) solve a root finding problem with <span class="math notranslate nohighlight">\(\mu_q\)</span> as the unknown.
-We have already seen how one can estimate the CDF from samples, so we would only have to worry about the root finding problem.
-This is not terribly difficult to do, but since it is already implemented in <code class="docutils literal notranslate"><span class="pre">numpy</span></code> we are not going to bother with it.
-So, here is how you can find the empirical quantiles of <span class="math notranslate nohighlight">\(Y\)</span> for a specific example where <span class="math notranslate nohighlight">\(g(x)\)</span> is given by the Example 3.4 of Robert &amp; Casella (2004):</p>
+<p>So, to find the quantiles, we need to 1) know the CDF of <span class="math notranslate nohighlight">\(Y\)</span> and 2) solve a root-finding problem with <span class="math notranslate nohighlight">\(\mu_q\)</span> as the unknown.
+We have already seen how one can estimate the CDF from samples, so we would only have to worry about the root-finding problem.
+It is not difficult to do, but since it is already implemented in <code class="docutils literal notranslate"><span class="pre">numpy</span></code> we will not bother with it.
+So, here is how you can find the empirical quantiles of <span class="math notranslate nohighlight">\(Y\)</span> for a specific example where <span class="math notranslate nohighlight">\(g(x)\)</span> is given by Example 3.4 of <span id="id1">[<a class="reference internal" href="../bibliography.html#id9" title="C.P. Robert and G. Casella. Monte Carlo statistical methods. Springer Verlag, 2004.">Robert and Casella, 2004</a>]</span>:</p>
 <div class="math notranslate nohighlight">
 \[
 g(x) = \left(\cos(50x) + \sin(20x)\right)^2.
@@ -645,7 +636,9 @@ g(x) = \left(\cos(50x) + \sin(20x)\right)^2.
 <p>As usual, define the function and take some samples:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define the function here:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># define the function here:</span>
 <span class="n">g</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">50</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">20</span> <span class="o">*</span> <span class="n">x</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span>
 
 <span class="c1"># Maximum number of samples to take</span>
@@ -658,16 +651,16 @@ g(x) = \left(\cos(50x) + \sin(20x)\right)^2.
 </div>
 </div>
 </div>
-<p>Now let’s, find the 50-percent quantile:</p>
+<p>Now let’s, find the 0.5-quantile:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu_50</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">y_samples</span><span class="p">,</span> <span class="mi">50</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu_50</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">y_samples</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mu_50 = </span><span class="si">{</span><span class="n">mu_50</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_50 = 0.60
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_50 = 0.55
 </pre></div>
 </div>
 </div>
@@ -675,17 +668,17 @@ g(x) = \left(\cos(50x) + \sin(20x)\right)^2.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s find the 2.5-percent quantile</span>
-<span class="n">mu_025</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">y_samples</span><span class="p">,</span> <span class="mf">2.5</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">mu_025</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">y_samples</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mu_025 = </span><span class="si">{</span><span class="n">mu_025</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="c1"># and the 97.5-percent quantile</span>
-<span class="n">mu_975</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">y_samples</span><span class="p">,</span> <span class="mf">97.5</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">mu_975</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">y_samples</span><span class="p">,</span> <span class="mf">0.975</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mu_975 = </span><span class="si">{</span><span class="n">mu_975</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_025 = 0.00
-mu_975 = 3.62
+mu_975 = 3.61
 </pre></div>
 </div>
 </div>
@@ -723,13 +716,13 @@ mu_975 = 3.62
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$y$&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$p(y)$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5acca7022cd89c9c2e79013e44c061b671610065f61e5800a36a68a7a893ccf5.png" src="../_images/5acca7022cd89c9c2e79013e44c061b671610065f61e5800a36a68a7a893ccf5.png" />
-</div>
+<img alt="../_images/a521b0637065d39a39deb97c3e61005983a0238598d2a98daa54218975a34852.svg" src="../_images/a521b0637065d39a39deb97c3e61005983a0238598d2a98daa54218975a34852.svg" /></div>
 </div>
 <p>Very often, the predictive intervals are summarized using box plots:</p>
 <div class="cell docutils container">
@@ -737,19 +730,32 @@ mu_975 = 3.62
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">y_samples</span><span class="p">,</span> <span class="n">whis</span><span class="o">=</span><span class="p">[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Y&quot;</span><span class="p">]);</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$y$&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;$y$&#39;)
+<img alt="../_images/b7b6fe184063e576060569db71e7fb297a34914926eb0053e5bc07a130e28c92.svg" src="../_images/b7b6fe184063e576060569db71e7fb297a34914926eb0053e5bc07a130e28c92.svg" /></div>
+</div>
+<p>In the plot above, the <span class="math notranslate nohighlight">\(y\)</span>-axis indicates possible values, the median is shown as an orange line, the box encapsulates 50% of the probability around the median, and the whiskers are extreme quantiles (here selected to be the 0.025 and 0.975 quantiles). Finally, the plot also shows the samples that fall outside the extreme quantiles.</p>
+<p>An alternative to the box plot is the violin plot, which shows the distribution of the data (essentially a smoothed histogram).
+The violin plot is shown below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write code that makes the violin plot using y_samples</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">y_samples</span><span class="p">,</span> <span class="n">quantiles</span><span class="o">=</span><span class="p">[</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.975</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$y$&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span>
 </pre></div>
 </div>
-<img alt="../_images/83cd1328f6abe33d9a2c2f5b4ce6b756cd99bb1feec727d70565639363d964e3.png" src="../_images/83cd1328f6abe33d9a2c2f5b4ce6b756cd99bb1feec727d70565639363d964e3.png" />
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/b263972bbdfe2d10166185980e3471fbefca62e92d2254451d7c3f01f2160fd3.svg" src="../_images/b263972bbdfe2d10166185980e3471fbefca62e92d2254451d7c3f01f2160fd3.svg" /></div>
 </div>
-<p>In the plot above, the <span class="math notranslate nohighlight">\(y\)</span>-axis indicates possible values, the median is shown as an orange line, the box encapsulates 50% of the probability around the median, and the whiskers are extreme quantiles (here selected to be the 2.5% and and 97.5% quantiles). Finally, the plot also shows the samples that fall outside the extreme quantiles.</p>
+<p>An alternative to</p>
 <section id="questions">
-<h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
+<h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>How much probability do you have on the left of <span class="math notranslate nohighlight">\(\mu_{50}\)</span>, i.e., what is <span class="math notranslate nohighlight">\(p(Y \le \mu_{50})\)</span>?</p></li>
 <li><p>How much probability do you have on the right of <span class="math notranslate nohighlight">\(\mu_{50}\)</span>, i.e., what is <span class="math notranslate nohighlight">\(p(Y \le \mu_{50})\)</span>?</p></li>
@@ -758,10 +764,9 @@ mu_975 = 3.62
 <li><p>How much probability do you have between <span class="math notranslate nohighlight">\(\mu_{2.5}\)</span> and <span class="math notranslate nohighlight">\(\mu_{97.5}\)</span>?</p></li>
 <li><p>The predictive quantiles are a very nice way to summarize the probability density of a random variable with a few numbers.
 For example, you can think of <span class="math notranslate nohighlight">\(\mu_{50}\)</span> as a central value of <span class="math notranslate nohighlight">\(Y\)</span>.
-Often, we call the interval <span class="math notranslate nohighlight">\([\mu_{2.5}, \mu_{97.5}]\)</span> the 95% <em>predictive inteval</em>.
+Often, we call the interval <span class="math notranslate nohighlight">\([\mu_{2.5}, \mu_{97.5}]\)</span> the 95% <em>predictive interval</em>.
 You can interpret this interval as <span class="math notranslate nohighlight">\(Y \in [\mu_{2.5}, \mu_{97.5}]\)</span> with 95% probability. Find a <span class="math notranslate nohighlight">\(99\)</span>% predictive interval for the <span class="math notranslate nohighlight">\(Y\)</span> of the example above.</p></li>
 </ul>
-</section>
 </section>
 </section>
 
@@ -810,7 +815,7 @@ You can interpret this interval as <span class="math notranslate nohighlight">\(
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Propagating Uncertainties through an Ordinrary Differential Equation</p>
+        <p class="prev-next-title">Uncertainty propagation through an ordinary differential equation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -832,11 +837,7 @@ You can interpret this interval as <span class="math notranslate nohighlight">\(
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-predictive-quantiles">Estimating predictive quantiles</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
   </nav></div>
 

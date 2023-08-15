@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Propagating Uncertainties through an Ordinrary Differential Equation &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+    <title>Uncertainty propagation through an ordinary differential equation &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
   
   
@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Lecture 10 - Quantify Uncertainty in Monte Carlo Estimates" href="../lecture10/intro.html" />
-    <link rel="prev" title="Hands-on Activity 9.3: Sampling Estimates of Predictive Quantiles" href="hands-on-09.3.html" />
+    <link rel="prev" title="Estimating Predictive Quantiles" href="hands-on-09.3.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -211,8 +211,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 9 - Monte Carlo Estimates of Various Statistics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="hands-on-09.1.html">Sampling Estimates of the Cumulative Distribution Function</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-09.2.html">Sampling Estimates of the Probability Density via Histograms</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-09.3.html">Hands-on Activity 9.3: Sampling Estimates of Predictive Quantiles</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">Propagating Uncertainties through an Ordinrary Differential Equation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-09.3.html">Estimating Predictive Quantiles</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Uncertainty propagation through an ordinary differential equation</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../lecture10/intro.html">Lecture 10 - Quantify Uncertainty in Monte Carlo Estimates</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -565,7 +565,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Propagating Uncertainties through an Ordinrary Differential Equation</h1>
+    <h1>Uncertainty propagation through an ordinary differential equation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -575,16 +575,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-propagation-through-an-ordinary-differential-equation">Uncertainty propagation through an ordinary differential equation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-decay-differential-equation-and-its-solution">Exponential decay differential equation and its solution</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assigning-random-variables-to-uncertaint-quantities">Assigning random variables to uncertaint quantities</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propagating-uncertainties-through-the-initial-value-problem">Propagating uncertainties through the initial value problem</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-decay-differential-equation-and-its-solution">Exponential decay differential equation and its solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assigning-random-variables-to-uncertain-quantities">Assigning random variables to uncertain quantities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propagating-uncertainties-through-the-initial-value-problem">Propagating uncertainties through the initial value problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
             </nav>
         </div>
@@ -603,44 +597,35 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
-<section class="tex2jax_ignore mathjax_ignore" id="propagating-uncertainties-through-an-ordinrary-differential-equation">
-<h1>Propagating Uncertainties through an Ordinrary Differential Equation<a class="headerlink" href="#propagating-uncertainties-through-an-ordinrary-differential-equation" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To propagate uncertainties through an ordinary differential equation.</p></li>
-</ul>
-<section id="uncertainty-propagation-through-an-ordinary-differential-equation">
-<h3>Uncertainty propagation through an ordinary differential equation<a class="headerlink" href="#uncertainty-propagation-through-an-ordinary-differential-equation" title="Permalink to this heading">#</a></h3>
+<section class="tex2jax_ignore mathjax_ignore" id="uncertainty-propagation-through-an-ordinary-differential-equation">
+<span id="uncertainty-propagation-ode"></span><h1>Uncertainty propagation through an ordinary differential equation<a class="headerlink" href="#uncertainty-propagation-through-an-ordinary-differential-equation" title="Permalink to this heading">#</a></h1>
 <p>Ordinary differential equations (ODEs) are commonly used to model the response of physical systems.
-Very often, one may be uncertain about the parameters of these ODEs, e.g., physical constants, or even their initial conditions.
-The question is how does this uncertainty affect the quantity predicted by the ODE?
+Very often, one may be uncertain about the parameters of these ODEs, e.g., physical constants or even their initial conditions.
+How does this uncertainty affect the quantity predicted by the ODE?
 How can you mathematically describe this effect, how can you estimate it, and how can you visualize it?
-We are going to address these three questions using the a very simple example.</p>
-</section>
+We will address these three questions using a straightforward example.</p>
 <section id="exponential-decay-differential-equation-and-its-solution">
-<h3>Exponential decay differential equation and its solution<a class="headerlink" href="#exponential-decay-differential-equation-and-its-solution" title="Permalink to this heading">#</a></h3>
+<h2>Exponential decay differential equation and its solution<a class="headerlink" href="#exponential-decay-differential-equation-and-its-solution" title="Permalink to this heading">#</a></h2>
 <p>Consider the prototypical ODE describing the exponential decay of a quantity <span class="math notranslate nohighlight">\(y\)</span> over time:</p>
 <div class="math notranslate nohighlight">
 \[
-    \dot{y} = \frac{d y}{dt} =-ay(t).
+ \dot{y} = \frac{d y}{dt} =-ay(t).
 \]</div>
 <p>The equation says that the quantity <span class="math notranslate nohighlight">\(y\)</span> is decreasing at a rate proportional to itself.
 The rate <span class="math notranslate nohighlight">\(a\)</span> is the positive variable known as the <em>exponential decay constant</em> or <em>exponential decay rate</em>.
-The exponential decay rate has units of inverse time and it corresponds to the rate with which a unit of <span class="math notranslate nohighlight">\(y\)</span> is lost per unit of time. The larger the exponential decay, the faster <span class="math notranslate nohighlight">\(y\)</span> dies out over time.
+The exponential decay rate has units of inverse time, corresponding to the rate with which a unit of <span class="math notranslate nohighlight">\(y\)</span> is lost per unit of time. The larger the exponential decay, the faster <span class="math notranslate nohighlight">\(y\)</span> decreases over time.
 This equation has a plethora of possible interpretations ranging from chemical reactions to electrostatics to heat transfer to radioactivity to thermoelectricity to vibrations.</p>
 <p>To solve the equation, we also need <em>initial conditions</em>, basically how much <span class="math notranslate nohighlight">\(y\)</span> we have at time <span class="math notranslate nohighlight">\(t=0\)</span>, i.e.,</p>
 <div class="math notranslate nohighlight">
@@ -648,32 +633,32 @@ This equation has a plethora of possible interpretations ranging from chemical r
 y(0) = y_0.
 \]</div>
 <p>The ODE with the initial conditions is called an <em>initial value problem</em> (IVP).
-For this particular equation, the solution of the initial value problem is analytically available:</p>
+For this particular equation, the solution to the initial value problem is analytically available:</p>
 <div class="math notranslate nohighlight">
 \[
 y(t) = y_0e^{-at}.
 \]</div>
 </section>
-<section id="assigning-random-variables-to-uncertaint-quantities">
-<h3>Assigning random variables to uncertaint quantities<a class="headerlink" href="#assigning-random-variables-to-uncertaint-quantities" title="Permalink to this heading">#</a></h3>
-<p>Let’s assume that we are uncertain about the decay rate coefficient and the initial conditions.
-To model this, we are going to turn both these parameters into random variables.
-To do this, we are going to write down everything we know about these parameters and then pick compatible probability distributions.</p>
+<section id="assigning-random-variables-to-uncertain-quantities">
+<h2>Assigning random variables to uncertain quantities<a class="headerlink" href="#assigning-random-variables-to-uncertain-quantities" title="Permalink to this heading">#</a></h2>
+<p>Let’s assume we are uncertain about the decay rate coefficient and the initial conditions.
+To model this, we will turn both these parameters into random variables.
+We will write down everything we know about these parameters and then pick compatible probability distributions.</p>
 <p>We start with the decay rate.
 We know that it has to be positive.
 We have to assign to <span class="math notranslate nohighlight">\(a\)</span> a probability distribution with positive support, i.e., a probability distribution that puts zero probability on values that are not positive.
 Two of the most commonly used probability distributions are the <a class="reference external" href="https://en.wikipedia.org/wiki/Exponential_distribution">Exponential</a> and the <a class="reference external" href="https://en.wikipedia.org/wiki/Log-normal_distribution">Log-Normal</a>.
 Which one should we pick?
 It depends on what we know about it.
-Let’s say that we expect it to be around <span class="math notranslate nohighlight">\(0.1\)</span> (units of inverse time) and that’s all we know.
+Let’s say we expect it to be around <span class="math notranslate nohighlight">\(0.1\)</span> (units of inverse time), and that’s all we know.
 Mathematically, this means that we want the expectation of <span class="math notranslate nohighlight">\(a\)</span> to be:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbb{E}[a] = 0.1
 \]</div>
-<p>If that’s all you know then the legitimate thing to do is to assign to <span class="math notranslate nohighlight">\(a\)</span> an Exponential distribution with a rate parameter that gives you the right expectation.
+<p>If that’s all you know, then the legitimate thing to do is to assign to <span class="math notranslate nohighlight">\(a\)</span> an Exponential distribution with a rate parameter that gives you the right expectation.
 Why is this the legitimate thing to do?
-Well, that’s a big topic which we are going to discuss at a later lecture when we talk about the <a class="reference external" href="https://en.wikipedia.org/wiki/Principle_of_maximum_entropy">principle of maximum entropy</a>.
+Well, that’s a big topic that we are going to discuss <a class="reference internal" href="../lecture11/intro.html#lecture11"><span class="std std-ref">Lecture 11</span></a> when we talk about the <a class="reference external" href="https://en.wikipedia.org/wiki/Principle_of_maximum_entropy">principle of maximum entropy</a>.
 The short answer is that <em>the Exponential is the least biased distribution with positive support and a known expectation</em>.
 Mathematically, we write:</p>
 <div class="math notranslate nohighlight">
@@ -690,7 +675,8 @@ Let’s visualize this.</p>
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is needed to define random variables and sample from them</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># This is needed to define random variables and sample from them</span>
 <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
 
 <span class="c1"># The random variable corresponding to the decay rate a:</span>
@@ -708,35 +694,35 @@ Let’s visualize this.</p>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a_vals</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">a_vals</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\alpha$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$p(\alpha)$&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$p(\alpha)$&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/9e6b623956ff80a7ff588d41644a4fa767c5f0e2b92535aeaf69393aa2fb8b23.png" src="../_images/9e6b623956ff80a7ff588d41644a4fa767c5f0e2b92535aeaf69393aa2fb8b23.png" />
-</div>
+<img alt="../_images/bac5757cfcc4d6923247f11f45a281b0c053244b98184f0d3d60a1780ed9340d.svg" src="../_images/bac5757cfcc4d6923247f11f45a281b0c053244b98184f0d3d60a1780ed9340d.svg" /></div>
 </div>
 <p>Okay, we have selected a probability model for the rate parameter <span class="math notranslate nohighlight">\(a\)</span>.
 Let’s move to the initial conditions <span class="math notranslate nohighlight">\(y_0\)</span>, which is also positive.
-This time, let’s assume that we have an expectation for <span class="math notranslate nohighlight">\(y_0\)</span>, say that we believe that:</p>
+This time, let’s assume that we know the expectation of <span class="math notranslate nohighlight">\(y_0\)</span>, say that we believe that:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbb{E}[y_0] = 10.
 \]</div>
-<p>If that’s all we have, then we would do exactly what we did for the decay rate and proceed by assigning an Exponential distribution to <span class="math notranslate nohighlight">\(y_0\)</span> with a properly chosen rate parameter.
-But, let’s assume we know more. Let’s say that we have some idea about the variance of <span class="math notranslate nohighlight">\(y_0\)</span>.
+<p>If that’s all we have, we would do what we did for the decay rate and proceed by assigning an Exponential distribution to <span class="math notranslate nohighlight">\(y_0\)</span> with an adequately chosen rate parameter.
+But let’s assume we know more. Let’s say we have some idea about the variance of <span class="math notranslate nohighlight">\(y_0\)</span>.
 For example, we may believe that:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbb{V}[y_0] = 1.
 \]</div>
-<p>Now, the legitimate thing to do is to choose a Log-Normal distribution with the right <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> parameters, i.e.,</p>
+<p>Now, the legitimate thing to do is to choose a Log-Normal distribution with the correct <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> parameters, i.e.,</p>
 <div class="math notranslate nohighlight">
 \[
 y_0 \sim \operatorname{Lognormal}(\mu,\sigma^2)
 \]</div>
-<p>Again, this is based on the <a class="reference external" href="https://en.wikipedia.org/wiki/Principle_of_maximum_entropy">principle of maximum entropy</a> and it can be interpreted as the <em>least biased distribution with positive support with a known expectation and variance</em>.
+<p>Again, this is based on the <a class="reference external" href="https://en.wikipedia.org/wiki/Principle_of_maximum_entropy">principle of maximum entropy</a>, and it can be interpreted as the <em>least biased distribution with positive support with a known expectation and variance</em>.
 Now we can match <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> to the available information.
 For the expectation, we have:</p>
 <div class="math notranslate nohighlight">
@@ -751,7 +737,7 @@ For the expectation, we have:</p>
 <p>We need to solve this system of equations for <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span>.
 Unfortunately, we do not have the time to work this out analytically.
 Let’s solve it numerically using <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html#scipy.optimize.root">scipy.optimize.root</a>.</p>
-<p>First define a function of <code class="docutils literal notranslate"><span class="pre">mu</span></code> and <code class="docutils literal notranslate"><span class="pre">sigma</span></code> the zero of which corresponds to the solution of the system above:</p>
+<p>First, define a function of <code class="docutils literal notranslate"><span class="pre">mu</span></code> and <code class="docutils literal notranslate"><span class="pre">sigma</span></code> the zero of which corresponds to the solution of the system above:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -782,16 +768,16 @@ Let’s solve it numerically using <a class="reference external" href="https://d
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    fjac: array([[-0.034, -0.999],
-       [ 0.999, -0.034]])
-     fun: array([-1.776e-15, -6.728e-14])
- message: &#39;The solution converged.&#39;
-    nfev: 20
-     qtf: array([4.995e-10, 1.282e-11])
-       r: array([-388.945, -206.727,   -0.474])
-  status: 1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> message: The solution converged.
  success: True
-       x: array([2.25 , 0.105])
+  status: 1
+     fun: [ 1.776e-15 -8.660e-14]
+       x: [ 2.250e+00  1.045e-01]
+    nfev: 20
+    fjac: [[-3.432e-02 -9.994e-01]
+           [ 9.994e-01 -3.432e-02]]
+       r: [-3.889e+02 -2.067e+02 -4.744e-01]
+     qtf: [ 4.995e-10  1.282e-11]
 </pre></div>
 </div>
 </div>
@@ -814,13 +800,13 @@ sigma = 0.10
 </div>
 </div>
 </div>
-<p>Let’s define the corresponding random variable using <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.lognorm.html">scipy.stats.lognorm</a> and do a sanity check.
-Please notice that scipy.stats is not using the standard parameteterization of the Lognormal.
-We have to be a little bit careful with it.
-<strong>Always read the documentation of the code you are using and make sure you understand what it does.</strong>
+<p>Let’s define the corresponding random variable using <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.lognorm.html">scipy.stats.lognorm</a> and do a quick check.
+Please notice that scipy.stats is not using the standard parameterization of the Lognormal.
+We have to be careful with it.
+<strong>Always read the documentation of the code you use and ensure you understand what it does.</strong>
 In particular, pay attention to the following text:</p>
 <blockquote>
-<div><p>A common parametrization for a lognormal random variable Y is in terms of the mean, <code class="docutils literal notranslate"><span class="pre">mu</span></code>, and standard deviation, <code class="docutils literal notranslate"><span class="pre">sigma</span></code>, of the unique normally distributed random variable X such that <code class="docutils literal notranslate"><span class="pre">exp(X)</span> <span class="pre">=</span> <span class="pre">Y</span></code>. This parametrization corresponds to setting <code class="docutils literal notranslate"><span class="pre">s</span> <span class="pre">=</span> <span class="pre">sigma</span></code> and <code class="docutils literal notranslate"><span class="pre">scale</span> <span class="pre">=</span> <span class="pre">exp(mu)</span></code>.</p>
+<div><p>A standard parametrization for a lognormal random variable Y is in terms of the mean, <code class="docutils literal notranslate"><span class="pre">mu</span></code>, and standard deviation, <code class="docutils literal notranslate"><span class="pre">sigma</span></code>, of the unique normally distributed random variable X such that <code class="docutils literal notranslate"><span class="pre">exp(X)</span> <span class="pre">=</span> <span class="pre">Y</span></code>. This parametrization corresponds to setting <code class="docutils literal notranslate"><span class="pre">s</span> <span class="pre">=</span> <span class="pre">sigma</span></code> and <code class="docutils literal notranslate"><span class="pre">scale</span> <span class="pre">=</span> <span class="pre">exp(mu)</span></code>.</p>
 </div></blockquote>
 <p>Now, we know how to match things:</p>
 <div class="cell docutils container">
@@ -837,26 +823,25 @@ In particular, pay attention to the following text:</p>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y0_vals</span><span class="p">,</span> <span class="n">y0</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">y0_vals</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$y_0$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$p(y_0)$&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$p(y_0)$&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6166caabc073edff61cd25fee4db5b55d0dbde7cee68a9bc2ec2965f2beb8929.png" src="../_images/6166caabc073edff61cd25fee4db5b55d0dbde7cee68a9bc2ec2965f2beb8929.png" />
+<img alt="../_images/6ebf250d144de21a40dd0810fe995bc63067e67fad3cc9a4efa5e0afe0107765.svg" src="../_images/6ebf250d144de21a40dd0810fe995bc63067e67fad3cc9a4efa5e0afe0107765.svg" /></div>
 </div>
-</div>
-</section>
 </section>
 <section id="propagating-uncertainties-through-the-initial-value-problem">
 <h2>Propagating uncertainties through the initial value problem<a class="headerlink" href="#propagating-uncertainties-through-the-initial-value-problem" title="Permalink to this heading">#</a></h2>
-<p>As mentioned earlier the solution of the initial value problem at time <span class="math notranslate nohighlight">\(t\)</span> is given by the formula:</p>
+<p>As mentioned earlier, the solution of the initial value problem at time <span class="math notranslate nohighlight">\(t\)</span> is given by the formula:</p>
 <div class="math notranslate nohighlight">
 \[
 y(t) = y_0 e^{-at}.
 \]</div>
-<p>Since <span class="math notranslate nohighlight">\(y_0\)</span> and <span class="math notranslate nohighlight">\(a\)</span> are random variables, the quantities <span class="math notranslate nohighlight">\(y(t)\)</span> at any time <span class="math notranslate nohighlight">\(t\)</span> are random variables.
-Whenever you have a random variable parameterized by a label like <span class="math notranslate nohighlight">\(t\)</span> (time) you say that you have a <em>random process</em>.
-The first thing we are going to do, is take a few samples of this random process at discrete timesteps.</p>
+<p>Since <span class="math notranslate nohighlight">\(y_0\)</span> and <span class="math notranslate nohighlight">\(a\)</span> are random variables, the quantities <span class="math notranslate nohighlight">\(y(t)\)</span> at any time <span class="math notranslate nohighlight">\(t\)</span> are random.
+Whenever a random variable is parameterized by a label like <span class="math notranslate nohighlight">\(t\)</span> (time), you say you have a <em>random process</em>.
+The first thing we will do is take a few samples of this random process at discrete timesteps.</p>
 <p>Specifically, consider some <span class="math notranslate nohighlight">\(K\)</span> time steps:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -867,7 +852,7 @@ The first thing we are going to do, is take a few samples of this random process
 \[
 y_k = y(t_k).
 \]</div>
-<p>Then, all the <span class="math notranslate nohighlight">\(y_k\)</span>’s together form a <span class="math notranslate nohighlight">\(K\)</span>-dimensional random vector which we are going to sample and analyze.
+<p>Then, all the <span class="math notranslate nohighlight">\(y_k\)</span>’s together form a <span class="math notranslate nohighlight">\(K\)</span>-dimensional random vector, which we will sample and analyze.
 First, here is how you sample it:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -902,16 +887,16 @@ First, here is how you sample it:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">y_samples</span><span class="p">[:</span><span class="mi">10</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$t$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$y(t)$&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$y(t)$&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e6cd86680409fd66f6c18dfc194b908b433e45a4026bb4103828aa955ecfa6da.png" src="../_images/e6cd86680409fd66f6c18dfc194b908b433e45a4026bb4103828aa955ecfa6da.png" />
+<img alt="../_images/2b5ed24800e684ea4f6f294189c593a602236132573b672cc6063f66702af7f0.svg" src="../_images/2b5ed24800e684ea4f6f294189c593a602236132573b672cc6063f66702af7f0.svg" /></div>
 </div>
-</div>
-<p>Now, let’s focus at an intermediate timestep and let’s do our usual analysis (pdf and predictive quantiles).
-Let’s just pick something close to <span class="math notranslate nohighlight">\(t=1\)</span>.</p>
+<p>Now, let’s focus on an intermediate timestep and find the CDF, PDF and the predictive quantiles.
+Let’s pick something close to <span class="math notranslate nohighlight">\(t=1\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is now a 1D array, each element being a sample for y(1)</span>
@@ -927,13 +912,13 @@ Let’s just pick something close to <span class="math notranslate nohighlight">
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>median y(1) = 8.67
-y(1) is in [6.20, 11.02] with 95% probability
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>median y(1) = 8.70
+y(1) is in [6.22, 11.03] with 95% probability
 </pre></div>
 </div>
 </div>
 </div>
-<p>Let’s plot the empirical CDF of y(1):</p>
+<p>Let’s plot the empirical CDF of y(t=1):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.distributions.empirical_distribution</span> <span class="kn">import</span> <span class="n">ECDF</span>
@@ -948,16 +933,16 @@ y(1) is in [6.20, 11.02] with 95% probability
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yys</span><span class="p">,</span> <span class="n">ecdf_y_close_to_one</span><span class="p">(</span><span class="n">yys</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\tilde</span><span class="si">{y}</span><span class="s2">$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$p(y(1) \leq \tilde</span><span class="si">{y}</span><span class="s2">)$&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$p(y(t=1) \leq \tilde</span><span class="si">{y}</span><span class="s2">)$&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/48ac96845414112488f644c8a1dfa5c62b40de48ecc8f96bc9e6ef1fa91f0178.png" src="../_images/48ac96845414112488f644c8a1dfa5c62b40de48ecc8f96bc9e6ef1fa91f0178.png" />
+<img alt="../_images/5cb3851b8af12cdd820dea8ac5def1dad0d59970f7e03bd912e304295409c141.svg" src="../_images/5cb3851b8af12cdd820dea8ac5def1dad0d59970f7e03bd912e304295409c141.svg" /></div>
 </div>
-</div>
-<p>You can use the CDF to find the CDF to find the probability that <span class="math notranslate nohighlight">\(y(1)\)</span> falls within a given interval.
-For example, here is the probability that <span class="math notranslate nohighlight">\(y(1)\)</span> exceeds <span class="math notranslate nohighlight">\(8\)</span>:</p>
+<p>You can use the CDF to find the probability that <span class="math notranslate nohighlight">\(y(t=1)\)</span> falls within a given interval.
+For example, here is the probability that <span class="math notranslate nohighlight">\(y(t=1)\)</span> exceeds <span class="math notranslate nohighlight">\(8\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;p(y(1) &gt;= 8) = </span><span class="si">{</span><span class="mf">1.0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ecdf_y_close_to_one</span><span class="p">(</span><span class="mf">8.0</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -970,7 +955,7 @@ For example, here is the probability that <span class="math notranslate nohighli
 </div>
 </div>
 </div>
-<p>Let’s now plot the histogram of <span class="math notranslate nohighlight">\(y(1)\)</span>:</p>
+<p>Let’s now plot the histogram of <span class="math notranslate nohighlight">\(y(t=1)\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
@@ -1001,17 +986,17 @@ For example, here is the probability that <span class="math notranslate nohighli
     <span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;97.5% quantile&quot;</span>
 <span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$y(1)$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$p(y(1))$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$y(t=1)$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$p(y(t=1))$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/98ab6367c027cc05ef5a87c31306aae61b6bf586ac8efa82f1801668314afbd4.png" src="../_images/98ab6367c027cc05ef5a87c31306aae61b6bf586ac8efa82f1801668314afbd4.png" />
+<img alt="../_images/87f29ddaa0f17f69c4a2952e2002548a7d8145e665392d4d4bf52945d2d13785.svg" src="../_images/87f29ddaa0f17f69c4a2952e2002548a7d8145e665392d4d4bf52945d2d13785.svg" /></div>
 </div>
-</div>
-<p>As we said in the previous handout, the box plot is a nice way to summarize the predictive quantiles:</p>
+<p>As we said in the previous section, the box plot is a nice way to summarize the predictive quantiles:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
@@ -1019,13 +1004,13 @@ For example, here is the probability that <span class="math notranslate nohighli
     <span class="n">y_close_to_one_samples</span><span class="p">,</span>
     <span class="n">whis</span><span class="o">=</span><span class="p">[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">],</span>
     <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;y(1)&quot;</span><span class="p">]</span>
-<span class="p">);</span>
+<span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/505fdecc8ceb43fa55a1abb9b90ebb13a2d346cfa630ed6abd6602bc628ea84f.png" src="../_images/505fdecc8ceb43fa55a1abb9b90ebb13a2d346cfa630ed6abd6602bc628ea84f.png" />
-</div>
+<img alt="../_images/7974796d75d768d1ae45b0b21ccf54d76f8ef189c23ef58abf353af4019094a9.svg" src="../_images/7974796d75d768d1ae45b0b21ccf54d76f8ef189c23ef58abf353af4019094a9.svg" /></div>
 </div>
 <p>This is all good for one timestep. But how can we analyze multiple timesteps.
 To begin with, let’s subsample our data by taking 10 timesteps between 0 and 2 and by plotting the box plots for each one the corresponding <span class="math notranslate nohighlight">\(y(t)\)</span>’s.
@@ -1058,18 +1043,18 @@ Here is how to do this:</p>
     <span class="n">whis</span><span class="o">=</span><span class="p">[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">],</span> 
     <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;$t=</span><span class="si">{</span><span class="n">t</span><span class="si">:</span><span class="s2">1.2f</span><span class="si">}</span><span class="s2">$&quot;</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ts_few</span><span class="p">]</span>
 <span class="p">);</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$y(t)$&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$y(t)$&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/045db657786e5644266d41e258ffcbaaa90f78aedd866c1869e873a341f5e0a5.png" src="../_images/045db657786e5644266d41e258ffcbaaa90f78aedd866c1869e873a341f5e0a5.png" />
+<img alt="../_images/e5d104856a91b0b1976c18b2731331ed14028c6c99b7f83439186b4045a0edcf.svg" src="../_images/e5d104856a91b0b1976c18b2731331ed14028c6c99b7f83439186b4045a0edcf.svg" /></div>
 </div>
-</div>
-<p>This is nice because it shows us how the uncertainty evolves over time.
+<p>This plot is excellent because it shows us how uncertainty evolves.
 Could we do more steps in between? Yes, but the plot would look very messy if we used boxplots.
-We can manually calculate median and the 95% predictive intervals and plot them as functions of time.
-That is, we are now going to estimate the median <span class="math notranslate nohighlight">\(\mu_{50}(t_k)\)</span> and the quantiles <span class="math notranslate nohighlight">\(\mu_{2.5}(t_k)\)</span> and <span class="math notranslate nohighlight">\(\mu_{97.5}(t_k)\)</span> at all timesteps <span class="math notranslate nohighlight">\(t_k\)</span>.
+We can manually calculate the median and the 95% % predictive intervals and plot them as time functions.
+That is, we are now going to estimate the median <span class="math notranslate nohighlight">\(\mu_{0.50}(t_k)\)</span> and the quantiles <span class="math notranslate nohighlight">\(\mu_{0.025}(t_k)\)</span> and <span class="math notranslate nohighlight">\(\mu_{0.975}(t_k)\)</span> at all timesteps <span class="math notranslate nohighlight">\(t_k\)</span>.
 Here we go:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1082,17 +1067,17 @@ Here we go:</p>
 <span class="c1"># Let&#39;s plot these:</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">mu_50</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Median&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">mu_025</span><span class="p">,</span> <span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;2.5% quantile&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">mu_975</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;97.5% quantile&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">mu_025</span><span class="p">,</span> <span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0.025-quantile&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">mu_975</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0.975-quantile&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$t$&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$y(t)$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ba576094d961b95778cdf7ba249925a28a8b95c37eeb87cfb91dd69e01299af8.png" src="../_images/ba576094d961b95778cdf7ba249925a28a8b95c37eeb87cfb91dd69e01299af8.png" />
-</div>
+<img alt="../_images/b6f102d84bed5faff115b2af5b77e2f5bf9d7079d1e607ad8ee6af2fcfff3376.svg" src="../_images/b6f102d84bed5faff115b2af5b77e2f5bf9d7079d1e607ad8ee6af2fcfff3376.svg" /></div>
 </div>
 <p>You could potentially include more quantiles in-between if you like:</p>
 <div class="cell docutils container">
@@ -1113,16 +1098,17 @@ Here we go:</p>
         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">q</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% quantile&quot;</span>
         <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">quantiles_to_take</span>
     <span class="p">],</span>
-    <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span>
-<span class="p">);</span>
+    <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span>
+    <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/83650a1d192c64f4c428246311b9b1167443272857aa2222f2a62a96eb35a1e0.png" src="../_images/83650a1d192c64f4c428246311b9b1167443272857aa2222f2a62a96eb35a1e0.png" />
+<img alt="../_images/a8413977ee9e973ff86cc6e0e19653aa77ca298c0eabcd91fc000e8683b0cc58.svg" src="../_images/a8413977ee9e973ff86cc6e0e19653aa77ca298c0eabcd91fc000e8683b0cc58.svg" /></div>
 </div>
-</div>
-<p>Another very common way to summarize the uncertainty is to plot the median and then shade the area between the extreme quantiles.
+<p>Another common way to summarize the uncertainty is to plot the median and shade the area between the extreme quantiles.
 Here is how to do this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1137,15 +1123,15 @@ Here is how to do this:</p>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$t$&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$y(t)$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3c4a76e108cdac50fb4a5f5e06055f0ee2ebd7b504286d2210d37a3d39487239.png" src="../_images/3c4a76e108cdac50fb4a5f5e06055f0ee2ebd7b504286d2210d37a3d39487239.png" />
+<img alt="../_images/82fd1618128d82f83064024564fbc9d56ee1a65092a3e3188a2d44740016c8ba.svg" src="../_images/82fd1618128d82f83064024564fbc9d56ee1a65092a3e3188a2d44740016c8ba.svg" /></div>
 </div>
-</div>
-<p>The way you should interpret the predictive interval is that there is a 95% probability that a random trajectory will fall inside (strictly speaking they are <em>approximately</em> that).
+<p>The way you should interpret the predictive interval is that there is a 95% probability that a random trajectory will fall inside (strictly speaking, they are <em>approximately</em> that).
 Let’s plot 100 random samples along with the shaded area above:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1160,19 +1146,19 @@ Let’s plot 100 random samples along with the shaded area above:</p>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$t$&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$y(t)$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="n">ts</span><span class="p">,</span>
     <span class="n">y_samples</span><span class="p">[:</span><span class="mi">100</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
     <span class="s2">&quot;r&quot;</span><span class="p">,</span>
     <span class="n">lw</span><span class="o">=</span><span class="mf">0.1</span>
 <span class="p">);</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/955955ab6dda12e132e74e125840c2c32f5f7da5fb1ccb8d45aa3e59c8f10839.png" src="../_images/955955ab6dda12e132e74e125840c2c32f5f7da5fb1ccb8d45aa3e59c8f10839.png" />
-</div>
+<img alt="../_images/4dfc77e5bfc80457715a344bfd1196fdf4d211bd18685c479b10d9fd8ff2fb21.svg" src="../_images/4dfc77e5bfc80457715a344bfd1196fdf4d211bd18685c479b10d9fd8ff2fb21.svg" /></div>
 </div>
 <p>Finally, two other very common things to plot is the expectation, <span class="math notranslate nohighlight">\(\mathbb{E}[y(t)]\)</span>, and the variance <span class="math notranslate nohighlight">\(\mathbb{V}[y(t)]\)</span> as functions of time.
 Let’s do them on the same plot:</p>
@@ -1184,26 +1170,26 @@ Let’s do them on the same plot:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">exp_y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$\mathbb</span><span class="si">{E}</span><span class="s2">[y(t)]$&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">var_y</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$\mathbb</span><span class="si">{V}</span><span class="s2">[y(t)]$&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$t$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a24e8ee85de1693fe6f02a3c6473c8cd417ab3cbac3c89c159fd5ed2132b620b.png" src="../_images/a24e8ee85de1693fe6f02a3c6473c8cd417ab3cbac3c89c159fd5ed2132b620b.png" />
+<img alt="../_images/0ee8d936d5659170ca7ca89d23685f2a6096d3cb79cd45ad2e051a4f8231e23d.svg" src="../_images/0ee8d936d5659170ca7ca89d23685f2a6096d3cb79cd45ad2e051a4f8231e23d.svg" /></div>
 </div>
-</div>
+</section>
 <section id="questions">
-<h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
+<h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Notice that the expectation <span class="math notranslate nohighlight">\(\mathbb{E}[y(t)]\)</span> decays with time despite the uncertainty? Why?</p></li>
-<li><p>Notice that the variance <span class="math notranslate nohighlight">\(\mathbb{V}[y(t)]\)</span> initially increases, but after a point it starts decreasing.
+<li><p>Notice that the variance <span class="math notranslate nohighlight">\(\mathbb{V}[y(t)]\)</span> initially increases, but after a point, it starts decreasing.
 Will the variance continue to decrease beyond the timestep shown in the figure?
 If yes, this is a rare example of a dynamical system that becomes more predictable as time passes.</p></li>
-<li><p>Repeat the analysis above by assuming that you do not know the variance of the initial condition <span class="math notranslate nohighlight">\(y_0\)</span>.
+<li><p>Repeat the analysis above by assuming you do not know the variance of the initial condition <span class="math notranslate nohighlight">\(y_0\)</span>.
 This can be accomplished by replacing the distribution assigned to <span class="math notranslate nohighlight">\(y_0\)</span> with an Exponential distribution.
 Do you have less or more uncertainty now?</p></li>
 </ul>
-</section>
 </section>
 </section>
 
@@ -1244,7 +1230,7 @@ Do you have less or more uncertainty now?</p></li>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Hands-on Activity 9.3: Sampling Estimates of Predictive Quantiles</p>
+        <p class="prev-next-title">Estimating Predictive Quantiles</p>
       </div>
     </a>
     <a class="right-next"
@@ -1274,16 +1260,10 @@ Do you have less or more uncertainty now?</p></li>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-propagation-through-an-ordinary-differential-equation">Uncertainty propagation through an ordinary differential equation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-decay-differential-equation-and-its-solution">Exponential decay differential equation and its solution</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assigning-random-variables-to-uncertaint-quantities">Assigning random variables to uncertaint quantities</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propagating-uncertainties-through-the-initial-value-problem">Propagating uncertainties through the initial value problem</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-decay-differential-equation-and-its-solution">Exponential decay differential equation and its solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assigning-random-variables-to-uncertain-quantities">Assigning random variables to uncertain quantities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propagating-uncertainties-through-the-initial-value-problem">Propagating uncertainties through the initial value problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
   </nav></div>
 

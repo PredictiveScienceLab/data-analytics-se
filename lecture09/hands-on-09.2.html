@@ -66,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture09/hands-on-09.2';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Hands-on Activity 9.3: Sampling Estimates of Predictive Quantiles" href="hands-on-09.3.html" />
+    <link rel="next" title="Estimating Predictive Quantiles" href="hands-on-09.3.html" />
     <link rel="prev" title="Sampling Estimates of the Cumulative Distribution Function" href="hands-on-09.1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -211,8 +211,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 9 - Monte Carlo Estimates of Various Statistics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="hands-on-09.1.html">Sampling Estimates of the Cumulative Distribution Function</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Sampling Estimates of the Probability Density via Histograms</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-09.3.html">Hands-on Activity 9.3: Sampling Estimates of Predictive Quantiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-09.4.html">Propagating Uncertainties through an Ordinrary Differential Equation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-09.3.html">Estimating Predictive Quantiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-09.4.html">Uncertainty propagation through an ordinary differential equation</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../lecture10/intro.html">Lecture 10 - Quantify Uncertainty in Monte Carlo Estimates</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -575,11 +575,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-the-probability-density-function-via-histograms">Estimating the probability density function via histograms</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-cdf">Example: 1D CDF</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-cdf">Example: 1D CDF</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
             </nav>
@@ -599,47 +595,40 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="sampling-estimates-of-the-probability-density-via-histograms">
-<h1>Sampling Estimates of the Probability Density via Histograms<a class="headerlink" href="#sampling-estimates-of-the-probability-density-via-histograms" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To estimate probability density via histrograms.</p></li>
-</ul>
-</section>
-<section id="estimating-the-probability-density-function-via-histograms">
-<h2>Estimating the probability density function via histograms<a class="headerlink" href="#estimating-the-probability-density-function-via-histograms" title="Permalink to this heading">#</a></h2>
-<p>As before take <span class="math notranslate nohighlight">\(X\)</span> to be a random variable and <span class="math notranslate nohighlight">\(Y=g(X)\)</span> a function of <span class="math notranslate nohighlight">\(X\)</span>.
-We wish to approximate from samples the probability density <span class="math notranslate nohighlight">\(p(y)\)</span> of <span class="math notranslate nohighlight">\(Y=g(X)\)</span>.
-We start by spliting the domain of <span class="math notranslate nohighlight">\(y\)</span> into <span class="math notranslate nohighlight">\(M\)</span> small bins.
-Assume that these bins have bounds <span class="math notranslate nohighlight">\(b_0, b_1, \dots, b_M\)</span>.
+<span id="histograms"></span><h1>Sampling Estimates of the Probability Density via Histograms<a class="headerlink" href="#sampling-estimates-of-the-probability-density-via-histograms" title="Permalink to this heading">#</a></h1>
+<p>As in the previous section, consider a random variable <span class="math notranslate nohighlight">\(X\)</span> and a function of <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y=g(X)\)</span>.
+We wish to approximate the probability density <span class="math notranslate nohighlight">\(p(y)\)</span> of <span class="math notranslate nohighlight">\(Y=g(X)\)</span> from samples.
+We start by splitting the domain of <span class="math notranslate nohighlight">\(y\)</span> into <span class="math notranslate nohighlight">\(M\)</span> small bins.
+Assume these bins have bounds <span class="math notranslate nohighlight">\(b_0, b_1, \dots, b_M\)</span>.
 That is, the first bin is <span class="math notranslate nohighlight">\([b_0,b_1]\)</span>, the second one is <span class="math notranslate nohighlight">\([b_1,b_2]\)</span>, etc.
-We will approximate <span class="math notranslate nohighlight">\(p(y)\)</span> with a constant inside its bin.
+We will approximate <span class="math notranslate nohighlight">\(p(y)\)</span> with a constant inside each bin.
 That is, the approximation is:</p>
 <div class="math notranslate nohighlight">
 \[
 \hat{p}_M(y) = \sum_{j=1}^Mc_j 1_{[b_{j-1}, b_j]}(y),
 \]</div>
 <p>where the <span class="math notranslate nohighlight">\(c_j\)</span>’s are constants to be determined.
+This is a piecewise constant approximation of <span class="math notranslate nohighlight">\(p(y)\)</span> and is called a <em>histogram</em>.</p>
+<p>How do we determine the constants <span class="math notranslate nohighlight">\(c_j\)</span>?
 Each one of these constants is the probability that a sample of <span class="math notranslate nohighlight">\(Y\)</span> falls inside the bin, i.e.,</p>
 <div class="math notranslate nohighlight">
 \[
 c_j = p(b_{j-1}\le Y \le b_j).
 \]</div>
-<p>Of course, this probability can be written as</p>
+<p>Of course, we can write this probability as</p>
 <div class="math notranslate nohighlight">
 \[
 c_j = F(b_j) - F(b_{j-1}),
@@ -649,7 +638,7 @@ Therefore, we can approximate the constants using our estimate of the CDF.
 In the notation of the previous section, we have that:</p>
 <div class="math notranslate nohighlight">
 \[
-\bar{c}_{j,N} := \bar{F}_N(b_j) - \bar{F}_N(b_{j-1}) \rightarrow c_j\;\text{a.s.}
+\bar{c}_{j,N} := \bar{F}_N(b_j) - \bar{F}_N(b_{j-1}).
 \]</div>
 <p>Of course, this is nothing more but:</p>
 <div class="math notranslate nohighlight">
@@ -663,8 +652,8 @@ In the notation of the previous section, we have that:</p>
 \]</div>
 <p>which does converge to <span class="math notranslate nohighlight">\(p(y)\)</span> (in some sense) as both <span class="math notranslate nohighlight">\(N\)</span> and <span class="math notranslate nohighlight">\(M\)</span> go to infinity.</p>
 <section id="example-1d-cdf">
-<h3>Example: 1D CDF<a class="headerlink" href="#example-1d-cdf" title="Permalink to this heading">#</a></h3>
-<p>We will continue using the 1D test function of Example 3.4 of Robert &amp; Casella (2004).
+<h2>Example: 1D CDF<a class="headerlink" href="#example-1d-cdf" title="Permalink to this heading">#</a></h2>
+<p>We will continue using the 1D test function of Example 3.4 <span id="id1">[<a class="reference internal" href="../bibliography.html#id9" title="C.P. Robert and G. Casella. Monte Carlo statistical methods. Springer Verlag, 2004.">Robert and Casella, 2004</a>]</span>.
 Assume that <span class="math notranslate nohighlight">\(X\sim\mathcal{U}([0,1])\)</span> and pick:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -677,7 +666,8 @@ g(x) = \left(\cos(50x) + \sin(20x)\right)^2.
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define the function here:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># define the function here:</span>
 <span class="n">g</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">50</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">20</span> <span class="o">*</span> <span class="n">x</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span>
 
 <span class="c1"># Again, we do not need to write any code for the histogram</span>
@@ -705,23 +695,20 @@ g(x) = \left(\cos(50x) + \sin(20x)\right)^2.
     <span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$y$&quot;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\hat{{p}}_{{M=</span><span class="si">{0:d}</span><span class="s2">,N}}(y)$&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_bins</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/f3a822569b44bc92e444b33bb231174510299e7ff022f088b19bc6834fc2b110.png" src="../_images/f3a822569b44bc92e444b33bb231174510299e7ff022f088b19bc6834fc2b110.png" />
-<img alt="../_images/98b95942344649825268973796754d93bb4a3338fdb53a4425e4c788107228a5.png" src="../_images/98b95942344649825268973796754d93bb4a3338fdb53a4425e4c788107228a5.png" />
-<img alt="../_images/d66969fec294128b2812f8ec6ea6ac087d702f16d4fe1ac6038f3d336cb28884.png" src="../_images/d66969fec294128b2812f8ec6ea6ac087d702f16d4fe1ac6038f3d336cb28884.png" />
+<img alt="../_images/05d5aa7e409eaa7f066555acbc1c00e7e6abfaa56d6f489440596d08b3db5724.svg" src="../_images/05d5aa7e409eaa7f066555acbc1c00e7e6abfaa56d6f489440596d08b3db5724.svg" /><img alt="../_images/06da51a991152d67d7004350dfd6b71923f7534460159871d2bc97449c36f72f.svg" src="../_images/06da51a991152d67d7004350dfd6b71923f7534460159871d2bc97449c36f72f.svg" /><img alt="../_images/e38b3ff4a962cbbf3e2714388b5724eb86fe475166e2f823a5a24d3f438337b0.svg" src="../_images/e38b3ff4a962cbbf3e2714388b5724eb86fe475166e2f823a5a24d3f438337b0.svg" /></div>
 </div>
-</div>
-</section>
 </section>
 <section id="questions">
 <h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Experiment with the number of bins <span class="math notranslate nohighlight">\(M\)</span>. Repeat the code above with <span class="math notranslate nohighlight">\(M=5, 10\)</span> and <span class="math notranslate nohighlight">\(1000\)</span>. What do you observe? What happens when you have to few bins? What happens when you have to many bins? You should pick the number of bins and <span class="math notranslate nohighlight">\(N\)</span> together. As a rule of thumb <span class="math notranslate nohighlight">\(N\)</span> should be about ten times <span class="math notranslate nohighlight">\(M\)</span>. For a given choice of <span class="math notranslate nohighlight">\(M\)</span>, it is possible to pick how many <span class="math notranslate nohighlight">\(N\)</span>’s you need using what we will learn in lecture 10.</p></li>
+<li><p>Experiment with the number of bins <span class="math notranslate nohighlight">\(M\)</span>. Repeat the code above with <span class="math notranslate nohighlight">\(M=5, 10\)</span>, and <span class="math notranslate nohighlight">\(1000\)</span>. What do you observe? What happens when you have too few bins? What happens when you have too many bins? You should pick the number of bins and <span class="math notranslate nohighlight">\(N\)</span> together. As a rule, <span class="math notranslate nohighlight">\(N\)</span> should be about ten times <span class="math notranslate nohighlight">\(M\)</span>. For a given choice of <span class="math notranslate nohighlight">\(M\)</span>, it is possible to pick how many <span class="math notranslate nohighlight">\(N\)</span>’s you need using what we will learn in lecture 10.</p></li>
 </ul>
 </section>
 </section>
@@ -771,7 +758,7 @@ g(x) = \left(\cos(50x) + \sin(20x)\right)^2.
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Hands-on Activity 9.3: Sampling Estimates of Predictive Quantiles</p>
+        <p class="prev-next-title">Estimating Predictive Quantiles</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -793,11 +780,7 @@ g(x) = \left(\cos(50x) + \sin(20x)\right)^2.
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-the-probability-density-function-via-histograms">Estimating the probability density function via histograms</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-cdf">Example: 1D CDF</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-cdf">Example: 1D CDF</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
   </nav></div>
