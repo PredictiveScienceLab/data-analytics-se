@@ -1,4 +1,4 @@
-(monte-carlo-method)=
+(uncertainty-propagation-problem)=
 # The Uncertainty Propagation Problem
 
 Suppose you have some random vector $X$.
