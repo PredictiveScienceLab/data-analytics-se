@@ -575,8 +575,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-cdf">Example: 1D CDF</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-cdf">Example: 1D CDF</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -595,14 +597,13 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -616,33 +617,31 @@ We want to estimate <span class="math notranslate nohighlight">\(F(y)\)</span> u
 The key is to observe that it can be written as an expectation using the indicator function:</p>
 <div class="math notranslate nohighlight">
 \[
-F(y) = \mathbb{E}[1_{[-\infty,y]}(Y)].
+F(y) = p(Y\le y) = \int_{-\infty}^y p(y)dy = \int_{-\infty}^y 1_{[-\infty,y]}(y)p(y)dy = \mathbb{E}[1_{[-\infty,y]}(Y)].
 \]</div>
-<p>We want to estimate the cumulative distribution function of <span class="math notranslate nohighlight">\(Y=g(X)\)</span>:</p>
+<p>So, if we had a sample <span class="math notranslate nohighlight">\(Y_1,Y_2,\dots,Y_N\)</span> of <span class="math notranslate nohighlight">\(Y\)</span>, we could estimate <span class="math notranslate nohighlight">\(F(y)\)</span> as:</p>
 <div class="math notranslate nohighlight">
 \[
-F(y) = p(Y\le y) = p(g(X) \le y).
+\bar{F}_N(y) = \frac{1}{N}\sum_{i=1}^N1_{[-\infty,y]}(Y_i) = \frac{\text{number of }Y_i \le y}{N}.
 \]</div>
-<p>The key is to observe that it can be written as an expectation using the indicator function:</p>
+<p>This is known as the empirical cumulative distribution function (CDF).
+We saw this estimate in <a class="reference internal" href="../lecture07/hands-on-07.2.html#sample-uniform"><span class="std std-ref">a previous lecture</span></a>.
+Now you know where it comes from!</p>
+<p>When solving the uncertainty propagation problem, we have a random variable <span class="math notranslate nohighlight">\(X\)</span> and a function <span class="math notranslate nohighlight">\(g\)</span>.
+We want to estimate the cumulative distribution function of <span class="math notranslate nohighlight">\(Y=g(X)\)</span>:
+Then, we can write:</p>
 <div class="math notranslate nohighlight">
 \[
-F(y) = \mathbb{E}[1_{[-\infty,y]}(g(X))].
+F(y) = \mathbb{E}[1_{[-\infty,y]}(Y)] = \mathbb{E}[1_{[-\infty,y]}(g(X))].
 \]</div>
-<p>This suggests that we should consider the random variables <span class="math notranslate nohighlight">\(1_{-[\infty,y]}(g(X_1)), 1_{-[\infty,y]}(g(X_2)),\dots\)</span> which are independent and identically distributed.
-By the strong law of large numbers, we have that:</p>
+<p>So, if we have independent samples <span class="math notranslate nohighlight">\(X_1,X_2,\dots,X_N\)</span> of <span class="math notranslate nohighlight">\(X\)</span>, we can estimate <span class="math notranslate nohighlight">\(F(y)\)</span> as:</p>
 <div class="math notranslate nohighlight">
 \[
-\bar{F}_N(y) = \frac{1}{N}\sum_{i=1}^N1_{[-\infty,y]}(g(X_i))\rightarrow F(y)\;\text{a.s.}.
-\]</div>
-<p>This estimate is called the empirical CDF.
-Note the neat interpretation:</p>
-<div class="math notranslate nohighlight">
-\[
-\bar{F}_N(y) = \frac{1}{N}\sum_{i=1}^N1_{[-\infty,y]}(g(X_i))=\frac{\text{number of }g(X_i) \le y}{N}.
+\bar{F}_N(y) = \frac{1}{N}\sum_{i=1}^N1_{[-\infty,y]}(g(X_i)) = \frac{\text{number of }g(X_i) \le y}{N}.
 \]</div>
 <section id="example-1d-cdf">
 <h2>Example: 1D CDF<a class="headerlink" href="#example-1d-cdf" title="Permalink to this heading">#</a></h2>
-<p>We will continue using the 1D test function of <a class="reference external" href="https://link.springer.com/book/10.1007/978-1-4757-4145-2">Example 3.4 of Robert &amp; Casella (2004)</a>.
+<p>We will continue using the 1D test function of Example 3.4 of <span id="id1">[<a class="reference internal" href="../bibliography.html#id9" title="C.P. Robert and G. Casella. Monte Carlo statistical methods. Springer Verlag, 2004.">Robert and Casella, 2004</a>]</span>.
 Assume that <span class="math notranslate nohighlight">\(X\sim U([0,1])\)</span> and pick:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -720,14 +719,14 @@ N = 1000:	p(1 &lt;= Y &lt;= 3) ~= 0.33
 </div>
 </div>
 </div>
-</section>
 <section id="questions">
-<h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
+<h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Why is the empirical CDF for small <span class="math notranslate nohighlight">\(N\)</span> discontinuous?</p></li>
 <li><p>How do you know how many samples you need? For now, just think about it on your own. We will give the answer in lecture 10.</p></li>
 <li><p>Use the best empirical CDF we have constructed so far to find the probability of that <span class="math notranslate nohighlight">\(Y\)</span> is in <span class="math notranslate nohighlight">\([0.5, 2]\)</span> or <span class="math notranslate nohighlight">\([3,4]\)</span>, i.e., find <span class="math notranslate nohighlight">\(p(0.5 \le Y \le 2\;\text{or}\;3\le Y \le 4)\)</span>.</p></li>
 </ul>
+</section>
 </section>
 </section>
 
@@ -798,8 +797,10 @@ N = 1000:	p(1 &lt;= Y &lt;= 3) ~= 0.33
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-cdf">Example: 1D CDF</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-cdf">Example: 1D CDF</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
