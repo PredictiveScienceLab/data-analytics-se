@@ -218,7 +218,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 10 - Quantify Uncertainty in Monte Carlo Estimates</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Visualizing Monte Carlo Uncertainty</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-10.2.html">The Central Limit Theorem</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-10.3.html">Quanifying Epistemic Uncertainty in Monte Carlo estimates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-10.3.html">Quantifying Epistemic Uncertainty in Monte Carlo Estimates</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-10.4.html">Uncertainty Propagation Through a Boundary Value Problem</a></li>
 </ul>
 </li>
@@ -575,12 +575,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reminder">Reminder</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-expectation">Example: 1D expectation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-expectation">Example: 1D expectation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
             </nav>
         </div>
@@ -600,13 +596,13 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -614,16 +610,8 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="visualizing-monte-carlo-uncertainty">
 <h1>Visualizing Monte Carlo Uncertainty<a class="headerlink" href="#visualizing-monte-carlo-uncertainty" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To build intuition about the uncertainty in Monte Carlo estimates.</p></li>
-</ul>
-</section>
-<section id="reminder">
-<h2>Reminder<a class="headerlink" href="#reminder" title="Permalink to this heading">#</a></h2>
-<p>In the last two lectures, we repeatedly used the strong law of large numbers to estimate expectations using samples.
-In particular, we studied  this integral:</p>
+<p>In the last two lectures, we repeatedly used the law of large numbers to estimate expectations using samples.
+In particular, we studied this integral:</p>
 <div class="math notranslate nohighlight">
 \[
 I = \mathbb{E}[g(X)]=\int g(x) p(x) dx,
@@ -631,23 +619,23 @@ I = \mathbb{E}[g(X)]=\int g(x) p(x) dx,
 <p>where <span class="math notranslate nohighlight">\(X\sim p(x)\)</span> and <span class="math notranslate nohighlight">\(g(x)\)</span> is a function of <span class="math notranslate nohighlight">\(x\)</span>.
 The sampling-based approximation required <span class="math notranslate nohighlight">\(X_1,X_2,\dots\)</span> be independent copies of <span class="math notranslate nohighlight">\(X\)</span>.
 Then, we considered the random variables <span class="math notranslate nohighlight">\(Y_1 = g(X_1), Y_2 = g(X_2), \dots\)</span>, which are also independent and identically distributed.
-The strong law of large states that their sampling average converges to their mean:</p>
+The law of large states that their sampling average converges to their mean:</p>
 <div class="math notranslate nohighlight">
 \[
 \bar{I}_N=\frac{g(X_1)+\dots+g(X_N)}{N}=\frac{Y_1+\dots+Y_N}{N}\rightarrow I,\;\text{a.s.}
 \]</div>
-<p>This is the <em>Monte Carlo way for estimating integrals</em>.
-If you played with the hands-on activities you probably noticed that for small <span class="math notranslate nohighlight">\(N\)</span> we can get very different answers.
+<p>This is the <em>Monte Carlo way of estimating integrals</em>.
+If you played with the hands-on activities, you noticed that for small <span class="math notranslate nohighlight">\( N \)</span>, we could get very different answers.
 Here we will build some intuition about this epistemic uncertainty induced by finite samples.</p>
 <section id="example-1d-expectation">
-<h3>Example: 1D expectation<a class="headerlink" href="#example-1d-expectation" title="Permalink to this heading">#</a></h3>
-<p>Let’s try it out with a test function in 1D (Example 3.4 of Robert &amp; Casella (2004)).
+<h2>Example: 1D expectation<a class="headerlink" href="#example-1d-expectation" title="Permalink to this heading">#</a></h2>
+<p>Let’s try it out with the same test function we used before (Example 3.4 of <span id="id1">[<a class="reference internal" href="../bibliography.html#id9" title="C.P. Robert and G. Casella. Monte Carlo statistical methods. Springer Verlag, 2004.">Robert and Casella, 2004</a>]</span>).
 Assume that <span class="math notranslate nohighlight">\(X\sim\mathcal{U}([0,1])\)</span> and pick:</p>
 <div class="math notranslate nohighlight">
 \[
 g(x) = \left(\cos(50x) + \sin(20x)\right)^2.
 \]</div>
-<p>The correct value for the expectation can be found analytically and it is:</p>
+<p>The correct value for the expectation is:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbb{E}[g(x)] = 0.965.
@@ -684,24 +672,23 @@ g(x) = \left(\cos(50x) + \sin(20x)\right)^2.
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="p">[</span><span class="mf">0.965</span><span class="p">]</span> <span class="o">*</span> <span class="n">N</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
 <span class="c1"># and the labels</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$N$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\bar</span><span class="si">{I}</span><span class="s1">_N$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\bar</span><span class="si">{I}</span><span class="s1">_N$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/eec2b619df150c0d5384f27572be6c8fa0dfdd1966bbcf899b58656cd868d66d.png" src="../_images/eec2b619df150c0d5384f27572be6c8fa0dfdd1966bbcf899b58656cd868d66d.png" />
-</div>
+<img alt="../_images/111de4b14bdad986cc1cbef939cf8554c2a86db9a8d27fe2b6a395efa42807ac.svg" src="../_images/111de4b14bdad986cc1cbef939cf8554c2a86db9a8d27fe2b6a395efa42807ac.svg" /></div>
 </div>
 </section>
 <section id="questions">
-<h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
+<h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Run the code 2-3 times to observe that every time you get a slightly different answer…</p></li>
-<li><p>Set <code class="docutils literal notranslate"><span class="pre">num_mc</span></code> to 100 (or higher). Observe how different MC runs envelop the correct answer. This is epistemic uncertainty. How can we get it without running this repeatedly?</p></li>
-<li><p>Now increase <code class="docutils literal notranslate"><span class="pre">N</span></code> to 10000 and see how the uncertainty dies off.</p></li>
+<li><p>Run the code 2-3 times to observe that you get a slightly different answer every time.</p></li>
+<li><p>Set the number of Monte Carlo samples <code class="docutils literal notranslate"><span class="pre">num_mc</span></code> to 100 (or higher). Observe how different MC runs envelop the correct answer. This is epistemic uncertainty. How can we get it without running this repeatedly?</p></li>
+<li><p>Now increase <code class="docutils literal notranslate"><span class="pre">N</span></code> to 10000 and see how the uncertainty disappears.</p></li>
 </ul>
-</section>
 </section>
 </section>
 
@@ -772,12 +759,8 @@ g(x) = \left(\cos(50x) + \sin(20x)\right)^2.
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reminder">Reminder</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-expectation">Example: 1D expectation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1d-expectation">Example: 1D expectation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
   </nav></div>
 

@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Quanifying Epistemic Uncertainty in Monte Carlo estimates &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+    <title>Quantifying Epistemic Uncertainty in Monte Carlo Estimates &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
   
   
@@ -218,7 +218,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 10 - Quantify Uncertainty in Monte Carlo Estimates</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="hands-on-10.1.html">Visualizing Monte Carlo Uncertainty</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-10.2.html">The Central Limit Theorem</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">Quanifying Epistemic Uncertainty in Monte Carlo estimates</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Quantifying Epistemic Uncertainty in Monte Carlo Estimates</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-10.4.html">Uncertainty Propagation Through a Boundary Value Problem</a></li>
 </ul>
 </li>
@@ -565,7 +565,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Quanifying Epistemic Uncertainty in Monte Carlo estimates</h1>
+    <h1>Quantifying Epistemic Uncertainty in Monte Carlo Estimates</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -575,8 +575,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-central-limit-theorem-comes-to-the-rescue">The central limit theorem comes to the rescue</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
             </nav>
@@ -597,43 +595,34 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
-<section class="tex2jax_ignore mathjax_ignore" id="quanifying-epistemic-uncertainty-in-monte-carlo-estimates">
-<h1>Quanifying Epistemic Uncertainty in Monte Carlo estimates<a class="headerlink" href="#quanifying-epistemic-uncertainty-in-monte-carlo-estimates" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To quantify the epistemic uncertainty in Monte Carlo estimates.</p></li>
-</ul>
-</section>
-<section id="the-central-limit-theorem-comes-to-the-rescue">
-<h2>The central limit theorem comes to the rescue<a class="headerlink" href="#the-central-limit-theorem-comes-to-the-rescue" title="Permalink to this heading">#</a></h2>
-<p>Remember that we are working with an expectation of the form:</p>
+<section class="tex2jax_ignore mathjax_ignore" id="quantifying-epistemic-uncertainty-in-monte-carlo-estimates">
+<span id="clt-monte-carlo"></span><h1>Quantifying Epistemic Uncertainty in Monte Carlo Estimates<a class="headerlink" href="#quantifying-epistemic-uncertainty-in-monte-carlo-estimates" title="Permalink to this heading">#</a></h1>
+<p>We now show how to quantify the epistemic uncertainty of Monte Carlo estimates using the CLT.
+Remember that we are working with an expectation of the form:</p>
 <div class="math notranslate nohighlight">
 \[
 I = \mathbb{E}[g(X)]=\int g(x) p(x) dx,
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(X\sim p(x)\)</span> and <span class="math notranslate nohighlight">\(g(x)\)</span> is a function of <span class="math notranslate nohighlight">\(x\)</span>.
-Our sampling-based approximation starts by taking <span class="math notranslate nohighlight">\(X_1,X_2,\dots\)</span> be independent copies of <span class="math notranslate nohighlight">\(X\)</span>.
+Our sampling-based approximation starts by taking <span class="math notranslate nohighlight">\(X_1, X_2,\dots\)</span> be independent copies of <span class="math notranslate nohighlight">\(X\)</span>.
 Then, it uses the random variables <span class="math notranslate nohighlight">\(Y_1 = g(X_1), Y_2 = g(X_2), \dots\)</span>, which are also independent and identically distributed.
-Invoking the strong law of large states we saw that sampling average of the <span class="math notranslate nohighlight">\(Y_i\)</span>’s converges to their mean:</p>
+Invoking the strong law of large states, we saw that the sampling average of the <span class="math notranslate nohighlight">\(Y_i\)</span>’s converges to their mean:</p>
 <div class="math notranslate nohighlight">
 \[
 \bar{I}_N=\frac{g(X_1)+\dots+g(X_N)}{N}=\frac{Y_1+\dots+Y_N}{N}\rightarrow I,\;\text{a.s.}
 \]</div>
-<p>A couple of videos ago, we observed that for fixed <span class="math notranslate nohighlight">\(N\)</span> this estimate can vary widely.
-In this hands-on we are going to demonstrate how one can use the Central Limit Theorem (CLT) to quantify the epistemic uncertainty of <span class="math notranslate nohighlight">\(I_N\)</span>.</p>
 <p>Note that the variables <span class="math notranslate nohighlight">\(Y_i = g(X_i)\)</span> are independent identical distributed with mean:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -644,7 +633,7 @@ In this hands-on we are going to demonstrate how one can use the Central Limit T
 \[
 \mathbb{V}[Y_i] = \sigma^2 &lt; +\infty.
 \]</div>
-<p>Yes, it is possible for a random variable to have a infinite variance.
+<p>Yes, a random variable can have an infinite variance.
 The CLT would not work in that case.
 Okay. If the variance of the <span class="math notranslate nohighlight">\(Y_i\)</span>’s is indeed finite, the CLT applies for them, and you get that their sampling average <span class="math notranslate nohighlight">\(\bar{I}_N\)</span> becomes approximately normally distributed for large <span class="math notranslate nohighlight">\(N\)</span>, i.e.,</p>
 <div class="math notranslate nohighlight">
@@ -652,47 +641,47 @@ Okay. If the variance of the <span class="math notranslate nohighlight">\(Y_i\)<
 \bar{I}_N \sim N\left(I, \frac{\sigma^2}{N}\right),
 \]</div>
 <p>for large <span class="math notranslate nohighlight">\(N\)</span>.
-Now, we may rewrite this equation as:</p>
+Now, we may rewrite this equation as follows:</p>
 <div class="math notranslate nohighlight">
 \[
 \bar{I}_N = I + \frac{\sigma}{\sqrt{N}}Z,
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(Z\sim N(0,1)\)</span> is a standard normal (look at our Lecture 6 to remind yourself why <span class="math notranslate nohighlight">\(X = \mu + \sigma Z\)</span> follows <span class="math notranslate nohighlight">\(N(\mu,\sigma^2)\)</span> if <span class="math notranslate nohighlight">\(Z\)</span> follows a <span class="math notranslate nohighlight">\(N(0,1)\)</span>).
+<p>where <span class="math notranslate nohighlight">\(Z\sim N(0,1)\)</span> is a standard normal, recall <span class="xref myst">Lecture 4</span>.
 It’s like saying <span class="math notranslate nohighlight">\(I_N\)</span> is <span class="math notranslate nohighlight">\(I\)</span> plus some zero mean noise with a given variance.
-But it is not ad hoc, this is exactly what the CLT says.
+But it is not ad hoc; this is precisely what the CLT says.
 Now take this equation and solve for <span class="math notranslate nohighlight">\(I\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
 I = \bar{I}_N - \frac{\sigma}{\sqrt{N}}Z.
 \]</div>
-<p>This says that the true value of the expectation <span class="math notranslate nohighlight">\(I\)</span> is <span class="math notranslate nohighlight">\(I_N\)</span> minus some zero mean noise with a given variance.
+<p>This says that the actual value of the expectation <span class="math notranslate nohighlight">\(I\)</span> is <span class="math notranslate nohighlight">\(I_N\)</span> minus some zero mean noise with a given variance.
 Going back to distributions:</p>
 <div class="math notranslate nohighlight">
 \[
 I \sim N\left(\bar{I}_N, \frac{\sigma^2}{N}\right),
 \]</div>
-<p>where the minus sign disappears because we had to square it.
-This would be exactly what we were after, except from the fact that we don’t really know what <span class="math notranslate nohighlight">\(\sigma^2\)</span> is…
-Well, let’s approximate it also with sampling-average!
-We did this already in Video 4 of Lecture 8.
+<p>where the minus sign disappears because <span class="math notranslate nohighlight">\(Z\)</span> and <span class="math notranslate nohighlight">\(-Z\)</span> have the same distribution (standard normal).
+We are after this expression, except we need to know what <span class="math notranslate nohighlight">\( \sigma^2 \)</span> is.
+Well, let’s approximate it also with a sampling average!
+We did this already in [Lecture 8](lecture 8).
 Set:</p>
 <div class="math notranslate nohighlight">
 \[
-\sigma_N^2 = \frac{1}{N}\sum_{j=1}^Ng^2(X_j) - \bar{I}_N^2.
+\bar{\sigma}_N^2 = \frac{1}{N}\sum_{j=1}^Ng^2(X_j) - \bar{I}_N^2.
 \]</div>
-<p>And now we can say that:</p>
+<p>Now we can say that:</p>
 <div class="math notranslate nohighlight">
 \[
-I \sim N\left(\bar{I}_N, \frac{\bar{\sigma}^2_N}{N}\right),
+I \sim N\left(\bar{I}_N, \frac{\bar{\sigma}^2_N}{N}\right).
 \]</div>
-<p>where of course you need to keep in mind that this is only valid for large <span class="math notranslate nohighlight">\(N\)</span>
-It is also possible to think about this in terms of predictive quantiles for <span class="math notranslate nohighlight">\(I\)</span>.
+<p>It would help if you kept in mind that this is only valid for large <span class="math notranslate nohighlight">\(N\)</span>.</p>
+<p>It is also possible to get a predictive interval.
 We can write something like:</p>
 <div class="math notranslate nohighlight">
 \[
 I \approx \bar{I}_N \pm \frac{2}{\sqrt{N}}\bar{\sigma}_N,
 \]</div>
-<p>with (about) <span class="math notranslate nohighlight">\(95\%\)</span> probability (see Video 3 of Lecture 9).</p>
+<p>with (about) <span class="math notranslate nohighlight">\(95\%\)</span> probability.</p>
 <p>Alright, let’s see this in practice.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -749,20 +738,19 @@ I \approx \bar{I}_N \pm \frac{2}{\sqrt{N}}\bar{\sigma}_N,
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="p">[</span><span class="mf">0.965</span><span class="p">]</span> <span class="o">*</span> <span class="n">N</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
 <span class="c1"># and the labels</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$N$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\bar</span><span class="si">{I}</span><span class="s1">_N$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\bar</span><span class="si">{I}</span><span class="s1">_N$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/02df50be742e17003bc5f3eccbe6e8dc666b115a8b5a32b8677c095639a8c8c2.png" src="../_images/02df50be742e17003bc5f3eccbe6e8dc666b115a8b5a32b8677c095639a8c8c2.png" />
+<img alt="../_images/1915ca2db3277e37290e43bac7c7d9a1e35a98da3c4d29fe55580397d7dd4bd0.svg" src="../_images/1915ca2db3277e37290e43bac7c7d9a1e35a98da3c4d29fe55580397d7dd4bd0.svg" /></div>
 </div>
-</div>
-</section>
 <section id="questions">
 <h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Increase <code class="docutils literal notranslate"><span class="pre">N</span></code> until you get an answer that is close enough to the correct answer (the red line). Notice how the epistemic error bars shrink around the true value.</p></li>
+<li><p>Increase <code class="docutils literal notranslate"><span class="pre">N</span></code> until you get an answer close enough to the correct answer (the red line). Notice how the epistemic error bars shrink around the actual value.</p></li>
 </ul>
 </section>
 </section>
@@ -834,8 +822,6 @@ I \approx \bar{I}_N \pm \frac{2}{\sqrt{N}}\bar{\sigma}_N,
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-central-limit-theorem-comes-to-the-rescue">The central limit theorem comes to the rescue</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
   </nav></div>
