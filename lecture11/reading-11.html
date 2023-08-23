@@ -575,8 +575,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-come-up-with-the-right-probability-assignments">How do we come up with the right probability assignments?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#principle-of-insufficient-reason">Principle of Insufficient Reason</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-throwing-a-six-sided-die">Example: Throwing a six-sided die</a></li>
 </ul>
@@ -607,89 +605,104 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="selecting-prior-information">
-<h1>Selecting Prior Information<a class="headerlink" href="#selecting-prior-information" title="Permalink to this heading">#</a></h1>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<span id="id1"></span><h1>Selecting Prior Information<a class="headerlink" href="#selecting-prior-information" title="Permalink to this heading">#</a></h1>
+<p>In applications, we often find ourselves in a situation where we have to pick a probability distribution for a given variable.
+We have to pick this distribution before we see any data.
+We refer to this distribution as the <em>prior distribution</em> or simply the <em>prior</em>.</p>
+<p>How do we pick a prior?
+The prior should reflect our beliefs about the variable before we see any data.
+But how do we express our beliefs?
+There are three widely accepted ways:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Principle_of_maximum_entropy">Principle of maximum entropy</a> wikipedia entrty.</p></li>
+<li><p>The <em>principle of insufficient reason</em>, also known as the <em>principle of indifference</em>. This principle tells us to assign the same probability to all possible variable values.</p></li>
+<li><p>The <em>principle of maximum entropy</em>. This principle tells us to pick the most “uncertain” distribution given the available information.</p></li>
+<li><p>The <em>principle of transformation groups</em>. This principle tells us to pick the invariant distribution under the problem’s symmetries. For example, if the problem is invariant under rotations, the prior should be invariant under rotations.</p></li>
 </ul>
-</section>
-<section id="how-do-we-come-up-with-the-right-probability-assignments">
-<h2>How do we come up with the right probability assignments?<a class="headerlink" href="#how-do-we-come-up-with-the-right-probability-assignments" title="Permalink to this heading">#</a></h2>
-<p>In applications we often found ourselves in a situation where we have to pick prior probabilities of a given variable. That is, pick probabilities before we see any specific data from that variable.
-An important question is how we come up with these prior probabilities.
-Is there a systematic theoretical framework we could follow?
-There are basically three widely accepted ways:</p>
-<ul class="simple">
-<li><p>The principle of insufficient reason.</p></li>
-<li><p>The principle of maximum entropy.</p></li>
-<li><p>The principle of transformation groups.</p></li>
-</ul>
-<p>In this lecture, we will explain the first two. The third one, transformation groups, is rather advanced and we will not discuss it.
-At the beginning, what we talk about will just work with discrete random variables.
-Continuous random variables are a little bit trickier and we are going to discuss them at the end.</p>
-</section>
+<p>The first two principles are the most widely used.
+The third one is more advanced, and we will not discuss it in this course.</p>
 <section id="principle-of-insufficient-reason">
-<h2>Principle of Insufficient Reason<a class="headerlink" href="#principle-of-insufficient-reason" title="Permalink to this heading">#</a></h2>
-<p>The principle of insufficient reason has its origins to Laplace. The original statement was:</p>
+<span id="id2"></span><h2>Principle of Insufficient Reason<a class="headerlink" href="#principle-of-insufficient-reason" title="Permalink to this heading">#</a></h2>
+<p>The principle of insufficient reason has its origins in Laplace.
+His original statement of the principle was as follows:</p>
 <blockquote>
 <div><p>The theory of chance consists in reducing all the events of the same kind to a certain number of cases equally possible, that is to say, to such as we may be equally undecided about in regard to their existence, and in determining the number of cases favorable to the event whose probability is sought. The ratio of this number to that of all the cases possible is the measure of this probability, which is thus simply a fraction whose numerator is the number of favorable cases and whose denominator is the number of all the cases possible.
 <em>Pierre-Simon Laplace</em></p>
 </div></blockquote>
 <p>Let’s restate this in simpler terms.
-Assume that the random variable <span class="math notranslate nohighlight">\(X\)</span> can take <span class="math notranslate nohighlight">\(N\)</span> possible values, <span class="math notranslate nohighlight">\(1, 2,\dots,N\)</span>.
-If this is all we know about this random variable then <em>the principle of insufficient reason</em> tells us to set:</p>
+Assume that the random variable <span class="math notranslate nohighlight">\(X\)</span> can take <span class="math notranslate nohighlight">\(N\)</span> possible values, <span class="math notranslate nohighlight">\(1, 2,\dots, N\)</span>.
+The <em>principle of insufficient reason</em> tells us to set:</p>
 <div class="math notranslate nohighlight">
 \[
 p(x) = \frac{1}{N},
 \]</div>
 <p>for <span class="math notranslate nohighlight">\(x\)</span> in <span class="math notranslate nohighlight">\(\{1,2,\dots,N\}\)</span>.
-That is, the principle of insufficient reason tells us to assign the same probability to each possibility.
-Intuitively, any other choice we could make would introduce a bias towards one value or another.</p>
+We assign the same probability to each possible value of <span class="math notranslate nohighlight">\(X\)</span>.
+Intuitively, any other choice would introduce a bias towards one value or another.</p>
 <section id="example-throwing-a-six-sided-die">
 <h3>Example: Throwing a six-sided die<a class="headerlink" href="#example-throwing-a-six-sided-die" title="Permalink to this heading">#</a></h3>
 <p>Consider a six-sided die with sides numbered <span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(6\)</span>.
-Call <span class="math notranslate nohighlight">\(X\)</span> the random variable corresponding to an experiment of throwing the die.
-What is the probability of the die taking a specific value.
-Using the principle of insufficient reason, we set:</p>
+Call <span class="math notranslate nohighlight">\(X\)</span> the random variable corresponding to an experiment throwing the die.
+What is the probability of the die taking a specific value?
+Using the principle of insufficient reason, we set the following:</p>
 <div class="math notranslate nohighlight">
 \[
 p(X=x) = \frac{1}{6}.
 \]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must be careful when applying the principle of insufficient reason.
+Let me give you a stupid example.
+Suppose you have a random variable <span class="math notranslate nohighlight">\(X\)</span> that takes two values, <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>.
+But you know that a particular process gives rise to <span class="math notranslate nohighlight">\(X\)</span>.
+The process depends on tossing a coin twice.
+If the coin comes up heads both times, then <span class="math notranslate nohighlight">\(X=1\)</span>.
+Otherwise, <span class="math notranslate nohighlight">\(X=0\)</span>.
+The principle of insufficient reason tells you that:</p>
+<div class="math notranslate nohighlight">
+\[
+p(X=0) = p(X=1) = \frac{1}{2}.
+\]</div>
+<p>But this is wrong!
+The correct answer is:</p>
+<div class="math notranslate nohighlight">
+\[
+p(X=0) = \frac{3}{4}, \quad p(X=1) = \frac{1}{4}.
+\]</div>
+<p>So, knowing the number of possible values of <span class="math notranslate nohighlight">\(X\)</span> does not suffice.
+You also need to know the meaning of <span class="math notranslate nohighlight">\(X\)</span>, and it must make intuitive sense to assign the same probability to each possible value.</p>
+</div>
 </section>
 </section>
 <section id="the-principle-of-maximum-entropy">
-<h2>The Principle of Maximum Entropy<a class="headerlink" href="#the-principle-of-maximum-entropy" title="Permalink to this heading">#</a></h2>
-<p>The principle of maximum entropy extends the principe of insufficient reason in a very useful way.
-It tells you what probability distribution to assign to a random variable <span class="math notranslate nohighlight">\(X\)</span> when you have some prior information about it.
-This information could include, for example, the expected value of <span class="math notranslate nohighlight">\(X\)</span>, or maybe its variance (see the section on <em>testable prior information</em> for a more precise description of what is allowed).
+<span id="principle-of-maximum-entropy"></span><h2>The Principle of Maximum Entropy<a class="headerlink" href="#the-principle-of-maximum-entropy" title="Permalink to this heading">#</a></h2>
+<p>The principle of maximum entropy extends the principle of insufficient reason in a handy way.
+It tells you what probability distribution to assign to a random variable <span class="math notranslate nohighlight">\(X\)</span> when you have prior information about it.
+This information could include, for example, the expected value of <span class="math notranslate nohighlight">\(X\)</span> or its variance (see the section on <em>testable prior information</em> for a more precise description of what is allowed).
 The simplest non-mathematical definition of the principle of maximum entropy I could find is due to E. T. Jaynes:</p>
 <blockquote>
-<div><p>The knowledge of average values does give a reason for preferring some possibilities to others, but we would like […] to assign a probability distribution which is as uniform as it can be while agreeing with the available information.”</p>
+<div><p>The knowledge of average values does give a reason for preferring some possibilities to others. Still, we would like […] to assign a probability distribution which is as uniform as it can be while agreeing with the available information.”</p>
 </div></blockquote>
-<p>Why does he say “as uniform as it can be?”
-He does this because he wants the principle to be consistent with the principle of insufficient reason when there is not available information.
-Of course, the uniform distribution is the most “uncertain” distribution, so we could also say that we are looking for a maximumally uncertain distribution which agrees with the available information.
-The “uncertainty” of a probability distribution is measured by its “information entropy”, a concept that we explain in the subsequent section.</p>
+<p>Why does he say, “as uniform as it can be?”
+He does this because he wants the principle consistent with the principle of insufficient reason when there is no available information.
+Of course, the uniform distribution is the most “uncertain” distribution, so we could also say that we are looking for a maximally uncertain distribution that agrees with the available information.
+The “uncertainty” of a probability distribution is measured by its “information entropy,” a concept we explain in the subsequent section.</p>
 <section id="information-entropy">
-<h3>Information entropy<a class="headerlink" href="#information-entropy" title="Permalink to this heading">#</a></h3>
-<p>We would like to know, how much uncertainty there is in a probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span>.
-In 1948, <a class="reference external" href="https://en.wikipedia.org/wiki/Claude_Shannon">Claude Shannon</a> posed and answered this problem in his seminal paper titled “A Mathematical Theory of Communication.”
+<span id="id3"></span><h3>Information entropy<a class="headerlink" href="#information-entropy" title="Permalink to this heading">#</a></h3>
+<p>We would like to know how much uncertainty there is in a probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span>.
+In 1948, <a class="reference external" href="https://en.wikipedia.org/wiki/Claude_Shannon">Claude Shannon</a> posed and answered this problem in his seminal paper titled “A Mathematical Theory of Communication,” see <span id="id4">[<a class="reference internal" href="../bibliography.html#id11" title="Claude Elwood Shannon. A mathematical theory of communication. The Bell System Technical Journal, 27:379–423, 1948. URL: http://plan9.bell-labs.com/cm/ms/what/shannonday/shannon1948.pdf (visited on 2003-04-22).">Shannon, 1948</a>]</span>.
 The details of his derivation are beyond the scope of this course, but they can be summarized as follows:</p>
 <ul class="simple">
-<li><p>He looked for a functional <span class="math notranslate nohighlight">\(\mathbb{H}[p(X)]\)</span> that measured the uncertainty of the probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span> using real values.</p></li>
-<li><p>He wrote down some axioms that this functional should satisfy. For example, that is should be continuous, and that it should have its maximum when <span class="math notranslate nohighlight">\(p(x)\)</span> is the uniform (because the uniform distribution has the maximum uncertainty).</p></li>
-<li><p>He did a little bit of math, and provied that (up to an arbitrary multiplicative constant) the function he was looking for must have this form:</p></li>
+<li><p>He looked for a functional <span class="math notranslate nohighlight">\(\mathbb{H}[p(X)]\)</span> that measured the uncertainty of the probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span> using real values. Note that a <em>functional</em> is a function that takes another function as an argument and returns a real number.</p></li>
+<li><p>He wrote down some axioms that this functional should satisfy. For example, that should be continuous, and it should have its maximum when <span class="math notranslate nohighlight">\(p(x)\)</span> is uniform (because the uniform distribution has the maximum uncertainty).</p></li>
+<li><p>He did a little bit of math and proved that (up to an arbitrary multiplicative constant) the function he was looking for must have this form:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[
 \mathbb{H}[p(X)] = -\sum_x \log p(x) p(x).
 \]</div>
 <ul class="simple">
-<li><p>As he was looking for a name for this function, he showed his discovery to <a class="reference external" href="https://en.wikipedia.org/wiki/John_von_Neumann">von Neumann</a> who recognized the similarity to the entropy of statistical mechanics first introduced by <a class="reference external" href="https://en.wikipedia.org/wiki/Josiah_Willard_Gibbs">J. W. Gibbs</a>.</p></li>
+<li><p>As he was looking for a name for this function, he showed his discovery to <a class="reference external" href="https://en.wikipedia.org/wiki/John_von_Neumann">von Neumann</a>, who recognized the similarity to the entropy of statistical mechanics first introduced by <a class="reference external" href="https://en.wikipedia.org/wiki/Josiah_Willard_Gibbs">J. W. Gibbs</a>.</p></li>
 </ul>
-<p>Notice that the function is maximized at <span class="math notranslate nohighlight">\(p_0 = 0.5\)</span> because this corresponds to maximum uncertainty.
-The function is minimized (as a matter of fact it is exactly zero) at <span class="math notranslate nohighlight">\(p_0 = 0\)</span> and <span class="math notranslate nohighlight">\(p_0 = 1\)</span> because both these cases correspond to minimum uncertainty (you are certain what is going to happen).</p>
 </section>
 <section id="mathematical-description-of-testable-information">
 <h3>Mathematical description of testable information<a class="headerlink" href="#mathematical-description-of-testable-information" title="Permalink to this heading">#</a></h3>
@@ -920,8 +933,6 @@ In many practical examples common sense is sufficient for coming up with <span c
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-come-up-with-the-right-probability-assignments">How do we come up with the right probability assignments?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#principle-of-insufficient-reason">Principle of Insufficient Reason</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-throwing-a-six-sided-die">Example: Throwing a six-sided die</a></li>
 </ul>

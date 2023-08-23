@@ -575,10 +575,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-information-entropy-of-a-distribution-with-two-outcomes">Example: Information entropy of a distribution with two outcomes</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-information-entropy-of-a-binary-distribution">Example - Information Entropy of a Binary Distribution</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Questions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Questions</a></li>
 </ul>
 </li>
 </ul>
@@ -600,30 +599,35 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="information-entropy">
-<h1>Information Entropy<a class="headerlink" href="#information-entropy" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Develop intuition about the information entropy of discrete random variables.</p></li>
-</ul>
-</section>
-<section id="example-information-entropy-of-a-distribution-with-two-outcomes">
-<h2>Example: Information entropy of a distribution with two outcomes<a class="headerlink" href="#example-information-entropy-of-a-distribution-with-two-outcomes" title="Permalink to this heading">#</a></h2>
-<p>Let’s take a random variable <span class="math notranslate nohighlight">\(X\)</span> with just two possible values, say <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>.
-It probability mass function can be described by two numbers:</p>
+<span id="id1"></span><h1>Information Entropy<a class="headerlink" href="#information-entropy" title="Permalink to this heading">#</a></h1>
+<p>Information entropy is a measure of the uncertainty of a probability distribution. It is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{H}[p(X)] = -\sum_x \log p(x) p(x).
+\]</div>
+<p>The sum is over all possible values of the random variable <span class="math notranslate nohighlight">\(X\)</span>.
+If <span class="math notranslate nohighlight">\(X\)</span> is continuous, the sum becomes an integral:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{H}[p(X)] = -\int_x \log p(x) p(x) dx.
+\]</div>
+<section id="example-information-entropy-of-a-binary-distribution">
+<h2>Example - Information Entropy of a Binary Distribution<a class="headerlink" href="#example-information-entropy-of-a-binary-distribution" title="Permalink to this heading">#</a></h2>
+<p>Let’s take a random variable <span class="math notranslate nohighlight">\(X\)</span> with two possible values, say <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>.
+Two numbers can describe the probability mass function:</p>
 <div class="math notranslate nohighlight">
 \[
 p_0 = p(X=0),
@@ -653,20 +657,20 @@ p_1 = p(X=1) = 1 - p_0.
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">H</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$p_0$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Entropy&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Entropy&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/5be73fb9464de3bbb1ef8331404e689331fd6c16de14171d4222d92634006d84.png" src="../_images/5be73fb9464de3bbb1ef8331404e689331fd6c16de14171d4222d92634006d84.png" />
+<img alt="../_images/13e1e3815194956428290d055f462f679b02349ba72a6fba83af1595756e9166.svg" src="../_images/13e1e3815194956428290d055f462f679b02349ba72a6fba83af1595756e9166.svg" /></div>
 </div>
-</div>
+<p>Notice that the function is maximized at <span class="math notranslate nohighlight">\(p_0 = 0.5\)</span> because this corresponds to maximum uncertainty.
+The function is minimized (as a matter of fact it is exactly zero) at <span class="math notranslate nohighlight">\(p_0 = 0\)</span> and <span class="math notranslate nohighlight">\(p_0 = 1\)</span> because both these cases correspond to minimum uncertainty (you are certain what is going to happen).</p>
 <section id="questions">
 <h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>For which <span class="math notranslate nohighlight">\(p_0\)</span> do you get the maximum uncertainty (entropy)?</p></li>
-<li><p>For which <span class="math notranslate nohighlight">\(p_0\)</span>’s do you get the minimum uncertainty?</p></li>
 <li><p>You are given two Categorical distributions:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
@@ -714,20 +718,20 @@ Y\sim \operatorname{Categorical}(0.2, 0.2, 0.4, 0.2).
     <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$Y$&#39;</span>
 <span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Values&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/c3043195d1ba864ad56a2442ce1459676332721b2c715c9c224979b09eb94001.png" src="../_images/c3043195d1ba864ad56a2442ce1459676332721b2c715c9c224979b09eb94001.png" />
-</div>
+<img alt="../_images/785c670af46945911f231f671efae8305b85740d1f8fbff0b89d9d3e86daf0f4.svg" src="../_images/785c670af46945911f231f671efae8305b85740d1f8fbff0b89d9d3e86daf0f4.svg" /></div>
 </div>
 </section>
-<section id="id1">
-<h3>Questions<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<section id="id2">
+<h3>Questions<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Based on the picture above which of the two random variables, <span class="math notranslate nohighlight">\(X\)</span> or <span class="math notranslate nohighlight">\(Y\)</span>, has the most uncertainty?</p></li>
 <li><p>Use the block code below to calculate the entropy of each one of the distributions and answer the question above (which variable is more uncertaint) in a quantitative way.
@@ -818,10 +822,9 @@ We can use the functionality of <code class="docutils literal notranslate"><span
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-information-entropy-of-a-distribution-with-two-outcomes">Example: Information entropy of a distribution with two outcomes</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-information-entropy-of-a-binary-distribution">Example - Information Entropy of a Binary Distribution</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Questions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Questions</a></li>
 </ul>
 </li>
 </ul>
