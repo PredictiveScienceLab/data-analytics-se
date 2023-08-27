@@ -845,14 +845,36 @@ It is weird to say that we “expect” to get <span class="math notranslate noh
 \]</div>
 <div class="dropdown admonition">
 <p class="admonition-title">Proof</p>
+<p>This proof is a little bit trickier than it looks.
+First, define the random variable:</p>
+<div class="math notranslate nohighlight">
+\[
+Y = X + c.
+\]</div>
+<p>The PMF of <span class="math notranslate nohighlight">\(Y\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+p(y) = p(Y = y) = p(X + c = y) = p(X = y - c).
+\]</div>
+<p>Then we have:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align}
-\mathbb{E}[X + c] &amp;= \sum_x (x + c) p(x)\\
-&amp;= \sum_x x p(x) + \sum_x c p(x)\\
-&amp;= \mathbb{E}[X] + c.
+\mathbb{E}[X + c] &amp;= \mathbb{E}[Y]\\
+&amp;= \sum_y y p(y)\\
+&amp;= \sum_y y p(Y = y)\\
+&amp;= \sum_y y p(X = y - c).
 \end{align}
 \end{split}\]</div>
+<p>Now we change the variable of summation to <span class="math notranslate nohighlight">\(x = y - c\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\mathbb{E}[X + c] &amp;= \sum_y (x + c) p(X = x)\\
+&amp;= \sum_x x p(X = x) + c \sum_x p(X = x)\\
+&amp;= \mathbb{E}[X] + c,
+\end{split}\]</div>
+<p>where in the last step we used the fact that the sum of the PMF is <span class="math notranslate nohighlight">\(1\)</span>.</p>
 </div>
 <ul class="simple">
 <li><p>For any <span class="math notranslate nohighlight">\(\lambda\)</span> real number, we also have:</p></li>
@@ -863,14 +885,12 @@ It is weird to say that we “expect” to get <span class="math notranslate noh
 \]</div>
 <div class="dropdown admonition">
 <p class="admonition-title">Proof</p>
+<p>The proof is similar to the previous one.
+But we need to work with the random variable:</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align}
-\mathbb{E}[\lambda X] &amp;= \sum_x \lambda x p(x)\\
-&amp;= \lambda \sum_x x p(x)\\
-&amp;= \lambda \mathbb{E}[X].
-\end{align}
-\end{split}\]</div>
+\[
+Y = \lambda X.
+\]</div>
 </div>
 <ul class="simple">
 <li><p>Now consider any function <span class="math notranslate nohighlight">\(g(x)\)</span>.
@@ -882,6 +902,12 @@ We can now define the expectation of <span class="math notranslate nohighlight">
 \]</div>
 <div class="dropdown admonition">
 <p class="admonition-title">Proof</p>
+<p>The proof is the same as before but we are going with the more general random variable:</p>
+<div class="math notranslate nohighlight">
+\[
+Y = g(X).
+\]</div>
+<p>We have:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align}
