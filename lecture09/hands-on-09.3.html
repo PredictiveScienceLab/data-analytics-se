@@ -619,10 +619,10 @@ The <span class="math notranslate nohighlight">\(q\)</span>-quantile of <span cl
 F(\mu_q) = p(Y \le \mu_q) = q,
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(F(y)\)</span> was defined to be the CDF of <span class="math notranslate nohighlight">\(Y\)</span>.
-For example, the 50% quantile (also known as the median) is the value <span class="math notranslate nohighlight">\(\mu_50\)</span> for which:</p>
+For example, the 0.50-quantile (also known as the median) is the value <span class="math notranslate nohighlight">\(\mu_{0.50}\)</span> for which:</p>
 <div class="math notranslate nohighlight">
 \[
-F(\mu_{50}) = p(Y \le \mu_{50}) = \frac{50}{100} = 0.5.
+F(\mu_{0.50}) = p(Y \le \mu_{0.50}) = 0.5.
 \]</div>
 <p>So, to find the quantiles, we need to 1) know the CDF of <span class="math notranslate nohighlight">\(Y\)</span> and 2) solve a root-finding problem with <span class="math notranslate nohighlight">\(\mu_q\)</span> as the unknown.
 We have already seen how one can estimate the CDF from samples, so we would only have to worry about the root-finding problem.
@@ -660,17 +660,17 @@ g(x) = \left(\cos(50x) + \sin(20x)\right)^2.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_50 = 0.55
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_50 = 0.60
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s find the 2.5-percent quantile</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s find the 0.025-quantile</span>
 <span class="n">mu_025</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">y_samples</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mu_025 = </span><span class="si">{</span><span class="n">mu_025</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="c1"># and the 97.5-percent quantile</span>
+<span class="c1"># and the 0.975-quantile</span>
 <span class="n">mu_975</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">y_samples</span><span class="p">,</span> <span class="mf">0.975</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mu_975 = </span><span class="si">{</span><span class="n">mu_975</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
@@ -678,7 +678,7 @@ g(x) = \left(\cos(50x) + \sin(20x)\right)^2.
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_025 = 0.00
-mu_975 = 3.61
+mu_975 = 3.68
 </pre></div>
 </div>
 </div>
@@ -698,21 +698,21 @@ mu_975 = 3.61
     <span class="p">[</span><span class="mi">0</span><span class="p">],</span>
     <span class="s2">&quot;ro&quot;</span><span class="p">,</span>
     <span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> 
-    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;50% quantile (median)&quot;</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0.50-quantile (median)&quot;</span>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="p">[</span><span class="n">mu_025</span><span class="p">],</span>
     <span class="p">[</span><span class="mi">0</span><span class="p">],</span>
     <span class="s2">&quot;bo&quot;</span><span class="p">,</span>
     <span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;2.5% quantile&quot;</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0.025-quantile&quot;</span>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="p">[</span><span class="n">mu_975</span><span class="p">],</span>
     <span class="p">[</span><span class="mi">0</span><span class="p">],</span>
     <span class="s2">&quot;go&quot;</span><span class="p">,</span>
     <span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;97.5% quantile&quot;</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0.975-quantile&quot;</span>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$y$&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$p(y)$&quot;</span><span class="p">)</span>
@@ -722,12 +722,13 @@ mu_975 = 3.61
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a521b0637065d39a39deb97c3e61005983a0238598d2a98daa54218975a34852.svg" src="../_images/a521b0637065d39a39deb97c3e61005983a0238598d2a98daa54218975a34852.svg" /></div>
+<img alt="../_images/07acc536feee7486cb0a8e3f66e19f475208cc550f531db82079a6be489de942.svg" src="../_images/07acc536feee7486cb0a8e3f66e19f475208cc550f531db82079a6be489de942.svg" /></div>
 </div>
 <p>Very often, the predictive intervals are summarized using box plots:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1"># Here the input is percentiles not quantiles though</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">y_samples</span><span class="p">,</span> <span class="n">whis</span><span class="o">=</span><span class="p">[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Y&quot;</span><span class="p">]);</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$y$&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span>
@@ -757,15 +758,15 @@ The violin plot is shown below.</p>
 <section id="questions">
 <h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>How much probability do you have on the left of <span class="math notranslate nohighlight">\(\mu_{50}\)</span>, i.e., what is <span class="math notranslate nohighlight">\(p(Y \le \mu_{50})\)</span>?</p></li>
-<li><p>How much probability do you have on the right of <span class="math notranslate nohighlight">\(\mu_{50}\)</span>, i.e., what is <span class="math notranslate nohighlight">\(p(Y \le \mu_{50})\)</span>?</p></li>
-<li><p>How much probability do you have on the left of <span class="math notranslate nohighlight">\(\mu_{2.5}\)</span>?</p></li>
-<li><p>How much probability do you have on the right of <span class="math notranslate nohighlight">\(\mu_{97.5}\)</span>?</p></li>
-<li><p>How much probability do you have between <span class="math notranslate nohighlight">\(\mu_{2.5}\)</span> and <span class="math notranslate nohighlight">\(\mu_{97.5}\)</span>?</p></li>
+<li><p>How much probability do you have on the left of <span class="math notranslate nohighlight">\(\mu_{0.50}\)</span>, i.e., what is <span class="math notranslate nohighlight">\(p(Y \le \mu_{0.50})\)</span>?</p></li>
+<li><p>How much probability do you have on the right of <span class="math notranslate nohighlight">\(\mu_{0.50}\)</span>, i.e., what is <span class="math notranslate nohighlight">\(p(Y \le \mu_{0.50})\)</span>?</p></li>
+<li><p>How much probability do you have on the left of <span class="math notranslate nohighlight">\(\mu_{0.025}\)</span>?</p></li>
+<li><p>How much probability do you have on the right of <span class="math notranslate nohighlight">\(\mu_{0.975}\)</span>?</p></li>
+<li><p>How much probability do you have between <span class="math notranslate nohighlight">\(\mu_{2.5}\)</span> and <span class="math notranslate nohighlight">\(\mu_{0.975}\)</span>?</p></li>
 <li><p>The predictive quantiles are a very nice way to summarize the probability density of a random variable with a few numbers.
-For example, you can think of <span class="math notranslate nohighlight">\(\mu_{50}\)</span> as a central value of <span class="math notranslate nohighlight">\(Y\)</span>.
-Often, we call the interval <span class="math notranslate nohighlight">\([\mu_{2.5}, \mu_{97.5}]\)</span> the 95% <em>predictive interval</em>.
-You can interpret this interval as <span class="math notranslate nohighlight">\(Y \in [\mu_{2.5}, \mu_{97.5}]\)</span> with 95% probability. Find a <span class="math notranslate nohighlight">\(99\)</span>% predictive interval for the <span class="math notranslate nohighlight">\(Y\)</span> of the example above.</p></li>
+For example, you can think of <span class="math notranslate nohighlight">\(\mu_{0.50}\)</span> as a central value of <span class="math notranslate nohighlight">\(Y\)</span>.
+Often, we call the interval <span class="math notranslate nohighlight">\([\mu_{0.025}, \mu_{0.975}]\)</span> the 95% <em>predictive interval</em>.
+You can interpret this interval as <span class="math notranslate nohighlight">\(Y \in [\mu_{0.025}, \mu_{0.975}]\)</span> with 95% probability. Find a <span class="math notranslate nohighlight">\(99\)</span>% predictive interval for the <span class="math notranslate nohighlight">\(Y\)</span> of the example above.</p></li>
 </ul>
 </section>
 </section>
