@@ -575,7 +575,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-brandeis-dice-problem">The Brandeis dice problem</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
@@ -597,13 +596,13 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -611,17 +610,11 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="the-principle-of-maximum-entropy-for-discrete-random-variables">
 <h1>The Principle of Maximum Entropy for Discrete Random Variables<a class="headerlink" href="#the-principle-of-maximum-entropy-for-discrete-random-variables" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Learn how to find the maximum entropy distribution for discrete random variables.</p></li>
-</ul>
-</section>
 <section id="the-brandeis-dice-problem">
 <h2>The Brandeis dice problem<a class="headerlink" href="#the-brandeis-dice-problem" title="Permalink to this heading">#</a></h2>
-<p>This is from the 1962 Brandeis lectures of E. T. Jaynes.</p>
+<p>This problem is from the 1962 Brandeis lectures of E. T. Jaynes.</p>
 <blockquote>
-<div><p>When a die is tossed, the number of spots up can have any value <span class="math notranslate nohighlight">\(x\)</span> in <span class="math notranslate nohighlight">\(1,\dots,6\)</span>. Suppose a die has been tossed <span class="math notranslate nohighlight">\(N\)</span> times and we are told only that the average number of spots up was not <span class="math notranslate nohighlight">\(3.5\)</span> (as we might expect from an “honest” die) but 4.5. Given this information, <u>and nothing else</u>, what probability should we assign to <span class="math notranslate nohighlight">\(x\)</span> spots on the next toss?</p>
+<div><p>When a die is tossed, the number of spots up can have any value <span class="math notranslate nohighlight">\(x\)</span> in <span class="math notranslate nohighlight">\(1,\dots,6\)</span>. Suppose a die has been tossed <span class="math notranslate nohighlight">\(N\)</span> times, and we are told only that the average number of spots up was not <span class="math notranslate nohighlight">\(3.5\)</span> (as we might expect from an “honest” die) but 4.5. Given this information, <u>and nothing else</u>, what probability should we assign to <span class="math notranslate nohighlight">\(x\)</span> spots on the next toss?</p>
 </div></blockquote>
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable corresponding to the result of tossing the die.
 The description above imposes the following mean value constraint on the random variable <span class="math notranslate nohighlight">\(X\)</span>:</p>
@@ -629,7 +622,7 @@ The description above imposes the following mean value constraint on the random 
 \[
 \sum_{x=1}^6 x p(x) = 4.5.
 \]</div>
-<p>As we discussed in the lecture, to come up with a probability mass function for <span class="math notranslate nohighlight">\(X\)</span> you have to maximize the entropy subject to the constraints above.
+<p>We want to develop a probability mass function for <span class="math notranslate nohighlight">\(X\)</span> by maximizing the entropy subject to the constraints above.
 We saw that this constrained optimization problem has a unique solution of the form:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -640,14 +633,14 @@ p(x) = \frac{\exp\{\lambda x\}}{Z(\lambda)},
 \[
 Z(\lambda) = \sum_{i}e^{\lambda i} = e^{\lambda} + e^{2\lambda} + \dots + e^{6\lambda},
 \]</div>
-<p>and <span class="math notranslate nohighlight">\(\lambda\)</span> is a parameter to be tuned so that the constraint is satisfied.
-We will identify <span class="math notranslate nohighlight">\(\lambda\)</span> by solving a root finding problem.
+<p>and <span class="math notranslate nohighlight">\(\lambda\)</span> is a parameter to be tuned to satisfy the constraint.
+We will identify <span class="math notranslate nohighlight">\(\lambda\)</span> by solving a root-finding problem.
 To this end, let us write the partition function as:</p>
 <div class="math notranslate nohighlight">
 \[
 Z(\lambda) = \left(e^{\lambda}\right)^1+\left(e^{\lambda}\right)^2 + \dots + \left(e^{\lambda}\right)^6.
 \]</div>
-<p>According to the theory, in order to find <span class="math notranslate nohighlight">\(\lambda\)</span> we must solve:</p>
+<p>According to the theory, to find <span class="math notranslate nohighlight">\(\lambda\)</span> we must solve:</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{\partial \log Z}{\partial \lambda} = 4.5.
@@ -713,7 +706,7 @@ f(\lambda) = \frac{1}{Z(\lambda)}\sum_{i=1}^6 i e^{-\lambda i} - 4.5.
      iterations: 10
            root: 0.3710489380810334
 Lambda = 0.37
-p = [0.054 0.079 0.114 0.165 0.24  0.347]
+p = [0.05435317 0.07877155 0.11415998 0.1654468  0.23977444 0.34749407]
 </pre></div>
 </div>
 </div>
@@ -743,21 +736,21 @@ p = [0.054 0.079 0.114 0.165 0.24  0.347]
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Die result ($x$)&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Probability $p(x)$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Probability $p(x)$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/1f21ee86b9f65e4428f6963a281e28510c3720c47fc0fd54d0c64bf907633ed0.png" src="../_images/1f21ee86b9f65e4428f6963a281e28510c3720c47fc0fd54d0c64bf907633ed0.png" />
-</div>
+<img alt="../_images/e249b59c853b375575cdbb762c9bbef2c2ea09a9ae392f266b615c6d07332fbc.svg" src="../_images/e249b59c853b375575cdbb762c9bbef2c2ea09a9ae392f266b615c6d07332fbc.svg" /></div>
 </div>
 </section>
 <section id="questions">
 <h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Rerun the code above assuming that the mean is 3.5. What kind of distribution do you find? Why?</p></li>
-<li><p>If you have some time to spare, modify the example above to add the constraint that the variance of <span class="math notranslate nohighlight">\(X\)</span> should be 0.2. Hint: First, translate the constraint about the variance to a constraint about <span class="math notranslate nohighlight">\(\mathbb{E}[X^2]\)</span>. Second, you need to introduce one more parameter to optimize for. Call it <span class="math notranslate nohighlight">\(\mu\)</span>. The distribution would be <span class="math notranslate nohighlight">\(p(x) = \frac{\exp\{\lambda x + \mu x^2\}}{Z(\lambda,\mu)}\)</span>. Then derive the set of non-linear equations you need solve to find <span class="math notranslate nohighlight">\(\lambda\)</span> and <span class="math notranslate nohighlight">\(\mu\)</span> by expanding these two equations:</p></li>
+<li><p>Rerun the code above, assuming that the mean is 3.5. What kind of distribution do you find? Why?</p></li>
+<li><p>If you have some time to spare, modify the example above to add the constraint that the variance of <span class="math notranslate nohighlight">\(X\)</span> should be 0.2. Hint: First, translate the constraint about the variance to a constraint about <span class="math notranslate nohighlight">\(\mathbb{E}[X^2]\)</span>. Second, you need to introduce one more parameter to optimize for. Call it <span class="math notranslate nohighlight">\(\mu\)</span>. The distribution would be <span class="math notranslate nohighlight">\(p(x) = \frac{\exp\{\lambda x + \mu x^2\}}{Z(\lambda,\mu)}\)</span>. Then derive the set of non-linear equations you need to solve to find <span class="math notranslate nohighlight">\(\lambda\)</span> and <span class="math notranslate nohighlight">\(\mu\)</span> by expanding these two equations:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[
@@ -769,7 +762,7 @@ p = [0.054 0.079 0.114 0.165 0.24  0.347]
 \frac{\partial Z}{\partial \mu} = \mathbb{E}[X^2].
 \]</div>
 <p>Finally, use <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html#scipy.optimize.root">scipy.optimize.root</a> to solve the root-finding problem.
-Be careful with this because it could take several hours to do right…</p>
+Be careful with this because it could take several hours to do right.</p>
 </section>
 </section>
 
@@ -840,7 +833,6 @@ Be careful with this because it could take several hours to do right…</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-brandeis-dice-problem">The Brandeis dice problem</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>

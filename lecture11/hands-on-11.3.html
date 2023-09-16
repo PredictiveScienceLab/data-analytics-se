@@ -575,9 +575,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-the-code">Setting up the code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-entropy-code">Maximum Entropy Code</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples-of-maximum-entropy-distributions">Examples of maximum entropy distributions</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-constraints-in-1-1">No constraints in [-1,1]</a></li>
 </ul>
@@ -609,13 +607,13 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 
 <span class="kn">import</span> <span class="nn">urllib.request</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -641,26 +639,14 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="the-principle-of-maximum-entropy-for-continuous-random-variables">
 <h1>The Principle of Maximum Entropy for Continuous Random Variables<a class="headerlink" href="#the-principle-of-maximum-entropy-for-continuous-random-variables" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Gain intuition about the maximum entropy solution distribution in various continuous cases</p></li>
-</ul>
-</section>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S2352711019302456">PyMaxEnt</a>, a software package by Tony Saad and Giovanna Ruai.</p></li>
-</ul>
-</section>
-<section id="setting-up-the-code">
-<h2>Setting up the code<a class="headerlink" href="#setting-up-the-code" title="Permalink to this heading">#</a></h2>
-<p>It is not trivial to write generic code for finding the maximum entropy distribution in continuous cases.
+<section id="maximum-entropy-code">
+<h2>Maximum Entropy Code<a class="headerlink" href="#maximum-entropy-code" title="Permalink to this heading">#</a></h2>
+<p>Writing generic code for finding the maximum entropy distribution in continuous cases is a lot of work.
 Instead, we will use the <a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S2352711019302456">PyMaxEnt</a> Python module.
-This module is not setup for installation via pip, so we will have to do a bit of manual work.
+This module is not set up for installation via pip, so we will have to do some manual work.
 All the code is contained in a single file called <code class="docutils literal notranslate"><span class="pre">pymaxent.py</span></code> which you can find <a class="reference external" href="https://raw.githubusercontent.com/saadgroup/PyMaxEnt/master/src/pymaxent.py">here</a>.
-All we need to do is make this file visible from the current working directory of this Jupyter notebook.
-We could give OS-specific instructions of how to do this but in Python you could do it as follows:</p>
+All we need to do is make this file visible from the current working directory of this Jupyter Notebook.
+We could give OS-specific instructions on how to do this, but in Python, you could do it as follows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/saadgroup/PyMaxEnt/master/src/pymaxent.py&#39;</span>
@@ -698,7 +684,7 @@ Note that there is no need for the normalization constant here because it has be
 Let’s do some examples to gain some intuition.</p>
 <section id="no-constraints-in-1-1">
 <h3>No constraints in [-1,1]<a class="headerlink" href="#no-constraints-in-1-1" title="Permalink to this heading">#</a></h3>
-<p>The support is <span class="math notranslate nohighlight">\([-1,1]\)</span> and there are no moment constaints.
+<p>The support is <span class="math notranslate nohighlight">\([-1,1]\)</span>, and there are no moment constraints.
 You only have to specify the normalization constraint and the bounds:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -711,13 +697,13 @@ You only have to specify the normalization constraint and the bounds:</p>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$p(x)$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$p(x)$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/84fbcf9cebb80e63568abd94bc4cde7bf193f11babd51058dd59a1420dee8691.png" src="../_images/84fbcf9cebb80e63568abd94bc4cde7bf193f11babd51058dd59a1420dee8691.png" />
-</div>
+<img alt="../_images/a55817bcf69d2bdfd317b07f5b3e594edca98743140d337ce28eb0a98ec8dbce.svg" src="../_images/a55817bcf69d2bdfd317b07f5b3e594edca98743140d337ce28eb0a98ec8dbce.svg" /></div>
 </div>
 </section>
 </section>
@@ -746,15 +732,14 @@ You only have to specify the normalization constraint and the bounds:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/84fbcf9cebb80e63568abd94bc4cde7bf193f11babd51058dd59a1420dee8691.png" src="../_images/84fbcf9cebb80e63568abd94bc4cde7bf193f11babd51058dd59a1420dee8691.png" />
-</div>
+<img alt="../_images/38e16cae50e59c50efb546a21ca50ea6cb1a218588343d58780facee7e4e1a99.svg" src="../_images/38e16cae50e59c50efb546a21ca50ea6cb1a218588343d58780facee7e4e1a99.svg" /></div>
 </div>
 <section id="questions">
 <h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Modify the mean to <span class="math notranslate nohighlight">\(\mu=0.1\)</span> and observe the resulting maximum entropy pdf.</p></li>
 <li><p>Modify the mean to <span class="math notranslate nohighlight">\(\mu=-0.1\)</span> and observe the resulting maximum entropy pdf.</p></li>
-<li><p>Try <span class="math notranslate nohighlight">\(\mu=0.9\)</span>, what happens to the maximum entropy pdf?</p></li>
+<li><p>Try <span class="math notranslate nohighlight">\(\mu=0.9\)</span>. What happens to the maximum entropy pdf?</p></li>
 <li><p>Try <span class="math notranslate nohighlight">\(\mu=1.1\)</span>. Why does the code break down?</p></li>
 </ul>
 </section>
@@ -767,7 +752,7 @@ You only have to specify the normalization constraint and the bounds:</p>
 \mathbb{V}[X] = \sigma^2.
 \]</div>
 <p>However, note that <code class="docutils literal notranslate"><span class="pre">PyMaxEnt</span></code> works only with moment constraints.
-Therefore, we need to connect the variance to the second and first moments.
+Therefore, we must connect the variance to the second and first moments.
 Here is how to do this:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -791,19 +776,19 @@ Here is how to do this:</p>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$p(x)$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$p(x)$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6b57a884ff19ab705931f5197b1a2f2119ebd167c116f18bab3fb2015f77e0a2.png" src="../_images/6b57a884ff19ab705931f5197b1a2f2119ebd167c116f18bab3fb2015f77e0a2.png" />
-</div>
+<img alt="../_images/02c21aab58c002ff7ba7992e0ad73b7e8478d39a80c0e6f3785b86565ec42418.svg" src="../_images/02c21aab58c002ff7ba7992e0ad73b7e8478d39a80c0e6f3785b86565ec42418.svg" /></div>
 </div>
 <section id="id1">
 <h3>Questions<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Modify the variance to <span class="math notranslate nohighlight">\(\sigma^2=0.3\)</span> and observe the resulting maximum entropy pdf.</p></li>
-<li><p>Modify the variance to <span class="math notranslate nohighlight">\(\sigma^2=0.4\)</span> and observe the resulting maximum entropy pdf. Why did you get this abrapt change?</p></li>
+<li><p>Modify the variance to <span class="math notranslate nohighlight">\(\sigma^2=0.4\)</span> and observe the resulting maximum entropy pdf. Why did you get this abrupt change?</p></li>
 <li><p>Try <span class="math notranslate nohighlight">\(\sigma^2=1\)</span>. Why does the code break down?</p></li>
 </ul>
 </section>
@@ -877,9 +862,7 @@ Here is how to do this:</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-the-code">Setting up the code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-entropy-code">Maximum Entropy Code</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples-of-maximum-entropy-distributions">Examples of maximum entropy distributions</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-constraints-in-1-1">No constraints in [-1,1]</a></li>
 </ul>
