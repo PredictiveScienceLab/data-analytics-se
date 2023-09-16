@@ -610,16 +610,16 @@ document.write(`
 We have to pick this distribution before we see any data.
 We refer to this distribution as the <em>prior distribution</em> or simply the <em>prior</em>.</p>
 <p>How do we pick a prior?
-The prior should reflect our beliefs about the variable before we see any data.
+Before we see any data, the prior should reflect our beliefs about the variable.
 But how do we express our beliefs?
 There are three widely accepted ways:</p>
 <ul class="simple">
 <li><p>The <em>principle of insufficient reason</em>, also known as the <em>principle of indifference</em>. This principle tells us to assign the same probability to all possible variable values.</p></li>
-<li><p>The <em>principle of maximum entropy</em>. This principle tells us to pick the most “uncertain” distribution given the available information.</p></li>
+<li><p>The <em>principle of maximum entropy</em>. Given the available information, this principle tells us to pick the most “uncertain” distribution.</p></li>
 <li><p>The <em>principle of transformation groups</em>. This principle tells us to pick the invariant distribution under the problem’s symmetries. For example, if the problem is invariant under rotations, the prior should be invariant under rotations.</p></li>
 </ul>
 <p>The first two principles are the most widely used.
-The third one is more advanced, and we will not discuss it in this course.</p>
+The third one is more advanced; we will not discuss it in this course.</p>
 <section id="principle-of-insufficient-reason">
 <span id="id2"></span><h2>Principle of Insufficient Reason<a class="headerlink" href="#principle-of-insufficient-reason" title="Permalink to this heading">#</a></h2>
 <p>The principle of insufficient reason has its origins in Laplace.
@@ -683,7 +683,7 @@ The simplest non-mathematical definition of the principle of maximum entropy I c
 <div><p>The knowledge of average values does give a reason for preferring some possibilities to others. Still, we would like […] to assign a probability distribution which is as uniform as it can be while agreeing with the available information.”</p>
 </div></blockquote>
 <p>Why does he say, “as uniform as it can be?”
-He does this because he wants the principle consistent with the principle of insufficient reason when there is no available information.
+He does this because he wants the principle to be consistent with the principle of insufficient reason when there is no available information.
 Of course, the uniform distribution is the most “uncertain” distribution, so we could also say that we are looking for a maximally uncertain distribution that agrees with the available information.
 The “uncertainty” of a probability distribution is measured by its “information entropy,” a concept we explain in the subsequent section.</p>
 <section id="information-entropy">
@@ -693,7 +693,7 @@ In 1948, <a class="reference external" href="https://en.wikipedia.org/wiki/Claud
 The details of his derivation are beyond the scope of this course, but they can be summarized as follows:</p>
 <ul class="simple">
 <li><p>He looked for a functional <span class="math notranslate nohighlight">\(\mathbb{H}[p(X)]\)</span> that measured the uncertainty of the probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span> using real values. Note that a <em>functional</em> is a function that takes another function as an argument and returns a real number.</p></li>
-<li><p>He wrote down some axioms that this functional should satisfy. For example, that should be continuous, and it should have its maximum when <span class="math notranslate nohighlight">\(p(x)\)</span> is uniform (because the uniform distribution has the maximum uncertainty).</p></li>
+<li><p>He wrote down some axioms that this functional should satisfy. For example, that should be continuous and have its maximum when <span class="math notranslate nohighlight">\(p(x)\)</span> is uniform (because the uniform distribution has the maximum uncertainty).</p></li>
 <li><p>He did a little bit of math and proved that (up to an arbitrary multiplicative constant) the function he was looking for must have this form:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
@@ -715,7 +715,7 @@ The details of his derivation are beyond the scope of this course, but they can 
 Let’s demonstrate that this definition includes some important cases:</p>
 <section id="case-1">
 <h4>Case 1<a class="headerlink" href="#case-1" title="Permalink to this heading">#</a></h4>
-<p><span class="math notranslate nohighlight">\(I = \)</span> “The expected value of <span class="math notranslate nohighlight">\(X\)</span> is <span class="math notranslate nohighlight">\(\mu\)</span>.” This is obviously included as it is just the statement</p>
+<p><span class="math notranslate nohighlight">\(I = \)</span> “The expected value of <span class="math notranslate nohighlight">\(X\)</span> is <span class="math notranslate nohighlight">\(\mu\)</span>.” This is included, as it is just the statement</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbb{E}[X] = \mu.
@@ -724,7 +724,7 @@ Let’s demonstrate that this definition includes some important cases:</p>
 </section>
 <section id="case-2">
 <h4>Case 2<a class="headerlink" href="#case-2" title="Permalink to this heading">#</a></h4>
-<p><span class="math notranslate nohighlight">\(I = \)</span> “The expected value of <span class="math notranslate nohighlight">\(X\)</span> is <span class="math notranslate nohighlight">\(\mu\)</span> and the variance of <span class="math notranslate nohighlight">\(X\)</span> is <span class="math notranslate nohighlight">\(\sigma^2\)</span>.” Here we obviously have <span class="math notranslate nohighlight">\(\mathbb{E}[X] = \mu\)</span>, just like before. The second condition is about the variance, <span class="math notranslate nohighlight">\(\mathbb{V}[X] = \sigma^2\)</span>. We can easily turn this into an expectation by using the formula <span class="math notranslate nohighlight">\(\mathbb{V}[X] = \mathbb{E}[X^2] - (\mathbb{E}[X])^2)\)</span>. It becomes:</p>
+<p><span class="math notranslate nohighlight">\(I = \)</span> “The expected value of <span class="math notranslate nohighlight">\(X\)</span> is <span class="math notranslate nohighlight">\(\mu\)</span> and the variance of <span class="math notranslate nohighlight">\(X\)</span> is <span class="math notranslate nohighlight">\(\sigma^2\)</span>.” We obviously have <span class="math notranslate nohighlight">\(\mathbb{E}[X] = \mu\)</span>, just like before. The second condition is the variance, <span class="math notranslate nohighlight">\(\mathbb{V}[X] = \sigma^2\)</span>. We can easily turn this into an expectation by using the formula <span class="math notranslate nohighlight">\(\mathbb{V}[X] = \mathbb{E}[X^2] - (\mathbb{E}[X])^2)\)</span>. It becomes:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbb{E}[X^2] = \sigma^2 + \mu^2.
@@ -734,7 +734,7 @@ Let’s demonstrate that this definition includes some important cases:</p>
 </section>
 <section id="mathematical-statement-of-the-principle-of-maximum-entropy">
 <h3>Mathematical statement of the principle of maximum entropy<a class="headerlink" href="#mathematical-statement-of-the-principle-of-maximum-entropy" title="Permalink to this heading">#</a></h3>
-<p>Having defined the measure of uncertainty and how the available information is modeled, we can now state the principle of maximum entropy mathematically.
+<p>Having defined the measure of uncertainty and how the available information is modeled, we can now mathematically state the principle of maximum entropy.
 Take a random variable with <span class="math notranslate nohighlight">\(N\)</span> different possibilities with probabilities <span class="math notranslate nohighlight">\(p_1=p(X=x_1),\dots,p_N = p(X=x_N)\)</span> to be identified.
 We need to maximize:</p>
 <div class="math notranslate nohighlight">
@@ -751,7 +751,7 @@ We need to maximize:</p>
 \[
 \mathbb{E}[f_k(X)] = F_k.
 \]</div>
-<p>The general solution of this problem can be found using the <a class="reference external" href="https://en.wikipedia.org/wiki/Karush%E2%80%93Kuhn%E2%80%93Tucker_conditions">Karush-Kuhn-Tucker conditions</a>.
+<p>The general solution to this problem can be found using the <a class="reference external" href="https://en.wikipedia.org/wiki/Karush%E2%80%93Kuhn%E2%80%93Tucker_conditions">Karush-Kuhn-Tucker conditions</a>.
 If you go through the derivation, you will find that:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -778,7 +778,7 @@ F_k = \frac{\partial\log Z}{\partial \lambda_k},
 <li><p>The Binomial distribution <span class="math notranslate nohighlight">\(B(\theta,n)\)</span> is the maximum entropy distribution for a random variable <span class="math notranslate nohighlight">\(X\)</span> taking values <span class="math notranslate nohighlight">\(0, 1,\dots,n\)</span> with known expectation <span class="math notranslate nohighlight">\(\mathbb{E}[X] = \theta n\)</span> (within the class of <span class="math notranslate nohighlight">\(n\)</span>-generalized binomial distributions, i.e., the distribution representing the number of successful trials in <span class="math notranslate nohighlight">\(n\)</span>, potentially correlated, experiments).</p></li>
 <li><p>The Poisson distribution <span class="math notranslate nohighlight">\(\operatorname{Poisson}(\lambda)\)</span> is the maximum entropy distribution for a random variable <span class="math notranslate nohighlight">\(X\)</span> taking values <span class="math notranslate nohighlight">\(0, 1, 2,\dots\)</span> with known expectation <span class="math notranslate nohighlight">\(\mathbb{E}[X] = \lambda\)</span> (within the class of <span class="math notranslate nohighlight">\(\infty\)</span>-generalized binomial distributions).</p></li>
 <li><p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Canonical_ensemble">canonical ensemble</a> is the maximum entropy distribution over the states of a quantum mechanical system with known expected energy.</p></li>
-<li><p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Grand_canonical_ensemble">grand canonical ensemble</a> is the maximum entropy distribution over the states of a quanum mechanical system consiting of many different numbers of particles with known expected number of particles per type and known expected energy.</p></li>
+<li><p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Grand_canonical_ensemble">grand canonical ensemble</a> is the maximum entropy distribution over the states of a quantum mechanical system consisting of many different numbers of particles with known expected number of particles per type and known expected energy.</p></li>
 </ul>
 </section>
 <section id="continuous-distributions">
@@ -790,15 +790,15 @@ Consider the naïve generalization:</p>
 \[
 \mathbb{H}_{\text{naïve}}[p(X)] = -\int p(x)\log p(x)dx.
 \]</div>
-<p>Now, imagine that you could equally well work with a transformed version of <span class="math notranslate nohighlight">\(X\)</span>.
+<p>Imagine that you could work equally well with a transformed version of <span class="math notranslate nohighlight">\(X\)</span>.
 Mathematically, assume that <span class="math notranslate nohighlight">\(Y = T(X)\)</span> where <span class="math notranslate nohighlight">\(T(x)\)</span> is invertible.
-Since <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are connected in this way you should be getting the same information entropy independently of whether you calculate it with <span class="math notranslate nohighlight">\(p(X)\)</span> or <span class="math notranslate nohighlight">\(p(Y)\)</span>.
-But, there are many counter examples where you get:</p>
+Since <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are connected, you should be getting the same information entropy independently of whether you calculate it with <span class="math notranslate nohighlight">\(p(X)\)</span> or <span class="math notranslate nohighlight">\(p(Y)\)</span>.
+But, there are many counter-examples where you get:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbb{H}_{\text{naïve}}[p(X)] \not= \mathbb{H}_{\text{naïve}}[p(Y)].
 \]</div>
-<p>This shows that <span class="math notranslate nohighlight">\(\mathbb{H}_{\text{naïve&quot;}}[p(X)]\)</span> is a bad definition of uncertainty for continuous distributions.</p>
+<p>This shows that <span class="math notranslate nohighlight">\(\mathbb{H}_{\text{naïve&quot;}}[p(X)]\)</span> is a wrong definition of uncertainty for continuous distributions.</p>
 <p>For continuous distributions, the correct thing to use is the relative entropy:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -806,7 +806,7 @@ But, there are many counter examples where you get:</p>
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(q(x)\)</span> is a prior density function (not necessarily normalized) encoding maximum uncertainty.
 You can find more about <span class="math notranslate nohighlight">\(q(x)\)</span> in the note below.
-With this definition the maximum entropy principle for continuous random variables is as follows.
+With this definition, the maximum entropy principle for continuous random variables is as follows.
 Maximize:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -842,15 +842,15 @@ F_k = \frac{\partial \log Z}{\partial \lambda_k},
 <section id="a-note-on-q-x">
 <h3>A note on <span class="math notranslate nohighlight">\(q(x)\)</span><a class="headerlink" href="#a-note-on-q-x" title="Permalink to this heading">#</a></h3>
 <p>There are, of course, cases in which <span class="math notranslate nohighlight">\(q(x)\)</span> is just the uniform density.
-In these cases the mathematical form of the information entropy becomes identical to the discrete case.
+In these cases, the mathematical form of the information entropy becomes identical to the discrete case.
 For example, if <span class="math notranslate nohighlight">\(x\)</span> is a location parameter, e.g., the 3D location of a particle free to move in a box, then <span class="math notranslate nohighlight">\(q(x)\)</span> is indeed uniform.
-As another example, imagine a particle constrained to move on a cyclic guide.
-Then <span class="math notranslate nohighlight">\(q(x)\)</span> is constant on the cyclic guide and zero everywhere else.
-The takehome message dual. First, <span class="math notranslate nohighlight">\(q(x)\)</span> depends on what the underlying random variable actually is.
+For example, imagine a particle constrained to move on a cyclic guide.
+Then, <span class="math notranslate nohighlight">\(q(x)\)</span> is constant on the cyclic guide and zero everywhere else.
+The take-home message is dual. First, <span class="math notranslate nohighlight">\(q(x)\)</span> depends on what the underlying random variable is.
 Second, the identification of <span class="math notranslate nohighlight">\(q(x)\)</span> is beyond the scope of the maximum entropy principle.
 In other words, you need to have <span class="math notranslate nohighlight">\(q(x)\)</span> before applying the maximum entropy principle.
-There are some systematic methods for identifying maximum uncertainty densities such as the <a class="reference external" href="https://en.wikipedia.org/wiki/Principle_of_transformation_groups">principle of transformation groups</a> and the theory of <a class="reference external" href="https://en.wikipedia.org/wiki/Haar_measure">Haar measures</a> but both these concepts require advanced mathematics.
-In many practical examples common sense is sufficient for coming up with <span class="math notranslate nohighlight">\(q(x)\)</span>.</p>
+There are some systematic methods for identifying maximum uncertainty densities, such as the <a class="reference external" href="https://en.wikipedia.org/wiki/Principle_of_transformation_groups">principle of transformation groups</a> and the theory of <a class="reference external" href="https://en.wikipedia.org/wiki/Haar_measure">Haar measures</a> but both these concepts require advanced mathematics.
+Common sense is sufficient for generating <span class="math notranslate nohighlight">\(q(x)\)</span> in many practical examples.</p>
 </section>
 <section id="examples-of-continuous-maximum-entropy-distributions">
 <h3>Examples of continuous maximum entropy distributions<a class="headerlink" href="#examples-of-continuous-maximum-entropy-distributions" title="Permalink to this heading">#</a></h3>
@@ -861,7 +861,7 @@ In many practical examples common sense is sufficient for coming up with <span c
 <li><p>The multivariate normal distribution <span class="math notranslate nohighlight">\(N(\boldsymbol{\mu},\boldsymbol{\Sigma})\)</span> is the maximum entropy distribution for a random vector <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> taking values in <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span> with <span class="math notranslate nohighlight">\(q(\mathbf{x}) = 1\)</span> and known expectation <span class="math notranslate nohighlight">\(\mathbb{E}[\mathbf{X}] = \boldsymbol{\mu}\)</span> and covariance matrix <span class="math notranslate nohighlight">\(\mathbb{C}[X,X] = \boldsymbol{\Sigma}\)</span>.</p></li>
 <li><p>The Exponential distribution <span class="math notranslate nohighlight">\(\operatorname{Exp}(\lambda)\)</span> is the maximum entropy distribution for a random variable <span class="math notranslate nohighlight">\(X\)</span> taking values in <span class="math notranslate nohighlight">\([0,\infty)\)</span> with <span class="math notranslate nohighlight">\(q(x) = 1\)</span> and known expectation <span class="math notranslate nohighlight">\(\mathbb{E}[X] = \frac{1}{\lambda}\)</span>.</p></li>
 </ul>
-<p>For an almost list of a commonly used maximum entropy distributions, see the <a class="reference external" href="https://en.wikipedia.org/wiki/Maximum_entropy_probability_distribution">Maximum entropy probability distribution entry of wikipedia</a>.</p>
+<p>For a list of commonly used maximum entropy distributions, see the <a class="reference external" href="https://en.wikipedia.org/wiki/Maximum_entropy_probability_distribution">Maximum entropy probability distribution entry of Wikipedia</a>.</p>
 </section>
 </section>
 </section>
