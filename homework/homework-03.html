@@ -604,7 +604,7 @@ document.write(`
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Lectures 7-12 (inclusive).</p></li>
+<li><p>Lectures 8-12 (inclusive).</p></li>
 </ul>
 </section>
 <section id="instructions">
@@ -622,16 +622,16 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
 <span class="kn">import</span> <span class="nn">urllib.request</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -666,7 +666,7 @@ document.write(`
 </section>
 <section id="problem-1-propagating-uncertainty-through-a-differential-equation">
 <h2>Problem 1 - Propagating uncertainty through a differential equation<a class="headerlink" href="#problem-1-propagating-uncertainty-through-a-differential-equation" title="Permalink to this heading">#</a></h2>
-<p>This is a classic uncertainty propagation problem that you will have to solve using Monte Carlo sampling.
+<p>This is a classic uncertainty propagation problem you must solve using Monte Carlo sampling.
 Consider the following stochastic harmonic oscillator:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -685,7 +685,7 @@ y(0) &amp;=&amp; y_0(X),\\
 <li><p><span class="math notranslate nohighlight">\(y_0(X) = 1+ 0.1 X_2\)</span>, and</p></li>
 <li><p><span class="math notranslate nohighlight">\(v_0 = 0.1 X_3\)</span>.</p></li>
 </ul>
-<p>In words, this stochastic harmonic oscillator has an uncertain natural frequency and uncertain initial conditions.</p>
+<p>In other words, this stochastic harmonic oscillator has an uncertain natural frequency and uncertain initial conditions.</p>
 <p>Our goal is to propagate uncertainty through this dynamical system, i.e., estimate the mean and variance of its solution.
 A solver for this dynamical system is given below:</p>
 <div class="cell tag_hide-input docutils container">
@@ -777,106 +777,106 @@ A solver for this dynamical system is given below:</p>
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 1.095  0.116]
- [ 1.024 -2.888]
- [ 0.81  -5.465]
- [ 0.485 -7.259]
- [ 0.094 -8.024]
- [-0.307 -7.662]
- [-0.661 -6.23 ]
- [-0.921 -3.939]
- [-1.05  -1.114]
- [-1.032  1.846]
- [-0.869  4.525]
- [-0.586  6.551]
- [-0.223  7.647]
- [ 0.169  7.664]
- [ 0.533  6.61 ]
- [ 0.821  4.64 ]
- [ 0.991  2.035]
- [ 1.022 -0.834]
- [ 0.909 -3.565]
- [ 0.671 -5.778]
- [ 0.34  -7.165]
- [-0.036 -7.541]
- [-0.404 -6.859]
- [-0.713 -5.223]
- [-0.919 -2.869]
- [-0.996 -0.132]
- [-0.933  2.603]
- [-0.74   4.954]
- [-0.444  6.594]
- [-0.089  7.3  ]
- [ 0.276  6.98 ]
- [ 0.599  5.687]
- [ 0.837  3.607]
- [ 0.955  1.039]
- [ 0.94  -1.655]
- [ 0.793 -4.097]
- [ 0.536 -5.948]
- [ 0.206 -6.954]
- [-0.15  -6.98 ]
- [-0.483 -6.029]
- [-0.745 -4.243]
- [-0.901 -1.877]
- [-0.93   0.734]
- [-0.829  3.223]
- [-0.613  5.242]
- [-0.312  6.513]
- [ 0.03   6.864]
- [ 0.365  6.252]
- [ 0.646  4.771]
- [ 0.836  2.634]
- [ 0.906  0.145]
- [ 0.85  -2.346]
- [ 0.675 -4.491]
- [ 0.407 -5.991]
- [ 0.085 -6.642]
- [-0.248 -6.36 ]
- [-0.543 -5.19 ]
- [-0.76  -3.304]
- [-0.869 -0.969]
- [-0.856  1.483]
- [-0.723  3.709]
- [-0.49   5.4  ]
- [-0.19   6.324]
- [ 0.134  6.356]
- [ 0.436  5.499]
- [ 0.676  3.88 ]
- [ 0.819  1.73 ]
- [ 0.847 -0.645]
- [ 0.756 -2.913]
- [ 0.56  -4.756]
- [ 0.287 -5.92 ]
- [-0.024 -6.248]
- [-0.329 -5.699]
- [-0.586 -4.358]
- [-0.759 -2.418]
- [-0.825 -0.154]
- [-0.775  2.115]
- [-0.617  4.07 ]
- [-0.373  5.442]
- [-0.08   6.043]
- [ 0.223  5.794]
- [ 0.492  4.737]
- [ 0.69   3.025]
- [ 0.79   0.903]
- [ 0.779 -1.329]
- [ 0.66  -3.358]
- [ 0.448 -4.903]
- [ 0.176 -5.751]
- [-0.119 -5.788]
- [-0.395 -5.015]
- [-0.614 -3.547]
- [-0.745 -1.594]
- [-0.771  0.567]
- [-0.689  2.632]
- [-0.512  4.315]
- [-0.264  5.381]
- [ 0.019  5.687]
- [ 0.297  5.195]
- [ 0.531  3.981]
- [ 0.69   2.219]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 0.86576708 -0.07081763]
+ [ 0.78395341 -3.11469418]
+ [ 0.56113181 -5.56953151]
+ [ 0.23878524 -6.99663001]
+ [-0.12396796 -7.14681476]
+ [-0.46121097 -6.00385669]
+ [-0.71220187 -3.78541398]
+ [-0.83230903 -0.90168838]
+ [-0.80094098  2.12036928]
+ [-0.62506299  4.73330875]
+ [-0.33770241  6.46831321]
+ [ 0.00824421  7.01926973]
+ [ 0.3497426   6.2967116 ]
+ [ 0.62510152  4.44213762]
+ [ 0.7851126   1.80045998]
+ [ 0.80183849 -1.14408138]
+ [ 0.67348098 -3.85664129]
+ [ 0.42448251 -5.84888073]
+ [ 0.10088361 -6.76684143]
+ [-0.2381841  -6.45377838]
+ [-0.53129844 -4.97680669]
+ [-0.72586896 -2.61285585]
+ [-0.78756769  0.2031821 ]
+ [-0.70637807  2.95841439]
+ [-0.4981977   5.1553249 ]
+ [-0.20174311  6.40157369]
+ [ 0.12864372  6.48001768]
+ [ 0.43295194  5.38646247]
+ [ 0.65639775  3.32860044]
+ [ 0.7592825   0.68665609]
+ [ 0.72403958 -2.0568184 ]
+ [ 0.55822056 -4.40504421]
+ [ 0.29291538 -5.9369355 ]
+ [-0.02306872 -6.38256748]
+ [-0.3321811  -5.67067573]
+ [-0.57860535 -3.93983921]
+ [-0.7183338  -1.51163652]
+ [-0.72702144  1.16904744]
+ [-0.60421835  3.6154932 ]
+ [-0.37324672  5.38748383]
+ [-0.0767819   6.1704811 ]
+ [ 0.23102709  5.83140676]
+ [ 0.49444368  4.44114625]
+ [ 0.66623227  2.2599913 ]
+ [ 0.7161238  -0.31102992]
+ [ 0.63614215 -2.80384591]
+ [ 0.44185528 -4.76852372]
+ [ 0.16935986 -5.85444396]
+ [-0.1314191  -5.8728293 ]
+ [-0.40587092 -4.82948439]
+ [-0.6046108  -2.92208261]
+ [-0.69236186 -0.50279412]
+ [-0.65421123  1.98669343]
+ [-0.49813153  4.0957798 ]
+ [-0.25334408  5.44647893]
+ [ 0.03514479  5.80112309]
+ [ 0.31481417  5.10412343]
+ [ 0.5351864   3.49046183]
+ [ 0.65693402  1.25966174]
+ [ 0.65889321 -1.17976053]
+ [ 0.54173406 -3.38507097]
+ [ 0.32765279 -4.95963928]
+ [ 0.05617548 -5.62423949]
+ [-0.22313485 -5.26651912]
+ [-0.45972306 -3.95988113]
+ [-0.61118876 -1.94862723]
+ [-0.65088085  0.39766351]
+ [-0.57258028  2.65201066]
+ [-0.39144957  4.40770442]
+ [-0.14110915  5.35164924]
+ [ 0.13259763  5.32015835]
+ [ 0.37999574  4.3272645 ]
+ [ 0.55659041  2.5606637 ]
+ [ 0.6310658   0.34630239]
+ [ 0.59083288 -1.91172274]
+ [ 0.44414497 -3.80487754]
+ [ 0.21842764 -4.99407499]
+ [-0.04484269 -5.27037485]
+ [-0.29775616 -4.59163893]
+ [-0.49468467 -3.08872161]
+ [-0.60051012 -1.04033744]
+ [-0.59688247  1.17858354]
+ [-0.48539331  3.16549084]
+ [-0.28711771  4.56321481]
+ [-0.03863804  5.12414056]
+ [ 0.21470123  4.75403007]
+ [ 0.42706492  3.52774531]
+ [ 0.5604165   1.67427033]
+ [ 0.59132694 -0.46599777]
+ [ 0.51508477 -2.50373174]
+ [ 0.34638775 -4.07146737]
+ [ 0.11652009 -4.88983934]
+ [-0.13244427 -4.8173261 ]
+ [-0.35533922 -3.87465271]
+ [-0.51209716 -2.23965722]
+ [-0.57494804 -0.21380114]
+ [-0.53333387  1.83337961]
+ [-0.39567006  3.53165417]
+ [-0.18766199  4.57702565]
+ [ 0.05248931  4.78611519]]
 </pre></div>
 </div>
 </div>
@@ -916,14 +916,13 @@ The 2 columns correspond to position and velocity.</p>
     <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
         <span class="n">solver</span><span class="o">.</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
         <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Sample </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">:</span><span class="s1">d</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a5bdcfae44117ca2c3ca9fbe2d19b931314363ad3294e41f7bcf928e7a0fd91b.png" src="../_images/a5bdcfae44117ca2c3ca9fbe2d19b931314363ad3294e41f7bcf928e7a0fd91b.png" />
-<img alt="../_images/772719d3dfb914a2fff259e7d89f6dc6b15eb27652d929a599e6682826dc7b05.png" src="../_images/772719d3dfb914a2fff259e7d89f6dc6b15eb27652d929a599e6682826dc7b05.png" />
-</div>
+<img alt="../_images/2c36f46f69de3db3c318ed809ec62c78bd04301dbf8101fc69745d9bf4dcf0cd.svg" src="../_images/2c36f46f69de3db3c318ed809ec62c78bd04301dbf8101fc69745d9bf4dcf0cd.svg" /><img alt="../_images/5dab429547aa27b32c08dca50553fa23b0d33f6ed49fa8be2de9af11042b8544.svg" src="../_images/5dab429547aa27b32c08dca50553fa23b0d33f6ed49fa8be2de9af11042b8544.svg" /></div>
 </div>
 <p>For your convenience, here is code that takes many samples of the solver at once:</p>
 <div class="cell tag_hide-input docutils container">
@@ -967,7 +966,7 @@ The 2 columns correspond to position and velocity.</p>
 </div>
 <p>Here, the first dimension corresponds to different samples.
 Then we have timesteps.
-And finally we have either position or velocity.</p>
+And finally, we have either position or velocity.</p>
 <p>As an example, the velocity of the 25th sample at the first ten timesteps is:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -976,8 +975,8 @@ And finally we have either position or velocity.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-0.061, -2.343, -4.361, -5.901, -6.802, -6.973, -6.4  , -5.148,
-       -3.357, -1.219])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 0.10089843, -1.40721488, -2.78063974, -3.89754534, -4.659736  ,
+       -5.0012779 , -4.89419329, -4.35073137, -3.42203351, -2.19333372])
 </pre></div>
 </div>
 </div>
@@ -1015,8 +1014,8 @@ You need to use the central limit theorem to find it (see the lecture notes).</p
 </section>
 <section id="part-c">
 <h3>Part C<a class="headerlink" href="#part-c" title="Permalink to this heading">#</a></h3>
-<p>Repeat part A and B for the squared response.
-That is, do exactly the same thing as above, but consider <span class="math notranslate nohighlight">\(y^2(t)\)</span> and <span class="math notranslate nohighlight">\(\dot{y}^2(t)\)</span> instead of <span class="math notranslate nohighlight">\(y(t)\)</span> and <span class="math notranslate nohighlight">\(\dot{y}(t)\)</span>.
+<p>Repeat parts A and B for the squared response.
+That is, do the same thing as above, but consider <span class="math notranslate nohighlight">\(y^2(t)\)</span> and <span class="math notranslate nohighlight">\(\dot{y}^2(t)\)</span> instead of <span class="math notranslate nohighlight">\(y(t)\)</span> and <span class="math notranslate nohighlight">\(\dot{y}(t)\)</span>.
 How many samples do you need to estimate the mean squared response at <span class="math notranslate nohighlight">\(t=5\)</span>s with negligible epistemic uncertainty?</p>
 <p><strong>Solution</strong>:</p>
 <div class="cell docutils container">
@@ -1034,7 +1033,7 @@ How many samples do you need to estimate the mean squared response at <span clas
 \[
 \mathbb{V}[y(t)] = \mathbb{E}[y^2(t)] - \left(\mathbb{E}[y(t)]\right)^2,
 \]</div>
-<p>and similarly for <span class="math notranslate nohighlight">\(\dot{y}(t)\)</span>, to estimate the variance of the position and the velocity with negligible epistemic uncertainty.
+<p>and similarly, for <span class="math notranslate nohighlight">\(\dot{y}(t)\)</span>, to estimate the position and velocity variance with negligible epistemic uncertainty.
 Plot both quantities as a function of time.</p>
 <p><strong>Solution</strong>:</p>
 <div class="cell docutils container">
@@ -1048,17 +1047,17 @@ Plot both quantities as a function of time.</p>
 <section id="part-e">
 <h3>Part E<a class="headerlink" href="#part-e" title="Permalink to this heading">#</a></h3>
 <p>Put together the estimated mean and variance to plot a 95% predictive interval for the position and the velocity as functions of time.</p>
-<p>Hint: You need to use the Central Limit Theorem. Check out the corresponding textbook example.
-<strong>Solution</strong>:</p>
+<p><strong>Hint:</strong> You need to use the Central Limit Theorem. Check out the corresponding textbook example.</p>
+<p><strong>Solution</strong>:</p>
 </section>
 </section>
 <section id="problem-2-earthquakes-again">
 <h2>Problem 2 - Earthquakes again<a class="headerlink" href="#problem-2-earthquakes-again" title="Permalink to this heading">#</a></h2>
-<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/San_Andreas_Fault">San Andreas fault</a> extends through California forming the boundary between the Pacific and the North American tectonic plates.
-It has caused some of the major earthquakes on Earth.
-We are going to focus on Southern California and we would like to assess the probability of a major earthquake, defined as an earthquake of magnitude 6.5 or greater, during the next ten years.</p>
-<p>A. The first thing we are going to do is go over a <a class="reference external" href="https://scedc.caltech.edu/significant/chron-index.html">database of past earthquakes</a> that have occured in Southern California and collect the relevant data. We are going to start at 1900 because data before that time may are unreliable.
-Go over each decade and count the occurence of a major earthquake (i.e., count the number of organge and red colors in each decade). We have done this for you.</p>
+<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/San_Andreas_Fault">San Andreas fault</a> extends through California, forming the boundary between the Pacific and the North American tectonic plates.
+It has caused some of the most significant earthquakes on Earth.
+We are going to focus on Southern California, and we would like to assess the probability of a significant earthquake, defined as an earthquake of magnitude 6.5 or greater, during the next ten years.</p>
+<p>A. The first thing we will do is review a <a class="reference external" href="https://scedc.caltech.edu/significant/chron-index.html">database of past earthquakes</a> that have occurred in Southern California and collect the relevant data. We will start at 1900 because data before that time may be unreliable.
+Go over each decade and count the occurrence of a significant earthquake (i.e., count the number of orange and red colors in each decade). We have done this for you.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eq_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
@@ -1089,13 +1088,13 @@ Go over each decade and count the occurence of a major earthquake (i.e., count t
     <span class="n">width</span><span class="o">=</span><span class="mi">10</span>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Decade&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;# of major earthquakes in Southern CA&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;# of major earthquakes in Southern CA&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c98468bd977e90bf68611e583289e6b3253987579aa31689c11e70356ebf44df.png" src="../_images/c98468bd977e90bf68611e583289e6b3253987579aa31689c11e70356ebf44df.png" />
-</div>
+<img alt="../_images/630de4ecd7c016f3dbbd503f1a7b831e274c3eecc951b8561913c9c45d7503cd.svg" src="../_images/630de4ecd7c016f3dbbd503f1a7b831e274c3eecc951b8561913c9c45d7503cd.svg" /></div>
 </div>
 <p>A. The right way to model the number of earthquakes <span class="math notranslate nohighlight">\(X_n\)</span> in a decade <span class="math notranslate nohighlight">\(n\)</span> is using a Poisson distribution with unknown rate parameter <span class="math notranslate nohighlight">\(\lambda\)</span>, i.e.,</p>
 <div class="math notranslate nohighlight">
@@ -1108,31 +1107,31 @@ X_n | \lambda \sim \operatorname{Poisson}(\lambda).
 p(x_n|\lambda) \equiv p(X_n=x_n|\lambda) = \frac{\lambda^{x_n}}{x_n!}e^{-\lambda}.
 \]</div>
 <p>Here we have <span class="math notranslate nohighlight">\(N = 12\)</span> observations, say <span class="math notranslate nohighlight">\(x_{1:N} = (x_1,\dots,x_N)\)</span> (stored in <code class="docutils literal notranslate"><span class="pre">eq_data</span></code> above).
-Find the <em>joint probability mass function</em> (otherwise known as the likelihood) <span class="math notranslate nohighlight">\(p(x_{1:N}|\lambda)\)</span> of these random variables.<br>
-<em>Hint: Assume that all measurements are independent. Then their joint pmf is the product of the individual pmfs.
-You should be able to simplify the expression considerably.</em>
+Find the <em>joint probability mass function</em> (otherwise known as the likelihood) <span class="math notranslate nohighlight">\(p(x_{1:N}|\lambda)\)</span> of these random variables.<br></p>
+<p><strong>Hint:</strong> Assume that all measurements are independent. Then, their joint PMF is the product of the individual PMFs.
+You should be able to simplify the expression.</p>
 <br>
-<strong>Answer:</strong>
-<br><br><br><br><br><br><br><br></p>
-<p>B. The rate parameter <span class="math notranslate nohighlight">\(\lambda\)</span> (number of major earthquakes per ten years) is positive. What prior distribution should we assign to it if we expect it to be around 2?
-A convenient choice here is to pick a <a class="reference external" href="https://en.wikipedia.org/wiki/Gamma_distribution">Gamma</a>, see also <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gamma.html">the scipy.stats page for the Gamma</a> because it results in an analytical posterior.
+<p><strong>Answer:</strong></p>
+<p><br><br><br><br><br><br><br><br></p>
+<p>B. The rate parameter <span class="math notranslate nohighlight">\(\lambda\)</span> (number of significant earthquakes per ten years) is positive. What prior distribution should we assign to it if we expect it to be around 2?
+A convenient choice is to pick a <a class="reference external" href="https://en.wikipedia.org/wiki/Gamma_distribution">Gamma</a>. See also <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gamma.html">the scipy.stats page for the Gamma</a> because it results in an analytical posterior.
 We write:</p>
 <div class="math notranslate nohighlight">
 \[
 \lambda \sim \operatorname{Gamma}(\alpha, \beta),
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are positive <em>hyper-parameters</em> that we have to set to represent our prior state of knowledge.
+<p>where <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are positive <em>hyper-parameters</em> that we must set to represent our prior state of knowledge.
 The PDF is:</p>
 <div class="math notranslate nohighlight">
 \[
 p(\lambda) = \frac{\beta^\alpha \lambda^{\alpha-1}e^{-\beta \lambda}}{\Gamma(\alpha)},
 \]</div>
 <p>where we are not conditioning on <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> because they should be fixed numbers.
-Use the code below to pick some some reasonable values for <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>.
+Use the code below to pick reasonable values for <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>.
 <br>
 <strong>Just enter your choice of <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> in the code block below.</strong>
-<br>
-Hint: Notice that the maximum entropy distribution for a positive parameter with known expectation is the <a class="reference external" href="https://en.wikipedia.org/wiki/Exponential_distribution">Exponential</a>, e.g., see the Table in <a class="reference external" href="https://en.wikipedia.org/wiki/Maximum_entropy_probability_distribution">this wiki page</a>. Then notice that the Exponential is a special case of the Gamma (set <span class="math notranslate nohighlight">\(\alpha=1\)</span>).</p>
+<br></p>
+<p><strong>Hint:</strong> Notice that the maximum entropy distribution for a positive parameter with known expectation is the <a class="reference external" href="https://en.wikipedia.org/wiki/Exponential_distribution">Exponential</a>, e.g., see the Table in <a class="reference external" href="https://en.wikipedia.org/wiki/Maximum_entropy_probability_distribution">this wiki page</a>. Then, notice that the Exponential is a particular case of the Gamma (set <span class="math notranslate nohighlight">\(\alpha=1\)</span>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
@@ -1150,24 +1149,24 @@ Hint: Notice that the maximum entropy distribution for a positive parameter with
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lambdas</span><span class="p">,</span> <span class="n">lambda_prior</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">lambdas</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$\lambda$ (# or major earthquakes per decade)&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$p(\lambda)$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$p(\lambda)$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9366409962f8975745eeeb1b482857091e9f376c30342b10b4164562dc8f830c.png" src="../_images/9366409962f8975745eeeb1b482857091e9f376c30342b10b4164562dc8f830c.png" />
-</div>
+<img alt="../_images/f385fdf3c40e03f96af6f0d7173bfb28a459419cbd39ee6012bfd3e2db471910.svg" src="../_images/f385fdf3c40e03f96af6f0d7173bfb28a459419cbd39ee6012bfd3e2db471910.svg" /></div>
 </div>
 <p>C. Show that the posterior of <span class="math notranslate nohighlight">\(\lambda\)</span> conditioned on <span class="math notranslate nohighlight">\(x_{1:N}\)</span> is also a Gamma, but with updated hyperparameters.
 <br>
-Hint: When you write down the posterior of <span class="math notranslate nohighlight">\(\lambda\)</span> you can drop any multiplicative term that does not depend on it as it will be absorbed in the normalization constnat. This will simplify the notation a little bit.
+<strong>Hint:</strong> When you write down the posterior of <span class="math notranslate nohighlight">\(\lambda\)</span> you can drop any multiplicative term that does not depend on it as it will be absorbed in the normalization constant. This will simplify the notation a little bit.
 <br>
 <strong>Answer:</strong>
 <br><br><br><br><br><br><br><br></p>
-<p>D. Prior-likelihood pairs that result in a posterior with the same form as the prior as known as conjugate distributions. Conjugate distributions are your only hope for analytical Bayesian inference.
-As a sanity check, look at the wikipedia page for <a class="reference external" href="https://en.wikipedia.org/wiki/Conjugate_prior">conjugate priors</a>, locate the Poisson-Gamma pair and verify your answer above.
+<p>D. Prior-likelihood pairs that result in a posterior with the same form as the prior are known as conjugate distributions. Conjugate distributions are your only hope for analytical Bayesian inference.
+As a verification check, look at the Wikipedia page for <a class="reference external" href="https://en.wikipedia.org/wiki/Conjugate_prior">conjugate priors</a>, locate the Poisson-Gamma pair, and verify your answer above.
 <br>
-<em>Nothing to report here. Just do it as a sanity check.</em></p>
+<em>Nothing to report here. Just do it as a verification check.</em></p>
 <p>E. Plot the prior and the posterior of <span class="math notranslate nohighlight">\(\lambda\)</span> on the same plot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1184,32 +1183,32 @@ As a sanity check, look at the wikipedia page for <a class="reference external" 
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lambdas</span><span class="p">,</span> <span class="n">lambda_prior</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">lambdas</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lambdas</span><span class="p">,</span> <span class="n">lambda_post</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">lambdas</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$\lambda$ (# or major earthquakes per decade)&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$p(\lambda|x_{1:N})$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$p(\lambda|x_{1:N})$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/aab5675e4ea9cce39d077094aeb519d03592d701d53357eec50705f69376ec93.png" src="../_images/aab5675e4ea9cce39d077094aeb519d03592d701d53357eec50705f69376ec93.png" />
+<img alt="../_images/440713c13ca8900134ee6b2f676aa3172941df563892b554d5ea04eb4cf48099.svg" src="../_images/440713c13ca8900134ee6b2f676aa3172941df563892b554d5ea04eb4cf48099.svg" /></div>
 </div>
-</div>
-<p>F. Let’s work out the predictive distribution for the number of major earthquakes during the next decade.
-This is something that we did not do in class, but it will appear again and again in future lectures.
-Let <span class="math notranslate nohighlight">\(X\)</span> be the random variable corresponding to the number of major eathquakes during the next decade.
+<p>F. Let’s determine the predictive distribution for the number of significant earthquakes during the next decade.
+This is something we did not do in class, but it will reappear in future lectures.
+Let <span class="math notranslate nohighlight">\(X\)</span> be the random variable corresponding to the number of significant earthquakes during the next decade.
 We need to calculate:</p>
 <div class="math notranslate nohighlight">
 \[
 p(x|x_{1:N}) = \text{our state of knowledge about $X$ after seeing the data}.
 \]</div>
 <p>How do we do this?
-We just use the sum rule:</p>
+We use the sum rule:</p>
 <div class="math notranslate nohighlight">
 \[
 p(x|x_{1:N}) = \int_{0}^\infty p(x|\lambda, x_{1:N}) p(\lambda|x_{1:N})d\lambda = \int_{0}^\infty p(x|\lambda) p(\lambda|x_{1:N})d\lambda,
 \]</div>
-<p>where going from the middle step to the rightmost one we used the assumption that the number of earthquakes occuring in each decade is independent.
-You can carray out this integration analytically (it gives a <a class="reference external" href="https://en.wikipedia.org/wiki/Negative_binomial_distribution">negative Binomial</a> distribution) but we are not going to bother with it.</p>
-<p>Below you are going to write code to characterize it using Monte Carlo sampling.
-Basically, you can take a sample from the posterior predictive by:</p>
+<p>where going from the middle step to the rightmost one, we assumed that the number of earthquakes occurring in each decade is independent.
+You can carry out this integration analytically (it gives a <a class="reference external" href="https://en.wikipedia.org/wiki/Negative_binomial_distribution">negative Binomial</a> distribution), but we are not going to bother with it.</p>
+<p>Below, you will write code to characterize it using Monte Carlo sampling.
+You can take a sample from the posterior predictive by:</p>
 <ul class="simple">
 <li><p>sampling a <span class="math notranslate nohighlight">\(\lambda\)</span> from its posterior <span class="math notranslate nohighlight">\(p(\lambda|x_{1:N})\)</span>.</p></li>
 <li><p>sampling an <span class="math notranslate nohighlight">\(x\)</span> from the likelihood <span class="math notranslate nohighlight">\(p(x|\lambda)\)</span>.</p></li>
@@ -1246,8 +1245,8 @@ Basically, you can take a sample from the posterior predictive by:</p>
 </div>
 </div>
 <p>G. Plot the predictive distribution <span class="math notranslate nohighlight">\(p(x|x_{1:N})\)</span>.
-<br>
-<em>Hint: Draw 1,000 samples using <code class="docutils literal notranslate"><span class="pre">sample_posterior_predictive</span></code> and then draw a histogram.</em></p>
+<br></p>
+<p><strong>Hint:</strong> Draw 1,000 samples using <code class="docutils literal notranslate"><span class="pre">sample_posterior_predictive</span></code> and then draw a histogram.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
@@ -1256,8 +1255,8 @@ Basically, you can take a sample from the posterior predictive by:</p>
 </div>
 </div>
 <p>H. What is the probability that at least one major earthquake will occur during the next decade?
-<br>
-<em>Hint: You may use a Monte Carlo estimate of the probability. Ignore the uncertainty in the estimate.</em></p>
+<br></p>
+<p><strong>Hint:</strong> You may use a Monte Carlo estimate of the probability. Ignore the uncertainty in the estimate.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_samples</span> <span class="o">=</span> <span class="mi">10000</span>
@@ -1284,7 +1283,7 @@ Basically, you can take a sample from the posterior predictive by:</p>
 </div>
 </div>
 </div>
-<p>J. Find the <span class="math notranslate nohighlight">\(\lambda\)</span> that minimizes the absolute loss (see lecture), call it <span class="math notranslate nohighlight">\(\lambda^*_N\)</span>.
+<p>J. Find the <span class="math notranslate nohighlight">\(\lambda\)</span> that minimizes the absolute loss (see lecture), and call it <span class="math notranslate nohighlight">\(\lambda^*_N\)</span>.
 Then, plot the fully Bayesian predictive <span class="math notranslate nohighlight">\(p(x|x_{1:N})\)</span> in the same figure as <span class="math notranslate nohighlight">\(p(x|\lambda^*_N)\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1293,9 +1292,9 @@ Then, plot the fully Bayesian predictive <span class="math notranslate nohighlig
 </div>
 </div>
 </div>
-<p>L. Draw replicated data from the model and compare them to the observed data.
+<p>L. Draw replicated data from the model and compare them to the observed data.</p>
 <br>
-Hint: Complete the missing code at the places indicated below.</p>
+<p><strong>Hint:</strong> Complete the missing code at the places indicated below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">replicate_experiment</span><span class="p">(</span><span class="n">post_rv</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">eq_data</span><span class="p">),</span> <span class="n">n_rep</span><span class="o">=</span><span class="mi">9</span><span class="p">):</span>
@@ -1353,12 +1352,12 @@ Hint: Complete the missing code at the places indicated below.</p>
 </div>
 </div>
 </div>
-<p>M. Plot the histograms and calculate the Bayesian p-values of the following test-quantities:</p>
+<p>M. Plot the histograms and calculate the Bayesian p-values of the following test quantities:</p>
 <ul class="simple">
 <li><p>Maximum number of consecutive decades with no earthquakes.</p></li>
-<li><p>Maximum number of consecutive decades with earthquakes.</p></li>
+<li><p>Maximum number of successive decades with earthquakes.</p></li>
 </ul>
-<p><em>Hint: You may reuse the code from the textbook.</em></p>
+<p><strong>Hint:</strong> You may reuse the code from <span class="xref myst">Posterior Predictive Checking</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">perform_diagnostics</span><span class="p">(</span><span class="n">post_rv</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">test_func</span><span class="p">,</span> <span class="n">n_rep</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
