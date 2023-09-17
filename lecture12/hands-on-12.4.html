@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Supervised Learning" href="../supervised_learning.html" />
-    <link rel="prev" title="Decision-Making" href="hands-on-12.3.html" />
+    <link rel="prev" title="Decision Making" href="hands-on-12.3.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -233,10 +233,11 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 12 - Analytical Examples of Bayesian Inference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="reading-12.html">Analytical Examples of Bayesian Inference</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-12.1.html">Bayesian Parameter Estimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reading-12.html">Bayesian inference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-12.1.html">Example: Inferring the probability of a coin toss from data</a></li>
+
 <li class="toctree-l3"><a class="reference internal" href="hands-on-12.2.html">Credible Intervals</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-12.3.html">Decision-Making</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-12.3.html">Decision Making</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Posterior Predictive Checking</a></li>
 </ul>
 </li>
@@ -575,14 +576,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Posterior Predictive Checking</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-inspections-of-replicated-data">Visual Inspections of Replicated Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#demonstration-with-the-coin-toss-example">Demonstration with the Coin Toss Example</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-quantities-and-visual-inspections">Test quantities and visual inspections</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-quantities-and-bayesian-p-values">Test quantities and Bayesian <span class="math notranslate nohighlight">\(p\)</span>-values</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#demonstration-with-the-coin-toss-example">Demonstration with the Coin Toss Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-quantities-and-visual-inspections">Test quantities and visual inspections</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-quantities-and-bayesian-p-values">Test quantities and Bayesian <span class="math notranslate nohighlight">\(p\)</span>-values</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#back-to-the-coin-toss-example">Back to the coin toss example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
@@ -604,13 +601,13 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -618,16 +615,8 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="posterior-predictive-checking">
 <h1>Posterior Predictive Checking<a class="headerlink" href="#posterior-predictive-checking" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Introduce the concept of posterior predictive checking</p></li>
-</ul>
-</section>
-<section id="id1">
-<h2>Posterior Predictive Checking<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <p>Assume that we have built a model using some data, say <span class="math notranslate nohighlight">\(x_{1:n}\)</span>.
-Now, assume that you do the experiment again under the same conditions.
+Now, assume that you experiment again under the same conditions.
 What data does your model tell you that you would observe?
 The posterior predictive distribution of the <em>replicated data</em> <span class="math notranslate nohighlight">\(x^{\text{rep}}_{1:n}\)</span> is simply:</p>
 <div class="math notranslate nohighlight">
@@ -635,16 +624,15 @@ The posterior predictive distribution of the <em>replicated data</em> <span clas
 p(x^{\text{rep}}_{1:n}|x_{1:n}) = \int p(x^{\text{rep}}_{1:n}|\theta)p(\theta|x_{1:n})d\theta,
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(p(x^{\text{rep}}_{1:n}|\theta)\)</span> is just the likelihood and <span class="math notranslate nohighlight">\(p(\theta|x_{1:n})\)</span> the posterior.
-The idea of <em>posterior predictive checking</em> is to repeatedly sample <span class="math notranslate nohighlight">\(x^{\text{rep}}_{1:n}\)</span> and compare their characteristics to the true data.
+The idea of <em>posterior predictive checking</em> is to repeatedly sample <span class="math notranslate nohighlight">\(x^{\text{rep}}_{1:n}\)</span> and compare their characteristics to the actual data.
 You may reject a model that performs very poorly under predictive checking.
 However, you cannot accept a model that performs very well.
 There are other methods for doing this which are more involved.
-Predictive checking is good for identifying bugs in your code or coming up with ideas to extend the models in a way that better matches the data.</p>
-</section>
+Predictive checking is suitable for identifying bugs in your code or developing ideas to extend the models to match the data better.</p>
 <section id="visual-inspections-of-replicated-data">
 <h2>Visual Inspections of Replicated Data<a class="headerlink" href="#visual-inspections-of-replicated-data" title="Permalink to this heading">#</a></h2>
 <p>The idea here is to simply sample <span class="math notranslate nohighlight">\(x^{\text{rep}}_{1:n}\)</span> and compare it visually to <span class="math notranslate nohighlight">\(x_{1:n}\)</span>.
-Let’s see this on the coin toss example.</p>
+Let’s see this in the coin toss example.</p>
 </section>
 <section id="demonstration-with-the-coin-toss-example">
 <h2>Demonstration with the Coin Toss Example<a class="headerlink" href="#demonstration-with-the-coin-toss-example" title="Permalink to this heading">#</a></h2>
@@ -665,14 +653,13 @@ x_{i}|\theta \sim \operatorname{Ber}(\theta).
 \]</div>
 <p>Now, it is actually possible to get <span class="math notranslate nohighlight">\(p(x^{\text{rep}}_{1:n} | x_{1:n})\)</span> analytically in this case.
 However, we will not bother doing it.
-We can simply sampling from it as follows:</p>
+We can sample from it as follows:</p>
 <ul class="simple">
 <li><p>First, sample a <span class="math notranslate nohighlight">\(\theta\)</span> from the posterior <span class="math notranslate nohighlight">\(p(\theta|x_{1:n})\)</span>.</p></li>
 <li><p>Second, sample a <span class="math notranslate nohighlight">\(x^{\text{rep}}\)</span> from the likelihood <span class="math notranslate nohighlight">\(p(x^{\text{rep}}|\theta)\)</span>.</p></li>
 <li><p>Repeat steps one and two as many times as needed.</p></li>
 </ul>
-<p>Ok, let’s start with a dataset that is 100% known that it is compatible from the model because we are simply simulating it.
-Here you go:</p>
+<p>Let’s start with a synthetic example.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
@@ -687,9 +674,9 @@ Here you go:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1,
-       1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1,
-       0, 0, 0, 0, 0, 1])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1,
+       0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0,
+       1, 0, 1, 0, 0, 1])
 </pre></div>
 </div>
 </div>
@@ -723,16 +710,16 @@ Here you go:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Probability density&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;$N=</span><span class="si">{N}</span><span class="s1">$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/fbc07c737b0f1c959a969c12a0fd10d004967e7527baf3296dd09b13e6daee7f.png" src="../_images/fbc07c737b0f1c959a969c12a0fd10d004967e7527baf3296dd09b13e6daee7f.png" />
+<img alt="../_images/760cb7836af4d1ac7b32dee11b601c9c9b31cb46ee1a5a4b862509e6d017bbdf.svg" src="../_images/760cb7836af4d1ac7b32dee11b601c9c9b31cb46ee1a5a4b862509e6d017bbdf.svg" /></div>
 </div>
-</div>
-<p>Now that we have fitted the model, let’s draw many replicated data <span class="math notranslate nohighlight">\(y^{\text{rep}}\)</span> from the posterior predictive and compare them to the original dataset.
+<p>Now that we have fitted the model let’s draw many replicated data <span class="math notranslate nohighlight">\(y^{\text{rep}}\)</span> from the posterior predictive and compare them to the original dataset.
 We are going to write a function to do this.
 We will use it several times later.</p>
 <div class="cell docutils container">
@@ -774,33 +761,33 @@ We will use it several times later.</p>
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1,
-        0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 0,
-        0, 1, 1, 0, 0, 1],
-       [0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0,
-        1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1,
-        1, 0, 1, 1, 0, 1],
-       [0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0,
-        0, 1, 0, 0, 0, 0],
-       [1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1,
-        1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0,
-        0, 0, 0, 0, 0, 0],
-       [0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0,
-        1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0,
-        0, 1, 1, 1, 0, 0],
-       [0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0,
-        0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0,
-        0, 0, 1, 1, 0, 1],
-       [0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0,
-        1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1,
+        0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1],
+       [1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1,
+        0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1,
         1, 1, 1, 1, 0, 1],
-       [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1,
-        0, 1, 0, 1, 1, 0],
-       [0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0,
-        0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1,
-        0, 0, 0, 0, 0, 0]], dtype=int32)
+       [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1,
+        0, 1, 1, 0, 0, 1],
+       [1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0,
+        1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1,
+        1, 1, 0, 1, 1, 1],
+       [0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1,
+        0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0,
+        0, 1, 1, 0, 0, 1],
+       [1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1,
+        1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1,
+        1, 1, 0, 1, 0, 0],
+       [1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+        0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1,
+        1, 1, 1, 1, 1, 0],
+       [1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0,
+        0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1,
+        0, 0, 1, 0, 0, 1],
+       [0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0,
+        1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1,
+        1, 0, 1, 1, 0, 1]], dtype=int32)
 </pre></div>
 </div>
 </div>
@@ -816,12 +803,11 @@ The first row of pixels is are the observed data.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/520a90f9b0f0a8d2fb6acaffd37dfcb6396621d6d490e5ac041b609ce8ae274f.png" src="../_images/520a90f9b0f0a8d2fb6acaffd37dfcb6396621d6d490e5ac041b609ce8ae274f.png" />
-</div>
+<img alt="../_images/c385d4de634842ae51f67a37b924dd4962ceb7d27a2d6b8fd4a696a315aa4d37.svg" src="../_images/c385d4de634842ae51f67a37b924dd4962ceb7d27a2d6b8fd4a696a315aa4d37.svg" /></div>
 </div>
 <p>This visual inspection does not reveal anything strange.
-Let’s now repeat this excersize with a dataset that is completely artificial and does not match the model.
-This a dataset that I picked by hand trying to emulate a coin toss with probability of heads equal to <span class="math notranslate nohighlight">\(0.5\)</span>:</p>
+Let’s now repeat this exercise with a completely artificial dataset that does not match the model.
+This a dataset that I picked by hand trying to emulate a coin toss with a probability of heads equal to <span class="math notranslate nohighlight">\(0.5\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_fake</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
@@ -853,15 +839,15 @@ This a dataset that I picked by hand trying to emulate a coin toss with probabil
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;$n=</span><span class="si">{N}</span><span class="s1">$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/56cc819dd48dd443146b9f6ae0bc41fa5b0c893140cc09b82cc0a0d65fd722c8.png" src="../_images/56cc819dd48dd443146b9f6ae0bc41fa5b0c893140cc09b82cc0a0d65fd722c8.png" />
+<img alt="../_images/0c28528e7260a563d38966d24900bd60afbe4e1b5fcdc609e3521acb793fbc00.svg" src="../_images/0c28528e7260a563d38966d24900bd60afbe4e1b5fcdc609e3521acb793fbc00.svg" /></div>
 </div>
-</div>
-<p>Let’s see if the visual comparison to replicated data reveals that the data did not really come from a fair coin.</p>
+<p>Let’s see if the visual comparison to replicated data reveals that the data did not come from a fair coin.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_2_rep</span> <span class="o">=</span> <span class="n">replicate_experiment</span><span class="p">(</span><span class="n">Theta_2_post</span><span class="p">)</span>
@@ -872,53 +858,51 @@ This a dataset that I picked by hand trying to emulate a coin toss with probabil
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/19a24c28d29817f4800fc3e037a8ccd52258197c91e39fc2148753177e817e6b.png" src="../_images/19a24c28d29817f4800fc3e037a8ccd52258197c91e39fc2148753177e817e6b.png" />
+<img alt="../_images/bf76298da2d28687fd36af359c136fbd432d30e50c29ffdee386273798fb5f1c.svg" src="../_images/bf76298da2d28687fd36af359c136fbd432d30e50c29ffdee386273798fb5f1c.svg" /></div>
 </div>
-</div>
-<p>If you pay close attention you will notice that the data I picked by hand has more transitions from heads to tails than the replicated data.
-In other words, the replicated data seem to have longer consecutive series of either heads or tails.
+<p>If you pay close attention, you will notice that the data I picked by hand transitions from heads to tails more than the replicated data.
+In other words, the replicated data have more extended consecutive series of either heads or tails.
 How can we see this more clearly?</p>
+</section>
 <section id="test-quantities-and-visual-inspections">
-<h3>Test quantities and visual inspections<a class="headerlink" href="#test-quantities-and-visual-inspections" title="Permalink to this heading">#</a></h3>
-<p>We use <em>test quantities</em> to characterize the discrepancy between the model and the data.
-In particular, test quantities help us zoom into the characteristsics of the data that are of particular interest to us.
+<h2>Test quantities and visual inspections<a class="headerlink" href="#test-quantities-and-visual-inspections" title="Permalink to this heading">#</a></h2>
+<p>We use <em>test quantities</em> to characterize the model and data discrepancy.
+In particular, test quantities help us zoom into the characteristics of the data that are of particular interest to us.
 Mathematically, a test quantity is a scalar function of the data and the model parameters <span class="math notranslate nohighlight">\(T(x_{1:n},\theta)\)</span>.
-There are some general recipies for creating test quantities for regression and classification.
+There are some general recipes for creating test quantities for regression and classification.
 However, in general, you must use common sense in selecting them.
-What are the important characteristics of the data that your model should be capturing.
+What are the essential data characteristics that your model should be capturing?
 We will be seeing specific examples below.</p>
-<p>Now, assume that you have selected one, or more, test quantities.
+<p>Now, assume that you have selected one or more test quantities.
 What do you do with them?
 Well, the easiest thing to do is a visual comparison of the histogram of the test quantity over replicated data, i.e., of
 <span class="math notranslate nohighlight">\(p(T(x^{\text{rep}}_{1:n},\theta) | x_{1:n})\)</span>, and compare it to the observe value <span class="math notranslate nohighlight">\(T(x_{1:n},\theta)\)</span>.
-In these plots you are trying to see how likely or unlikely is observed test quantity according to your model.
+In these plots, you are trying to see how likely or unlikely the observed test quantity is according to your model.
 We will be visualizing them next for the coin toss example.</p>
 </section>
 <section id="test-quantities-and-bayesian-p-values">
-<h3>Test quantities and Bayesian <span class="math notranslate nohighlight">\(p\)</span>-values<a class="headerlink" href="#test-quantities-and-bayesian-p-values" title="Permalink to this heading">#</a></h3>
-<p>Antother thing that you can do to check your model is to evaluate the probability that the replicated data give you a test quantity that is more extreme than the observed value.
-This probability is known as the posterior (or Bayesian) <span class="math notranslate nohighlight">\(p\)</span>-value and it is defined by:</p>
+<h2>Test quantities and Bayesian <span class="math notranslate nohighlight">\(p\)</span>-values<a class="headerlink" href="#test-quantities-and-bayesian-p-values" title="Permalink to this heading">#</a></h2>
+<p>Another thing you can do to check your model is to evaluate the probability that the replicated data gives you a test quantity that is more extreme than the observed value.
+This probability is known as the posterior (or Bayesian) <span class="math notranslate nohighlight">\(p\)</span>-value, and it is defined by:</p>
 <div class="math notranslate nohighlight">
 \[
 p_B = \mathbb{P}(T(x^{\text{rep}}_{1:n},\theta) &gt; T(x_{1:n},\theta) | x_{1:n}) = \int 1_{[T(x_{1:n},\theta),\infty]}(T(x^{\text{rep}}_{1:n})) p(x^{\text{rep}}_{1:n}, \theta|x_{1:n}) dx^{\text{rep}}_{1:n}d\theta.
 \]</div>
-<p>Of course, you can just estimate the Bayesian <span class="math notranslate nohighlight">\(p\)</span>-value using Monte Carlo sampling from the joint posterior of <span class="math notranslate nohighlight">\(x^{\text{rep}}_{1:n}\)</span> and <span class="math notranslate nohighlight">\(\theta\)</span> conditioned on the data <span class="math notranslate nohighlight">\(x_{1:n}\)</span>.</p>
+<p>Of course, you can estimate the Bayesian <span class="math notranslate nohighlight">\(p\)</span>-value using Monte Carlo sampling from the joint posterior of <span class="math notranslate nohighlight">\(x^{\text{rep}}_{1:n}\)</span> and <span class="math notranslate nohighlight">\(\theta\)</span> conditioned on the data <span class="math notranslate nohighlight">\(x_{1:n}\)</span>.</p>
 <p>How should I interpret the Bayesian <span class="math notranslate nohighlight">\(p\)</span>-values?
 <strong>It is not the probability that your model is correct.</strong>
 We will derive this probability in the Bayesian model selection lecture.
-The Bayesian <span class="math notranslate nohighlight">\(p\)</span>-value is the probability that replications of the experiment will yield test quantitys that exceed the observed value under the assumption that your model is correct.
-So, here is a nice way to interpret them:</p>
+The Bayesian <span class="math notranslate nohighlight">\(p\)</span>-value is the probability that replications of the experiment will yield test quantities that exceed the observed value under the assumption that your model is correct.
+So, here is an excellent way to interpret them:</p>
 <ul class="simple">
-<li><p>A Bayesian <span class="math notranslate nohighlight">\(p\)</span>-value close to <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span> indicates that the observed test quantity is unlikely under the assumption that your model is correct. So your model does not capture this aspect of the data. You probably need expand/modify your model somehow.</p></li>
+<li><p>A Bayesian <span class="math notranslate nohighlight">\(p\)</span>-value close to <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span> indicates that the observed test quantity is unlikely under the assumption that your model is correct. So, your model does not capture this aspect of the data. You need to expand/modify your model somehow.</p></li>
 </ul>
-</section>
 </section>
 <section id="back-to-the-coin-toss-example">
 <h2>Back to the coin toss example<a class="headerlink" href="#back-to-the-coin-toss-example" title="Permalink to this heading">#</a></h2>
-<p>What are some good test quantities that we can pick for this example.
+<p>What are some good test quantities that we can pick for this example?
 An obvious one is the number of heads.
-This is only a function of the data.
-It is:</p>
+It is only a function of the data:</p>
 <div class="math notranslate nohighlight">
 \[
 T_{h}(x_{1:n}) = \sum_{i=1}^nx_i.
@@ -933,7 +917,7 @@ T_{h}(x_{1:n}) = \sum_{i=1}^nx_i.
 </div>
 </div>
 </div>
-<p>Remember, that we have run this example with two datasets: one that was generated from the correct model and one that was generated by hand.
+<p>Remember that we have run this example with two datasets: one generated from the correct model and one generated by hand.
 We will see the results that we get from both.</p>
 <p>Let’s put everything in a function because we are going to be using this repeatedly:</p>
 <div class="cell tag_hide-input docutils container">
@@ -1000,8 +984,8 @@ We will see the results that we get from both.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The observed test quantity is 21
-The Bayesian p_value is 0.4610
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The observed test quantity is 29
+The Bayesian p_value is 0.4570
 </pre></div>
 </div>
 </div>
@@ -1033,7 +1017,8 @@ The Bayesian p_value is 0.4610
         <span class="s1">&#39;k&#39;</span><span class="p">,</span>
         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observed test quantity&#39;</span>
     <span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -1053,8 +1038,7 @@ The Bayesian p_value is 0.4610
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/f4c0f85a00548ea6607964b26343b2d7c0ac5cf11b10d9e6df6b43c25998a3b0.png" src="../_images/f4c0f85a00548ea6607964b26343b2d7c0ac5cf11b10d9e6df6b43c25998a3b0.png" />
-</div>
+<img alt="../_images/751d92e78760cf31d7479a7d186de4fee3b5ff3fd1e7e2bde03d85d7de247f12.svg" src="../_images/751d92e78760cf31d7479a7d186de4fee3b5ff3fd1e7e2bde03d85d7de247f12.svg" /></div>
 </div>
 <p>To save us some typing, let’s combine the calculation and the plots in a single function:</p>
 <div class="cell tag_hide-input docutils container">
@@ -1112,23 +1096,22 @@ The Bayesian p_value is 0.4610
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The observed test quantity is 22
-The Bayesian p_value is 0.4590
+The Bayesian p_value is 0.4580
 </pre></div>
 </div>
-<img alt="../_images/5b7b4e3bf823db2487fb1f62183a74bddbf35238e58d3e80a154ad97515dd359.png" src="../_images/5b7b4e3bf823db2487fb1f62183a74bddbf35238e58d3e80a154ad97515dd359.png" />
+<img alt="../_images/7656e2577938c25243a4aff3ebb5338183bf68f62fd8de543dde94a89df4ebc4.svg" src="../_images/7656e2577938c25243a4aff3ebb5338183bf68f62fd8de543dde94a89df4ebc4.svg" /></div>
 </div>
-</div>
-<p>It looks about the same. This just means that I was able to replicate this particular test quantity when I picked values by hand.
+<p>It looks about the same. I could replicate this test quantity when I picked values by hand.
 Can we find a better statistic?
-Remember our observation when we plotted the replicated data vs the true data for the second case.
+Remember our observation when we plotted the replicated data vs. the actual data for the second case?
 We observed that my hand-picked data included more transitions from heads to tails.
 Let’s build a statistic that captures that.
 We are going to take this:</p>
 <div class="math notranslate nohighlight">
 \[
-T_s(x) = \text{# number of switches from 0 and 1 in the sequence}\;x.
+T_s(x) = \text{\# number of switches from 0 and 1 in the sequence }x.
 \]</div>
-<p>This is not easy to write in an analytical form, but we can program it:</p>
+<p>It is not easy to write this test in an analytical form, but we can program it:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">T_s</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -1154,15 +1137,13 @@ T_s(x) = \text{# number of switches from 0 and 1 in the sequence}\;x.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The observed test quantity is 24
-The Bayesian p_value is 0.3970
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The observed test quantity is 26
+The Bayesian p_value is 0.2160
 </pre></div>
 </div>
-<img alt="../_images/9e93ddd9645285f16729306d2cf8e2d5b741a5378b9c7172988247253dd1884e.png" src="../_images/9e93ddd9645285f16729306d2cf8e2d5b741a5378b9c7172988247253dd1884e.png" />
+<img alt="../_images/76f026f338ce728af590c39783ea48ba82dd599e5610ad5009386fee7f9df861.svg" src="../_images/76f026f338ce728af590c39783ea48ba82dd599e5610ad5009386fee7f9df861.svg" /></div>
 </div>
-</div>
-<p>This looks okay.</p>
-<p>Let’s now look at the one I picked by hand:</p>
+<p>It looks okay. Let’s now look at the one I picked by hand:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">do_diagnostics</span><span class="p">(</span>
@@ -1178,10 +1159,9 @@ The Bayesian p_value is 0.3970
 The Bayesian p_value is 0.0000
 </pre></div>
 </div>
-<img alt="../_images/781a7073e2aaddc925595de96091bc2c2acafd4ed67017711a121b3caf327263.png" src="../_images/781a7073e2aaddc925595de96091bc2c2acafd4ed67017711a121b3caf327263.png" />
+<img alt="../_images/47a947cba1a3ef41f6b4ccc88bcbd37d6a9a59a3e0b951abc2b5e3aeeee73ed4.svg" src="../_images/47a947cba1a3ef41f6b4ccc88bcbd37d6a9a59a3e0b951abc2b5e3aeeee73ed4.svg" /></div>
 </div>
-</div>
-<p>The data are highly unlikely under the assumptions of this model.</p>
+<p>The data are implausible under the assumptions of this model.</p>
 </section>
 <section id="questions">
 <h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
@@ -1228,7 +1208,7 @@ The Bayesian p_value is 0.0000
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Decision-Making</p>
+        <p class="prev-next-title">Decision Making</p>
       </div>
     </a>
     <a class="right-next"
@@ -1258,14 +1238,10 @@ The Bayesian p_value is 0.0000
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Posterior Predictive Checking</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-inspections-of-replicated-data">Visual Inspections of Replicated Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#demonstration-with-the-coin-toss-example">Demonstration with the Coin Toss Example</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-quantities-and-visual-inspections">Test quantities and visual inspections</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-quantities-and-bayesian-p-values">Test quantities and Bayesian <span class="math notranslate nohighlight">\(p\)</span>-values</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#demonstration-with-the-coin-toss-example">Demonstration with the Coin Toss Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-quantities-and-visual-inspections">Test quantities and visual inspections</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-quantities-and-bayesian-p-values">Test quantities and Bayesian <span class="math notranslate nohighlight">\(p\)</span>-values</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#back-to-the-coin-toss-example">Back to the coin toss example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>

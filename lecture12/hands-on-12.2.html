@@ -66,8 +66,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture12/hands-on-12.2';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Decision-Making" href="hands-on-12.3.html" />
-    <link rel="prev" title="Bayesian Parameter Estimation" href="hands-on-12.1.html" />
+    <link rel="next" title="Decision Making" href="hands-on-12.3.html" />
+    <link rel="prev" title="Example: Inferring the probability of a coin toss from data" href="hands-on-12.1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -233,10 +233,11 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 12 - Analytical Examples of Bayesian Inference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="reading-12.html">Analytical Examples of Bayesian Inference</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-12.1.html">Bayesian Parameter Estimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reading-12.html">Bayesian inference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-12.1.html">Example: Inferring the probability of a coin toss from data</a></li>
+
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Credible Intervals</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-12.3.html">Decision-Making</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-12.3.html">Decision Making</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-12.4.html">Posterior Predictive Checking</a></li>
 </ul>
 </li>
@@ -575,11 +576,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Credible Intervals</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-credible-intervals-when-the-posterior-is-not-analytically-available">Getting Credible Intervals when the Posterior is not Analytically Available</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-credible-intervals-when-the-posterior-is-not-analytically-available">Getting Credible Intervals when the Posterior is not Analytically Available</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
             </nav>
@@ -600,13 +597,13 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -614,26 +611,18 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="credible-intervals">
 <h1>Credible Intervals<a class="headerlink" href="#credible-intervals" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Introduce the concept of credible intervals</p></li>
-</ul>
-</section>
-<section id="id1">
-<h2>Credible Intervals<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
-<p>The posterior <span class="math notranslate nohighlight">\(p(\theta|x_{1:N})\)</span> captures everything that we have to say about <span class="math notranslate nohighlight">\(\theta\)</span>.
+<p>The posterior <span class="math notranslate nohighlight">\(p(\theta|x_{1:N})\)</span> captures everything we say about <span class="math notranslate nohighlight">\(\theta\)</span>.
 Credible intervals are a way to summarize it.
-A credible interval is basically an interval inside which the parameter <span class="math notranslate nohighlight">\(\theta\)</span> lies with high probability.
+A credible interval is an interval inside which the parameter <span class="math notranslate nohighlight">\(\theta\)</span> lies with high probability.
 Specifically, a 95% credible interval <span class="math notranslate nohighlight">\((\ell, u)\)</span> (for lower and upper bounds) for <span class="math notranslate nohighlight">\(\theta\)</span> is such that:</p>
 <div class="math notranslate nohighlight">
 \[
 p(\ell \le \theta \le u|x_{1:N}) = 0.95.
 \]</div>
-<p>Of course, there is not a unique credible interval.
+<p>Of course, there is not a unique, credible interval.
 You can move <span class="math notranslate nohighlight">\((\ell, u)\)</span> to the left or to the right in a way that keeps the probability contained in it at 0.95.</p>
 <p>The <em>central credible interval</em> is particularly common.
-It is defined by solving the following problems</p>
+It is defined by solving the following root-finding problems:</p>
 <div class="math notranslate nohighlight">
 \[
 p(\theta \le \ell | x_{1:N}) = 0.025,
@@ -644,7 +633,7 @@ p(\theta \le \ell | x_{1:N}) = 0.025,
 p(\theta \le u | x_{1:N}) = 0.975,
 \]</div>
 <p>for <span class="math notranslate nohighlight">\(\ell\)</span> and <span class="math notranslate nohighlight">\(u\)</span>, respectively.</p>
-<p>Let’s use coin toss example to demonstrate this.</p>
+<p>Let’s use a coin toss example to demonstrate this.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -681,14 +670,14 @@ p(\theta \le u | x_{1:N}) = 0.975,
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Probability density&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;$N=</span><span class="si">{0:d}</span><span class="s1">$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">N</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/ff44a1bbb3e38b3440d715b9e863c17d39d2385a3e910443df6a674aeb71d3a6.png" src="../_images/ff44a1bbb3e38b3440d715b9e863c17d39d2385a3e910443df6a674aeb71d3a6.png" />
-</div>
+<img alt="../_images/1b27d228759b262d0ac6dab0ce80f5a560e0f668cf8fe65f3d45f42c1c783e7d.svg" src="../_images/1b27d228759b262d0ac6dab0ce80f5a560e0f668cf8fe65f3d45f42c1c783e7d.svg" /></div>
 </div>
 <p>Here is how you can find the credible interval with the help of <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code>:</p>
 <div class="cell docutils container">
@@ -700,7 +689,7 @@ p(\theta \le u | x_{1:N}) = 0.975,
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Theta is in [0.22, 0.88] with 95% probability
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Theta is in [0.36, 0.96] with 95% probability
 </pre></div>
 </div>
 </div>
@@ -745,14 +734,14 @@ p(\theta \le u | x_{1:N}) = 0.975,
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;$N=</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/b8c3489c6d1d9c80584572b5f3980dd688e0e0de90bdd12e0aeb4221a4d6c76e.png" src="../_images/b8c3489c6d1d9c80584572b5f3980dd688e0e0de90bdd12e0aeb4221a4d6c76e.png" />
-</div>
+<img alt="../_images/3fb41b259595adc39013409aff11752d2987e8d8c9a466107b9052bb162d15b0.svg" src="../_images/3fb41b259595adc39013409aff11752d2987e8d8c9a466107b9052bb162d15b0.svg" /></div>
 </div>
 <p>So, is there another 95% credible interval?
 Yes there is. You can find it by solving thes problem:</p>
@@ -776,7 +765,7 @@ Here is what you will find for the coin toss example.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Theta is in [0.17, 0.86] with 95% probability
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Theta is in [0.29, 0.94] with 95% probability
 </pre></div>
 </div>
 </div>
@@ -836,27 +825,26 @@ Here is what you will find for the coin toss example.</p>
     <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Other 95% CI&#39;</span>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$N=</span><span class="si">{N:d}</span><span class="s1">$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;$N=</span><span class="si">{</span><span class="n">N</span><span class="si">:</span><span class="s1">d</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/1282a4cf6b568cbe45a2100a2ba8d54fb0c953cebee0e8c61abe4c1ca344292d.png" src="../_images/1282a4cf6b568cbe45a2100a2ba8d54fb0c953cebee0e8c61abe4c1ca344292d.png" />
-</div>
+<img alt="../_images/d655019304620ec28386197cf55eb7cb91f679eb8dc1a8f2e3c6ffbca0d6d227.svg" src="../_images/d655019304620ec28386197cf55eb7cb91f679eb8dc1a8f2e3c6ffbca0d6d227.svg" /></div>
 </div>
 <section id="getting-credible-intervals-when-the-posterior-is-not-analytically-available">
-<h3>Getting Credible Intervals when the Posterior is not Analytically Available<a class="headerlink" href="#getting-credible-intervals-when-the-posterior-is-not-analytically-available" title="Permalink to this heading">#</a></h3>
-<p>Of course many times you do not have the posterior in analytical form and you have to estimate the credible intervals via sampling.
-We will learn about this in a later lecture.</p>
-</section>
+<h2>Getting Credible Intervals when the Posterior is not Analytically Available<a class="headerlink" href="#getting-credible-intervals-when-the-posterior-is-not-analytically-available" title="Permalink to this heading">#</a></h2>
+<p>Of course, you often do not have the posterior in analytical form and have to estimate the credible intervals via sampling.
+We will learned about this in <a class="reference internal" href="../lecture09/hands-on-09.3.html#predictive-quantiles"><span class="std std-ref">Lecture 10</span></a>.</p>
 </section>
 <section id="questions">
 <h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Find the credible interval for <span class="math notranslate nohighlight">\(\theta\)</span> conditioned on the data with 99% accuracy.</p></li>
-<li><p>How many coin tosses do you have to do, in order to estimate <span class="math notranslate nohighlight">\(\theta\)</span> within an accuracy of <span class="math notranslate nohighlight">\(1\%\)</span> with <span class="math notranslate nohighlight">\(99\%\)</span> probability? Do not try to do this analytically. Just experiment with different values of <span class="math notranslate nohighlight">\(N\)</span> for this synthetic example. Getting a number <span class="math notranslate nohighlight">\(N\)</span> that works for all possible datasets (assuming that the model is correct), is an interesting problem but it is not trivial.</p></li>
+<li><p>How many coin tosses do you have to do to estimate <span class="math notranslate nohighlight">\(\theta\)</span> within an accuracy of <span class="math notranslate nohighlight">\(1\%\)</span> with <span class="math notranslate nohighlight">\(99\%\)</span> probability? Do not try to do this analytically. Just experiment with different values of <span class="math notranslate nohighlight">\(N\)</span> for this synthetic example. Getting a number <span class="math notranslate nohighlight">\(N\)</span> that works for all possible datasets (assuming the model is correct) is an exciting but not trivial problem.</p></li>
 </ul>
 </section>
 </section>
@@ -898,7 +886,7 @@ We will learn about this in a later lecture.</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Bayesian Parameter Estimation</p>
+        <p class="prev-next-title">Example: Inferring the probability of a coin toss from data</p>
       </div>
     </a>
     <a class="right-next"
@@ -906,7 +894,7 @@ We will learn about this in a later lecture.</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Decision-Making</p>
+        <p class="prev-next-title">Decision Making</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -928,11 +916,7 @@ We will learn about this in a later lecture.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Credible Intervals</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-credible-intervals-when-the-posterior-is-not-analytically-available">Getting Credible Intervals when the Posterior is not Analytically Available</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-credible-intervals-when-the-posterior-is-not-analytically-available">Getting Credible Intervals when the Posterior is not Analytically Available</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
   </nav></div>

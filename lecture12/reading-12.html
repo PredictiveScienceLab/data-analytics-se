@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Analytical Examples of Bayesian Inference &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+    <title>Bayesian inference &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
   
   
@@ -66,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture12/reading-12';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Bayesian Parameter Estimation" href="hands-on-12.1.html" />
+    <link rel="next" title="Example: Inferring the probability of a coin toss from data" href="hands-on-12.1.html" />
     <link rel="prev" title="Lecture 12 - Analytical Examples of Bayesian Inference" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -233,10 +233,11 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 12 - Analytical Examples of Bayesian Inference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">Analytical Examples of Bayesian Inference</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-12.1.html">Bayesian Parameter Estimation</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Bayesian inference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-12.1.html">Example: Inferring the probability of a coin toss from data</a></li>
+
 <li class="toctree-l3"><a class="reference internal" href="hands-on-12.2.html">Credible Intervals</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-12.3.html">Decision-Making</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-12.3.html">Decision Making</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-12.4.html">Posterior Predictive Checking</a></li>
 </ul>
 </li>
@@ -565,7 +566,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Analytical Examples of Bayesian Inference</h1>
+    <h1>Bayesian inference</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -575,8 +576,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-parameter-estimation">Bayesian Parameter Estimation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-maximum-likelihood-principle">The maximum likelihood principle</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bayesian-approach">The Bayesian approach</a></li>
 </ul>
             </nav>
         </div>
@@ -588,47 +589,56 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="analytical-examples-of-bayesian-inference">
-<h1>Analytical Examples of Bayesian Inference<a class="headerlink" href="#analytical-examples-of-bayesian-inference" title="Permalink to this heading">#</a></h1>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>These notes.</p></li>
-</ul>
-</section>
-<section id="bayesian-parameter-estimation">
-<h2>Bayesian Parameter Estimation<a class="headerlink" href="#bayesian-parameter-estimation" title="Permalink to this heading">#</a></h2>
-<p>Assume that we have a model that predicts the result of a random variable <span class="math notranslate nohighlight">\(X\)</span>.
-The model has some parameters <span class="math notranslate nohighlight">\(\theta\)</span> which are to be determined from data which consist of <span class="math notranslate nohighlight">\(N\)</span> independent measurements of <span class="math notranslate nohighlight">\(X\)</span>, i.e., the data are:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="bayesian-inference">
+<h1>Bayesian inference<a class="headerlink" href="#bayesian-inference" title="Permalink to this heading">#</a></h1>
+<p>Bayesian inference is about fitting a model to data.
+What is a model, and what is fitting?</p>
+<p>Assume that we have a model that predicts the result of a random experiment.
+We describe the model using a probability density function <span class="math notranslate nohighlight">\(p(x|\theta)\)</span>.
+It tells us the probability density of observing <span class="math notranslate nohighlight">\(x\)</span> given the parameters <span class="math notranslate nohighlight">\(\theta\)</span>.
+We have seen several examples of this (Bernoulli, Gaussian, Poisson, etc.).</p>
+<p>The data are:</p>
 <div class="math notranslate nohighlight">
 \[
 x_{1:N} = (x_1,\dots,x_N).
 \]</div>
-<p>We can write the model as:</p>
-<div class="math notranslate nohighlight">
-\[
-x_n|\theta \sim p(x_n|\theta),
-\]</div>
-<p>where we started abusing the mathematical that requires us to use capital letters of random variables and lower case letters for data.
-But this is just simpler and this is the notation we will be following from now on.
-The term <span class="math notranslate nohighlight">\(p(x_n|\theta)\)</span> is known as the <em>likelihood</em> of this data point.
+<p>How can we use the data to learn about the parameters <span class="math notranslate nohighlight">\(\theta\)</span>?</p>
+<section id="the-maximum-likelihood-principle">
+<h2>The maximum likelihood principle<a class="headerlink" href="#the-maximum-likelihood-principle" title="Permalink to this heading">#</a></h2>
+<p>The maximum likelihood principle says that we should choose the parameters <span class="math notranslate nohighlight">\(\theta\)</span> that maximize the likelihood of the data.
+In other words, we should choose <span class="math notranslate nohighlight">\(\theta\)</span> such that the data are most likely to be observed.</p>
+<p>The likelihood of a single data point is <span class="math notranslate nohighlight">\(p(x_n|\theta)\)</span>.
+It is the probability (density) of observing <span class="math notranslate nohighlight">\(x_n\)</span> given the parameters <span class="math notranslate nohighlight">\(\theta\)</span>.
 The likelihood of the entire dataset <span class="math notranslate nohighlight">\(x_{1:N}\)</span> is just the joint probability density of all observations, i.e., <span class="math notranslate nohighlight">\(p(x_{1:N}|\theta)\)</span>.
-Because all observations are indpendent conditioned on the model parameters <span class="math notranslate nohighlight">\(\theta\)</span>, we have:</p>
+Because all observations are independent conditioned on the model parameters <span class="math notranslate nohighlight">\(\theta\)</span>, we have:</p>
 <div class="math notranslate nohighlight">
 \[
 p(x_{1:N}|\theta) = \prod_{n=1}^Np(x_n|\theta).
 \]</div>
-<p>Be careful. This factorization of the likelihood is not valid if the measurements are not independent.
-In that case, you need to keep the entire thing together (or factorize it in the way that it factorizes…)</p>
-<p>To close the loop, we need to say what we think about the pameters before we see any data.
-In Bayesian jargon, we need to specify our <em>prior state of knowledge</em>, or simple our <em>prior</em>:</p>
+<p>Now, think of this as a function of <span class="math notranslate nohighlight">\(\theta\)</span>.
+For some values of <span class="math notranslate nohighlight">\(\theta\)</span>, the likelihood will be high; for some values, it will be low.
+The maximum likelihood principle says that we should choose the value of <span class="math notranslate nohighlight">\(\theta\)</span> that maximizes the likelihood.
+We need to solve the optimization problem:</p>
+<div class="math notranslate nohighlight">
+\[
+\theta_{\text{ML}} = \arg\max_\theta p(x_{1:N}|\theta).
+\]</div>
+<p>Typically, we take the logarithm of the likelihood and maximize that instead.
+If you see the maximum likelihood principle for the first time, you may want to look at my undergraduate lecture notes on <a class="reference external" href="https://purduemechanicalengineering.github.io/me-297-intro-to-data-science/lecture13/intro.html">this topic</a>.</p>
+</section>
+<section id="the-bayesian-approach">
+<h2>The Bayesian approach<a class="headerlink" href="#the-bayesian-approach" title="Permalink to this heading">#</a></h2>
+<p>The maximum likelihood gives us a point estimate of the parameters <span class="math notranslate nohighlight">\(\theta\)</span>.
+But how can we pick a single value of <span class="math notranslate nohighlight">\(\theta\)</span> when we have limited data?
+We should be uncertain about the value of <span class="math notranslate nohighlight">\(\theta\)</span>.
+The Bayesian approach gives us a way to quantify this uncertainty.</p>
+<p>The first step is to describe our prior knowledge about the parameters <span class="math notranslate nohighlight">\(\theta\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
 \theta \sim p(\theta).
 \]</div>
-<p>How we do this is a big discussion.
-For now let’s just say that we use common sense.</p>
-<p>The situation can be discribed graphical as:</p>
+<p>We have devoted an entire lecture to this. See <a class="reference internal" href="../lecture11/intro.html#lecture11"><span class="std std-ref">Lecture 11</span></a>. We can use the principle of maximum entropy to specify a prior.</p>
+<p>We can describe the situation graphically as:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -651,31 +661,41 @@ For now let’s just say that we use common sense.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/32f6ed4e700bf02de835992ac8fd87b7c3ce992af06c8a0eb88b3e6b72560ab3.svg" src="../_images/32f6ed4e700bf02de835992ac8fd87b7c3ce992af06c8a0eb88b3e6b72560ab3.svg" /></div>
+<img alt="../_images/753ef1f61683bca0484f9641443379b1dc10a345b20663474817e760746a91a7.svg" src="../_images/753ef1f61683bca0484f9641443379b1dc10a345b20663474817e760746a91a7.svg" /></div>
 </div>
+<p>The plot above is a probabilistic graphical model.
+It shows the conditional dependencies between the random variables.
+The arrows indicate the direction of the dependencies.
+The random variables are:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\theta\)</span>: the parameters of the model</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_{1:N}\)</span>: the data</p></li>
+</ul>
+<p>We are using the plate notation to indicate that there are <span class="math notranslate nohighlight">\(N\)</span> copies of the random variable <span class="math notranslate nohighlight">\(x\)</span>.
+Read more about this notation <a class="reference external" href="https://en.wikipedia.org/wiki/Plate_notation">here</a>.</p>
 <p>We are now ready to apply Bayes’ rule to find the posterior.
 Recall the Bayes’ rule for propositions <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
 p(A|B) = \frac{p(AB)}{p(B)}.
 \]</div>
-<p>We set here</p>
+<p>We set here:</p>
 <div class="math notranslate nohighlight">
 \[
-A = \text{the model parameters} = \theta,
+A = \text{the model parameters are equal to }\theta,
 \]</div>
 <p>and</p>
 <div class="math notranslate nohighlight">
 \[
-B = \text{the data} = x_{1:N}.
+B = \text{the data are }x_{1:N}.
 \]</div>
-<p>That is the question we ask is “what is the probability of the model parameters given the data?”
-Let’s just blindly follow the rule:</p>
+<p>We ask, “What is the probability of the model parameters given the data?”
+Let’s mindlessly follow the rule:</p>
 <div class="math notranslate nohighlight">
 \[
 p(\text{the model parameters}|\text{the data}) = \frac{p(\text{the data and the parameters})}{p(\text{the data})}.
 \]</div>
-<p>This <span class="math notranslate nohighlight">\(p(\text{the model parameters}|\text{the data})\)</span> has a special name.
+<p>This <span class="math notranslate nohighlight">\(p(\text{the model parameters}|\text{the data})\)</span> has a particular name.
 It is our <em>posterior state of knowledge</em> about the model parameters or simply the <em>posterior</em>.</p>
 <p>We are ready to proceed.
 What is the joint probability of the data and the parameters?
@@ -689,13 +709,13 @@ p(AB) = p(B|A)p(A).
 \[
 p(\text{the data and the parameters}) = p(\text{the data} | \text{the parameters}) p(\text{the parameters}).
 \]</div>
-<p>Putting it all together we get:</p>
+<p>Putting it all together, we get:</p>
 <div class="math notranslate nohighlight">
 \[
 \text{posterior} = p(\text{the model parameters}|\text{the data}) = 
 \frac{p(\text{the data} | \text{the parameters}) p(\text{the parameters})}{p(\text{the data})}
 \]</div>
-<p>But we have given special names to the terms on the right:</p>
+<p>But we have given unique names to the terms on the right:</p>
 <div class="math notranslate nohighlight">
 \[
 p(\text{the data} | \text{the parameters}) = p(x_{1:N}|\theta) = \text{likelihood},
@@ -764,7 +784,7 @@ p(\theta | x_{1:N}) \propto p(x_{1:N}|\theta)p(\theta).
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Bayesian Parameter Estimation</p>
+        <p class="prev-next-title">Example: Inferring the probability of a coin toss from data</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -786,8 +806,8 @@ p(\theta | x_{1:N}) \propto p(x_{1:N}|\theta)p(\theta).
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-parameter-estimation">Bayesian Parameter Estimation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-maximum-likelihood-principle">The maximum likelihood principle</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bayesian-approach">The Bayesian approach</a></li>
 </ul>
   </nav></div>
 

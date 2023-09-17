@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Decision-Making &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+    <title>Decision Making &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
   
   
@@ -233,10 +233,11 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 12 - Analytical Examples of Bayesian Inference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="reading-12.html">Analytical Examples of Bayesian Inference</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-12.1.html">Bayesian Parameter Estimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reading-12.html">Bayesian inference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-12.1.html">Example: Inferring the probability of a coin toss from data</a></li>
+
 <li class="toctree-l3"><a class="reference internal" href="hands-on-12.2.html">Credible Intervals</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">Decision-Making</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Decision Making</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-12.4.html">Posterior Predictive Checking</a></li>
 </ul>
 </li>
@@ -565,7 +566,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Decision-Making</h1>
+    <h1>Decision Making</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -575,8 +576,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-decision-making">Bayesian Decision Making</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
             </nav>
@@ -597,36 +596,30 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="decision-making">
-<h1>Decision-Making<a class="headerlink" href="#decision-making" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To introduce the decision-making problem</p></li>
-</ul>
-</section>
-<section id="bayesian-decision-making">
-<h2>Bayesian Decision Making<a class="headerlink" href="#bayesian-decision-making" title="Permalink to this heading">#</a></h2>
+<h1>Decision Making<a class="headerlink" href="#decision-making" title="Permalink to this heading">#</a></h1>
 <p>So, we learned about credible intervals.
 But what if someone asks you to report a single value for <span class="math notranslate nohighlight">\(\theta\)</span> in the coin toss example?
 What is the correct way of doing this?</p>
-<p>This is actually a decision-making problem.
-To answer it, you have to quantify the cost of making a mistake and then make a decision that minimizes this cost.
-To formalize this concept, assume that we have a random variable <span class="math notranslate nohighlight">\(X\)</span> and we have to guess a value for it.
-Let <span class="math notranslate nohighlight">\(\ell(\theta', \theta)\)</span> be the loss we incur when we guess <span class="math notranslate nohighlight">\(\theta'\)</span> and the true value is <span class="math notranslate nohighlight">\(\theta\)</span>.
-This is a completly subjective quantity.
+<p>You have to make a decision.
+If you make any wrong decision, you will incur a cost.
+The best decision is the one that minimizes the cost.
+Another name for this cost is \emph{loss}.</p>
+<p>To formalize this concept, let <span class="math notranslate nohighlight">\(\ell(\theta', \theta)\)</span> be the cost we incur when we guess <span class="math notranslate nohighlight">\(\theta'\)</span> and the actual value is <span class="math notranslate nohighlight">\(\theta\)</span>.
+This cost is an entirely subjective quantity.
+Different people have different costs.
 However, here are some ideas:</p>
 <ul class="simple">
 <li><p>The 0-1 loss:</p></li>
@@ -653,14 +646,14 @@ However, here are some ideas:</p>
 \[
 \ell_1(\theta',\theta) = |\theta'-\theta|.
 \]</div>
-<p>The rational thing to do, when choosing a value for <span class="math notranslate nohighlight">\(\theta\)</span> is to minimize our <em>expected loss</em> where the expectation is taken over our posterior state of knowledge about <span class="math notranslate nohighlight">\(\theta\)</span>.
+<p>When choosing a value for <span class="math notranslate nohighlight">\(\theta\)</span>, the rational thing is to minimize our <em>expected loss</em>.
+We take the expectation over our posterior state of knowledge about <span class="math notranslate nohighlight">\(\theta\)</span>.
 That is, we make our choice by solving this problem:</p>
 <div class="math notranslate nohighlight">
 \[
 \theta^* = \min_{\theta'} \mathbb{E}[\ell(\theta',\theta)|x_{1:N}] = \min_{\theta'} \int \ell(\theta',\theta)p(\theta|x_{1:N})d\theta.
 \]</div>
-<p>This, in general, is not a problem with an analytical solution.
-However, for the two special loss functions above the answer is:</p>
+<p>For the special loss functions above, the answer is:</p>
 <ul class="simple">
 <li><p>The choice that minimizes the 0-1 loss is the one maximizing the posterior:</p></li>
 </ul>
@@ -682,7 +675,7 @@ However, for the two special loss functions above the answer is:</p>
 \[
 p(\theta \le \theta^*_1 | x_{1:N}) = 0.5.
 \]</div>
-<p>Let’s reintroduce our coin toss example so that w have someething to work with:</p>
+<p>Let’s reintroduce our coin toss example so that we have something to work with:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -718,19 +711,19 @@ p(\theta \le \theta^*_1 | x_{1:N}) = 0.5.
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Probability density&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;$N=</span><span class="si">{0:d}</span><span class="s1">$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">N</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;$N=</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/b8bc2d8bdb6d00ae6fa1a311071db2ade27538d3e2658802b342e90434500a46.png" src="../_images/b8bc2d8bdb6d00ae6fa1a311071db2ade27538d3e2658802b342e90434500a46.png" />
+<img alt="../_images/0273ae78b49ee2778dc3429040bf04d35ec4c0a92c85a8837708ef0cc71c7e63.svg" src="../_images/0273ae78b49ee2778dc3429040bf04d35ec4c0a92c85a8837708ef0cc71c7e63.svg" /></div>
 </div>
-</div>
-<p>For the 0-1 loss, we just need to find the maximum of the posterior.
-This is an optimization probem with an analytical solution, but we are not going to do it this way.
-We will just solve the problem using with a grid search:</p>
+<p>For the 0-1 loss, we need to find the maximum of the posterior.
+This is an optimization problem with an analytical solution, but we will do it differently.
+We will solve the problem using a grid search:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">Theta_post</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">thetas</span><span class="p">))</span>
@@ -746,7 +739,7 @@ We will just solve the problem using with a grid search:</p>
 </div>
 </div>
 <p>Now, let’s the theta <span class="math notranslate nohighlight">\(\theta\)</span> that minimizes the square loss.
-We just have to find the expectation of the posterior <span class="math notranslate nohighlight">\(p(\theta|x_{1:N})\)</span> (which is just a Beta).
+We have to find the expectation of the posterior <span class="math notranslate nohighlight">\(p(\theta|x_{1:N})\)</span> (which is just a Beta).
 It is:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -827,20 +820,19 @@ It is:</p>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;$N=</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/a54ebcacadb36edce08b0056a16a98c5816cb77778f6db9e39a4c7b16438f14c.png" src="../_images/a54ebcacadb36edce08b0056a16a98c5816cb77778f6db9e39a4c7b16438f14c.png" />
+<img alt="../_images/b74c4f5f483b786f9ba1c130af4e6b2357280666ac2d65cb418a9f9f7a4c71b8.svg" src="../_images/b74c4f5f483b786f9ba1c130af4e6b2357280666ac2d65cb418a9f9f7a4c71b8.svg" /></div>
 </div>
-</div>
-</section>
 <section id="questions">
 <h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Repeat the analysis for <span class="math notranslate nohighlight">\(N=0, 5, 10, 100\)</span>. Do these estimates converge to the true value?</p></li>
+<li><p>Repeat the analysis for <span class="math notranslate nohighlight">\(N=0, 5, 10, 100\)</span>. Do these estimates converge to the actual value?</p></li>
 </ul>
 </section>
 </section>
@@ -912,8 +904,6 @@ It is:</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-decision-making">Bayesian Decision Making</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
   </nav></div>
