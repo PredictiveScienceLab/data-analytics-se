@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>The point-predictive Distribution - Separating Epistmic and Aleatory Uncertainty &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+    <title>The point-predictive Distribution - Separating Epistemic and Aleatory Uncertainty &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
   
   
@@ -256,7 +256,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l3"><a class="reference internal" href="hands-on-14.1.html">Probabilistic Interpretation of Least Squares - Estimating the Measurement Noise</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-14.2.html">Maximum a Posteriori Estimate - Avoiding Overfitting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-14.3.html">Bayesian Linear Regression</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">The point-predictive Distribution - Separating Epistmic and Aleatory Uncertainty</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">The point-predictive Distribution - Separating Epistemic and Aleatory Uncertainty</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../lecture15/intro.html">Lecture 15 - Advanced Topics in Bayesian Linear Regression</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -565,7 +565,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>The point-predictive Distribution - Separating Epistmic and Aleatory Uncertainty</h1>
+    <h1>The point-predictive Distribution - Separating Epistemic and Aleatory Uncertainty</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -575,7 +575,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-quadratic">Example (Quadratic)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
@@ -599,26 +598,21 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
-<section class="tex2jax_ignore mathjax_ignore" id="the-point-predictive-distribution-separating-epistmic-and-aleatory-uncertainty">
-<h1>The point-predictive Distribution - Separating Epistmic and Aleatory Uncertainty<a class="headerlink" href="#the-point-predictive-distribution-separating-epistmic-and-aleatory-uncertainty" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To demonstrate how epistemic from aleatory uncertainty can be separated.</p></li>
-</ul>
-</section>
+<section class="tex2jax_ignore mathjax_ignore" id="the-point-predictive-distribution-separating-epistemic-and-aleatory-uncertainty">
+<h1>The point-predictive Distribution - Separating Epistemic and Aleatory Uncertainty<a class="headerlink" href="#the-point-predictive-distribution-separating-epistemic-and-aleatory-uncertainty" title="Permalink to this heading">#</a></h1>
+<p>We will demonstrate how we can separate epistemic and aleatory uncertainty.</p>
 <section id="example-quadratic">
 <h2>Example (Quadratic)<a class="headerlink" href="#example-quadratic" title="Permalink to this heading">#</a></h2>
 <p>Let’s repeat what we did above with a quadratic example.
@@ -644,13 +638,13 @@ Here are some synthetic data:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observed data&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/556ee3d198844382a1d4db68a0f6f13ef30fd33344a9296fa581504f2d5fa07e.png" src="../_images/556ee3d198844382a1d4db68a0f6f13ef30fd33344a9296fa581504f2d5fa07e.png" />
-</div>
+<img alt="../_images/abe9aa9b1677c695ca56a31c3d01404da19ef9af3360d74f1ff092cd18fd6520.svg" src="../_images/abe9aa9b1677c695ca56a31c3d01404da19ef9af3360d74f1ff092cd18fd6520.svg" /></div>
 </div>
 <p>Let’s also copy-paste the code from previous hands-on activities for generating the design matrix and fitting the models.</p>
 <div class="cell docutils container">
@@ -847,21 +841,21 @@ s^2(\mathbf{x}) = \boldsymbol{\phi}(\mathbf{x})^T\mathbf{S}\boldsymbol{\phi}(\ma
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;kx&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observed data&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/96941f4a7f808f2c01a72046f33579e648e3ae2ae7707a73df88b973e640c3e0.png" src="../_images/96941f4a7f808f2c01a72046f33579e648e3ae2ae7707a73df88b973e640c3e0.png" />
-</div>
+<img alt="../_images/ebcdef787bc685346d7686c2f65bb4c9c88a2169f351bf749be5b524fed311da.svg" src="../_images/ebcdef787bc685346d7686c2f65bb4c9c88a2169f351bf749be5b524fed311da.svg" /></div>
 </div>
 <section id="questions">
 <h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Rerun the code cells above with a very small <span class="math notranslate nohighlight">\(\alpha\)</span>. What happens?</p></li>
 <li><p>Rerun he code cells above with a very big <span class="math notranslate nohighlight">\(\alpha\)</span>. What happens?</p></li>
-<li><p>Fix <span class="math notranslate nohighlight">\(\alpha\)</span> to <span class="math notranslate nohighlight">\(5\)</span> and rerun the code cells above with a very small and the very big value for <span class="math notranslate nohighlight">\(\sigma\)</span>. What happens in each case</p></li>
+<li><p>Fix <span class="math notranslate nohighlight">\(\alpha\)</span> to <span class="math notranslate nohighlight">\(5\)</span> and rerun the code cells above with a very small and very big value for <span class="math notranslate nohighlight">\(\sigma\)</span>. What happens in each case</p></li>
 </ul>
 </section>
 </section>
@@ -934,7 +928,6 @@ s^2(\mathbf{x}) = \boldsymbol{\phi}(\mathbf{x})^T\mathbf{S}\boldsymbol{\phi}(\ma
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-quadratic">Example (Quadratic)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>

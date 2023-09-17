@@ -256,7 +256,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l3"><a class="reference internal" href="hands-on-14.1.html">Probabilistic Interpretation of Least Squares - Estimating the Measurement Noise</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-14.2.html">Maximum a Posteriori Estimate - Avoiding Overfitting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-14.3.html">Bayesian Linear Regression</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-14.4.html">The point-predictive Distribution - Separating Epistmic and Aleatory Uncertainty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-14.4.html">The point-predictive Distribution - Separating Epistemic and Aleatory Uncertainty</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../lecture15/intro.html">Lecture 15 - Advanced Topics in Bayesian Linear Regression</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -615,8 +615,8 @@ We model the map between inputs and outputs using a generalized linear model wit
 \[
 y(\mathbf{x};\mathbf{w}) = \sum_{j=1}^{M} w_{j}\phi_{j}(\mathbf{x}) = \mathbf{w}^T\boldsymbol{\phi}(\mathbf{x})
 \]</div>
-<p>Now here is the difference with what we did before.
-Instead of directly picking a loss function to minimize we come up with a probabilistic description of the measurement process.
+<p>Now, here is the difference from what we did before.
+Instead of directly picking a loss function to minimize, we develop a probabilistic description of the measurement process.
 In particular, we <em>model the measurement process</em> using a <strong>likelihood</strong> function:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -626,7 +626,7 @@ In particular, we <em>model the measurement process</em> using a <strong>likelih
 Well, <span class="math notranslate nohighlight">\(p(\mathbf{y}_{1:N} | \mathbf{x}_{1:N}, \mathbf{w})\)</span> tells us how plausible is it to observe <span class="math notranslate nohighlight">\(\mathbf{y}_{1:N}\)</span> at inputs <span class="math notranslate nohighlight">\(\mathbf{x}_{1:N}\)</span>, if we know that the model parameters are <span class="math notranslate nohighlight">\(\mathbf{w}\)</span>.</p>
 <p>The most common choice for the likelihood of a single measurement is to pick it to be Normal.
 This corresponds to the belief that our measurement is around the model prediction <span class="math notranslate nohighlight">\(\mathbf{w^{T}\boldsymbol{\phi}(\mathbf{x})}\)</span>
-but it is contaminated with Gaussian noice of variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.
+but it is contaminated with Gaussian noise of variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.
 Mathematically, we have:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -641,7 +641,7 @@ Note that here I used the notation <span class="math notranslate nohighlight">\(
 \[
 N(y|\mu,\sigma^2) := (2\pi\sigma^2)^{-\frac{1}{2}}\exp\left\{-\frac{(y-\mu)^2}{2\sigma^2}\right\}.
 \]</div>
-<p>Since, in almost all the cases we encounter, the measurements are independent conditioned on the model, then likelihood of the data factorizes as follows:</p>
+<p>Since in almost all the cases we encounter, the measurements are independent conditioned on the model, the likelihood of the data factorizes as follows:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{split}
@@ -654,7 +654,7 @@ p(\mathbf{y}_{1:N}|\mathbf{x}_{1:N}, \mathbf{w}) &amp;= \prod_{i=1}^Np(y_i|\math
 \end{split}
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\boldsymbol{\Phi}\)</span> is the <span class="math notranslate nohighlight">\(N\times M\)</span> design matrix.</p>
-<p>Now we are ready to apply the maximum likelihood function to find all the parameters.
+<p>We can apply the maximum likelihood function to find all the parameters.
 This includes both the weight vector <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> and the measurement variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.
 We need to solve this:</p>
 <div class="math notranslate nohighlight">
@@ -662,11 +662,11 @@ We need to solve this:</p>
 \max_{\mathbf{w},\sigma^2}\log p(\mathbf{y}_{1:N}|\mathbf{x}_{1:N}, \mathbf{w}) =
 \max_{\mathbf{w},\sigma^2}\left\{
 -\frac{N}{2}\log (2\pi) - \frac{N}{2}\log \sigma^2 -\frac{1}{2\sigma^2}\parallel \mathbf{y}_{1:N}-\boldsymbol{\Phi}\mathbf{w}\parallel^2
-  \right\}
+ \right\}
 \]</div>
-<p>Notice that the rightmost part is actually the negative of the sum of square errors.
-So, by maximizing the likelihood with respect to <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> we are actually minimizing the sum of square errors.
-This means that the maximum likelihood weights and the least square weights are exactly the same!
+<p>Notice that the rightmost part is the negative of the sum of square errors.
+So, by maximizing the likelihood with respect to <span class="math notranslate nohighlight">\(\mathbf{w}\)</span>, we are minimizing the sum of square errors.
+This means the maximum likelihood and the least square weights are the same!
 We do not even have to do anything further.
 The weights should satisfy this linear system:</p>
 <div class="math notranslate nohighlight">
@@ -699,7 +699,7 @@ You can use this to find a 95% credible interval.</p>
 </section>
 <section id="probabilistic-regression-ii-maximum-a-posteriori-estimates">
 <h2>Probabilistic regression II (maximum a posteriori estimates)<a class="headerlink" href="#probabilistic-regression-ii-maximum-a-posteriori-estimates" title="Permalink to this heading">#</a></h2>
-<p>This version of probabilistic is similar to maximum likelihood in the sense that you maximum the log probability of something (the posterior instead of the likelihood) and it has the adendum that it can help you avoid overfitting.</p>
+<p>This version of probabilistic regression is similar to maximum likelihood in that you maximize the log probability of something (the posterior instead of the likelihood) and has the benefit that it can help you avoid overfitting.</p>
 <p>Just like before, we wish to model the data using some <strong>fixed</strong> basis/features:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -719,23 +719,23 @@ y(\mathbf{x};\mathbf{w}) = \sum_{j=1}^{m} w_{j}\phi_{j}(\mathbf{x}) = \mathbf{w^
 \]</div>
 <section id="gaussian-prior-on-the-weights">
 <h3>Gaussian Prior on the Weights<a class="headerlink" href="#gaussian-prior-on-the-weights" title="Permalink to this heading">#</a></h3>
-<p>The Gaussian prior is the simplest possible choice for the weights.
+<p>The Gaussian prior is the most straightforward possible choice for the weights.
 It is:</p>
 <div class="math notranslate nohighlight">
 \[
 p(\mathbf{w}|\alpha) = \mathcal{N}\left(\mathbf{w}|\mathbf{0},\alpha^{-1}\mathbf{I}\right) = 
 \left(\frac{\alpha}{2\pi}\right)^{\frac{m}{2}}\exp\left\{-\frac{\alpha}{2}\lVert\mathbf{w}\rVert^2\right\}.
 \]</div>
-<p>The interpretation is that, before we see the data, we beleive that <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> must be around zero with a precision of <span class="math notranslate nohighlight">\(\alpha\)</span>.
-This push to the weights to be towards zero is exactly what helps us avoid overfitting.
-The bigger the precision parameter <span class="math notranslate nohighlight">\(\alpha\)</span> the more the weights are pushed towards zero.</p>
+<p>The interpretation is that, before we see the data, we believe that <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> must be around zero with a precision of <span class="math notranslate nohighlight">\(\alpha\)</span>.
+This push for the weights to be towards zero helps us avoid overfitting.
+The bigger the precision parameter <span class="math notranslate nohighlight">\(\alpha\)</span>, the more the weights are pushed towards zero.</p>
 </section>
 <section id="graphical-representation-of-the-model">
 <h3>Graphical representation of the model<a class="headerlink" href="#graphical-representation-of-the-model" title="Permalink to this heading">#</a></h3>
 <p>Let’s visualize the regression model as a graph.
-Remember that the shaded nodes are assumed to be observed (so below we are assuming that we know <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>).
-Another thing to observe is that the nodes that are inside the box are repeated as many times as indicated.
-This is the so-called <a class="reference external" href="https://en.wikipedia.org/wiki/Plate_notation">plate notation</a> for graphical models and it saves from the troubkle of drawing <span class="math notranslate nohighlight">\(n\)</span> input-output nodes.</p>
+Remember that the shaded nodes are assumed to be observed (so below, we assume that we know <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>).
+Another thing to observe is that the nodes inside the box are repeated as many times as indicated.
+This is the so-called <a class="reference external" href="https://en.wikipedia.org/wiki/Plate_notation">plate notation</a> for graphical models, and it saves from the trouble of drawing <span class="math notranslate nohighlight">\(n\)</span> input-output nodes.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -784,7 +784,7 @@ if we know <span class="math notranslate nohighlight">\(\alpha\)</span> and <spa
 <p>We can find a point estimate of <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> by solving:</p>
 <div class="math notranslate nohighlight">
 \[
-\mathbf{w}_{\mbox{MPE}} = \arg\max_{\mathbf{w}} p(\mathbf{y}_{1:n}|\mathbf{x}_{1:n}, \mathbf{w}, \sigma)p(\mathbf{w}|\alpha).
+\mathbf{w}_{\text{MPE}} = \arg\max_{\mathbf{w}} p(\mathbf{y}_{1:n}|\mathbf{x}_{1:n}, \mathbf{w}, \sigma)p(\mathbf{w}|\alpha).
 \]</div>
 <p>For Gaussian likelihood and weight prior, the logarithm of the posterior is:</p>
 <div class="math notranslate nohighlight">
@@ -795,7 +795,7 @@ if we know <span class="math notranslate nohighlight">\(\alpha\)</span> and <spa
 <p>Taking derivatives with respect to <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> and setting them equal to zero (necessary condition), we find:</p>
 <div class="math notranslate nohighlight">
 \[
-\mathbf{w}_{\mbox{MPE}} = \sigma^{-2}\left(\sigma^{-2}\mathbf{\Phi}^T\mathbf{\Phi}+\alpha\mathbf{I}\right)^{-1}\mathbf{\Phi}^T\mathbf{y}_{1:n}.
+\mathbf{w}_{\text{MPE}} = \sigma^{-2}\left(\sigma^{-2}\mathbf{\Phi}^T\mathbf{\Phi}+\alpha\mathbf{I}\right)^{-1}\mathbf{\Phi}^T\mathbf{y}_{1:n}.
 \]</div>
 <p>Unfortunately, we no longer have an analytic formula for <span class="math notranslate nohighlight">\(\sigma\)</span>… (we will fix that later).</p>
 </section>
@@ -806,9 +806,9 @@ if we know <span class="math notranslate nohighlight">\(\alpha\)</span> and <spa
 </section>
 <section id="probabilistic-regression-iii-bayesian-linear-regression">
 <h2>Probabilistic regression III (Bayesian linear regression)<a class="headerlink" href="#probabilistic-regression-iii-bayesian-linear-regression" title="Permalink to this heading">#</a></h2>
-<p>This has the same setup version III of probabilistic regression but we do not just get a point estimate for the weights.
-We retain the posterior of the weughts in its full complexity.
-The adendum is that we can now quantify the epistemic uncertainty induced by the limited number of observations used to estimate the weights.</p>
+<p>This has the same setup as version III of probabilistic regression, but we do not get a point estimate for the weights.
+We retain the posterior of the weights in its full complexity.
+The addendum is that we can now quantify the epistemic uncertainty induced by the limited number of observations used to estimate the weights.</p>
 <p>For Gaussian likelihood and weight prior, the posterior of the weights is Gaussian:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -824,11 +824,11 @@ p(\mathbf{w}|\mathbf{x}_{1:n},\mathbf{y}_{1:n}, \sigma, \alpha) = \mathcal{N}\le
 \[
 \mathbf{m} = \sigma^{-2}\mathbf{S}\Phi^T\mathbf{y}_{1:n}.
 \]</div>
-<p>In the general case of non-Gaussian likelihood (and non-linear models), the posterior will not be analytically available. We will learn how to deal with these cases in Lectures 27 and 28 when we talk about generic ways to characterize posteriors.</p>
+<p>The posterior will not be analytically available in the general case of non-Gaussian likelihood (and non-linear models). We will learn how to deal with these cases in Lectures 27 and 28 when discussing generic ways to characterize posteriors.</p>
 <section id="posterior-predictive-distribution">
 <h3>Posterior Predictive Distribution<a class="headerlink" href="#posterior-predictive-distribution" title="Permalink to this heading">#</a></h3>
-<p>Using probability theory, we ask: What do we know about <span class="math notranslate nohighlight">\(y\)</span> at a new <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> after seeing the data.
-To answer this question, we just use the sum rule:</p>
+<p>Using probability theory, we ask: What do we know about <span class="math notranslate nohighlight">\(y\)</span> at a new <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> after seeing the data?
+To answer this question, we use the sum rule:</p>
 <div class="math notranslate nohighlight">
 \[
 p(y|\mathbf{x}, \mathbf{x}_{1:n}, \mathbf{y}_{1:n}, \sigma, \alpha) = 
@@ -842,7 +842,7 @@ p(y|\mathbf{x}, \mathbf{x}_{1:n}, \mathbf{y}_{1:n}, \sigma, \alpha) = \mathcal{N
 <p>where</p>
 <div class="math notranslate nohighlight">
 \[
-m(\mathbf{x}) = \mathbf{m}^T\boldsymbol{\phi}(\mathbf{x})\;\mbox{and}\;s(\mathbf{x}) = \boldsymbol{\phi}(\mathbf{x})^T\mathbf{S}\boldsymbol{\phi}(\mathbf{x}) + \sigma^2.
+m(\mathbf{x}) = \mathbf{m}^T\boldsymbol{\phi}(\mathbf{x})\;\text{and}\;s(\mathbf{x}) = \boldsymbol{\phi}(\mathbf{x})^T\mathbf{S}\boldsymbol{\phi}(\mathbf{x}) + \sigma^2.
 \]</div>
 <p>Notice that the <strong>predictive uncertainty</strong> is:</p>
 <div class="math notranslate nohighlight">

@@ -66,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture14/hands-on-14.3';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="The point-predictive Distribution - Separating Epistmic and Aleatory Uncertainty" href="hands-on-14.4.html" />
+    <link rel="next" title="The point-predictive Distribution - Separating Epistemic and Aleatory Uncertainty" href="hands-on-14.4.html" />
     <link rel="prev" title="Maximum a Posteriori Estimate - Avoiding Overfitting" href="hands-on-14.2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -256,7 +256,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l3"><a class="reference internal" href="hands-on-14.1.html">Probabilistic Interpretation of Least Squares - Estimating the Measurement Noise</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-14.2.html">Maximum a Posteriori Estimate - Avoiding Overfitting</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Bayesian Linear Regression</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-14.4.html">The point-predictive Distribution - Separating Epistmic and Aleatory Uncertainty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-14.4.html">The point-predictive Distribution - Separating Epistemic and Aleatory Uncertainty</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../lecture15/intro.html">Lecture 15 - Advanced Topics in Bayesian Linear Regression</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -575,7 +575,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-linear">Example (Linear)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
@@ -603,13 +602,13 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -617,16 +616,11 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="bayesian-linear-regression">
 <span id="bayesian-linear-regression-example"></span><h1>Bayesian Linear Regression<a class="headerlink" href="#bayesian-linear-regression" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To demonstrate how epistemic uncertainty can be quantitied.</p></li>
-</ul>
-</section>
+<p>We demonstrate how epistemic uncertainty can be estimated using Bayesian linear regression.</p>
 <section id="example-linear">
 <h2>Example (Linear)<a class="headerlink" href="#example-linear" title="Permalink to this heading">#</a></h2>
-<p>Let’s start with a simple example where we just have to find a linear fit.
-Here are some synthetic data:</p>
+<p>Let’s start with a simple example where we must find a linear fit.
+Here is some synthetic data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
@@ -642,13 +636,13 @@ Here are some synthetic data:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observed data&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9d33625d07aa60e40ff68a46664a6e1318538c7f7479dc5468af18f72480c732.png" src="../_images/9d33625d07aa60e40ff68a46664a6e1318538c7f7479dc5468af18f72480c732.png" />
-</div>
+<img alt="../_images/8e89c35e7c994a2008ddcb0baec462bb189759080dcf70989cd1aa80aa1a8615.svg" src="../_images/8e89c35e7c994a2008ddcb0baec462bb189759080dcf70989cd1aa80aa1a8615.svg" /></div>
 </div>
 <p>Let’s also copy-paste the code for creating design matrices for the three generalized linear models we have considered so far:</p>
 <div class="cell tag_hide-input docutils container">
@@ -716,7 +710,7 @@ Here are some synthetic data:</p>
 </div>
 </details>
 </div>
-<p>We saw that for Gaussian likelihood and weightp prior, the posterior of the weights is Gaussian:
+<p>We saw that for Gaussian likelihood and weight prior, the posterior of the weights is Gaussian:
 $<span class="math notranslate nohighlight">\(
 p(\mathbf{w}|\mathbf{x}_{1:n},\mathbf{y}_{1:n}, \sigma, \alpha) = \mathcal{N}\left(\mathbf{w}|\mathbf{m}, \mathbf{S}\right),
 \)</span><span class="math notranslate nohighlight">\(
@@ -798,10 +792,10 @@ Let's write some code that finds the posterior weight mean vector \)</span>\math
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Posterior mean w: [-0.431  1.98 ]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Posterior mean w: [-0.43104689  1.97951928]
 Posterior covariance w:
-[[ 0.001 -0.001]
- [-0.001  0.004]]
+[[ 0.00109865 -0.00060371]
+ [-0.00060371  0.00369096]]
 </pre></div>
 </div>
 </div>
@@ -842,13 +836,11 @@ Posterior covariance w:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d8720edf5f745bf70b213b0880c312ea421dd40e33df48dae0f3cd0b6a8b2048.png" src="../_images/d8720edf5f745bf70b213b0880c312ea421dd40e33df48dae0f3cd0b6a8b2048.png" />
-<img alt="../_images/a3cf6a14c13cd3350194f977f223fe908b73dc85d87c310fcb6b50f00ab95eb6.png" src="../_images/a3cf6a14c13cd3350194f977f223fe908b73dc85d87c310fcb6b50f00ab95eb6.png" />
+<img alt="../_images/ecb6f3158b8a47fb58c70194ecc8ae20f94272f8880ea4a2afdfddf74061fcee.svg" src="../_images/ecb6f3158b8a47fb58c70194ecc8ae20f94272f8880ea4a2afdfddf74061fcee.svg" /><img alt="../_images/50b68eab4eeebc479ccd2fedebf72e0355dc700d85bb276e0d6fb9eb62cadd2e.svg" src="../_images/50b68eab4eeebc479ccd2fedebf72e0355dc700d85bb276e0d6fb9eb62cadd2e.svg" /></div>
 </div>
-</div>
-<p>We see that in this case the posterior collapses to the true value of the weights.</p>
+<p>In this case, we see that the posterior collapses to the actual value of the weights.</p>
 <p>Let’s visualize some prior samples of the weights.
-What we do below is just sampling from the prior of the weights and drawing the line that corresponds to each sample. Notice that the lines are all over the place. Some have positive slope. Some are negative slope. Some cut the x-axis and some don’t. That’s fine. We have so much uncertainty because we haven’t seen the data yet.</p>
+What we do below is just sampling from the prior of the weights and drawing the line that corresponds to each sample. Notice that the lines are all over the place. Some have a positive slope. Some have a negative slope. Some cut the x-axis, and some don’t. That’s fine. We have so much uncertainty because we have yet to see the data.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -867,17 +859,17 @@ What we do below is just sampling from the prior of the weights and drawing the 
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_sample</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/46701ae9d7acec51d1aeb372513ecab26fc524c49f7a8c40ef3891d93ab717e5.png" src="../_images/46701ae9d7acec51d1aeb372513ecab26fc524c49f7a8c40ef3891d93ab717e5.png" />
+<img alt="../_images/2d8f1db815d71800ef4a0ef51adef12b316654f7811fbde4f7df06b9b1d31e12.svg" src="../_images/2d8f1db815d71800ef4a0ef51adef12b316654f7811fbde4f7df06b9b1d31e12.svg" /></div>
 </div>
-</div>
-<p>Now let’s do the same thing, but instead of sampling the weights from the prior, let’s sample them from the posterior.
-Notice that we there is much less (epistemic) uncertainty now that we are taking the data into account.</p>
+<p>Now, let’s do the same thing, but instead of sampling the weights from the prior, let’s test them from the posterior.
+Notice that there is much less (epistemic) uncertainty now that we are considering the data.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -900,21 +892,21 @@ Notice that we there is much less (epistemic) uncertainty now that we are taking
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_true</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True response surface&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/63e0c7745c83526cda53ad6e1d6efc03c0077e6c0b713a37132adae07d116a6c.png" src="../_images/63e0c7745c83526cda53ad6e1d6efc03c0077e6c0b713a37132adae07d116a6c.png" />
-</div>
+<img alt="../_images/551bad3d972223ebad53b1ce025d5f6018694228ed859af50cff44970757541e.svg" src="../_images/551bad3d972223ebad53b1ce025d5f6018694228ed859af50cff44970757541e.svg" /></div>
 </div>
 <section id="questions">
 <h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Rerun the code cells above with a very small <span class="math notranslate nohighlight">\(\alpha\)</span>. What happens?</p></li>
-<li><p>Rerun he code cells above with a very big <span class="math notranslate nohighlight">\(\alpha\)</span>. What happens?</p></li>
-<li><p>Fix <span class="math notranslate nohighlight">\(\alpha\)</span> to <span class="math notranslate nohighlight">\(5\)</span> and rerun the code cells above with a very small and the very big value for <span class="math notranslate nohighlight">\(\sigma\)</span>. What happens in each case?</p></li>
+<li><p>Rerun the code cells above with a very big <span class="math notranslate nohighlight">\(\alpha\)</span>. What happens?</p></li>
+<li><p>Fix <span class="math notranslate nohighlight">\(\alpha\)</span> to <span class="math notranslate nohighlight">\(5\)</span> and rerun the code cells above with a minimal and very big value for <span class="math notranslate nohighlight">\(\sigma\)</span>. What happens in each case?</p></li>
 </ul>
 </section>
 </section>
@@ -949,14 +941,14 @@ Here are some synthetic data:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observed data&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/556ee3d198844382a1d4db68a0f6f13ef30fd33344a9296fa581504f2d5fa07e.png" src="../_images/556ee3d198844382a1d4db68a0f6f13ef30fd33344a9296fa581504f2d5fa07e.png" />
-</div>
+<img alt="../_images/7eef6b5e0dede4aaec38dcc0a5e1d46b683d21f82d3437b8ef78d8dbac5a24fc.svg" src="../_images/7eef6b5e0dede4aaec38dcc0a5e1d46b683d21f82d3437b8ef78d8dbac5a24fc.svg" /></div>
 </div>
 <p>Here is how we fit a <span class="math notranslate nohighlight">\(7\)</span> degree polynomial:</p>
 <div class="cell docutils container">
@@ -991,16 +983,25 @@ Here are some synthetic data:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Posterior mean w: [-0.364  1.873  1.329  0.361  0.538 -0.086  0.02  -0.271]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Posterior mean w: [-0.3643298   1.87327178  1.3288042   0.36050275  0.53776681 -0.08624885
+  0.01954992 -0.27053602]
 Posterior covariance w:
-[[ 0.003 -0.003 -0.01   0.005  0.001  0.003  0.002  0.001]
- [-0.003  0.02   0.01  -0.036  0.007 -0.007  0.005  0.001]
- [-0.01   0.01   0.074 -0.007 -0.056 -0.004 -0.023 -0.001]
- [ 0.005 -0.036 -0.007  0.131 -0.017 -0.045 -0.018 -0.028]
- [ 0.001  0.007 -0.056 -0.017  0.151 -0.025 -0.037 -0.025]
- [ 0.003 -0.007 -0.004 -0.045 -0.025  0.157 -0.031 -0.037]
- [ 0.002  0.005 -0.023 -0.018 -0.037 -0.031  0.161 -0.035]
- [ 0.001  0.001 -0.001 -0.028 -0.025 -0.037 -0.035  0.16 ]]
+[[ 0.00315175 -0.00321667 -0.01024025  0.00532315  0.00146701  0.002684
+   0.0015408   0.00126902]
+ [-0.00321667  0.01988414  0.00953384 -0.03609637  0.00683632 -0.00674544
+   0.00546342  0.00094567]
+ [-0.01024025  0.00953384  0.07422345 -0.00730177 -0.05608467 -0.00414937
+  -0.02267156 -0.00105223]
+ [ 0.00532315 -0.03609637 -0.00730177  0.13140085 -0.01689961 -0.04527107
+  -0.01778471 -0.02776183]
+ [ 0.00146701  0.00683632 -0.05608467 -0.01689961  0.15068265 -0.02540831
+  -0.0373079  -0.02522585]
+ [ 0.002684   -0.00674544 -0.00414937 -0.04527107 -0.02540831  0.15658807
+  -0.03130496 -0.03742464]
+ [ 0.0015408   0.00546342 -0.02267156 -0.01778471 -0.0373079  -0.03130496
+   0.1608574  -0.03536093]
+ [ 0.00126902  0.00094567 -0.00105223 -0.02776183 -0.02522585 -0.03742464
+  -0.03536093  0.1599182 ]]
 </pre></div>
 </div>
 </div>
@@ -1024,14 +1025,14 @@ Posterior covariance w:
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_sample</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/11eb7c15dd0186114d117094cd5d1f54034386f552cb59e52adbca27b1c1a8c0.png" src="../_images/11eb7c15dd0186114d117094cd5d1f54034386f552cb59e52adbca27b1c1a8c0.png" />
-</div>
+<img alt="../_images/a73f603443ff9dc90699ef0d90d5f6137960c71e574351cb495ee37b9f727b48.svg" src="../_images/a73f603443ff9dc90699ef0d90d5f6137960c71e574351cb495ee37b9f727b48.svg" /></div>
 </div>
 <p>Let’s visualize some samples from the posterior:</p>
 <div class="cell tag_hide-input docutils container">
@@ -1055,24 +1056,21 @@ Posterior covariance w:
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_true</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True response surface&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x287d4a1f0&gt;
-</pre></div>
-</div>
-<img alt="../_images/09bc7ef87df0a9e2c805cfe7eb3013c4bff1c0b58b0e74d358dc2f3194b8d28d.png" src="../_images/09bc7ef87df0a9e2c805cfe7eb3013c4bff1c0b58b0e74d358dc2f3194b8d28d.png" />
-</div>
+<img alt="../_images/a87055e62f3b45e4e641d45059ca00c5b89ba2242d16d2263e8f009066ae3dd3.svg" src="../_images/a87055e62f3b45e4e641d45059ca00c5b89ba2242d16d2263e8f009066ae3dd3.svg" /></div>
 </div>
 <section id="id1">
 <h3>Questions<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Rerun the code cells above with a very small <span class="math notranslate nohighlight">\(\alpha\)</span>. What happens?</p></li>
-<li><p>Rerun he code cells above with a very big <span class="math notranslate nohighlight">\(\alpha\)</span>. What happens?</p></li>
-<li><p>Fix <span class="math notranslate nohighlight">\(\alpha\)</span> to <span class="math notranslate nohighlight">\(5\)</span> and rerun the code cells above with a very small and the very big value for <span class="math notranslate nohighlight">\(\sigma\)</span>. What happens in each case?</p></li>
+<li><p>Rerun the code cells above with a very big <span class="math notranslate nohighlight">\(\alpha\)</span>. What happens?</p></li>
+<li><p>Fix <span class="math notranslate nohighlight">\(\alpha\)</span> to <span class="math notranslate nohighlight">\(5\)</span> and rerun the code cells above with a very small and very big value for <span class="math notranslate nohighlight">\(\sigma\)</span>. What happens in each case?</p></li>
 </ul>
 </section>
 </section>
@@ -1123,7 +1121,7 @@ Posterior covariance w:
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">The point-predictive Distribution - Separating Epistmic and Aleatory Uncertainty</p>
+        <p class="prev-next-title">The point-predictive Distribution - Separating Epistemic and Aleatory Uncertainty</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1145,7 +1143,6 @@ Posterior covariance w:
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-linear">Example (Linear)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>

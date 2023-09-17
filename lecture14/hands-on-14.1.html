@@ -256,7 +256,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Probabilistic Interpretation of Least Squares - Estimating the Measurement Noise</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-14.2.html">Maximum a Posteriori Estimate - Avoiding Overfitting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-14.3.html">Bayesian Linear Regression</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-14.4.html">The point-predictive Distribution - Separating Epistmic and Aleatory Uncertainty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-14.4.html">The point-predictive Distribution - Separating Epistemic and Aleatory Uncertainty</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../lecture15/intro.html">Lecture 15 - Advanced Topics in Bayesian Linear Regression</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -595,13 +595,13 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -615,7 +615,7 @@ document.write(`
 y_i = -0.5 + 2 x_i + + 2 x_i^2 + 0.1\epsilon_i,
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\epsilon_i \sim N(0,1)\)</span> and where we sample <span class="math notranslate nohighlight">\(x_i \sim U([0,1])\)</span>.
-Here is how to generate this synthetic dataset and how it looks like:</p>
+Here is how to generate this synthetic dataset and what it looks like:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -640,14 +640,14 @@ Here is how to generate this synthetic dataset and how it looks like:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observed data&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/2812fe6aad7b23d4e200ed9d3c8761a794ffed0493434b640c55ccfebba8ced2.png" src="../_images/2812fe6aad7b23d4e200ed9d3c8761a794ffed0493434b640c55ccfebba8ced2.png" />
-</div>
+<img alt="../_images/2d21838ccb5c6f7fd4ef2a07bb78feed113e5e0f7204ea6087f6e6359c1ad81d.svg" src="../_images/2d21838ccb5c6f7fd4ef2a07bb78feed113e5e0f7204ea6087f6e6359c1ad81d.svg" /></div>
 </div>
 <p>We will be fitting polynomials, so let’s copy-paste the code we developed for computing the design matrix:</p>
 <div class="cell tag_hide-input docutils container">
@@ -676,7 +676,7 @@ Here is how to generate this synthetic dataset and how it looks like:</p>
 </div>
 </details>
 </div>
-<p>In the previous section, we saw that when least squares are interpreted probabilistically the weight estimate does not change.
+<p>In the previous section, we saw that when least squares are interpreted probabilistically, the weight estimate does not change.
 So, we can obtain it just like before:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -695,7 +695,7 @@ So, we can obtain it just like before:</p>
 \[
 \sum_{i=1}^N\left[y_i - \sum_{j=1}^Mw_j\phi_j(x_i)\right]^2 = \parallel \mathbf{y}_{1:N} - \mathbf{\Phi}\mathbf{w}\parallel_2^2.
 \]</div>
-<p>Let’s test this just to be sure…</p>
+<p>Let’s test this just to be sure:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;sum_res = </span><span class="si">{</span><span class="n">sum_res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">1.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -704,8 +704,8 @@ So, we can obtain it just like before:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sum_res = 0.0554
-compare to = 0.0554
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sum_res = 0.0943
+compare to = 0.0943
 </pre></div>
 </div>
 </div>
@@ -727,14 +727,14 @@ compare to = 0.0554
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True sigma = 0.1000
-MLE sigma = 0.0744
+MLE sigma = 0.0971
 </pre></div>
 </div>
 </div>
 </div>
 <p>Let’s also visualize this noise.
 The prediction at each <span class="math notranslate nohighlight">\(x\)</span> is Gaussian with mean <span class="math notranslate nohighlight">\(\mathbf{w}^T\boldsymbol{\phi}(x)\)</span> and variance <span class="math notranslate nohighlight">\(\sigma_{\text{MLE}}^2\)</span>.
-So, we can simply create a 95% credible interval by subtracting and adding (about) two <span class="math notranslate nohighlight">\(\sigma_{\text{MLE}}\)</span> to the mean.</p>
+So, we can create a 95% credible interval by subtracting and adding (about) two <span class="math notranslate nohighlight">\(\sigma_{\text{MLE}}\)</span> to the mean.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
@@ -770,18 +770,18 @@ So, we can simply create a 95% credible interval by subtracting and adding (abou
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_true</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True response surface&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c8394b93e45b67fe9d005ba121f5c8ee9c5752ac0f1f03408760aa66b65612b6.png" src="../_images/c8394b93e45b67fe9d005ba121f5c8ee9c5752ac0f1f03408760aa66b65612b6.png" />
-</div>
+<img alt="../_images/b542a96e3f2ac76a7cc36ba5d5197d1647623cb811a1a63206d5cf7edfe060e0.svg" src="../_images/b542a96e3f2ac76a7cc36ba5d5197d1647623cb811a1a63206d5cf7edfe060e0.svg" /></div>
 </div>
 <section id="questions">
 <h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Increase the number of observations <code class="docutils literal notranslate"><span class="pre">num_obs</span></code> and notice that the likelihood noise converges to the true measurement noise.</p></li>
+<li><p>Increase the number of observations <code class="docutils literal notranslate"><span class="pre">num_obs</span></code> and notice that the likelihood noise converges to the actual measurement noise.</p></li>
 <li><p>Change the polynomial degree to one so that you just fit a line. What does the model think about the noise now?</p></li>
 </ul>
 </section>
