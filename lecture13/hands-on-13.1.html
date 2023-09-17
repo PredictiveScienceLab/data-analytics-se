@@ -576,7 +576,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-where-things-work-as-expected">An example where things work as expected</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-where-things-do-not-work-as-expected-underfitting">An example where things do not work as expected: underfitting</a></li>
@@ -600,13 +599,13 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -614,24 +613,19 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="linear-regression-with-a-single-variable">
 <h1>Linear regression with a single variable<a class="headerlink" href="#linear-regression-with-a-single-variable" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To introduce linear regression with a single variable</p></li>
-</ul>
-</section>
+<p>We will now look at a simple linear regression example with a single variable.</p>
 <section id="an-example-where-things-work-as-expected">
 <h2>An example where things work as expected<a class="headerlink" href="#an-example-where-things-work-as-expected" title="Permalink to this heading">#</a></h2>
 <p>Let’s create a synthetic dataset to introduce the basic concepts.
-It has to be synthetic because we want to know what the ground truth is.
-Let’s start with pairs of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> which definitely have a linear relationship, albeit <span class="math notranslate nohighlight">\(y\)</span> may be contaminated with Gaussian noise.
+It must be synthetic because we want to know the ground truth.
+Let’s start with pairs of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>, which have a linear relationship. We contaminate <span class="math notranslate nohighlight">\(y\)</span> with Gaussian noise.
 In particular, we generate the data from:</p>
 <div class="math notranslate nohighlight">
 \[
 y_i = -0.5 + 2 x_i + 0.1\epsilon_i,
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\epsilon_i \sim N(0,1)\)</span> and where we sample <span class="math notranslate nohighlight">\(x_i \sim U([0,1])\)</span>.
-Here is how to generate this synthetic dataset and how it looks like.</p>
+Here is how to generate this synthetic dataset and what it looks like:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
@@ -657,20 +651,20 @@ Here is how to generate this synthetic dataset and how it looks like.</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observed data&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2463c932c5cdf2e0c93432a7dac525e0ee2db8f26abd8a8e44dee1d3440d6afa.png" src="../_images/2463c932c5cdf2e0c93432a7dac525e0ee2db8f26abd8a8e44dee1d3440d6afa.png" />
-</div>
+<img alt="../_images/76c9c91efea41a80e09feb09af28b6a50a12c87294b3dc133f26fe23486b305a.svg" src="../_images/76c9c91efea41a80e09feb09af28b6a50a12c87294b3dc133f26fe23486b305a.svg" /></div>
 </div>
 <p>We will now use least squares to fit the data to this linear model:</p>
 <div class="math notranslate nohighlight">
 \[
 y = w_0 + w_1 x.
 \]</div>
-<p>As we discussed in the previous section, least squares minimize the square loss:</p>
+<p>Least squares minimize the square loss:</p>
 <div class="math notranslate nohighlight">
 \[
 L(\mathbf{w}) = \sum_{i=1}^N(y_i - w_0 - w_1 x_i)^2 = \parallel \mathbf{y} - \mathbf{X}\mathbf{w}\parallel^2,
@@ -686,7 +680,7 @@ L(\mathbf{w}) = \sum_{i=1}^N(y_i - w_0 - w_1 x_i)^2 = \parallel \mathbf{y} - \ma
 1 &amp; x_N
 \end{bmatrix}.
 \end{split}\]</div>
-<p>We definitely need to make the design matrix <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>:</p>
+<p>We need to make the design matrix <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Put together a column of ones next to the observed x&#39;s</span>
@@ -698,22 +692,22 @@ L(\mathbf{w}) = \sum_{i=1}^N(y_i - w_0 - w_1 x_i)^2 = \parallel \mathbf{y} - \ma
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.   , 0.93 ],
-       [1.   , 0.316],
-       [1.   , 0.184],
-       [1.   , 0.205],
-       [1.   , 0.568],
-       [1.   , 0.596],
-       [1.   , 0.965],
-       [1.   , 0.653],
-       [1.   , 0.749],
-       [1.   , 0.654]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.        , 0.92961609],
+       [1.        , 0.31637555],
+       [1.        , 0.18391881],
+       [1.        , 0.20456028],
+       [1.        , 0.56772503],
+       [1.        , 0.5955447 ],
+       [1.        , 0.96451452],
+       [1.        , 0.6531771 ],
+       [1.        , 0.74890664],
+       [1.        , 0.65356987]])
 </pre></div>
 </div>
 </div>
 </div>
 <p>Once we have this, we can use <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.linalg.lstsq.html?highlight=lstsq#numpy.linalg.lstsq">numpy.linalg.lstsq</a> to solve the least squares problem.
-This function solves in a smart way the linear system we derived in the previous section, i.e.,</p>
+This function solves the linear system we derived in the previous section, i.e.,</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbf{X}^T\mathbf{X}\mathbf{w} = \mathbf{X}^T\mathbf{y}.
@@ -734,8 +728,9 @@ w_1 = 1.99
 </div>
 </div>
 </div>
-<p>So, you see that the values we found for <span class="math notranslate nohighlight">\(w_0\)</span> and <span class="math notranslate nohighlight">\(w_1\)</span> are close to the correct values, but not exactly the same.
-That is fine. There is noise in the data and we have only used ten observations.
+<p>So, the values we found for <span class="math notranslate nohighlight">\(w_0\)</span> and <span class="math notranslate nohighlight">\(w_1\)</span> are close to the correct values.
+The agreement is not perfect.
+There is noise in the data, and we have only used ten observations.
 The more noise there is, the more observations it would take to identify the regression coefficients correctly.</p>
 <p>Let’s now plot the regression function against the data:</p>
 <div class="cell docutils container">
@@ -756,19 +751,19 @@ The more noise there is, the more observations it would take to identify the reg
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_true</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True response surface&#39;</span><span class="p">)</span>
 <span class="c1"># overlay our prediction</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Fitted model&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e1a5db3c0bfd5ce19f0d528ffe66070ec0aa55c9b50b96558cf4e8ed8080f707.png" src="../_images/e1a5db3c0bfd5ce19f0d528ffe66070ec0aa55c9b50b96558cf4e8ed8080f707.png" />
-</div>
+<img alt="../_images/ce3c47b845aa9ae00cd53df449704d10f6242f183e234c7182c71cc0f044b415.svg" src="../_images/ce3c47b845aa9ae00cd53df449704d10f6242f183e234c7182c71cc0f044b415.svg" /></div>
 </div>
 </section>
 <section id="questions">
 <h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Try increasing <code class="docutils literal notranslate"><span class="pre">num_obs</span></code> to 100. Does the fit improve? Conclusion: When you training with least squares, the more data you have the better.</p></li>
+<li><p>Try increasing <code class="docutils literal notranslate"><span class="pre">num_obs</span></code> to 100. Does the fit improve? Conclusion: When training with least squares, more data is better.</p></li>
 <li><p>Try decreasing <code class="docutils literal notranslate"><span class="pre">num_obs</span></code> to 2. What is happening here? This is an example of fitting the noise.</p></li>
 </ul>
 </section>
@@ -806,16 +801,16 @@ y_i = -0.5 + 2x_i + 2x_i^2 + \epsilon_i,
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observed data&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/556ee3d198844382a1d4db68a0f6f13ef30fd33344a9296fa581504f2d5fa07e.png" src="../_images/556ee3d198844382a1d4db68a0f6f13ef30fd33344a9296fa581504f2d5fa07e.png" />
+<img alt="../_images/584b017f82943bfef6ee41640e5623ba1e5bd97bce830e9f495012d28d931436.svg" src="../_images/584b017f82943bfef6ee41640e5623ba1e5bd97bce830e9f495012d28d931436.svg" /></div>
 </div>
-</div>
-<p>We will still try to fit a linear model to this dataset. We know that it is not going to work well, but let’s try it anyway.
+<p>We will still fit a linear model to this dataset. We know it will not work well, but let’s try it anyway.
 First, create the design matrix just like before:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -849,19 +844,19 @@ w_1 = 2.46
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observed data&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_true</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True response surface&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Fitted model&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/11fe72bf7b8f14cf5af6ae33c1364be2bdf228ac879baf18b421f82f8b2f112d.png" src="../_images/11fe72bf7b8f14cf5af6ae33c1364be2bdf228ac879baf18b421f82f8b2f112d.png" />
-</div>
+<img alt="../_images/ed83a808c1243a65f0dece7e3354ce690f36f321f6ec64c666c360530d5e27ca.svg" src="../_images/ed83a808c1243a65f0dece7e3354ce690f36f321f6ec64c666c360530d5e27ca.svg" /></div>
 </div>
 </section>
 <section id="id1">
 <h2>Questions<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Experiment with very small <code class="docutils literal notranslate"><span class="pre">num_obs</span></code>. If you did not know what the true response surface was, would you be able to say whether or not the fit is good?</p></li>
+<li><p>Experiment with very small <code class="docutils literal notranslate"><span class="pre">num_obs</span></code>. If you did not know the true response surface, can you say whether or not the fit is good?</p></li>
 <li><p>Experiment with a big <code class="docutils literal notranslate"><span class="pre">num_obs</span></code>. Does the fit improve? This is an example of <em>underfitting</em>. Your model does not have enough expressivity to capture the data.</p></li>
 </ul>
 </section>
@@ -934,7 +929,6 @@ w_1 = 2.46
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-where-things-work-as-expected">An example where things work as expected</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-where-things-do-not-work-as-expected-underfitting">An example where things do not work as expected: underfitting</a></li>

@@ -579,6 +579,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-learning">Supervised learning</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-regression-problem">The regression problem</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-classification-problem">The classification problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-train-a-supervised-learning-model">How do we train a supervised learning model?</a></li>
 </ul>
 </li>
 </ul>
@@ -596,7 +597,7 @@ document.write(`
 <h1>Linear Regression via Least Squares<a class="headerlink" href="#linear-regression-via-least-squares" title="Permalink to this heading">#</a></h1>
 <section id="supervised-learning">
 <h2>Supervised learning<a class="headerlink" href="#supervised-learning" title="Permalink to this heading">#</a></h2>
-<p>Say that you observe <span class="math notranslate nohighlight">\(n\)</span>, <span class="math notranslate nohighlight">\(d\)</span>-dimensional, <em>inputs</em>:</p>
+<p>Suppose that you observe <span class="math notranslate nohighlight">\(n\)</span>, <span class="math notranslate nohighlight">\(d\)</span>-dimensional, <em>inputs</em>:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbf{x}_{1:n} = \{\mathbf{x}_1,\dots,\mathbf{x}_n\},
@@ -606,17 +607,33 @@ document.write(`
 \[
 \mathbf{y}_{1:n} = \{y_1,\dots,y_n\}.
 \]</div>
-<p>The supervised learning problem consits of using the data <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}_{1:n}\)</span> to find
+<p>The supervised learning problem consists of using the data <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}_{1:n}\)</span> to find
 the map that connects the inputs to the outputs.</p>
-<p>The inputs <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> are also called <em>features</em>.</p>
+<p>We call the inputs <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> <em>features</em>.</p>
 <p>The outputs <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> are also called <em>targets</em>.</p>
 <section id="the-regression-problem">
 <h3>The regression problem<a class="headerlink" href="#the-regression-problem" title="Permalink to this heading">#</a></h3>
-<p>When the outputs are continuous variables, e.g., dollars, weight, mass, then we say that we have a <em>regression</em> problem.</p>
+<p>When the outputs are continuous variables, e.g., dollars, weight, and mass, we say we have a <em>regression</em> problem.
+You may have heard of <em>linear regression</em>.
+That’s when the map that connects the inputs to the outputs is a linear function.
+There is also the <em>generalized linear regression</em> problem, where the map is a nonlinear function but linear in the parameters.
+For example, the map could be a polynomial function of the inputs.
+You can also do <em>nonlinear regression</em>, where the map is a nonlinear function, and the map is nonlinear in the parameters.
+Neural networks are an example of nonlinear regression.</p>
 </section>
 <section id="the-classification-problem">
 <h3>The classification problem<a class="headerlink" href="#the-classification-problem" title="Permalink to this heading">#</a></h3>
-<p>When the outputs are discrete labels, e.g., 0 or 1, “cat” or “dog”, then we say that we have a <em>classification</em> problem.</p>
+<p>When the outputs are discrete labels, e.g., 0 or 1, “cat” or “dog,” we say we have a <em>classification</em> problem.
+<em>Logistic regression</em> is an example of a classification problem.
+You can also solve the classification problem with neural networks.</p>
+</section>
+<section id="how-do-we-train-a-supervised-learning-model">
+<h3>How do we train a supervised learning model?<a class="headerlink" href="#how-do-we-train-a-supervised-learning-model" title="Permalink to this heading">#</a></h3>
+<p>There are two basic ways to train a supervised learning model:</p>
+<ol class="arabic simple">
+<li><p>Optimization. We find the parameters by maximizing the likelihood of the data. Equivalently, we minimize the negative log-likelihood of the data (the <em>loss</em>).</p></li>
+<li><p>Probabilistic inference. We apply Bayes’ rule to find the posterior distribution of the parameters given the data. We then use the posterior distribution to make predictions. We can characterize the posterior distribution analytically, sample from it, or approximate it with a simpler distribution.</p></li>
+</ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This lecture moves fast.
@@ -700,6 +717,7 @@ If you have never seen least squares before, please go over the following materi
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-learning">Supervised learning</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-regression-problem">The regression problem</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-classification-problem">The classification problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-train-a-supervised-learning-model">How do we train a supervised learning model?</a></li>
 </ul>
 </li>
 </ul>

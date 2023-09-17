@@ -598,13 +598,13 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -612,7 +612,7 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="polynomial-regression">
 <span id="lecture15-polynomial-regression"></span><h1>Polynomial Regression<a class="headerlink" href="#polynomial-regression" title="Permalink to this heading">#</a></h1>
-<p>We take up where we left in the previous section.
+<p>We take up where we left off in the previous section.
 Recall that we tried to fit a linear regression model to data generated from:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -645,14 +645,14 @@ y_i = -0.5 + 2x_i + 2x_i^2 + \epsilon_i,
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observed data&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/556ee3d198844382a1d4db68a0f6f13ef30fd33344a9296fa581504f2d5fa07e.png" src="../_images/556ee3d198844382a1d4db68a0f6f13ef30fd33344a9296fa581504f2d5fa07e.png" />
-</div>
+<img alt="../_images/06a24a7f8badea8dc193e2346d5372046d180ca0efbe22808a1889092afb6b73.svg" src="../_images/06a24a7f8badea8dc193e2346d5372046d180ca0efbe22808a1889092afb6b73.svg" /></div>
 </div>
 <p>We already saw that the linear model does not work here.
 We need to try to fit a quadratic model:</p>
@@ -666,7 +666,7 @@ y = w_0 + w_1 x + w_2 x^2.
 L(w_0, w_1, w_2) = \sum_{i=1}^N(y_i - w_0 - w_1 x_i - w_2 x_i^2)^2.
 \]</div>
 <p>Fortunately, we do not have to do things from scratch.
-The notation we developed previously comes to our resque.
+The notation we developed previously comes to our rescue.
 Recall, that <span class="math notranslate nohighlight">\(\mathbf{y} = (y_1,\dots,y_N)\)</span> is the vector of observations.
 Use</p>
 <div class="math notranslate nohighlight">
@@ -675,7 +675,7 @@ Use</p>
 \]</div>
 <p>to denote the weight vector.
 What about the design matrix?
-Before it was an <span class="math notranslate nohighlight">\(N\times 2\)</span> matrix with the first column being one and the second column being the vector of observed inputs.
+Before, it was an <span class="math notranslate nohighlight">\(N\times 2\)</span> matrix, with the first column being one and the second being the vector of observed inputs.
 Well, now it is the <span class="math notranslate nohighlight">\(N\times 3\)</span> matrix.
 The first two columns are exactly like before, but now the third column is the observed inputs squared.
 So, it is:</p>
@@ -689,15 +689,15 @@ So, it is:</p>
 1 &amp; x_N &amp; x_N^2
 \end{bmatrix}.
 \end{split}\]</div>
-<p>As before, if you multiply the design matrix <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> with the weight vector <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> you get the predictions of our model.
-So, again, the square loss can be written as:</p>
+<p>As before, if you multiply the design matrix <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> with the weight vector <span class="math notranslate nohighlight">\(\mathbf{w}\)</span>, you get the predictions of our model.
+We can write the square loss:</p>
 <div class="math notranslate nohighlight">
 \[
 L(w_0, w_1, w_2) = L(\mathbf{w}) = \parallel \mathbf{y} - \mathbf{X}\mathbf{w}\parallel^2.
 \]</div>
 <p>Well, this is mathematically the same equation as before.
-The only difference is that we have 3-dimensional weight vector (instead of a 2-dimensional) and that the design matrix is <span class="math notranslate nohighlight">\(N\times 3\)</span> instead of <span class="math notranslate nohighlight">\(N\times 2\)</span>.
-If you take the gradien of this with respect to <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> and set it equal to zero you will get that you need to solve exactly the same linear system of equations as before (but now it is 3 equations for 3 unknowns instead of 2 equations for 2 unknowns).</p>
+The only difference is that we have a 3-dimensional weight vector (instead of a 2-dimensional) and that the design matrix is <span class="math notranslate nohighlight">\(N\times 3\)</span> instead of <span class="math notranslate nohighlight">\(N\times 2\)</span>.
+If you take the gradient of this with respect to <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> and set it equal to zero, you will get that you need to solve the same linear system of equations as before (but now it is three equations for three unknowns instead of two equations for two unknowns).</p>
 <p>Let’s solve it numerically.
 First, the design matrix:</p>
 <div class="cell docutils container">
@@ -714,16 +714,16 @@ First, the design matrix:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.   ,  0.859,  0.738],
-       [ 1.   , -0.367,  0.135],
-       [ 1.   , -0.632,  0.4  ],
-       [ 1.   , -0.591,  0.349],
-       [ 1.   ,  0.135,  0.018],
-       [ 1.   ,  0.191,  0.037],
-       [ 1.   ,  0.929,  0.863],
-       [ 1.   ,  0.306,  0.094],
-       [ 1.   ,  0.498,  0.248],
-       [ 1.   ,  0.307,  0.094]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.        ,  0.85923219,  0.73827995],
+       [ 1.        , -0.36724889,  0.13487175],
+       [ 1.        , -0.63216238,  0.39962927],
+       [ 1.        , -0.59087944,  0.34913852],
+       [ 1.        ,  0.13545006,  0.01834672],
+       [ 1.        ,  0.19108941,  0.03651516],
+       [ 1.        ,  0.92902904,  0.86309496],
+       [ 1.        ,  0.30635419,  0.09385289],
+       [ 1.        ,  0.49781328,  0.24781806],
+       [ 1.        ,  0.30713974,  0.09433482]])
 </pre></div>
 </div>
 </div>
@@ -738,7 +738,7 @@ First, the design matrix:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>w = [-0.448  2.03   1.853]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>w = [-0.4480109   2.03041492  1.8526404 ]
 </pre></div>
 </div>
 </div>
@@ -754,13 +754,13 @@ First, the design matrix:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observed data&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_true</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True response surface&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Fitted model&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5474b7049230851c0a68baf7f445098cfc8490941562416dfbbc9ac28daa5555.png" src="../_images/5474b7049230851c0a68baf7f445098cfc8490941562416dfbbc9ac28daa5555.png" />
-</div>
+<img alt="../_images/a2324e4d24124154628973936d540042857b974c6742a9afd918b7adcbfec919.svg" src="../_images/a2324e4d24124154628973936d540042857b974c6742a9afd918b7adcbfec919.svg" /></div>
 </div>
 <section id="questions">
 <h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
@@ -770,7 +770,7 @@ First, the design matrix:</p>
 </section>
 <section id="regression-with-high-degree-polynomials-and-overfitting">
 <h2>Regression with high-degree polynomials and overfitting<a class="headerlink" href="#regression-with-high-degree-polynomials-and-overfitting" title="Permalink to this heading">#</a></h2>
-<p>What would have happened if we tried to use a higher degree polynomial.
+<p>What would have happened if we tried to use a higher-degree polynomial?
 To achieve this, we need to be able to evaluate a design matrix of the form:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -784,7 +784,7 @@ To achieve this, we need to be able to evaluate a design matrix of the form:</p>
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\rho\)</span> is the degree of the polynomial.
 The linear system we need to solve is the same as before.
-Only the weight vector is now <span class="math notranslate nohighlight">\(\rho + 1\)</span> dimensional and the design matrix <span class="math notranslate nohighlight">\(N\times (\rho + 1)\)</span>.</p>
+The weight vector is <span class="math notranslate nohighlight">\(\rho + 1\)</span> dimensional and the design matrix <span class="math notranslate nohighlight">\(N\times (\rho + 1)\)</span>.</p>
 <p>Let’s write some code to find the design matrix:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -825,13 +825,13 @@ Only the weight vector is now <span class="math notranslate nohighlight">\(\rho 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>w = [-0.543  2.383  2.29  -0.827]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>w = [-0.54336704  2.38275708  2.29024175 -0.82720627]
 </pre></div>
 </div>
 </div>
 </div>
 <p>Let’s visualize the fit.
-Notice, that for making predictions I am evaluating the design matrix on the points I want to make predictions at.</p>
+Notice that for making predictions, I am evaluating the design matrix on the points I want to make predictions at.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make predictions like this:</span>
@@ -848,19 +848,19 @@ Notice, that for making predictions I am evaluating the design matrix on the poi
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_true</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True response surface&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Fitted model&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">rho = </span><span class="si">{</span><span class="n">degree</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/96093cfce0585c74bc02f43c2e353fb985e91025b618f9e8e87c3b3522d2b1cc.png" src="../_images/96093cfce0585c74bc02f43c2e353fb985e91025b618f9e8e87c3b3522d2b1cc.png" />
-</div>
+<img alt="../_images/fde7ac7de7c778362f27a1738f40047f4c7017d650bf2b6fcc933bd9a2fe66bc.svg" src="../_images/fde7ac7de7c778362f27a1738f40047f4c7017d650bf2b6fcc933bd9a2fe66bc.svg" /></div>
 </div>
 </section>
 <section id="id1">
 <h2>Questions<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Start increasing the polynomial degree from 3, to 4, to a number where things get bad… You will soon start <em>overfitting</em>.</p></li>
+<li><p>Start increasing the polynomial degree from 3 to 4 to a number where things get bad. You will soon start <em>overfitting</em>.</p></li>
 </ul>
 </section>
 </section>

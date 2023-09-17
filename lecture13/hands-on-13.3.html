@@ -588,8 +588,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Questions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Example - Motorcycle data with Fourier basis</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-motorcycle-data-with-radial-basis-functions">Example - Motorcycle data with radial basis functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Questions</a></li>
 </ul>
 </li>
 </ul>
@@ -611,12 +611,12 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">urllib.request</span>
@@ -644,7 +644,7 @@ document.write(`
 <section class="tex2jax_ignore mathjax_ignore" id="the-generalized-linear-model">
 <h1>The Generalized Linear Model<a class="headerlink" href="#the-generalized-linear-model" title="Permalink to this heading">#</a></h1>
 <p>Let me now show you the most general form of a linear model.
-It is called the <em>generalize linear model</em>.</p>
+It is called the <em>generalized linear model</em>.</p>
 <p>The form of the generalized linear model is:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -664,7 +664,7 @@ y(\mathbf{x};\mathbf{w}) = \sum_{j=1}^{m} w_{j}\phi_{j}(\mathbf{x}) = \mathbf{w^
 Note that the model is linear in <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> not in <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>, but the basis functions <span class="math notranslate nohighlight">\(\boldsymbol{\phi}(\mathbf{x})\)</span> can be non-linear.</p>
 <section id="the-polynomial-model-as-a-generalized-linear-model">
 <h2>The polynomial model as a generalized linear model<a class="headerlink" href="#the-polynomial-model-as-a-generalized-linear-model" title="Permalink to this heading">#</a></h2>
-<p>We have already seen an example of a generalized linear model when <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> has only one dimension: the polynomial model.
+<p>We have already seen a generalized linear model example when <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> has only one dimension: the polynomial model.
 In the polynomial model, the basis functions are:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -709,7 +709,7 @@ y = w_0 + w_1x_1 + w_2x_2 + \dots w_dx_d.
 </section>
 <section id="other-generalized-linear-models">
 <h2>Other generalized linear models<a class="headerlink" href="#other-generalized-linear-models" title="Permalink to this heading">#</a></h2>
-<p>Some common examples of generalized linear moedls include:</p>
+<p>Some common examples of generalized linear models include:</p>
 <ul class="simple">
 <li><p>Multi-dimensional polynomials,</p></li>
 </ul>
@@ -726,12 +726,13 @@ y = w_0 + w_1x_1 + w_2x_2 + \dots w_dx_d.
 \phi_j(\mathbf{x}) = \exp\left\{-\frac{\parallel \mathbf{x} - \mathbf{x}_j\parallel^2}{2\ell^2}\right\}.
 \]</div>
 <ul class="simple">
-<li><p>Fourier series,
-$<span class="math notranslate nohighlight">\(
-\phi_{2j}(x) = \cos\left(\frac{2j\pi}{L}x\right)\)</span> and <span class="math notranslate nohighlight">\(\phi_{2j+1}(x)=\sin\left(\frac{2j\pi}{L}x\right).
-\)</span>$</p></li>
+<li><p>Fourier series,</p></li>
 </ul>
-<p>We will play with that last two in this section.</p>
+<div class="math notranslate nohighlight">
+\[
+\phi_{2j}(x) = \cos\left(\frac{2j\pi}{L}x\right)\;\text{and}\;\phi_{2j+1}(x)=\sin\left(\frac{2j\pi}{L}x\right).
+\]</div>
+<p>We will play with the last two in this section.</p>
 </section>
 <section id="fitting-the-generalized-linear-model-using-least-squares">
 <h2>Fitting the generalized linear model using least squares<a class="headerlink" href="#fitting-the-generalized-linear-model-using-least-squares" title="Permalink to this heading">#</a></h2>
@@ -753,8 +754,8 @@ $<span class="math notranslate nohighlight">\(
 \[
 \Phi_{ij} = \phi_j(\mathbf{x}_j).
 \]</div>
-<p>So the design matrix is <span class="math notranslate nohighlight">\(N\times M\)</span> where <span class="math notranslate nohighlight">\(N\)</span> is the number of observations and <span class="math notranslate nohighlight">\(M\)</span> is the number of basis functions.
-Furthemore, the <span class="math notranslate nohighlight">\(i\)</span>-th column of the design matrix is the <span class="math notranslate nohighlight">\(i\)</span>-th basis function evaluated at all <span class="math notranslate nohighlight">\(N\)</span> observed inputs.</p>
+<p>So, the design matrix is <span class="math notranslate nohighlight">\(N\times M\)</span> where <span class="math notranslate nohighlight">\(N\)</span> is the number of observations, and <span class="math notranslate nohighlight">\(M\)</span> is the number of basis functions.
+Furthermore, the <span class="math notranslate nohighlight">\(i\)</span>-th column of the design matrix is the <span class="math notranslate nohighlight">\(i\)</span>-th basis function evaluated at all <span class="math notranslate nohighlight">\(N\)</span> observed inputs.</p>
 <p>To minimize the loss function, we follow these steps:</p>
 <ul class="simple">
 <li><p>Take the derivative of <span class="math notranslate nohighlight">\(\mathcal{L}(\mathbf{w})\)</span> with respect to <span class="math notranslate nohighlight">\(\mathbf{w}\)</span>.</p></li>
@@ -767,16 +768,16 @@ Furthemore, the <span class="math notranslate nohighlight">\(i\)</span>-th colum
 \]</div>
 <p>This is mathematically identical to what we had for the linear and polynomial regression!
 The only difference is that we now call the design matrix <span class="math notranslate nohighlight">\(\boldsymbol{\Phi}\)</span> instead of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>.</p>
-<p>To solve this problem, just use:</p>
+<p>To solve this problem, use:</p>
 <blockquote>
 <div><p><a class="reference external" href="http://docs.scipy.org/doc/numpy-1.10.0/reference/generated/numpy.linalg.lstsq.html">numpy.linalg.lstsq</a></p>
 </div></blockquote>
-<p>You give it <span class="math notranslate nohighlight">\(\mathbf{\Phi}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> and it returns the <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> that solves the linear system.</p>
+<p>You give it <span class="math notranslate nohighlight">\(\mathbf{\Phi}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span>, and it returns the <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> that solves the linear system.</p>
 </section>
 <section id="example-motorcycle-data-with-polynomials">
 <h2>Example - Motorcycle data with polynomials<a class="headerlink" href="#example-motorcycle-data-with-polynomials" title="Permalink to this heading">#</a></h2>
-<p>Let’s load the the motorcycle data to demonstrate generalized linear models.
-Just like before, you need to make sure that the data file is in the current working directory of this Jupyter notebook.
+<p>Let’s load the motorcycle data to demonstrate generalized linear models.
+Like before, you need to ensure that the data file is in the current working directory of this Jupyter Notebook.
 The data file is <a class="reference external" href="https://raw.githubusercontent.com/PredictiveScienceLab/data-analytics-se/master/activities/motor.dat">here</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -796,16 +797,16 @@ The data file is <a class="reference external" href="https://raw.githubuserconte
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3b35f7f290b975f52a0cf78a7f6a41f83d8064843873534e64f49a430389a8bf.png" src="../_images/3b35f7f290b975f52a0cf78a7f6a41f83d8064843873534e64f49a430389a8bf.png" />
-</div>
+<img alt="../_images/cae5d616f6ea20ef15fc9b9854e6554768612fd64d86dd325f45e470325f6390.svg" src="../_images/cae5d616f6ea20ef15fc9b9854e6554768612fd64d86dd325f45e470325f6390.svg" /></div>
 </div>
 <p>Let’s start with polynomial regression.
-We just need to write code that calculates the design matrix.
+We need to write code that calculates the design matrix.
 Here is the code from the previous section:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -861,13 +862,13 @@ Here is the code from the previous section:</p>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">Phi_xx</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\phi_i(x)$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3ad465838784c785f484cc02e616fa1393325b0b6733d5000f5ff3e4e62ba8f4.png" src="../_images/3ad465838784c785f484cc02e616fa1393325b0b6733d5000f5ff3e4e62ba8f4.png" />
-</div>
+<img alt="../_images/bc1c0cc54f290c8223deb2352408acb2729403f6864cbab177d47092cfd74ee7.svg" src="../_images/bc1c0cc54f290c8223deb2352408acb2729403f6864cbab177d47092cfd74ee7.svg" /></div>
 </div>
 <p>Let’s now solve the least squares problem:</p>
 <div class="cell docutils container">
@@ -888,18 +889,18 @@ Here is the code from the previous section:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">Y_p</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;LS Prediction (Polynomial Basis)&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f47f68f5d9ecce8e57b6685a2ae10498aa2273ecd3580e78eb85341f6c9068f6.png" src="../_images/f47f68f5d9ecce8e57b6685a2ae10498aa2273ecd3580e78eb85341f6c9068f6.png" />
-</div>
+<img alt="../_images/b63169c6ab1bab3cb25aa73ca6d89e604ffe18e5600deeac57d20c5871fd6c9b.svg" src="../_images/b63169c6ab1bab3cb25aa73ca6d89e604ffe18e5600deeac57d20c5871fd6c9b.svg" /></div>
 </div>
 <section id="questions">
 <h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Experiment with polynomials of degree 4, 5, 10, 20</p></li>
+<li><p>Experiment with polynomials of degrees 4, 5, 10, 20</p></li>
 <li><p>When are we underfitting?</p></li>
 <li><p>When are we overfitting?</p></li>
 <li><p>Which degree (if any) gives you the best fit?</p></li>
@@ -908,7 +909,7 @@ Here is the code from the previous section:</p>
 </section>
 <section id="example-motorcycle-data-with-fourier-basis">
 <h2>Example - Motorcycle data with Fourier basis<a class="headerlink" href="#example-motorcycle-data-with-fourier-basis" title="Permalink to this heading">#</a></h2>
-<p>Let’s now repeat what we did with polynomial regression with a Fourier basis.
+<p>Let’s repeat what we did with polynomial regression with a Fourier basis.
 The mathematical form of the basis is:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -956,13 +957,13 @@ First, we write code that computes the design matrix for the new basis:</p>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">Phi_xx</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\phi_i(x)$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b899d451a4274989fb821f8d1bd0f112cf0f9775bfc3183255957e51ef11dc57.png" src="../_images/b899d451a4274989fb821f8d1bd0f112cf0f9775bfc3183255957e51ef11dc57.png" />
-</div>
+<img alt="../_images/a65b3b11aae1fb71a7d67eca84f6766e1d80656c3c01886e23563a4a0cd288a7.svg" src="../_images/a65b3b11aae1fb71a7d67eca84f6766e1d80656c3c01886e23563a4a0cd288a7.svg" /></div>
 </div>
 <p>Let’s now solve the least squares problem:</p>
 <div class="cell docutils container">
@@ -984,26 +985,26 @@ First, we write code that computes the design matrix for the new basis:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">Y_p</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;LS Prediction (Fourier Basis)&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f17fb2207efaf1b734bc405b8fe4f91fdc945a55757225194bd89ee9c5ad2f0c.png" src="../_images/f17fb2207efaf1b734bc405b8fe4f91fdc945a55757225194bd89ee9c5ad2f0c.png" />
-</div>
+<img alt="../_images/de073e720d3950ec9d3164e33a11d58e28cdc05e8ab89b734402b38d49e9cf91.svg" src="../_images/de073e720d3950ec9d3164e33a11d58e28cdc05e8ab89b734402b38d49e9cf91.svg" /></div>
 </div>
 <section id="id1">
 <h3>Questions<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Experiment with 4, 10, 20, 40, terms.</p></li>
+<li><p>Experiment with 4, 10, 20, 40 terms.</p></li>
 <li><p>When are we underfitting?</p></li>
 <li><p>When are we overfitting?</p></li>
 <li><p>Which one (if any) gives you the best fit?</p></li>
 </ul>
 </section>
 </section>
-<section id="id2">
-<h2>Example - Motorcycle data with Fourier basis<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<section id="example-motorcycle-data-with-radial-basis-functions">
+<h2>Example - Motorcycle data with radial basis functions<a class="headerlink" href="#example-motorcycle-data-with-radial-basis-functions" title="Permalink to this heading">#</a></h2>
 <p>Let’s now try out the radial basis functions.
 The mathematical form is:</p>
 <div class="math notranslate nohighlight">
@@ -1047,13 +1048,13 @@ We start with the code that evaluates the design matrix:</p>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">Phi_xx</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\phi_i(x)$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/23f772ab9581b39184e83afaf486e5348be0b6270776a340b7dd9e0e82fe2adc.png" src="../_images/23f772ab9581b39184e83afaf486e5348be0b6270776a340b7dd9e0e82fe2adc.png" />
-</div>
+<img alt="../_images/bd49428b498eb4e42f9559a31a8a5164f1fb526d382fe80ae165f2444f328816.svg" src="../_images/bd49428b498eb4e42f9559a31a8a5164f1fb526d382fe80ae165f2444f328816.svg" /></div>
 </div>
 <p>Now let’s solve the least squares problem with this basis:</p>
 <div class="cell docutils container">
@@ -1073,18 +1074,18 @@ We start with the code that evaluates the design matrix:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">Y_p</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;LS Prediction (Radial Basis Functions)&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a56812db6512ba1b1d9e100a4872f4eb25ebe4f3e12cbac5660e2bf505fa5713.png" src="../_images/a56812db6512ba1b1d9e100a4872f4eb25ebe4f3e12cbac5660e2bf505fa5713.png" />
+<img alt="../_images/40d906d1932d5f5d11346fcafcee0526823e2577607f9efb17d0ea9265b0b235.svg" src="../_images/40d906d1932d5f5d11346fcafcee0526823e2577607f9efb17d0ea9265b0b235.svg" /></div>
 </div>
-</div>
-<section id="id3">
-<h3>Questions<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<section id="id2">
+<h3>Questions<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Experiment with different values of ell and centers.</p></li>
+<li><p>Experiment with different values of <span class="math notranslate nohighlight">\(\ell\)</span> and centers.</p></li>
 <li><p>When are we underfitting?</p></li>
 <li><p>Which one (if any) gives you the best fit?</p></li>
 </ul>
@@ -1171,8 +1172,8 @@ We start with the code that evaluates the design matrix:</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Questions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Example - Motorcycle data with Fourier basis</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-motorcycle-data-with-radial-basis-functions">Example - Motorcycle data with radial basis functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Questions</a></li>
 </ul>
 </li>
 </ul>

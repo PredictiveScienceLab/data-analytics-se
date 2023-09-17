@@ -607,12 +607,12 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">urllib.request</span>
@@ -642,18 +642,17 @@ document.write(`
 <section id="training-and-test-datasets">
 <h2>Training and test datasets<a class="headerlink" href="#training-and-test-datasets" title="Permalink to this heading">#</a></h2>
 <p>You cannot test how good your model is using the training dataset.
-Whatever the metric you use, the performance of your model on the training dataset will always be quite good.
-This is because the model is tuned to do well on the training data.
-The real question is how well your model does on a dataset it has never see.
+Whatever the metric you use, your model’s performance on the training dataset will always be quite good.
+The model is tuned to do well on the training data.
+The real question is how well your model does on a dataset it has never seen.
 This brings us to the concept of a <em>test dataset</em>.
 How can you make a test dataset?
 Well, take whatever data you have and split them into training and test datasets.
 For example, you can randomly select 70% of your data and put it in your training set and 30% of the data and put it in your test set.</p>
-<p>Let’s do this for the motorcyle dataset:</p>
+<p>Let’s do this for the motorcycle dataset:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Change the link</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/PredictiveScienceLab/data-analytics-se/raw/master/lecturebook/data/motor.dat&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/PredictiveScienceLab/data-analytics-se/raw/master/lecturebook/data/motor.dat&quot;</span>
 <span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;motor.dat&#39;</span><span class="p">)</span>
 
@@ -663,7 +662,7 @@ For example, you can randomly select 70% of your data and put it in your trainin
 </div>
 </div>
 </div>
-<p>We are going to use the functionality of the Python library <a class="reference external" href="https://scikit-learn.org/stable/">scikitlearn</a> to split our dataset in to training and test.</p>
+<p>We are going to use the functionality of the Python library <a class="reference external" href="https://scikit-learn.org/stable/">scikitlearn</a> to split our dataset into training and testing.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
@@ -689,14 +688,14 @@ For example, you can randomly select 70% of your data and put it in your trainin
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test data&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (ms)&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Acceleration (g)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/bdce52463563c44532a28e37b7fb860b0d0dddd9a2d84abb7810c9f75b19696d.png" src="../_images/bdce52463563c44532a28e37b7fb860b0d0dddd9a2d84abb7810c9f75b19696d.png" />
-</div>
+<img alt="../_images/bd4b6b8d27f0ad827fcae894f4a2318288bebcfbd6abbf18521a0193f5a73d2c.svg" src="../_images/bd4b6b8d27f0ad827fcae894f4a2318288bebcfbd6abbf18521a0193f5a73d2c.svg" /></div>
 </div>
 </section>
 <section id="fit-the-model-on-the-training-set">
@@ -784,8 +783,7 @@ For example, you can randomly select 70% of your data and put it in your trainin
 </div>
 </div>
 </div>
-<p>Because this is a nice 1D problem, you have the luxury of plotting your fitting model and comparing it to the test data.
-Here it is:</p>
+<p>Let’s compare to the data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
@@ -799,20 +797,20 @@ Here it is:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_predict</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Prediction&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (ms)&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Acceleration (g)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b1b3f698070b9ce08ea118dbad896846d46d2bf6519ffae583987d9f51b46935.png" src="../_images/b1b3f698070b9ce08ea118dbad896846d46d2bf6519ffae583987d9f51b46935.png" />
-</div>
+<img alt="../_images/cf5910c6ff69ff6b2cbdd2bc72568984ae501aecaf9bc23b7863141188e58b88.svg" src="../_images/cf5910c6ff69ff6b2cbdd2bc72568984ae501aecaf9bc23b7863141188e58b88.svg" /></div>
 </div>
 </section>
 <section id="test-the-model-with-the-test-set-the-predictions-vs-observations-plot">
 <h2>Test the model with the test set: The predictions-vs-observations plot<a class="headerlink" href="#test-the-model-with-the-test-set-the-predictions-vs-observations-plot" title="Permalink to this heading">#</a></h2>
-<p>As you can imagine, this is not something that you can do if the input has more than two dimensions.
-What do you do in that case?
-A very nice plot you can do is the predictions-vs-observations plot for the test data.
+<p>As you can imagine, you can only do this if the input has less than two dimensions.
+In higher dimensions, we typically do the predictions-vs-observations plot for the test data.
+We also call it the parity plot.
 Here is how it looks:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -828,25 +826,25 @@ Here is how it looks:</p>
 <span class="n">yys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_test</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yys</span><span class="p">,</span> <span class="n">yys</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">);</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Predictions&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Observations&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Observations&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/543464d33e791c68ed51360ee99d514e0117c62a6d2ede431b27a1f6820d2323.png" src="../_images/543464d33e791c68ed51360ee99d514e0117c62a6d2ede431b27a1f6820d2323.png" />
+<img alt="../_images/9bd7a311aaad520d7440eb36ee48cd0999dcc1ea9600a40b4e7477c222f977b4.svg" src="../_images/9bd7a311aaad520d7440eb36ee48cd0999dcc1ea9600a40b4e7477c222f977b4.svg" /></div>
 </div>
-</div>
-<p>Notice that in this plot I have included a red line that goes through the origin at has a 45 degree angle with the x-axis.
+<p>Notice that I have included a red line that goes through the origin at a 45-degree angle with the x-axis in this plot.
 This red line marks the perfect fit, i.e., a perfect agreement between the predictions and the observations.
 In other words, the closer the blue dots get to the red line, the better the model.</p>
 </section>
 <section id="the-mean-squared-error">
 <h2>The mean squared error<a class="headerlink" href="#the-mean-squared-error" title="Permalink to this heading">#</a></h2>
-<p>The predictions-vs-observations plot is nice.
-But sometimes you just want to characterize your model using a number.
-The mean squared error or (MSE) is such a scalar measure of the goodness of fit.
+<p>The predictions-vs-observations plot is excellent.
+But sometimes, you want to characterize your model using a number.
+The mean squared error (MSE) is a scalar measure of the goodness of fit.
 The MSE is the <em>mean</em> of the <em>sum</em> of the <em>square</em> of the <em>prediction error</em> over your test data.
-If we assume that you have <span class="math notranslate nohighlight">\(N_t\)</span> test data points with inputs <span class="math notranslate nohighlight">\(x_{t,i}\)</span> and outputs <span class="math notranslate nohighlight">\(y_{t,i}\)</span>, the the MSE of your model is given by the formula:</p>
+If we assume that you have <span class="math notranslate nohighlight">\(N_t\)</span> test data points with inputs <span class="math notranslate nohighlight">\(x_{t,i}\)</span> and outputs <span class="math notranslate nohighlight">\(y_{t,i}\)</span>, the MSE of your model is:</p>
 <div class="math notranslate nohighlight">
 \[
 \text{MSE} = \frac{\sum_{i=1}^{N_t}\left[y_{t,i} - \mathbf{w}^T\boldsymbol{\phi}(x_{t,i})\right]^2}{N_t}.
@@ -865,20 +863,20 @@ If we assume that you have <span class="math notranslate nohighlight">\(N_t\)</s
 </div>
 </div>
 </div>
-<p>Now, it is obvious that smaller MSE means better model.
-But it is a bit hard to understand the absolute meaning of the MSE.
-So, some times we look at the relative MSE or (RMSE).
+<p>Now, it is evident that a smaller MSE means a better model.
+However, it is hard to understand the absolute meaning of the MSE.
+So, sometimes, we look at the relative MSE or (RMSE).
 RMSE is the MSE of your model divided by the MSE of the simplest possible model you could make.
-Okay. What is the simplest possible model you could make?
+Okay. What is the simplest viable model you could make?
 It is a constant model.
 A model that predicts the same value for the output <span class="math notranslate nohighlight">\(y\)</span> no matter what the input <span class="math notranslate nohighlight">\(x\)</span> is.
-So, mathematically the model is:</p>
+So, mathematically, the model is:</p>
 <div class="math notranslate nohighlight">
 \[
 y_{\text{simplest}} = c,
 \]</div>
 <p>for some constant <span class="math notranslate nohighlight">\(c\)</span>. What is the best such constant?
-Well, you can fit it by minimizing the sum of square errors for this simple model.
+You can fit it by minimizing the sum of square errors for this simple model.
 If you do it, you will get, very intuitively, that the constant should be the empirical average of your training data, i.e.,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -897,10 +895,11 @@ y_{\text{simplest}} = \hat{\mu} = \frac{1}{N}\sum_{i=1}^Ny_i.
 <p>Now, RMSE has an intuitive meaning.
 If it is smaller than one, then this means that your model is doing something better than the simplest possible model.
 And the smaller it is, the better you do compared to the simplest model.
-If the RMSE is greater than one, then your model is really really bad…</p>
+If the RMSE exceeds one, your model could be better…</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Sometimes the acronym RMSE is used for the root mean square error which is just the square root of the MSE.</p>
+<p>Sometimes, the acronym RMSE is used for the root mean square error, which is just the square root of the MSE.
+Make sure you know which one you are using.</p>
 </div>
 <p>Let’s find the RMSE for our case:</p>
 <div class="cell docutils container">
@@ -928,8 +927,8 @@ RMSE_poly = 0.65
 \[
 R^2 = 1 - \text{RMSE} = 1 - \frac{\sum_{i=1}^{N_t}\left[y_{t,i} - \mathbf{w}^T\boldsymbol{\phi}(x_{t,i})\right]^2}{\sum_{i=1}^{N_t}\left(y_{t,i} - \hat{\mu}\right)^2}.
 \]</div>
-<p>This measure is telling you how much of the percentage of the variance of the test data is explained by your model.
-So, here you want to get as close to one as possible.</p>
+<p>This measure tells you how much of the percentage of the variance of the test data is explained by your model.
+So, you want to get as close to one as possible here.</p>
 <p>Let’s see what we get in our case:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -944,23 +943,23 @@ So, here you want to get as close to one as possible.</p>
 </div>
 </div>
 </div>
-<p>So, in this example our model explains about 23% of the variance of the test data?
+<p>So, in this example, our model explains about 23% of the variance of the test data.
 What is the rest?
-Well, the rest explained by the measurement noise variance…</p>
+Well, the rest is explained by the measurement noise variance.</p>
 <section id="questions">
 <h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Experiment with polynomials of degree 4, 5, 10, 20</p></li>
+<li><p>Experiment with polynomials of degrees 4, 5, 10, and 20.</p></li>
 <li><p>When are we underfitting?</p></li>
 <li><p>When are we overfitting?</p></li>
 <li><p>Which degree (if any) gives you the best fit?</p></li>
-<li><p>Use the code blocks below to repeat this analysis for the Fourier basis and the radial basis functions. Which choice of the three basis functions seems to be better? Why?</p></li>
+<li><p>Use the code blocks below to repeat this analysis for the Fourier and radial basis functions. Which choice of the three basis functions is better? Why?</p></li>
 </ul>
 </section>
 </section>
 <section id="example-repeat-the-fitting-using-fourier-features">
 <h2>Example: Repeat the fitting using Fourier features<a class="headerlink" href="#example-repeat-the-fitting-using-fourier-features" title="Permalink to this heading">#</a></h2>
-<p>Below, I train a model on the same dataset but using Fourier features instead of polynomials.
+<p>Below, I train a model on the same dataset using Fourier features instead of polynomials.
 Let’s see what we get.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1003,14 +1002,14 @@ Let’s see what we get.</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_predict</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Prediction&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (ms)&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Acceleration (g)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/98ae3a134c66ca674d8081a28df6b3459e255ffa4e76ff1ddb3501503699d676.png" src="../_images/98ae3a134c66ca674d8081a28df6b3459e255ffa4e76ff1ddb3501503699d676.png" />
-</div>
+<img alt="../_images/2ca9a511c6274d3dd91bd4ea0b806450efa6189bf50fbdc61c0d779f3155c4f6.svg" src="../_images/2ca9a511c6274d3dd91bd4ea0b806450efa6189bf50fbdc61c0d779f3155c4f6.svg" /></div>
 </div>
 <p>And here is the predictions-vs-observations plot:</p>
 <div class="cell tag_hide-input docutils container">
@@ -1035,14 +1034,14 @@ Let’s see what we get.</p>
 <span class="n">yys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_test</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yys</span><span class="p">,</span> <span class="n">yys</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">);</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Predictions&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Observations&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Observations&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/1c3ea8d9b8ffb564efbc0cca3a5387b857bd13663eca4fa7f44cc1bfd4dd29e1.png" src="../_images/1c3ea8d9b8ffb564efbc0cca3a5387b857bd13663eca4fa7f44cc1bfd4dd29e1.png" />
-</div>
+<img alt="../_images/dfdf02d6a038660a47890254964335ab06a9337121923fc59f8e04d0447f3ef4.svg" src="../_images/dfdf02d6a038660a47890254964335ab06a9337121923fc59f8e04d0447f3ef4.svg" /></div>
 </div>
 <p>And the error metrics we developed:</p>
 <div class="cell docutils container">
@@ -1065,8 +1064,8 @@ R2 = 0.74
 </div>
 </div>
 </div>
-<p>You see that this does much much better than the polynomial model by all measures.
-In particular, R2 is telling us that 81% of the variance of the test data is explained by our model.</p>
+<p>You see that this does much, much better than the polynomial model by all measures.
+In particular, R2 tells us that our model explains 81% of the variance of the test data.</p>
 <section id="id1">
 <h3>Questions<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
