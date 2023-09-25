@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,9 +38,8 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -79,15 +78,6 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
-
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -547,10 +537,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
 `);
 </script>
@@ -558,7 +548,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
 `);
 </script>
@@ -617,26 +607,24 @@ document.write(`
 <h1>Bayesian Linear Regression<a class="headerlink" href="#bayesian-linear-regression" title="Permalink to this heading">#</a></h1>
 <section id="probabilistic-regression-i-maximum-likelihood">
 <h2>Probabilistic regression I (maximum likelihood)<a class="headerlink" href="#probabilistic-regression-i-maximum-likelihood" title="Permalink to this heading">#</a></h2>
-<p>I will now show you how to derive least squares from the <a class="reference external" href="https://purduemechanicalengineering.github.io/me-297-intro-to-data-science/lecture13/the-maximum-likelihood-principle.html">maximum likelihood principle</a>.
+<p>I will show you how to derive least squares from the <a class="reference internal" href="../lecture12/reading-12.html#maximum-likelihood-principle"><span class="std std-ref">maximum likelihood principle</span></a>.
 Recall that the maximum likelihood principle states that you should pick the model parameters that maximize the probability of the data conditioned on the parameters.</p>
-<p>Just like before assume that we have <span class="math notranslate nohighlight">\(N\)</span> observations of inputs <span class="math notranslate nohighlight">\(\mathbf{x}_{1:N}\)</span> and outputs <span class="math notranslate nohighlight">\(\mathbf{y}_{1:N}\)</span>.
-We model the map between inputs and outputs using a generalized linear model with <span class="math notranslate nohighlight">\(M\)</span> basis functions:</p>
+<p>Just like before assume that we have <span class="math notranslate nohighlight">\(n\)</span> observations of inputs <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}\)</span> and outputs <span class="math notranslate nohighlight">\(\mathbf{y}_{1:n}\)</span>.
+We model the map between inputs and outputs using a generalized linear model with <span class="math notranslate nohighlight">\(m\)</span> basis functions:</p>
 <div class="math notranslate nohighlight">
 \[
-y(\mathbf{x};\mathbf{w}) = \sum_{j=1}^{M} w_{j}\phi_{j}(\mathbf{x}) = \mathbf{w}^T\boldsymbol{\phi}(\mathbf{x})
+y(\mathbf{x};\mathbf{w}) = \sum_{j=1}^{m} w_{j}\phi_{j}(\mathbf{x}) = \mathbf{w}^T\boldsymbol{\phi}(\mathbf{x})
 \]</div>
 <p>Now, here is the difference from what we did before.
 Instead of directly picking a loss function to minimize, we develop a probabilistic description of the measurement process.
 In particular, we <em>model the measurement process</em> using a <strong>likelihood</strong> function:</p>
 <div class="math notranslate nohighlight">
 \[
-\mathbf{y}_{1:N} | \mathbf{x}_{1:N}, \mathbf{w} \sim p(\mathbf{y}_{1:N}|\mathbf{x}_{1:N}, \mathbf{w}).
+\mathbf{y}_{1:n} | \mathbf{x}_{1:n}, \mathbf{w} \sim p(\mathbf{y}_{1:n}|\mathbf{x}_{1:n}, \mathbf{w}).
 \]</div>
 <p>What is the interpretation of the likelihood function?
-Well, <span class="math notranslate nohighlight">\(p(\mathbf{y}_{1:N} | \mathbf{x}_{1:N}, \mathbf{w})\)</span> tells us how plausible is it to observe <span class="math notranslate nohighlight">\(\mathbf{y}_{1:N}\)</span> at inputs <span class="math notranslate nohighlight">\(\mathbf{x}_{1:N}\)</span>, if we know that the model parameters are <span class="math notranslate nohighlight">\(\mathbf{w}\)</span>.</p>
-<p>The most common choice for the likelihood of a single measurement is to pick it to be Normal.
-This corresponds to the belief that our measurement is around the model prediction <span class="math notranslate nohighlight">\(\mathbf{w^{T}\boldsymbol{\phi}(\mathbf{x})}\)</span>
-but it is contaminated with Gaussian noise of variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.
+Well, <span class="math notranslate nohighlight">\(p(\mathbf{y}_{1:n} | \mathbf{x}_{1:n}, \mathbf{w})\)</span> tells us how plausible is it to observe <span class="math notranslate nohighlight">\(\mathbf{y}_{1:n}\)</span> at inputs <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}\)</span>, if we know that the model parameters are <span class="math notranslate nohighlight">\(\mathbf{w}\)</span>.</p>
+<p>The most common choice for the likelihood of a single measurement is to pick it to be Gaussian with mean around the model prediction <span class="math notranslate nohighlight">\(\mathbf{w^{T}\boldsymbol{\phi}(\mathbf{x})}\)</span> and noise variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.
 Mathematically, we have:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -651,56 +639,55 @@ Note that here I used the notation <span class="math notranslate nohighlight">\(
 \[
 N(y|\mu,\sigma^2) := (2\pi\sigma^2)^{-\frac{1}{2}}\exp\left\{-\frac{(y-\mu)^2}{2\sigma^2}\right\}.
 \]</div>
-<p>Since in almost all the cases we encounter, the measurements are independent conditioned on the model, the likelihood of the data factorizes as follows:</p>
+<p>Since in almost all the cases we encounter, the measurements are independent when conditioned on the model, the likelihood of the data factorizes as follows:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{split}
-p(\mathbf{y}_{1:N}|\mathbf{x}_{1:N}, \mathbf{w}) &amp;= \prod_{i=1}^Np(y_i|\mathbf{x}_i, \mathbf{w})\\
-&amp;= \prod_{i=1}^NN\left(y_i | \mathbf{w^{T}\boldsymbol{\phi}(\mathbf{x}_i)}, \sigma^2\right)\\
-&amp;= \prod_{i=1}^N(2\pi\sigma^2)^{-\frac{1}{2}}\exp\left\{-\frac{\left[y_i-\mathbf{w}^{T}\boldsymbol{\phi}(\mathbf{x}_i)\right]^2}{2\sigma^2}\right\}\\
-&amp;= (2\pi\sigma^2)^{-\frac{N}{2}}\exp\left\{-\sum_{i=1}^N\frac{\left[y_i-\mathbf{w}^{T}\boldsymbol{\phi}(\mathbf{x}_i)\right]^2}{2\sigma^2}\right\}\\
-&amp;= (2\pi\sigma^2)^{-\frac{N}{2}}\exp\left\{-\frac{1}{2\sigma^2}\sum_{i=1}^N\left[y_i-\mathbf{w}^{T}\boldsymbol{\phi}(\mathbf{x}_i)\right]^2\right\}\\
-&amp;= (2\pi\sigma^2)^{-\frac{N}{2}}\exp\left\{-\frac{1}{2\sigma^2}\parallel \mathbf{y}_{1:N}-\boldsymbol{\Phi}\mathbf{w}\parallel^2\right\},
+p(\mathbf{y}_{1:n}|\mathbf{x}_{1:n}, \mathbf{w}) &amp;= \prod_{i=1}^np(y_i|\mathbf{x}_i, \mathbf{w})\\
+&amp;= \prod_{i=1}^nN\left(y_i | \mathbf{w^{T}\boldsymbol{\phi}(\mathbf{x}_i)}, \sigma^2\right)\\
+&amp;= \prod_{i=1}^n(2\pi\sigma^2)^{-\frac{1}{2}}\exp\left\{-\frac{\left[y_i-\mathbf{w}^{T}\boldsymbol{\phi}(\mathbf{x}_i)\right]^2}{2\sigma^2}\right\}\\
+&amp;= (2\pi\sigma^2)^{-\frac{n}{2}}\exp\left\{-\sum_{i=1}^N\frac{\left[y_i-\mathbf{w}^{T}\boldsymbol{\phi}(\mathbf{x}_i)\right]^2}{2\sigma^2}\right\}\\
+&amp;= (2\pi\sigma^2)^{-\frac{n}{2}}\exp\left\{-\frac{1}{2\sigma^2}\sum_{i=1}^n\left[y_i-\mathbf{w}^{T}\boldsymbol{\phi}(\mathbf{x}_i)\right]^2\right\}\\
+&amp;= (2\pi\sigma^2)^{-\frac{n}{2}}\exp\left\{-\frac{1}{2\sigma^2}\parallel \mathbf{y}_{1:n}-\boldsymbol{\Phi}\mathbf{w}\parallel^2\right\},
 \end{split}
 \end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\boldsymbol{\Phi}\)</span> is the <span class="math notranslate nohighlight">\(N\times M\)</span> design matrix.</p>
-<p>We can apply the maximum likelihood function to find all the parameters.
-This includes both the weight vector <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> and the measurement variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.
-We need to solve this:</p>
+<p>where <span class="math notranslate nohighlight">\(\boldsymbol{\Phi}\)</span> is the <span class="math notranslate nohighlight">\(n\times m\)</span> design matrix.</p>
+<p>We can apply the maximum likelihood principle to find all the parameters.
+We can do this for the weight vector <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> and the measurement variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.
+We need to solve the following optimization problem:</p>
 <div class="math notranslate nohighlight">
 \[
-\max_{\mathbf{w},\sigma^2}\log p(\mathbf{y}_{1:N}|\mathbf{x}_{1:N}, \mathbf{w}) =
+\max_{\mathbf{w},\sigma^2}\log p(\mathbf{y}_{1:n}|\mathbf{x}_{1:n}, \mathbf{w}) =
 \max_{\mathbf{w},\sigma^2}\left\{
--\frac{N}{2}\log (2\pi) - \frac{N}{2}\log \sigma^2 -\frac{1}{2\sigma^2}\parallel \mathbf{y}_{1:N}-\boldsymbol{\Phi}\mathbf{w}\parallel^2
+-\frac{n}{2}\log (2\pi) - \frac{n}{2}\log \sigma^2 -\frac{1}{2\sigma^2}\parallel \mathbf{y}_{1:n}-\boldsymbol{\Phi}\mathbf{w}\parallel^2
  \right\}
 \]</div>
 <p>Notice that the rightmost part is the negative of the sum of square errors.
 So, by maximizing the likelihood with respect to <span class="math notranslate nohighlight">\(\mathbf{w}\)</span>, we are minimizing the sum of square errors.
-This means the maximum likelihood and the least square weights are the same!
+In other words,  the maximum likelihood and the least square weights are the same!
 We do not even have to do anything further.
 The weights should satisfy this linear system:</p>
 <div class="math notranslate nohighlight">
 \[
-\boldsymbol{\Phi}^T\boldsymbol{\Phi}\mathbf{w} = \boldsymbol{\Phi}^T\mathbf{y}_{1:N}.
+\boldsymbol{\Phi}^T\boldsymbol{\Phi}\mathbf{w} = \boldsymbol{\Phi}^T\mathbf{y}_{1:n}.
 \]</div>
-<p>This is nice.
+<p>This result is reassuring.
 The probabilistic interpretation above gives the same solution as least squares!
 But there is more.
 Notice that it can also give us an estimate for the measurement noise variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.
 All you have to do is maximize likelihood with respect to <span class="math notranslate nohighlight">\(\sigma^2\)</span>.
-If we take the derivative of the log-likelihood with respect to <span class="math notranslate nohighlight">\(\sigma^2\)</span>, set it equal to zero and solve for <span class="math notranslate nohighlight">\(\sigma^2\)</span> you get:</p>
+If we take the derivative of the log-likelihood with respect to <span class="math notranslate nohighlight">\(\sigma^2\)</span>, set it equal to zero, and solve for <span class="math notranslate nohighlight">\(\sigma^2\)</span>, we get:</p>
 <div class="math notranslate nohighlight">
 \[
-\sigma^2 = \frac{\parallel\mathbf{\Phi}\mathbf{w} - \mathbf{y}_{1:N}\parallel^2}{N}.
+\sigma^2 = \frac{\parallel\mathbf{\Phi}\mathbf{w} - \mathbf{y}_{1:n}\parallel^2}{n}.
 \]</div>
 <p>Finally, you can incorporate this measurement uncertainty when you are making predictions.
-This is done through the <strong>point predictive distribution</strong>, which is Normal in our case:</p>
+We do this through the <strong>point predictive distribution</strong>, which is Gaussian in our case:</p>
 <div class="math notranslate nohighlight">
 \[
-p(y|\mathbf{x}, \mathbf{w}, \sigma^2) =
-\mathcal{N}\left(y\middle|\mathbf{w}^T\mathbf{\phi}(\mathbf{x}), \sigma^2\right).
+p(y|\mathbf{x}, \mathbf{w}, \sigma^2) = N\left(y\middle|\mathbf{w}^T\mathbf{\phi}(\mathbf{x}), \sigma^2\right).
 \]</div>
-<p>In other words, your prediction about the measured output <span class="math notranslate nohighlight">\(y\)</span> is that it will be Normally distributed around your model prediction with a variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.
+<p>In other words, your prediction about the measured output <span class="math notranslate nohighlight">\(y\)</span> is that it is Normally distributed around your model prediction with a variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.
 You can use this to find a 95% credible interval.</p>
 <section id="examples">
 <h3>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">#</a></h3>
@@ -733,7 +720,7 @@ y(\mathbf{x};\mathbf{w}) = \sum_{j=1}^{m} w_{j}\phi_{j}(\mathbf{x}) = \mathbf{w^
 It is:</p>
 <div class="math notranslate nohighlight">
 \[
-p(\mathbf{w}|\alpha) = \mathcal{N}\left(\mathbf{w}|\mathbf{0},\alpha^{-1}\mathbf{I}\right) = 
+p(\mathbf{w}|\alpha) = N\left(\mathbf{w}|\mathbf{0},\alpha^{-1}\mathbf{I}\right) = 
 \left(\frac{\alpha}{2\pi}\right)^{\frac{m}{2}}\exp\left\{-\frac{\alpha}{2}\lVert\mathbf{w}\rVert^2\right\}.
 \]</div>
 <p>The interpretation is that, before we see the data, we believe that <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> must be around zero with a precision of <span class="math notranslate nohighlight">\(\alpha\)</span>.
@@ -745,7 +732,7 @@ The bigger the precision parameter <span class="math notranslate nohighlight">\(
 <p>Let’s visualize the regression model as a graph.
 Remember that the shaded nodes are assumed to be observed (so below, we assume that we know <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>).
 Another thing to observe is that the nodes inside the box are repeated as many times as indicated.
-This is the so-called <a class="reference external" href="https://en.wikipedia.org/wiki/Plate_notation">plate notation</a> for graphical models, and it saves from the trouble of drawing <span class="math notranslate nohighlight">\(n\)</span> input-output nodes.</p>
+Recall that we are using the <a class="reference external" href="https://en.wikipedia.org/wiki/Plate_notation">plate notation</a> for graphical models, and it saves from the trouble of drawing <span class="math notranslate nohighlight">\(n\)</span> input-output nodes.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -807,7 +794,7 @@ if we know <span class="math notranslate nohighlight">\(\alpha\)</span> and <spa
 \[
 \mathbf{w}_{\text{MPE}} = \sigma^{-2}\left(\sigma^{-2}\mathbf{\Phi}^T\mathbf{\Phi}+\alpha\mathbf{I}\right)^{-1}\mathbf{\Phi}^T\mathbf{y}_{1:n}.
 \]</div>
-<p>Unfortunately, we no longer have an analytic formula for <span class="math notranslate nohighlight">\(\sigma\)</span>… (we will fix that later).</p>
+<p>Unfortunately, we no longer have an analytic formula for <span class="math notranslate nohighlight">\(\sigma\)</span> (we will fix that later).</p>
 </section>
 <section id="id1">
 <h3>Examples<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
@@ -816,13 +803,13 @@ if we know <span class="math notranslate nohighlight">\(\alpha\)</span> and <spa
 </section>
 <section id="probabilistic-regression-iii-bayesian-linear-regression">
 <h2>Probabilistic regression III (Bayesian linear regression)<a class="headerlink" href="#probabilistic-regression-iii-bayesian-linear-regression" title="Permalink to this heading">#</a></h2>
-<p>This has the same setup as version III of probabilistic regression, but we do not get a point estimate for the weights.
+<p>This type of regression has the same setup as version III of probabilistic regression, but we do not get a point estimate for the weights.
 We retain the posterior of the weights in its full complexity.
-The addendum is that we can now quantify the epistemic uncertainty induced by the limited number of observations used to estimate the weights.</p>
+The benefit is that we can now quantify the epistemic uncertainty induced by the limited number of observations used to estimate the weights.</p>
 <p>For Gaussian likelihood and weight prior, the posterior of the weights is Gaussian:</p>
 <div class="math notranslate nohighlight">
 \[
-p(\mathbf{w}|\mathbf{x}_{1:n},\mathbf{y}_{1:n}, \sigma, \alpha) = \mathcal{N}\left(\mathbf{w}|\mathbf{m}, \mathbf{S}\right),
+p(\mathbf{w}|\mathbf{x}_{1:n},\mathbf{y}_{1:n}, \sigma, \alpha) = N\left(\mathbf{w}|\mathbf{m}, \mathbf{S}\right),
 \]</div>
 <p>where</p>
 <div class="math notranslate nohighlight">
@@ -847,7 +834,7 @@ p(y|\mathbf{x}, \mathbf{x}_{1:n}, \mathbf{y}_{1:n}, \sigma, \alpha) =
 <p>For the all-Gaussian case, this is analytically available:</p>
 <div class="math notranslate nohighlight">
 \[
-p(y|\mathbf{x}, \mathbf{x}_{1:n}, \mathbf{y}_{1:n}, \sigma, \alpha) = \mathcal{N}\left(y|m(\mathbf{x}), s^2(\mathbf{x})\right),
+p(y|\mathbf{x}, \mathbf{x}_{1:n}, \mathbf{y}_{1:n}, \sigma, \alpha) = N\left(y|m(\mathbf{x}), s^2(\mathbf{x})\right),
 \]</div>
 <p>where</p>
 <div class="math notranslate nohighlight">
@@ -897,10 +884,11 @@ s^2(\mathbf{x}) = \boldsymbol{\phi}(\mathbf{x})^T\mathbf{S}\boldsymbol{\phi}(\ma
 
               
               
-              
-              
-                <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="intro.html"
@@ -920,7 +908,10 @@ s^2(\mathbf{x}) = \boldsymbol{\phi}(\mathbf{x})^T\mathbf{S}\boldsymbol{\phi}(\ma
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -999,8 +990,8 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

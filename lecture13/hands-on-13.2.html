@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,9 +38,8 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -79,15 +78,6 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
-
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -547,10 +537,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
 `);
 </script>
@@ -558,7 +548,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
 `);
 </script>
@@ -672,11 +662,11 @@ y = w_0 + w_1 x + w_2 x^2.
 <p>How can we do this? Of course, by minimizing the square loss:</p>
 <div class="math notranslate nohighlight">
 \[
-L(w_0, w_1, w_2) = \sum_{i=1}^N(y_i - w_0 - w_1 x_i - w_2 x_i^2)^2.
+L(w_0, w_1, w_2) = \sum_{i=1}^n(y_i - w_0 - w_1 x_i - w_2 x_i^2)^2.
 \]</div>
 <p>Fortunately, we do not have to do things from scratch.
 The notation we developed previously comes to our rescue.
-Recall, that <span class="math notranslate nohighlight">\(\mathbf{y} = (y_1,\dots,y_N)\)</span> is the vector of observations.
+Recall, that <span class="math notranslate nohighlight">\(\mathbf{y} = (y_1,\dots,y_n)\)</span> is the vector of observations.
 Use</p>
 <div class="math notranslate nohighlight">
 \[
@@ -695,7 +685,7 @@ So, it is:</p>
 1 &amp; x_1 &amp; x_1^2\\
 1 &amp; x_2 &amp; x_2^2\\
 \vdots &amp; \vdots \\
-1 &amp; x_N &amp; x_N^2
+1 &amp; x_n &amp; x_n^2
 \end{bmatrix}.
 \end{split}\]</div>
 <p>As before, if you multiply the design matrix <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> with the weight vector <span class="math notranslate nohighlight">\(\mathbf{w}\)</span>, you get the predictions of our model.
@@ -705,7 +695,7 @@ We can write the square loss:</p>
 L(w_0, w_1, w_2) = L(\mathbf{w}) = \parallel \mathbf{y} - \mathbf{X}\mathbf{w}\parallel^2.
 \]</div>
 <p>Well, this is mathematically the same equation as before.
-The only difference is that we have a 3-dimensional weight vector (instead of a 2-dimensional) and that the design matrix is <span class="math notranslate nohighlight">\(N\times 3\)</span> instead of <span class="math notranslate nohighlight">\(N\times 2\)</span>.
+The only difference is that we have a 3-dimensional weight vector (instead of a 2-dimensional) and that the design matrix is <span class="math notranslate nohighlight">\(n\times 3\)</span> instead of <span class="math notranslate nohighlight">\(n\times 2\)</span>.
 If you take the gradient of this with respect to <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> and set it equal to zero, you will get that you need to solve the same linear system of equations as before (but now it is three equations for three unknowns instead of two equations for two unknowns).</p>
 <p>Let’s solve it numerically.
 First, the design matrix:</p>
@@ -788,12 +778,12 @@ To achieve this, we need to be able to evaluate a design matrix of the form:</p>
 1 &amp; x_1 &amp; x_1^2\dots &amp; x_1^\rho\\
 1 &amp; x_2 &amp; x_2^2\dots &amp; x_2^\rho\\
 \vdots &amp; \vdots\dots &amp; \vdots\\
-1 &amp; x_N &amp; x_N^2 \dots &amp; x_N^\rho
+1 &amp; x_n &amp; x_n^2 \dots &amp; x_n^\rho
 \end{bmatrix},
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\rho\)</span> is the degree of the polynomial.
 The linear system we need to solve is the same as before.
-The weight vector is <span class="math notranslate nohighlight">\(\rho + 1\)</span> dimensional and the design matrix <span class="math notranslate nohighlight">\(N\times (\rho + 1)\)</span>.</p>
+The weight vector is <span class="math notranslate nohighlight">\(\rho + 1\)</span> dimensional and the design matrix <span class="math notranslate nohighlight">\(n\times (\rho + 1)\)</span>.</p>
 <p>Let’s write some code to find the design matrix:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -899,10 +889,11 @@ Notice that for making predictions, I am evaluating the design matrix on the poi
 
               
               
-              
-              
-                <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="hands-on-13.1.html"
@@ -922,7 +913,10 @@ Notice that for making predictions, I am evaluating the design matrix on the poi
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -987,8 +981,8 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>
