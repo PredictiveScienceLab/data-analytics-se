@@ -575,7 +575,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-quadratic">Example (Quadratic)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
@@ -599,13 +598,13 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -613,15 +612,9 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="automatic-relevance-determination">
 <span id="id1"></span><h1>Automatic Relevance Determination<a class="headerlink" href="#automatic-relevance-determination" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To demonstrate how automatic relevance determination can be used to select which features to keep.</p></li>
-</ul>
-</section>
 <section id="example-quadratic">
 <h2>Example (Quadratic)<a class="headerlink" href="#example-quadratic" title="Permalink to this heading">#</a></h2>
-<p>As before, let’s start with our familiar synthetic ecxample:</p>
+<p>As before, let’s start with our familiar synthetic example:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -648,14 +641,14 @@ document.write(`
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observed data&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/3548089470c9e53b3a84f4f3c14ba6254339fcd4b30bc29394bb8bc3f779dcdc.png" src="../_images/3548089470c9e53b3a84f4f3c14ba6254339fcd4b30bc29394bb8bc3f779dcdc.png" />
-</div>
+<img alt="../_images/de49c6227642eb2eec9f58d6c2ecdfc76ce150680e31f5f242f2c0edc4ee6153.svg" src="../_images/de49c6227642eb2eec9f58d6c2ecdfc76ce150680e31f5f242f2c0edc4ee6153.svg" /></div>
 </div>
 <p>Let’s also copy-paste the code we have developped so far:</p>
 <div class="cell tag_hide-input docutils container">
@@ -787,7 +780,8 @@ document.write(`
         <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True response&quot;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     
 <span class="k">def</span> <span class="nf">plot_posterior_samples</span><span class="p">(</span>
     <span class="n">model</span><span class="p">,</span>
@@ -837,7 +831,8 @@ document.write(`
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_true</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True response surface&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -859,8 +854,7 @@ Here is how you do it:</p>
 
 <span class="c1"># Fit</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">ARDRegression</span><span class="p">(</span>
-    <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">threshold_lambda</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Phi</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -897,7 +891,8 @@ Remember, that very high precision means that the corresponding basis function c
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Feature id $j$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\alpha_j$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;$N=</span><span class="si">{</span><span class="n">num_obs</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;$n=</span><span class="si">{</span><span class="n">num_obs</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -905,13 +900,12 @@ Remember, that very high precision means that the corresponding basis function c
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Prior w precision: {alpha}
 </pre></div>
 </div>
-<img alt="../_images/575490069d18a9f19d06bff2ca3251686233063c2579a7a66d45b333691aaa9e.png" src="../_images/575490069d18a9f19d06bff2ca3251686233063c2579a7a66d45b333691aaa9e.png" />
-</div>
+<img alt="../_images/433b1e1fc0776013f53f930b9ffdaedd0628cd71adcfc8f11468ab866281b316.svg" src="../_images/433b1e1fc0776013f53f930b9ffdaedd0628cd71adcfc8f11468ab866281b316.svg" /></div>
 </div>
 <p>Remember that the higher the prior precision <span class="math notranslate nohighlight">\(\alpha_j\)</span> of a weight, the more its prior (and consequently the posterior) concentrates about zero.
-For extremely high values of prior precision, the corresponding weight is essentially zero.
-We see that ARD tells us that we don’t have to include the 3rd, 4th, 5th, and 6th degree monomials.</p>
-<p>Now, let’s get the postserior mean of the weights.
+The corresponding weight is essentially zero for extremely high values of prior precision.
+ARD tells us that we don’t have to include the 3rd, 4th, 5th, and 6th-degree monomials.</p>
+<p>Now, let’s get the posterior mean of the weights.
 Notice that the weights corresponding to 3rd, 4th, 5th, and 6th degree polynomials are very close to zero:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -922,8 +916,8 @@ Notice that the weights corresponding to 3rd, 4th, 5th, and 6th degree polynomia
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Posterior mean w: [-4.603e-01  9.906e-01  1.893e+00 -7.907e-04  9.780e-03 -1.195e-03
-  1.786e-03]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Posterior mean w: [-4.60269190e-01  9.90602538e-01  1.89292198e+00 -7.90739804e-04
+  9.78004546e-03 -1.19461914e-03  1.78645558e-03]
 </pre></div>
 </div>
 </div>
@@ -939,20 +933,20 @@ Notice that the weights corresponding to 3rd, 4th, 5th, and 6th degree polynomia
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Posterior covariance w:
-[[ 2.645e-03 -2.656e-04 -4.507e-03  2.806e-05  5.301e-04  2.347e-05
-   9.399e-05]
- [-2.656e-04  2.974e-03 -7.205e-04 -1.930e-04 -1.085e-05 -1.423e-04
-   4.510e-06]
- [-4.507e-03 -7.205e-04  1.469e-02 -5.819e-05 -4.080e-03 -4.802e-05
-  -5.663e-04]
- [ 2.806e-05 -1.930e-04 -5.819e-05  3.069e-04  2.892e-06 -2.948e-06
-   8.687e-07]
- [ 5.301e-04 -1.085e-05 -4.080e-03  2.892e-06  4.314e-03  3.217e-06
-  -2.259e-05]
- [ 2.347e-05 -1.423e-04 -4.802e-05 -2.948e-06  3.217e-06  2.996e-04
-   1.003e-06]
- [ 9.399e-05  4.510e-06 -5.663e-04  8.687e-07 -2.259e-05  1.003e-06
-   7.027e-04]]
+[[ 2.64509604e-03 -2.65565824e-04 -4.50740411e-03  2.80642987e-05
+   5.30131358e-04  2.34687666e-05  9.39888680e-05]
+ [-2.65565824e-04  2.97382970e-03 -7.20531667e-04 -1.93011234e-04
+  -1.08538654e-05 -1.42264395e-04  4.50997575e-06]
+ [-4.50740411e-03 -7.20531667e-04  1.46909117e-02 -5.81874499e-05
+  -4.07996562e-03 -4.80189807e-05 -5.66289686e-04]
+ [ 2.80642987e-05 -1.93011234e-04 -5.81874499e-05  3.06928254e-04
+   2.89225535e-06 -2.94801270e-06  8.68695203e-07]
+ [ 5.30131358e-04 -1.08538654e-05 -4.07996562e-03  2.89225535e-06
+   4.31350654e-03  3.21736555e-06 -2.25857568e-05]
+ [ 2.34687666e-05 -1.42264395e-04 -4.80189807e-05 -2.94801270e-06
+   3.21736555e-06  2.99572682e-04  1.00328797e-06]
+ [ 9.39888680e-05  4.50997575e-06 -5.66289686e-04  8.68695203e-07
+  -2.25857568e-05  1.00328797e-06  7.02715011e-04]]
 </pre></div>
 </div>
 </div>
@@ -983,18 +977,18 @@ Notice that the weights corresponding to 3rd, 4th, 5th, and 6th degree polynomia
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">w1_true</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$w_1$ true&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">w2_true</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$w_2$ true&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$w_j$&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;p(w_j|x_{{1:N}}, y_{{1:N}})&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$p(w_j|x_{{1:n}}, y_{{1:n}})$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/d57a2cbfce31fd3dd828f4836d37bb907910e35e2e0bfc4b335a7ab756294354.png" src="../_images/d57a2cbfce31fd3dd828f4836d37bb907910e35e2e0bfc4b335a7ab756294354.png" />
+<img alt="../_images/aae7a4b8314eaff76e450b3ece5d0f64e1bf58fa8f4a266f823d1687a28ed079.svg" src="../_images/aae7a4b8314eaff76e450b3ece5d0f64e1bf58fa8f4a266f823d1687a28ed079.svg" /></div>
 </div>
-</div>
-<p>Notice how 3rd, 4th, 5th, and 6th are centered at zero.
-Also, notice how the true weights have been correctly identified.</p>
+<p>Notice how the 3rd, 4th, 5th, and 6th are centered at zero.
+Also, notice how the actual weights have been correctly identified.</p>
 <p>Let’s now plot the posterior predictive separating aleatory and epistemic uncertainty:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1012,8 +1006,7 @@ Also, notice how the true weights have been correctly identified.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9d2990f72b75e67cbb508cfd6186a4c97a10619d45ccb16110181755d2690d10.png" src="../_images/9d2990f72b75e67cbb508cfd6186a4c97a10619d45ccb16110181755d2690d10.png" />
-</div>
+<img alt="../_images/01e1f4208503dfadb68595820096c190bfb5891617e48befce7721208a86cf4c.svg" src="../_images/01e1f4208503dfadb68595820096c190bfb5891617e48befce7721208a86cf4c.svg" /></div>
 </div>
 <p>Let’s take samples from the posterior:</p>
 <div class="cell docutils container">
@@ -1029,16 +1022,15 @@ Also, notice how the true weights have been correctly identified.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/eb028304fa97fb3151ee5d6022e9ceb0f594ce8a3bc5adf63892a038b66705ac.png" src="../_images/eb028304fa97fb3151ee5d6022e9ceb0f594ce8a3bc5adf63892a038b66705ac.png" />
-</div>
+<img alt="../_images/f1e43534c42e795b1b14911fefadd967e990d6f13a3d1c0516a70c3259949847.svg" src="../_images/f1e43534c42e795b1b14911fefadd967e990d6f13a3d1c0516a70c3259949847.svg" /></div>
 </div>
 <section id="questions">
 <h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Rerun with a smaller number of observations, say <span class="math notranslate nohighlight">\(N=5\)</span>. What happens to the epistemic uncertainty?</p></li>
-<li><p>Rerun with a very small number of observations, say <span class="math notranslate nohighlight">\(N=2\)</span>. What happens then? (The step that samples from the posterior may not work as expected. Please look at the comment in the code to fix the problem.)</p></li>
+<li><p>Rerun with a smaller number of observations, say <span class="math notranslate nohighlight">\(n=5\)</span>. What happens to the epistemic uncertainty?</p></li>
+<li><p>Rerun with a minimal number of observations, say <span class="math notranslate nohighlight">\(n=2\)</span>. What happens then? (The step that samples from the posterior may not work as expected. Please look at the comment in the code to fix the problem.)</p></li>
 <li><p>Rerun everything with a higher degree polynomial. Try <span class="math notranslate nohighlight">\(4\)</span>, <span class="math notranslate nohighlight">\(8\)</span>, and <span class="math notranslate nohighlight">\(16\)</span>.
-Notice that the fit remains good in between but the way you extrapolate changes. Why?</p></li>
+Notice that the fit remains good in between, but how you extrapolate changes. Why?</p></li>
 </ul>
 </section>
 </section>
@@ -1111,7 +1103,6 @@ Notice that the fit remains good in between but the way you extrapolate changes.
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-quadratic">Example (Quadratic)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>

@@ -603,8 +603,8 @@ document.write(`
 <h1>Advanced Topics in Bayesian Linear Regression<a class="headerlink" href="#advanced-topics-in-bayesian-linear-regression" title="Permalink to this heading">#</a></h1>
 <section id="probabilistic-regression-iv-the-evidence-approximation">
 <h2>Probabilistic regression IV (The evidence approximation)<a class="headerlink" href="#probabilistic-regression-iv-the-evidence-approximation" title="Permalink to this heading">#</a></h2>
-<p>Using Bayesian linear regression we were able to quantify epistemic uncertainty induced by limited data.
-The method was quite powerful but we had to pick the precision <span class="math notranslate nohighlight">\(\alpha\)</span> of the weights, the measurement noise variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> by hand, or any parameters of the basis functions such us the lengthscale <span class="math notranslate nohighlight">\(\ell\)</span> of the radial basis functions.
+<p>Using Bayesian linear regression, we could quantify epistemic uncertainty induced by limited data.
+The method was quite powerful, but we had to pick the precision <span class="math notranslate nohighlight">\(\alpha\)</span> of the weights, the measurement noise variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> by hand, or any basis function parameters such as the lengthscale <span class="math notranslate nohighlight">\(\ell\)</span> of the radial basis functions.
 The <em>evidence approximation</em> enables us to identify these parameters using the data.</p>
 <p>Typically, we call all these parameters <strong>hyper-parameters</strong> of the model.
 For convenience, let us denote all the hyper-parameters by <span class="math notranslate nohighlight">\(\theta\)</span>:</p>
@@ -664,14 +664,14 @@ y(\mathbf{x};\mathbf{w}) = \sum_{j=1}^{m} w_{j}\phi_{j}(\mathbf{x}) = \mathbf{w^
 <img alt="../_images/4c5e3586dc48b8edb42bd998841ea292180b34ed4d7f9a4f1d1c170b0cc27f7e.svg" src="../_images/4c5e3586dc48b8edb42bd998841ea292180b34ed4d7f9a4f1d1c170b0cc27f7e.svg" /></div>
 </div>
 <p>Notice that now <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> are not shaded because we do not fix them.</p>
-<p>If we wanted to be fully Bayesian, we would just write down the posterior of everything:</p>
+<p>If we wanted to be fully Bayesian, we would write down the posterior of everything:</p>
 <div class="math notranslate nohighlight">
 \[
 p(\mathbf{w}, \boldsymbol{\theta}|\mathbf{x}_{1:n}, \mathbf{y}_{1:n}) \propto p(\mathbf{y}_{1:n}|\mathbf{x}_{1:n}|\mathbf{w},\boldsymbol{\theta})p(\mathbf{w}|\boldsymbol{\theta})p(\boldsymbol{\theta}).
 \]</div>
-<p>and, somehow, sample from it… We do not know yet how to do this.
-We will learn how to do this in Lecture 27 and 28.
-Here we will develop an approximation to fully Bayesian inference.</p>
+<p>and, somehow, sample from it. We have yet to learn how to do this.
+We will do it in <a class="reference internal" href="../lecture27/intro.html#lecture27"><span class="std std-ref">Lecture 27 - Sampling Methods</span></a> and <a class="reference internal" href="../lecture28/intro.html#lecture28"><span class="std std-ref">Lecture 28 - Variational Inference</span></a>.
+Here, we will develop an approximation to fully Bayesian inference.</p>
 <section id="the-evidence-approximation">
 <h3>The Evidence Approximation<a class="headerlink" href="#the-evidence-approximation" title="Permalink to this heading">#</a></h3>
 <p>Look at the marginal posterior of <span class="math notranslate nohighlight">\(\boldsymbol{\theta}\)</span>:</p>
@@ -688,10 +688,10 @@ p(\boldsymbol{\theta}) \propto 1.
 <p>Then use a maximum a posteriori estimate for <span class="math notranslate nohighlight">\(\boldsymbol{\theta}\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
-\boldsymbol{\theta}_{\mbox{EV}} = \arg\max_{\boldsymbol{\theta}}\int p(\mathbf{y}_{1:n}|\mathbf{x}_{1:n}|\mathbf{w},\boldsymbol{\theta})p(\mathbf{w}|\boldsymbol{\theta})d\mathbf{w}.
+\boldsymbol{\theta}_{\text{EV}} = \arg\max_{\boldsymbol{\theta}}\int p(\mathbf{y}_{1:n}|\mathbf{x}_{1:n}|\mathbf{w},\boldsymbol{\theta})p(\mathbf{w}|\boldsymbol{\theta})d\mathbf{w}.
 \]</div>
-<p>The nice thing is that the integral on the right-hand-side is analytically available for Gaussian likelihood and prior.
-This is the <em>evidence approximation</em> of the hyper-parameters.</p>
+<p>The nice thing is that the right-hand side’s integral is analytically available for Gaussian likelihood and prior.
+What we did is called the <em>evidence approximation</em> of the hyper-parameters.</p>
 </section>
 <section id="examples">
 <h3>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">#</a></h3>
@@ -700,8 +700,8 @@ This is the <em>evidence approximation</em> of the hyper-parameters.</p>
 </section>
 <section id="probabilistic-regression-v-automatic-relevance-determination">
 <h2>Probabilistic regression V (Automatic relevance determination)<a class="headerlink" href="#probabilistic-regression-v-automatic-relevance-determination" title="Permalink to this heading">#</a></h2>
-<p>The evidence approximation gave us a way to estimate the hyper-parameters.
-We now look at the problem of figuring out which basis functions to keep and which not.
+<p>The evidence approximation gave us a way to estimate the hyperparameters.
+We now look at the problem of determining which basis functions to keep and which not.
 The idea is to use a different precision <span class="math notranslate nohighlight">\(\alpha_i\)</span> for each weight.
 That is, the prior of the weight <span class="math notranslate nohighlight">\(w_j\)</span> corresponding to the basis function <span class="math notranslate nohighlight">\(\phi_i(\mathbf{x})\)</span> is:</p>
 <div class="math notranslate nohighlight">
@@ -743,9 +743,9 @@ p(w_i | \alpha_i) \propto \exp\left\{-\alpha_iw_i^2\right\}.
 <img alt="../_images/2a2f26b155c81dd5e99e3c684343f379aefa5de4ad6390662e1a714787c4b37f.svg" src="../_images/2a2f26b155c81dd5e99e3c684343f379aefa5de4ad6390662e1a714787c4b37f.svg" /></div>
 </div>
 <p>Again, we need advanced techniques to carry out full Bayesian inference.
-However, we can just apply the evidence approximation to find all the hyper-parameters.
+However, we can apply the evidence approximation to find all the hyper-parameters.
 Now, here is what happens in this kind of model.
-The precisions of the basis functions that are not needed will automatically become very large and as a consequence, the posteriors of the corresponding basis functions weights will collapse to a delta function centered at zero.</p>
+The precisions of the basis functions that are not needed will automatically become very large. Consequently, the posteriors of the corresponding basis function weights will collapse to a delta function centered at zero.</p>
 <section id="id1">
 <h3>Examples<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>See <a class="reference internal" href="hands-on-15.2.html#automatic-relevance-determination"><span class="std std-ref">this example</span></a>.</p>
@@ -766,16 +766,16 @@ The precisions of the basis functions that are not needed will automatically bec
 <p>We will use this validation dataset to define some statistical diagnostics.</p>
 <p>Statistical diagnostics compare the predictive distribution to the distribution of the validation dataset.
 Assume that the predictive distribution is a Gaussian (as in all the examples above) with posterior predictive mean <span class="math notranslate nohighlight">\(m(\mathbf{x})\)</span> and posterior predictive variance <span class="math notranslate nohighlight">\(\sigma(\mathbf{x})\)</span> (including both aleatory and epistemic uncertainty).
-Then, define the standarized errors:</p>
+Then, define the standardized errors:</p>
 <div class="math notranslate nohighlight">
 \[
 e_i = \frac{y_i^v - m\left(\mathbf{x}^v_i\right)}{\sigma\left(\mathbf{x}^v_i\right)}.
 \]</div>
-<p>If our model is correct, the standarized errors must be distributed as a standard normal <span class="math notranslate nohighlight">\(N(0,1)\)</span>.
+<p>If our model is correct, the standardized errors must be distributed as a standard Normal <span class="math notranslate nohighlight">\(N(0,1)\)</span>.
 Why?
 Well, if the model is correct <span class="math notranslate nohighlight">\(y_i^v\)</span> must come from <span class="math notranslate nohighlight">\(N(m\left(\mathbf{x}^v_i\right), \sigma^2\left(\mathbf{x}^v_i\right))\)</span>.
-Then it follows easily that <span class="math notranslate nohighlight">\(e_i\sim N(0,1)\)</span>.
-To see this, just consider the expectation:</p>
+Then it follows that <span class="math notranslate nohighlight">\(e_i\sim N(0,1)\)</span>.
+To see this, consider the expectation:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbb{E}[e_i] = \dots = 0,
@@ -785,11 +785,11 @@ To see this, just consider the expectation:</p>
 \[
 \mathbb{V}[e_i] = \dots = 1.
 \]</div>
-<p>You can prove these formulas using standard properties of the expectation and the variance.</p>
-<p>So, to test if the posterior predictive distribution is good you do this:</p>
+<p>You can prove these formulas using standard expectation and variance properties.</p>
+<p>So, to test if the posterior predictive distribution is good, you do this:</p>
 <ul class="simple">
-<li><p>calculate the standardized errors of a validation dataset</p></li>
-<li><p>compare the empirical statatistics of the standarized errors to the statistics of the standard normal <span class="math notranslate nohighlight">\(N(0,1)\)</span>.</p></li>
+<li><p>Calculate the standardized errors of a validation dataset</p></li>
+<li><p>Compare the standardized errors’ empirical statistics to the standard Normal <span class="math notranslate nohighlight">\(N(0,1)\)</span> statistics.</p></li>
 </ul>
 <section id="id2">
 <h3>Examples<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>

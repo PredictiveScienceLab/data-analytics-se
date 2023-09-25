@@ -575,7 +575,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-quadratic">Example (Quadratic)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
@@ -599,12 +598,12 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">scipy</span>
@@ -633,12 +632,7 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="diagnostics-for-posterior-predictive">
 <span id="diagnostic-posterior-predictive"></span><h1>Diagnostics for Posterior Predictive<a class="headerlink" href="#diagnostics-for-posterior-predictive" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To introduce measures that quantify how good the posterior predictive distribution is.</p></li>
-</ul>
-</section>
+<p>We introduce measures that quantify how good the posterior predictive distribution is.</p>
 <section id="example-quadratic">
 <h2>Example (Quadratic)<a class="headerlink" href="#example-quadratic" title="Permalink to this heading">#</a></h2>
 <p>We start with our quadratic synthetic example because we know that our model is adequate.
@@ -676,19 +670,19 @@ You will see how the standarized errors will turn out perfect.</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Validation data&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d3054c131943c844390ef4c3d19f097cf50627384c429d693c31deab1262cf20.png" src="../_images/d3054c131943c844390ef4c3d19f097cf50627384c429d693c31deab1262cf20.png" />
+<img alt="../_images/fe7af9f2c3ab9acb0b6611169b432436f3b6b78720ad531b564c3a0e756c5f6f.svg" src="../_images/fe7af9f2c3ab9acb0b6611169b432436f3b6b78720ad531b564c3a0e756c5f6f.svg" /></div>
 </div>
-</div>
-<p>Let’s copy paste again our previous code.</p>
+<p>Let’s copy-paste again our previous code.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In general, it is a bad idea to copy paste your code from notebook to notebook.
-This can introduce bugs that are very hard to fix.
+<p>It is generally a bad idea to copy-paste your code from notebook to notebook.
+Copy-pasting can introduce bugs that are very hard to fix.
 The best approach would be to put all our code in a text file, say <code class="docutils literal notranslate"><span class="pre">regression.py</span></code>
 and then import everything from the file.
 We will try this out in the homework assignment.</p>
@@ -822,7 +816,8 @@ We will try this out in the homework assignment.</p>
         <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True response&quot;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     
 <span class="k">def</span> <span class="nf">plot_posterior_samples</span><span class="p">(</span>
     <span class="n">model</span><span class="p">,</span>
@@ -872,7 +867,8 @@ We will try this out in the homework assignment.</p>
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_true</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True response surface&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -913,8 +909,7 @@ We will try this out in the homework assignment.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/459fbd0f1a62d902b839e261c76c0311203331482514cbb738281f979b408068.png" src="../_images/459fbd0f1a62d902b839e261c76c0311203331482514cbb738281f979b408068.png" />
-</div>
+<img alt="../_images/050a35b91954d7741908390c8f216abdc93d7c21e1242909f0db01af4b89bab1.svg" src="../_images/050a35b91954d7741908390c8f216abdc93d7c21e1242909f0db01af4b89bab1.svg" /></div>
 </div>
 <p>And now let’s make predictions on the validation data:</p>
 <div class="cell docutils container">
@@ -942,16 +937,16 @@ We will try this out in the homework assignment.</p>
     <span class="mi">100</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yys</span><span class="p">,</span> <span class="n">yys</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Predictions&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Observations&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Observations&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/23d5e5b5a1e415a117eed1a4bfdf9e0446866c22a5c1b0f2b25b3889962d0d18.png" src="../_images/23d5e5b5a1e415a117eed1a4bfdf9e0446866c22a5c1b0f2b25b3889962d0d18.png" />
+<img alt="../_images/39cfc53ce754f156ab41d35bd4b5c1066c04659a774a9ddb6e368e5132ffae9d.svg" src="../_images/39cfc53ce754f156ab41d35bd4b5c1066c04659a774a9ddb6e368e5132ffae9d.svg" /></div>
 </div>
-</div>
-<p>It’s okay. However, notice that the predictions do not fall on the red line because there is a little bit of noise on the observations.</p>
-<p>Let’s now compute the standarized errors:</p>
+<p>It’s okay. However, notice that the predictions do not fall on the red line because there is a little noise in the observations.</p>
+<p>Let’s now compute the standardized errors:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eps</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_valid</span> <span class="o">-</span> <span class="n">y_predict</span><span class="p">)</span> <span class="o">/</span> <span class="n">y_std</span>
@@ -959,9 +954,9 @@ We will try this out in the homework assignment.</p>
 </div>
 </div>
 </div>
-<p>Remember, that if the model is correct, the standarized errors must follow a standard normal.
+<p>Remember that the standardized errors must follow a standard normal if the model is correct.
 There are various ways to check this.
-First, let’s just plot them:</p>
+First, let’s plot them:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">eps</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
@@ -971,17 +966,16 @@ First, let’s just plot them:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">eps</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s1">&#39;r--&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.96</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">eps</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s1">&#39;r--&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$i$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$\epsilon_i$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$\epsilon_i$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1e1021892af23fb60167097420e77725935d7ee9307a9e50440587222903dd10.png" src="../_images/1e1021892af23fb60167097420e77725935d7ee9307a9e50440587222903dd10.png" />
+<img alt="../_images/dcf6ee8f221ed93b4a9f27ec5f5264e30e02891a9178db82088ad7c0254c256e.svg" src="../_images/dcf6ee8f221ed93b4a9f27ec5f5264e30e02891a9178db82088ad7c0254c256e.svg" /></div>
 </div>
-</div>
-<p>Notice that the majority of the standarized errors fall within the 95% central credible interval for <span class="math notranslate nohighlight">\(N(0,1)\)</span>.
-This is an indication that the model is good.</p>
-<p>The other plot we can do is the histogram of the standarized errors compared to the probability density of the standard normal:</p>
+<p>Notice that most standardized errors fall within the 95% central credible interval for <span class="math notranslate nohighlight">\(N(0,1)\)</span>, indicating that the model is good.</p>
+<p>The other plot we can do is the histogram of the standardized errors compared to the probability density of the standard normal:</p>
 <p>What if you wanted to get the samples from the posterior?
 You would have to do a little bit of manual work to translate the posterior weights and their variance back to the original values…</p>
 <div class="cell docutils container">
@@ -991,36 +985,36 @@ You would have to do a little bit of manual work to translate the posterior weig
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">eps</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">ee</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">eps</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">eps</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ee</span><span class="p">,</span> <span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">ee</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ee</span><span class="p">,</span> <span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">ee</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7ebf24a7944154cf37f190e0a8f376557b5758660644e6b09cce6bc13ab08a51.png" src="../_images/7ebf24a7944154cf37f190e0a8f376557b5758660644e6b09cce6bc13ab08a51.png" />
+<img alt="../_images/972696163b3208937e9de643ab246f092a6cb432294c417e1706f12d52c9afd0.svg" src="../_images/972696163b3208937e9de643ab246f092a6cb432294c417e1706f12d52c9afd0.svg" /></div>
 </div>
-</div>
-<p>Not perfect, but a pretty good fit.</p>
-<p>The final diagnostic is the so call quantile-quantile plot.
-This compares the empirical quantiles of the standarized errors (computed by building and inverting the empirical cummulative distribution function, see Lecture 9).
+<p>It’s not perfect, but it’s a good fit.</p>
+<p>The final diagnostic is the so-called quantile-quantile plot or q-q plot.
+The q-q plot compares the empirical quantiles of the standardized errors (computed by building and inverting the empirical cumulative distribution function; see Lecture 9).
 Here is how to do it:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">st</span><span class="o">.</span><span class="n">probplot</span><span class="p">(</span><span class="n">eps</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="n">ax</span><span class="p">);</span>
+<span class="n">st</span><span class="o">.</span><span class="n">probplot</span><span class="p">(</span><span class="n">eps</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/41271741d155216c61d2843df376b5b1c824d4462c845b37f613030cbbb998e5.png" src="../_images/41271741d155216c61d2843df376b5b1c824d4462c845b37f613030cbbb998e5.png" />
+<img alt="../_images/5d332dec8092a5ad5a417f56ba45f59f40221b3708847ddf68c9388f7125b4be.svg" src="../_images/5d332dec8092a5ad5a417f56ba45f59f40221b3708847ddf68c9388f7125b4be.svg" /></div>
 </div>
-</div>
-<p>This is also indicative of a pretty good fit.</p>
+<p>The q-q plot above also shows a good fit.</p>
 <section id="questions">
 <h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Rerun the code blocks above with a large number of training observations, say 100. Did the diagnosics improve or are they the same?</p></li>
-<li><p>Keep the number of training observations to 100 and change the validation points to 1000. How do the diagnostics look like now?</p></li>
-<li><p>Let’s now try a model that is not adequate for the data. Set the polynomial degree to 1 and rerun everything. How do the diagnostics look like now?</p></li>
+<li><p>Rerun the code blocks above with many training observations, say 100. Did the diagnostics improve, or are they the same?</p></li>
+<li><p>Keep the number of training observations to 100 and change the validation points to 1000. What do the diagnostics look like now?</p></li>
+<li><p>Let’s now try a model that is inadequate for the data. Set the polynomial degree to 1 and rerun everything. What do the diagnostics look like now?</p></li>
 </ul>
 </section>
 </section>
@@ -1093,7 +1087,6 @@ Here is how to do it:</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-quadratic">Example (Quadratic)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>

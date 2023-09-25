@@ -575,7 +575,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-quadratic">Example (Quadratic)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
@@ -599,13 +598,13 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -613,12 +612,6 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="evidence-approximation">
 <span id="id1"></span><h1>Evidence approximation<a class="headerlink" href="#evidence-approximation" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To demonstrate one can estimate the hyper-parameters of Bayesian model using the evidence approximation.</p></li>
-</ul>
-</section>
 <section id="example-quadratic">
 <h2>Example (Quadratic)<a class="headerlink" href="#example-quadratic" title="Permalink to this heading">#</a></h2>
 <p>Let’s generate some synthetic data from a quadratic function:</p>
@@ -648,14 +641,14 @@ document.write(`
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observed data&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/556ee3d198844382a1d4db68a0f6f13ef30fd33344a9296fa581504f2d5fa07e.png" src="../_images/556ee3d198844382a1d4db68a0f6f13ef30fd33344a9296fa581504f2d5fa07e.png" />
-</div>
+<img alt="../_images/67fdddc0ba97c0d48b7088be2010551b0a0902e6de2cf80fbdf84c5abc8d7dc6.svg" src="../_images/67fdddc0ba97c0d48b7088be2010551b0a0902e6de2cf80fbdf84c5abc8d7dc6.svg" /></div>
 </div>
 <p>Let’s also copy paste the code for creating design matrices for the three generalized linear models we have considered so far:</p>
 <div class="cell tag_hide-input docutils container">
@@ -723,13 +716,13 @@ document.write(`
 </div>
 </details>
 </div>
-<p>We are not going to implement the evidence approximation from scratch. Instead we are going to use the implementation in <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.BayesianRidge.html#sklearn.linear_model.BayesianRidge">scikit-learn</a>.
+<p>We are not going to implement the evidence approximation from scratch. Instead, we are going to use the implementation in <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.BayesianRidge.html#sklearn.linear_model.BayesianRidge">scikit-learn</a>.
 Scikit-learn makes some default assumptions about the hyper-priors of <span class="math notranslate nohighlight">\(\sigma^2\)</span> and <span class="math notranslate nohighlight">\(\alpha\)</span>.
 You can change these assumptions if you wish (they assign a Gamma distribution to the inverse of these parameters).
-However, these hyper-priors are generated under the assumption that the input-output pairs have been <em>normalized</em> before fitting.
-To normalize the data, we subtract from the features and the outputs their empirical mean and we divide by their L2 norm.
-Then you do regression between normalized features and outputs and you make sure that you correctly transform the results of your analysis back to the original ones.
-Scikit-learn makes all this super easy as you just need to pass a single argument that says that you want to normalize.
+However, these hyper-priors are generated assuming the input-output pairs have been <em>normalized</em> before fitting.
+To normalize the data, we subtract their empirical mean from the features and the outputs and divide by their L2 norm.
+Then, you do regression between normalized features and outputs, and you make sure that you correctly transform the results of your analysis back to the original ones.
+Scikit-learn makes all this easy, as you must pass a single argument that says you want to normalize.
 Here is how you do it:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -789,7 +782,7 @@ Here is how you do it:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Posterior mean w: [-0.509  2.27   2.139 -0.566]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Posterior mean w: [-0.50892539  2.27047554  2.13898402 -0.56623545]
 </pre></div>
 </div>
 </div>
@@ -805,10 +798,10 @@ Here is how you do it:</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Posterior covariance w:
-[[ 0.006 -0.01  -0.019  0.026]
- [-0.01   0.046  0.045 -0.095]
- [-0.019  0.045  0.082 -0.118]
- [ 0.026 -0.095 -0.118  0.224]]
+[[ 0.00568448 -0.01045951 -0.01863946  0.02557349]
+ [-0.01045951  0.0464708   0.0454668  -0.09539202]
+ [-0.01863946  0.0454668   0.08190154 -0.11769764]
+ [ 0.02557349 -0.09539202 -0.11769764  0.22394891]]
 </pre></div>
 </div>
 </div>
@@ -867,13 +860,13 @@ Here is how you do it:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_true</span><span class="p">,</span> <span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True response&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8689364b124457b3f7dd08ba2e56ef445f0a42473b8a6d4c302247486ef1991f.png" src="../_images/8689364b124457b3f7dd08ba2e56ef445f0a42473b8a6d4c302247486ef1991f.png" />
-</div>
+<img alt="../_images/4dc7da63924b6c093bc17b732aa12b711853ad6066f52790a639ee302b3a7331.svg" src="../_images/4dc7da63924b6c093bc17b732aa12b711853ad6066f52790a639ee302b3a7331.svg" /></div>
 </div>
 <p>It’s a good idea to organize these into functions that we will be using later:</p>
 <div class="cell tag_hide-input docutils container">
@@ -951,7 +944,8 @@ Here is how you do it:</p>
         <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True response&quot;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -971,8 +965,7 @@ Here is how you do it:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8689364b124457b3f7dd08ba2e56ef445f0a42473b8a6d4c302247486ef1991f.png" src="../_images/8689364b124457b3f7dd08ba2e56ef445f0a42473b8a6d4c302247486ef1991f.png" />
-</div>
+<img alt="../_images/9a12a204a2589f7b163b339c69b704ea92d10ad1a79a2b4be1151bbc037ea127.svg" src="../_images/9a12a204a2589f7b163b339c69b704ea92d10ad1a79a2b4be1151bbc037ea127.svg" /></div>
 </div>
 <p>What if you wanted to get the samples from the posterior?</p>
 <div class="cell docutils container">
@@ -988,8 +981,8 @@ Here is how you do it:</p>
 
 <span class="n">w_post</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="n">S</span><span class="p">)</span>
 <span class="c1"># If you get an error because the covariance matrix is singular, add something small</span>
-<span class="c1"># the diagonal. The covariance matrix is always positive definite (and non-singular)</span>
-<span class="c1"># but it may have eigenvalues that are so close to zero that the numerical algorithms find</span>
+<span class="c1"># to the diagonal. The covariance matrix is always positive definite (and non-singular)</span>
+<span class="c1"># but it may have eigenvalues so close to zero that the numerical algorithms find</span>
 <span class="c1"># them to be slightly negative. This is an artifact of the floating point precision.</span>
 <span class="c1"># Comment the line above and uncomment the line below to fix the problem.</span>
 <span class="c1"># w_post = st.multivariate_normal(mean=m, cov=S + 1e-6 * np.eye(S_norm.shape[0]))</span>
@@ -1005,13 +998,13 @@ Here is how you do it:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_true</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True response surface&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/df299c3d2f5edf2a9bcd6d77ec28a163979e7b3c4a33e5f8e31f79bd2d588f91.png" src="../_images/df299c3d2f5edf2a9bcd6d77ec28a163979e7b3c4a33e5f8e31f79bd2d588f91.png" />
-</div>
+<img alt="../_images/71be9ee6f600b8a03659780efecff84f5d7be0de631c72df941a80f8cd8880cf.svg" src="../_images/71be9ee6f600b8a03659780efecff84f5d7be0de631c72df941a80f8cd8880cf.svg" /></div>
 </div>
 <p>It is useful to arrange this into a function as well:</p>
 <div class="cell tag_hide-input docutils container">
@@ -1069,7 +1062,8 @@ Here is how you do it:</p>
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_true</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True response surface&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -1089,16 +1083,15 @@ Here is how you do it:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1e6a652d354a05310304b195f1dd32f421025da308f3bc6b29b5c589784587e3.png" src="../_images/1e6a652d354a05310304b195f1dd32f421025da308f3bc6b29b5c589784587e3.png" />
-</div>
+<img alt="../_images/d4e0e6233b66d447a9f245fc32e1d62c90ed00738f8be4572520a7577241b272.svg" src="../_images/d4e0e6233b66d447a9f245fc32e1d62c90ed00738f8be4572520a7577241b272.svg" /></div>
 </div>
 <section id="questions">
 <h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Rerun with a smaller number of observations, say <span class="math notranslate nohighlight">\(N=5\)</span>. What happens to the epistemic uncertainty?</p></li>
-<li><p>Rerun with a very small number of observations, say <span class="math notranslate nohighlight">\(N=2\)</span>. What happens then? (The step that samples from the posterior may not work as expected. Please look at the comment in the code to fix the problem.)</p></li>
+<li><p>Rerun with a smaller number of observations, say <span class="math notranslate nohighlight">\(n=5\)</span>. What happens to the epistemic uncertainty?</p></li>
+<li><p>Rerun with a minimal number of observations, say <span class="math notranslate nohighlight">\(n=2\)</span>. What happens then? (The step that samples from the posterior may not work as expected. Please look at the comment in the code to fix the problem.)</p></li>
 <li><p>Rerun everything with a higher degree polynomial. Try <span class="math notranslate nohighlight">\(4\)</span>, <span class="math notranslate nohighlight">\(8\)</span>, and <span class="math notranslate nohighlight">\(16\)</span>.
-Notice that the fit remains good in between but the way you extrapolate changes. Why?</p></li>
+Notice that the fit remains good in between, but how you extrapolate changes. Why?</p></li>
 </ul>
 </section>
 </section>
@@ -1171,7 +1164,6 @@ Notice that the fit remains good in between but the way you extrapolate changes.
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-quadratic">Example (Quadratic)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
