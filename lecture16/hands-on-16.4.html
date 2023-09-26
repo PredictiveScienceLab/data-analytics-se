@@ -573,7 +573,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#high-melting-explosives-sensitivity">High melting explosives sensitivity</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
@@ -597,12 +596,12 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">scipy</span>
@@ -631,15 +630,10 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="diagnostics-for-classifications">
 <span id="diagnostics-for-classification"></span><h1>Diagnostics for Classifications<a class="headerlink" href="#diagnostics-for-classifications" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To assess the qualtity of a classification model</p></li>
-</ul>
-</section>
+<p>We show how to assess the quality of a classification model.</p>
 <section id="high-melting-explosives-sensitivity">
 <h2>High melting explosives sensitivity<a class="headerlink" href="#high-melting-explosives-sensitivity" title="Permalink to this heading">#</a></h2>
-<p>Let’s repeat what we did for the HMX example, but after splitting the dataset into training and validation subsets.
+<p>Let’s repeat what we did for the HMX example after splitting the dataset into training and validation subsets.
 We will be making predictions on the validation subset.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -648,8 +642,7 @@ We will be making predictions on the validation subset.</p>
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Change url</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/PredictiveScienceLab/data-analytics-se/master/activities/hmx_data.csv&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/PredictiveScienceLab/data-analytics-se/raw/master/lecturebook/data/hmx_data.csv&quot;</span>
 <span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -668,14 +661,14 @@ We will be making predictions on the validation subset.</p>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training data&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Validation data&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/13d14b0755688d0f22f4b2ff32b8066412dd49ec75281e430ed3fea121d52ce6.png" src="../_images/13d14b0755688d0f22f4b2ff32b8066412dd49ec75281e430ed3fea121d52ce6.png" />
-</div>
+<img alt="../_images/28f495b5f4315e40da5bde3b2565f224266ba3d511269655bfa5830f4c8fc6f2.svg" src="../_images/28f495b5f4315e40da5bde3b2565f224266ba3d511269655bfa5830f4c8fc6f2.svg" /></div>
 </div>
 <p>Fit the model like before:</p>
 <div class="cell docutils container">
@@ -689,7 +682,7 @@ We will be making predictions on the validation subset.</p>
 
 <span class="c1"># Fit</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span>
-    <span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+    <span class="n">penalty</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Phi</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 </pre></div>
@@ -746,25 +739,25 @@ We will be making predictions on the validation subset.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x	Cost of 0	Cost of 1	True label	Choice
 --------------------------------------------------------------------------------
 40.50	0.99		0.01*		1		CORRECT
-28.50	0.25*		0.75		0		CORRECT
-36.00	0.90		0.10*		1		CORRECT
 22.50	0.07*		0.93		0		CORRECT
+32.00	0.57		0.43*		1		CORRECT
+25.50	0.12*		0.88		0		CORRECT
+28.50	0.25*		0.75		1		WRONG
+25.50	0.12*		0.88		0		CORRECT
 25.50	0.12*		0.88		0		CORRECT
 36.00	0.90		0.10*		1		CORRECT
-28.50	0.25*		0.75		0		CORRECT
-32.00	0.57		0.43*		0		WRONG
-36.00	0.90		0.10*		1		CORRECT
-22.50	0.07*		0.93		0		CORRECT
 32.00	0.57		0.43*		1		CORRECT
-36.00	0.90		0.10*		1		CORRECT
 40.50	0.99		0.01*		1		CORRECT
-32.00	0.57		0.43*		1		CORRECT
-32.00	0.57		0.43*		1		CORRECT
-32.00	0.57		0.43*		1		CORRECT
-36.00	0.90		0.10*		1		CORRECT
+28.50	0.25*		0.75		0		CORRECT
+36.00	0.90		0.10*		0		WRONG
 36.00	0.90		0.10*		1		CORRECT
 28.50	0.25*		0.75		0		CORRECT
 28.50	0.25*		0.75		1		WRONG
+36.00	0.90		0.10*		1		CORRECT
+28.50	0.25*		0.75		1		WRONG
+32.00	0.57		0.43*		1		CORRECT
+32.00	0.57		0.43*		1		CORRECT
+22.50	0.07*		0.93		0		CORRECT
 </pre></div>
 </div>
 </div>
@@ -781,7 +774,7 @@ We will be making predictions on the validation subset.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>HMX Accuracy = 90.00 %
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>HMX Accuracy = 80.00 %
 </pre></div>
 </div>
 </div>
@@ -798,7 +791,7 @@ We will be making predictions on the validation subset.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>HMX balanced accuracy = 89.01 %
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>HMX balanced accuracy = 81.25 %
 </pre></div>
 </div>
 </div>
@@ -823,8 +816,7 @@ We will be making predictions on the validation subset.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/bfdb022895bb8408bc08072131dc1604346a0152ed9c73a91e249e3ec4142dc1.png" src="../_images/bfdb022895bb8408bc08072131dc1604346a0152ed9c73a91e249e3ec4142dc1.png" />
-</div>
+<img alt="../_images/a6dc8b401dc4f356ec6a55e7e1fa03bb10cc3a445b2cc9698f75a6846d8009c0.svg" src="../_images/a6dc8b401dc4f356ec6a55e7e1fa03bb10cc3a445b2cc9698f75a6846d8009c0.svg" /></div>
 </div>
 <section id="questions">
 <h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
@@ -902,7 +894,6 @@ We will be making predictions on the validation subset.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#high-melting-explosives-sensitivity">High melting explosives sensitivity</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>

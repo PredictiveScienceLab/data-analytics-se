@@ -595,12 +595,12 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">scipy</span>
@@ -649,8 +649,8 @@ We will use the <a class="reference external" href="https://pandas.pydata.org/">
 <p>Each row of the data is a different experiment.
 There are two columns:</p>
 <ul class="simple">
-<li><p>First column is <strong>Height</strong>: From what height (in cm) was the specimen dropped from.</p></li>
-<li><p>Second column is <strong>Result</strong>: Did the specimen explode (E) or not (N)?</p></li>
+<li><p>The first column is <strong>Height</strong>: From what height (in cm) the specimen was dropped?</p></li>
+<li><p>The second column is <strong>Result</strong>: Did the specimen explode (E) or not (N)?</p></li>
 </ul>
 <p>Here is how to see the raw data:</p>
 <div class="cell tag_hide-output docutils container">
@@ -993,7 +993,7 @@ There are two columns:</p>
 </div></div></div>
 </details>
 </div>
-<p>Let’s encode the labels as <span class="math notranslate nohighlight">\(1\)</span> and and <span class="math notranslate nohighlight">\(0\)</span> instead of E and N.
+<p>Let’s encode the labels as <span class="math notranslate nohighlight">\(1\)</span> and <span class="math notranslate nohighlight">\(0\)</span> instead of E and N.
 Let’s do this below:</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input above-output-prompt docutils container">
@@ -1415,13 +1415,13 @@ Notice that lots of observations fall on top of each other.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$ (Height in cm)&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Result ($0=N; 1=E$)&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Result ($0=N; 1=E$)&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3b1b2c7fa0fb950e7ff49339a2777dc51ef575f62ce3a3343aa1624619951be3.png" src="../_images/3b1b2c7fa0fb950e7ff49339a2777dc51ef575f62ce3a3343aa1624619951be3.png" />
-</div>
+<img alt="../_images/43efbb28eb411647980f8027b3e3d2e920854d3175db47f4b97068cabd0f87cc.svg" src="../_images/43efbb28eb411647980f8027b3e3d2e920854d3175db47f4b97068cabd0f87cc.svg" /></div>
 </div>
 <p>Let’s train a logistic regression model with just a linear feature using scikit-learn:</p>
 <div class="cell docutils container">
@@ -1438,9 +1438,9 @@ Notice that lots of observations fall on top of each other.</p>
 <span class="c1"># Train the model (penalty = &#39;none&#39; means that we do not add a prior on the weights)</span>
 <span class="c1"># we are effectively just maximizing the likelihood of the data</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span>
-    <span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+    <span class="n">penalty</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span>
-<span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -1474,11 +1474,11 @@ Notice that lots of observations fall on top of each other.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[9.998e-01, 1.890e-04],
-       [9.886e-01, 1.144e-02],
-       [5.854e-01, 4.146e-01],
-       [2.254e-02, 9.775e-01],
-       [3.766e-04, 9.996e-01]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[9.99810986e-01, 1.89014081e-04],
+       [9.88560090e-01, 1.14399105e-02],
+       [5.85351787e-01, 4.14648213e-01],
+       [2.25419752e-02, 9.77458025e-01],
+       [3.76605766e-04, 9.99623394e-01]])
 </pre></div>
 </div>
 </div>
@@ -1516,20 +1516,20 @@ If you wanted, you could ask for the class of maximum probability for each predi
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$ (cm)&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/22d0e896e713b6b2f2e39f531fa79d77302d3514d0c1ee15eb1de12912a7ef86.png" src="../_images/22d0e896e713b6b2f2e39f531fa79d77302d3514d0c1ee15eb1de12912a7ef86.png" />
-</div>
+<img alt="../_images/4ca08b6a49892708bfe94cb855a6239f08dad151118d7ba58b8e2a6843349780.svg" src="../_images/4ca08b6a49892708bfe94cb855a6239f08dad151118d7ba58b8e2a6843349780.svg" /></div>
 </div>
 <section id="questions">
 <h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>What is the probability of explosition when the height becomes very small?</p></li>
-<li><p>What is the probability of explosition when the height becomes very large?</p></li>
-<li><p>At what height it is particularly difficult to predict what is going to happen?</p></li>
+<li><p>What is the probability of an explosion when the height becomes very small?</p></li>
+<li><p>What is the probability of an explosion when the height becomes very large?</p></li>
+<li><p>At what height is it particularly difficult to predict what will happen?</p></li>
 </ul>
 </section>
 </section>

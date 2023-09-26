@@ -573,7 +573,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#high-melting-explosives-sensitivity">High melting explosives sensitivity</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
@@ -597,12 +596,12 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">scipy</span>
@@ -631,15 +630,10 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="decision-making">
 <span id="classification-decision-making"></span><h1>Decision making<a class="headerlink" href="#decision-making" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To demonstrate how to use the results of a binary classifier to make decisions</p></li>
-</ul>
-</section>
+<p>We demonstrate how to use the results of a binary classifier to make decisions.</p>
 <section id="high-melting-explosives-sensitivity">
 <h2>High melting explosives sensitivity<a class="headerlink" href="#high-melting-explosives-sensitivity" title="Permalink to this heading">#</a></h2>
-<p>Let’s repeat what we did for the HMX example, but after splitting the dataset into training and validation subsets.
+<p>Let’s repeat what we did for the HMX example after splitting the dataset into training and validation subsets.
 We will be making predictions on the validation subset.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -733,13 +727,13 @@ We will be making predictions on the validation subset.</p>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training data&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Validation data&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a5a7ac36973bee1c4ba42106072982f8609629fe683abfbc1a40d3bb66bde4f5.png" src="../_images/a5a7ac36973bee1c4ba42106072982f8609629fe683abfbc1a40d3bb66bde4f5.png" />
-</div>
+<img alt="../_images/b7dbdcf5a37d9547e1b9748d26a44d88d55b4d8fb26c09c250e0995c03373a0a.svg" src="../_images/b7dbdcf5a37d9547e1b9748d26a44d88d55b4d8fb26c09c250e0995c03373a0a.svg" /></div>
 </div>
 <p>Train the model:</p>
 <div class="cell docutils container">
@@ -753,7 +747,7 @@ We will be making predictions on the validation subset.</p>
 
 <span class="c1"># Fit</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span>
-    <span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+    <span class="n">penalty</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Phi</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 </pre></div>
@@ -780,26 +774,26 @@ We will be making predictions on the validation subset.</p>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x	p(y=0|x)	p(y=1|x)	True label
 --------------------------------------------------------------------------------
-36.00	0.10		0.90		1
+22.50	0.93		0.07		0
+28.50	0.75		0.25		0
 40.50	0.01		0.99		1
+36.00	0.10		0.90		0
 25.50	0.88		0.12		0
-22.50	0.93		0.07		0
-28.50	0.75		0.25		0
-28.50	0.75		0.25		0
-22.50	0.93		0.07		0
-32.00	0.43		0.57		1
-40.50	0.01		0.99		1
-40.50	0.01		0.99		1
-28.50	0.75		0.25		0
-32.00	0.43		0.57		0
-28.50	0.75		0.25		0
-22.50	0.93		0.07		0
-40.50	0.01		0.99		1
-25.50	0.88		0.12		0
-32.00	0.43		0.57		1
-36.00	0.10		0.90		1
 28.50	0.75		0.25		1
-32.00	0.43		0.57		1
+22.50	0.93		0.07		0
+36.00	0.10		0.90		1
+22.50	0.93		0.07		0
+40.50	0.01		0.99		1
+40.50	0.01		0.99		1
+25.50	0.88		0.12		0
+36.00	0.10		0.90		0
+28.50	0.75		0.25		0
+25.50	0.88		0.12		1
+22.50	0.93		0.07		0
+22.50	0.93		0.07		0
+22.50	0.93		0.07		0
+40.50	0.01		0.99		1
+40.50	0.01		0.99		1
 </pre></div>
 </div>
 </div>
@@ -815,6 +809,7 @@ We will be making predictions on the validation subset.</p>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -824,27 +819,7 @@ We will be making predictions on the validation subset.</p>
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<img alt="../_images/e06892a5a75686b75d193621e32579c68be2b9a2e6561e225b82e27f4f29d46d.png" src="../_images/e06892a5a75686b75d193621e32579c68be2b9a2e6561e225b82e27f4f29d46d.png" />
-<img alt="../_images/ab54892679e5b41f2ad06df9eede22e399fbd070b8d50ad500f5d7a8181dcb96.png" src="../_images/ab54892679e5b41f2ad06df9eede22e399fbd070b8d50ad500f5d7a8181dcb96.png" />
-<img alt="../_images/d1bdfb3c5a49fb0c3139f557bac3c25deb4c8998c481fdc01674ee072ab6c21b.png" src="../_images/d1bdfb3c5a49fb0c3139f557bac3c25deb4c8998c481fdc01674ee072ab6c21b.png" />
-<img alt="../_images/f926af503c095eb9e1dad5e8a1d68a0ef4bd1723574d3208e414c0fe17eb6589.png" src="../_images/f926af503c095eb9e1dad5e8a1d68a0ef4bd1723574d3208e414c0fe17eb6589.png" />
-<img alt="../_images/192080578fdc3078e35f2652580f900f60b3c494aa5d4f23489989957cf84fdd.png" src="../_images/192080578fdc3078e35f2652580f900f60b3c494aa5d4f23489989957cf84fdd.png" />
-<img alt="../_images/192080578fdc3078e35f2652580f900f60b3c494aa5d4f23489989957cf84fdd.png" src="../_images/192080578fdc3078e35f2652580f900f60b3c494aa5d4f23489989957cf84fdd.png" />
-<img alt="../_images/f926af503c095eb9e1dad5e8a1d68a0ef4bd1723574d3208e414c0fe17eb6589.png" src="../_images/f926af503c095eb9e1dad5e8a1d68a0ef4bd1723574d3208e414c0fe17eb6589.png" />
-<img alt="../_images/0cb7bb8078dec484a8f74b94f99301e06385a97de852f444363c83653bce564d.png" src="../_images/0cb7bb8078dec484a8f74b94f99301e06385a97de852f444363c83653bce564d.png" />
-<img alt="../_images/ab54892679e5b41f2ad06df9eede22e399fbd070b8d50ad500f5d7a8181dcb96.png" src="../_images/ab54892679e5b41f2ad06df9eede22e399fbd070b8d50ad500f5d7a8181dcb96.png" />
-<img alt="../_images/ab54892679e5b41f2ad06df9eede22e399fbd070b8d50ad500f5d7a8181dcb96.png" src="../_images/ab54892679e5b41f2ad06df9eede22e399fbd070b8d50ad500f5d7a8181dcb96.png" />
-<img alt="../_images/192080578fdc3078e35f2652580f900f60b3c494aa5d4f23489989957cf84fdd.png" src="../_images/192080578fdc3078e35f2652580f900f60b3c494aa5d4f23489989957cf84fdd.png" />
-<img alt="../_images/053f14bf20c089c16a58783f2c6ac0a6bdc86846700d3a315d9fa380d12f4749.png" src="../_images/053f14bf20c089c16a58783f2c6ac0a6bdc86846700d3a315d9fa380d12f4749.png" />
-<img alt="../_images/192080578fdc3078e35f2652580f900f60b3c494aa5d4f23489989957cf84fdd.png" src="../_images/192080578fdc3078e35f2652580f900f60b3c494aa5d4f23489989957cf84fdd.png" />
-<img alt="../_images/f926af503c095eb9e1dad5e8a1d68a0ef4bd1723574d3208e414c0fe17eb6589.png" src="../_images/f926af503c095eb9e1dad5e8a1d68a0ef4bd1723574d3208e414c0fe17eb6589.png" />
-<img alt="../_images/ab54892679e5b41f2ad06df9eede22e399fbd070b8d50ad500f5d7a8181dcb96.png" src="../_images/ab54892679e5b41f2ad06df9eede22e399fbd070b8d50ad500f5d7a8181dcb96.png" />
-<img alt="../_images/d1bdfb3c5a49fb0c3139f557bac3c25deb4c8998c481fdc01674ee072ab6c21b.png" src="../_images/d1bdfb3c5a49fb0c3139f557bac3c25deb4c8998c481fdc01674ee072ab6c21b.png" />
-<img alt="../_images/0cb7bb8078dec484a8f74b94f99301e06385a97de852f444363c83653bce564d.png" src="../_images/0cb7bb8078dec484a8f74b94f99301e06385a97de852f444363c83653bce564d.png" />
-<img alt="../_images/e06892a5a75686b75d193621e32579c68be2b9a2e6561e225b82e27f4f29d46d.png" src="../_images/e06892a5a75686b75d193621e32579c68be2b9a2e6561e225b82e27f4f29d46d.png" />
-<img alt="../_images/2954a25950f43eee06cc36fbf06b51a3bf0e1d933ff69023609303ebd91d7a38.png" src="../_images/2954a25950f43eee06cc36fbf06b51a3bf0e1d933ff69023609303ebd91d7a38.png" />
-<img alt="../_images/0cb7bb8078dec484a8f74b94f99301e06385a97de852f444363c83653bce564d.png" src="../_images/0cb7bb8078dec484a8f74b94f99301e06385a97de852f444363c83653bce564d.png" />
-</div>
+<img alt="../_images/5eafe5ca7d025c72a20eb1c106c10f51410a9c3ee6c162dbac5fb8ea301bc85c.svg" src="../_images/5eafe5ca7d025c72a20eb1c106c10f51410a9c3ee6c162dbac5fb8ea301bc85c.svg" /><img alt="../_images/ec757d9e4a6c85b3aaeddd88ae1f732e3851c8f605dad08e0bc79656977263d8.svg" src="../_images/ec757d9e4a6c85b3aaeddd88ae1f732e3851c8f605dad08e0bc79656977263d8.svg" /><img alt="../_images/900a2f8d134b61d7714683308696cef56e7a4721888479561f30847ddc35ebd0.svg" src="../_images/900a2f8d134b61d7714683308696cef56e7a4721888479561f30847ddc35ebd0.svg" /><img alt="../_images/01de5050d1eb547581264cf02e3dd4e6d62947d4b04a9764077ae6b18ca5c439.svg" src="../_images/01de5050d1eb547581264cf02e3dd4e6d62947d4b04a9764077ae6b18ca5c439.svg" /><img alt="../_images/e555f2680b8cbfebc941314c188e22d384855a858548a6e2f61edcf9cc465bd0.svg" src="../_images/e555f2680b8cbfebc941314c188e22d384855a858548a6e2f61edcf9cc465bd0.svg" /><img alt="../_images/d03be1561472d79added729f904b5bf03de5728157ba269db62ad907fca9ffd4.svg" src="../_images/d03be1561472d79added729f904b5bf03de5728157ba269db62ad907fca9ffd4.svg" /><img alt="../_images/6e9e493a250308274d58e720d97f7a93696724583111ce0f162401952e724a60.svg" src="../_images/6e9e493a250308274d58e720d97f7a93696724583111ce0f162401952e724a60.svg" /><img alt="../_images/7f007253ada21df79a9af83f859d62cefaf9c595dd982692b11ccff220e8c402.svg" src="../_images/7f007253ada21df79a9af83f859d62cefaf9c595dd982692b11ccff220e8c402.svg" /><img alt="../_images/85d0d122c7bb09a731f50375a0612d5b57e133edbdb7623072d8205e27b1cd8f.svg" src="../_images/85d0d122c7bb09a731f50375a0612d5b57e133edbdb7623072d8205e27b1cd8f.svg" /><img alt="../_images/253bce8c94455ea1a03db8f1ce53da03d20efbf606255f92e651a6a090ceda13.svg" src="../_images/253bce8c94455ea1a03db8f1ce53da03d20efbf606255f92e651a6a090ceda13.svg" /><img alt="../_images/c97f909b36406cb6463821bc9182a09622ccf3cbfae75fcc95ad341283414a4e.svg" src="../_images/c97f909b36406cb6463821bc9182a09622ccf3cbfae75fcc95ad341283414a4e.svg" /><img alt="../_images/f0eec0f934596c2d5196eb2014017d464c3d94c610ec1b9f5e64c92e5ff4a497.svg" src="../_images/f0eec0f934596c2d5196eb2014017d464c3d94c610ec1b9f5e64c92e5ff4a497.svg" /><img alt="../_images/96d00026c1ac0041bbb6cabab6bb0907ec002e5f668e8be2556207bd714f8797.svg" src="../_images/96d00026c1ac0041bbb6cabab6bb0907ec002e5f668e8be2556207bd714f8797.svg" /><img alt="../_images/8d13c81cee94fc2f9a8b5bf7db3757833b42fef4702f7f24d00d68f1c3945ad4.svg" src="../_images/8d13c81cee94fc2f9a8b5bf7db3757833b42fef4702f7f24d00d68f1c3945ad4.svg" /><img alt="../_images/457b7b2d9ed76b5d7df7311b47b0fada46400183ab3c0d3ea5752d115ecac057.svg" src="../_images/457b7b2d9ed76b5d7df7311b47b0fada46400183ab3c0d3ea5752d115ecac057.svg" /><img alt="../_images/0a68514e2f99a8f95822170151db79372f522ce4189292f1a00f0fa66c661917.svg" src="../_images/0a68514e2f99a8f95822170151db79372f522ce4189292f1a00f0fa66c661917.svg" /><img alt="../_images/24396a8f59c3b0d77ab0e14b89781967fd49f51bce480cf1156d6b7d7fb177a8.svg" src="../_images/24396a8f59c3b0d77ab0e14b89781967fd49f51bce480cf1156d6b7d7fb177a8.svg" /><img alt="../_images/ef93fe8259c4eede37813830e2ecfea5a4545be0ae3f409d38896beff3f3c24f.svg" src="../_images/ef93fe8259c4eede37813830e2ecfea5a4545be0ae3f409d38896beff3f3c24f.svg" /><img alt="../_images/111e5a4db24e49a61a182ad313a6974930803b4eaab45469ac43f5fbd22f06ed.svg" src="../_images/111e5a4db24e49a61a182ad313a6974930803b4eaab45469ac43f5fbd22f06ed.svg" /><img alt="../_images/16760f5cda3fe7bfdb549d14392d3c4c1bc9c15aba4f4b84e26439a501d0296e.svg" src="../_images/16760f5cda3fe7bfdb549d14392d3c4c1bc9c15aba4f4b84e26439a501d0296e.svg" /></div>
 </details>
 </div>
 <p>Now we are ready to pose and solve the decision-making problem.
@@ -926,35 +901,35 @@ We will put a star (*) next to the choice with minimum cost.</p>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x	Cost of 0	Cost of 1	True label	Choice
 --------------------------------------------------------------------------------
-36.00	0.90		0.10*		1		CORRECT
+22.50	0.07*		0.93		0		CORRECT
+28.50	0.25*		0.75		0		CORRECT
 40.50	0.99		0.01*		1		CORRECT
+36.00	0.90		0.10*		0		WRONG
 25.50	0.12*		0.88		0		CORRECT
-22.50	0.07*		0.93		0		CORRECT
-28.50	0.25*		0.75		0		CORRECT
-28.50	0.25*		0.75		0		CORRECT
-22.50	0.07*		0.93		0		CORRECT
-32.00	0.57		0.43*		1		CORRECT
-40.50	0.99		0.01*		1		CORRECT
-40.50	0.99		0.01*		1		CORRECT
-28.50	0.25*		0.75		0		CORRECT
-32.00	0.57		0.43*		0		WRONG
-28.50	0.25*		0.75		0		CORRECT
-22.50	0.07*		0.93		0		CORRECT
-40.50	0.99		0.01*		1		CORRECT
-25.50	0.12*		0.88		0		CORRECT
-32.00	0.57		0.43*		1		CORRECT
-36.00	0.90		0.10*		1		CORRECT
 28.50	0.25*		0.75		1		WRONG
-32.00	0.57		0.43*		1		CORRECT
+22.50	0.07*		0.93		0		CORRECT
+36.00	0.90		0.10*		1		CORRECT
+22.50	0.07*		0.93		0		CORRECT
+40.50	0.99		0.01*		1		CORRECT
+40.50	0.99		0.01*		1		CORRECT
+25.50	0.12*		0.88		0		CORRECT
+36.00	0.90		0.10*		0		WRONG
+28.50	0.25*		0.75		0		CORRECT
+25.50	0.12*		0.88		1		WRONG
+22.50	0.07*		0.93		0		CORRECT
+22.50	0.07*		0.93		0		CORRECT
+22.50	0.07*		0.93		0		CORRECT
+40.50	0.99		0.01*		1		CORRECT
+40.50	0.99		0.01*		1		CORRECT
 </pre></div>
 </div>
 </div>
 </div>
 <p>Notice that most of the choices are correct. But there are some wrong choices.
-The particularly bad wrong choices are the ones where we predict 0 (no explosion), but there is actually an explosion. Are there any such cases?</p>
-<p>Let me now show you another very nice way to compute the expected cost for all the validation points in one line.
-This is using the <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.einsum.html">einsum</a> function (Einstein summation convention).
-It takes a while to understand what it does, but if you do you can shorten by a lot your linear algebra code.
+The particularly bad wrong choices are the ones where we predict 0 (no explosion), but there is an explosion. Are there any such cases?</p>
+<p>Let me show you another very nice way to compute the expected cost for all the validation points in one line.
+This way is using the <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.einsum.html">einsum</a> function (Einstein summation convention).
+It takes a while to understand what it does, but if you do, you can shorten your linear algebra code by a lot.
 The idea is that repeated indices are summed over.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -964,26 +939,26 @@ The idea is that repeated indices are summed over.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0.904 0.096]
- [0.993 0.007]
- [0.12  0.88 ]
- [0.065 0.935]
- [0.253 0.747]
- [0.253 0.747]
- [0.065 0.935]
- [0.571 0.429]
- [0.993 0.007]
- [0.993 0.007]
- [0.253 0.747]
- [0.571 0.429]
- [0.253 0.747]
- [0.065 0.935]
- [0.993 0.007]
- [0.12  0.88 ]
- [0.571 0.429]
- [0.904 0.096]
- [0.253 0.747]
- [0.571 0.429]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0.06527731 0.93472269]
+ [0.25337129 0.74662871]
+ [0.99307148 0.00692852]
+ [0.90441891 0.09558109]
+ [0.12011635 0.87988365]
+ [0.25337129 0.74662871]
+ [0.06527731 0.93472269]
+ [0.90441891 0.09558109]
+ [0.06527731 0.93472269]
+ [0.99307148 0.00692852]
+ [0.99307148 0.00692852]
+ [0.12011635 0.87988365]
+ [0.90441891 0.09558109]
+ [0.25337129 0.74662871]
+ [0.12011635 0.87988365]
+ [0.06527731 0.93472269]
+ [0.06527731 0.93472269]
+ [0.06527731 0.93472269]
+ [0.99307148 0.00692852]
+ [0.99307148 0.00692852]]
 </pre></div>
 </div>
 </div>
@@ -1004,7 +979,8 @@ The idea is that repeated indices are summed over.</p>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">);</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1014,27 +990,7 @@ The idea is that repeated indices are summed over.</p>
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<img alt="../_images/59ddcd6ee27a4afdb8bafdf1d333b4f3ad897cf0f5a037350c5a57f0912c866e.png" src="../_images/59ddcd6ee27a4afdb8bafdf1d333b4f3ad897cf0f5a037350c5a57f0912c866e.png" />
-<img alt="../_images/15fed03f644b6c2068abb157f3e4eecc8691a6c94cb0485c4d31c1d1163a15ce.png" src="../_images/15fed03f644b6c2068abb157f3e4eecc8691a6c94cb0485c4d31c1d1163a15ce.png" />
-<img alt="../_images/96da0f7f64f1938cb8e990eb9b05038f70e93cd90e189e683aad96608eeb348b.png" src="../_images/96da0f7f64f1938cb8e990eb9b05038f70e93cd90e189e683aad96608eeb348b.png" />
-<img alt="../_images/8ef8cf4b68bd87f29f59ab1f7e84644632224839b7a87e65ebfdb98212e975ed.png" src="../_images/8ef8cf4b68bd87f29f59ab1f7e84644632224839b7a87e65ebfdb98212e975ed.png" />
-<img alt="../_images/1aa95d0c4998ab9234a6440ac450e1b806235b25555262240f778969b80d89ae.png" src="../_images/1aa95d0c4998ab9234a6440ac450e1b806235b25555262240f778969b80d89ae.png" />
-<img alt="../_images/1aa95d0c4998ab9234a6440ac450e1b806235b25555262240f778969b80d89ae.png" src="../_images/1aa95d0c4998ab9234a6440ac450e1b806235b25555262240f778969b80d89ae.png" />
-<img alt="../_images/8ef8cf4b68bd87f29f59ab1f7e84644632224839b7a87e65ebfdb98212e975ed.png" src="../_images/8ef8cf4b68bd87f29f59ab1f7e84644632224839b7a87e65ebfdb98212e975ed.png" />
-<img alt="../_images/ee3b471ee2e252089217776747d39ce75aff8ba0a46619ef5a3650ee68b48ad6.png" src="../_images/ee3b471ee2e252089217776747d39ce75aff8ba0a46619ef5a3650ee68b48ad6.png" />
-<img alt="../_images/15fed03f644b6c2068abb157f3e4eecc8691a6c94cb0485c4d31c1d1163a15ce.png" src="../_images/15fed03f644b6c2068abb157f3e4eecc8691a6c94cb0485c4d31c1d1163a15ce.png" />
-<img alt="../_images/15fed03f644b6c2068abb157f3e4eecc8691a6c94cb0485c4d31c1d1163a15ce.png" src="../_images/15fed03f644b6c2068abb157f3e4eecc8691a6c94cb0485c4d31c1d1163a15ce.png" />
-<img alt="../_images/1aa95d0c4998ab9234a6440ac450e1b806235b25555262240f778969b80d89ae.png" src="../_images/1aa95d0c4998ab9234a6440ac450e1b806235b25555262240f778969b80d89ae.png" />
-<img alt="../_images/172e55e9ab2e994597c1c1c9f6dec94975391856f3f2ee78b0e6982a191e7207.png" src="../_images/172e55e9ab2e994597c1c1c9f6dec94975391856f3f2ee78b0e6982a191e7207.png" />
-<img alt="../_images/1aa95d0c4998ab9234a6440ac450e1b806235b25555262240f778969b80d89ae.png" src="../_images/1aa95d0c4998ab9234a6440ac450e1b806235b25555262240f778969b80d89ae.png" />
-<img alt="../_images/8ef8cf4b68bd87f29f59ab1f7e84644632224839b7a87e65ebfdb98212e975ed.png" src="../_images/8ef8cf4b68bd87f29f59ab1f7e84644632224839b7a87e65ebfdb98212e975ed.png" />
-<img alt="../_images/15fed03f644b6c2068abb157f3e4eecc8691a6c94cb0485c4d31c1d1163a15ce.png" src="../_images/15fed03f644b6c2068abb157f3e4eecc8691a6c94cb0485c4d31c1d1163a15ce.png" />
-<img alt="../_images/96da0f7f64f1938cb8e990eb9b05038f70e93cd90e189e683aad96608eeb348b.png" src="../_images/96da0f7f64f1938cb8e990eb9b05038f70e93cd90e189e683aad96608eeb348b.png" />
-<img alt="../_images/ee3b471ee2e252089217776747d39ce75aff8ba0a46619ef5a3650ee68b48ad6.png" src="../_images/ee3b471ee2e252089217776747d39ce75aff8ba0a46619ef5a3650ee68b48ad6.png" />
-<img alt="../_images/59ddcd6ee27a4afdb8bafdf1d333b4f3ad897cf0f5a037350c5a57f0912c866e.png" src="../_images/59ddcd6ee27a4afdb8bafdf1d333b4f3ad897cf0f5a037350c5a57f0912c866e.png" />
-<img alt="../_images/7b78af6e41d5a04b1ac2eb89eafcee9c75179f84c54f4a3cafd39b0d62870cd3.png" src="../_images/7b78af6e41d5a04b1ac2eb89eafcee9c75179f84c54f4a3cafd39b0d62870cd3.png" />
-<img alt="../_images/ee3b471ee2e252089217776747d39ce75aff8ba0a46619ef5a3650ee68b48ad6.png" src="../_images/ee3b471ee2e252089217776747d39ce75aff8ba0a46619ef5a3650ee68b48ad6.png" />
-</div>
+<img alt="../_images/c83c795a50cc136097f18d311f32d48cda3d546443a21e7423ed746890daae6d.svg" src="../_images/c83c795a50cc136097f18d311f32d48cda3d546443a21e7423ed746890daae6d.svg" /><img alt="../_images/f9e3852c342628ed6f267a76e3fdf48c0e6aa8ef7a7be9d361421f141adf70ac.svg" src="../_images/f9e3852c342628ed6f267a76e3fdf48c0e6aa8ef7a7be9d361421f141adf70ac.svg" /><img alt="../_images/5ff582f2ae4bdece61109c24235181797ecadd7fde22f8a66c24edb137537092.svg" src="../_images/5ff582f2ae4bdece61109c24235181797ecadd7fde22f8a66c24edb137537092.svg" /><img alt="../_images/26b26e1d0ff8583f0feb34892de45d0e67f73fa506ddcb3411e85e2bb9a4d434.svg" src="../_images/26b26e1d0ff8583f0feb34892de45d0e67f73fa506ddcb3411e85e2bb9a4d434.svg" /><img alt="../_images/b0e334b87738f2f0f3cb753657387fcf5e8c4bab7c84eca082ba89c7f21a75b5.svg" src="../_images/b0e334b87738f2f0f3cb753657387fcf5e8c4bab7c84eca082ba89c7f21a75b5.svg" /><img alt="../_images/ea86c251487f231aa4421d636b34850fef1ee074edc2f2479d49a2c60b056811.svg" src="../_images/ea86c251487f231aa4421d636b34850fef1ee074edc2f2479d49a2c60b056811.svg" /><img alt="../_images/c85de32081bab54855f9b10e79c636c75260da3d69237f3f7a49531d53aba1e8.svg" src="../_images/c85de32081bab54855f9b10e79c636c75260da3d69237f3f7a49531d53aba1e8.svg" /><img alt="../_images/eb42bb88cbb31a7c204c05be3b98b0dfd690920768404f99940ed14af62a5347.svg" src="../_images/eb42bb88cbb31a7c204c05be3b98b0dfd690920768404f99940ed14af62a5347.svg" /><img alt="../_images/a9a9821e6bcb711b33a8d34be2a73a2db7c54bf1871b5f543b0f7e52c4f7f5bb.svg" src="../_images/a9a9821e6bcb711b33a8d34be2a73a2db7c54bf1871b5f543b0f7e52c4f7f5bb.svg" /><img alt="../_images/c4b1af43f95355e7b42bfe440e2871ba751ceff5cce0a71f63f61a142e26c912.svg" src="../_images/c4b1af43f95355e7b42bfe440e2871ba751ceff5cce0a71f63f61a142e26c912.svg" /><img alt="../_images/8fafc0afd554ab0e3a1a839afef931b0a88b5b2ccdce4cde2122c89bbb283f0d.svg" src="../_images/8fafc0afd554ab0e3a1a839afef931b0a88b5b2ccdce4cde2122c89bbb283f0d.svg" /><img alt="../_images/9d121bdc70c37ca295de77891683073a7379f52734fcf786a2e7794e8c80718a.svg" src="../_images/9d121bdc70c37ca295de77891683073a7379f52734fcf786a2e7794e8c80718a.svg" /><img alt="../_images/596d7f764ae6a882078b07bba59470c97ad8758ccab58e04362f5ecc9c38fa8d.svg" src="../_images/596d7f764ae6a882078b07bba59470c97ad8758ccab58e04362f5ecc9c38fa8d.svg" /><img alt="../_images/b71a947cc331492e10224464cdf41f256d3425135da890313247af7db486243d.svg" src="../_images/b71a947cc331492e10224464cdf41f256d3425135da890313247af7db486243d.svg" /><img alt="../_images/fd5c46f2122789d729dced5e38871a9ec28eef9a1859ad7b8bff93b6ae069c71.svg" src="../_images/fd5c46f2122789d729dced5e38871a9ec28eef9a1859ad7b8bff93b6ae069c71.svg" /><img alt="../_images/c21fc183d6c8ea91333410aebe2a98d9004579b87e041c0f75db646e320ae6b7.svg" src="../_images/c21fc183d6c8ea91333410aebe2a98d9004579b87e041c0f75db646e320ae6b7.svg" /><img alt="../_images/d121f535cdc66ee09b51566091f9775c1b684ef65aada3127e058bb642ede7f2.svg" src="../_images/d121f535cdc66ee09b51566091f9775c1b684ef65aada3127e058bb642ede7f2.svg" /><img alt="../_images/4debc85849ebb27117a3f3c67ff4fb2c99e04d5bd284c23de73b3f9f7917b93e.svg" src="../_images/4debc85849ebb27117a3f3c67ff4fb2c99e04d5bd284c23de73b3f9f7917b93e.svg" /><img alt="../_images/9417dd6f9d3564f19854420469d96cf9e3f7c221ac933340591de0fc4e305e8b.svg" src="../_images/9417dd6f9d3564f19854420469d96cf9e3f7c221ac933340591de0fc4e305e8b.svg" /><img alt="../_images/65c07b4cfe50854f3750c9ef9a4a9b211b6e33fbdceb70ceb55bd9ea1c92e5fb.svg" src="../_images/65c07b4cfe50854f3750c9ef9a4a9b211b6e33fbdceb70ceb55bd9ea1c92e5fb.svg" /></div>
 </details>
 </div>
 <p>Now let’s plot the decision boundary of our model:</p>
@@ -1050,18 +1006,18 @@ The idea is that repeated indices are summed over.</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Decision&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Predictive probability of E&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Predictive probability of E&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/764cf6f1244f62160937ac65aebd5c197e0adfe55b9b58306fa59e75fa0d1be2.png" src="../_images/764cf6f1244f62160937ac65aebd5c197e0adfe55b9b58306fa59e75fa0d1be2.png" />
-</div>
+<img alt="../_images/a801b86dc4ce0daf3031b81b26835fd5f3e7c6fd590609ee03b30f3abcc80a82.svg" src="../_images/a801b86dc4ce0daf3031b81b26835fd5f3e7c6fd590609ee03b30f3abcc80a82.svg" /></div>
 </div>
 <section id="questions">
 <h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Repeat the analysis above with a different cost matrix that penalizes more calling a non-explosion when there is an explosion.</p></li>
+<li><p>Repeat the analysis above with a different cost matrix that penalizes more by calling a non-explosion when there is an explosion.</p></li>
 </ul>
 </section>
 </section>
@@ -1134,7 +1090,6 @@ The idea is that repeated indices are summed over.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#high-melting-explosives-sensitivity">High melting explosives sensitivity</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>

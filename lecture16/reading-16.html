@@ -575,7 +575,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-classification">Binary classification</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression">Logistic regression</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
 </ul>
@@ -603,28 +602,22 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="theoretical-background-on-classification">
 <h1>Theoretical Background on Classification<a class="headerlink" href="#theoretical-background-on-classification" title="Permalink to this heading">#</a></h1>
-<section id="binary-classification">
-<h2>Binary classification<a class="headerlink" href="#binary-classification" title="Permalink to this heading">#</a></h2>
-<p>Imagine that you have a bunch of observations consisting of inputs/features <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}=(\mathbf{x}_1,\dots,\mathbf{x}_n)\)</span> and the corresponding targets <span class="math notranslate nohighlight">\(y_{1:n}=(y_1,\dots,y_n)\)</span>.
-Remember that we say that we have a classification problem when the targets are discrete labels.
-In particular, if the labels are two, say 0 or 1, then we say that we have a *binary classification problem.</p>
-</section>
 <section id="logistic-regression">
 <h2>Logistic regression<a class="headerlink" href="#logistic-regression" title="Permalink to this heading">#</a></h2>
-<p>Imagine that you have a bunch of observations consisting of inputs/features <span class="math notranslate nohighlight">\(\mathbf{x}_{1:N}=(\mathbf{x}_1,\dots,\mathbf{x}_N)\)</span> and the corresponding targets <span class="math notranslate nohighlight">\(y_{1:N}=(y_1,\dots,y_N)\)</span>.
+<p>Imagine that you have a bunch of observations consisting of inputs/features <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}=(\mathbf{x}_1,\dots,\mathbf{x}_n)\)</span> and the corresponding targets <span class="math notranslate nohighlight">\(y_{1:n}=(y_1,\dots,y_n)\)</span>.
 Remember that we say that we have a classification problem when the targets are discrete labels.
-In particular, if the labels are two, say 0 or 1, then we say that we have a <em>binary classification problem</em>.</p>
+In particular, if the labels are two, say 0 or 1, we say we have a <em>binary classification problem</em>.</p>
 <p>The logistic regression model is one of the simplest ways to solve the binary classification problem.
 It goes as follows.
 You model the probability that <span class="math notranslate nohighlight">\(y=1\)</span> conditioned on having <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> by:</p>
 <div class="math notranslate nohighlight">
 \[
-p(y=1|\mathbf{x},\mathbf{w}) = \operatorname{sigm}\left(\sum_{j=1}^Mw_j\phi_j(\mathbf{x})\right) =  \operatorname{sigm}\left(\mathbf{w}^T\boldsymbol{\phi}(\mathbf{x})\right),
+p(y=1|\mathbf{x},\mathbf{w}) = \operatorname{sigm}\left(\sum_{j=1}^mw_j\phi_j(\mathbf{x})\right) = \operatorname{sigm}\left(\mathbf{w}^T\boldsymbol{\phi}(\mathbf{x})\right),
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\operatorname{sigm}\)</span> is the <a class="reference external" href="https://en.wikipedia.org/wiki/Sigmoid_function">sigmoid function</a>, the <span class="math notranslate nohighlight">\(\phi_j(\mathbf{x})\)</span> are <span class="math notranslate nohighlight">\(m\)</span> basis functions/features,</p>
 <div class="math notranslate nohighlight">
 \[
-\boldsymbol{\phi}(\mathbf{x}) = \left(\phi_1(\mathbf{x}),\dots,\phi_M(\mathbf{x})\right)
+\boldsymbol{\phi}(\mathbf{x}) = \left(\phi_1(\mathbf{x}),\dots,\phi_m(\mathbf{x})\right)
 \]</div>
 <p>and the <span class="math notranslate nohighlight">\(w_j\)</span>’s are <span class="math notranslate nohighlight">\(m\)</span> weights that we need to learn from the data.
 The sigmoid function is defined by:</p>
@@ -632,7 +625,7 @@ The sigmoid function is defined by:</p>
 \[
 \operatorname{sigm}(z) = \frac{1}{1+e^{-z}},
 \]</div>
-<p>and all it does is it takes a real number and maps it to <span class="math notranslate nohighlight">\([0,1]\)</span> so that it can represent a probability.
+<p>and all it does is take a real number and map it to <span class="math notranslate nohighlight">\([0,1]\)</span> to represent a probability.
 In other words, logistic regression is just a generalized linear model passed through the sigmoid function so that it is mapped to <span class="math notranslate nohighlight">\([0,1]\)</span>.</p>
 <p>If you need the probability of <span class="math notranslate nohighlight">\(y=0\)</span>, it is given by the obvious rule:</p>
 <div class="math notranslate nohighlight">
@@ -646,30 +639,30 @@ p(y|\mathbf{x},\mathbf{w}) =
 \left[\operatorname{sigm}\left(\mathbf{w}^T\boldsymbol{\phi}(\mathbf{x})\right)\right]^y
 \left[1-\operatorname{sigm}\left(\mathbf{w}^T\boldsymbol{\phi}(\mathbf{x})\right)\right]^{1-y}.
 \]</div>
-<p>Notice that when <span class="math notranslate nohighlight">\(y=1\)</span>, the exponent of the second term becomes zero and thus the term becomes one.
-Similarly, when <span class="math notranslate nohighlight">\(y=0\)</span>, the exponent of the first tierm becomes zero and thus the term becomes one.
-This gives the right probability for each case.</p>
+<p>Notice that when <span class="math notranslate nohighlight">\(y=1\)</span>, the exponent of the second term becomes zero, and thus, the term becomes one.
+Similarly, when <span class="math notranslate nohighlight">\(y=0\)</span>, the exponent of the first term becomes zero, and thus the term becomes one.
+This trick gives the correct probability for each case.</p>
 <p>The likelihood of all the observed data is:</p>
 <div class="math notranslate nohighlight">
 \[
-p(y_{1:N}|\mathbf{x}_{1:n},\mathbf{w}) = \prod_{i=1}^Np(y_i |\mathbf{x}_i, \mathbf{w})
-= \prod_{i=1}^N
+p(y_{1:n}|\mathbf{x}_{1:n},\mathbf{w}) = \prod_{i=1}^np(y_i |\mathbf{x}_i, \mathbf{w})
+= \prod_{i=1}^n
 \left[\operatorname{sigm}\left(\mathbf{w}^T\boldsymbol{\phi}(\mathbf{x}_i)\right)\right]^{y_i}
 \left[1-\operatorname{sigm}\left(\mathbf{w}^T\boldsymbol{\phi}(\mathbf{x}_i)\right)\right]^{1-y_i}.
 \]</div>
-<p>We can now find the best weight vector <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> using the  <a class="reference external" href="https://purduemechanicalengineering.github.io/me-297-intro-to-data-science/lecture13/the-maximum-likelihood-principle.html">maximum likelihood principle</a>.
+<p>We can now find the best weight vector <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> using the <a class="reference external" href="https://purduemechanicalengineering.github.io/me-297-intro-to-data-science/lecture13/the-maximum-likelihood-principle.html">maximum likelihood principle</a>.
 We need to solve the optimization problem:</p>
 <div class="math notranslate nohighlight">
 \[
-\max_{\mathbf{w}}\log p(y_{1:N}|\mathbf{x}_{1:n},\mathbf{w})
-= \max_{\mathbf{w}}\sum_{i=1}^N\left\{y_i\operatorname{sigm}\left(\mathbf{w}^T\boldsymbol{\phi}(\mathbf{x}_i)\right)+(1-y_i)\left[1-\operatorname{sigm}\left(\mathbf{w}^T\boldsymbol{\phi}(\mathbf{x}_i)\right)\right]\right\}.
+\max_{\mathbf{w}}\log p(y_{1:n}|\mathbf{x}_{1:n},\mathbf{w})
+= \max_{\mathbf{w}}\sum_{i=1}^n\left\{y_i\operatorname{sigm}\left(\mathbf{w}^T\boldsymbol{\phi}(\mathbf{x}_i)\right)+(1-y_i)\left[1-\operatorname{sigm}\left(\mathbf{w}^T\boldsymbol{\phi}(\mathbf{x}_i)\right)\right]\right\}.
 \]</div>
 <p>Notice that the following maximization problem is equivalent to minimizing this loss function:</p>
 <div class="math notranslate nohighlight">
 \[
-L(\mathbf{w}) = -\sum_{i=1}^N\left\{y_i\operatorname{sigm}\left(\mathbf{w}^T\boldsymbol{\phi}(\mathbf{x}_i)\right)+(1-y_i)\left[1-\operatorname{sigm}\left(\mathbf{w}^T\boldsymbol{\phi}(\mathbf{x}_i)\right)\right]\right\}.
+L(\mathbf{w}) = -\sum_{i=1}^n\left\{y_i\operatorname{sigm}\left(\mathbf{w}^T\boldsymbol{\phi}(\mathbf{x}_i)\right)+(1-y_i)\left[1-\operatorname{sigm}\left(\mathbf{w}^T\boldsymbol{\phi}(\mathbf{x}_i)\right)\right]\right\}.
 \]</div>
-<p>This is known as the <a class="reference external" href="https://en.wikipedia.org/wiki/Cross_entropy#Cross-entropy_loss_function_and_logistic_regression">cross-entropy loss function</a> and you are very likely to encounter it if you dive deeper into modern data science.
+<p>This function is known as the <a class="reference external" href="https://en.wikipedia.org/wiki/Cross_entropy#Cross-entropy_loss_function_and_logistic_regression">cross-entropy loss function</a>, and you are very likely to encounter it if you dive deeper into modern data science.
 For example, we use the same loss function to train state-of-the-art deep neural networks that classify images.
 You now know that it does not come out of the blue.
 It comes from the maximum likelihood principle.</p>
@@ -680,31 +673,31 @@ It comes from the maximum likelihood principle.</p>
 </section>
 <section id="making-decisions">
 <h2>Making-decisions<a class="headerlink" href="#making-decisions" title="Permalink to this heading">#</a></h2>
-<p>Say that you have found a point estimate for the weights <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> based on the data.
+<p>Based on the data, suppose you have found a point estimate for the weights <span class="math notranslate nohighlight">\(\mathbf{w}\)</span>.
 Let’s call that point estimate <span class="math notranslate nohighlight">\(\mathbf{w}^*\)</span>.
 You can predict the probability of <span class="math notranslate nohighlight">\(y\)</span> taking any value by evaluating <span class="math notranslate nohighlight">\(p(y|\mathbf{x},\mathbf{w}=\mathbf{w}^*)\)</span>.
 That’s what your model predicts: a probability mass function over the two possible values of <span class="math notranslate nohighlight">\(y\)</span>.
-Now, let’s say that you have to decide whether <span class="math notranslate nohighlight">\(y\)</span> is equal to 0 or 1.
+Now, you have to decide whether <span class="math notranslate nohighlight">\(y\)</span> equals 0 or 1.
 How do you do this?
-You need to pose and solve a decision making problem.
+You need to pose and solve a decision-making problem.
 Like we did before, you start by quantifying the loss you incur when you make the wrong decision.
-Mathematically, let <span class="math notranslate nohighlight">\(\hat{y}\)</span> be what you choose and <span class="math notranslate nohighlight">\(y\)</span> be the true value of the label.
+Mathematically, let <span class="math notranslate nohighlight">\(\hat{y}\)</span> be what you choose, and <span class="math notranslate nohighlight">\(y\)</span> be the true value of the label.
 You need to define the function:</p>
 <div class="math notranslate nohighlight">
 \[
 \ell(\hat{y},y) = \text{the cot of picking $\hat{y}$ when the true value is $y$}.
 \]</div>
 <p>Of course, the choice of the cost function is subjective.
-For the binary classification case we are looking at, <span class="math notranslate nohighlight">\(\ell(\hat{y},y)\)</span> is just a <span class="math notranslate nohighlight">\(2\times 2\)</span> matrix (two possibilities for <span class="math notranslate nohighlight">\(\hat{y}\)</span> and two possibilities for <span class="math notranslate nohighlight">\(y\)</span>).
-Once you have your loss function, the rational thing to do is to pick the <span class="math notranslate nohighlight">\(\hat{y}\)</span> that minimizex your <em>expected loss</em>.
-The expectation here is over what you think the true value of <span class="math notranslate nohighlight">\(y\)</span> is.
+For the binary classification case, we are looking at <span class="math notranslate nohighlight">\(\ell(\hat{y},y)\)</span> is just a <span class="math notranslate nohighlight">\(2\times 2\)</span> matrix (two possibilities for <span class="math notranslate nohighlight">\(\hat{y}\)</span> and two possibilities for <span class="math notranslate nohighlight">\(y\)</span>).
+Once you have your loss function, the rational thing to do is to pick the <span class="math notranslate nohighlight">\(\hat{y}\)</span> that minimizes your <em>expected loss</em>.
+The expectation is over what you think the true value of <span class="math notranslate nohighlight">\(y\)</span> is.
 This state of knowledge is summarized in the trained logistic regression model.
 Therefore, the problem you need to solve to pick <span class="math notranslate nohighlight">\(\hat{y}\)</span> is:</p>
 <div class="math notranslate nohighlight">
 \[
 \min_{\hat{y}} \sum_{y=0,1} \ell(\hat{y},y)p(y|\mathbf{x},\mathbf{w}=\mathbf{w}^*).
 \]</div>
-<p>Notice that this is a different optimization problem for each possible value of <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>.</p>
+<p>This is a different optimization problem for each possible <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> value.</p>
 <section id="id1">
 <h3>Examples<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>See <a class="reference internal" href="hands-on-16.3.html#classification-decision-making"><span class="std std-ref">this</span></a>.</p>
@@ -712,26 +705,26 @@ Therefore, the problem you need to solve to pick <span class="math notranslate n
 </section>
 <section id="diagnostics-for-classification">
 <h2>Diagnostics for classification<a class="headerlink" href="#diagnostics-for-classification" title="Permalink to this heading">#</a></h2>
-<p>As always you need to split your dataset in training and validation subsets.
+<p>As always, you must split your dataset into training and validation subsets.
 There are many different diagnostics you can use on your validation dataset.
-The two that we are going to cover in the video lecture are:</p>
+The two most important ones are:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/model_evaluation.html#accuracy-score">Accuracy score</a></p></li>
-<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Confusion_matrix">Confusion matrix</a></p></li>
+<li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/model_evaluation.html#accuracy-score">Accuracy score</a>. The accuracy score is the fraction of correctly classified data points. It is a number between 0 and 1. The higher, the better.</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Confusion_matrix">Confusion matrix</a>. The confusion matrix is a <span class="math notranslate nohighlight">\(2\times 2\)</span> matrix that tells you how many data points were classified correctly and how many were classified incorrectly. The higher the numbers on the diagonal, the better.</p></li>
 </ul>
 <p>See <a class="reference internal" href="hands-on-16.4.html#diagnostics-for-classification"><span class="std std-ref">this</span></a>.</p>
 </section>
 <section id="multi-class-classification">
 <h2>Multi-class classification<a class="headerlink" href="#multi-class-classification" title="Permalink to this heading">#</a></h2>
 <p>Imagine that you have a bunch of observations consisting of inputs/features <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}=(\mathbf{x}_1,\dots,\mathbf{x}_n)\)</span> and the corresponding discrete labels <span class="math notranslate nohighlight">\(y_{1:n}=(y_1,\dots,y_n)\)</span>.
-But now there are not just two labels.
+But now, there are more than two labels.
 There are <span class="math notranslate nohighlight">\(K\)</span> possible values for the labels.
 That’s <em>multi-class classification</em>.</p>
 </section>
 <section id="multi-class-logistic-regression">
 <h2>Multi-class logistic regression<a class="headerlink" href="#multi-class-logistic-regression" title="Permalink to this heading">#</a></h2>
-<p>Just like before assume that you have a set of <span class="math notranslate nohighlight">\(m\)</span> basis function <span class="math notranslate nohighlight">\(\phi_j(\mathbf{x})\)</span> which we will use to make generalized linear models.
-The multi-class logistic regession model is defined by:</p>
+<p>Like before, assume that you have a set of <span class="math notranslate nohighlight">\(m\)</span> basis function <span class="math notranslate nohighlight">\(\phi_j(\mathbf{x})\)</span>, which we will use to make generalized linear models.
+The multi-class logistic regression model is defined by:</p>
 <div class="math notranslate nohighlight">
 \[
 p(y=k|\mathbf{x}, \mathbf{W}) = \operatorname{softmax}_k\left(\mathbf{w}_1^T\boldsymbol{\phi}(\mathbf{x}),\dots,\mathbf{w}_K^T\boldsymbol{\phi}(\mathbf{x})\right),
@@ -822,7 +815,6 @@ Just like in the logistic regression case, you can train the model by putting a 
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-classification">Binary classification</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression">Logistic regression</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
 </ul>
