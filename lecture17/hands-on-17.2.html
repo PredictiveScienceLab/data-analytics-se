@@ -575,7 +575,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#avoiding-overfitting-using-the-bayesian-information-criterion">Avoiding overfitting using the Bayesian information criterion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
             </nav>
@@ -596,12 +597,12 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -610,12 +611,55 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="density-estimation-via-gaussian-mixtures">
 <h1>Density Estimation via Gaussian mixtures<a class="headerlink" href="#density-estimation-via-gaussian-mixtures" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To demonstrate density estimation via Gaussian mixtures</p></li>
-</ul>
-<p>Again, we are going to demonstrate the concepts using a synthetic example.
+<p>The density estimation problem is the following: you are given a set of observations <span class="math notranslate nohighlight">\(\mathbf{x}_1,\ldots,\mathbf{x}_n\)</span> and you want to learn a model <span class="math notranslate nohighlight">\(p(\mathbf{x})\)</span> that allows you to generate examples similar to your observations.
+The Gaussian mixture model is a popular model for density estimation.
+The model has the form:</p>
+<div class="math notranslate nohighlight">
+\[
+p(\mathbf{x}) = \sum_{k=1}^K\pi_kN(\mathbf{x}|\boldsymbol{\mu}_k,\boldsymbol{\Sigma}_k),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\pi_k, \boldsymbol{\mu}_k\)</span>, and <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}_k\)</span> are parameters to be estimated from the data.
+The Gaussian mixture model assumes that there are <span class="math notranslate nohighlight">\(K\)</span> possible sources that may generate the data and that each one is a multivariate Gaussian with parameters to be estimated.
+Solving the density estimation problem using mixtures of Gaussian essentially also solves the clustering problem because you can think of the <span class="math notranslate nohighlight">\(K\)</span> different Gaussians as defining the clusters.
+If you want to study Gaussian mixtures independently, I suggest reading <a class="reference external" href="https://www.springer.com/gp/book/9780387310732">Chapter 9, Bishop (2006)</a> (You should have free online access to the book through Purdue).</p>
+<p>We train a Gaussian mixture model by maximizing the log-likelihood of the data.
+The log-likelihood is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+\log p(\mathbf{X}|\boldsymbol{\pi},\boldsymbol{\mu},\boldsymbol{\Sigma}) = \sum_{i=1}^n\log\left\{\sum_{k=1}^K\pi_kN(\mathbf{x}_i|\boldsymbol{\mu}_k,\boldsymbol{\Sigma}_k)\right\},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\boldsymbol{\pi} = (\pi_1,\ldots,\pi_K)\)</span>, <span class="math notranslate nohighlight">\(\boldsymbol{\mu} = (\boldsymbol{\mu}_1,\ldots,\boldsymbol{\mu}_K)\)</span>, and <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma} = (\boldsymbol{\Sigma}_1,\ldots,\boldsymbol{\Sigma}_K)\)</span>.</p>
+<p>The algorithm used to maximize the log-likelihood is the <a class="reference external" href="https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm">expectation-maximization algorithm</a> or EM.
+The EM algorithm is an iterative algorithm that alternates between an expectation step (E-step) and a maximization step (M-step).
+The E-step computes the expected value of the log-likelihood with respect to the conditional distribution of the latent variables given the observed data and the current estimate of the parameters.
+The latent variables here are the cluster assignments.
+The M-step maximizes the expected value of the log-likelihood with respect to the parameters.
+More details on the reference above.</p>
+<section id="avoiding-overfitting-using-the-bayesian-information-criterion">
+<h2>Avoiding overfitting using the Bayesian information criterion<a class="headerlink" href="#avoiding-overfitting-using-the-bayesian-information-criterion" title="Permalink to this heading">#</a></h2>
+<p>If you pick a model with too many parameters, you may overfit. If you choose a model with too few parameters, you may underfit.
+In the Gaussian mixtures example above, you get to choose <span class="math notranslate nohighlight">\(K\)</span>.
+You can choose <span class="math notranslate nohighlight">\(K\)</span> to be one, and then you are essentially saying that a single cluster can be described with a multivariate Gaussian.
+This may be inadequate, and you are going to underfit the data.
+On the other extreme, you may pick <span class="math notranslate nohighlight">\(K\)</span> to be <span class="math notranslate nohighlight">\(n\)</span>, i.e., the number of observations you have.
+In this case, you would fit a different Gaussian on each observed point.
+This is, of course, ridiculous. You are going to overfit.</p>
+<p>So, how do you pick the correct number of mixture components <span class="math notranslate nohighlight">\(K\)</span>?
+The formal answer is that you should be Bayesian all the way.
+Put a prior probability on <span class="math notranslate nohighlight">\(K\)</span>, then characterize the posterior over <span class="math notranslate nohighlight">\(K\)</span>.
+This is doable; it is known as Bayesian model selection (see <a class="reference external" href="https://www.springer.com/gp/book/9780387310732">Chapter 1.3, Bishop (2006)</a>, but we are not yet equipped to carry it out.
+However, there is an approximation to Bayesian model selection that is very straightforward to carry out: the <a class="reference external" href="https://en.wikipedia.org/wiki/Bayesian_information_criterion">Bayesian information criterion</a> or BIC.
+The details are presented in the video lecture, but if you want to study this independently, the Wikipedia article on <a class="reference external" href="https://en.wikipedia.org/wiki/Bayesian_information_criterion">BIC</a> is well written, and you may also want to take a look at <a class="reference external" href="https://www.springer.com/gp/book/9780387310732">Chapter 4.4.1, Bishop (2006)</a>.</p>
+<p>The BIC is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{BIC} = -2\log \text{likelihood} + \text{number of parameters}\times\log n.
+\]</div>
+<p>The smaller the BIC, the better the model.</p>
+</section>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this heading">#</a></h2>
+<p>We are going to demonstrate the concepts using a synthetic example.
 Let’s generate the synthetic data:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -657,18 +701,15 @@ Let’s generate the synthetic data:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;$x_2$&#39;)
-</pre></div>
+<img alt="../_images/c9cb37bf288beef0d4edcc98e23f60d29e93cb03d174cb393ed276ac5b5c6c2c.svg" src="../_images/c9cb37bf288beef0d4edcc98e23f60d29e93cb03d174cb393ed276ac5b5c6c2c.svg" /></div>
 </div>
-<img alt="../_images/4265f20b153a59c10cd60ae4e07202d11cfb42ba4b3524b831ee0f6b5a596f4e.png" src="../_images/4265f20b153a59c10cd60ae4e07202d11cfb42ba4b3524b831ee0f6b5a596f4e.png" />
-</div>
-</div>
-<p>We are going to use the <a class="reference external" href="https://scikit-learn.org/stable/modules/mixture.html">sciki-learn implementation</a> of Gaussian mixtures.
+<p>We will use the <a class="reference external" href="https://scikit-learn.org/stable/modules/mixture.html">sciki-learn implementation</a> of Gaussian mixtures.
 Here is how you can set up a model and fit it:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -679,7 +720,7 @@ Here is how you can set up a model and fit it:</p>
 </div>
 </div>
 </div>
-<p>Note that we picked 3 components for the mixture (which happens to be the true number of mixtures).
+<p>Note that we picked three components for the mixture (which happens to be the true number of mixtures).
 Here are the three mean vectors identified by the model:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -688,9 +729,9 @@ Here are the three mean vectors identified by the model:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 2.401, -1.306],
-       [-7.469, -5.739],
-       [ 6.239, -0.938]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 2.40053388, -1.3058076 ],
+       [-7.46929254, -5.73926691],
+       [ 6.23874412, -0.93769159]])
 </pre></div>
 </div>
 </div>
@@ -703,9 +744,9 @@ Here are the three mean vectors identified by the model:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 2.346, -1.414],
-       [-7.545, -5.678],
-       [ 6.061, -0.866]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 2.3455615 , -1.41431672],
+       [-7.54529252, -5.67816186],
+       [ 6.06056013, -0.86607325]])
 </pre></div>
 </div>
 </div>
@@ -720,21 +761,21 @@ Here is how to access it:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[[ 0.204,  0.538],
-        [ 0.538,  1.948]],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[[ 0.20382394,  0.53776024],
+        [ 0.53776024,  1.94763635]],
 
-       [[ 0.224, -0.331],
-        [-0.331,  0.533]],
+       [[ 0.22431117, -0.33125352],
+        [-0.33125352,  0.53270818]],
 
-       [[ 0.462, -0.199],
-        [-0.199,  0.135]]])
+       [[ 0.46188069, -0.1988742 ],
+        [-0.1988742 ,  0.13489411]]])
 </pre></div>
 </div>
 </div>
 </div>
-<p>Remember that the Gaussian mixture model is essentially fitting the joint probability density function of the data, say <span class="math notranslate nohighlight">\(p(\mathbf{x})\)</span>.
+<p>Remember that the Gaussian mixture model is fitting the joint probability density function of the data, say <span class="math notranslate nohighlight">\(p(\mathbf{x})\)</span>.
 In 2D, you can plot the contours of this probability density function.
-As a matter of fact, we are going to plot the contours of the logarithm of the probability function, i.e., the contours of <span class="math notranslate nohighlight">\(\log p(\mathbf{x})\)</span>.
+We will plot the contours of the logarithm of the probability function, i.e., the contours of <span class="math notranslate nohighlight">\(\log p(\mathbf{x})\)</span>.
 Here is how to do it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -759,16 +800,16 @@ Here is how to do it.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3ee13e6f4dc21b8e39679219e525972769e5fe102bf1ee4381e070a150ba1d83.png" src="../_images/3ee13e6f4dc21b8e39679219e525972769e5fe102bf1ee4381e070a150ba1d83.png" />
-</div>
+<img alt="../_images/ac2a645151741027b960d37a9c16e9c0b5de6eb516ed9a6c689545b001ed329a.svg" src="../_images/ac2a645151741027b960d37a9c16e9c0b5de6eb516ed9a6c689545b001ed329a.svg" /></div>
 </div>
 <p>You can also use the Gaussian mixture model to cluster the data.
-Clustering is performed as following.
+Clustering is performed as follows.
 For each point <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> that you would like to cluster:</p>
 <ul class="simple">
 <li><p>calculate the probability <span class="math notranslate nohighlight">\(p_k\)</span> that the point belongs to the <span class="math notranslate nohighlight">\(k\)</span>-th mixture component, i.e., calculate:</p></li>
@@ -793,15 +834,15 @@ Here is how to do it:</p>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/83d7ede4407325836030c8f371c67de9d01c9107ff0645ca47618591a5240826.png" src="../_images/83d7ede4407325836030c8f371c67de9d01c9107ff0645ca47618591a5240826.png" />
+<img alt="../_images/d04ec21f60d508df0dc438391a0adc494bacd8b712579be9ea4696c3af58fb2c.svg" src="../_images/d04ec21f60d508df0dc438391a0adc494bacd8b712579be9ea4696c3af58fb2c.svg" /></div>
 </div>
-</div>
-<p>Another very useful thing that you can do is sample from the estimated probability density.
+<p>Another helpful thing you can do is sample from the estimated probability density.
 This can be implemented through the following procedure:</p>
 <ul class="simple">
 <li><p>sample a mixture component <span class="math notranslate nohighlight">\(k\)</span> in <span class="math notranslate nohighlight">\(1,\dots,K\)</span>, with probability <span class="math notranslate nohighlight">\(\pi_k\)</span>, i.e., sample from the Categorical random variable <span class="math notranslate nohighlight">\(\operatorname{Categorical}(\pi_1,\dots,\pi_K)\)</span>.</p></li>
@@ -815,22 +856,19 @@ Here is how to access it:</p></li>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">s_data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">s_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;$x_2$&#39;)
-</pre></div>
+<img alt="../_images/081e0dab5b2344acc9d70cb78f09731f997821d64307907e9d0c233b34b2ebaf.svg" src="../_images/081e0dab5b2344acc9d70cb78f09731f997821d64307907e9d0c233b34b2ebaf.svg" /></div>
 </div>
-<img alt="../_images/e279215127b619d3c1e215e4e2c843589bfb2e02564da5750644edf5a1171138.png" src="../_images/e279215127b619d3c1e215e4e2c843589bfb2e02564da5750644edf5a1171138.png" />
-</div>
-</div>
-<p>Alright! Everything works as expected when we use just the right number of components.
-Let’s see what happens when we use the wrong number of components.
-We are going to start with fewer components than the right number.
-Let’s try 2 components.</p>
+<p>Alright! Everything works as expected when we use just the correct number of components.
+Let’s see what happens when we use a different number of components.
+We are going to start with fewer components than the correct number.
+Let’s try two components.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fit</span>
@@ -849,13 +887,13 @@ Let’s try 2 components.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/26747eb99d9e60c43bcea8d786f43d99ca500c4121d0f87987e12cbf2ad05100.png" src="../_images/26747eb99d9e60c43bcea8d786f43d99ca500c4121d0f87987e12cbf2ad05100.png" />
-</div>
+<img alt="../_images/a4e6927702a3f0058755a9ab938517f6a09b1bf196bf28d047c7dbfad6d0b6cb.svg" src="../_images/a4e6927702a3f0058755a9ab938517f6a09b1bf196bf28d047c7dbfad6d0b6cb.svg" /></div>
 </div>
 <p>Observe that the model is grouping two of the components together.
 It puts them in the same Gaussian.
@@ -882,17 +920,17 @@ Here we go:</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8d3abf1398ca6534e085f8b0d50a68cf9900096a8ac6d99d53c9241e90e24da4.png" src="../_images/8d3abf1398ca6534e085f8b0d50a68cf9900096a8ac6d99d53c9241e90e24da4.png" />
-</div>
+<img alt="../_images/cfe8fd8158b9b1578f618e45df6e66e9d870bd587387cff19311943839bf432b.svg" src="../_images/cfe8fd8158b9b1578f618e45df6e66e9d870bd587387cff19311943839bf432b.svg" /></div>
 </div>
 <p>The density doesn’t look very bad even though we used more components.
 (The density will start looking bad if you use more components).
-How does the clustering look like when we use five componets.
+How does the clustering look like when we use five componets?
 Let’s see:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -901,17 +939,17 @@ Let’s see:</p>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/192d5cf5438068c1493d6d5dd5f5223435bdf831bd87d37376d45664fe66bba1.png" src="../_images/192d5cf5438068c1493d6d5dd5f5223435bdf831bd87d37376d45664fe66bba1.png" />
-</div>
+<img alt="../_images/818a338b71669dd66c178be7809ff94d5474371568ccfca7ccb0facff01dd415.svg" src="../_images/818a338b71669dd66c178be7809ff94d5474371568ccfca7ccb0facff01dd415.svg" /></div>
 </div>
 <p>Okay. The model found five clusters (because we asked for them), but we can visually see in this example that it is overfitting.</p>
-<p>Let’s now apply the Bayesian information criterion (BIC) to select the number of cluster.
-First, we loop over all models with 1 to 10 components and we calculate the BIC for each one of them:</p>
+<p>Let’s now apply the Bayesian information criterion (BIC) to select the number of clusters.
+First, we loop over all models with 1 to 10 components, and we calculate the BIC for each one of them:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">max_num_components</span><span class="o">=</span><span class="mi">10</span>
@@ -933,21 +971,21 @@ First, we loop over all models with 1 to 10 components and we calculate the BIC 
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_num_components</span><span class="p">),</span> <span class="n">bics</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;BIC Score&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Number of components&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Number of components&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5a234262e0ef3c6a048b82fd3a165ad7620852200dcd51d8e48c9b6e28334639.png" src="../_images/5a234262e0ef3c6a048b82fd3a165ad7620852200dcd51d8e48c9b6e28334639.png" />
-</div>
+<img alt="../_images/0caafaf79937f734870240cc40b6ebafcc47518d93ccfcad256f48488b3ed8ed.svg" src="../_images/0caafaf79937f734870240cc40b6ebafcc47518d93ccfcad256f48488b3ed8ed.svg" /></div>
 </div>
 <p>Remember that the model with the smallest BIC is the best.
-For this synthetic dataset the procedure selects 3 components which happens to be the right number.</p>
+The procedure selects three components for this synthetic dataset, which is the correct number.</p>
 </section>
 <section id="questions">
 <h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Change the random seed a couple of times (to whatever integer you want) and generate a few more examples.</p></li>
+<li><p>Change the random seed a couple of times (to whatever integer you want) and generate more examples.</p></li>
 <li><p>Change the number of true components in the synthetic dataset to 5 and repeat. Does BIC work?</p></li>
 </ul>
 </section>
@@ -1020,7 +1058,8 @@ For this synthetic dataset the procedure selects 3 components which happens to b
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#avoiding-overfitting-using-the-bayesian-information-criterion">Avoiding overfitting using the Bayesian information criterion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
   </nav></div>

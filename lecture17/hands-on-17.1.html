@@ -575,7 +575,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
 </li>
@@ -598,12 +598,12 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -612,11 +612,61 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="clustering-using-k-means">
 <h1>Clustering using k-means<a class="headerlink" href="#clustering-using-k-means" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To demonstrate clustering using k-means</p></li>
-</ul>
+<p>K-means is the most straightforward algorithm for splitting the dataset <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}\)</span> in <span class="math notranslate nohighlight">\(K\)</span> clusters.
+If you want to study the algorithm independently, I suggest reading <a class="reference external" href="http://www.inference.org.uk/mackay/itprnn/ps/284.292.pdf">Chapter 20.1, D. MacKay (2003)</a>.</p>
+<p>In K-means the clusters are defined by their centroids <span class="math notranslate nohighlight">\(\mathbf{m}_{1:K}\)</span>, which are the means of the data points assigned to the cluster.
+Each observation <span class="math notranslate nohighlight">\(\mathbf{x}_i\)</span> is assigned to the cluster with the closest centroid.
+We can write this assignment as a one-hot encoding <span class="math notranslate nohighlight">\(\mathbf{z}_i\)</span> of the cluster index <span class="math notranslate nohighlight">\(k\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{z}_i = \begin{bmatrix} 0 \\ \vdots \\ 1 \\ \vdots \\ 0 \end{bmatrix} \in \mathbb{R}^K, \quad \text{where} \quad z_{ik} = \begin{cases} 1 &amp; \text{if } k = \arg\min_{k'} \|\mathbf{x}_i - \mathbf{m}_{k'}\|^2 \\ 0 &amp; \text{otherwise} \end{cases}
+\end{split}\]</div>
+<p>The centroids are found by minimizing the sum of squared distances between the data points and their assigned centroids:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{\mathbf{m}_{1:K}} \sum_{i=1}^n \sum_{k=1}^K z_{ik} \|\mathbf{x}_i - \mathbf{m}_k\|^2
+\]</div>
+<p>The algorithm starts by initializing the centroids randomly.
+Then, it iterates between two steps until convergence:</p>
+<ol class="arabic simple">
+<li><p>Assign each data point to the cluster with the closest centroid.</p></li>
+<li><p>Update the centroids to the mean of the data points assigned to the cluster.
+Convergence is checked by comparing the centroids of the current and previous iteration.
+The algorithm is guaranteed to converge, but it may converge to a local minimum.</p></li>
+</ol>
+<p>There is a nice <a class="reference external" href="https://www.naftaliharris.com/blog/visualizing-k-means-clustering/">visualization of the algorithm</a> by Naftali Harris.</p>
+<div class="admonition-proof-of-convergence admonition">
+<p class="admonition-title">Proof of convergence</p>
+<p>Notice that the sum of squared distances is minimized when the centroids are the means of the data points assigned to the cluster:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial \mathbf{m}_k} \sum_{i=1}^n \sum_{k=1}^K z_{ik} \|\mathbf{x}_i - \mathbf{m}_k\|^2 = 0 \quad \Rightarrow \quad \mathbf{m}_k = \frac{\sum_{i=1}^n z_{ik} \mathbf{x}_i}{\sum_{i=1}^n z_{ik}}
+\]</div>
+<p>Then, notice that the sum of squared distances is non-increasing in each iteration:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^n \sum_{k=1}^K z_{ik} \|\mathbf{x}_i - \mathbf{m}_k\|^2 \geq \sum_{i=1}^n \sum_{k=1}^K z_{ik} \|\mathbf{x}_i - \mathbf{m}'_k\|^2
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{m}'_k\)</span> are the centroids of the previous iteration.</p>
+<p>The sequence of losses is a non-increasing sequence of real numbers, which is bounded below by zero.
+Therefore, the sequence converges to a local minimum:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^n \sum_{k=1}^K z_{ik} \|\mathbf{x}_i - \mathbf{m}_k\|^2 \geq \sum_{i=1}^n \sum_{k=1}^K z_{ik} \|\mathbf{x}_i - \mathbf{m}'_k\|^2 \geq \ldots \geq \sum_{i=1}^n \sum_{k=1}^K z_{ik} \|\mathbf{x}_i - \mathbf{m}^*_k\|^2
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{m}^*_k\)</span> are the centroids of the local minimum.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<span class="n">The</span> <span class="n">algorithm</span> <span class="ow">is</span> <span class="n">equivalent</span> <span class="n">to</span> <span class="n">a</span> <span class="n">Gaussian</span> <span class="n">mixture</span> <span class="n">model</span> <span class="k">with</span> <span class="n">a</span> <span class="n">diagonal</span> <span class="n">covariance</span> <span class="n">matrix</span> <span class="ow">and</span> <span class="n">equal</span> <span class="n">covariance</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">clusters</span><span class="o">.</span>
+<span class="n">We</span> <span class="n">will</span> <span class="n">learn</span> <span class="n">more</span> <span class="n">about</span> <span class="n">Gaussian</span> <span class="n">mixture</span> <span class="n">models</span> <span class="ow">in</span> <span class="n">the</span> <span class="nb">next</span> <span class="n">section</span><span class="o">.</span>
+
+<span class="n">The</span> <span class="n">algorithm</span> <span class="ow">is</span> <span class="n">implemented</span> <span class="ow">in</span> <span class="p">[</span><span class="n">sklearn</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">KMeans</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">scikit</span><span class="o">-</span><span class="n">learn</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">stable</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">generated</span><span class="o">/</span><span class="n">sklearn</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">KMeans</span><span class="o">.</span><span class="n">html</span><span class="p">)</span><span class="o">.</span>
+<span class="n">If</span> <span class="n">there</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">lot</span> <span class="n">of</span> <span class="n">data</span> <span class="ow">or</span> <span class="n">the</span> <span class="n">data</span> <span class="ow">is</span> <span class="n">high</span><span class="o">-</span><span class="n">dimensional</span><span class="p">,</span> <span class="n">the</span> <span class="n">algorithm</span> <span class="n">can</span> <span class="n">be</span> <span class="n">slow</span><span class="o">.</span>
+<span class="n">In</span> <span class="n">that</span> <span class="n">case</span> <span class="n">you</span> <span class="n">can</span> <span class="n">use</span> <span class="p">[</span><span class="n">mini</span><span class="o">-</span><span class="n">batch</span> <span class="n">K</span><span class="o">-</span><span class="n">means</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">scikit</span><span class="o">-</span><span class="n">learn</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">stable</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">generated</span><span class="o">/</span><span class="n">sklearn</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">MiniBatchKMeans</span><span class="o">.</span><span class="n">html</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[</span><span class="n">K</span><span class="o">-</span><span class="n">means</span><span class="o">++</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">scikit</span><span class="o">-</span><span class="n">learn</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">stable</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">generated</span><span class="o">/</span><span class="n">sklearn</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">KMeans</span><span class="o">.</span><span class="n">html</span><span class="p">)</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this heading">#</a></h2>
 <p>Let’s start by generating a synthetic dataset using with three clusters:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -654,23 +704,21 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/383d2feba306805a7b88fb7cad0ae6b6f0e3bcb26b9c70aa7b8304dabf213d3b.png" src="../_images/383d2feba306805a7b88fb7cad0ae6b6f0e3bcb26b9c70aa7b8304dabf213d3b.png" />
+<img alt="../_images/4874a6aef1d582b2fe033a6341bc4a176490d067a1428475e0d84a404a707cae.svg" src="../_images/4874a6aef1d582b2fe033a6341bc4a176490d067a1428475e0d84a404a707cae.svg" /></div>
 </div>
-</div>
-<p>We are not going to implement the K-means algorithm from scratch.
-Instead, we are going to use the implementation that can be found in <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html">scikit-learn</a>.
-Here is how easy it is:</p>
+<p>Let’s apply K-means to the data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
 
-<span class="n">model</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -683,9 +731,9 @@ Here is how easy it is:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 3.61 , -0.443],
-       [-4.572, -3.297],
-       [ 1.394, -0.89 ]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 3.55976184, -0.43723791],
+       [-4.57184776, -3.2974181 ],
+       [ 1.35520175, -0.91177514]])
 </pre></div>
 </div>
 </div>
@@ -698,9 +746,9 @@ Here is how easy it is:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.407, -0.849],
-       [-4.527, -3.407],
-       [ 3.636, -0.52 ]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.4073369 , -0.84859003],
+       [-4.52717551, -3.40689711],
+       [ 3.63633608, -0.51964395]])
 </pre></div>
 </div>
 </div>
@@ -716,7 +764,7 @@ Here is how to get this info:</p>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2, 2, 1, 1, 1, 1, 0, 1, 2, 0, 0, 2, 1, 1, 2, 0, 0, 2, 1, 1, 0, 0,
        1, 1, 2, 2, 0, 2, 2, 2, 0, 0, 2, 1, 0, 2, 1, 2, 0, 0, 2, 0, 2, 0,
-       0, 0, 1, 2, 1, 2, 0, 0, 1, 2, 1, 1, 2, 0, 2, 1, 2, 2, 0, 2, 0, 0,
+       0, 0, 1, 2, 1, 0, 0, 0, 1, 0, 1, 1, 2, 0, 2, 1, 2, 2, 0, 2, 0, 0,
        1, 0, 1, 1, 2, 2, 1, 1, 1, 2, 1, 0, 2, 1, 2, 2, 0, 1, 2, 1, 1, 2,
        0, 0, 2, 2, 0, 1, 2, 0, 2, 2, 0, 2, 0, 1, 1, 0, 1, 2, 1, 1, 0, 1,
        1, 2, 2, 2, 1, 2, 2, 1, 0, 2, 0, 1, 1, 0, 2, 0, 0, 1, 1, 1, 1, 1,
@@ -733,13 +781,13 @@ Here is a nice way to do this:</p>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a981673b617190e15019696a8aeddfa53def904d2dd360b64629fcf7e389d055.png" src="../_images/a981673b617190e15019696a8aeddfa53def904d2dd360b64629fcf7e389d055.png" />
-</div>
+<img alt="../_images/12a8dbe8a918a6d4981ee0b09903e9338364309e36d04ee91ad17b3291b9a7be.svg" src="../_images/12a8dbe8a918a6d4981ee0b09903e9338364309e36d04ee91ad17b3291b9a7be.svg" /></div>
 </div>
 <p>Okay, this seems to work perfectly.
 However, notice that we asked K-means to find three clusters which happens to be the true number of clusters in our dataset.
@@ -747,26 +795,26 @@ What would happen if we had asked K-means to find a larger number of clusters, s
 Here it is:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model5</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model5</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
 <span class="n">labels</span> <span class="o">=</span> <span class="n">model5</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/bd344c0ba3b18b1260c64e7b9632fcd79454d7ff4e2376a0510768585aaab94c.png" src="../_images/bd344c0ba3b18b1260c64e7b9632fcd79454d7ff4e2376a0510768585aaab94c.png" />
-</div>
+<img alt="../_images/70ed5394c6ad9535615d7cc139b5ecb65b5b5681b9252694261e125373e52509.svg" src="../_images/70ed5394c6ad9535615d7cc139b5ecb65b5b5681b9252694261e125373e52509.svg" /></div>
 </div>
 <section id="questions">
 <h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>We saw what happens when you ask K-means to find more clusters than there actually exist. What would happen, if you asked it to find a smaller number of clusters? Try <span class="math notranslate nohighlight">\(K=1\)</span> and <span class="math notranslate nohighlight">\(K=2\)</span> in the code block immediatly above. What do you observe? Can choose between <span class="math notranslate nohighlight">\(K=1, 2,\)</span> or <span class="math notranslate nohighlight">\(3\)</span>?</p></li>
-<li><p>Rerun the entire example from the very first code block but this time set the number of true clusters to 6. Investigate what happens when you try to fit K-means with a very small number of clusters, what happens when you pick <span class="math notranslate nohighlight">\(K\)</span> to be around 6, and what happens when you pick a very big <span class="math notranslate nohighlight">\(K\)</span>, say 10.</p></li>
+<li><p>We saw what happens when you ask K-means to find more clusters than there exist. What would happen if you asked it to find fewer clusters? Try <span class="math notranslate nohighlight">\(K=1\)</span> and <span class="math notranslate nohighlight">\(K=2\)</span> in the code block immediately above. What do you observe? Can choose between <span class="math notranslate nohighlight">\(K=1, 2,\)</span> or <span class="math notranslate nohighlight">\(3\)</span>?</p></li>
+<li><p>Rerun the entire example from the first code block, but set the number of true clusters to 6 this time. Investigate what happens when you try to fit K-means with a minimal number of clusters, what happens when you pick <span class="math notranslate nohighlight">\(K\)</span> to be around 6, and what happens when you pick a very big <span class="math notranslate nohighlight">\(K\)</span>, say 10.</p></li>
 </ul>
 </section>
 </section>
@@ -839,7 +887,7 @@ Here it is:</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
 </li>
