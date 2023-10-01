@@ -615,7 +615,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Subpart B.III</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-explaining-the-challenger-disaster">Problem 3 - Explaining the challenger disaster</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-explaining-the-challenger-disaster">Problem 3 - Explaining the Challenger disaster</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-a-perform-logistic-regression">Part A - Perform logistic regression</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-b-plot-the-probability-of-damage-as-a-function-of-temperature">Part B - Plot the probability of damage as a function of temperature</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-c-decide-whether-or-not-to-launch">Part C - Decide whether or not to launch</a></li>
@@ -657,12 +657,12 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">scipy</span>
@@ -704,7 +704,7 @@ document.write(`
 <p>First, make sure that <a class="reference external" href="https://raw.githubusercontent.com/PredictiveScienceLab/data-analytics-se/master/homework/stress_strain.txt">this</a> dataset is visible from this Jupyter notebook.
 You may achieve this by either:</p>
 <ul class="simple">
-<li><p>Downloading the data file, and then mannually upload it on Google Colab. The easiest way is to click on the folder icon on the left of the browser window and click on the upload button (or just drag and drop the file). Some other options are <a class="reference external" href="https://colab.research.google.com/notebooks/io.ipynb">here</a>.</p></li>
+<li><p>Downloading the data file and then manually upload it on Google Colab. The easiest way is to click on the folder icon on the left of the browser window and click on the upload button (or drag and drop the file). Some other options are <a class="reference external" href="https://colab.research.google.com/notebooks/io.ipynb">here</a>.</p></li>
 <li><p>Downloading the file to the working directory of this notebook with this code:</p></li>
 </ul>
 <div class="cell docutils container">
@@ -729,9 +729,9 @@ Specifically, Strachan’s group did the following:</p>
 <ul class="simple">
 <li><p>They took a rectangular chunk of the material and marked the position of each one of its atoms;</p></li>
 <li><p>They started applying a tensile force along one dimension.
-The atoms are coupled together through electromagnetic forces and they must all satisfy Newton’s law of motion.</p></li>
-<li><p>For each value of the applied tensile force they marked the stress (force be unit area) in the middle of the materail and the corresponding strain of the material (percent enlogation in the pulling direction).</p></li>
-<li><p>Eventually the material entered the plastic regime and then it broke.
+The atoms are coupled together through electromagnetic forces, and they must all satisfy Newton’s law of motion.</p></li>
+<li><p>For each value of the applied tensile force, they marked the stress (force be unit area) in the middle of the material and the corresponding strain of the material (percent elongation in the pulling direction).</p></li>
+<li><p>Eventually, the material entered the plastic regime and broke.
 Here is a visualization of the data:</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
@@ -756,21 +756,21 @@ Here is a visualization of the data:</p></li>
 <span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$\epsilon$ (strain in %)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\sigma$ (stress in MPa)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/3d4a980871ab21d3c6bd4fc93db8c523bf780ba71b4033522669ae233e22a9a5.png" src="../_images/3d4a980871ab21d3c6bd4fc93db8c523bf780ba71b4033522669ae233e22a9a5.png" />
+<img alt="../_images/76493feb030f0b339bfc723b1bc70f95ca75d23ca115d4c69d06243a9bf7bc5e.svg" src="../_images/76493feb030f0b339bfc723b1bc70f95ca75d23ca115d4c69d06243a9bf7bc5e.svg" /></div>
 </div>
-</div>
-<p>Note that for each particular value of the strain, you don’t necessarily get a unique stress.
-This is because in molecular dynamics the atoms are jiggling around due to thermal effects.
-So there is always this “jiggling” noise when you are trying to measure the stress and the strain.
-We would like to process this noise in order to extract what is known as the <a class="reference external" href="https://en.wikipedia.org/wiki/Stress%E2%80%93strain_curve">stress-strain curve</a> of the material.
-The stress-strain curve is a macroscopic property of the the material which is affeted by the fine structure, e.g., the chemical bonds, the crystaline structure, any defects, etc.
-It is a required input to mechanics of materials.</p>
+<p>Note that you don’t necessarily get a unique stress for each particular value of the strain.
+This is because the atoms are jiggling around due to thermal effects.
+So, there is always this “jiggling” noise when measuring the stress and the strain.
+We want to process this noise to extract what is known as the <a class="reference external" href="https://en.wikipedia.org/wiki/Stress%E2%80%93strain_curve">stress-strain curve</a> of the material.
+The stress-strain curve is a macroscopic property of the material, affected by the fine structure, e.g., the chemical bonds, the crystalline structure, any defects, etc.
+It is a required input to the mechanics of materials.</p>
 <section id="part-a-fitting-the-stress-strain-curve-in-the-elastic-regime">
 <h2>Part A - Fitting the stress-strain curve in the elastic regime<a class="headerlink" href="#part-a-fitting-the-stress-strain-curve-in-the-elastic-regime" title="Permalink to this heading">#</a></h2>
 <p>The very first part of the stress-strain curve should be linear.
@@ -781,7 +781,7 @@ In that region, say <span class="math notranslate nohighlight">\(\epsilon &lt; \
 \sigma(\epsilon) = E\epsilon.
 \]</div>
 <p>The constant <span class="math notranslate nohighlight">\(E\)</span> is known as the <em>Young modulus</em> of the material.
-Assume that you measure <span class="math notranslate nohighlight">\(\epsilon\)</span> without any noise, but your measured <span class="math notranslate nohighlight">\(\sigma\)</span> is noisy.</p>
+Assume that you measure <span class="math notranslate nohighlight">\(\epsilon\)</span> without noise, but your measured <span class="math notranslate nohighlight">\(\sigma\)</span> is noisy.</p>
 <section id="subpart-a-i">
 <h3>Subpart A.I<a class="headerlink" href="#subpart-a-i" title="Permalink to this heading">#</a></h3>
 <p>First, extract the relevant data for this problem, split it into training and validation datasets, and visualize the training and validation datasets using different colors.</p>
@@ -804,13 +804,13 @@ Assume that you measure <span class="math notranslate nohighlight">\(\epsilon\)<
 <span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$\epsilon$ (strain in %)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\sigma$ (stress in MPa)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/247a5c69f465f7a870a150e463f7276f8998f029b853e7624563611ac04acb0c.png" src="../_images/247a5c69f465f7a870a150e463f7276f8998f029b853e7624563611ac04acb0c.png" />
-</div>
+<img alt="../_images/da3b569f831df94e0625ebdde23fe6d5e88d911a54012b7678a5cfd4f8273a2a.svg" src="../_images/da3b569f831df94e0625ebdde23fe6d5e88d911a54012b7678a5cfd4f8273a2a.svg" /></div>
 </div>
 <p>Split your data into training and validation.</p>
 <p><strong>Hint:</strong> You may use <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html">sklearn.model_selection.train_test_split</a> if you wish.</p>
@@ -843,7 +843,8 @@ Assume that you measure <span class="math notranslate nohighlight">\(\epsilon\)<
 <span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$\epsilon$ (strain in %)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\sigma$ (stress in MPa)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -884,7 +885,7 @@ Assume that you measure <span class="math notranslate nohighlight">\(\epsilon\)<
 </section>
 <section id="subpart-a-v">
 <h3>Subpart A.V<a class="headerlink" href="#subpart-a-v" title="Permalink to this heading">#</a></h3>
-<p>Compute and plot the standarized errors for the validation data.</p>
+<p>Compute and plot the standardized errors for the validation data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># your code here</span>
@@ -895,7 +896,7 @@ Assume that you measure <span class="math notranslate nohighlight">\(\epsilon\)<
 </section>
 <section id="subpart-a-vi">
 <h3>Subpart <a class="reference external" href="http://A.VI">A.VI</a><a class="headerlink" href="#subpart-a-vi" title="Permalink to this heading">#</a></h3>
-<p>Make the quantile-quantile plot of the standarized errors.</p>
+<p>Make the quantile-quantile plot of the standardized errors.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># your code here</span>
@@ -964,7 +965,7 @@ Assume that you measure <span class="math notranslate nohighlight">\(\epsilon\)<
 <section id="part-b-estimate-the-ultimate-strength">
 <h2>Part B - Estimate the ultimate strength<a class="headerlink" href="#part-b-estimate-the-ultimate-strength" title="Permalink to this heading">#</a></h2>
 <p>The pick of the stress-strain curve is known as the ultimate strength.
-We will like to estimate it.</p>
+We want to estimate it.</p>
 <section id="subpart-b-i-extract-training-and-validation-data">
 <h3>Subpart B.I - Extract training and validation data<a class="headerlink" href="#subpart-b-i-extract-training-and-validation-data" title="Permalink to this heading">#</a></h3>
 <p>Extract training and validation data from the entire dataset.</p>
@@ -996,7 +997,8 @@ We will like to estimate it.</p>
 <span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$\epsilon$ (strain in %)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\sigma$ (stress in MPa)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -1004,14 +1006,14 @@ We will like to estimate it.</p>
 </section>
 <section id="subpart-b-ii-model-the-entire-stress-strain-relationship">
 <h3>Subpart B.II - Model the entire stress-strain relationship.<a class="headerlink" href="#subpart-b-ii-model-the-entire-stress-strain-relationship" title="Permalink to this heading">#</a></h3>
-<p>To do this, we will set up a generalized linear model that can capture the entire stress-strain relationship.
+<p>To do this, we will set up a generalized linear model to capture the entire stress-strain relationship.
 Remember, you can use any model you want as soon as:</p>
 <ul class="simple">
-<li><p>it is linear in the parameters to be estimated,</p></li>
-<li><p>it clearly has a well-defined elastic regime (see Part A).</p></li>
+<li><p>It is linear in the parameters to be estimated,</p></li>
+<li><p>It has a well-defined elastic regime (see Part A).</p></li>
 </ul>
 <p>I am going to help you set up the right model.
-We are goint to use the <a class="reference external" href="https://en.wikipedia.org/wiki/Heaviside_step_function">Heavide step function</a> to turn on or off models for various ranges of <span class="math notranslate nohighlight">\(\epsilon\)</span>. The idea is quite simple: We will use a linear model for the elastic regime and we are going to turn to a non-linear model for the non-linear regime.
+We will use the <a class="reference external" href="https://en.wikipedia.org/wiki/Heaviside_step_function">Heavide step function</a> to turn on or off models for various ranges of <span class="math notranslate nohighlight">\(\epsilon\)</span>. The idea is quite simple: We will use a linear model for the elastic regime, and we are going to turn to a non-linear model for the non-linear regime.
 Here is a model that has the right form in the elastic regime and an arbitrary form in the non-linear regime:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1053,7 +1055,7 @@ h(\epsilon_l) &amp;= g(\epsilon_l)\\
 h'(\epsilon_l) &amp;= g'(\epsilon_l).
 \end{split}
 \end{split}\]</div>
-<p>The reason we include the first derivative is so that we don’t have a kink in the stress-strain. That would also be unphysical.
+<p>We include the first derivative because we don’t have a kink in the stress-strain. That would also be unphysical.
 The two equations above become:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1074,8 +1076,8 @@ f(\epsilon) = E\epsilon \left(1 - H(\epsilon - \epsilon_l)\right) + \sum_{i=0}^{
 \]</div>
 <p>We can now use the expressions for <span class="math notranslate nohighlight">\(w_0\)</span> and <span class="math notranslate nohighlight">\(w_1\)</span> to rewrite this using only all the other
 parameters.
-I am going to spare you the details…
-The end result is:</p>
+I am going to spare you the details.
+The result is:</p>
 <div class="math notranslate nohighlight">
 \[
 f(\epsilon) = E\epsilon + \sum_{i=2}^dw_i\left[(i-1)\epsilon_{l}^{i} - i \epsilon \epsilon_{l}^{i-1} + \epsilon^i\right]H(\epsilon - \epsilon_l).
@@ -1125,7 +1127,8 @@ Write code for the design matrix:</p>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">eps</span><span class="p">,</span> <span class="n">Phis</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$\epsilon$ (strain in %))&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$\phi_i(\epsilon)$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$\phi_i(\epsilon)$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -1133,7 +1136,7 @@ Write code for the design matrix:</p>
 </section>
 <section id="subpart-b-iii">
 <h3>Subpart B.III<a class="headerlink" href="#subpart-b-iii" title="Permalink to this heading">#</a></h3>
-<p>Fit the model using automatic relevance determination and demonstrate that it works well by doing all the things we did above (MSE, observations vs predictions plot, standarized errors, etc.).</p>
+<p>Fit the model using automatic relevance determination and demonstrate that it works well by doing everything we did above (MSE, observations vs. predictions plot, standardized errors, etc.).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here - Use as many blocks as you need!</span>
@@ -1145,7 +1148,7 @@ Write code for the design matrix:</p>
 </section>
 <section id="subpart-b-iv">
 <h3>Subpart B.IV<a class="headerlink" href="#subpart-b-iv" title="Permalink to this heading">#</a></h3>
-<p>Visualize epistemic and aleatory uncertainty in the stess-strain relation.</p>
+<p>Visualize the epistemic and aleatory uncertainty in the stess-strain relation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
@@ -1156,12 +1159,12 @@ Write code for the design matrix:</p>
 </section>
 <section id="subpart-b-v-extract-the-ultimate-strength">
 <h3>Subpart B.V - Extract the ultimate strength<a class="headerlink" href="#subpart-b-v-extract-the-ultimate-strength" title="Permalink to this heading">#</a></h3>
-<p>Now, you are going to quantify your epistemic uncertainty about the ultimate strength.
+<p>Now, you will quantify your epistemic uncertainty about the ultimate strength.
 The ultimate strength is the maximum of the stress-strain relationship.
 Since you have epistemic uncertainty about the stress-strain relationship, you also have epistemic uncertainty about the ultimate strength.</p>
 <p>Do the following:</p>
 <ul class="simple">
-<li><p>Visualize posterior of the ultimate strength.</p></li>
+<li><p>Visualize the posterior of the ultimate strength.</p></li>
 <li><p>Find a 95% credible interval for the ultimate strength.</p></li>
 <li><p>Pick a value for the ultimate strength.</p></li>
 </ul>
@@ -1169,13 +1172,12 @@ Since you have epistemic uncertainty about the stress-strain relationship, you a
 To characterize your epistemic uncertainty about the ultimate strength, you would have to do the following:</p>
 <ul class="simple">
 <li><p>Define a dense set of strain points between 0 and 0.25.</p></li>
-<li><p>Repeatedly:</p>
-<ul>
-<li><p>sample from the posterior of the weights of your model</p></li>
-<li><p>for each sample evaluate the stresses at the dense set of strain points defined earlier</p></li>
-<li><p>for each sampled stress vector, find the maximum. This is a sample of the ultimate strength.</p></li>
+<li><p>Repeatedly:</p></li>
 </ul>
-</li>
+<ul class="simple">
+<li><p>Sample from the posterior of the weights of your model</p></li>
+<li><p>For each sample, evaluate the stresses at the dense set of strain points defined earlier</p></li>
+<li><p>For each sampled stress vector, find the maximum. This is a sample of the ultimate strength.</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1189,8 +1191,8 @@ To characterize your epistemic uncertainty about the ultimate strength, you woul
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="problem-2-optimizing-the-performance-of-a-compressor">
 <h1>Problem 2 - Optimizing the performance of a compressor<a class="headerlink" href="#problem-2-optimizing-the-performance-of-a-compressor" title="Permalink to this heading">#</a></h1>
-<p>In this problem we are going to need <a class="reference external" href="https://raw.githubusercontent.com/PredictiveScienceLab/data-analytics-se/master/homework/compressor_data.xlsx">this</a> dataset. The dataset was kindly provided to us by <a class="reference external" href="https://scholar.google.com/citations?user=gPdAtg0AAAAJ&amp;hl=en">Professor Davide Ziviani</a>.
-As before, you can either put it on your Google drive or just download it with the code segment below:</p>
+<p>In this problem, we will need <a class="reference external" href="https://raw.githubusercontent.com/PredictiveScienceLab/data-analytics-se/master/homework/compressor_data.xlsx">this</a> dataset. The dataset was kindly provided to us by <a class="reference external" href="https://scholar.google.com/citations?user=gPdAtg0AAAAJ&amp;hl=en">Professor Davide Ziviani</a>.
+As before, you can either put it on your Google Drive or just download it with the code segment below:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/PredictiveScienceLab/data-analytics-se/raw/master/lecturebook/data/compressor_data.xlsx&quot;</span>
@@ -1199,7 +1201,7 @@ As before, you can either put it on your Google drive or just download it with t
 </div>
 </div>
 </div>
-<p>Note that this is an Excell file, so we are going to need pandas to read it.
+<p>Note that this is an Excel file, so we need pandas to read it.
 Here is how:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1210,9 +1212,9 @@ Here is how:</p>
 </div>
 </div>
 </div>
-<p>The data are part of a an experimental study of a variable speed reciprocating compressor.
-The experimentalists varied two temperatures <span class="math notranslate nohighlight">\(T_e\)</span> and <span class="math notranslate nohighlight">\(T_c\)</span> (both in C) and they measured various other quantities.
-Our goal is to learn the map between <span class="math notranslate nohighlight">\(T_e\)</span> and <span class="math notranslate nohighlight">\(T_c\)</span> and measured Capacity and Power (both in W).
+<p>The data are part of an experimental study of a variable-speed reciprocating compressor.
+The experimentalists varied two temperatures, <span class="math notranslate nohighlight">\(T_e\)</span> and <span class="math notranslate nohighlight">\(T_c\)</span> (both in C), and they measured various other quantities.
+We aim to learn the map between <span class="math notranslate nohighlight">\(T_e\)</span> and <span class="math notranslate nohighlight">\(T_c\)</span> and measure Capacity and Power (both in W).
 First, let’s see how you can extract only the relevant data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1241,12 +1243,12 @@ y = w_1 + w_2T_e + w_3 T_c + w_4 T_eT_c + w_5 T_e^2 + w_6T_c^2 + w_7 T_e^2T_c + 
 <p><strong>Hints:</strong></p>
 <ul class="simple">
 <li><p>You may use <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.PolynomialFeatures.html">sklearn.preprocessing.PolynomialFeatures</a> to construct the design matrix of your polynomial features. Do not program the design matrix by hand.</p></li>
-<li><p>You should split your data into training and validation and use various validation metrics to make sure that your models make sense.</p></li>
+<li><p>You should split your data into training and validation and use various validation metrics to ensure your models make sense.</p></li>
 <li><p>Use <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ARDRegression.html#sklearn.linear_model.ARDRegression">ARD Regression</a> to fit any hyperparameters and the noise.</p></li>
 </ul>
 <section id="subpart-a-i-fit-the-capacity">
 <h2>Subpart A.I - Fit the capacity<a class="headerlink" href="#subpart-a-i-fit-the-capacity" title="Permalink to this heading">#</a></h2>
-<p>Please don’t just fit blindly. Split in training and test and use all the usual diagnostics.</p>
+<p>Please don’t just fit. Split in training and test and use all the usual diagnostics.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># your code here - Repeat as many text and code blocks as you like</span>
@@ -1279,7 +1281,7 @@ y = w_1 + w_2T_e + w_3 T_c + w_4 T_eT_c + w_5 T_e^2 + w_6T_c^2 + w_7 T_e^2T_c + 
 </section>
 <section id="subpart-b-i-fit-the-power">
 <h2>Subpart B.I - Fit the Power<a class="headerlink" href="#subpart-b-i-fit-the-power" title="Permalink to this heading">#</a></h2>
-<p>Please don’t just fit blindly. Split in training and test and use all the usual diagnostics.</p>
+<p>Please don’t just fit. Split in training and test and use all the usual diagnostics.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># your code here - Repeat as many text and code blocks as you like</span>
@@ -1312,12 +1314,12 @@ y = w_1 + w_2T_e + w_3 T_c + w_4 T_eT_c + w_5 T_e^2 + w_6T_c^2 + w_7 T_e^2T_c + 
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="problem-3-explaining-the-challenger-disaster">
-<h1>Problem 3 - Explaining the challenger disaster<a class="headerlink" href="#problem-3-explaining-the-challenger-disaster" title="Permalink to this heading">#</a></h1>
+<h1>Problem 3 - Explaining the Challenger disaster<a class="headerlink" href="#problem-3-explaining-the-challenger-disaster" title="Permalink to this heading">#</a></h1>
 <p>On January 28, 1986, the <a class="reference external" href="https://en.wikipedia.org/wiki/Space_Shuttle_Challenger_disaster">Space Shuttle Challenger</a> disintegrated after 73 seconds from launch.
-The failure can be traced on the rubber O-rings which were used to seal the joints of the solid rocket boosters (required to force the hot, high-pressure gases generated by the burning solid propelant through the nozzles thus producing thrust).</p>
-<p>It turns out that the performance of the O-ring material was particularly sensitive on the external temperature during launch.
+The failure can be traced to the rubber O-rings, which were used to seal the joints of the solid rocket boosters (required to force the hot, high-pressure gases generated by the burning solid propellant through the nozzles, thus producing thrust).</p>
+<p>The performance of the O-ring material was sensitive to the external temperature during launch.
 This <a class="reference external" href="https://raw.githubusercontent.com/PredictiveScienceLab/data-analytics-se/master/homework/challenger_data.csv">dataset</a> contains records of different experiments with O-rings recorded at various times between 1981 and 1986.
-Download the data the usual way (either put them on Google drive or run the code cell below).</p>
+Download the data the usual way (either put them on Google Drive or run the code cell below).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/PredictiveScienceLab/data-analytics-se/raw/master/lecturebook/data/challenger_data.csv&quot;</span>
@@ -1326,7 +1328,7 @@ Download the data the usual way (either put them on Google drive or run the code
 </div>
 </div>
 </div>
-<p>Even though this is a csv file, you should load it with pandas because it contains some special characters.</p>
+<p>Even though this is a CSV file, you should load it with pandas because it contains some special characters.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;challenger_data.csv&#39;</span><span class="p">)</span>
@@ -1336,9 +1338,9 @@ Download the data the usual way (either put them on Google drive or run the code
 </div>
 </div>
 <p>The first column is the date of the record. The second column is the external temperature of that day in degrees F.
-The third column labeled <code class="docutils literal notranslate"><span class="pre">Damage</span> <span class="pre">Incident</span></code> is has a binary coding (0=no damage, 1=damage).
+The third column labeled <code class="docutils literal notranslate"><span class="pre">Damage</span> <span class="pre">Incident</span></code> has a binary coding (0=no damage, 1=damage).
 The very last row is the day of the Challenger accident.</p>
-<p>We are going to use the first 23 rows to solve a binary classification problem that will give us the probability of an accident conditioned on the observed external temperature in degrees F. Before we proceed to the analysis of the data, let’s clean the data up.</p>
+<p>We will use the first 23 rows to solve a binary classification problem that will give us the probability of an accident conditioned on the observed external temperature in degrees F. Before proceeding to the data analysis, let’s clean the data up.</p>
 <p>First, we drop all the bad records:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1348,7 +1350,7 @@ The very last row is the day of the Challenger accident.</p>
 </div>
 </div>
 </div>
-<p>We also don’t need the last record. Just remember that the temperature the day of the Challenger accident was 31 degrees F.</p>
+<p>We also don’t need the last record. Remember that the temperature on the day of the Challenger accident was 31 degrees F.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clean_data</span> <span class="o">=</span> <span class="n">clean_data_0</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -1377,8 +1379,8 @@ The very last row is the day of the Challenger accident.</p>
 <section id="part-a-perform-logistic-regression">
 <h2>Part A - Perform logistic regression<a class="headerlink" href="#part-a-perform-logistic-regression" title="Permalink to this heading">#</a></h2>
 <p>Perform logistic regression between the temperature (<span class="math notranslate nohighlight">\(x\)</span>) and the damage label (<span class="math notranslate nohighlight">\(y\)</span>).
-Do not bother doing a validation because there are not a lot of data.
-Just use a very simple model so that you don’t overfit.</p>
+Refrain from validating because there is little data.
+Just use a simple model so that you don’t overfit.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># your code here - Repeat as many text and code blocks as you like</span>
@@ -1400,7 +1402,7 @@ Just use a very simple model so that you don’t overfit.</p>
 </section>
 <section id="part-c-decide-whether-or-not-to-launch">
 <h2>Part C - Decide whether or not to launch<a class="headerlink" href="#part-c-decide-whether-or-not-to-launch" title="Permalink to this heading">#</a></h2>
-<p>The temperature the day of the Challenger accident was 31 degrees F.
+<p>The temperature on the day of the Challenger accident was 31 degrees F.
 Start by calculating the probability of damage at 31 degrees F.
 Then, use formal decision-making (i.e., define a cost matrix and make decisions by minimizing the expected loss) to decide whether or not to launch on that day.
 Also, plot your optimal decision as a function of the external temperature.</p>
@@ -1521,7 +1523,7 @@ Also, plot your optimal decision as a function of the external temperature.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Subpart B.III</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-explaining-the-challenger-disaster">Problem 3 - Explaining the challenger disaster</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-explaining-the-challenger-disaster">Problem 3 - Explaining the Challenger disaster</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-a-perform-logistic-regression">Part A - Perform logistic regression</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-b-plot-the-probability-of-damage-as-a-function-of-temperature">Part B - Plot the probability of damage as a function of temperature</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-c-decide-whether-or-not-to-launch">Part C - Decide whether or not to launch</a></li>
