@@ -573,10 +573,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
             </nav>
         </div>
@@ -596,12 +593,12 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">show_digit_image</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
@@ -683,17 +680,12 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="clustering-high-dimensional-data">
 <h1>Clustering High-dimensional Data<a class="headerlink" href="#clustering-high-dimensional-data" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Combine principal component analysis with k-means to solve high-dimensional clustering problems</p></li>
-</ul>
-<p>In this hands-on activity we are going to cluster the MNIST dataset.
-We cannot apply K-means directly on it because of its high-dimensionality. If we did, we would get garbage.
-Instead, we are going to first reduce the dimensionality of MNIST using PCA to two dimensions and then we will apply K-means on the principal components.</p>
-<p>Note that, in contrast to the previous hands-on activity, we are going to work with the entire training set and not just one digit.
-So, we know that there are 10 clusters (the digits from 0 to 9).
-Let’s see if the process we follow identifies clusters that correspond to digits…
+<p>We are going to cluster the MNIST dataset.
+We cannot apply K-means directly to it because of its high dimensionality. If we did, we would get garbage.
+Instead, we will first reduce the dimensionality of MNIST using PCA to two dimensions, and then we will apply K-means to the principal components.</p>
+<p>In contrast to the previous hands-on activity, we will work with the entire training set and not just one digit.
+So, we know there are 10 clusters (the digits from 0 to 9).
+Let’s see if our process identifies clusters corresponding to digits.
 Here we go. First, download and load the MNIST data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -707,6 +699,12 @@ Here we go. First, download and load the MNIST data:</p>
 <span class="c1"># Split data into train partition and test partition</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
 <span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/lib/python3.11/site-packages/sklearn/datasets/_openml.py:968: FutureWarning: The default value of `parser` will change from `&#39;liac-arff&#39;` to `&#39;auto&#39;` in 1.4. You can set `parser=&#39;auto&#39;` to silence this warning. Therefore, an `ImportError` will be raised from 1.4 if the dataset is dense and pandas is not installed. Note that the pandas parser may return different data types. See the Notes Section in fetch_openml&#39;s API doc for details.
+  warn(
 </pre></div>
 </div>
 </div>
@@ -738,22 +736,28 @@ Here we go. First, download and load the MNIST data:</p>
     <span class="n">zoom</span><span class="o">=</span><span class="mf">0.2</span>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$z_1$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$z_2$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$z_2$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/088b2ff8e7db003034c81aa43229b348d34507a977964415701d96603e2dedf9.png" src="../_images/088b2ff8e7db003034c81aa43229b348d34507a977964415701d96603e2dedf9.png" />
+<img alt="../_images/160886cb8d8b1d2347ba04636407da04bde0b2fb39fd6ab05f37b2236a9f423b.svg" src="../_images/160886cb8d8b1d2347ba04636407da04bde0b2fb39fd6ab05f37b2236a9f423b.svg" /></div>
 </div>
-</div>
-<p>You can visually observe that PCA somewhat separates the digists.
-It’s not perfect (and you can do better with non-linear dimensionality reduction techniques), but it will do for now.</p>
+<p>You can observe that PCA somewhat separates the digits.
+It’s imperfect (and you can do better with non-linear dimensionality reduction techniques), but it will do for now.</p>
 <p>Now it’s time for K-means:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
 
 <span class="n">cl</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:870: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  warnings.warn(
 </pre></div>
 </div>
 </div>
@@ -785,18 +789,20 @@ It’s not perfect (and you can do better with non-linear dimensionality reducti
         <span class="n">cmap</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>
         <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
         <span class="n">zoom</span><span class="o">=</span><span class="mf">0.2</span>
-    <span class="p">);</span>
+    <span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$z_1$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$z_2$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/23e9e335f625a9ae1406adcffd99ff59224be2210fb641cee17d22d0423f7fe5.png" src="../_images/23e9e335f625a9ae1406adcffd99ff59224be2210fb641cee17d22d0423f7fe5.png" />
+<img alt="../_images/27baaa1504029fecb01beccfb056c92559193140bcec53d84e7b2ece5f0b031f.svg" src="../_images/27baaa1504029fecb01beccfb056c92559193140bcec53d84e7b2ece5f0b031f.svg" /></div>
 </div>
-</div>
-<p>This is nice! Observe that the the clusters look very reasonable.
-Again, they are not perfect but the make sense.
-Even in the cases that we know are not classified correctly, the errors are not ridiculously bad. As a matter of fact, the results are quite impressive if one takes into account that the algorithm we have put together does not know what digits are…</p>
-<p>Okay. Now let’s look at the cluster centers a bit more closely.
+<p>This is nice! Observe that the clusters look very reasonable.
+Again, they could be better, but they make sense.
+The errors are pretty good, even in the cases we know are not classified correctly. The results are quite impressive if one considers that the algorithm we have put together does not know what digits are.</p>
+<p>Okay. Let’s look at the cluster centers more closely.
 Let’s visualize them as images.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -810,27 +816,16 @@ Let’s visualize them as images.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6b212a8e530ffc3ab60ef2f64bea0be0558b9999f8ef3a0a03e59b3fc2607ff6.png" src="../_images/6b212a8e530ffc3ab60ef2f64bea0be0558b9999f8ef3a0a03e59b3fc2607ff6.png" />
-<img alt="../_images/1d058aa79cc544ccd7c9e517bb32a04e68ce3f30ce61baa6fef0b7b0f31d383e.png" src="../_images/1d058aa79cc544ccd7c9e517bb32a04e68ce3f30ce61baa6fef0b7b0f31d383e.png" />
-<img alt="../_images/463c5682397b6651575a0f13c967c4dabc2e2ff24d3e14193656f53cda36fde3.png" src="../_images/463c5682397b6651575a0f13c967c4dabc2e2ff24d3e14193656f53cda36fde3.png" />
-<img alt="../_images/0891733e0ee6297528e0056acb27e180c70e33e2c55d26dcf34dc42695e7d422.png" src="../_images/0891733e0ee6297528e0056acb27e180c70e33e2c55d26dcf34dc42695e7d422.png" />
-<img alt="../_images/852ed8840be0e331c4892487d4713bd219c6e0f060976d1d5e818d0161ab515c.png" src="../_images/852ed8840be0e331c4892487d4713bd219c6e0f060976d1d5e818d0161ab515c.png" />
-<img alt="../_images/8f36765b1a5d8b276fa26390c02b65b221f4c740f23f100b7e77d8470f4555d6.png" src="../_images/8f36765b1a5d8b276fa26390c02b65b221f4c740f23f100b7e77d8470f4555d6.png" />
-<img alt="../_images/5d607e45594013b3ca644920fccfd8981dc3922f2bb8a91cbecb1103692549d5.png" src="../_images/5d607e45594013b3ca644920fccfd8981dc3922f2bb8a91cbecb1103692549d5.png" />
-<img alt="../_images/4e304cd1c5236654122cbfd8e546bcc707c46f64ee03327638500b2ccd3ab33d.png" src="../_images/4e304cd1c5236654122cbfd8e546bcc707c46f64ee03327638500b2ccd3ab33d.png" />
-<img alt="../_images/855178f5db7e22b29f9219630e4fa6fca6f358dc0dfdc9821751f789c6afa084.png" src="../_images/855178f5db7e22b29f9219630e4fa6fca6f358dc0dfdc9821751f789c6afa084.png" />
-<img alt="../_images/6a6b323cb02f58b8262b38ed76d0c10135c9dd2fd2d5bc5370de0d678a5c25fb.png" src="../_images/6a6b323cb02f58b8262b38ed76d0c10135c9dd2fd2d5bc5370de0d678a5c25fb.png" />
-</div>
+<img alt="../_images/008cd686746e817963aaa8f0b62db8cf01080b9f1fe2ce8b6b4c6ab8f9aa614b.svg" src="../_images/008cd686746e817963aaa8f0b62db8cf01080b9f1fe2ce8b6b4c6ab8f9aa614b.svg" /><img alt="../_images/1d27d867848a8d50dfb5253f45e8b86a80c4ec028e0bb26ca747b092644fd2ec.svg" src="../_images/1d27d867848a8d50dfb5253f45e8b86a80c4ec028e0bb26ca747b092644fd2ec.svg" /><img alt="../_images/916b3ba76853c5484e040bb0fd8fe7e32de2f239bc7093ded83b2f2dacd39f37.svg" src="../_images/916b3ba76853c5484e040bb0fd8fe7e32de2f239bc7093ded83b2f2dacd39f37.svg" /><img alt="../_images/7e3e8ce6ad3f1d39fca0e4b9c8a836ba8693e75581a1d0745add34e4b570b156.svg" src="../_images/7e3e8ce6ad3f1d39fca0e4b9c8a836ba8693e75581a1d0745add34e4b570b156.svg" /><img alt="../_images/99e31f8c77aa5eca3fcf9474eaa36d4d5d1b7bdf8a412033b1b42e9fe968a406.svg" src="../_images/99e31f8c77aa5eca3fcf9474eaa36d4d5d1b7bdf8a412033b1b42e9fe968a406.svg" /><img alt="../_images/808546496c6a1d90ba3c1c2bbf96471babd48f746f68df2ca1baae972404d20e.svg" src="../_images/808546496c6a1d90ba3c1c2bbf96471babd48f746f68df2ca1baae972404d20e.svg" /><img alt="../_images/b7f81af3a356fe92f28a3e664557f7062aba6a041162d5702d9dc25dbc6ba27f.svg" src="../_images/b7f81af3a356fe92f28a3e664557f7062aba6a041162d5702d9dc25dbc6ba27f.svg" /><img alt="../_images/220453bd161691a810666fdf6e59c447313285c31661b2968c20b4a3e96f532d.svg" src="../_images/220453bd161691a810666fdf6e59c447313285c31661b2968c20b4a3e96f532d.svg" /><img alt="../_images/1fc48acf90eef02e259711fbfc58d4e02d8bb9712f111db46319c8543e153da2.svg" src="../_images/1fc48acf90eef02e259711fbfc58d4e02d8bb9712f111db46319c8543e153da2.svg" /><img alt="../_images/65de99acd5f9cfdaebea6dc8485f94370fab6762d29bade8571574a9a634bb83.svg" src="../_images/65de99acd5f9cfdaebea6dc8485f94370fab6762d29bade8571574a9a634bb83.svg" /></div>
 </div>
 <section id="questions">
-<h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
+<h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Which cluster centers are digits and which aren’t digits? Pick one of the non-digists clusters and figure out where it is. You can do this by looking at <code class="docutils literal notranslate"><span class="pre">cl.centers_</span></code> to identify the coordinates of the center. Why was it picked? Does its shape make sense now?</p></li>
-<li><p>Repeat the analysis above but using 3 principal components (instead of 2). (Note that the 2D visualization of the principal components will not make much sense now, so take it with a grain of salt.) Pay special attention the identified cluster centers as images. Better or worse than before?</p></li>
-<li><p>Repeat the analysis with 5 principal components.</p></li>
+<li><p>Which cluster centers are digits, and which aren’t digits? Pick one of the non-digist clusters and figure out where it is. You can do this by looking at <code class="docutils literal notranslate"><span class="pre">cl.centers_</span></code> to identify the coordinates of the center. Why was it picked? Does its shape make sense now?</p></li>
+<li><p>Repeat the above analysis using three principal components (instead of 2). (Note that the 2D visualization of the principal components will not make much sense now, so take it with a grain of salt.) Pay special attention to the identified cluster centers as images. Better or worse than before?</p></li>
+<li><p>Repeat the analysis with five principal components.</p></li>
 <li><p>Repeat the analysis with 200 principal components.</p></li>
 </ul>
-</section>
 </section>
 </section>
 
@@ -901,10 +896,7 @@ Let’s visualize them as images.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
   </nav></div>
 

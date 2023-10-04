@@ -573,10 +573,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question">Question</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#question">Question</a></li>
 </ul>
             </nav>
         </div>
@@ -596,12 +593,12 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">show_digit_image</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
@@ -623,13 +620,8 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="density-estimation-with-high-dimensional-data">
 <h1>Density Estimation with High-dimensional Data<a class="headerlink" href="#density-estimation-with-high-dimensional-data" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Combine principal component analysis with the Gaussian mixture model to solve high-dimensional density estimation problems</p></li>
-</ul>
-<p>In this hands-on activity we are going to create a model that can sample hand-written digits.
-To achieve this, we are going to use PCA to reduce the dimensionality of the MNIST images and then apply Gaussian mixture density estimation on the principal components.
+<p>We are going to create a model that can sample handwritten digits.
+To achieve this, we will use PCA to reduce the dimensionality of the MNIST images and then apply Gaussian mixture density estimation on the principal components.
 The resulting model will not be perfect, but it very simple and a decent start.
 For simplicity, we are going to work only with the threes.</p>
 <p>Start by loading the data and extracting the threes:</p>
@@ -645,6 +637,12 @@ For simplicity, we are going to work only with the threes.</p>
 <span class="c1"># Split data into train partition and test partition</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
 <span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/lib/python3.11/site-packages/sklearn/datasets/_openml.py:968: FutureWarning: The default value of `parser` will change from `&#39;liac-arff&#39;` to `&#39;auto&#39;` in 1.4. You can set `parser=&#39;auto&#39;` to silence this warning. Therefore, an `ImportError` will be raised from 1.4 if the dataset is dense and pandas is not installed. Note that the pandas parser may return different data types. See the Notes Section in fetch_openml&#39;s API doc for details.
+  warn(
 </pre></div>
 </div>
 </div>
@@ -664,8 +662,8 @@ For simplicity, we are going to work only with the threes.</p>
 </div>
 </div>
 </div>
-<p>Now use the Gaussian mixture model on the principal components.
-We are also going to use BIC to figure out what is the right number of mixture components.</p>
+<p>Now, use the Gaussian mixture model on the principal components.
+We are also going to use BIC to figure out what is the correct number of mixture components.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.mixture</span> <span class="kn">import</span> <span class="n">GaussianMixture</span>
@@ -688,15 +686,14 @@ We are also going to use BIC to figure out what is the right number of mixture c
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_num_components</span><span class="p">),</span> <span class="n">bics</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;BIC Score&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Number of mixture components&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Number of mixture components&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/4ca36b3a0fee5a37e3c97ae4695df2925e0557761a24ac533bbf38537a630e31.png" src="../_images/4ca36b3a0fee5a37e3c97ae4695df2925e0557761a24ac533bbf38537a630e31.png" />
-</div>
+<img alt="../_images/4cea791064fe6ec84ef2171dd62b4dca01fceccf652356becb6e31a95249b960.svg" src="../_images/4cea791064fe6ec84ef2171dd62b4dca01fceccf652356becb6e31a95249b960.svg" /></div>
 </div>
 <p>Let’s find the mixture model with the smallest BIC:</p>
 <div class="cell docutils container">
@@ -723,20 +720,14 @@ We are also going to use BIC to figure out what is the right number of mixture c
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5811d10b531e1592feed595b0dd7764e11af6614cd99609539ce8958f3e2db74.png" src="../_images/5811d10b531e1592feed595b0dd7764e11af6614cd99609539ce8958f3e2db74.png" />
-<img alt="../_images/b05ea0e46ab34a7f7cc4187c71f8a745db305b4564214db442e9bdc48b3f0c04.png" src="../_images/b05ea0e46ab34a7f7cc4187c71f8a745db305b4564214db442e9bdc48b3f0c04.png" />
-<img alt="../_images/71455b7b0cad2041194d71a641ee844a12b7275cfd1d3c314d949bbb8f6dbde0.png" src="../_images/71455b7b0cad2041194d71a641ee844a12b7275cfd1d3c314d949bbb8f6dbde0.png" />
-<img alt="../_images/e411c94af1cef3158d21af5d8774cb4c3b0160c7704ada449c3a239f5636969c.png" src="../_images/e411c94af1cef3158d21af5d8774cb4c3b0160c7704ada449c3a239f5636969c.png" />
-<img alt="../_images/2276b28af5f1183690d6b4155c89c8f42c896c709c7f6485493de236aeafe5d8.png" src="../_images/2276b28af5f1183690d6b4155c89c8f42c896c709c7f6485493de236aeafe5d8.png" />
-</div>
+<img alt="../_images/535c61eb614f45d2a6fd0ea8b7a7716dc04c91340072e5745b3b3fe908ff3bda.svg" src="../_images/535c61eb614f45d2a6fd0ea8b7a7716dc04c91340072e5745b3b3fe908ff3bda.svg" /><img alt="../_images/75e6e2af004528e5c75df28ba2ed9bd1411ae6b28dfb304f0825841d2b9d3909.svg" src="../_images/75e6e2af004528e5c75df28ba2ed9bd1411ae6b28dfb304f0825841d2b9d3909.svg" /><img alt="../_images/6b78226305c114e424eac7987feeae53933edf15462c7320fa612e311ab578c8.svg" src="../_images/6b78226305c114e424eac7987feeae53933edf15462c7320fa612e311ab578c8.svg" /><img alt="../_images/a326109e81aa42a3b21a12b2fdf15ef68fdfe468566880f9fc89d2f665688066.svg" src="../_images/a326109e81aa42a3b21a12b2fdf15ef68fdfe468566880f9fc89d2f665688066.svg" /><img alt="../_images/0a722ef9d989ad51d1f71121c2a30032ff60e0bf48409961b2d9bc2b15a3bba1.svg" src="../_images/0a722ef9d989ad51d1f71121c2a30032ff60e0bf48409961b2d9bc2b15a3bba1.svg" /></div>
 </div>
 <section id="question">
-<h3>Question<a class="headerlink" href="#question" title="Permalink to this heading">#</a></h3>
+<h2>Question<a class="headerlink" href="#question" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Try the same code above with ones instead of threes. You just need to modify the code line <code class="docutils literal notranslate"><span class="pre">threes</span> <span class="pre">=</span> <span class="pre">x_train[y_train</span> <span class="pre">==</span> <span class="pre">3]</span></code> to <code class="docutils literal notranslate"><span class="pre">threes</span> <span class="pre">=</span> <span class="pre">x_train[y_train</span> <span class="pre">==</span> <span class="pre">1]</span></code>. Don’t bother about renaming the variables.</p></li>
 <li><p>Try increasing the number of PCA components (3, 5, 10, 20). Do the results improve or become worse? What seems to be the problem?</p></li>
 </ul>
-</section>
 </section>
 </section>
 
@@ -807,10 +798,7 @@ We are also going to use BIC to figure out what is the right number of mixture c
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question">Question</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#question">Question</a></li>
 </ul>
   </nav></div>
 

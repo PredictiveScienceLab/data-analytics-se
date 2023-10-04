@@ -552,7 +552,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -568,6 +570,16 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-dimensionality-reduction-possible">Why is Dimensionality Reduction Possible?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#principal-component-analysis">Principal Component Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-interpretation">Probabilistic Interpretation</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -578,22 +590,152 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="dimensionality-reduction">
-<h1>Dimensionality Reduction<a class="headerlink" href="#dimensionality-reduction" title="Permalink to this heading">#</a></h1>
+<span id="id1"></span><h1>Dimensionality Reduction<a class="headerlink" href="#dimensionality-reduction" title="Permalink to this heading">#</a></h1>
 <p>The dimensionality reduction problem is as follows.
-You have a bunch of observations <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}\)</span>.
+You have many observations <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}\)</span>.
 Each observation <span class="math notranslate nohighlight">\(\mathbf{x}_i\)</span> is a high-dimensional vector, say <span class="math notranslate nohighlight">\(\mathbf{x}_i\)</span> is in <span class="math notranslate nohighlight">\(\mathbb{R}^D\)</span> with <span class="math notranslate nohighlight">\(D\gg 1\)</span>.
 What you would like to do is describe this dataset with a smaller number of dimensions without losing too much information.
-That is, you would like to project each one of the <span class="math notranslate nohighlight">\(\mathbf{x}_i\)</span>’s to <span class="math notranslate nohighlight">\(d\)</span>-dimensional vector <span class="math notranslate nohighlight">\(\mathbf{z}_i\)</span> with <span class="math notranslate nohighlight">\(d \ll D\)</span>.</p>
+You would like to project each of the <span class="math notranslate nohighlight">\(\mathbf{x}_i\)</span>’s to <span class="math notranslate nohighlight">\(d\)</span>-dimensional vector <span class="math notranslate nohighlight">\(\mathbf{z}_i\)</span> with <span class="math notranslate nohighlight">\(d \ll D\)</span>.</p>
 <p>Why would you like to do dimensionality reduction?
 First, you can take any dataset, no matter how high-dimensional, and visualize it in two dimensions. This may help develop intuition about this dataset.
-Second, once you project the high-dimensional dataset to lower dimensions it is often easier to carry out unsupervised tasks like clustering or density estimation.
-Third, supervised tasks involving high-dimensional data also become easier if you reduce the dimensionality.
-For example, if you want to do regression between the high-dimensional <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and a scalar quantity <span class="math notranslate nohighlight">\(y\)</span> it will probably pay off if you first reduced the dimensionality of <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> by projecting it to a lower-dimensional vector <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> and then did regression between <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> and <span class="math notranslate nohighlight">\(y\)</span>.</p>
+Second, once you project the high-dimensional dataset to lower dimensions, it is often easier to carry out unsupervised tasks like clustering or density estimation.
+Third, supervised tasks involving high-dimensional data become more manageable if you reduce the dimensionality.
+For example, suppose you want to do regression between the high-dimensional <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and a scalar quantity <span class="math notranslate nohighlight">\(y\)</span>. In that case, it will probably pay off if you first reduce the dimensionality of <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> by projecting it to a lower-dimensional vector <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> and then do regression between <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> and <span class="math notranslate nohighlight">\(y\)</span>.</p>
 <p>There are dozens of dimensionality reduction techniques.
 See <a class="reference external" href="https://en.wikipedia.org/wiki/Dimensionality_reduction#:~:text=Dimensionality%20reduction%2C%20or%20dimension%20reduction,close%20to%20its%20intrinsic%20dimension.">this</a> for an incomplete list.
-In this lecture we are going to develop the simplest and the more widely used dimensionality reduction technique: Principal Component Analysis (PCA).
-The details of PCA are presented in the video.
+In this lecture, we will develop the simplest and the most widely used dimensionality reduction technique: Principal Component Analysis (PCA).
 If you want to read about it independently, I suggest <a class="reference external" href="https://www.springer.com/gp/book/9780387310732">Chapter 12.1-2, Bishop (2006)</a>.</p>
+<section id="why-is-dimensionality-reduction-possible">
+<h2>Why is Dimensionality Reduction Possible?<a class="headerlink" href="#why-is-dimensionality-reduction-possible" title="Permalink to this heading">#</a></h2>
+<p>Suppose that you are taking a picture of your head.
+Each picture is a high-dimensional object.
+For example, if you take a picture with a 10-megapixel camera, then each image is a vector in <span class="math notranslate nohighlight">\(\mathbb{R}^{10^7}\)</span>.
+Suppose you generate a dataset of such pictures with the same background, lighting, and facial expression.
+All you do is change the angle of the camera.
+Then, you can describe this dataset with much smaller dimensions.
+All you need to know is where and how the camera is oriented.
+So, you can get away with six dimensions: three for the camera position and three for the camera’s orientation.
+We went from <span class="math notranslate nohighlight">\(\mathbb{R}^{10^7}\)</span> to <span class="math notranslate nohighlight">\(\mathbb{R}^6\)</span>.
+The dataset you generated is a 6-dimensional manifold embedded in <span class="math notranslate nohighlight">\(\mathbb{R}^{10^7}\)</span>.
+It is a curved surface in <span class="math notranslate nohighlight">\(\mathbb{R}^{10^7}\)</span>.
+This is the intuition behind dimensionality reduction.
+Now you can imagine varying things: the background, the lighting, the facial expression, the hairstyle, the clothes, etc.
+This increases the dimensions you need to describe the dataset, but it remains much smaller than <span class="math notranslate nohighlight">\(\mathbb{R}^{10^7}\)</span>.</p>
+</section>
+<section id="principal-component-analysis">
+<h2>Principal Component Analysis<a class="headerlink" href="#principal-component-analysis" title="Permalink to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}\)</span> be data points in <span class="math notranslate nohighlight">\(\mathbb{R}^D\)</span>.
+We want to project them to a lower dimensional space <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span> with <span class="math notranslate nohighlight">\(d \ll D\)</span>.
+Specifically, we will find a linear map that projects the data to vectors <span class="math notranslate nohighlight">\(\mathbf{z}_{1:n}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span> such that the reconstruction error is minimized.</p>
+<p>First, we need a <em>projection map</em>.
+The projection map takes us from <span class="math notranslate nohighlight">\(\mathbb{R}^D\)</span> to <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>.
+We will use an <a class="reference external" href="https://en.wikipedia.org/wiki/Affine_transformation">affine</a> projection map:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{z} = \mathbf{f}(\mathbf{x}) = \mathbf{W}^\top (\mathbf{x} - \mathbf{x}_0).
+\]</div>
+<p>Here the matrix <span class="math notranslate nohighlight">\(\mathbf{W}\)</span> is a <span class="math notranslate nohighlight">\(D\times d\)</span> matrix and <span class="math notranslate nohighlight">\(\mathbf{x}_0\)</span> is the empirical mean of the data:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{x}_0 = \frac{1}{n}\sum_{i=1}^n \mathbf{x}_i.
+\]</div>
+<p>Second, we need a <em>reconstruction map</em>.
+The reconstruction map takes us from <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span> to <span class="math notranslate nohighlight">\(\mathbb{R}^D\)</span>.
+We will use an affine reconstruction map:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{x} = \mathbf{g}(\mathbf{z}) = \mathbf{V}\mathbf{z} + \mathbf{x}_0.
+\]</div>
+<p>Here the matrix <span class="math notranslate nohighlight">\(\mathbf{V}\)</span> is a <span class="math notranslate nohighlight">\(D\times d\)</span> matrix and <span class="math notranslate nohighlight">\(\mathbf{x}_0\)</span> is a <span class="math notranslate nohighlight">\(D\)</span>-dimensional vector.</p>
+<p>How can we find the matrices <span class="math notranslate nohighlight">\(\mathbf{W}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{V}\)</span>, and <span class="math notranslate nohighlight">\(\mathbf{x}_0\)</span>?
+We will minimize the reconstruction error.
+So, we project through <span class="math notranslate nohighlight">\(\mathbf{f}\)</span>, then reconstruct through <span class="math notranslate nohighlight">\(\mathbf{g}\)</span>, and then measure the error.
+It is:</p>
+<div class="math notranslate nohighlight">
+\[
+L(\mathbf{W}, \mathbf{V}, \mathbf{x}_0) = \frac{1}{n}\sum_{i=1}^n \|\mathbf{x}_i - \mathbf{g}(\mathbf{f}(\mathbf{x}_i))\|^2.
+\]</div>
+<p>Or, in more detail:</p>
+<div class="math notranslate nohighlight">
+\[
+L(\mathbf{W}, \mathbf{V}, \mathbf{x}_0) = \frac{1}{n}\sum_{i=1}^n \|\mathbf{x}_i - \mathbf{V}\mathbf{W}^\top \mathbf{x}_i - \mathbf{x}_0\|^2.
+\]</div>
+<p>We now proceed as usual.
+We take the derivative of <span class="math notranslate nohighlight">\(L\)</span> with respect to <span class="math notranslate nohighlight">\(\mathbf{W}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{V}\)</span>, and <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> and set them to zero.
+We get:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{W} = \mathbf{V},
+\]</div>
+<p>and <span class="math notranslate nohighlight">\(\mathbf{V}\)</span> is made out of the eigenvectors and eigenvalues of the empirical covariance matrix:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{C} = \frac{1}{n}\sum_{i=1}^n (\mathbf{x}_i - \mathbf{x}_0)(\mathbf{x}_i - \mathbf{x}_0)^\top.
+\]</div>
+<p>Specifically, let <span class="math notranslate nohighlight">\(\mathbf{u}_i\)</span> and <span class="math notranslate nohighlight">\(\lambda_i\)</span> be the <span class="math notranslate nohighlight">\(i\)</span>-th eigenvector and eigenvalue of <span class="math notranslate nohighlight">\(\mathbf{C}\)</span>.
+Assume the eigenvectors are sorted in decreasing order of the eigenvalues:</p>
+<div class="math notranslate nohighlight">
+\[
+\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_D.
+\]</div>
+<p>Then, the <span class="math notranslate nohighlight">\(i\)</span>-th column of <span class="math notranslate nohighlight">\(\mathbf{V}\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{v}_i = \sqrt{\lambda_i}\mathbf{u}_i.
+\]</div>
+<p>So, in terms of eigenvectors and eigenvalues, the projection map is:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{z} = \mathbf{f}(\mathbf{x}) = \sum_{i=1}^d \sqrt{\lambda_i} \mathbf{u}_i^\top \mathbf{x}
+\]</div>
+<p>and the reconstruction map is:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{x} = \mathbf{g}(\mathbf{z}) = \mathbf{x}_0 + \sum_{i=1}^d \sqrt{\lambda_i} \mathbf{u}_i \mathbf{z}_i.
+\]</div>
+<p>We can also show that the minimum reconstruction error is</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{n}\sum_{i=1}^n \|\mathbf{x}_i - \mathbf{g}(\mathbf{f}(\mathbf{x}_i))\|^2 = \sum_{j=d+1}^D \lambda_j.
+\]</div>
+<p>We can use this to decide how many dimensions to keep.
+We can keep the first <span class="math notranslate nohighlight">\(d\)</span> dimensions so the reconstruction error is below a threshold.
+For example, we can keep the first <span class="math notranslate nohighlight">\(d\)</span> dimensions such that the reconstruction error is less than 1%.
+We call the sum of the first <span class="math notranslate nohighlight">\(d\)</span> eigenvalues the <em>variance explained</em> by the first <span class="math notranslate nohighlight">\(d\)</span> dimensions.
+Another name is the energy of the first <span class="math notranslate nohighlight">\(d\)</span> dimensions.</p>
+</section>
+<section id="probabilistic-interpretation">
+<h2>Probabilistic Interpretation<a class="headerlink" href="#probabilistic-interpretation" title="Permalink to this heading">#</a></h2>
+<p>We can also interpret PCA probabilistically.
+We assume that the data points <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}\)</span> are generated by a linear Gaussian model:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{x}_i | \mathbf{z}_i \sim \mathcal{N}(\mathbf{x}_0 + \mathbf{V}\mathbf{z}_i, \sigma^2 \mathbf{I}).
+\]</div>
+<p>The latent variables <span class="math notranslate nohighlight">\(\mathbf{z}_{1:n}\)</span> are generated by a Gaussian prior:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{z}_i \sim \mathcal{N}(\mathbf{0}, \mathbf{I}).
+\]</div>
+<p>One proceeds by maximizing the marginal likelihood of the data:</p>
+<div class="math notranslate nohighlight">
+\[
+p(\mathbf{x}_{1:n}) = \int p(\mathbf{x}_{1:n} | \mathbf{z}_{1:n}) p(\mathbf{z}_{1:n}) d\mathbf{z}_{1:n}.
+\]</div>
+<p>For such problems with hidden variables, we can use the <a class="reference external" href="https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm">EM algorithm</a>.
+But in this case, we are lucky.
+Inside the integral, the Gaussian prior and the Gaussian likelihood combine to give another Gaussian.
+And then, when you integrate the latent variables, you get another Gaussian.
+So, the marginal likelihood is a Gaussian.
+When you write everything down and take the log, you get the same objective function as before.
+And the solution is the same.
+An addendum is that you also get the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> of the Gaussian likelihood.
+It is</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma^2 = \frac{1}{D-d}\sum_{j=d+1}^D \lambda_j.
+\]</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -654,6 +796,22 @@ If you want to read about it independently, I suggest <a class="reference extern
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-dimensionality-reduction-possible">Why is Dimensionality Reduction Possible?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#principal-component-analysis">Principal Component Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-interpretation">Probabilistic Interpretation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

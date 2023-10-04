@@ -575,11 +575,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Questions</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Questions</a></li>
 </ul>
             </nav>
         </div>
@@ -599,12 +596,12 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -613,16 +610,10 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="dimensionality-reduction-examples">
 <h1>Dimensionality Reduction Examples<a class="headerlink" href="#dimensionality-reduction-examples" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Understand the dimensionality reduction problem</p></li>
-<li><p>Use principal component analysis to solve the dimensionality reduction problem</p></li>
-</ul>
-<p>Through out this lecture we will be using the <a class="reference external" href="https://en.wikipedia.org/wiki/MNIST_database">MNIST dataset</a>.
+<p>Throughout this lecture, we will use the <a class="reference external" href="https://en.wikipedia.org/wiki/MNIST_database">MNIST dataset</a>.
 The MNIST dataset consists of thousands of images of handwritten digits from <span class="math notranslate nohighlight">\(0\)</span> to <span class="math notranslate nohighlight">\(1\)</span>.
 The dataset is a standard benchmark in machine learning.
-Here is how to get the dataset from the tensorflow library:</p>
+Here is how to get the dataset from the sklearn library.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_openml</span>
@@ -638,9 +629,15 @@ Here is how to get the dataset from the tensorflow library:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/lib/python3.11/site-packages/sklearn/datasets/_openml.py:968: FutureWarning: The default value of `parser` will change from `&#39;liac-arff&#39;` to `&#39;auto&#39;` in 1.4. You can set `parser=&#39;auto&#39;` to silence this warning. Therefore, an `ImportError` will be raised from 1.4 if the dataset is dense and pandas is not installed. Note that the pandas parser may return different data types. See the Notes Section in fetch_openml&#39;s API doc for details.
+  warn(
+</pre></div>
 </div>
-<p>The dataset comes with inputs (that are images of digits) and labels (which is the label of the digit).
-We are not going to use the labels in this lecture as we will be doing unsupervised learning.
+</div>
+</div>
+<p>The dataset comes with inputs (images of digits) and labels (the label of the digit).
+We will not use the labels in this lecture as we will be doing unsupervised learning.
 Let’s look at the dimensions of the training dataset:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -656,7 +653,7 @@ Let’s look at the dimensions of the training dataset:</p>
 </div>
 <p>The training dataset is a 3D array.
 The first dimension is 49,0000. This is the number of different images that we have.
-Then each image consists of 28x28 pixels.
+Then, each image consists of 28x28 pixels.
 Here is the first image in terms of numbers:</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input above-output-prompt docutils container">
@@ -670,101 +667,170 @@ Here is the first image in terms of numbers:</p>
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.333, 1.   , 0.09 , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.149, 0.969, 0.996, 0.09 , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.184, 0.894, 0.957, 0.18 , 0.016,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.675, 0.925, 0.173, 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.102, 0.733, 0.945, 0.263, 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.184, 0.706, 0.945, 0.271, 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.482, 0.961, 0.824, 0.263, 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.467, 0.969, 0.824, 0.271, 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.027, 0.533, 0.996, 0.945, 0.263, 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.035, 0.518, 0.992, 0.945, 0.271, 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.643, 0.992, 0.957, 0.263, 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.11 , 0.455, 0.455, 0.714, 0.082,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.333, 0.969, 0.957, 0.271, 0.   ,
-       0.   , 0.   , 0.   , 0.102, 0.557, 0.941, 0.992, 0.996, 0.992,
-       0.573, 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.027, 0.408, 0.996, 0.78 , 0.067, 0.   ,
-       0.   , 0.149, 0.439, 0.765, 0.867, 0.996, 0.996, 0.996, 0.996,
-       0.996, 0.804, 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.29 , 0.992, 0.945, 0.106, 0.   ,
-       0.   , 0.   , 0.741, 0.992, 0.992, 0.945, 0.482, 0.529, 0.627,
-       0.996, 0.824, 0.114, 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.086, 0.565, 0.957, 0.263, 0.   ,
-       0.   , 0.   , 0.   , 0.494, 0.537, 0.278, 0.133, 0.086, 0.631,
-       0.992, 0.671, 0.114, 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.314, 0.992, 0.369, 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.4  , 0.725, 0.969,
-       0.925, 0.271, 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.275, 0.996, 0.804, 0.   ,
-       0.   , 0.   , 0.   , 0.2  , 0.408, 0.6  , 0.929, 0.894, 0.725,
-       0.525, 0.067, 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.275, 0.992, 0.494,
-       0.184, 0.184, 0.51 , 0.839, 0.969, 0.996, 0.89 , 0.643, 0.286,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.275, 0.992,
-       0.992, 0.992, 0.996, 0.992, 0.925, 0.925, 0.314, 0.082, 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.075,
-       0.796, 0.992, 0.992, 0.863, 0.659, 0.137, 0.075, 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
-       0.   ])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.33333333, 1.        , 0.09019608, 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.14901961, 0.96862745,
+       0.99607843, 0.09019608, 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.18431373, 0.89411765, 0.95686275, 0.18039216, 0.01568627,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.6745098 , 0.9254902 ,
+       0.17254902, 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.10196078,
+       0.73333333, 0.94509804, 0.2627451 , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.18431373, 0.70588235, 0.94509804, 0.27058824,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.48235294, 0.96078431,
+       0.82352941, 0.2627451 , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.46666667, 0.96862745, 0.82352941, 0.27058824, 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.02745098, 0.53333333, 0.99607843, 0.94509804,
+       0.2627451 , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.03529412, 0.51764706,
+       0.99215686, 0.94509804, 0.27058824, 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.64313725, 0.99215686, 0.95686275, 0.2627451 ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.10980392, 0.45490196, 0.45490196, 0.71372549, 0.08235294,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.33333333, 0.96862745,
+       0.95686275, 0.27058824, 0.        , 0.        , 0.        ,
+       0.        , 0.10196078, 0.55686275, 0.94117647, 0.99215686,
+       0.99607843, 0.99215686, 0.57254902, 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.02745098,
+       0.40784314, 0.99607843, 0.78039216, 0.06666667, 0.        ,
+       0.        , 0.14901961, 0.43921569, 0.76470588, 0.86666667,
+       0.99607843, 0.99607843, 0.99607843, 0.99607843, 0.99607843,
+       0.80392157, 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.29019608, 0.99215686, 0.94509804,
+       0.10588235, 0.        , 0.        , 0.        , 0.74117647,
+       0.99215686, 0.99215686, 0.94509804, 0.48235294, 0.52941176,
+       0.62745098, 0.99607843, 0.82352941, 0.11372549, 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.08627451,
+       0.56470588, 0.95686275, 0.2627451 , 0.        , 0.        ,
+       0.        , 0.        , 0.49411765, 0.5372549 , 0.27843137,
+       0.13333333, 0.08627451, 0.63137255, 0.99215686, 0.67058824,
+       0.11372549, 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.31372549, 0.99215686, 0.36862745,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.4       , 0.7254902 , 0.96862745,
+       0.9254902 , 0.27058824, 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.2745098 ,
+       0.99607843, 0.80392157, 0.        , 0.        , 0.        ,
+       0.        , 0.2       , 0.40784314, 0.6       , 0.92941176,
+       0.89411765, 0.7254902 , 0.5254902 , 0.06666667, 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.2745098 , 0.99215686, 0.49411765,
+       0.18431373, 0.18431373, 0.50980392, 0.83921569, 0.96862745,
+       0.99607843, 0.89019608, 0.64313725, 0.28627451, 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.2745098 , 0.99215686, 0.99215686, 0.99215686, 0.99607843,
+       0.99215686, 0.9254902 , 0.9254902 , 0.31372549, 0.08235294,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.0745098 , 0.79607843,
+       0.99215686, 0.99215686, 0.8627451 , 0.65882353, 0.1372549 ,
+       0.0745098 , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        ])
 </pre></div>
 </div>
 </div>
 </details>
 </div>
 <p>Each number corresponds to the pixel value.
-Say, zero is a white pixel and 255 is a black pixel.
+Say zero is a white pixel, and 255 is a black pixel.
 Values between 0 and 255 correspond to some shade of gray.
 Here is how to visualize the first image:</p>
 <div class="cell docutils container">
@@ -774,11 +840,10 @@ Here is how to visualize the first image:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/317ea3a35d355091829477adfbd23a1bf0e0f5bd6474edc91e40238cf47a03d1.png" src="../_images/317ea3a35d355091829477adfbd23a1bf0e0f5bd6474edc91e40238cf47a03d1.png" />
+<img alt="../_images/9b477b1c098697bdb8601d6fd9e2b3e736427f1b337a24894d985d6a78f586a7.svg" src="../_images/9b477b1c098697bdb8601d6fd9e2b3e736427f1b337a24894d985d6a78f586a7.svg" /></div>
 </div>
-</div>
-<p>In this handout, I want to work with just images of threes.
-So, let me just keep all the threes and throw away all other data:</p>
+<p>I want to work with just images of threes.
+So, let me keep all the threes and throw away all other data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">threes</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[</span><span class="n">y_train</span> <span class="o">==</span> <span class="s1">&#39;3&#39;</span><span class="p">]</span>
@@ -792,10 +857,10 @@ So, let me just keep all the threes and throw away all other data:</p>
 </div>
 </div>
 </div>
-<p>Okay. You see that we now have a few thousand vectors each with 784 dimensions.
+<p>Okay. We now have a few thousand vectors, each with 784 dimensions.
 That is our dataset.
 Let’s apply PCA to it to reduce its dimensionality.
-We are going to use the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html">PCA class of scikit-learn</a>.
+We will use the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html">PCA class of scikit-learn</a>.
 Here is how to import the class:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -804,7 +869,7 @@ Here is how to import the class:</p>
 </div>
 </div>
 </div>
-<p>And here is how to initialize the model and fit it to the data:</p>
+<p>Here is how to initialize the model and fit it to the data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mf">0.98</span><span class="p">,</span> <span class="n">whiten</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">threes</span><span class="p">)</span>
@@ -812,15 +877,15 @@ Here is how to import the class:</p>
 </div>
 </div>
 </div>
-<p>For the complete definition of the inputs to the <code class="docutils literal notranslate"><span class="pre">PCA</span></code> class, see its documentation.
+<p>See its documentation for the complete definition of the inputs to the <code class="docutils literal notranslate"><span class="pre">PCA</span></code> class.
 The particular parameters that I define above have the following effect:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">n_components</span></code>: If you set this to an integer, the PCA will have this many components. If you set it to a number between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>, say 0.98, then PCA will keep as many components as it needs in order to capture 98% of the variance of the data. I use the second type of input.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">whiten</span></code>: This ensures that the projections have unit variance. If you don’t specify this then their variance will be the corresponding eigenvalue. Setting <code class="docutils literal notranslate"><span class="pre">whiten=True</span></code> is consistent with the theory developed in the video.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n_components</span></code>: If you set this to an integer, the PCA will have this many components. If you set it to a number between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>, say 0.98, then PCA will keep as many components as it needs to capture 98% of the variance of the data. I use the second type of input.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">whiten</span></code>: This ensures that the projections have unit variance. If you don’t specify this, their variance will be the corresponding eigenvalue. Setting <code class="docutils literal notranslate"><span class="pre">whiten=True</span></code> is consistent with the theory developed in the video.</p></li>
 </ul>
-<p>Okay, so now that the model is trained let’s investigate it.
-First, we asked PCA to keep enough components so that it can describe 98% of the variance.
-How many did it actually keep?
+<p>Okay, so now that the model is trained, let’s investigate it.
+First, we asked PCA to keep enough components to describe 98% of the variance.
+How many did it keep?
 Here is how to check this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -834,7 +899,7 @@ Here is how to check this:</p>
 </div>
 </div>
 </div>
-<p>It kept 227 compents. This doesn’t look very impressive but we will take it for now.</p>
+<p>It kept 227 components. This looks like it could be more impressive, but we will take it for now.</p>
 <p>Now, let’s focus on the eigenvalues of the covariance matrix.
 Here is how to get them:</p>
 <div class="cell docutils container">
@@ -842,15 +907,15 @@ Here is how to get them:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$i$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\lambda_i$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\lambda_i$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/166ba758ea9b4fc0608e14798aba1ad38963b70f899e6a6fbc2417921174cfb5.png" src="../_images/166ba758ea9b4fc0608e14798aba1ad38963b70f899e6a6fbc2417921174cfb5.png" />
+<img alt="../_images/09eb21412e48ea48b2b5d322fe568dc832a60227a5fc0f3d2523459a920ba0ca.svg" src="../_images/09eb21412e48ea48b2b5d322fe568dc832a60227a5fc0f3d2523459a920ba0ca.svg" /></div>
 </div>
-</div>
-<p>Remember that the sum of first <span class="math notranslate nohighlight">\(k\)</span> eigenvalues, <span class="math notranslate nohighlight">\(\sum_{i=1}^k\lambda_i\)</span> tells you how much variance is explained with a model that keeps the first <span class="math notranslate nohighlight">\(k\)</span> PCA components.</p>
+<p>Remember that the sum of the first <span class="math notranslate nohighlight">\(k\)</span> eigenvalues, <span class="math notranslate nohighlight">\(\sum_{i=1}^k\lambda_i\)</span>, tells you how much variance is explained with a model that keeps the first <span class="math notranslate nohighlight">\(k\)</span> PCA components.</p>
 <p>Okay.
 As we discussed in the lecture videos, each of the observations expanded as follows:</p>
 <div class="math notranslate nohighlight">
@@ -871,7 +936,7 @@ It is this vector:</p>
 </div>
 </div>
 </div>
-<p>so let’s reshape it and plot it as an image:</p>
+<p>So let’s reshape it and plot it as an image:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">show_digit_image</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
@@ -892,8 +957,7 @@ It is this vector:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/208ed75b9d22aab9c889dcf3196234b5644d80a49169e58de53aa23fc570642e.png" src="../_images/208ed75b9d22aab9c889dcf3196234b5644d80a49169e58de53aa23fc570642e.png" />
-</div>
+<img alt="../_images/715f10d512766f222bd7b34fdd08e6fd683d070df97f423777332b657a88e101.svg" src="../_images/715f10d512766f222bd7b34fdd08e6fd683d070df97f423777332b657a88e101.svg" /></div>
 </div>
 <p>Now let’s go for the eigenvectors <span class="math notranslate nohighlight">\(\mathbf{v}_i\)</span>.
 Here is where the are:</p>
@@ -925,16 +989,11 @@ Here is where the are:</p>
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<img alt="../_images/ae9913a191b71a27290da713190f4b93d5b9a0dd76a6cbebc4c16d3ddd065015.png" src="../_images/ae9913a191b71a27290da713190f4b93d5b9a0dd76a6cbebc4c16d3ddd065015.png" />
-<img alt="../_images/10b63e5764db2817b6969742d2f61dafb9ad6258e9bfec9db941e7562701f03b.png" src="../_images/10b63e5764db2817b6969742d2f61dafb9ad6258e9bfec9db941e7562701f03b.png" />
-<img alt="../_images/3bc10ca447d52f2c3233d993db8085bd84dce35cbfbd285c1e155b5a04c5a996.png" src="../_images/3bc10ca447d52f2c3233d993db8085bd84dce35cbfbd285c1e155b5a04c5a996.png" />
-<img alt="../_images/ff2245bc02359fd25bf38d43711173ed228816efe7f1e8836725f4ef70c9bc79.png" src="../_images/ff2245bc02359fd25bf38d43711173ed228816efe7f1e8836725f4ef70c9bc79.png" />
-<img alt="../_images/4d68b097be88718bf8eec24584ad3d8c52ce2d5b3e631b53afe23697bd622337.png" src="../_images/4d68b097be88718bf8eec24584ad3d8c52ce2d5b3e631b53afe23697bd622337.png" />
-</div>
+<img alt="../_images/b0e63985d23cf28e406374b524054a750ac28ccca44d556b099c544a07975f0c.svg" src="../_images/b0e63985d23cf28e406374b524054a750ac28ccca44d556b099c544a07975f0c.svg" /><img alt="../_images/c9711e03f558d8328361bcfdc761ff8c868606fe8ba75015adafee0c1346f8c1.svg" src="../_images/c9711e03f558d8328361bcfdc761ff8c868606fe8ba75015adafee0c1346f8c1.svg" /><img alt="../_images/5d930bc051a5deac94fb44d797a556b4f6c34d21ab8fcac46f8f4dd77aaafb56.svg" src="../_images/5d930bc051a5deac94fb44d797a556b4f6c34d21ab8fcac46f8f4dd77aaafb56.svg" /><img alt="../_images/7e5dec0a11c626bc4f1d2d928dfba87b25040b9bf7b86dce63ebb03f8f2bd17a.svg" src="../_images/7e5dec0a11c626bc4f1d2d928dfba87b25040b9bf7b86dce63ebb03f8f2bd17a.svg" /><img alt="../_images/983653dd90a9dc2b86dd2f5d3cfa418c0ff30aa3f18da79cb748b3ddfaa1d643.svg" src="../_images/983653dd90a9dc2b86dd2f5d3cfa418c0ff30aa3f18da79cb748b3ddfaa1d643.svg" /></div>
 </details>
 </div>
-<p>Now, let’s visulize the first two principal components <span class="math notranslate nohighlight">\(\mathbf{z}_j\)</span> of each observation <span class="math notranslate nohighlight">\(\mathbf{x}_j\)</span>.
-This will essentially project the dataset from 784 dimensions to two dimensions.
+<p>Let’s visualize the first two principal components <span class="math notranslate nohighlight">\(\mathbf{z}_j\)</span> of each observation <span class="math notranslate nohighlight">\(\mathbf{x}_j\)</span>.
+This will project the dataset from 784 dimensions to two dimensions.
 Here is how to find the principal components:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -955,17 +1014,17 @@ Here is how to find the principal components:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">Z</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">Z</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$z_1$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$z_2$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$z_2$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f4ec38bbd4cec662d460141351b378670883a9e00eb3c23efb97159db57577b2.png" src="../_images/f4ec38bbd4cec662d460141351b378670883a9e00eb3c23efb97159db57577b2.png" />
-</div>
+<img alt="../_images/8c4c6936234552880fce942d4eef6680c34cf9b8685dd2d74b0cf1db65f4a5e1.svg" src="../_images/8c4c6936234552880fce942d4eef6680c34cf9b8685dd2d74b0cf1db65f4a5e1.svg" /></div>
 </div>
 <p>Alright! Each dot in this plot corresponds to an image of a 3.
-This is nice, but not the best thing we can do in terms of visualization.
-It would be nice if we could plot the actual image instead of a dot.
+This is nice, but there are better things we can do regarding visualization.
+Let’s plot the actual image instead of a dot.
 Here is how to do this:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1035,24 +1094,24 @@ Here is how to do this:</p>
     <span class="n">zoom</span><span class="o">=</span><span class="mf">0.2</span>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$z_1$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$z_2$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$z_2$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c58c10fe60c55129e7cdeec72b4f36979af13fe82d8ea4ed36803a44da3bd179.png" src="../_images/c58c10fe60c55129e7cdeec72b4f36979af13fe82d8ea4ed36803a44da3bd179.png" />
+<img alt="../_images/9140b927f41e78bea16c88c73d14b41aa876595f5c496f9d26fd59dda6f1ef95.svg" src="../_images/9140b927f41e78bea16c88c73d14b41aa876595f5c496f9d26fd59dda6f1ef95.svg" /></div>
 </div>
-</div>
-<p>In this plot you can clearly see the interpretation of the principal components.
+<p>In this plot, you can see the interpretation of the principal components.
 The first principal component seems to rotate the three about an axis coming out of the screen.
-The second principal component seems to change the thickness of the bottom of the three.</p>
+The second principal component changes the thickness of the bottom of the three.</p>
 <section id="questions">
-<h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
+<h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Keeping the index <span class="math notranslate nohighlight">\(i=0\)</span> fixed, play with the corresponding <span class="math notranslate nohighlight">\(z\)</span> and observe that it rotates the three.</p></li>
 <li><p>Change <span class="math notranslate nohighlight">\(i\)</span> to <span class="math notranslate nohighlight">\(1,2\)</span> and <span class="math notranslate nohighlight">\(3\)</span> and study the effect of the corresponding principal component.</p></li>
 </ul>
-<p>Now we are going to study the reconstruction error for the validation dataset.
+<p>Now, we will study the reconstruction error for the validation dataset.
 First, throw everything that is not a three:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1100,18 +1159,16 @@ Project all the validation points:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d0d9e867d9b4b7011d6b777e7e2161c3325739d3faf93c45c7eedcad9c3f7e99.png" src="../_images/d0d9e867d9b4b7011d6b777e7e2161c3325739d3faf93c45c7eedcad9c3f7e99.png" />
-<img alt="../_images/ed62f82d89e89fabb8ae93918b7648b49e32557d77cfc844c5da5213ac93f3a7.png" src="../_images/ed62f82d89e89fabb8ae93918b7648b49e32557d77cfc844c5da5213ac93f3a7.png" />
-</div>
+<img alt="../_images/46ca89bcf354c92c510e7dcf80de8dfbb6e0f3fa46c18ea77c77723198a82006.svg" src="../_images/46ca89bcf354c92c510e7dcf80de8dfbb6e0f3fa46c18ea77c77723198a82006.svg" /><img alt="../_images/4644e4bfd54853e270f374bbd39de4e58e1bc92959f8825702e714174752800a.svg" src="../_images/4644e4bfd54853e270f374bbd39de4e58e1bc92959f8825702e714174752800a.svg" /></div>
 </div>
 </section>
 <section id="id1">
-<h3>Questions<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<h2>Questions<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Play with the code block above increasing <code class="docutils literal notranslate"><span class="pre">n_components</span></code> to 2, 4, 8, and so on up to 227. Observe how the reconstruction becomes better (but not perfect).</p></li>
+<li><p>Play with the code block above, increasing <code class="docutils literal notranslate"><span class="pre">n_components</span></code> to 2, 4, 8, and so on up to 227. Observe how the reconstruction becomes better (but not perfect).</p></li>
 <li><p>Repeat the above question, but change also the <code class="docutils literal notranslate"><span class="pre">idx</span></code> variable so that you see some more examples of three.</p></li>
 <li><p>Go back a few code blocks, and change your validation set to include only fives.
-You must change this:</p></li>
+It would help if you changed this:</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">valid_threes</span> <span class="o">=</span> <span class="n">x_test</span><span class="p">[</span><span class="n">y_test</span> <span class="o">==</span> <span class="s1">&#39;3&#39;</span><span class="p">]</span>
 <span class="n">valid_threes</span><span class="o">.</span><span class="n">shape</span>
@@ -1127,7 +1184,6 @@ Can the PCA model constructed with threes describe 5s? Why yes or why not?</p>
 <ul class="simple">
 <li><p>Repeat the previous question with a couple of other digits.</p></li>
 </ul>
-</section>
 </section>
 </section>
 
@@ -1198,11 +1254,8 @@ Can the PCA model constructed with threes describe 5s? Why yes or why not?</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Questions</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Questions</a></li>
 </ul>
   </nav></div>
 
