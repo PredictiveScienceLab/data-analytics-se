@@ -607,12 +607,18 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-optimizing-the-performance-of-a-compressor">Problem 2 - Optimizing the performance of a compressor</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpart-a-i-fit-the-capacity">Subpart A.I - Fit the capacity</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Subpart A.II</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Subpart A.III</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpart-b-i-fit-the-power">Subpart B.I - Fit the Power</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpart-b-ii">Subpart B.II</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Subpart B.III</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-a-fit-the-capacity">Part A - Fit the capacity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Subpart A.I</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Subpart A.II</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Subpart A.III</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-b-fit-the-power">Part B - Fit the Power</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subpart-b-i">Subpart B.I</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subpart-b-ii">Subpart B.II</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Subpart B.III</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-explaining-the-challenger-disaster">Problem 3 - Explaining the Challenger disaster</a><ul class="visible nav section-nav flex-column">
@@ -1246,8 +1252,10 @@ y = w_1 + w_2T_e + w_3 T_c + w_4 T_eT_c + w_5 T_e^2 + w_6T_c^2 + w_7 T_e^2T_c + 
 <li><p>You should split your data into training and validation and use various validation metrics to ensure your models make sense.</p></li>
 <li><p>Use <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ARDRegression.html#sklearn.linear_model.ARDRegression">ARD Regression</a> to fit any hyperparameters and the noise.</p></li>
 </ul>
-<section id="subpart-a-i-fit-the-capacity">
-<h2>Subpart A.I - Fit the capacity<a class="headerlink" href="#subpart-a-i-fit-the-capacity" title="Permalink to this heading">#</a></h2>
+<section id="part-a-fit-the-capacity">
+<h2>Part A - Fit the capacity<a class="headerlink" href="#part-a-fit-the-capacity" title="Permalink to this heading">#</a></h2>
+<section id="id1">
+<h3>Subpart A.I<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>Please don’t just fit. Split in training and test and use all the usual diagnostics.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1257,8 +1265,8 @@ y = w_1 + w_2T_e + w_3 T_c + w_4 T_eT_c + w_5 T_e^2 + w_6T_c^2 + w_7 T_e^2T_c + 
 </div>
 </div>
 </section>
-<section id="id1">
-<h2>Subpart A.II<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<section id="id2">
+<h3>Subpart A.II<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>What is the noise variance you estimated for the Capacity?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1268,8 +1276,8 @@ y = w_1 + w_2T_e + w_3 T_c + w_4 T_eT_c + w_5 T_e^2 + w_6T_c^2 + w_7 T_e^2T_c + 
 </div>
 </div>
 </section>
-<section id="id2">
-<h2>Subpart A.III<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<section id="id3">
+<h3>Subpart A.III<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <p>Which features of the temperatures (basis functions of your model) are the most important for predicting the Capacity?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1279,8 +1287,11 @@ y = w_1 + w_2T_e + w_3 T_c + w_4 T_eT_c + w_5 T_e^2 + w_6T_c^2 + w_7 T_e^2T_c + 
 </div>
 </div>
 </section>
-<section id="subpart-b-i-fit-the-power">
-<h2>Subpart B.I - Fit the Power<a class="headerlink" href="#subpart-b-i-fit-the-power" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="part-b-fit-the-power">
+<h2>Part B - Fit the Power<a class="headerlink" href="#part-b-fit-the-power" title="Permalink to this heading">#</a></h2>
+<section id="subpart-b-i">
+<h3>Subpart B.I<a class="headerlink" href="#subpart-b-i" title="Permalink to this heading">#</a></h3>
 <p>Please don’t just fit. Split in training and test and use all the usual diagnostics.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1291,7 +1302,7 @@ y = w_1 + w_2T_e + w_3 T_c + w_4 T_eT_c + w_5 T_e^2 + w_6T_c^2 + w_7 T_e^2T_c + 
 </div>
 </section>
 <section id="subpart-b-ii">
-<h2>Subpart B.II<a class="headerlink" href="#subpart-b-ii" title="Permalink to this heading">#</a></h2>
+<h3>Subpart B.II<a class="headerlink" href="#subpart-b-ii" title="Permalink to this heading">#</a></h3>
 <p>What is the noise variance you estimated for the Power?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1301,8 +1312,8 @@ y = w_1 + w_2T_e + w_3 T_c + w_4 T_eT_c + w_5 T_e^2 + w_6T_c^2 + w_7 T_e^2T_c + 
 </div>
 </div>
 </section>
-<section id="id3">
-<h2>Subpart B.III<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<section id="id4">
+<h3>Subpart B.III<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p>Which features of the temperatures (basis functions of your model) are the most important for predicting the Power?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1311,6 +1322,7 @@ y = w_1 + w_2T_e + w_3 T_c + w_4 T_eT_c + w_5 T_e^2 + w_6T_c^2 + w_7 T_e^2T_c + 
 </div>
 </div>
 </div>
+</section>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="problem-3-explaining-the-challenger-disaster">
@@ -1515,12 +1527,18 @@ Also, plot your optimal decision as a function of the external temperature.</p>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-optimizing-the-performance-of-a-compressor">Problem 2 - Optimizing the performance of a compressor</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpart-a-i-fit-the-capacity">Subpart A.I - Fit the capacity</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Subpart A.II</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Subpart A.III</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpart-b-i-fit-the-power">Subpart B.I - Fit the Power</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpart-b-ii">Subpart B.II</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Subpart B.III</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-a-fit-the-capacity">Part A - Fit the capacity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Subpart A.I</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Subpart A.II</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Subpart A.III</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-b-fit-the-power">Part B - Fit the Power</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subpart-b-i">Subpart B.I</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subpart-b-ii">Subpart B.II</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Subpart B.III</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-explaining-the-challenger-disaster">Problem 3 - Explaining the Challenger disaster</a><ul class="visible nav section-nav flex-column">
