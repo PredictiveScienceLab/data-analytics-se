@@ -301,7 +301,7 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../lecture20/intro.html">Lecture 20 - State Space Models - Kalman Filters</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-27"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../lecture20/reading-20.html">State Space Models - Kalman Filters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lecture20/hands-on-20.1.html">Kalman Filter for Object Tracking Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture20/hands-on-20.1.html">Kalman Filter for the Object Tracking Example</a></li>
 </ul>
 </li>
 </ul>
@@ -600,46 +600,43 @@ document.write(`
 <h1>State Space Models - Filtering Basics<a class="headerlink" href="#state-space-models-filtering-basics" title="Permalink to this heading">#</a></h1>
 <section id="filtering-problems">
 <h2>Filtering problems<a class="headerlink" href="#filtering-problems" title="Permalink to this heading">#</a></h2>
-<p>In words, filtering problems are as follows:</p>
+<p>Filtering problems are as follows:</p>
 <ul class="simple">
-<li><p>you have some sort of dynamical system (physical or engineered)</p></li>
-<li><p>you observe a noisy measurement of (part of) the state of the system</p></li>
-<li><p>you want to figure out what is the actual state of the system</p></li>
+<li><p>You have some dynamical system (physical or engineered).</p></li>
+<li><p>You observe a noisy measurement of (part of) the system’s state.</p></li>
+<li><p>You want to figure out the system’s actual state.</p></li>
 </ul>
 <p>Here are some examples of this:</p>
 <ul class="simple">
 <li><p>Object tracking:</p>
 <ul>
-<li><p>you have a vehicle (e.g., a rocket) the motion of which is described by Newton’s laws</p></li>
-<li><p>you have some noisy measurements of the state of the system (e.g., GPS, acceleratometers)</p></li>
-<li><p>you want to figure out where exactly the rocket is, so that you can control it</p></li>
+<li><p>You have a vehicle (e.g., a rocket), the motion described by Newton’s laws.</p></li>
+<li><p>You have noisy measurements of the system’s state (e.g., GPS, accelerometers).</p></li>
+<li><p>You want to figure out where precisely the rocket is so that you can control it.</p></li>
 </ul>
 </li>
 <li><p>Biomedical imaging:</p>
 <ul>
-<li><p>you have a biological organ (e.g., a heart) which consists of tissue and fluids that can be described with physical variables (the state) such as strains, stresses, velocity, and pressure which are governed by physical equations (elasticity equations and Navier-Stokes equations)</p></li>
-<li><p>you have some noisy measurements of the state of the system (e.g., accoustic doppler shifts, average velocity in small voxels (MRI))</p></li>
-<li><p>you want to figure out the underlying physical states because they may be indicative of disease</p></li>
+<li><p>You have a blood vessel consisting of tissue and fluids that can be described with physical variables (the state) such as strains, stresses, velocity, and pressure, which are governed by physical equations (elasticity and Navier-Stokes equations).</p></li>
+<li><p>You have some noisy measurements of the system’s state (e.g., acoustic Doppler shifts, average velocity in small voxels (MRI)).</p></li>
+<li><p>You want to determine the underlying physical states because they may indicate disease.</p></li>
 </ul>
 </li>
 </ul>
-<p>In what follows we are going to define the filtering problem mathematically.
-To achieve this, we first need to explain the Markov property.
-<strong>Note:</strong> All the material in these notes is explained in the video lectures as well.
-Feel free to skip the following sections if they seem very difficult at the moment.
-You can revisit them later.</p>
+<p>In what follows, we are going to define the filtering problem mathematically.
+To achieve this, we first need to explain the Markov property.</p>
 </section>
 <section id="markov-model-without-external-disturbances">
 <h2>Markov model without external disturbances<a class="headerlink" href="#markov-model-without-external-disturbances" title="Permalink to this heading">#</a></h2>
-<p>Assume that you have some sort of a stochastic dynamical system with state variables <span class="math notranslate nohighlight">\(\mathbf{x}_t\)</span>.
-For simplicity, assume also that the time runs in discrete steps, <span class="math notranslate nohighlight">\(t=0,1,2,\dots,n\)</span>.
+<p>Assume you have a stochastic dynamical system with state variables <span class="math notranslate nohighlight">\(\mathbf{x}_t\)</span>.
+For simplicity, assume that the time runs in discrete steps <span class="math notranslate nohighlight">\(t=0,1,2,\dots,n\)</span>.
 If the system doesn’t have any external disturbances, i.e., if the system is closed, then the following property is valid:</p>
 <div class="math notranslate nohighlight">
 \[
 p(\mathbf{x}_{t+1}|\mathbf{x}_{0:t}) = p(\mathbf{x}_{t+1}|\mathbf{x}_t).
 \]</div>
-<p>This simply says that the probability of the state at time <span class="math notranslate nohighlight">\(t+1\)</span> given all the states up to the timestep <span class="math notranslate nohighlight">\(t\)</span> depends only on the state of the system at time <span class="math notranslate nohighlight">\(t\)</span>.
-That is, the past states before <span class="math notranslate nohighlight">\(t\)</span> do not affect the future states directly.
+<p>This says that the probability of the state at time <span class="math notranslate nohighlight">\(t+1\)</span> given all the states up to the timestep <span class="math notranslate nohighlight">\(t\)</span> depends only on the state of the system at time <span class="math notranslate nohighlight">\(t\)</span>.
+The past states before <span class="math notranslate nohighlight">\(t\)</span> do not affect the future states directly.
 This property is the <em>Markov property</em> and <span class="math notranslate nohighlight">\(p(\mathbf{x}_{t+1}|\mathbf{x}_t)\)</span> is called the <em>transition probability</em>.</p>
 <p>If you have the transition probability, you can write the joint probability density of all states as follows:</p>
 <div class="math notranslate nohighlight">
@@ -647,10 +644,10 @@ This property is the <em>Markov property</em> and <span class="math notranslate 
 p(\mathbf{x}_{0:n}) = p(\mathbf{x}_0)\prod_{t=0}^{n-1}p(\mathbf{x}_{t+1}|\mathbf{x}_t),
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(p(\mathbf{x}_0)\)</span> is the probability density of the initial conditions <span class="math notranslate nohighlight">\(\mathbf{x}_0\)</span>.
-Once you spend a bit of time on this formula, you will start seeing why its valid.
+Once you spend time on this formula, you will see why it is valid.
 The proof goes like this.
 Let’s start with the special case <span class="math notranslate nohighlight">\(n=1\)</span>.
-From the product rule we have that:</p>
+From the product rule, we have the following:</p>
 <div class="math notranslate nohighlight">
 \[
 p(\mathbf{x}_{0:1}) = p(\mathbf{x}_0)p(\mathbf{x}_{1}|\mathbf{x}_{0}),
@@ -666,9 +663,9 @@ p(\mathbf{x}_{0:2}) = p(\mathbf{x}_{0:1})p(\mathbf{x}_2|\mathbf{x}_{0:1}).
 \[
 p(\mathbf{x}_{0:2}) = p(\mathbf{x}_0)p(\mathbf{x}_{1}|\mathbf{x}_{0})p(\mathbf{x}_{2}|\mathbf{x}_{1}).
 \]</div>
-<p>So the formula holds for <span class="math notranslate nohighlight">\(n=2\)</span>.
-Similarly, you can prove this for an arbitrary <span class="math notranslate nohighlight">\(n\)</span> assuming that it holds for <span class="math notranslate nohighlight">\(n-1\)</span>.
-Then the proof is complete.</p>
+<p>So, the formula holds for <span class="math notranslate nohighlight">\(n=2\)</span>.
+Similarly, you can prove this for an arbitrary <span class="math notranslate nohighlight">\(n\)</span> if you assume it holds for <span class="math notranslate nohighlight">\(n-1\)</span>.
+Then, the proof is complete.</p>
 </section>
 <section id="markov-model-with-observations">
 <h2>Markov model with observations<a class="headerlink" href="#markov-model-with-observations" title="Permalink to this heading">#</a></h2>
@@ -680,19 +677,19 @@ Mathematically, the assumption is:
 $<span class="math notranslate nohighlight">\(
 p(\mathbf{y}_t|\mathbf{x}_{0:t}) = p(\mathbf{y}_t|\mathbf{x}_t).
 \)</span><span class="math notranslate nohighlight">\(
-So, to describe the statistics of \)</span>\mathbf{y}_t<span class="math notranslate nohighlight">\( we need to define the so-called *emission probability* \)</span>p(\mathbf{y}_t|\mathbf{x}_t)<span class="math notranslate nohighlight">\(.
+So, to describe the statistics of \)</span>\mathbf{y}_t<span class="math notranslate nohighlight">\(, we need to define the so-called *emission probability* \)</span>p(\mathbf{y}_t|\mathbf{x}_t)<span class="math notranslate nohighlight">\(.
 Now, we can write the joint probability density of the system states and the observations as:
 \)</span><span class="math notranslate nohighlight">\(
 p(\mathbf{x}_{0:n}, \mathbf{y}_{1:n}) = p(\mathbf{x}_0)\prod_{t=0}^{n-1}p(\mathbf{x}_{t+1}|\mathbf{x}_t)p(\mathbf{y}_t|\mathbf{x}_t).
 \)</span>$
-This is an important formula that you should spend some time on.
-You can prove it by induction very easily.</p>
+This is an essential formula that you should spend some time on.
+You can prove it by induction.</p>
 </section>
 <section id="markov-model-with-observations-and-controls">
 <h2>Markov model with observations and controls<a class="headerlink" href="#markov-model-with-observations-and-controls" title="Permalink to this heading">#</a></h2>
-<p>Now assume that at every timestep <span class="math notranslate nohighlight">\(t\)</span> we can pass a control command to the system <span class="math notranslate nohighlight">\(\mathbf{u}_t\)</span>.
+<p>Now assume that at every timestep <span class="math notranslate nohighlight">\(t\)</span>, we can pass a control command to the system <span class="math notranslate nohighlight">\(\mathbf{u}_t\)</span>.
 For example, if we are dealing with a rocket, we can decide which thrusters to activate.
-The control command will affect where the system state goes in the next timestep.
+The control command will affect where the system state goes in the next time step.
 We say that the system is Markovian if the following equation holds:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -700,8 +697,7 @@ p(\mathbf{x}_{t+1}|\mathbf{x}_{0:t},\mathbf{u}_{0:t}) = p(\mathbf{x}_{t+1}|\math
 \]</div>
 <p>As before, the probability density <span class="math notranslate nohighlight">\(p(\mathbf{x}_{t+1}|\mathbf{x}_t,\mathbf{u}_t)\)</span> is known as the <em>transition probability</em>.
 Remember that the entire history of controls <span class="math notranslate nohighlight">\(\mathbf{u}_{0:n-1}\)</span> is known (we pick it).
-So, when we write down the joint probability density of states and observations we can condition on it.
-We have:</p>
+So, when we write down the joint probability density we have:</p>
 <div class="math notranslate nohighlight">
 \[
 p(\mathbf{x}_{0:n}, \mathbf{y}_{1:n}|\mathbf{u}_{0:n-1}) = p(\mathbf{x}_0)\prod_{t=0}^{n-1}p(\mathbf{x}_{t+1}|\mathbf{x}_t,\mathbf{u}_t)p(\mathbf{y}_t|\mathbf{x}_t).
@@ -719,23 +715,23 @@ It is:</p>
 p(\mathbf{x}_{0:n}|\mathbf{y}_{1:n},\mathbf{u}_{0:n-1}) = \frac{p(\mathbf{x}_{0:n}, \mathbf{y}_{1:n}|\mathbf{u}_{0:n-1})}{p(\mathbf{y}_{1:n}|\mathbf{u}_{0:n-1})}
 \propto p(\mathbf{x}_0)\prod_{t=0}^{n-1}p(\mathbf{x}_{t+1}|\mathbf{x}_t,\mathbf{u}_t)p(\mathbf{y}_t|\mathbf{x}_t).
 \]</div>
-<p>This the formal answer and it is the starting point for developing specific algorithms.</p>
+<p>This is the formal answer and the starting point for developing specific algorithms.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Strictly speaking the filtering problem is actually to estimate the current state given all data, i.e., <span class="math notranslate nohighlight">\(p(\mathbf{x}_n | \mathbf{y}_{1:n},\mathbf{u}_{0:n-1})\)</span>.
-The estimation of all states (including the past) is known as <em>smoothing</em>.</p>
+<p>Strictly speaking, the filtering problem is actually to estimate the current state given all data, i.e., <span class="math notranslate nohighlight">\(p(\mathbf{x}_n | \mathbf{y}_{1:n},\mathbf{u}_{0:n-1})\)</span>.
+Estimating all states (including the past) is known as <em>smoothing</em>.</p>
 </div>
 </section>
 <section id="linear-systems-with-gaussian-probabilities">
 <h2>Linear systems with Gaussian probabilities<a class="headerlink" href="#linear-systems-with-gaussian-probabilities" title="Permalink to this heading">#</a></h2>
 <p>Let’s now give a specific example of transition and emission probabilities.
-All transitions will be linear and all probabilities will be Gaussian.
-There are two possible ways to write this down. The equations and the probabilistic way.
+All transitions will be linear, and all probabilities will be Gaussian.
+There are two possible ways to write this down: the equations and the probabilistic way.
 We will give both of them, starting from the equations.</p>
 <section id="the-equations-way">
 <h3>The equations way<a class="headerlink" href="#the-equations-way" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p><strong>Intial conditions:</strong></p></li>
+<li><p><strong>Initial conditions:</strong></p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[
@@ -749,7 +745,7 @@ We will give both of them, starting from the equations.</p>
 \[
 \mathbf{x}_{t+1} = \mathbf{A}\mathbf{x}_t + \mathbf{B}\mathbf{u}_t + \mathbf{z}_t,
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> are matrices and <span class="math notranslate nohighlight">\(\mathbf{z}_t\sim N(\mathbf{0},\mathbf{Q})\)</span> with <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> a properly sized covariance matrix (known as process covariance).</p>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> are matrices and <span class="math notranslate nohighlight">\(\mathbf{z}_t\sim N(\mathbf{0},\mathbf{Q})\)</span> with <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> an appropriately sized covariance matrix (known as process covariance).</p>
 <ul class="simple">
 <li><p><strong>Emissions:</strong></p></li>
 </ul>
@@ -757,7 +753,7 @@ We will give both of them, starting from the equations.</p>
 \[
 \mathbf{y}_t = \mathbf{C}\mathbf{x}_t + \mathbf{w}_t,
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{C}\)</span> is a matrix and <span class="math notranslate nohighlight">\(\mathbf{w}_t\sim N(\mathbf{0},\mathbf{R})\)</span> with <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> a properly sized covariance matrix (known as process covariance).</p>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{C}\)</span> is a matrix and <span class="math notranslate nohighlight">\(\mathbf{w}_t\sim N(\mathbf{0},\mathbf{R})\)</span> with <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> an appropriately sized covariance matrix (known as process covariance).</p>
 </section>
 <section id="the-probabilistic-way">
 <h3>The probabilistic way<a class="headerlink" href="#the-probabilistic-way" title="Permalink to this heading">#</a></h3>
@@ -783,9 +779,9 @@ p(\mathbf{x}_{t+1}|\mathbf{x}_t,\mathbf{u}_t) = N(\mathbf{x}_{t+1}|\mathbf{A}\ma
 p(\mathbf{y}_{t}|\mathbf{x}_t) = N(\mathbf{y}_t|\mathbf{C}\mathbf{x}_t,\mathbf{R}).
 \]</div>
 <p><strong>Note:</strong> The parameters <span class="math notranslate nohighlight">\(\mathbf{A}, \mathbf{B}, \mathbf{C}, \boldsymbol{\mu}_0,\mathbf{V}_0, \mathbf{Q}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> are assumed to be known in the context of our class.
-However, in realistic situations they maybe unknown (or partially known).
+However, they may be unknown (or partially known) in realistic situations.
 If that’s the case, they would have to be estimated along with the states.
-In that case, we say that we have a <em>parameter estimation and filtering problem</em>.
+We say we have a <em>parameter estimation and filtering problem</em>.
 These are much harder.</p>
 </section>
 </section>

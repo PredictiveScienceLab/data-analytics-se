@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Kalman Filter for Object Tracking Example &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+    <title>Kalman Filter for the Object Tracking Example &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
   
   
@@ -301,7 +301,7 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 20 - State Space Models - Kalman Filters</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-27"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="reading-20.html">State Space Models - Kalman Filters</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">Kalman Filter for Object Tracking Example</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Kalman Filter for the Object Tracking Example</a></li>
 </ul>
 </li>
 </ul>
@@ -565,7 +565,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Kalman Filter for Object Tracking Example</h1>
+    <h1>Kalman Filter for the Object Tracking Example</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -575,8 +575,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smoothing">Smoothing</a></li>
 </ul>
             </nav>
         </div>
@@ -596,12 +596,12 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Ellipse</span>
@@ -658,14 +658,9 @@ document.write(`
 </div>
 </details>
 </div>
-<section class="tex2jax_ignore mathjax_ignore" id="kalman-filter-for-object-tracking-example">
-<h1>Kalman Filter for Object Tracking Example<a class="headerlink" href="#kalman-filter-for-object-tracking-example" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Demonstrate the Kalman filter in the context of object tracking</p></li>
-</ul>
-<p>Let’s bring back the code from the hands-on activity of lecture 19.
+<section class="tex2jax_ignore mathjax_ignore" id="kalman-filter-for-the-object-tracking-example">
+<h1>Kalman Filter for the Object Tracking Example<a class="headerlink" href="#kalman-filter-for-the-object-tracking-example" title="Permalink to this heading">#</a></h1>
+<p>Let’s bring back the code from the <a class="reference internal" href="../lecture19/hands-on-19.1.html#object-tracking"><span class="std std-ref">Object Tracking Example</span></a>.
 We do not repeat the theoretical details.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -678,7 +673,7 @@ We do not repeat the theoretical details.</p>
 <span class="c1"># The standard deviation for the process noise for velocity</span>
 <span class="n">sigma_q</span> <span class="o">=</span> <span class="mf">1e-2</span>
 <span class="c1"># The standard deviation for the measurement noise for position</span>
-<span class="n">sigma_r</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">sigma_r</span> <span class="o">=</span> <span class="mf">0.05</span>
 
 <span class="c1"># INITIAL CONDITIONS</span>
 <span class="c1"># initial mean</span>
@@ -747,7 +742,7 @@ We do not repeat the theoretical details.</p>
 
 <span class="c1"># Pick a set of pre-determined forces to be applied to the object</span>
 <span class="c1"># so that it does something interesting</span>
-<span class="n">force</span> <span class="o">=</span> <span class="mf">.1</span>
+<span class="n">force</span> <span class="o">=</span> <span class="mf">.01</span>
 <span class="n">omega</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">5</span>
 <span class="n">times</span> <span class="o">=</span> <span class="n">Dt</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_steps</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">us</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_steps</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
@@ -772,21 +767,40 @@ We do not repeat the theoretical details.</p>
 </div>
 </div>
 <p>We are not going to implement the filter from scratch.
-We are going to use the Python module <a class="reference external" href="https://filterpy.readthedocs.io/en/latest/">FilterPy</a>.
+We will use the Python module <a class="reference external" href="https://filterpy.readthedocs.io/en/latest/">FilterPy</a>.
 This is not included in the default version of Google Colab.
 You need to install it manually.
 Here is how:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>filterpy
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>zsh:1: command not found: pip
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Yellow">DEPRECATION: Loading egg at /opt/homebrew/lib/python3.11/site-packages/ipython_tikzmagic-0.1.1-py3.11.egg is deprecated. pip 23.3 will enforce this behaviour change. A possible replacement is to use pip for package installation..</span>
+Requirement already satisfied: filterpy in /opt/homebrew/lib/python3.11/site-packages (1.4.5)
+Requirement already satisfied: numpy in /opt/homebrew/lib/python3.11/site-packages (from filterpy) (1.24.3)
+Requirement already satisfied: scipy in /opt/homebrew/lib/python3.11/site-packages (from filterpy) (1.10.1)
+Requirement already satisfied: matplotlib in /opt/homebrew/lib/python3.11/site-packages (from filterpy) (3.7.1)
+Requirement already satisfied: contourpy&gt;=1.0.1 in /opt/homebrew/lib/python3.11/site-packages (from matplotlib-&gt;filterpy) (1.0.7)
+Requirement already satisfied: cycler&gt;=0.10 in /opt/homebrew/lib/python3.11/site-packages (from matplotlib-&gt;filterpy) (0.11.0)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/homebrew/lib/python3.11/site-packages (from matplotlib-&gt;filterpy) (4.39.4)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /opt/homebrew/lib/python3.11/site-packages (from matplotlib-&gt;filterpy) (1.4.4)
+Requirement already satisfied: packaging&gt;=20.0 in /opt/homebrew/lib/python3.11/site-packages (from matplotlib-&gt;filterpy) (23.1)
+Requirement already satisfied: pillow&gt;=6.2.0 in /opt/homebrew/lib/python3.11/site-packages (from matplotlib-&gt;filterpy) (9.5.0)
+Requirement already satisfied: pyparsing&gt;=2.3.1 in /opt/homebrew/lib/python3.11/site-packages (from matplotlib-&gt;filterpy) (3.0.9)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/homebrew/lib/python3.11/site-packages (from matplotlib-&gt;filterpy) (2.8.2)
+Requirement already satisfied: six&gt;=1.5 in /opt/homebrew/lib/python3.11/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib-&gt;filterpy) (1.16.0)
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <p>Now you should be able to load the library. Try the code below:</p>
 <div class="cell docutils container">
@@ -817,11 +831,11 @@ The correspondance of the notation is as follows:</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>initial mean vector</p></td>
-<td><p><span class="math notranslate nohighlight">\(\mu_n\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\mu_t\)</span></p></td>
 <td><p><span class="math notranslate nohighlight">\(x\)</span></p></td>
 </tr>
 <tr class="row-odd"><td><p>initial covariance matrix</p></td>
-<td><p><span class="math notranslate nohighlight">\(V_n\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(V_t\)</span></p></td>
 <td><p><span class="math notranslate nohighlight">\(P\)</span></p></td>
 </tr>
 <tr class="row-even"><td><p>state transition matrix</p></td>
@@ -948,15 +962,15 @@ The correspondance of the notation is as follows:</p>
 You can do one time step at a time.
 This is what you would do if the data points were coming one by one:
 Here is how:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># DO NOT RERUN THIS WITHOUT RERUNNING THE INITIALIZATION CODE IN THE PREVIOUS</span>
 <span class="c1"># CODE BLOCK</span>
 <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_steps</span><span class="p">):</span>
     <span class="c1"># Predict step (notice that you also need to pass the control (if there is any))</span>
     <span class="n">kf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">us</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
     <span class="c1"># Make a figure one every few time steps</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_after_prediction_step</span><span class="p">(</span>
             <span class="n">kf</span><span class="p">,</span>
             <span class="n">true_trajectory</span><span class="o">=</span><span class="n">true_trajectory</span><span class="p">,</span>
@@ -964,7 +978,7 @@ Here is how:</p>
         <span class="p">)</span>
     <span class="c1"># Update step</span>
     <span class="n">kf</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">observations</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">plot_mean_and_ellipse</span><span class="p">(</span>
             <span class="n">kf</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
             <span class="n">kf</span><span class="o">.</span><span class="n">P</span><span class="p">,</span>
@@ -973,21 +987,24 @@ Here is how:</p>
             <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
             <span class="n">label</span><span class="o">=</span><span class="s2">&quot;After observation step.&quot;</span>
         <span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
 <div class="cell_output docutils container">
-<img alt="../_images/b49b4934da4b02d60e14e7caf3dd001b6015b23bbc1ddba6dfd59aff24c4987d.png" src="../_images/b49b4934da4b02d60e14e7caf3dd001b6015b23bbc1ddba6dfd59aff24c4987d.png" />
-<img alt="../_images/5948e232774ec1add518c1be38c5ecf6836ab52014e80b006612fb427f8ffc55.png" src="../_images/5948e232774ec1add518c1be38c5ecf6836ab52014e80b006612fb427f8ffc55.png" />
-<img alt="../_images/8959abc9d2b769e5331bf760cdf5b9f2d2788977ee9d73186bc27b8d22d32b8a.png" src="../_images/8959abc9d2b769e5331bf760cdf5b9f2d2788977ee9d73186bc27b8d22d32b8a.png" />
-<img alt="../_images/5ef01de0cc4bdf6162780061828ab2fbedd3ac8ed3bfdb35fc4087547d33a6d5.png" src="../_images/5ef01de0cc4bdf6162780061828ab2fbedd3ac8ed3bfdb35fc4087547d33a6d5.png" />
-<img alt="../_images/0a9d40b099998ac69538a55384e1f81029e2353e1227ca197317b22e70257139.png" src="../_images/0a9d40b099998ac69538a55384e1f81029e2353e1227ca197317b22e70257139.png" />
-<img alt="../_images/7787b0b29ed31c8a7cd124d1255d05cdd0681271cfe3d191a88d2796304ba52a.png" src="../_images/7787b0b29ed31c8a7cd124d1255d05cdd0681271cfe3d191a88d2796304ba52a.png" />
-<img alt="../_images/ec60e893a17cdc1ae547df7ea2b42047639b347541c0022ae9254951b3593678.png" src="../_images/ec60e893a17cdc1ae547df7ea2b42047639b347541c0022ae9254951b3593678.png" />
-<img alt="../_images/f5a4a21eaa094a7e26ea1710e5a7b3ec6cb46f5169d96304749428cabf3ddad8.png" src="../_images/f5a4a21eaa094a7e26ea1710e5a7b3ec6cb46f5169d96304749428cabf3ddad8.png" />
-<img alt="../_images/d4dc03395816fcaf3aceb5c097dd1394a36c8c626ce92de881fe7b7e5a4e38d1.png" src="../_images/d4dc03395816fcaf3aceb5c097dd1394a36c8c626ce92de881fe7b7e5a4e38d1.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/5y/28n32xmx0551k29hd21qs87c0000gp/T/ipykernel_25747/1013963138.py:48: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`). Consider using `matplotlib.pyplot.close()`.
+  fig, ax = plt.subplots()
+</pre></div>
 </div>
+<img alt="../_images/dfd6477807fd4684e51218893b5c34f95a35fd81953a4ba71b87d48a661c8a6e.svg" src="../_images/dfd6477807fd4684e51218893b5c34f95a35fd81953a4ba71b87d48a661c8a6e.svg" /><img alt="../_images/777cd4a08669b51e4d79ac9c4d1b8f59175f7f349405e6cc378fbb7ff94e8cb2.svg" src="../_images/777cd4a08669b51e4d79ac9c4d1b8f59175f7f349405e6cc378fbb7ff94e8cb2.svg" /><img alt="../_images/5a771a589ad357601037548591f028464e2c89aea1c4eae90d2027143c33b0ac.svg" src="../_images/5a771a589ad357601037548591f028464e2c89aea1c4eae90d2027143c33b0ac.svg" /><img alt="../_images/d124afeb46f6c85e8fc20570b82a57e17acabf729ebcf5a00e8fcbd5e782bd95.svg" src="../_images/d124afeb46f6c85e8fc20570b82a57e17acabf729ebcf5a00e8fcbd5e782bd95.svg" /><img alt="../_images/660b8d44c8a2e70686ffd7fde4fb923c65a53b8aca02adafd704cfb1464eedc7.svg" src="../_images/660b8d44c8a2e70686ffd7fde4fb923c65a53b8aca02adafd704cfb1464eedc7.svg" /><img alt="../_images/ff17d9bbb705f47181ac2a5c42fa904833e4ad13216e1e8d91da96efc8b3187e.svg" src="../_images/ff17d9bbb705f47181ac2a5c42fa904833e4ad13216e1e8d91da96efc8b3187e.svg" /><img alt="../_images/f22a4403dce31db87855eeb5d8e0cb0577ac73424dbb47d210eeec36ce934943.svg" src="../_images/f22a4403dce31db87855eeb5d8e0cb0577ac73424dbb47d210eeec36ce934943.svg" /><img alt="../_images/e1c487ab46f993233c7bbe0afc74082d55788fb96d2b7803e0ccb10d41f6c6ee.svg" src="../_images/e1c487ab46f993233c7bbe0afc74082d55788fb96d2b7803e0ccb10d41f6c6ee.svg" /><img alt="../_images/b73cb919949550b4241a25a7d78353b0b93430ef908efd53d9a1b04dd869697c.svg" src="../_images/b73cb919949550b4241a25a7d78353b0b93430ef908efd53d9a1b04dd869697c.svg" /><img alt="../_images/6f4f77beb0f32f8a6ea6cbd8fba6a380abeee138c54780d39f5031faac8ac65d.svg" src="../_images/6f4f77beb0f32f8a6ea6cbd8fba6a380abeee138c54780d39f5031faac8ac65d.svg" /><img alt="../_images/81df2855950f5f22ce6f0a012f1b946a4b3e2c6b776c21ec122f1b1aa285aeea.svg" src="../_images/81df2855950f5f22ce6f0a012f1b946a4b3e2c6b776c21ec122f1b1aa285aeea.svg" /><img alt="../_images/a87e0fc593be54a4d85e4910197a2f772afc2cb0156e52b090007c3c310f172a.svg" src="../_images/a87e0fc593be54a4d85e4910197a2f772afc2cb0156e52b090007c3c310f172a.svg" /><img alt="../_images/3f5e54c83941b98d2740007459a58f39aa65f2754b6de84eab9a7143e02fc9c9.svg" src="../_images/3f5e54c83941b98d2740007459a58f39aa65f2754b6de84eab9a7143e02fc9c9.svg" /><img alt="../_images/7a682e72ac305e3f81b70519857edc14cde99e785c3e5fae0d68113f68d842f9.svg" src="../_images/7a682e72ac305e3f81b70519857edc14cde99e785c3e5fae0d68113f68d842f9.svg" /><img alt="../_images/92418346273c71ee1d4c731cd8ba23c071e83fe3f3589c17e008bc8853005863.svg" src="../_images/92418346273c71ee1d4c731cd8ba23c071e83fe3f3589c17e008bc8853005863.svg" /><img alt="../_images/b36d448b72ba6d51fbe19b5906bd5cb7896205f3369c3fd3ae08d43dff1ef6f3.svg" src="../_images/b36d448b72ba6d51fbe19b5906bd5cb7896205f3369c3fd3ae08d43dff1ef6f3.svg" /><img alt="../_images/b37132a1a1e28ab04308648839be93b8e0ffe10b71728728753fe7ac352b4972.svg" src="../_images/b37132a1a1e28ab04308648839be93b8e0ffe10b71728728753fe7ac352b4972.svg" /><img alt="../_images/cb501be2d8549c01245b95192f30fc4ce99f2ad4291bcda446557eafd115c5ae.svg" src="../_images/cb501be2d8549c01245b95192f30fc4ce99f2ad4291bcda446557eafd115c5ae.svg" /><img alt="../_images/c0caa9cd26f294e910647d4e12d44bf6bb1e987ae52226d9d3f04bdc8942e76d.svg" src="../_images/c0caa9cd26f294e910647d4e12d44bf6bb1e987ae52226d9d3f04bdc8942e76d.svg" /><img alt="../_images/b47653790e38de73e87c935d235867e5e43a49feaeeddb00c76ef9c4fb7b1efd.svg" src="../_images/b47653790e38de73e87c935d235867e5e43a49feaeeddb00c76ef9c4fb7b1efd.svg" /><img alt="../_images/ec7a473bfe36116b7cd5c466bf98427a1a52366acb37575d2b51ace9dcf743fc.svg" src="../_images/ec7a473bfe36116b7cd5c466bf98427a1a52366acb37575d2b51ace9dcf743fc.svg" /><img alt="../_images/03ad8264a1f6a7d1ed9fe2389339aa6f1abd21a29533f56e46151a78a6d5f539.svg" src="../_images/03ad8264a1f6a7d1ed9fe2389339aa6f1abd21a29533f56e46151a78a6d5f539.svg" /><img alt="../_images/e773e6c4ef9f2575c52f713fb02201533f3813172cac2f154466d591b9a9bdd3.svg" src="../_images/e773e6c4ef9f2575c52f713fb02201533f3813172cac2f154466d591b9a9bdd3.svg" /><img alt="../_images/139060bfe69918361ac584f1709d7cc812a9a06c5397faf279eef745a1d4d723.svg" src="../_images/139060bfe69918361ac584f1709d7cc812a9a06c5397faf279eef745a1d4d723.svg" /><img alt="../_images/e6e6fc6e046248e22afec8aec805d0f815f37bc0a2346bb2d202c8c7cf3d58f4.svg" src="../_images/e6e6fc6e046248e22afec8aec805d0f815f37bc0a2346bb2d202c8c7cf3d58f4.svg" /><img alt="../_images/e80fb05e65b0d4486b427076df4a5c9fbfdaa7e7a666a2d9d53ad5bf068c5303.svg" src="../_images/e80fb05e65b0d4486b427076df4a5c9fbfdaa7e7a666a2d9d53ad5bf068c5303.svg" /><img alt="../_images/e8573c7df7160e9343fad02166c10fc97a371403c46900933bbd635b57a57339.svg" src="../_images/e8573c7df7160e9343fad02166c10fc97a371403c46900933bbd635b57a57339.svg" /><img alt="../_images/a21602292d6d140fbc2cd032de167c579d4e00bfa51bffa0edeb0a9c7c27784a.svg" src="../_images/a21602292d6d140fbc2cd032de167c579d4e00bfa51bffa0edeb0a9c7c27784a.svg" /><img alt="../_images/01d5f06fbfea78f6b5d710db976299dbd0a3278de79764741331c28a928c4ee5.svg" src="../_images/01d5f06fbfea78f6b5d710db976299dbd0a3278de79764741331c28a928c4ee5.svg" /><img alt="../_images/1450e05c0f253453512f8d17eca3e16324b57648622610edbbca2dfd663f1f76.svg" src="../_images/1450e05c0f253453512f8d17eca3e16324b57648622610edbbca2dfd663f1f76.svg" /><img alt="../_images/2c14ab4076f4f10cfcf5294d9cd8b7209562aa13e6def3cbf92d538d671c8ade.svg" src="../_images/2c14ab4076f4f10cfcf5294d9cd8b7209562aa13e6def3cbf92d538d671c8ade.svg" /><img alt="../_images/8b79879c5e2257146ed9cff73fe06506eb6f02dfb5368d26d8c996d39cccfdee.svg" src="../_images/8b79879c5e2257146ed9cff73fe06506eb6f02dfb5368d26d8c996d39cccfdee.svg" /><img alt="../_images/fa00a2fa33bd811fb18d266efab8e91f5d4c809e163b9d207a4cdca9be2d0400.svg" src="../_images/fa00a2fa33bd811fb18d266efab8e91f5d4c809e163b9d207a4cdca9be2d0400.svg" /><img alt="../_images/128b6788fe75dcd727f6cff518252012e9d9903dbfff8a5c67af17f7d38b2727.svg" src="../_images/128b6788fe75dcd727f6cff518252012e9d9903dbfff8a5c67af17f7d38b2727.svg" /><img alt="../_images/f59bb1db7f4f06bd14d785dd63012373ff76da015798468474a54a743a773888.svg" src="../_images/f59bb1db7f4f06bd14d785dd63012373ff76da015798468474a54a743a773888.svg" /><img alt="../_images/99563a657fd5006977e31168cb58087001de9d66906349b0d3c83e3d2cca3856.svg" src="../_images/99563a657fd5006977e31168cb58087001de9d66906349b0d3c83e3d2cca3856.svg" /><img alt="../_images/a2212468ca7d3dbd1260281ac034c2cddfc84df4083fa6de1d3b746d64ca68db.svg" src="../_images/a2212468ca7d3dbd1260281ac034c2cddfc84df4083fa6de1d3b746d64ca68db.svg" /><img alt="../_images/657a676574fd9cdb4a1e50e80ae7904437e9f0aa3f12a4735936a0e232272b25.svg" src="../_images/657a676574fd9cdb4a1e50e80ae7904437e9f0aa3f12a4735936a0e232272b25.svg" /><img alt="../_images/780822f934e86119a06c342d71752351206e8e34dc5a7866588f1623bc5081df.svg" src="../_images/780822f934e86119a06c342d71752351206e8e34dc5a7866588f1623bc5081df.svg" /><img alt="../_images/7f48f13be65e3c0d3365de18f84c1dbb0886f88c3784a452252360ddd71d32a7.svg" src="../_images/7f48f13be65e3c0d3365de18f84c1dbb0886f88c3784a452252360ddd71d32a7.svg" /><img alt="../_images/4a019e0abaddf809c1bc3910dfc55f93e6a6674fc7ae5f673382caedd926c2cd.svg" src="../_images/4a019e0abaddf809c1bc3910dfc55f93e6a6674fc7ae5f673382caedd926c2cd.svg" /><img alt="../_images/1cc13dab4b2dc62663cef023eb3598c1889b5bee026e6c6057e0f661f27d97ff.svg" src="../_images/1cc13dab4b2dc62663cef023eb3598c1889b5bee026e6c6057e0f661f27d97ff.svg" /><img alt="../_images/7618f93a39d4da49747d32c3b2e6052fe9be2b85cdb7c4ad43239b17bfd19809.svg" src="../_images/7618f93a39d4da49747d32c3b2e6052fe9be2b85cdb7c4ad43239b17bfd19809.svg" /><img alt="../_images/16d865c4f11b467e65fefb3cdab119acc3df753aad0800a416ed814b217fc197.svg" src="../_images/16d865c4f11b467e65fefb3cdab119acc3df753aad0800a416ed814b217fc197.svg" /><img alt="../_images/fbe99fed61385655d5b10135cd3ad6d5d2981106c271f14818bc23ab84877d44.svg" src="../_images/fbe99fed61385655d5b10135cd3ad6d5d2981106c271f14818bc23ab84877d44.svg" /><img alt="../_images/3a9c523e076f136112dd4c709ccaee059559f381583306efe81f41609eec55b8.svg" src="../_images/3a9c523e076f136112dd4c709ccaee059559f381583306efe81f41609eec55b8.svg" /><img alt="../_images/9e166fab0a95aba0f5dbc21e58d9a1a4b573598e5684fb9cc03b9ec196836e1d.svg" src="../_images/9e166fab0a95aba0f5dbc21e58d9a1a4b573598e5684fb9cc03b9ec196836e1d.svg" /><img alt="../_images/974ec1b7c534eddae4cdda16bfa48a242a9f0200fc8227b7eb3d8b5da8f4e741.svg" src="../_images/974ec1b7c534eddae4cdda16bfa48a242a9f0200fc8227b7eb3d8b5da8f4e741.svg" /><img alt="../_images/d42ed8bab393b5c3d7f246113aaa51af940b8992cb7a38e2b00d4a3866f61d19.svg" src="../_images/d42ed8bab393b5c3d7f246113aaa51af940b8992cb7a38e2b00d4a3866f61d19.svg" /></div>
+</details>
 </div>
 <p>Notice that the filter is very uncertain at the beginning.
 Then it gradually becomes better and better.</p>
@@ -1018,56 +1035,106 @@ Here is how:</p>
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.801e-02,  8.119e-02,  4.766e-02,  6.186e-02],
-       [ 6.422e-02,  1.046e-01,  7.810e-02,  1.044e-01],
-       [ 8.217e-04,  1.128e-01, -6.245e-03,  1.223e-01],
-       [-5.568e-03,  1.415e-01, -4.864e-02,  1.324e-01],
-       [-1.522e-01,  7.517e-02, -1.623e-01,  6.344e-02],
-       [-2.243e-01,  1.411e-01, -1.986e-01,  4.975e-02],
-       [-3.193e-01,  1.850e-01, -2.123e-01,  1.001e-02],
-       [-3.653e-01,  1.982e-01, -1.742e-01, -3.444e-02],
-       [-4.711e-01,  1.796e-01, -1.403e-01, -6.434e-02],
-       [-4.939e-01,  1.674e-01, -7.447e-02, -5.766e-02],
-       [-5.186e-01,  9.019e-02, -2.996e-02, -4.386e-02],
-       [-4.721e-01,  5.596e-02,  4.852e-03, -1.860e-04],
-       [-4.547e-01,  2.732e-02, -5.929e-03,  3.848e-02],
-       [-4.773e-01,  8.535e-02, -5.246e-02,  7.988e-02],
-       [-4.904e-01,  1.869e-01, -9.840e-02,  9.893e-02],
-       [-5.090e-01,  2.309e-01, -1.294e-01,  6.785e-02],
-       [-5.811e-01,  2.568e-01, -1.471e-01,  1.781e-02],
-       [-6.600e-01,  2.740e-01, -1.333e-01, -2.716e-02],
-       [-7.096e-01,  2.504e-01, -8.754e-02, -5.970e-02],
-       [-7.389e-01,  2.391e-01, -3.302e-02, -5.387e-02],
-       [-7.715e-01,  2.057e-01,  2.390e-03, -2.651e-02],
-       [-7.632e-01,  2.018e-01,  2.008e-02,  2.399e-02],
-       [-7.852e-01,  2.413e-01, -5.449e-03,  8.019e-02],
-       [-7.979e-01,  2.644e-01, -4.904e-02,  1.042e-01],
-       [-8.315e-01,  2.589e-01, -1.019e-01,  8.611e-02],
-       [-8.492e-01,  3.015e-01, -1.319e-01,  5.659e-02],
-       [-9.490e-01,  3.799e-01, -1.580e-01,  2.478e-02],
-       [-9.758e-01,  3.767e-01, -1.261e-01, -2.766e-02],
-       [-1.091e+00,  3.539e-01, -1.019e-01, -5.987e-02],
-       [-1.183e+00,  3.945e-01, -6.493e-02, -3.773e-02],
-       [-1.234e+00,  3.748e-01, -3.019e-02, -8.585e-03],
-       [-1.235e+00,  4.047e-01, -1.048e-02,  4.970e-02],
-       [-1.222e+00,  4.151e-01, -2.032e-02,  9.271e-02],
-       [-1.324e+00,  4.642e-01, -8.941e-02,  1.230e-01],
-       [-1.376e+00,  5.665e-01, -1.418e-01,  1.358e-01],
-       [-1.402e+00,  6.238e-01, -1.681e-01,  1.031e-01],
-       [-1.471e+00,  7.039e-01, -1.788e-01,  6.447e-02],
-       [-1.593e+00,  6.794e-01, -1.735e-01, -8.988e-04],
-       [-1.709e+00,  6.921e-01, -1.424e-01, -2.616e-02],
-       [-1.748e+00,  6.612e-01, -8.228e-02, -3.176e-02],
-       [-1.778e+00,  6.376e-01, -3.822e-02, -4.771e-03],
-       [-1.798e+00,  6.027e-01, -2.315e-02,  3.255e-02],
-       [-1.855e+00,  6.472e-01, -5.292e-02,  8.899e-02],
-       [-1.897e+00,  7.010e-01, -9.820e-02,  1.213e-01],
-       [-2.024e+00,  7.548e-01, -1.727e-01,  1.191e-01],
-       [-2.104e+00,  7.868e-01, -2.109e-01,  8.108e-02],
-       [-2.177e+00,  7.844e-01, -2.164e-01,  2.005e-02],
-       [-2.303e+00,  8.000e-01, -2.065e-01, -2.576e-02],
-       [-2.375e+00,  8.146e-01, -1.563e-01, -4.652e-02],
-       [-2.484e+00,  7.601e-01, -1.158e-01, -5.633e-02]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.80147158e-02,  8.11943856e-02,  7.60981840e-03,
+         3.27690489e-02],
+       [ 4.41973566e-02,  9.00882506e-02,  2.27553942e-02,
+         2.82265091e-02],
+       [-4.68728614e-02,  6.01727972e-02, -4.62915860e-02,
+        -9.05656624e-04],
+       [-7.32854461e-02,  2.72678664e-02, -4.86447029e-02,
+        -1.99691167e-02],
+       [-2.19963488e-01, -1.15260459e-01, -1.12782638e-01,
+        -8.89059319e-02],
+       [-2.67315512e-01, -1.25471688e-01, -1.09042871e-01,
+        -7.35008994e-02],
+       [-3.17534660e-01, -1.43226698e-01, -1.07426705e-01,
+        -6.61585561e-02],
+       [-3.11092316e-01, -1.68087763e-01, -8.46056134e-02,
+        -6.35374732e-02],
+       [-3.72063839e-01, -2.01310472e-01, -9.07661506e-02,
+        -6.43426703e-02],
+       [-3.70164040e-01, -2.13473590e-01, -7.44695385e-02,
+        -5.76581770e-02],
+       [-3.94810150e-01, -2.90676331e-01, -7.00064827e-02,
+        -7.29598100e-02],
+       [-3.68384456e-01, -3.39448819e-01, -5.04907398e-02,
+        -7.63586706e-02],
+       [-3.78626947e-01, -4.06179683e-01, -4.59757411e-02,
+        -8.47695417e-02],
+       [-4.21246918e-01, -4.09775610e-01, -5.24576604e-02,
+        -7.24679811e-02],
+       [-4.34345597e-01, -3.84430535e-01, -4.88961259e-02,
+        -5.34198006e-02],
+       [-4.28259920e-01, -4.16573467e-01, -3.98383498e-02,
+        -5.53973683e-02],
+       [-4.55514219e-01, -4.52285246e-01, -4.22726976e-02,
+        -5.83634569e-02],
+       [-4.82018145e-01, -4.73175088e-01, -4.37916890e-02,
+        -5.62537454e-02],
+       [-4.86802344e-01, -5.11372364e-01, -3.80374969e-02,
+        -5.96959895e-02],
+       [-4.91411886e-01, -5.22619205e-01, -3.30230490e-02,
+        -5.38681923e-02],
+       [-5.23979909e-01, -5.56035292e-01, -3.76566684e-02,
+        -5.56081862e-02],
+       [-5.35693246e-01, -5.74442367e-01, -3.52675299e-02,
+        -5.21813065e-02],
+       [-5.85383461e-01, -5.73013875e-01, -4.54953126e-02,
+        -4.30582863e-02],
+       [-6.18117083e-01, -6.11556998e-01, -4.90384297e-02,
+        -4.81119207e-02],
+       [-6.51692383e-01, -6.93287229e-01, -5.23848289e-02,
+        -6.62393992e-02],
+       [-6.44669642e-01, -7.26823752e-01, -4.23504496e-02,
+        -6.66642915e-02],
+       [-6.99718248e-01, -7.10042431e-01, -5.31493388e-02,
+        -5.13921499e-02],
+       [-6.74116670e-01, -7.51294262e-01, -3.66011359e-02,
+        -5.67552721e-02],
+       [-7.44020239e-01, -7.88652607e-01, -5.24083281e-02,
+        -5.98705622e-02],
+       [-8.11663902e-01, -7.48120692e-01, -6.49258716e-02,
+        -3.77344403e-02],
+       [-8.62332516e-01, -7.67751159e-01, -7.02400199e-02,
+        -3.76802940e-02],
+       [-8.83891091e-01, -7.52409995e-01, -6.58258450e-02,
+        -2.64683666e-02],
+       [-8.98937943e-01, -7.80118370e-01, -6.03687152e-02,
+        -3.05391056e-02],
+       [-1.02029162e+00, -7.92620707e-01, -8.94087760e-02,
+        -2.93760525e-02],
+       [-1.07262924e+00, -7.66541662e-01, -9.23063118e-02,
+        -1.65714496e-02],
+       [-1.07379436e+00, -7.85355253e-01, -7.85803946e-02,
+        -2.01720711e-02],
+       [-1.09801537e+00, -7.66951370e-01, -7.40017520e-02,
+        -1.16990667e-02],
+       [-1.16723018e+00, -8.29533736e-01, -8.39655279e-02,
+        -2.99941778e-02],
+       [-1.23879683e+00, -8.31374014e-01, -9.28532589e-02,
+        -2.61555422e-02],
+       [-1.25315838e+00, -8.62286880e-01, -8.22816432e-02,
+        -3.17575313e-02],
+       [-1.28281025e+00, -8.85816057e-01, -7.82684526e-02,
+        -3.38666330e-02],
+       [-1.32314082e+00, -9.35321534e-01, -7.84897169e-02,
+        -4.36220378e-02],
+       [-1.40798943e+00, -9.28847183e-01, -9.29684007e-02,
+        -3.42620517e-02],
+       [-1.46982712e+00, -9.36724681e-01, -9.81954563e-02,
+        -3.10616176e-02],
+       [-1.59691970e+00, -9.59054963e-01, -1.23193712e-01,
+        -3.31973384e-02],
+       [-1.65148982e+00, -1.00327922e+00, -1.21391114e-01,
+        -4.21684525e-02],
+       [-1.68045283e+00, -1.06728351e+00, -1.11578404e-01,
+        -5.61252079e-02],
+       [-1.75386603e+00, -1.08980164e+00, -1.16959608e-01,
+        -5.48592130e-02],
+       [-1.78134189e+00, -1.08973292e+00, -1.06816740e-01,
+        -4.65158621e-02],
+       [-1.86483720e+00, -1.14423266e+00, -1.15767066e-01,
+        -5.63289340e-02]])
 </pre></div>
 </div>
 </div>
@@ -1145,10 +1212,8 @@ Here is how:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9fbd167505d96b202351f82cebf41ee5b56eccc7fac2ad11b3956de70383f0e2.png" src="../_images/9fbd167505d96b202351f82cebf41ee5b56eccc7fac2ad11b3956de70383f0e2.png" />
+<img alt="../_images/33a68fd8249795a5d35190e0678326101de2582eb8ec29b9da102e970dd0bbac.svg" src="../_images/33a68fd8249795a5d35190e0678326101de2582eb8ec29b9da102e970dd0bbac.svg" /></div>
 </div>
-</div>
-</section>
 <section id="questions">
 <h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -1157,6 +1222,213 @@ Here is how:</p>
 <li><p>Double the measurement noise variance <span class="math notranslate nohighlight">\(\sigma_r^2\)</span>. What happens?</p></li>
 <li><p>Zero-out the control vector <span class="math notranslate nohighlight">\(\mathbf{u}_{0:n-1}\)</span>. What happens?</p></li>
 </ul>
+</section>
+<section id="smoothing">
+<h2>Smoothing<a class="headerlink" href="#smoothing" title="Permalink to this heading">#</a></h2>
+<p>Let’s finish with some smoothing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">Pp</span> <span class="o">=</span> <span class="n">kf</span><span class="o">.</span><span class="n">rts_smoother</span><span class="p">(</span><span class="n">means</span><span class="p">,</span> <span class="n">covs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_kf_estimates</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">P</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1fa9f6a6e4ad997922944b98332ee05b20f9152583986fbba2f3ffba9d2ac6e8.svg" src="../_images/1fa9f6a6e4ad997922944b98332ee05b20f9152583986fbba2f3ffba9d2ac6e8.svg" /></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">kf</span><span class="o">.</span><span class="n">rts_smoother</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on method rts_smoother in module filterpy.kalman.kalman_filter:
+
+rts_smoother(Xs, Ps, Fs=None, Qs=None, inv=&lt;function inv at 0x11043a0c0&gt;) method of filterpy.kalman.kalman_filter.KalmanFilter instance
+    Runs the Rauch-Tung-Striebal Kalman smoother on a set of
+    means and covariances computed by a Kalman filter. The usual input
+    would come from the output of `KalmanFilter.batch_filter()`.
+    
+    Parameters
+    ----------
+    
+    Xs : numpy.array
+       array of the means (state variable x) of the output of a Kalman
+       filter.
+    
+    Ps : numpy.array
+        array of the covariances of the output of a kalman filter.
+    
+    Fs : list-like collection of numpy.array, optional
+        State transition matrix of the Kalman filter at each time step.
+        Optional, if not provided the filter&#39;s self.F will be used
+    
+    Qs : list-like collection of numpy.array, optional
+        Process noise of the Kalman filter at each time step. Optional,
+        if not provided the filter&#39;s self.Q will be used
+    
+    inv : function, default numpy.linalg.inv
+        If you prefer another inverse function, such as the Moore-Penrose
+        pseudo inverse, set it to that instead: kf.inv = np.linalg.pinv
+    
+    
+    Returns
+    -------
+    
+    x : numpy.ndarray
+       smoothed means
+    
+    P : numpy.ndarray
+       smoothed state covariances
+    
+    K : numpy.ndarray
+        smoother gain at each step
+    
+    Pp : numpy.ndarray
+       Predicted state covariances
+    
+    Examples
+    --------
+    
+    .. code-block:: Python
+    
+        zs = [t + random.randn()*4 for t in range (40)]
+    
+        (mu, cov, _, _) = kalman.batch_filter(zs)
+        (x, P, K, Pp) = rts_smoother(mu, cov, kf.F, kf.Q)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">kf</span><span class="o">.</span><span class="n">batch_filter</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on method batch_filter in module filterpy.kalman.kalman_filter:
+
+batch_filter(zs, Fs=None, Qs=None, Hs=None, Rs=None, Bs=None, us=None, update_first=False, saver=None) method of filterpy.kalman.kalman_filter.KalmanFilter instance
+    Batch processes a sequences of measurements.
+    
+     Parameters
+     ----------
+    
+     zs : list-like
+         list of measurements at each time step `self.dt`. Missing
+         measurements must be represented by `None`.
+    
+     Fs : None, list-like, default=None
+         optional value or list of values to use for the state transition
+         matrix F.
+    
+         If Fs is None then self.F is used for all epochs.
+    
+         Otherwise it must contain a list-like list of F&#39;s, one for
+         each epoch.  This allows you to have varying F per epoch.
+    
+     Qs : None, np.array or list-like, default=None
+         optional value or list of values to use for the process error
+         covariance Q.
+    
+         If Qs is None then self.Q is used for all epochs.
+    
+         Otherwise it must contain a list-like list of Q&#39;s, one for
+         each epoch.  This allows you to have varying Q per epoch.
+    
+     Hs : None, np.array or list-like, default=None
+         optional list of values to use for the measurement matrix H.
+    
+         If Hs is None then self.H is used for all epochs.
+    
+         If Hs contains a single matrix, then it is used as H for all
+         epochs.
+    
+         Otherwise it must contain a list-like list of H&#39;s, one for
+         each epoch.  This allows you to have varying H per epoch.
+    
+     Rs : None, np.array or list-like, default=None
+         optional list of values to use for the measurement error
+         covariance R.
+    
+         If Rs is None then self.R is used for all epochs.
+    
+         Otherwise it must contain a list-like list of R&#39;s, one for
+         each epoch.  This allows you to have varying R per epoch.
+    
+     Bs : None, np.array or list-like, default=None
+         optional list of values to use for the control transition matrix B.
+    
+         If Bs is None then self.B is used for all epochs.
+    
+         Otherwise it must contain a list-like list of B&#39;s, one for
+         each epoch.  This allows you to have varying B per epoch.
+    
+     us : None, np.array or list-like, default=None
+         optional list of values to use for the control input vector;
+    
+         If us is None then None is used for all epochs (equivalent to 0,
+         or no control input).
+    
+         Otherwise it must contain a list-like list of u&#39;s, one for
+         each epoch.
+    
+    update_first : bool, optional, default=False
+         controls whether the order of operations is update followed by
+         predict, or predict followed by update. Default is predict-&gt;update.
+    
+     saver : filterpy.common.Saver, optional
+         filterpy.common.Saver object. If provided, saver.save() will be
+         called after every epoch
+    
+     Returns
+     -------
+    
+     means : np.array((n,dim_x,1))
+         array of the state for each time step after the update. Each entry
+         is an np.array. In other words `means[k,:]` is the state at step
+         `k`.
+    
+     covariance : np.array((n,dim_x,dim_x))
+         array of the covariances for each time step after the update.
+         In other words `covariance[k,:,:]` is the covariance at step `k`.
+    
+     means_predictions : np.array((n,dim_x,1))
+         array of the state for each time step after the predictions. Each
+         entry is an np.array. In other words `means[k,:]` is the state at
+         step `k`.
+    
+     covariance_predictions : np.array((n,dim_x,dim_x))
+         array of the covariances for each time step after the prediction.
+         In other words `covariance[k,:,:]` is the covariance at step `k`.
+    
+     Examples
+     --------
+    
+     .. code-block:: Python
+    
+         # this example demonstrates tracking a measurement where the time
+         # between measurement varies, as stored in dts. This requires
+         # that F be recomputed for each epoch. The output is then smoothed
+         # with an RTS smoother.
+    
+         zs = [t + random.randn()*4 for t in range (40)]
+         Fs = [np.array([[1., dt], [0, 1]] for dt in dts]
+    
+         (mu, cov, _, _) = kf.batch_filter(zs, Fs=Fs)
+         (xs, Ps, Ks) = kf.rts_smoother(mu, cov, Fs=Fs)
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 
@@ -1227,8 +1499,8 @@ Here is how:</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smoothing">Smoothing</a></li>
 </ul>
   </nav></div>
 

@@ -66,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture20/reading-20';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Kalman Filter for Object Tracking Example" href="hands-on-20.1.html" />
+    <link rel="next" title="Kalman Filter for the Object Tracking Example" href="hands-on-20.1.html" />
     <link rel="prev" title="Lecture 20 - State Space Models - Kalman Filters" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -301,7 +301,7 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 20 - State Space Models - Kalman Filters</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-27"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">State Space Models - Kalman Filters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-20.1.html">Kalman Filter for Object Tracking Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-20.1.html">Kalman Filter for the Object Tracking Example</a></li>
 </ul>
 </li>
 </ul>
@@ -552,7 +552,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -568,6 +570,19 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-kalmann-filter-algorithm">The Kalmann filter algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-step">Prediction step</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-step">Update step</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smoothing">Smoothing</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -578,11 +593,11 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="state-space-models-kalman-filters">
-<h1>State Space Models - Kalman Filters<a class="headerlink" href="#state-space-models-kalman-filters" title="Permalink to this heading">#</a></h1>
-<p>Kalman filters solve the filtering problem for the case of lineat transitions and emissions with Gaussian probabilities.
+<span id="kalman-filters"></span><h1>State Space Models - Kalman Filters<a class="headerlink" href="#state-space-models-kalman-filters" title="Permalink to this heading">#</a></h1>
+<p>Kalman filters solve the filtering problem for the case of linear transitions and emissions with Gaussian probabilities.
 In the notation of the previous lecture, these can be expressed either as equations:</p>
 <ul class="simple">
-<li><p><strong>Intial conditions:</strong></p></li>
+<li><p><strong>Initial conditions:</strong></p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[
@@ -596,7 +611,7 @@ In the notation of the previous lecture, these can be expressed either as equati
 \[
 \mathbf{x}_{t+1} = \mathbf{A}\mathbf{x}_t + \mathbf{B}\mathbf{u}_t + \mathbf{z}_t,
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> are matrices and <span class="math notranslate nohighlight">\(\mathbf{z}_t\sim N(\mathbf{0},\mathbf{Q})\)</span> with <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> a properly sized covariance matrix (known as process covariance).</p>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> are matrices and <span class="math notranslate nohighlight">\(\mathbf{z}_t\sim N(\mathbf{0},\mathbf{Q})\)</span> with <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> an appropriately sized covariance matrix (known as process covariance).</p>
 <ul class="simple">
 <li><p><strong>Emissions:</strong></p></li>
 </ul>
@@ -604,7 +619,7 @@ In the notation of the previous lecture, these can be expressed either as equati
 \[
 \mathbf{y}_t = \mathbf{C}\mathbf{x}_t + \mathbf{w}_t,
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{C}\)</span> is a matrix and <span class="math notranslate nohighlight">\(\mathbf{w}_t\sim N(\mathbf{0},\mathbf{R})\)</span> with <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> a properly sized covariance matrix (known as process covariance).</p>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{C}\)</span> is a matrix and <span class="math notranslate nohighlight">\(\mathbf{w}_t\sim N(\mathbf{0},\mathbf{R})\)</span> with <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> an appropriately sized covariance matrix (known as measurement covariance).</p>
 <p>or as probabilities:</p>
 <ul class="simple">
 <li><p><strong>Initial conditions:</strong></p></li>
@@ -627,10 +642,161 @@ p(\mathbf{x}_{t+1}|\mathbf{x}_t,\mathbf{u}_t) = N(\mathbf{x}_{t+1}|\mathbf{A}\ma
 \[
 p(\mathbf{y}_{t}|\mathbf{x}_t) = N(\mathbf{y}_t|\mathbf{C}\mathbf{x}_t,\mathbf{R}).
 \]</div>
-<p>The details of the Kalman filter are rather involved.
-They are presented in the video lectures.
+<p>The complete details of the Kalman filter are somewhat involved.
 If you want to dive deeper into the technical part, I suggest you read <a class="reference external" href="https://www.springer.com/gp/book/9780387310732">Chapter 13.3, Bishop (2006)</a>.
-An other very good resource, albeit rather extensive, is the open source book <a class="reference external" href="https://github.com/rlabbe/Kalman-and-Bayesian-Filters-in-Python">Kalman and Bayesian Filters in Python</a> and in particular <a class="reference external" href="https://github.com/rlabbe/Kalman-and-Bayesian-Filters-in-Python/blob/master/07-Kalman-Filter-Math.ipynb">Chapter 7</a>.</p>
+Another excellent resource, albeit rather extensive, is the open-source book <a class="reference external" href="https://github.com/rlabbe/Kalman-and-Bayesian-Filters-in-Python">Kalman and Bayesian Filters in Python</a> and in particular <a class="reference external" href="https://github.com/rlabbe/Kalman-and-Bayesian-Filters-in-Python/blob/master/07-Kalman-Filter-Math.ipynb">Chapter 7</a>.</p>
+<section id="the-kalmann-filter-algorithm">
+<h2>The Kalmann filter algorithm<a class="headerlink" href="#the-kalmann-filter-algorithm" title="Permalink to this heading">#</a></h2>
+<p>The Kalman filter algorithm is a recursive algorithm that computes the posterior distribution <span class="math notranslate nohighlight">\(p(\mathbf{x}_t|\mathbf{y}_{1:t}, \mathbf{u}_{1:t})\)</span>.
+It is composed of two steps:</p>
+<ul class="simple">
+<li><p><strong>Prediction step:</strong> This step computes the prior distribution <span class="math notranslate nohighlight">\(p(\mathbf{x}_t|\mathbf{y}_{1:t-1}, \mathbf{u}_{1:t})\)</span>.</p></li>
+<li><p><strong>Update step:</strong> This step computes the posterior distribution <span class="math notranslate nohighlight">\(p(\mathbf{x}_t|\mathbf{y}_{1:t}, \mathbf{u}_{1:t})\)</span>.</p></li>
+</ul>
+<p>We will now go through each of these steps in detail.</p>
+<section id="prediction-step">
+<h3>Prediction step<a class="headerlink" href="#prediction-step" title="Permalink to this heading">#</a></h3>
+<p>Suppose we have computed the posterior distribution <span class="math notranslate nohighlight">\(p(\mathbf{x}_{t-1}|\mathbf{y}_{1:t-1}, \mathbf{u}_{1:t-1})\)</span>.
+It turns out that this distribution is a Gaussian distribution with mean <span class="math notranslate nohighlight">\(\boldsymbol{\mu}_{t-1}\)</span> and covariance matrix <span class="math notranslate nohighlight">\(\mathbf{V}_{t-1}\)</span>.
+We will see how we can compute these parameters recursively in the update step.
+For now assume we have them.
+So:</p>
+<div class="math notranslate nohighlight">
+\[
+p(\mathbf{x}_{t-1}|\mathbf{y}_{1:t-1}, \mathbf{u}_{1:t-1}) = N(\mathbf{x}_{t-1}|\boldsymbol{\mu}_{t-1},\mathbf{V}_{t-1}).
+\]</div>
+<p>We can now compute the prior distribution <span class="math notranslate nohighlight">\(p(\mathbf{x}_t|\mathbf{y}_{1:t-1}, \mathbf{u}_{1:t})\)</span>.
+We can do this by marginalizing over <span class="math notranslate nohighlight">\(\mathbf{x}_{t-1}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+p(\mathbf{x}_t|\mathbf{y}_{1:t-1}, \mathbf{u}_{1:t}) &amp;= \int p(\mathbf{x}_t|\mathbf{x}_{t-1},\mathbf{u}_t)p(\mathbf{x}_{t-1}|\mathbf{y}_{1:t-1}, \mathbf{u}_{1:t-1})d\mathbf{x}_{t-1}\\
+&amp;= \int N(\mathbf{x}_t|\mathbf{A}\mathbf{x}_{t-1}+\mathbf{B}\mathbf{u}_t,\mathbf{Q})N(\mathbf{x}_{t-1}|\boldsymbol{\mu}_{t-1},\mathbf{V}_{t-1})d\mathbf{x}_{t-1}\\
+&amp;= N(\mathbf{x}_t|\mathbf{A}\boldsymbol{\mu}_{t-1}+\mathbf{B}\mathbf{u}_t,\mathbf{Q}+\mathbf{A}\mathbf{V}_{t-1}\mathbf{A}^T).
+\end{align}
+\end{split}\]</div>
+<p>In this last step we have used properties of Gaussian distributions.
+We write the mean and covariance matrix of the prior distribution as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\boldsymbol{\mu}^p_t &amp;= \mathbf{A}\boldsymbol{\mu}_{t-1}+\mathbf{B}\mathbf{u}_t\\
+\mathbf{V}^p_t &amp;= \mathbf{Q}+\mathbf{A}\mathbf{V}_{t-1}\mathbf{A}^T.
+\end{align}
+\end{split}\]</div>
+<p>We have used a superscript <span class="math notranslate nohighlight">\(p\)</span> to denote that these are computed in the prediction step.</p>
+</section>
+<section id="update-step">
+<h3>Update step<a class="headerlink" href="#update-step" title="Permalink to this heading">#</a></h3>
+<p>Now suppose we have computed the prior distribution <span class="math notranslate nohighlight">\(p(\mathbf{x}_t|\mathbf{y}_{1:t-1}, \mathbf{u}_{1:t})\)</span> during the prediction step.
+It is a Gaussian distribution with mean <span class="math notranslate nohighlight">\(\boldsymbol{\mu}^p_t\)</span> and covariance matrix <span class="math notranslate nohighlight">\(\mathbf{V}^p_t\)</span>.
+We want to condition on a new measurement <span class="math notranslate nohighlight">\(\mathbf{y}_t\)</span>.
+We apply Bayes’ rule:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+p(\mathbf{x}_t|\mathbf{y}_{1:t}, \mathbf{u}_{1:t}) &amp;\propto p(\mathbf{y}_t|\mathbf{x}_t)p(\mathbf{x}_t|\mathbf{y}_{1:t-1}, \mathbf{u}_{1:t})\\
+&amp;= N(\mathbf{y}_t|\mathbf{C}\mathbf{x}_t,\mathbf{R})N(\mathbf{x}_t|\boldsymbol{\mu}^p_t,\mathbf{V}^p_t).
+\end{align}
+\end{split}\]</div>
+<p>Again we have a product of two Gaussian distributions.
+So, the resulting distribution is also Gaussian.
+The mean and covariance matrix of this distribution are given by:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\boldsymbol{\mu}_t &amp;= \boldsymbol{\mu}^p_t + \mathbf{K}_t(\mathbf{y}_t-\mathbf{C}\boldsymbol{\mu}^p_t)\\
+\mathbf{V}_t &amp;= \mathbf{V}^p_t - \mathbf{K}_t\mathbf{C}\mathbf{V}^p_t,
+\end{align}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{K}_t\)</span> is the Kalman gain matrix:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{K}_t = \mathbf{V}^p_t\mathbf{C}^T(\mathbf{C}\mathbf{V}^p_t\mathbf{C}^T+\mathbf{R})^{-1}.
+\]</div>
+</section>
+</section>
+<section id="smoothing">
+<h2>Smoothing<a class="headerlink" href="#smoothing" title="Permalink to this heading">#</a></h2>
+<p>The Kalman filter algorithm computes the posterior distribution <span class="math notranslate nohighlight">\(p(\mathbf{x}_t|\mathbf{y}_{1:t}, \mathbf{u}_{1:t})\)</span>.
+This is the distribution of the state at time <span class="math notranslate nohighlight">\(t\)</span> given all measurements and control inputs up to time <span class="math notranslate nohighlight">\(t\)</span>.
+This is useful for many applications.
+However, sometimes we want to compute the posterior distribution <span class="math notranslate nohighlight">\(p(\mathbf{x}_t|\mathbf{y}_{1:T}, \mathbf{u}_{1:T})\)</span>.
+This is the distribution of the state at time <span class="math notranslate nohighlight">\(t\)</span> given all measurements and control inputs up to time <span class="math notranslate nohighlight">\(T\)</span>.
+This is called the smoothing problem.
+The difference is that we use information from the future to improve our estimate of the state at time <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<p>The smoothing problem can be solved by first computing the filtering distribution <span class="math notranslate nohighlight">\(p(\mathbf{x}_t|\mathbf{y}_{1:t}, \mathbf{u}_{1:t})\)</span> for all <span class="math notranslate nohighlight">\(t\)</span>.
+This can be done using the Kalman filter algorithm.
+Once we are done with the Kalman filter, we have the desired distribution for the last time step <span class="math notranslate nohighlight">\(p(\mathbf{x}_T|\mathbf{y}_{1:T}, \mathbf{u}_{1:T})\)</span>.
+It is a Gaussian distribution with mean <span class="math notranslate nohighlight">\(\boldsymbol{\mu}_T\)</span> and covariance matrix <span class="math notranslate nohighlight">\(\mathbf{V}_T\)</span>.
+How do we get the distribution for the previous time step <span class="math notranslate nohighlight">\(p(\mathbf{x}_{T-1}|\mathbf{y}_{1:T}, \mathbf{u}_{1:T})\)</span>?</p>
+<p>The joint distribution of <span class="math notranslate nohighlight">\(\mathbf{x}_{T-1}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}_T\)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+p(\mathbf{x}_{T-1},\mathbf{x}_T|\mathbf{y}_{1:T}, \mathbf{u}_{1:T}) = p(\mathbf{x}_{T-1}|\mathbf{x}_T,\mathbf{y}_{1:T}, \mathbf{u}_{1:T})p(\mathbf{x}_T|\mathbf{y}_{1:T}, \mathbf{u}_{1:T}).
+\]</div>
+<p>We have the right-most term.
+Let’s just worry about the first term on the right-hand side.
+Think about it.
+To go from step <span class="math notranslate nohighlight">\(T-1\)</span> to <span class="math notranslate nohighlight">\(T\)</span> you need to know the control <span class="math notranslate nohighlight">\(u_T\)</span>.
+All other controls do not matter.
+Also, since we condition on the state at time <span class="math notranslate nohighlight">\(T\)</span>, the measurements at time <span class="math notranslate nohighlight">\(T\)</span> do not matter either.
+We have:</p>
+<div class="math notranslate nohighlight">
+\[
+p(\mathbf{x}_{T-1}|\mathbf{x}_T,\mathbf{y}_{1:T}, \mathbf{u}_{1:T})
+= p(\mathbf{x}_{T-1}|\mathbf{x}_T,\mathbf{y}_{1:T-1}, \mathbf{u}_T).
+\]</div>
+<p>Okay. Now we need to make the transition probability appear.
+Let’s use Bayes’ rule:</p>
+<div class="math notranslate nohighlight">
+\[
+p(\mathbf{x}_{T-1}|\mathbf{x}_T,\mathbf{y}_{1:T-1}, \mathbf{u}_T) = \frac{p(\mathbf{x}_T|\mathbf{x}_{T-1},\mathbf{y}_{1:T-1}, \mathbf{u}_T)p(\mathbf{x}_{T-1}|\mathbf{y}_{1:T-1}, \mathbf{u}_T)}{p(\mathbf{x}_T|\mathbf{y}_{1:T-1}, \mathbf{u}_T)}.
+\]</div>
+<p>This is starting to look good.
+The denominator is the prediction step of the Kalman filter.
+It is:</p>
+<div class="math notranslate nohighlight">
+\[
+p(\mathbf{x}_T|\mathbf{y}_{1:T-1}, \mathbf{u}_T) = N(\mathbf{x}_T|\boldsymbol{\mu}^p_T,\mathbf{V}^p_T).
+\]</div>
+<p>The second term in the numerator is the filtering distribution at time <span class="math notranslate nohighlight">\(T-1\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+p(\mathbf{x}_{T-1}|\mathbf{y}_{1:T-1}, \mathbf{u}_T) = N(\mathbf{x}_{T-1}|\boldsymbol{\mu}_{T-1},\mathbf{V}_{T-1}).
+\]</div>
+<p>For the first term in the numerator, we use the Markov property.
+The state at time <span class="math notranslate nohighlight">\(T\)</span> only depends on the state at time <span class="math notranslate nohighlight">\(T-1\)</span> and the control at time <span class="math notranslate nohighlight">\(T\)</span>.
+So:</p>
+<div class="math notranslate nohighlight">
+\[
+p(\mathbf{x}_T|\mathbf{x}_{T-1},\mathbf{y}_{1:T-1}, \mathbf{u}_T) = p(\mathbf{x}_T|\mathbf{x}_{T-1},\mathbf{u}_T) = N(\mathbf{x}_T|\mathbf{A}\mathbf{x}_{T-1}+\mathbf{B}\mathbf{u}_T,\mathbf{Q}).
+\]</div>
+<p>Let’s put everything together:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+p(\mathbf{x}_{T-1},\mathbf{x}_T|\mathbf{y}_{1:T}, \mathbf{u}_{1:T}) &amp;= p(\mathbf{x}_{T-1}|\mathbf{x}_T,\mathbf{y}_{1:T-1}, \mathbf{u}_T)p(\mathbf{x}_T|\mathbf{y}_{1:T}, \mathbf{u}_{1:T})\\
+&amp;= \frac{N(\mathbf{x}_T|\mathbf{A}\mathbf{x}_{T-1}+\mathbf{B}\mathbf{u}_T,\mathbf{Q})N(\mathbf{x}_{T-1}|\boldsymbol{\mu}_{T-1},\mathbf{V}_{T-1})}{N(\mathbf{x}_T|\boldsymbol{\mu}^p_T,\mathbf{V}^p_T)}N(\mathbf{x}_T|\boldsymbol{\mu}_T,\mathbf{V}_T)
+\end{align*}
+\end{split}\]</div>
+<p>From this point on, it is just boring algebra.
+You have to show that the joint is a Gaussian and then you need to integrate out <span class="math notranslate nohighlight">\(\mathbf{x}_T\)</span> to get the distribution of <span class="math notranslate nohighlight">\(\mathbf{x}_{T-1}\)</span>.
+The result is a Gaussian with mean <span class="math notranslate nohighlight">\(\boldsymbol{\mu}_{T-1|T}\)</span> and covariance matrix <span class="math notranslate nohighlight">\(\mathbf{V}_{T-1|T}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\boldsymbol{\mu}_{T-1|T} &amp;= \boldsymbol{\mu}_{T-1} + \mathbf{J}_T(\boldsymbol{\mu}_T-\boldsymbol{\mu}^p_T)\\
+\mathbf{V}_{T-1|T} &amp;= \mathbf{V}_{T-1} + \mathbf{J}_T(\mathbf{V}_T-\mathbf{V}^p_T)\mathbf{J}_T^T,
+\end{align*}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{J}_T\)</span> is the smoother gain matrix:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{J}_T = \mathbf{V}_{T-1}\mathbf{A}^T\mathbf{V}^{-1}_T.
+\]</div>
+<p>And you keep going back in time until you have the distribution for all time steps.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -678,7 +844,7 @@ An other very good resource, albeit rather extensive, is the open source book <a
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Kalman Filter for Object Tracking Example</p>
+        <p class="prev-next-title">Kalman Filter for the Object Tracking Example</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -691,6 +857,25 @@ An other very good resource, albeit rather extensive, is the open source book <a
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-kalmann-filter-algorithm">The Kalmann filter algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-step">Prediction step</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-step">Update step</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smoothing">Smoothing</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
