@@ -584,8 +584,7 @@ document.write(`
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-clustering-uber-pickup-data">Problem 1 - Clustering Uber Pickup Data</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-a-splitting-new-york-city-into-subregions">Part A - Splitting New York City into Subregions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-b-create-a-stochastic-model-of-pickups">Part B - Create a Stochastic Model of Pickups</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subpart-b-i-random-variable-capturing-number-of-monthly-pickups">Subpart B.I - Random variable capturing number of monthly pickups</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subpart-b-ii-estimate-the-spatial-density-of-pickups">Subpart B.II - Estimate the spatial density of pickups</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subpart-b-i-random-variable-capturing-the-number-of-monthly-pickups">Subpart B.I - Random variable capturing the number of monthly pickups</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subpart-b-iii-sample-some-random-months-of-pickups">Subpart B.III - Sample some random months of pickups</a></li>
 </ul>
 </li>
@@ -596,7 +595,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-a-discretize-time-transitions">Part A - Discretize time (Transitions)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-b-discretize-time-emissions">Part B - Discretize time (Emissions)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-c-apply-the-kalman-filter">Part C - Apply the Kalman filter</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-d-quantify-and-visualize-your-uncertainty-about-the-true-acceleration-value">Part D - Quantify and visualize your uncertainty about the true acceleration value</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-d-quantify-and-visualize-your-uncertainty-about-the-actual-acceleration-value">Part D - Quantify and visualize your uncertainty about the actual acceleration value</a></li>
 </ul>
 </li>
 </ul>
@@ -627,12 +626,7 @@ document.write(`
 <li><p>For the answers that require a mathematical proof or derivation you should type them using latex. If you have never written latex before and you find it exceedingly difficult, we will likely accept handwritten solutions.</p></li>
 <li><p>The total homework points are 100. Please note that the problems are not weighed equally.</p></li>
 </ul>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
@@ -665,7 +659,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 </div>
 </section>
 <section id="student-details">
@@ -702,7 +695,7 @@ On Google Colab, just run this:</p>
 </div>
 </div>
 </div>
-<p>Here is a text view:</p>
+<p>Here is how the data look like:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p1_data</span>
@@ -817,15 +810,11 @@ On Google Colab, just run this:</p>
 <p>564516 rows × 4 columns</p>
 </div></div></div>
 </div>
-<p>As you see, there where about half a million Uber pickups during April 2014…
-Let’s extract the lattitude and longitude data only (this is needed for passing them to scikit-learn algorithms).
-Here is how you can do this in pandas:</p>
+<p>If you have never played before with pandas, you can find a nice tutorial <a class="reference external" href="https://purduemechanicalengineering.github.io/me-297-intro-to-data-science/lecture03/python-pandas.html">here</a>.</p>
+<p>We have half a million data points. Let’s extract the latitude and longitude and put them in a numpy array:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Just use the column names as indices.</span>
-<span class="c1"># The two brackets are required because you are actually</span>
-<span class="c1"># passing a list of columns</span>
-<span class="n">loc_data</span> <span class="o">=</span> <span class="n">p1_data</span><span class="p">[[</span><span class="s1">&#39;Lon&#39;</span><span class="p">,</span> <span class="s1">&#39;Lat&#39;</span><span class="p">]]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loc_data</span> <span class="o">=</span> <span class="n">p1_data</span><span class="p">[[</span><span class="s1">&#39;Lon&#39;</span><span class="p">,</span> <span class="s1">&#39;Lat&#39;</span><span class="p">]]</span>
 <span class="n">loc_data</span>
 </pre></div>
 </div>
@@ -914,66 +903,15 @@ Here is how you can do this in pandas:</p>
 <p>564516 rows × 2 columns</p>
 </div></div></div>
 </div>
-<p>Let’s also visualize these points:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">loc_data</span><span class="o">.</span><span class="n">Lon</span><span class="p">,</span> <span class="n">loc_data</span><span class="o">.</span><span class="n">Lat</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
-<span class="c1"># ``s=0.01`` specifies the size. I am using a small size because</span>
-<span class="c1"># these are too many points to visualize</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Longitude&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Latitude&#39;</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/7e99edc6a79e7d89c227caf797665e0dba7e28feedc9709a20a5c4e797d39927.png" src="../_images/7e99edc6a79e7d89c227caf797665e0dba7e28feedc9709a20a5c4e797d39927.png" />
-</div>
-</div>
-<p>This is nice, but it would be even nicer if we had a map of New York City on the background.
-We can make such a map on <a class="reference external" href="https://www.openstreetmap.org/export#map=11/40.7855/-73.8964">www.openstreetmap.org</a>.
-We just need to have a box of longitude’s and latitudes that overlaps with our data.
-Here is how to get such a <em>bounding box</em>:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="p">((</span><span class="n">loc_data</span><span class="o">.</span><span class="n">Lon</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">loc_data</span><span class="o">.</span><span class="n">Lon</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
-        <span class="n">loc_data</span><span class="o">.</span><span class="n">Lat</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">loc_data</span><span class="o">.</span><span class="n">Lat</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
-<span class="n">box</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-74.7733, -72.0666, 40.0729, 42.1166)
-</pre></div>
-</div>
-</div>
-</div>
-<p>I have already extracted this picture for you and you can find it <a class="reference external" href="https://github.com/PredictiveScienceLab/data-analytics-se/blob/master/homework/ny_map.png">here</a>.
-As always, it needs to be visible from the Jupyter notebook.
-On Google Colab run:</p>
+<p>Let’s visualize these points on the map of New York City:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/PredictiveScienceLab/data-analytics-se/raw/master/lecturebook/images/ny_map.png&quot;</span>
 <span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>If you have it at the right place, you should be able to see the image here:</p>
-<p><img alt="New York City Map" src="homework/ny_map.png" /></p>
-<p>Now let’s load the image as a matrix:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ny_map</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;ny_map.png&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>And we can visualize it with <code class="docutils literal notranslate"><span class="pre">plt.imshow</span></code> and draw the Uber pickups on top of it.
-Here is how:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+<span class="n">ny_map</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;ny_map.png&#39;</span><span class="p">)</span>
+<span class="n">box</span> <span class="o">=</span> <span class="p">((</span><span class="n">loc_data</span><span class="o">.</span><span class="n">Lon</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">loc_data</span><span class="o">.</span><span class="n">Lon</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+        <span class="n">loc_data</span><span class="o">.</span><span class="n">Lat</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">loc_data</span><span class="o">.</span><span class="n">Lat</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
     <span class="n">loc_data</span><span class="o">.</span><span class="n">Lon</span><span class="p">,</span>
     <span class="n">loc_data</span><span class="o">.</span><span class="n">Lat</span><span class="p">,</span>
@@ -991,44 +929,41 @@ Here is how:</p>
     <span class="n">aspect</span><span class="o">=</span> <span class="s1">&#39;equal&#39;</span>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Longitude&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Latitude&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Latitude&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/34a4b387868f9445ebf32653544eac8a3db9694feaa95a71f6e81e8849f35a14.png" src="../_images/34a4b387868f9445ebf32653544eac8a3db9694feaa95a71f6e81e8849f35a14.png" />
+<img alt="../_images/f21923f9db26a3f15cc5561927992b2fb30f3fe45df4d99e92029ccafe1bf24c.png" src="../_images/f21923f9db26a3f15cc5561927992b2fb30f3fe45df4d99e92029ccafe1bf24c.png" />
 </div>
 </div>
-<p>Because we have over half a million data points, machine learning algorithms may be a bit slow.
-So, as you develop your code use use only 50K observations.
-Once you have a stable version of your code, modify the following code segment to make use of the entire dataset.</p>
+<p>Machine learning algorithms will be a bit slow because we have over half a million data points.
+So, as you develop your code, use only 50K observations.
+Once you have a stable version of your code, modify the following code segment to use the entire dataset.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># While your are developing your code use this:</span>
-<span class="n">p1_train_data</span> <span class="o">=</span> <span class="n">loc_data</span><span class="p">[:</span><span class="mi">100000</span><span class="p">]</span>
-<span class="c1"># When you have a stable code, use this:</span>
-<span class="c1"># p1_train_data = loc_data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p1_train_data</span> <span class="o">=</span> <span class="n">loc_data</span><span class="p">[:</span><span class="mi">50_000</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 <section id="part-a-splitting-new-york-city-into-subregions">
 <h2>Part A - Splitting New York City into Subregions<a class="headerlink" href="#part-a-splitting-new-york-city-into-subregions" title="Permalink to this heading">#</a></h2>
-<p>Suppose that you are assigned the task of splitting New York City into operating subregions with pretty much equal demand.
-When a pickup is requested in each subregion only the drivers in that region are called.
-Note that this can quickly become a very difficult problem very quickly.
+<p>Suppose you are assigned to split New York City into operating subregions with equal demand.
+When a pickup is requested in each subregion, only the drivers in that region are called.
+Note that this can become a challenging problem very quickly.
 We are not looking for the best possible answer here.
-This would require posing and solving a suitable optimization problem.
-We are looking for a data-informed solution that is compatible with common sense.</p>
+We are looking for a data-informed heuristic solution that is good enough.</p>
 <p>Do (at least) the following:</p>
 <ul class="simple">
-<li><p>Use Kmeans clustering on the pickup data with different number of clusters;</p></li>
+<li><p>Use Kmeans clustering on the pickup data with different numbers of clusters;</p></li>
 <li><p>Visualize the labels of the clusters on the map using different colors (see the hands-on activities);</p></li>
 <li><p>Visualize the centers of the discovered Kmeans clusters (in red color);</p></li>
-<li><p>Use your common sense, e.g., make sure that you have enough clusters so that no region crosses the water (even if it is possible the drivers may have to pay tolls to cross). If it is impossible to get perfect results simply by Kmeans, feel free to ignore a small number of outliers as they could be handled manually;</p></li>
-<li><p>Use <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.MiniBatchKMeans.html#sklearn.cluster.MiniBatchKMeans">MiniBatchKMeans</a> which is an much faster version of Kmeans suitable for large datasets (&gt;10K observations);</p></li>
+<li><p>Use common sense, e.g., ensure there are enough clusters so no region crosses the water. If it is impossible to get perfect results simply by Kmeans, feel free to ignore a small number of outliers as they could be handled manually;</p></li>
+<li><p>Use <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.MiniBatchKMeans.html#sklearn.cluster.MiniBatchKMeans">MiniBatchKMeans</a>, which is a much faster version of Kmeans suitable for large datasets (&gt;10K observations);</p></li>
 </ul>
-<p>Answer with as many text blocks and code blocks as you like right below.</p>
+<p>Answer with as many text and code blocks as you like below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
@@ -1039,29 +974,15 @@ We are looking for a data-informed solution that is compatible with common sense
 </section>
 <section id="part-b-create-a-stochastic-model-of-pickups">
 <h2>Part B - Create a Stochastic Model of Pickups<a class="headerlink" href="#part-b-create-a-stochastic-model-of-pickups" title="Permalink to this heading">#</a></h2>
-<p>One of the key ingredients for a more sophisticated approach to optimizing the operations of Uber would involve the construction of a stochastic model of the demand for pickups.
+<p>One of the key ingredients for a more sophisticated approach to optimizing the operations of Uber is the construction of a stochastic model of the demand for pickups.
 The ideal model for this problem is the <a class="reference external" href="https://en.wikipedia.org/wiki/Poisson_point_process">Poisson Point Process</a>.
-However, we are going to do something simpler, using the Gaussian mixture model and a Poisson random variable.
+However, we will do something more straightforward, using the Gaussian mixture model and a Poisson random variable.
 The model will not have a time component, but it will allow us to sample the number and locations of pickups during a typical month.
 We will guide you through the process of constructing this model.</p>
-<section id="subpart-b-i-random-variable-capturing-number-of-monthly-pickups">
-<h3>Subpart B.I - Random variable capturing number of monthly pickups<a class="headerlink" href="#subpart-b-i-random-variable-capturing-number-of-monthly-pickups" title="Permalink to this heading">#</a></h3>
+<section id="subpart-b-i-random-variable-capturing-the-number-of-monthly-pickups">
+<h3>Subpart B.I - Random variable capturing the number of monthly pickups<a class="headerlink" href="#subpart-b-i-random-variable-capturing-the-number-of-monthly-pickups" title="Permalink to this heading">#</a></h3>
 <p>Find the rate of monthly pickups (ignore the fact that months may differ by a few days) and use it to define a Poisson random variable corresponding to the monthly number of pickups.
 Use <code class="docutils literal notranslate"><span class="pre">scipy.stats.poisson</span></code> to initialize this random variable. Sample from it 10,000 times and plot the histogram of the samples to get a feeling about the corresponding probability mass function.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="subpart-b-ii-estimate-the-spatial-density-of-pickups">
-<h3>Subpart B.II - Estimate the spatial density of pickups<a class="headerlink" href="#subpart-b-ii-estimate-the-spatial-density-of-pickups" title="Permalink to this heading">#</a></h3>
-<p>Fit a Gaussian Mixture model to the pickup data.
-<strong>Do not use the Bayesian Information Criterion</strong> to decide how many components to keep.
-This would take quite a bit of time for this problem. Simply use 40 mixture components.
-Plot the contour of the logarithm of the probability density on the New York City map.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
@@ -1073,7 +994,7 @@ Plot the contour of the logarithm of the probability density on the New York Cit
 <section id="subpart-b-iii-sample-some-random-months-of-pickups">
 <h3>Subpart B.III - Sample some random months of pickups<a class="headerlink" href="#subpart-b-iii-sample-some-random-months-of-pickups" title="Permalink to this heading">#</a></h3>
 <p>Now that you have a model that gives you the number of pickups and a model that allows you to sample a pickup location, sample five different datasets (number of pickups and location of each pick) from the combined model and visualize them on the New York map.</p>
-<p><strong>Hint:</strong> Don’t get obsessed with making the model perfect. It’s okay if a few of the pickups are on water…</p>
+<p><strong>Hint:</strong> Don’t get obsessed with making the model perfect. It’s okay if a few of the pickups are on water.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
@@ -1086,19 +1007,20 @@ Plot the contour of the logarithm of the probability density on the New York Cit
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="problem-2-counting-celestial-objects">
 <h1>Problem 2 - Counting Celestial Objects<a class="headerlink" href="#problem-2-counting-celestial-objects" title="Permalink to this heading">#</a></h1>
-<p>Consider <a class="reference external" href="https://github.com/PredictiveScienceLab/data-analytics-se/raw/master/datasets/galaxies.png">this picture</a> of a patch of sky taken by the <a class="reference external" href="https://www.nasa.gov/mission_pages/hubble/story/index.html">Hubble Space Telescope</a>:</p>
+<p>Consider this picture of a patch of sky taken by the <a class="reference external" href="https://www.nasa.gov/mission_pages/hubble/story/index.html">Hubble Space Telescope</a>:</p>
+<p><img alt="" src="../_images/galaxies.png" /></p>
+<p>Let’s download it so that you have it here:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/PredictiveScienceLab/data-analytics-se/raw/master/homework/galaxies.png&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/PredictiveScienceLab/data-analytics-se/master/lecturebook/images/galaxies.png&#39;</span>
 <span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p><img alt="galaxies" src="homework/galaxies.png" /></p>
-<p>This picture includes many galaxies, but also some starts.
-We are going to create a machine learning model capable of counting the number of objects in such images.
-Our model is not going to be able to differentiate between the different types of objects, and it will not be very accurate, but it does form the basis of more sophisticated approaches.
+<p>This picture includes many galaxies but also some stars.
+We will create a machine-learning model capable of counting the number of objects in such images.
+Our model will not be able to differentiate between the different types of objects and will not be very accurate. Still, it does form the basis of more sophisticated approaches.
 The idea is as follows:</p>
 <ul class="simple">
 <li><p>Convert the picture to points sampled according to the intensity of light.</p></li>
@@ -1107,7 +1029,7 @@ The idea is as follows:</p>
 <li><p>Associate the number of components with the actual number of celestial objects.</p></li>
 </ul>
 <p>I will set you up with the first step. You will have to do the last three.</p>
-<p>We are going to load the image with the <a class="reference external" href="https://en.wikipedia.org/wiki/Python_Imaging_Library">Python Imaging Library (PIL)</a> which allows us to apply a few basic transformations to the image:</p>
+<p>We are going to load the image with the <a class="reference external" href="https://en.wikipedia.org/wiki/Python_Imaging_Library">Python Imaging Library (PIL)</a>, which allows us to apply a few basic transformations to the image:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
@@ -1117,20 +1039,14 @@ The idea is as follows:</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/46e087e9b3264e4055624f83ca3684a40aa6a42a869696fa4a89d5e18ecaa2a9.png" src="../_images/46e087e9b3264e4055624f83ca3684a40aa6a42a869696fa4a89d5e18ecaa2a9.png" />
 </div>
-</div>
-<p>Now we are going to convert it to gray scale and crop it to make the problem a little bit easier:</p>
+<p>Now, we are going to convert it to grayscale and crop it to make the problem a little bit easier:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">img</span> <span class="o">=</span> <span class="n">hubble_image</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">crop</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">))</span>
 <span class="n">img</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/e57fd19072435517637b89a20762e6c8eace0bf19e3ca1b452ba9aab6ef08f84.png" src="../_images/e57fd19072435517637b89a20762e6c8eace0bf19e3ca1b452ba9aab6ef08f84.png" />
 </div>
 </div>
 <p>Remember that black-and white images are matrices:</p>
@@ -1141,24 +1057,13 @@ The idea is as follows:</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 7, 11, 11, ..., 28, 62, 88],
-       [12, 12, 11, ..., 29, 47, 86],
-       [18, 13, 11, ..., 24, 34, 87],
-       ...,
-       [24, 12, 15, ..., 43, 47, 40],
-       [23, 12, 19, ..., 48, 49, 40],
-       [18, 18, 23, ..., 50, 49, 41]], dtype=uint8)
-</pre></div>
 </div>
-</div>
-</div>
-<p>The minimum number if <span class="math notranslate nohighlight">\(0\)</span> corresponding to black and the maximum number is 255 corresponding to white.
+<p>The minimum number is <span class="math notranslate nohighlight">\(0\)</span>, corresponding to black, and the maximum is 255, corresponding to white.
 Anything in between is some shade of gray.</p>
-<p>Now, imagine that each pixel is associated with some cordinates.
+<p>Now, imagine that each pixel is associated with some coordinates.
 Without loss of generality, let’s assume that each pixel is some coordinate in <span class="math notranslate nohighlight">\([0,1]^2\)</span>.
-We will loop over each of the pixels and sample its coordinates in a way that increases with increasing light intensity.
-To achieve this, we will pass the intensity values of each pixels through a sigmoid with parameters that can be tuned.
+We will loop over each pixel and sample its coordinates in a way that increases with increasing light intensity.
+To achieve this, we will pass the intensity values of each pixel through a sigmoid with parameters that can be tuned.
 Here is this sigmoid:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1171,12 +1076,13 @@ Here is this sigmoid:</p>
     <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">alpha</span> <span class="o">*</span> <span class="p">(</span><span class="n">intensities</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)))</span>
 <span class="p">);</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Light intensities&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Probability of sampling the pixel coordinates&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Probability of sampling the pixel coordinates&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/18f1e5827183e01274deecf654d1ccca42c1b5691a6fb16bb0e13d4fe2a03f1f.png" src="../_images/18f1e5827183e01274deecf654d1ccca42c1b5691a6fb16bb0e13d4fe2a03f1f.png" />
+<img alt="../_images/2e559ac511b62c6f5a1b7b9bce25a62b894f0109f75aff357ef02a37eafeb36f.png" src="../_images/2e559ac511b62c6f5a1b7b9bce25a62b894f0109f75aff357ef02a37eafeb36f.png" />
 </div>
 </div>
 <p>And here is the code that samples the pixel coordinates.
@@ -1217,7 +1123,7 @@ I am organizing it into a function because we may want to use it with different 
 </div>
 </div>
 </div>
-<p>Let’s test the code:</p>
+<p>Let’s test it:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">locs</span> <span class="o">=</span> <span class="n">sample_pixel_coords</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
@@ -1234,11 +1140,9 @@ I am organizing it into a function because we may want to use it with different 
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/88917a05d416236d131cb47ff138ec80d8d3b3708cc5da81c59e8abfac60542f.png" src="../_images/88917a05d416236d131cb47ff138ec80d8d3b3708cc5da81c59e8abfac60542f.png" />
 </div>
-</div>
-<p>Note that by playing with <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> you can make the whole thing more or less sensitive to the light intensity.</p>
+<p>Note that playing with <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> makes the whole thing more or less sensitive to the light intensity.</p>
+<p>Complete the following function:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.mixture</span> <span class="kn">import</span> <span class="n">GaussianMixture</span>
@@ -1267,10 +1171,10 @@ I am organizing it into a function because we may want to use it with different 
 </div>
 </div>
 </div>
-<p>Once you have completed the code, try it out the following images.
+<p>Once you have completed the code, try out the following images.
 Feel free to play with <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> to improve the performance.
-<strong>Do not try to make a perfect model. To do so, we would have to go beyond the Gaussian mixture model. This is just a homework problem.</strong></p>
-<p>Here is a helper function for visualizing what you get:</p>
+<strong>Do not try to make a perfect model. We would have to go beyond the Gaussian mixture model to do so. This is just a homework problem.</strong></p>
+<p>Here is a helpful function that you can use to visualize the results:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">visualize_counts</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">objs</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">locs</span><span class="p">):</span>
@@ -1307,7 +1211,7 @@ Feel free to play with <span class="math notranslate nohighlight">\(\alpha\)</sp
 </div>
 </div>
 </div>
-<p>Here is how to use the code:</p>
+<p>Here is how to use it:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">objs</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">locs</span> <span class="o">=</span> <span class="n">count_objs</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
@@ -1316,7 +1220,7 @@ Feel free to play with <span class="math notranslate nohighlight">\(\alpha\)</sp
 </div>
 </div>
 </div>
-<p>Try this one:</p>
+<p>Try this image:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">img</span> <span class="o">=</span> <span class="n">hubble_image</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">crop</span><span class="p">((</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">))</span>
@@ -1326,7 +1230,7 @@ Feel free to play with <span class="math notranslate nohighlight">\(\alpha\)</sp
 </div>
 </div>
 </div>
-<p>And try this one:</p>
+<p>And this one:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">img</span> <span class="o">=</span> <span class="n">hubble_image</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">crop</span><span class="p">((</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">500</span><span class="p">))</span>
@@ -1361,11 +1265,10 @@ x_0 = x(0) \sim N(0, \sigma_x^2),
 \[
 v_0 = \dot{x} \sim N(0, \sigma_v^2).
 \]</div>
-<p>Of course assume taht <span class="math notranslate nohighlight">\(\sigma_x^2\)</span> and <span class="math notranslate nohighlight">\(\sigma_v^2\)</span> are specific numbers that we are going to specify below.</p>
-<p>Before I we go over the questions, let’s write code that generates the true trajectory of the system at some random initial conditions as well as some observations.
-We will use the code to generate a synthetic dataset with known ground truth which you will use in your filtering analysis.</p>
-<p>The first step we need to do, is to turn the problem into a first order differential equation.
-This is trivial.
+<p>Of course, assume that <span class="math notranslate nohighlight">\(\sigma_x^2\)</span> and <span class="math notranslate nohighlight">\(\sigma_v^2\)</span> are specific numbers we will specify below.</p>
+<p>Before we go over the questions, let’s write code that generates the actual trajectory of the system at some random initial conditions and some observations.
+We will use the code to generate a synthetic dataset with known ground truth, which you will use in your filtering analysis.</p>
+<p>The first step we need to do is to turn the problem into a first-order differential equation.
 We set:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1394,7 +1297,7 @@ x_2\\
 -2\zeta \omega_0 x_2 - \omega^2_0 x_1 + u_0 \cos(\omega t)
 \end{bmatrix}
 \end{split}\]</div>
-<p>The initial conditions are of course just:</p>
+<p>The initial conditions are of course, just:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \mathbf{x}_0 =
@@ -1403,7 +1306,7 @@ x_0\\
 v_0
 \end{bmatrix}.
 \end{split}\]</div>
-<p>This first order system can solved using <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html#scipy.integrate.solve_ivp">scipy.integrate.solve_ivp</a>.
+<p>This first-order system can solved using <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html#scipy.integrate.solve_ivp">scipy.integrate.solve_ivp</a>.
 Here is how:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1456,16 +1359,21 @@ Here is how:</p>
 </div>
 </div>
 </div>
-<p>The solution is stored here:</p>
+<p>The solution is stored in the <code class="docutils literal notranslate"><span class="pre">sol</span></code> variable:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2, 100)
+</pre></div>
 </div>
-<p>You see that the shape is <code class="docutils literal notranslate"><span class="pre">number</span> <span class="pre">of</span> <span class="pre">states</span> <span class="pre">x</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">time</span> <span class="pre">steps</span></code>.
-Let’s visualize the trajectory separating position and velocity:</p>
+</div>
+</div>
+<p>The shape of <code class="docutils literal notranslate"><span class="pre">sol.y</span></code> is (2, 100), which means that we have 100 timesteps and two variables (position and velocity).
+Let’s plot the position and the velocity:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
@@ -1473,13 +1381,17 @@ Let’s visualize the trajectory separating position and velocity:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_eval</span><span class="p">,</span> <span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Velocity&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$t$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_i(t)$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/fffa577e3fddb0353b6c8031cec5ebea4a1c8bf86999866cd565457f1004addd.png" src="../_images/fffa577e3fddb0353b6c8031cec5ebea4a1c8bf86999866cd565457f1004addd.png" />
+</div>
 </div>
 <p>Let’s now generate some synthetic observations of the acceleration with some given Gaussian noise.
-To get the true acceleration you can do this:</p>
+To get the acceleration, you can do this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">true_acc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">rhs</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">omega0</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">u0</span><span class="p">,</span> <span class="n">omega</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">t_eval</span><span class="p">,</span> <span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">T</span><span class="p">)])</span>
@@ -1487,20 +1399,13 @@ To get the true acceleration you can do this:</p>
 </div>
 </div>
 </div>
-<p>And now I am going to add some Gaussian noise to it:</p>
+<p>Let’s add some noise:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The measurement standard deviation</span>
-<span class="n">sigma_r</span> <span class="o">=</span> <span class="mf">0.2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sigma_r</span> <span class="o">=</span> <span class="mf">0.2</span>
 <span class="n">observations</span> <span class="o">=</span> <span class="n">true_acc</span> <span class="o">+</span> <span class="n">sigma_r</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">true_acc</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>And here is how the noisy observations of the acceleration look like compared to the true acceleration value:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_eval</span><span class="p">,</span> <span class="n">true_acc</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Acceleration&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="n">t_eval</span><span class="p">,</span>
@@ -1509,18 +1414,22 @@ To get the true acceleration you can do this:</p>
     <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Noisy observation of acceleration&#39;</span>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$t$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$\ddot</span><span class="si">{x}</span><span class="s1">(t)$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\ddot</span><span class="si">{x}</span><span class="s1">(t)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/5c8bf582eeddd3f3287430cdd232a06e63d63851f13e0fb4c6366f2b1351320d.png" src="../_images/5c8bf582eeddd3f3287430cdd232a06e63d63851f13e0fb4c6366f2b1351320d.png" />
 </div>
-<p>Okay. Now imagine that you only see the noisy observations of the acceleration.
+</div>
+<p>Okay. Now, imagine that you only see the noisy observations of the acceleration.
 The filtering goal is to recover the state of the underlying system (as well as its acceleration).
 I am going to guide you through the steps you need to follow.</p>
 <section id="part-a-discretize-time-transitions">
 <h2>Part A - Discretize time (Transitions)<a class="headerlink" href="#part-a-discretize-time-transitions" title="Permalink to this heading">#</a></h2>
-<p>Use the Euler time discretization scheme to turn the continuous dynamical system into a discrete time dynamical system like this:</p>
+<p>Use the Euler time discretization scheme to turn the continuous dynamical system into a discrete-time dynamical system like this:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbf{x}_{j+1} = \mathbf{A}\mathbf{x}_j + Bu_j + \mathbf{z}_j,
@@ -1535,11 +1444,11 @@ I am going to guide you through the steps you need to follow.</p>
 u_j = u(j\Delta t),
 \]</div>
 <p>and <span class="math notranslate nohighlight">\(\mathbf{z}_j\)</span> is properly chosen process noise term.
-You should derive and provide mathematical exprssions for the following:</p>
+You should derive and provide mathematical expressions for the following:</p>
 <ul class="simple">
 <li><p>The <span class="math notranslate nohighlight">\(2 \times 2\)</span> transition matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>.</p></li>
 <li><p>The <span class="math notranslate nohighlight">\(2 \times 1\)</span> control “matrix” <span class="math notranslate nohighlight">\(B\)</span>.</p></li>
-<li><p>The process covariance <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span>. For the process covariance, you may choose your own values by hand.</p></li>
+<li><p>The process covariance <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span>. For the process covariance, you may choose your values by hand.</p></li>
 </ul>
 <p><strong>Answer:</strong></p>
 <div class="cell docutils container">
@@ -1552,25 +1461,15 @@ You should derive and provide mathematical exprssions for the following:</p>
         <span class="p">[</span><span class="n">REPLACE_ME</span><span class="p">,</span> <span class="n">REPLACE_ME</span><span class="p">]</span>
     <span class="p">]</span>
 <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+
+<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
     <span class="p">[</span>
         <span class="p">[</span><span class="n">REPLACE_ME</span><span class="p">],</span>
         <span class="p">[</span><span class="n">REPLACE_ME</span><span class="p">]</span>
     <span class="p">]</span>
 <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+
+<span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
     <span class="p">[</span>
         <span class="p">[</span><span class="n">REPLACE_ME</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
         <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">REPLACE_ME</span><span class="p">]</span>
@@ -1631,12 +1530,12 @@ Plot time-evolving 95% credible intervals for the position and the velocity alon
 </div>
 </div>
 </section>
-<section id="part-d-quantify-and-visualize-your-uncertainty-about-the-true-acceleration-value">
-<h2>Part D - Quantify and visualize your uncertainty about the true acceleration value<a class="headerlink" href="#part-d-quantify-and-visualize-your-uncertainty-about-the-true-acceleration-value" title="Permalink to this heading">#</a></h2>
+<section id="part-d-quantify-and-visualize-your-uncertainty-about-the-actual-acceleration-value">
+<h2>Part D - Quantify and visualize your uncertainty about the actual acceleration value<a class="headerlink" href="#part-d-quantify-and-visualize-your-uncertainty-about-the-actual-acceleration-value" title="Permalink to this heading">#</a></h2>
 <p>Use standard uncertainty propagation techniques to quantify your epistemic uncertainty about the true acceleration value.
 You will have to use the inferred states of the system and the dynamical model.
 This can be done either analytically or by Monte Carlo. It’s your choice.
-In any case, plot time-evolving 95% credible intervals for the acceleration (epistemic only) along with the true unobserved values and the noisy measurements.</p>
+In any case, plot time-evolving 95% credible intervals for the acceleration (epistemic only), the true unobserved values, and the noisy measurements.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your answer here (as many code and text blocks as you want)</span>
@@ -1723,8 +1622,7 @@ In any case, plot time-evolving 95% credible intervals for the acceleration (epi
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-clustering-uber-pickup-data">Problem 1 - Clustering Uber Pickup Data</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-a-splitting-new-york-city-into-subregions">Part A - Splitting New York City into Subregions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-b-create-a-stochastic-model-of-pickups">Part B - Create a Stochastic Model of Pickups</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subpart-b-i-random-variable-capturing-number-of-monthly-pickups">Subpart B.I - Random variable capturing number of monthly pickups</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subpart-b-ii-estimate-the-spatial-density-of-pickups">Subpart B.II - Estimate the spatial density of pickups</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subpart-b-i-random-variable-capturing-the-number-of-monthly-pickups">Subpart B.I - Random variable capturing the number of monthly pickups</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subpart-b-iii-sample-some-random-months-of-pickups">Subpart B.III - Sample some random months of pickups</a></li>
 </ul>
 </li>
@@ -1735,7 +1633,7 @@ In any case, plot time-evolving 95% credible intervals for the acceleration (epi
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-a-discretize-time-transitions">Part A - Discretize time (Transitions)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-b-discretize-time-emissions">Part B - Discretize time (Emissions)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-c-apply-the-kalman-filter">Part C - Apply the Kalman filter</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-d-quantify-and-visualize-your-uncertainty-about-the-true-acceleration-value">Part D - Quantify and visualize your uncertainty about the true acceleration value</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-d-quantify-and-visualize-your-uncertainty-about-the-actual-acceleration-value">Part D - Quantify and visualize your uncertainty about the actual acceleration value</a></li>
 </ul>
 </li>
 </ul>
