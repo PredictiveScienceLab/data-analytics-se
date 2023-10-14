@@ -575,8 +575,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#readings">Readings</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation-a-fully-bayesian-paradigm-for-curve-fitting">Motivation: A fully Bayesian paradigm for curve fitting</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-mathematical-terminology">Some mathematical terminology</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-process">Gaussian process</a><ul class="nav section-nav flex-column">
@@ -599,30 +597,19 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="gaussian-process-theory">
 <h1>Gaussian Process Theory<a class="headerlink" href="#gaussian-process-theory" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Understand what a Gaussian process is</p></li>
-<li><p>Use a Gaussian process to define a prior probability measure on the space of functions</p></li>
-</ul>
-</section>
-<section id="readings">
-<h2>Readings<a class="headerlink" href="#readings" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="http://www.gaussianprocess.org/gpml/chapters/RW1.pdf">Chapter 1 from C.E. Rasmussen’s textbook on Gaussian processes</a>.</p></li>
-</ul>
-</section>
+<p>We attempt to understand a Gaussian process and how it can be used to define a prior probability measure on the space of functions.
+The complete mathematical details are in Chapter 1 of <span id="id1">[<a class="reference internal" href="../bibliography.html#id12" title="Carl Edward Rasmussen and Christopher K. I. Williams. Gaussian Processes for Machine Learning. The MIT Press, 11 2005. ISBN 9780262256834. URL: https://doi.org/10.7551/mitpress/3206.001.0001, doi:10.7551/mitpress/3206.001.0001.">Rasmussen and Williams, 2005</a>]</span>.</p>
 <section id="motivation-a-fully-bayesian-paradigm-for-curve-fitting">
 <h2>Motivation: A fully Bayesian paradigm for curve fitting<a class="headerlink" href="#motivation-a-fully-bayesian-paradigm-for-curve-fitting" title="Permalink to this heading">#</a></h2>
 <p>Gaussian process regression is Bayesian regression on steroids.
 However, understanding how it works requires a change of mind.
-After a bit of practice it starts making sense.</p>
+After a bit of practice, it starts making sense.</p>
 <p>Here is how it works:</p>
 <ul class="simple">
 <li><p>Let’s say that you have to learn some function <span class="math notranslate nohighlight">\(f(\cdot)\)</span> from some space <span class="math notranslate nohighlight">\(\mathcal{X}\)</span> to <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> (this could either be a supervised learning problem (regression or classification) or even an unsupervised learning problem.</p></li>
-<li><p>You sit down and you think about <span class="math notranslate nohighlight">\(f(\cdot)\)</span>. What do you know about it? How large do you expect it be? How small do you expect it be? Is it continuous? Is it differentiable? Is it periodic? How fast does it change as you change its inputs?</p></li>
-<li><p>You create a probability measure on the space of functions in which <span class="math notranslate nohighlight">\(f(\cdot)\)</span> lives which is compatible with everything you know about it. Abusing mathematical notation a lot, let’s write this probability measure as <span class="math notranslate nohighlight">\(p(f(\cdot))\)</span>. Now you can sample from it. Any sample you take is compatible with your prior beliefs. You cannot tell which one is better than any other. Any of them could be the true <span class="math notranslate nohighlight">\(f(\cdot)\)</span>.</p></li>
-<li><p>Then, you get a little bit of data, say <span class="math notranslate nohighlight">\(\mathcal{D}\)</span>. You model the likelihood of the data, <span class="math notranslate nohighlight">\(p(\mathcal{D}|f(\cdot))\)</span>, i.e., you model how the data may have been generated if you knew <span class="math notranslate nohighlight">\(f(\cdot)\)</span>.</p></li>
+<li><p>You sit down and you think about <span class="math notranslate nohighlight">\(f(\cdot)\)</span>. What do you know about it? How large do you expect it to be? How small do you expect it to be? Is it continuous? Is it differentiable? Is it periodic? How fast does it change as you change its inputs?</p></li>
+<li><p>You create a probability measure on the space of functions in which <span class="math notranslate nohighlight">\(f(\cdot)\)</span> lives, which is compatible with everything you know. Abusing mathematical notation a lot, let’s write this probability measure as <span class="math notranslate nohighlight">\(p(f(\cdot))\)</span>. Now you can sample from it. Any sample you take is compatible with your prior beliefs. You cannot tell which one is better than any other. They could be the true <span class="math notranslate nohighlight">\(f(\cdot)\)</span>.</p></li>
+<li><p>Then, you get some data, say <span class="math notranslate nohighlight">\(\mathcal{D}\)</span>. You model the likelihood of the data, <span class="math notranslate nohighlight">\(p(\mathcal{D}|f(\cdot))\)</span>, i.e., you model how the data may have been generated if you knew <span class="math notranslate nohighlight">\(f(\cdot)\)</span>.</p></li>
 <li><p>Finally, you use Bayes’ rule to come up with your posterior probability measure over the space of functions:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
@@ -630,44 +617,43 @@ After a bit of practice it starts making sense.</p>
 p(f(\cdot)|\mathcal{D}) \propto p(\mathcal{D}|f(\cdot)) p(f(\cdot)),
 \]</div>
 <p>which is simultaneously compatible with your prior beliefs and the data.
-Again, we are abusing mathematical notation here sinc you cannot really write down the probability density corresponding to a random function.
+Again, we are abusing mathematical notation here since you cannot write down the probability density corresponding to a random function.
 But you get the point.</p>
-<p>This is it.
-As Persi Diaconis’ said in an 1988 paper:</p>
+<p>As Persi Diaconis’ said in <span id="id2">[<a class="reference internal" href="../bibliography.html#id13">Diaconis, 1988</a>]</span>:</p>
 <blockquote>
 <div><p>Most people, even Bayesians, think that this sounds crazy when they first hear about it.</p>
 </div></blockquote>
 <p>Where do Gaussian processes come in?
 Well, it is just the equivalent of the multivariate Gaussian for function spaces.
-It defines a probability measure on the space of functions that is centered about a mean (function) and shaped by a covariance (function).
-In this lecture, we will show that the mean function and the covariance function is the place where you can encode your prior knowledge.
+It defines a probability measure on the function space centered about a mean (function) and shaped by a covariance (function).
+In this lecture, we will show that the mean and covariance functions are where you can encode your prior knowledge.
 We will also show how you can sample functions from this probability measure.
-Next time, we will show how you can condition these probability measures on observations.</p>
+Next time, we will show how to condition these probability measures on observations.</p>
 </section>
 <section id="some-mathematical-terminology">
 <h2>Some mathematical terminology<a class="headerlink" href="#some-mathematical-terminology" title="Permalink to this heading">#</a></h2>
-<p>A <em>stochatic process</em> is just a collection of random variables that are labeled by some index: <span class="math notranslate nohighlight">\(\{X_i\}\)</span> for some <span class="math notranslate nohighlight">\(i\)</span> in a set <span class="math notranslate nohighlight">\(I\)</span>.
-If the set <span class="math notranslate nohighlight">\(I\)</span> is discrete, then we say that we have a discrete stochastic process.
-If the set <span class="math notranslate nohighlight">\(I\)</span> is continuous, then we have a continuous stochastic process.
-We will mostly work with continuous stochastic processes in this class.</p>
+<p>A <em>stochastic process</em> is just a collection of random variables that are labeled by some index: <span class="math notranslate nohighlight">\(\{X_i\}\)</span> for some <span class="math notranslate nohighlight">\(i\)</span> in a set <span class="math notranslate nohighlight">\(I\)</span>.
+If the set <span class="math notranslate nohighlight">\(I\)</span> is discrete, we say we have a discrete stochastic process.
+We have a continuous stochastic process if the set <span class="math notranslate nohighlight">\(I\)</span> is continuous.
+We will primarily work with continuous stochastic processes in this class.</p>
 <p>For example, <span class="math notranslate nohighlight">\(X_t = X(t)\)</span> is a stochastic process parameterized by time.
 You can also think of a stochastic process as a random function.
-Here is how, you sample an <span class="math notranslate nohighlight">\(\omega\)</span>, you keep it fixed, and then <span class="math notranslate nohighlight">\(X(t,\omega)\)</span> is just a function of time. (Remember what we learned in earlier lectures: a random variable is just a function from the event space to the real numbers).</p>
-<p>Of course, you can have a stochastic process that is parameterized by space, for example <span class="math notranslate nohighlight">\(T(x,\omega)\)</span>, could be an unknown temperature field.
+Here is how you sample an <span class="math notranslate nohighlight">\(\omega\)</span>: you keep it fixed, and then <span class="math notranslate nohighlight">\(X(t,\omega)\)</span> is just a function of time. (Remember what we learned in earlier lectures: a random variable is just a function from the event space to the real numbers).</p>
+<p>Of course, you can have a stochastic process parameterized by space. For example, <span class="math notranslate nohighlight">\(T(x,\omega)\)</span> could be an unknown temperature field.
 This is typically called a random field.
-You can also have a stochastic process that is parameterized by both space and time, say <span class="math notranslate nohighlight">\(T(x,t,\omega)\)</span>.
-This is a unknown spatiotemporal temperature field.
-As a matter of fact, you can have a stochastic process parameterized by any continuous label you like.
+You can also have a stochastic process parameterized by space and time, say <span class="math notranslate nohighlight">\(T(x,t,\omega)\)</span>.
+This is an unknown spatiotemporal temperature field.
+You can have a stochastic process parameterized by any continuous label you like.
 It does not have to be space or time.
-And also, you can have as many different labels as you like.</p>
+Also, you can have as many different labels as you like.</p>
 <p>Gaussian processes are the simplest continuous stochastic processes you can have.</p>
 </section>
 <section id="gaussian-process">
 <h2>Gaussian process<a class="headerlink" href="#gaussian-process" title="Permalink to this heading">#</a></h2>
 <p>A Gaussian process (GP) is a generalization of a multivariate Gaussian distribution to
 <em>infinite</em> dimensions.
-It essentially defines a probability measure on a function space.
-When we say that <span class="math notranslate nohighlight">\(f(\cdot)\)</span> is a GP, we mean that it is a random variable that is actually
+It defines a probability measure on a function space.
+When we say that <span class="math notranslate nohighlight">\(f(\cdot)\)</span> is a GP, we mean that it is a random variable that is
 a function.
 Mathematically, we write:
 \begin{equation}
@@ -676,13 +662,13 @@ f(\cdot) \sim \mbox{GP}\left(m(\cdot), k(\cdot, \cdot) \right),
 where
 <span class="math notranslate nohighlight">\(m:\mathbb{R}^d \rightarrow \mathbb{R}\)</span> is the <em>mean function</em> and
 <span class="math notranslate nohighlight">\(k:\mathbb{R}^d \times \mathbb{R}^d \rightarrow \mathbb{R}\)</span> is the <em>covariance function</em>.
-So, compared to a multivariate normal we have:</p>
+So, compared to a multivariate normal, we have:</p>
 <ul class="simple">
 <li><p>A random function <span class="math notranslate nohighlight">\(f(\cdot)\)</span> instead of a random vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>.</p></li>
 <li><p>A mean function <span class="math notranslate nohighlight">\(m(\cdot)\)</span> instead of a mean vector <span class="math notranslate nohighlight">\(\boldsymbol{\mu}\)</span>.</p></li>
 <li><p>A covariance function <span class="math notranslate nohighlight">\(k(\cdot,\cdot)\)</span> instead of a covariance matrix <span class="math notranslate nohighlight">\(\mathbf{\Sigma}\)</span>.</p></li>
 </ul>
-<p>But, what does this definition actually mean? Actually, it gets its meaning from the multivariate Gaussian distribution. Here is how:</p>
+<p>But what does this definition mean? It gets its meaning from the multivariate Gaussian distribution. Here is how:</p>
 <ul class="simple">
 <li><p>Let <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}=\{\mathbf{x}_1,\dots,\mathbf{x}_n\}\)</span> be <span class="math notranslate nohighlight">\(n\)</span> points in <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>.</p></li>
 <li><p>Let <span class="math notranslate nohighlight">\(\mathbf{f}\in\mathbb{R}^n\)</span> be the outputs of <span class="math notranslate nohighlight">\(f(\cdot)\)</span> on each one of the elements of <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}\)</span>, i.e.,</p></li>
@@ -729,12 +715,12 @@ k(\mathbf{x}_n, \mathbf{x}_1) &amp; \dots &amp; k(\mathbf{x}_n, \mathbf{x}_n)
 \end{array}
 \right).
 \end{split}\]</div>
-<p>Now that we have defined a Gaussian process (GP), let us talk about we encode our prior beliefs into a GP.
+<p>Now that we have defined a Gaussian process (GP) let us discuss how we encode our prior beliefs into a GP.
 We do so through the mean and covariance functions.</p>
 <section id="interpretation-of-the-mean-function">
 <h3>Interpretation of the mean function<a class="headerlink" href="#interpretation-of-the-mean-function" title="Permalink to this heading">#</a></h3>
 <p>What is the meaning of <span class="math notranslate nohighlight">\(m(\cdot)\)</span>?
-Well, it is quite easy to grasp.
+Well, it is pretty easy to grasp.
 For any point <span class="math notranslate nohighlight">\(\mathbf{x}\in\mathbb{R}^d\)</span>, <span class="math notranslate nohighlight">\(m(\mathbf{x})\)</span> should give us the value we believe is more probable for
 <span class="math notranslate nohighlight">\(f(\mathbf{x})\)</span>.
 Mathematically, <span class="math notranslate nohighlight">\(m(\mathbf{x})\)</span> is nothing more than the expected value of the random variable <span class="math notranslate nohighlight">\(f(\mathbf{x})\)</span>.
@@ -742,7 +728,7 @@ That is:
 \begin{equation}
 m(\mathbf{x}) = \mathbb{E}[f(\mathbf{x})].
 \end{equation}</p>
-<p>The mean function can be any arbitrary function. Essentially, it tracks generic trends in the response as the input is varied. In practice, we try and make a suitable choice for the mean function that is easy to work with. Such choices include:</p>
+<p>The mean function can be any arbitrary function. It tracks generic trends in the response as the input is varied. In practice, we make a suitable choice for the mean function that is easy to work with. Such choices include:</p>
 <ul class="simple">
 <li><p>zero, i.e.,</p></li>
 </ul>
@@ -791,7 +777,7 @@ measure <span class="math notranslate nohighlight">\(\mu\)</span>:</p></li>
 </section>
 <section id="interpretation-of-the-covariance-function">
 <h3>Interpretation of the covariance function<a class="headerlink" href="#interpretation-of-the-covariance-function" title="Permalink to this heading">#</a></h3>
-<p>What is the meaning of <span class="math notranslate nohighlight">\(k(\cdot, \cdot)\)</span>?
+<p>What does <span class="math notranslate nohighlight">\(k(\cdot, \cdot)\)</span> mean?
 This concept is considerably more challenging than the mean.</p>
 <p>Let’s try to break it down:</p>
 <ul class="simple">
@@ -820,14 +806,14 @@ k(\mathbf{x}, \mathbf{x}') = \mathbb{C}[f(\mathbf{x}), f(\mathbf{x}')]
 \left(f(\mathbf{x}') - m(\mathbf{x}')\right)
 \right].
 \]</div>
-<p>Essentially, a covariance function (or covariance kernel) defines a nearness or similarity measure on the input space. We cannot choose any arbitrary function of two variables as a covariance kernel. How we go about choosing a covariance function is discussed in great detail <a class="reference external" href="http://www.gaussianprocess.org/gpml/chapters/RW4.pdf">here</a>. We briefly discuss some properties of covariance functions here and then we shall move onto a discussion of what kind of prior beliefs we can encode through the covariance function.</p>
+<p>A covariance function (or covariance kernel) defines a nearness or similarity measure on the input space. We cannot choose any arbitrary function of two variables as a covariance kernel. How we determine a covariance function is discussed in great detail <a class="reference external" href="http://www.gaussianprocess.org/gpml/chapters/RW4.pdf">here</a>. We briefly discuss some properties of covariance functions here, then we shall move on to a discussion of what kind of prior beliefs we can encode through the covariance function.</p>
 </section>
 <section id="properties-of-the-covariance-function">
 <h3>Properties of the covariance function<a class="headerlink" href="#properties-of-the-covariance-function" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>There is one property of the covariance function that we can note right away.
 Namely, that for any <span class="math notranslate nohighlight">\(\mathbf{x}\in\mathbb{R}^d\)</span>, <span class="math notranslate nohighlight">\(k(\mathbf{x}, \mathbf{x}) &gt; 0\)</span>.
-This is easly understood by the interpretation of <span class="math notranslate nohighlight">\(k(\mathbf{x}, \mathbf{x})\)</span> as the variance
+This is easily understood by the interpretation of <span class="math notranslate nohighlight">\(k(\mathbf{x}, \mathbf{x})\)</span> as the variance
 of the random variable <span class="math notranslate nohighlight">\(f(\mathbf{x})\)</span>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(k(\mathbf{x}, \mathbf{x}')\)</span> becomes smaller as the distance between <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}'\)</span> grows.</p></li>
 <li><p>For any choice of points <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{n\times d}\)</span>, the covariance matrix: <span class="math notranslate nohighlight">\(\mathbf{K}(\mathbf{X}, \mathbf{X})\)</span> has
@@ -840,7 +826,7 @@ normal distribution).</p></li>
 <ul class="simple">
 <li><p><strong>Modeling regularity</strong>. The choice of the covariance function controls the regularity properties of the functions sampled from the probability induced by the GP. For example, if the covariance kernel chosen is the squared exponential kernel, which is infinitely differentiable, then the functions sampled from the GP will also be infinitely differentiable.</p></li>
 <li><p><strong>Modeling invariance</strong> If the covariance kernel is invariant w.r.t. a transformation <span class="math notranslate nohighlight">\(T\)</span>, i.e., <span class="math notranslate nohighlight">\(k(\mathbf{x}, T\mathbf{x}')=k(T\mathbf{x}, \mathbf{x}')=k(\mathbf{x}, \mathbf{x}')\)</span> then samples from the GP will be invariant w.r.t. the same transformation.</p></li>
-<li><p>Other possibilities include periodicity, additivity etc.</p></li>
+<li><p>Other possibilities include periodicity, additivity, etc.</p></li>
 </ul>
 </section>
 </section>
@@ -913,8 +899,6 @@ normal distribution).</p></li>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#readings">Readings</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation-a-fully-bayesian-paradigm-for-curve-fitting">Motivation: A fully Bayesian paradigm for curve fitting</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-mathematical-terminology">Some mathematical terminology</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-process">Gaussian process</a><ul class="nav section-nav flex-column">

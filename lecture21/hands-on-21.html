@@ -575,7 +575,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-process-code">Gaussian process code</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#squared-exponential-covariance-function">Squared exponential covariance function</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-plotting-a-covariance-function">Example 1: Plotting a covariance function</a><ul class="nav section-nav flex-column">
@@ -610,12 +609,12 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -624,20 +623,12 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="example-priors-on-function-spaces">
 <h1>Example: Priors on function spaces<a class="headerlink" href="#example-priors-on-function-spaces" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Sample from a Gaussian process</p></li>
-<li><p>Understand the effect of the mean function</p></li>
-<li><p>Understand the effect of the covariance function</p></li>
-</ul>
-</section>
 <section id="gaussian-process-code">
 <h2>Gaussian process code<a class="headerlink" href="#gaussian-process-code" title="Permalink to this heading">#</a></h2>
-<p>In this and the next couple of lectures we will be using the Python module <a class="reference external" href="https://sheffieldml.github.io/GPy/">GPy</a>.
+<p>In this and the following few lectures, we will use the Python module <a class="reference external" href="https://sheffieldml.github.io/GPy/">GPy</a>.
 We need to make sure that it is installed before we proceed.
-On Google Colab make sure you run the following:</p>
-<div class="cell docutils container">
+On Google Colab, make sure you run the following:</p>
+<div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>GPy
 </pre></div>
@@ -1097,7 +1088,6 @@ See <a class="reference external" href="https://gpytorch.ai">https://gpytorch.ai
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-process-code">Gaussian process code</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#squared-exponential-covariance-function">Squared exponential covariance function</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-plotting-a-covariance-function">Example 1: Plotting a covariance function</a><ul class="nav section-nav flex-column">
