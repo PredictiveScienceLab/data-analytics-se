@@ -579,15 +579,34 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#squared-exponential-covariance-function">Squared exponential covariance function</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-plotting-a-covariance-function">Example 1: Plotting a covariance function</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-plot-2d-covariance-function">Example 2: Plot 2D covariance function</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Questions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-properties-of-the-covariance-matrix">Example 2: Properties of the covariance matrix</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-properties-of-the-covariance-matrix">Example 3: Properties of the covariance matrix</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Questions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-sampling-from-a-gaussian-process">Example 3: Sampling from a Gaussian process</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-sampling-from-a-gaussian-process">Example 4: Sampling from a Gaussian process</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Questions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controlling-the-lengthscale-of-the-sampled-functions">Controlling the lengthscale of the sampled functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Questions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controlling-the-trend-of-the-sampled-functions">Controlling the trend of the sampled functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Questions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-mean-function-not-in-the-gpytorch-library">Using a mean function not in the GPytorch library</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Questions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-smoothness-of-the-sampled-functions-is-controlled-by-the-smoothness-of-the-covariance-function">The smoothness of the sampled functions is controlled by the smoothness of the covariance function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Questions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-5-modeling-invariances">Example 5: Modeling invariances</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Questions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stationary-and-non-stationary-covariance-functions">Stationary and non-stationary covariance functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Questions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-or-more-length-scales-in-samples">Two (or more) length scales in samples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Questions</a></li>
 </ul>
 </li>
 </ul>
@@ -625,12 +644,10 @@ document.write(`
 <h1>Example: Priors on function spaces<a class="headerlink" href="#example-priors-on-function-spaces" title="Permalink to this heading">#</a></h1>
 <section id="gaussian-process-code">
 <h2>Gaussian process code<a class="headerlink" href="#gaussian-process-code" title="Permalink to this heading">#</a></h2>
-<p>In this and the following few lectures, we will use the Python module <a class="reference external" href="https://sheffieldml.github.io/GPy/">GPy</a>.
-We need to make sure that it is installed before we proceed.
-On Google Colab, make sure you run the following:</p>
+<p>We will use the <a class="reference external" href="https://gpytorch.ai/">GPyTorch</a> library to implement Gaussian processes. This library is built on top of PyTorch, which is a popular library for deep learning. We will learn more about PyTorch as we go and we will be more elaborate about it in <a class="reference internal" href="../lecture24/hands-on-24.html#regression-with-deep-neural-networks"><span class="std std-ref">Lecture 24</span></a>. The main purpose of PyTorch is to help us with automatic differentiation. For now, think of it as an alternative to numpy that allows us to compute gradients of functions.</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>GPy
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>gpytorch
 </pre></div>
 </div>
 </div>
@@ -638,7 +655,7 @@ On Google Colab, make sure you run the following:</p>
 </section>
 <section id="squared-exponential-covariance-function">
 <h2>Squared exponential covariance function<a class="headerlink" href="#squared-exponential-covariance-function" title="Permalink to this heading">#</a></h2>
-<p>Squared expnential (SE) is the most commonly used covariance function.
+<p>Squared exponential (SE) is the most commonly used covariance function.
 Its formula is as follows:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -652,11 +669,15 @@ about the mean.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\ell_i\)</span> is known as the <em>length scale</em> of the <span class="math notranslate nohighlight">\(i\)</span>-th input dimension of the GP.
 The bigger it is, the smoother the samples of <span class="math notranslate nohighlight">\(f(\cdot)\)</span> appear along the <span class="math notranslate nohighlight">\(i\)</span>-th input dimension.</p></li>
 </ul>
-<p>Let’s experiment with this for a while:</p>
+<p>GPytorch implements this covariance function as a composition of two kernels: <code class="docutils literal notranslate"><span class="pre">RBFKernel</span></code> and <code class="docutils literal notranslate"><span class="pre">ScaleKernel</span></code>.
+The <code class="docutils literal notranslate"><span class="pre">RBFKernel</span></code> is the squared exponential kernel (without the <span class="math notranslate nohighlight">\(v\)</span>), and the <code class="docutils literal notranslate"><span class="pre">ScaleKernel</span></code> is the kernel that scales the output of the <code class="docutils literal notranslate"><span class="pre">RBFKernel</span></code> by a constant factor (i.e., the <span class="math notranslate nohighlight">\(v\)</span>).
+Here is how:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the GPy module:</span>
-<span class="kn">import</span> <span class="nn">GPy</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">gpytorch</span>
+<span class="kn">from</span> <span class="nn">gpytorch.kernels</span> <span class="kn">import</span> <span class="n">RBFKernel</span><span class="p">,</span> <span class="n">ScaleKernel</span>
+
 <span class="c1"># The input dimension</span>
 <span class="n">dim</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="c1"># The variance of the covariance kernel</span>
@@ -664,22 +685,44 @@ The bigger it is, the smoother the samples of <span class="math notranslate nohi
 <span class="c1"># The lengthscale of the covariance kernel</span>
 <span class="n">ell</span> <span class="o">=</span> <span class="mf">0.3</span>
 <span class="c1"># Generate the covariance object</span>
-<span class="n">k</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="n">variance</span><span class="p">,</span> <span class="n">lengthscale</span><span class="o">=</span><span class="n">ell</span><span class="p">)</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
+        <span class="n">RBFKernel</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">ell</span><span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">variance</span><span class="p">)</span>
 <span class="c1"># Print it</span>
-<span class="nb">print</span> <span class="p">(</span><span class="n">k</span><span class="p">)</span>
-<span class="c1"># and plot it</span>
-<span class="n">k</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+<span class="n">k</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  <span class=" -Color -Color-Bold">rbf.       </span>  |  value  |  constraints  |  priors
-  <span class=" -Color -Color-Bold">variance   </span>  |    1.0  |      +ve      |        
-  <span class=" -Color -Color-Bold">lengthscale</span>  |    0.3  |      +ve      |        
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ScaleKernel(
+  (base_kernel): RBFKernel(
+    (raw_lengthscale_constraint): Positive()
+  )
+  (raw_outputscale_constraint): Positive()
+)
 </pre></div>
 </div>
-<img alt="../_images/6ea4fd8179e65ca679f05f518d3b3628bc14ec68444f274c1898f5b59b234a43.png" src="../_images/6ea4fd8179e65ca679f05f518d3b3628bc14ec68444f274c1898f5b59b234a43.png" />
 </div>
+</div>
+<p>And here is how you can plot this covariance function when you set one input to zero:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1"># Plot the covariance function</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">200</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="n">zero</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="n">ks</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ks</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$k(0,x)$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/56ddd6d70a7b516408fb01423dba19db2a67fd540bf58915f86bed2b91aa4d0d.svg" src="../_images/56ddd6d70a7b516408fb01423dba19db2a67fd540bf58915f86bed2b91aa4d0d.svg" /></div>
 </div>
 </section>
 <section id="example-1-plotting-a-covariance-function">
@@ -688,48 +731,117 @@ The bigger it is, the smoother the samples of <span class="math notranslate nohi
 <blockquote>
 <div><p>The covariance function <span class="math notranslate nohighlight">\(k(x,x')\)</span> measures the similarity of <span class="math notranslate nohighlight">\(f(x)\)</span> and <span class="math notranslate nohighlight">\(f(x')\)</span>.</p>
 </div></blockquote>
-<p>Here is some code to draw <span class="math notranslate nohighlight">\(k(\mathbf{x}, \mathbf{x}'=0)\)</span> in one dimension:</p>
+<p>Let’s organize the plotting code in a function so that you can experiment with different parameters:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_kernel</span><span class="p">(</span><span class="n">variance</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">ell</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
-    <span class="n">k</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span>
-        <span class="n">dim</span><span class="p">,</span>
-        <span class="n">variance</span><span class="o">=</span><span class="n">variance</span><span class="p">,</span>
-        <span class="n">lengthscale</span><span class="o">=</span><span class="n">ell</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the covariance function.&quot;&quot;&quot;</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
+        <span class="n">RBFKernel</span><span class="p">()</span>
     <span class="p">)</span>
-    <span class="n">k</span><span class="o">.</span><span class="n">plot_covariance</span><span class="p">()</span>
+    <span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">ell</span><span class="p">)</span>
+    <span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">variance</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">200</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="n">zero</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="n">ks</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ks</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$k(0,x)$&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_kernel</span><span class="p">(</span><span class="n">variance</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">ell</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_kernel</span><span class="p">(</span><span class="n">variance</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">ell</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6ea4fd8179e65ca679f05f518d3b3628bc14ec68444f274c1898f5b59b234a43.png" src="../_images/6ea4fd8179e65ca679f05f518d3b3628bc14ec68444f274c1898f5b59b234a43.png" />
-</div>
+<img alt="../_images/82e9c21eda8b07f6ea4ed63abc1b568440bcadd0375915db9ac21cb75d33b281.svg" src="../_images/82e9c21eda8b07f6ea4ed63abc1b568440bcadd0375915db9ac21cb75d33b281.svg" /></div>
 </div>
 <section id="questions">
 <h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>What happens as you increase <span class="math notranslate nohighlight">\(\ell\)</span>?</p></li>
 <li><p>What happens as you decrease <span class="math notranslate nohighlight">\(v\)</span>?</p></li>
-<li><p>There are many other covariance functions that we could be using. Try changing <code class="docutils literal notranslate"><span class="pre">RBF</span></code> to <code class="docutils literal notranslate"><span class="pre">Exponential</span></code> in the <code class="docutils literal notranslate"><span class="pre">plot_kernel()</span></code> function. What changes do you nottice?</p></li>
+<li><p>There are many other covariance functions that we could be using. Use the following code to compare the <code class="docutils literal notranslate"><span class="pre">RBFKernel</span></code> with the <code class="docutils literal notranslate"><span class="pre">MaternKernel</span></code>. What do you observe?</p></li>
 </ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gpytorch.kernels</span> <span class="kn">import</span> <span class="n">MaternKernel</span>
+
+<span class="k">def</span> <span class="nf">compare_kernels</span><span class="p">(</span><span class="n">variance</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">ell</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compare the RBF and Matern kernels.&quot;&quot;&quot;</span>
+    <span class="n">k1</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
+        <span class="n">RBFKernel</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="n">k1</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">ell</span><span class="p">)</span>
+    <span class="n">k1</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">variance</span><span class="p">)</span>
+    <span class="n">k2</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
+        <span class="n">MaternKernel</span><span class="p">(</span><span class="n">nu</span><span class="o">=</span><span class="n">nu</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">k2</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">ell</span><span class="p">)</span>
+    <span class="n">k2</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">variance</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">500</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="n">zero</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="n">ks1</span> <span class="o">=</span> <span class="n">k1</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">ks2</span> <span class="o">=</span> <span class="n">k2</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ks1</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;RBF&#39;</span><span class="p">)</span> 
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ks2</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Matern $</span><span class="se">\\</span><span class="s1">nu=</span><span class="si">{}</span><span class="s1">$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nu</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$k(0,x)$&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Try the values 0.5, 1.5, 2.5 for nu (the only valid values)</span>
+<span class="n">compare_kernels</span><span class="p">(</span><span class="n">variance</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">ell</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/61c8da4fb808184916e7813af78d925f975787942ff1f8c6e11146899c6486ee.svg" src="../_images/61c8da4fb808184916e7813af78d925f975787942ff1f8c6e11146899c6486ee.svg" /></div>
+</div>
+</section>
+</section>
+<section id="example-2-plot-2d-covariance-function">
+<h2>Example 2: Plot 2D covariance function<a class="headerlink" href="#example-2-plot-2d-covariance-function" title="Permalink to this heading">#</a></h2>
 <p>Now here is some code to plot a 2D covariance function:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_kernel_2d</span><span class="p">(</span><span class="n">variance</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">ell1</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">ell2</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
-    <span class="n">k</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span>
-        <span class="mi">2</span><span class="p">,</span>
-        <span class="n">ARD</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">variance</span><span class="o">=</span><span class="n">variance</span><span class="p">,</span>
-        <span class="n">lengthscale</span><span class="o">=</span><span class="p">[</span><span class="n">ell1</span><span class="p">,</span> <span class="n">ell2</span><span class="p">]</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot a 2D covariance function.&quot;&quot;&quot;</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
+        <span class="n">RBFKernel</span><span class="p">(</span><span class="n">ard_num_dims</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="p">)</span>
-    <span class="n">k</span><span class="o">.</span><span class="n">plot_covariance</span><span class="p">()</span>
+    <span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">ell1</span><span class="p">,</span> <span class="n">ell2</span><span class="p">])</span>
+    <span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">variance</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="c1"># Get a grid of points</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+    <span class="c1"># Flatten the grid</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">x1</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">x2</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[:,</span> <span class="kc">None</span><span class="p">]),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Compute the covariance</span>
+    <span class="n">zero</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">ks</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="c1"># Plot the covariance</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">ks</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -737,29 +849,24 @@ The bigger it is, the smoother the samples of <span class="math notranslate nohi
 <p>You can use it like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_kernel_2d</span><span class="p">(</span><span class="n">variance</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">ell1</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">ell2</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_kernel_2d</span><span class="p">(</span><span class="n">variance</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">ell1</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">ell2</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> /opt/homebrew/lib/python3.9/site-packages/GPy/plotting/matplot_dep/plot_definitions.py:184: UserWarning:The following kwargs were not used by contour: &#39;label&#39;, &#39;linewidth&#39;
-</pre></div>
+<img alt="../_images/cddff4ba95eff65003c611e4bd2c84151020e6d1935f4c7bb533b8f0f9cc9fae.svg" src="../_images/cddff4ba95eff65003c611e4bd2c84151020e6d1935f4c7bb533b8f0f9cc9fae.svg" /></div>
 </div>
-<img alt="../_images/4f8966ed0a35820251f282cc8a13dea1f4e64de26b5cd922af04e6422f29298a.png" src="../_images/4f8966ed0a35820251f282cc8a13dea1f4e64de26b5cd922af04e6422f29298a.png" />
-</div>
-</div>
-</section>
 <section id="id1">
 <h3>Questions<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>What happens as you increase <span class="math notranslate nohighlight">\(\ell\)</span>?</p></li>
 <li><p>What happens as you decrease <span class="math notranslate nohighlight">\(v\)</span>?</p></li>
-<li><p>Try a couple of other covariances, e.g., <code class="docutils literal notranslate"><span class="pre">Matern32</span></code>, <code class="docutils literal notranslate"><span class="pre">Matern52</span></code>.</p></li>
+<li><p>Edit the code above to replace the <code class="docutils literal notranslate"><span class="pre">RBFKernel</span></code> with the <code class="docutils literal notranslate"><span class="pre">MaternKernel</span></code>. What do you observe?</p></li>
 </ul>
 </section>
 </section>
-<section id="example-2-properties-of-the-covariance-matrix">
-<h2>Example 2: Properties of the covariance matrix<a class="headerlink" href="#example-2-properties-of-the-covariance-matrix" title="Permalink to this heading">#</a></h2>
+<section id="example-3-properties-of-the-covariance-matrix">
+<h2>Example 3: Properties of the covariance matrix<a class="headerlink" href="#example-3-properties-of-the-covariance-matrix" title="Permalink to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}\)</span> be an arbitrary set of input points. The covariance matrix <span class="math notranslate nohighlight">\(\mathbf{K}\in\mathbb{R}^{n\times n}\)</span> defined by:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -771,7 +878,7 @@ k(\mathbf{x}_n, \mathbf{x}_1) &amp; \dots &amp; k(\mathbf{x}_n, \mathbf{x}_n)
 \end{array}
 \right),
 \end{split}\]</div>
-<p>must be <a class="reference external" href="https://en.wikipedia.org/wiki/Positive-definite_matrix">positive definite</a>. Mathematically this can be expressed in two equivalent ways:</p>
+<p>must be <a class="reference external" href="https://en.wikipedia.org/wiki/Positive-definite_matrix">positive definite</a>. Mathematically, this can be expressed in two equivalent ways:</p>
 <ul class="simple">
 <li><p>For all vectors <span class="math notranslate nohighlight">\(\mathbf{v}\in\mathbb{R}^T\)</span>, we have:</p></li>
 </ul>
@@ -786,8 +893,8 @@ k(\mathbf{x}_n, \mathbf{x}_1) &amp; \dots &amp; k(\mathbf{x}_n, \mathbf{x}_n)
 <h3>Questions<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>Using the code provided:</p>
 <ul class="simple">
-<li><p>Verify that the the sum of two covariance functions is a valid covariance function.</p></li>
-<li><p>Verify that the product of two covariance functions is a valid covariance function.</p></li>
+<li><p>Verify that the sum of two covariance functions is a positive definite.</p></li>
+<li><p>Verify that the product of two covariance functions is positive-definite.</p></li>
 <li><p>Is the following function a covariance function:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
@@ -817,25 +924,30 @@ k(x, x') = k_1(x, x') / k_2(x, x')?
 <span class="n">variance</span> <span class="o">=</span> <span class="mf">1.</span>
 
 <span class="c1"># The covariance function</span>
-<span class="n">k1</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">lengthscale</span><span class="o">=</span><span class="n">ell</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="n">variance</span><span class="p">)</span>
+<span class="n">k1</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
+        <span class="n">RBFKernel</span><span class="p">()</span>
+    <span class="p">)</span>
+<span class="n">k1</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">ell</span><span class="p">)</span>
+<span class="n">k1</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">variance</span><span class="p">)</span>
 
 <span class="c1"># Draw a random set of inputs points in [0, 1]^dim</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
 
 <span class="c1"># Evaluate the covariance matrix on these points</span>
-<span class="n">K</span> <span class="o">=</span> <span class="n">k1</span><span class="o">.</span><span class="n">K</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">K</span> <span class="o">=</span> <span class="n">k1</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
 
 <span class="c1"># Compute the eigenvalues of this matrix</span>
-<span class="n">eig_val</span><span class="p">,</span> <span class="n">eig_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>
+<span class="n">eig_val</span><span class="p">,</span> <span class="n">eig_vec</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>
 
 <span class="c1"># Plot the eigenvalues (they should all be positive)</span>
 <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;&gt; plotting eigenvalues of K&#39;</span><span class="p">)</span>
 <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;&gt; they must all be positive&#39;</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">eig_val</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">eig_val</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$i$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$\lambda_i$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$\lambda_i$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -844,13 +956,16 @@ k(x, x') = k_1(x, x') / k_2(x, x')?
 &gt; they must all be positive
 </pre></div>
 </div>
-<img alt="../_images/87c3a40f938984859fffdc538bf913009508ab81c33bdf4fe1ace8a30289a04b.png" src="../_images/87c3a40f938984859fffdc538bf913009508ab81c33bdf4fe1ace8a30289a04b.png" />
-</div>
+<img alt="../_images/61dc30a3a8d21c8460d734d1cd3d4609f06c3bcb9ac0a49d8ab6bc5441abedfc.svg" src="../_images/61dc30a3a8d21c8460d734d1cd3d4609f06c3bcb9ac0a49d8ab6bc5441abedfc.svg" /></div>
 </div>
 <p>Now create another covariance function:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k2</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">lengthscale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k2</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
+        <span class="n">RBFKernel</span><span class="p">()</span>
+    <span class="p">)</span>
+<span class="n">k2</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">ell</span><span class="p">)</span>
+<span class="n">k2</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -863,54 +978,64 @@ k(x, x') = k_1(x, x') / k_2(x, x')?
 </div>
 </div>
 </div>
-<p>If this is a valid covariance function, then it must be positive definite.
-Let’s test it:</p>
+<p>Here is how the new covariance function looks like:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute the covariance matrix:</span>
-<span class="n">K_new</span> <span class="o">=</span> <span class="n">k_new</span><span class="o">.</span><span class="n">K</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-
-<span class="c1"># and its eigenvalues</span>
-<span class="n">eig_val_new</span><span class="p">,</span> <span class="n">eig_vec_new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">K_new</span><span class="p">)</span>
-
-<span class="c1"># Plot the eigenvalues (they should all be positive)</span>
-<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;&gt; plotting eigenvalues of K&#39;</span><span class="p">)</span>
-<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;&gt; they must all be positive&#39;</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">eig_val_new</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$i$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$\lambda_i$&#39;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="n">zero</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="n">ks1</span> <span class="o">=</span> <span class="n">k1</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">ks2</span> <span class="o">=</span> <span class="n">k2</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">ks_new</span> <span class="o">=</span> <span class="n">k_new</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ks1</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;k1&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ks2</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;k2&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ks_new</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;k1 + k2&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$k(0,x)$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&gt; plotting eigenvalues of K
-&gt; they must all be positive
+<img alt="../_images/879f30335c019dd7d41304d94177581674c1def5750928aa7592421052669e59.svg" src="../_images/879f30335c019dd7d41304d94177581674c1def5750928aa7592421052669e59.svg" /></div>
+</div>
+<p>If this is a valid covariance function, then it must be positive-definite.
+Let’s test it:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">K_new</span> <span class="o">=</span> <span class="n">k_new</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+<span class="n">eig_val</span><span class="p">,</span> <span class="n">eig_vec</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">K_new</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">eig_val</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$i$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$\lambda_i$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
-<img alt="../_images/563f228d741c2d633c17d5325288327c67421301582e5cb24ed15c453c2fe4f6.png" src="../_images/563f228d741c2d633c17d5325288327c67421301582e5cb24ed15c453c2fe4f6.png" />
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/89b8902c848264b458f1f1946fb4374c8c5d30c7e35b0a87573027e9c4ffa367.svg" src="../_images/89b8902c848264b458f1f1946fb4374c8c5d30c7e35b0a87573027e9c4ffa367.svg" /></div>
 </div>
 </section>
 </section>
-<section id="example-3-sampling-from-a-gaussian-process">
-<h2>Example 3: Sampling from a Gaussian process<a class="headerlink" href="#example-3-sampling-from-a-gaussian-process" title="Permalink to this heading">#</a></h2>
-<p>Samples from a Gaussian process are functions. But, functions are infinite dimensional objects?
-We cannot sample directly from a GP….
+<section id="example-4-sampling-from-a-gaussian-process">
+<h2>Example 4: Sampling from a Gaussian process<a class="headerlink" href="#example-4-sampling-from-a-gaussian-process" title="Permalink to this heading">#</a></h2>
+<p>Samples from a Gaussian process are functions. But functions are infinite-dimensional objects?
+We cannot sample directly from a GP.
 However, if we are interested in the values of <span class="math notranslate nohighlight">\(f(\cdot)\)</span> at any given set of test points <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n} = \{\mathbf{x}_1,\dots,\mathbf{x}_b\}\)</span>, then we have that:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbf{f} | \mathbf{x}_{1:n} \sim \mathcal{N}\left(\mathbf{m}(\mathbf{x}_{1:n}), \mathbf{K}(\mathbf{x}_{1:n}, \mathbf{x}_{1:n}) \right),
 \]</div>
 <p>where all the quantities have been introduced above.
-This is
 What we are going to do is pick a dense set of points <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}\in\mathbb{R}^{n\times d}\)</span>
 sample the value of the GP, <span class="math notranslate nohighlight">\(\mathbf{f} = (f(\mathbf{x}_1),\dots,f(\mathbf{x}_n))\)</span> on these points.
 We saw above that the probability density of <span class="math notranslate nohighlight">\(\mathbf{f}\)</span> is just a multivariate normal
 with a mean vector that is specified from the mean function and a covariance matrix
 that is specified by the covariance function.
-Therefore, all we need to know is how to sample from the multivariate normal.
+Therefore, we only need to know how to sample from the multivariate normal.
 This is how we do it:</p>
 <ul class="simple">
 <li><p>Compute the Cholesky of <span class="math notranslate nohighlight">\(\mathbf{L}\)</span>:</p></li>
@@ -929,31 +1054,37 @@ This is how we do it:</p>
 \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># To gaurantee reproducibility</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gpytorch.means</span> <span class="kn">import</span> <span class="n">ConstantMean</span><span class="p">,</span> <span class="n">LinearMean</span>
+
+<span class="c1"># To ensure reproducibility of the experiments</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
 
 <span class="c1"># Number of test points</span>
-<span class="n">num_test</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">num_test</span> <span class="o">=</span> <span class="mi">20</span>
 
 <span class="c1"># Pick a covariance function</span>
-<span class="n">k</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">lengthscale</span><span class="o">=</span><span class="mf">.1</span><span class="p">)</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
+        <span class="n">RBFKernel</span><span class="p">()</span>
+    <span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
 
 <span class="c1"># Pick a mean function</span>
-<span class="n">mean_func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">mean_func</span> <span class="o">=</span> <span class="n">ConstantMean</span><span class="p">()</span>
 
 <span class="c1"># Pick a bunch of points over which you want to sample the GP</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num_test</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num_test</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
 
 <span class="c1"># Evaluate the mean function at X</span>
 <span class="n">m</span> <span class="o">=</span> <span class="n">mean_func</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
 <span class="c1"># Compute the covariance function at these points</span>
-<span class="n">nugget</span> <span class="o">=</span> <span class="mf">1e-6</span> <span class="c1"># This is a small number required for stability</span>
-<span class="n">C</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">K</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="n">nugget</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">nugget</span> <span class="o">=</span> <span class="mf">1e-5</span> <span class="c1"># This is a small number required for stability</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="n">nugget</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
 <span class="c1"># Compute the Cholesky of the covariance</span>
 <span class="c1"># Notice that we need to do this only once</span>
-<span class="n">L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+<span class="n">L</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
 
 <span class="c1"># Number of samples to take</span>
 <span class="n">num_samples</span> <span class="o">=</span> <span class="mi">3</span>
@@ -961,62 +1092,381 @@ This is how we do it:</p>
 <span class="c1"># Take 3 samples from the GP and plot them:</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="c1"># Plot the mean function</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">detach</span><span class="p">())</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_samples</span><span class="p">):</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>    <span class="c1"># Draw from standard normal</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>                  <span class="c1"># f = m + L * z</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="c1">#ax.set_ylim(-6., 6.)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>  
+    <span class="n">f</span> <span class="o">=</span> <span class="n">m</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">L</span> <span class="o">@</span> <span class="n">z</span>               
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/4403a691379bbd614f908ed5bb4124478d41a8005cfa81989137ee9e5daf51e1.png" src="../_images/4403a691379bbd614f908ed5bb4124478d41a8005cfa81989137ee9e5daf51e1.png" />
+<img alt="../_images/68c5ca7287f29f35509d2d1995e424b2f2d68fce95281327567541fdb8de2156.svg" src="../_images/68c5ca7287f29f35509d2d1995e424b2f2d68fce95281327567541fdb8de2156.svg" /></div>
 </div>
-</div>
-<p>The solid line is the mean function and the dashed lines are 3 samples of   f . These don’t look like functions yet. This is because we have used only 10 test points to represent the GP.</p>
+<p>The solid line is the mean function, and the dashed lines are three f samples. These do not look like functions yet. This is because we have used only 10 test points to represent the GP.</p>
 <section id="id3">
 <h3>Questions<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Edit the code above changing the number of test points <code class="docutils literal notranslate"><span class="pre">num_test</span></code> to 20, 50, 100. Rerun the example. How do your samples of   f look like now? Do they look more like functions to you? Imagine that the true nature of the GP appears when these test points become infinitely dense.</p></li>
-<li><p>Edit the code above and change the random seed to an arbitrary integer (just make up one). Rerun the example and notice how the sampled functions change.</p></li>
-<li><p>Edit the code above and change the variance first to 0.1 and then to 5 each time rerunning the example. Notice the values on the vertical axis of the plot. What happens to the sampled functions as you do this? What does the variance parameter of the SE control?</p></li>
-<li><p>Edit the code above and now change the length-scale parameter first to 0.05 and then to 1. What happens to the sampled functions as you do this? What does the length- scale parameter of the SE control?</p></li>
-<li><p>Now set the variance and the length-scale back to their original values (1. and 0.1, respectively). Edit the code and change the mean function to:</p></li>
+<li><p>Edit the code above changing the number of test points <code class="docutils literal notranslate"><span class="pre">num_test</span></code> to 20, 50, 100. Rerun the example. What do your samples of f look like now? Do they look more like functions to you? Imagine that the true nature of the GP appears when these test points become infinitely dense.</p></li>
+<li><p>Edit the code above and change the random seed to an arbitrary integer (makeup one). Rerun the example and notice how the sampled functions change.</p></li>
+</ul>
+</section>
+<section id="controlling-the-lengthscale-of-the-sampled-functions">
+<h3>Controlling the lengthscale of the sampled functions<a class="headerlink" href="#controlling-the-lengthscale-of-the-sampled-functions" title="Permalink to this heading">#</a></h3>
+<p>Let’s put all the code above in a function so that we can experiment with different parameters:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">kernel_func</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">num_test</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">nugget</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sample functions from a Gaussian process.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        mean_func -- the mean function. It must be a callable that takes a tensor</span>
+<span class="sd">            of shape (num_test, dim) and returns a tensor of shape (num_test, 1).</span>
+<span class="sd">        kernel_func -- the covariance function. It must be a callable that takes</span>
+<span class="sd">            a tensor of shape (num_test, dim) and returns a tensor of shape</span>
+<span class="sd">            (num_test, num_test).</span>
+<span class="sd">        num_samples -- the number of samples to take. Defaults to 10.</span>
+<span class="sd">        num_test -- the number of test points. Defaults to 100.</span>
+<span class="sd">        nugget -- a small number required for stability. Defaults to 1e-5.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num_test</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">mean_func</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="n">nugget</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_samples</span><span class="p">):</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span> 
+        <span class="n">f</span> <span class="o">=</span> <span class="n">m</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">L</span> <span class="o">@</span> <span class="n">z</span>  
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">f</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> 
+                <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sample&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<p>Here is how to use it:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_func</span> <span class="o">=</span> <span class="n">ConstantMean</span><span class="p">()</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
+        <span class="n">RBFKernel</span><span class="p">()</span>
+    <span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/38324ae6282bf66912cd1da6e9d34e99b132e05dfe45bea45717dca0a0d040c2.svg" src="../_images/38324ae6282bf66912cd1da6e9d34e99b132e05dfe45bea45717dca0a0d040c2.svg" /></div>
+</div>
+</section>
+<section id="id4">
+<h3>Questions<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Use the code above and change the variance to 0.1 and then to 3 each time rerunning the example. Notice the values on the vertical axis of the plot. What happens to the sampled functions as you do this? What is the variance parameter of the SE control?</p></li>
+<li><p>Edit the above code and change the lengthscale parameter to 0.05 and 1. What happens to the sampled functions as you do this?</p></li>
+</ul>
+</section>
+<section id="controlling-the-trend-of-the-sampled-functions">
+<h3>Controlling the trend of the sampled functions<a class="headerlink" href="#controlling-the-trend-of-the-sampled-functions" title="Permalink to this heading">#</a></h3>
+<p>We control the trend using the mean function. Let’s do a linear mean function:</p>
+<div class="math notranslate nohighlight">
+\[
+m(x) = ax + b.
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+<span class="n">mean_func</span> <span class="o">=</span> <span class="n">LinearMean</span><span class="p">(</span><span class="n">input_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">mean_func</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">a</span><span class="p">]))</span>
+<span class="n">mean_func</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">b</span><span class="p">]))</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
+        <span class="n">RBFKernel</span><span class="p">()</span>
+    <span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/db565c741bcae3934e10ad62e5a22c797d59581e41d869e7e83a30d4004300f5.svg" src="../_images/db565c741bcae3934e10ad62e5a22c797d59581e41d869e7e83a30d4004300f5.svg" /></div>
+</div>
+</section>
+<section id="id5">
+<h3>Questions<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Modify the code above to set the mean function to:</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="n">mean_fun</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">x</span>
 </pre></div>
 </div>
-<p>Re-run the example. What do you observe? Try a couple more. For example, try:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="n">mean_fun</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
+</section>
+<section id="using-a-mean-function-not-in-the-gpytorch-library">
+<h3>Using a mean function not in the GPytorch library<a class="headerlink" href="#using-a-mean-function-not-in-the-gpytorch-library" title="Permalink to this heading">#</a></h3>
+<p>Let’s use a mean function that is not in the GPytorch library. We will the mean function:</p>
+<div class="math notranslate nohighlight">
+\[
+    m(x) = a\sin(\omega x),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(\omega\)</span> are parameters.
+We need to inherit from the <code class="docutils literal notranslate"><span class="pre">gpytorch.means.Mean</span></code> class and implement the <code class="docutils literal notranslate"><span class="pre">forward</span></code> method:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyMean</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A custom mean function.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">()):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="o">*</span><span class="n">batch_shape</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="s2">&quot;omega&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="o">*</span><span class="n">batch_shape</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">omega</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>So far, all the samples we have seen are smooth. There is this theorem that says that the samples of the GP will be as smooth as the covariance function we use. Since the SE covariance is infinitely smooth, the samples we draw are infinitely smooth. The <a class="reference external" href="https://en.wikipedia.org/wiki/Mat%C3%A9rn_covariance_function">Matern 3-2 covariance function</a> is twice differentiable. Edit the code and
-change <code class="docutils literal notranslate"><span class="pre">RBF</span></code> to <code class="docutils literal notranslate"><span class="pre">Matern32</span></code>. Rerun the example. How smooth are the samples now?</p></li>
-<li><p>The exponential covariance function is continuous but not differentiable. Edit the code and change <code class="docutils literal notranslate"><span class="pre">RBF</span></code> to <code class="docutils literal notranslate"><span class="pre">Exponential</span></code>. Rerun the example. How smooth are the samples now?</p></li>
-<li><p>The covariance function can also be used to model invariances. The periodic exponential covariance function is… a periodic covariance function. Edit line 29 and change <code class="docutils literal notranslate"><span class="pre">RBF</span></code> to</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">PeriodicMatern32</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="mf">500.</span><span class="p">,</span> <span class="n">lengthscale</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</div>
+</div>
+<p>Let’s use it:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="n">omega</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mf">2.0</span>
+<span class="n">mean_func</span> <span class="o">=</span> <span class="n">MyMean</span><span class="p">()</span>
+<span class="n">mean_func</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">a</span><span class="p">]))</span>
+<span class="n">mean_func</span><span class="o">.</span><span class="n">omega</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">omega</span><span class="p">]))</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
+        <span class="n">RBFKernel</span><span class="p">()</span>
+    <span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Rerun the example. Do you notice the periodic pattern?</p>
-<ul class="simple">
-<li><p>How can you encode the information that there are two lengthscales in <span class="math notranslate nohighlight">\(f(\cdot)\)</span>. There are many ways to do this.
-Try summing or multiplying covariance functions.</p></li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The code above does scales as <span class="math notranslate nohighlight">\(N^2\)</span> where <span class="math notranslate nohighlight">\(N\)</span> is the number of test points.
-The memory requirements is similar.
-So, it is not efficient to sample like this when <span class="math notranslate nohighlight">\(N\)</span> is bigger than 2,000.
-In that case, we have to resort to approximate techniques.
-In particular, there are some neat techniques developed by A. Wilson from NYU.
-See <a class="reference external" href="https://gpytorch.ai">https://gpytorch.ai</a> if you want to learn more.</p>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/8a793b12c4c40b6061a76354330e0888be82485e143e187a7fabe25a7509a4a9.svg" src="../_images/8a793b12c4c40b6061a76354330e0888be82485e143e187a7fabe25a7509a4a9.svg" /></div>
+</div>
+</section>
+<section id="id6">
+<h3>Questions<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Experiment with different values of the lengthscale and variance parameters.</p></li>
+<li><p>Modify the code above to model an exponential decay trend:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+    m(x) = a\exp(-\omega x).
+\]</div>
+</section>
+<section id="the-smoothness-of-the-sampled-functions-is-controlled-by-the-smoothness-of-the-covariance-function">
+<h3>The smoothness of the sampled functions is controlled by the smoothness of the covariance function<a class="headerlink" href="#the-smoothness-of-the-sampled-functions-is-controlled-by-the-smoothness-of-the-covariance-function" title="Permalink to this heading">#</a></h3>
+<p>The smoothness of the function is the number of times it is continuously differentiable.
+There is a theorem that says that the smoothness of the sampled functions is controlled by the smoothness of the covariance function <span id="id7">[]</span>.
+The covariance function that we have been using so far is the squared exponential (SE) covariance function.
+The SE covariance function is infinitely differentiable.
+So, the sampled functions are infinitely differentiable.</p>
+<p>Let’s look at the samples of a function that is not infinitely differentiable.
+We will use the Matérn covariance function:</p>
+<div class="math notranslate nohighlight">
+\[
+k(x, x') = \frac{2^{1-\nu}}{\Gamma(\nu)}\left(\sqrt{2\nu}\frac{|x-x'|}{\ell}\right)^\nu K_\nu\left(\sqrt{2\nu}\frac{|x-x'|}{\ell}\right),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Gamma(\cdot)\)</span> is the gamma function, <span class="math notranslate nohighlight">\(K_\nu(\cdot)\)</span> is the modified Bessel function of the second kind, <span class="math notranslate nohighlight">\(\nu&gt;0\)</span> is a parameter, and <span class="math notranslate nohighlight">\(\ell&gt;0\)</span> is the lengthscale parameter.
+Samples from the Matérn covariance function are <span class="math notranslate nohighlight">\(\text{ceil}(\nu)-1\)</span> times differentiable, where <span class="math notranslate nohighlight">\(\text{ceil}(\cdot)\)</span> is the ceiling function.
+For example if <span class="math notranslate nohighlight">\(\nu=1.5\)</span>, then the samples are <span class="math notranslate nohighlight">\(\text{ceil}(1.5)-1=2 - 1 = 1\)</span> times differentiable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_func</span> <span class="o">=</span> <span class="n">ConstantMean</span><span class="p">()</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
+        <span class="n">MaternKernel</span><span class="p">(</span><span class="n">nu</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">num_test</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e3db34a4ef755c5fe5b29bb5bedc8fbafb02b75ec01dffd49acf3ffba6f8584f.svg" src="../_images/e3db34a4ef755c5fe5b29bb5bedc8fbafb02b75ec01dffd49acf3ffba6f8584f.svg" /></div>
+</div>
+</section>
+<section id="id8">
+<h3>Questions<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Experiment with different values <span class="math notranslate nohighlight">\(\nu = 1.5\)</span> and <span class="math notranslate nohighlight">\(\nu=0.5\)</span>.</p></li>
+<li><p>For <span class="math notranslate nohighlight">\(\nu=0.5\)</span> you get continuous but nowhere differentiable samples. To appreciate this, set the number of samples to 1 and increase the number of test points to 1000. If you go through the trouble of modifying the plotting code to zoom in a small region of the plot, you will see that the samples are self-similar. You have just discovered a fractal!</p></li>
+</ul>
+</section>
+</section>
+<section id="example-5-modeling-invariances">
+<h2>Example 5: Modeling invariances<a class="headerlink" href="#example-5-modeling-invariances" title="Permalink to this heading">#</a></h2>
+<p>The covariance function can also be used to model invariances.
+It is better to explain this with an example.</p>
+<p>One common invariance is translation invariance:</p>
+<div class="math notranslate nohighlight">
+\[
+f(x + \delta) = f(x), \quad \forall x\in\mathbb{R}, \delta\in\mathbb{R}.
+\]</div>
+<p>One can show that if the covariance function is translation invariant, then samples are also translation invariant.
+An example of a translation invariant covariance function is the <code class="docutils literal notranslate"><span class="pre">PeriodicKernel</span></code>:</p>
+<div class="math notranslate nohighlight">
+\[
+k(x, x') = \exp\left\{-\frac{2}{\ell}\sin^2\left(\frac{\pi}{p}|x-x'|\right)\right\},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(v,\ell&gt;0\)</span> are parameters and <span class="math notranslate nohighlight">\(p&gt;0\)</span> is the period parameter (the <span class="math notranslate nohighlight">\(\delta\)</span> above).
+Let’s look at the samples:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gpytorch.kernels</span> <span class="kn">import</span> <span class="n">PeriodicKernel</span>
+<span class="n">mean_func</span> <span class="o">=</span> <span class="n">ConstantMean</span><span class="p">()</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
+        <span class="n">PeriodicKernel</span><span class="p">()</span>
+    <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">period_length</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_test</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">nugget</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PeriodicKernel(
+  (raw_lengthscale_constraint): Positive()
+  (raw_period_length_constraint): Positive()
+)
+</pre></div>
+</div>
+<img alt="../_images/b8584aaa00d985aa892c9e7ec1be4daff9040ffcc527eba63d102d3b5204bef6.svg" src="../_images/b8584aaa00d985aa892c9e7ec1be4daff9040ffcc527eba63d102d3b5204bef6.svg" /></div>
+</div>
+<section id="id9">
+<h3>Questions<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Experiment with different values of the period parameter <span class="math notranslate nohighlight">\(p\)</span> and the lengthscale parameter <span class="math notranslate nohighlight">\(\ell\)</span>. Note that at some point you will get an error because the covariance matrix will become singular. You will have to increase the nugget parameter to overcome this.</p></li>
+</ul>
+</section>
+<section id="stationary-and-non-stationary-covariance-functions">
+<h3>Stationary and non-stationary covariance functions<a class="headerlink" href="#stationary-and-non-stationary-covariance-functions" title="Permalink to this heading">#</a></h3>
+<p>So far we have only used stationary covariance functions.
+A covariance function is stationary if it depends only on the distance between the inputs:</p>
+<div class="math notranslate nohighlight">
+\[
+k(x, x') = k(|x-x'|).
+\]</div>
+<p>This means that the samples from that covariance function look similar everywhere.</p>
+<p>Sometimes, we want to model functions that are not behaving in a similar manner for all inputs.
+For example, they may have more wiggles in some parts of the input space than others.
+A classic non-stationary covariance function is the <code class="docutils literal notranslate"><span class="pre">LinearKernel</span></code>:</p>
+<div class="math notranslate nohighlight">
+\[
+k(x, x') = vxx',
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(v&gt;0\)</span> is a variance parameter.</p>
+<p>Let’s look at the samples:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gpytorch.kernels</span> <span class="kn">import</span> <span class="n">LinearKernel</span>
+
+<span class="n">mean_func</span> <span class="o">=</span> <span class="n">ConstantMean</span><span class="p">()</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">LinearKernel</span><span class="p">()</span>
+<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/fbe4781c912d730b366887d34507066da0e5410bb841c8f39d0ceb022eb89fb3.svg" src="../_images/fbe4781c912d730b366887d34507066da0e5410bb841c8f39d0ceb022eb89fb3.svg" /></div>
+</div>
+<p>They are lines starting from the origin.</p>
+<p>Another classic non-stationary covariance function is the <code class="docutils literal notranslate"><span class="pre">PolynomialKernel</span></code>:</p>
+<div class="math notranslate nohighlight">
+\[
+k(x, x') = (x^Tx' + c)^d,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(c\)</span> is an offset parameter and <span class="math notranslate nohighlight">\(d\)</span> is a degree parameter.</p>
+<p>Let’s visualize the samples:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">offset</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([0.5000], grad_fn=&lt;SoftplusBackward0&gt;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gpytorch.kernels</span> <span class="kn">import</span> <span class="n">PolynomialKernel</span>
+
+<span class="n">mean_func</span> <span class="o">=</span> <span class="n">ConstantMean</span><span class="p">()</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span><span class="n">PolynomialKernel</span><span class="p">(</span><span class="n">power</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/db1872a550bc62bed67a3bf06d345d6e697353df0d69290ddcab83b741406bc5.svg" src="../_images/db1872a550bc62bed67a3bf06d345d6e697353df0d69290ddcab83b741406bc5.svg" /></div>
+</div>
+</section>
+<section id="id10">
+<h3>Questions<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Experiment with different values of the offsets and degrees.</p></li>
+</ul>
+</section>
+<section id="two-or-more-length-scales-in-samples">
+<h3>Two (or more) length scales in samples<a class="headerlink" href="#two-or-more-length-scales-in-samples" title="Permalink to this heading">#</a></h3>
+<p>Suppose that we have a function that is the sum of two functions: one that varies slowly and one that varies quickly.
+How can we model this?
+We need to use two covariance functions: one with a small lengthscale and one with a large lengthscale.
+Then we need to add the two covariance functions together.
+Let’s see how this works.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_func</span> <span class="o">=</span> <span class="n">ConstantMean</span><span class="p">()</span>
+<span class="n">kslow</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span><span class="n">RBFKernel</span><span class="p">())</span>
+<span class="n">kslow</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">kslow</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">kfast</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span><span class="n">RBFKernel</span><span class="p">())</span>
+<span class="n">kfast</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">kfast</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">kslow</span> <span class="o">+</span> <span class="n">kfast</span>
+<span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">num_test</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/fdf99972f956602daeb6018021dd7271e3670f0f21cdf47a0750bff8b9917dbd.svg" src="../_images/fdf99972f956602daeb6018021dd7271e3670f0f21cdf47a0750bff8b9917dbd.svg" /></div>
+</div>
+</section>
+<section id="id11">
+<h3>Questions<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Modify the code above to look at the product of two covariance functions.</p></li>
+<li><p>Modify the code to model a slowly varying periodic function contaminated by an additive noise coming from a Matérn covariance function that is nowhere differentiable.</p></li>
+</ul>
 </section>
 </section>
 </section>
@@ -1092,15 +1542,34 @@ See <a class="reference external" href="https://gpytorch.ai">https://gpytorch.ai
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#squared-exponential-covariance-function">Squared exponential covariance function</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-plotting-a-covariance-function">Example 1: Plotting a covariance function</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-plot-2d-covariance-function">Example 2: Plot 2D covariance function</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Questions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-properties-of-the-covariance-matrix">Example 2: Properties of the covariance matrix</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-properties-of-the-covariance-matrix">Example 3: Properties of the covariance matrix</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Questions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-sampling-from-a-gaussian-process">Example 3: Sampling from a Gaussian process</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-sampling-from-a-gaussian-process">Example 4: Sampling from a Gaussian process</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Questions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controlling-the-lengthscale-of-the-sampled-functions">Controlling the lengthscale of the sampled functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Questions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controlling-the-trend-of-the-sampled-functions">Controlling the trend of the sampled functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Questions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-mean-function-not-in-the-gpytorch-library">Using a mean function not in the GPytorch library</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Questions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-smoothness-of-the-sampled-functions-is-controlled-by-the-smoothness-of-the-covariance-function">The smoothness of the sampled functions is controlled by the smoothness of the covariance function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Questions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-5-modeling-invariances">Example 5: Modeling invariances</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Questions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stationary-and-non-stationary-covariance-functions">Stationary and non-stationary covariance functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Questions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-or-more-length-scales-in-samples">Two (or more) length scales in samples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Questions</a></li>
 </ul>
 </li>
 </ul>
