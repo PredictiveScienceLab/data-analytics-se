@@ -575,8 +575,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-gaussian-process-regression-with-fitted-hyperparameters">Example: Gaussian process regression with fitted hyperparameters</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
@@ -598,12 +596,12 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -612,18 +610,7 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="tuning-the-hyperparameters">
 <h1>Tuning the Hyperparameters<a class="headerlink" href="#tuning-the-hyperparameters" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Tune the hyper-parameters of a Gaussian process using maximum marginal likelihood.</p></li>
-</ul>
-</section>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="http://www.gaussianprocess.org/gpml/chapters/RW5.pdf">Chapter 5 of GP for ML textbook</a>.</p></li>
-</ul>
-</section>
+<p>We tune the hyper-parameters of a Gaussian process using maximum marginal likelihood. See Chapter 5 of <span id="id1">[<a class="reference internal" href="../bibliography.html#id12" title="Carl Edward Rasmussen and Christopher K. I. Williams. Gaussian Processes for Machine Learning. The MIT Press, 11 2005. ISBN 9780262256834. URL: https://doi.org/10.7551/mitpress/3206.001.0001, doi:10.7551/mitpress/3206.001.0001.">Rasmussen and Williams, 2005</a>]</span> for details.</p>
 <section id="example-gaussian-process-regression-with-fitted-hyperparameters">
 <h2>Example: Gaussian process regression with fitted hyperparameters<a class="headerlink" href="#example-gaussian-process-regression-with-fitted-hyperparameters" title="Permalink to this heading">#</a></h2>
 <p>Let’s generate synthetic data:</p>
@@ -637,24 +624,24 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
 
 <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 <span class="n">sigma</span> <span class="o">=</span> <span class="mf">0.4</span>
 <span class="n">f_true</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">4.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">Y</span> <span class="o">=</span> <span class="n">f_true</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">f_true</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="s1">&#39;kx&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/28d80770657ac1f759bb2e17f7c7a57dad00a5e627b9c3c642b079601119538f.png" src="../_images/28d80770657ac1f759bb2e17f7c7a57dad00a5e627b9c3c642b079601119538f.png" />
+<img alt="../_images/d640ae36ebfe80f6741f4d6b771a6ba790748d1e364eaf383368842528ccfd9e.svg" src="../_images/d640ae36ebfe80f6741f4d6b771a6ba790748d1e364eaf383368842528ccfd9e.svg" /></div>
 </div>
-</div>
-<p>Some of our code for plotting posterior predictives:</p>
+<p>We repeat some of the code from the previous section:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -664,7 +651,7 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_1d_regression</span><span class="p">(</span>
     <span class="n">x_star</span><span class="p">,</span>
-    <span class="n">gpm</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">,</span>
     <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">f_true</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">num_samples</span><span class="o">=</span><span class="mi">10</span>
@@ -673,68 +660,74 @@ document.write(`
 <span class="sd">    </span>
 <span class="sd">    Arguments</span>
 <span class="sd">    x_start  --  The test points on which to evaluate.</span>
-<span class="sd">    gpm      --  The trained model.</span>
+<span class="sd">    model    --  The trained model.</span>
 <span class="sd">    </span>
 <span class="sd">    Keyword Arguments</span>
 <span class="sd">    ax          --  An axes object to write on.</span>
 <span class="sd">    f_true      --  The true function.</span>
 <span class="sd">    num_samples --  The number of samples.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">m_star</span><span class="p">,</span> <span class="n">v_star</span> <span class="o">=</span> <span class="n">gpm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_star</span><span class="p">)</span>
+    <span class="n">f_star</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x_star</span><span class="p">)</span>
+    <span class="n">m_star</span> <span class="o">=</span> <span class="n">f_star</span><span class="o">.</span><span class="n">mean</span>
+    <span class="n">v_star</span> <span class="o">=</span> <span class="n">f_star</span><span class="o">.</span><span class="n">variance</span>
+    <span class="n">y_star</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="p">(</span><span class="n">f_star</span><span class="p">)</span>
+    <span class="n">yv_star</span> <span class="o">=</span> <span class="n">y_star</span><span class="o">.</span><span class="n">variance</span>
 
     <span class="n">f_lower</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">m_star</span> <span class="o">-</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_star</span> <span class="o">-</span> <span class="n">gpm</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">variance</span><span class="p">)</span>
+        <span class="n">m_star</span> <span class="o">-</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_star</span><span class="p">)</span>
     <span class="p">)</span>
     <span class="n">f_upper</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">m_star</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_star</span> <span class="o">-</span> <span class="n">gpm</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">variance</span><span class="p">)</span>
+        <span class="n">m_star</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_star</span><span class="p">)</span>
     <span class="p">)</span>
-    <span class="n">y_lower</span> <span class="o">=</span> <span class="n">m_star</span> <span class="o">-</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_star</span><span class="p">)</span>
-    <span class="n">y_upper</span> <span class="o">=</span> <span class="n">m_star</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_star</span><span class="p">)</span>
     
+    <span class="n">y_lower</span> <span class="o">=</span> <span class="n">m_star</span> <span class="o">-</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">yv_star</span><span class="p">)</span>
+    <span class="n">y_upper</span> <span class="o">=</span> <span class="n">m_star</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">yv_star</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
     
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_star</span><span class="p">,</span> <span class="n">m_star</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$m_n(x)$&#39;</span><span class="p">)</span>
-   
-    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
-        <span class="n">x_star</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
-        <span class="n">f_upper</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
-        <span class="n">y_upper</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
-        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
-        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span>
-    <span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
-        <span class="n">x_star</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
-        <span class="n">f_lower</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
-        <span class="n">f_upper</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
-        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span>
-        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$f(\mathbf</span><span class="si">{x}</span><span class="s1">^*)$ 95% pred.&#39;</span>
-    <span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
-        <span class="n">x_star</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
-        <span class="n">y_lower</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
-        <span class="n">f_lower</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
-        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
-        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$y^*$ 95% pred.&#39;</span>
-    <span class="p">)</span>
-            
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gpm</span><span class="o">.</span><span class="n">X</span><span class="p">,</span>
-            <span class="n">gpm</span><span class="o">.</span><span class="n">Y</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">train_inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">train_targets</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
             <span class="s1">&#39;kx&#39;</span><span class="p">,</span>
             <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
             <span class="n">markeredgewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observations&#39;</span>
     <span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">num_samples</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">f_post_samples</span> <span class="o">=</span> <span class="n">gpm</span><span class="o">.</span><span class="n">posterior_samples_f</span><span class="p">(</span>
-            <span class="n">x_star</span><span class="p">,</span>
-            <span class="n">num_samples</span>
-        <span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_star</span><span class="p">,</span> <span class="n">f_post_samples</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;b--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="s1">&#39;b--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Posterior samples&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">x_star</span><span class="p">,</span>
+        <span class="n">m_star</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+        <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$m_n(x)$&#39;</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
+        <span class="n">x_star</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+        <span class="n">f_lower</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+        <span class="n">f_upper</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$f(\mathbf</span><span class="si">{x}</span><span class="s1">^*)$ 95% pred.&#39;</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
+        <span class="n">x_star</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">y_lower</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">f_lower</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$y^*$ 95% pred.&#39;</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
+        <span class="n">x_star</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">f_upper</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">y_upper</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">)</span>
+
     
     <span class="k">if</span> <span class="n">f_true</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
@@ -744,257 +737,390 @@ document.write(`
             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True function&#39;</span>
         <span class="p">)</span>
         
+    <span class="k">if</span> <span class="n">num_samples</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">f_post_samples</span> <span class="o">=</span> <span class="n">f_star</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span>
+            <span class="n">sample_shape</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">10</span><span class="p">])</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">x_star</span><span class="p">,</span>
+            <span class="n">f_post_samples</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+            <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span>
+        <span class="p">)</span>
+        <span class="c1"># This is just to add the legend entry</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="p">[],</span>
+            <span class="p">[],</span>
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+            <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Posterior samples&quot;</span>
+        <span class="p">)</span>
+        
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
-    
-    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
-<p>Let’s pick a squared exponential kernel and make a model with Gaussian likelihood (the default choice):</p>
-<div class="cell docutils container">
+<p>Let’s build a Gaussian process model as usual:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">GPy</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">gpytorch</span>
+<span class="kn">from</span> <span class="nn">gpytorch.kernels</span> <span class="kn">import</span> <span class="n">RBFKernel</span><span class="p">,</span> <span class="n">ScaleKernel</span>
 
-<span class="n">k</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">gpm</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">GPRegression</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ExactGP</span><span class="p">(</span><span class="n">gpytorch</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">ExactGP</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mean_module</span> <span class="o">=</span> <span class="n">gpytorch</span><span class="o">.</span><span class="n">means</span><span class="o">.</span><span class="n">ConstantMean</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">covar_module</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span><span class="n">RBFKernel</span><span class="p">())</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">gpm</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">mean_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_module</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">covar_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">covar_module</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">gpytorch</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">MultivariateNormal</span><span class="p">(</span><span class="n">mean_x</span><span class="p">,</span> <span class="n">covar_x</span><span class="p">)</span>
+
+<span class="n">likelihood</span> <span class="o">=</span> <span class="n">gpytorch</span><span class="o">.</span><span class="n">likelihoods</span><span class="o">.</span><span class="n">GaussianLikelihood</span><span class="p">(</span>
+    <span class="n">noise_constraint</span><span class="o">=</span><span class="n">gpytorch</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="n">GreaterThan</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">train_x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+<span class="n">train_y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ExactGP</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Name : GP regression
-Objective : 13.029643687983668
-Number of Parameters : 3
-Number of Optimization Parameters : 3
-Updates : True
-Parameters:
-  <span class=" -Color -Color-Bold">GP_regression.         </span>  |  value  |  constraints  |  priors
-  <span class=" -Color -Color-Bold">rbf.variance           </span>  |    1.0  |      +ve      |        
-  <span class=" -Color -Color-Bold">rbf.lengthscale        </span>  |    1.0  |      +ve      |        
-  <span class=" -Color -Color-Bold">Gaussian_noise.variance</span>  |    1.0  |      +ve      |        
-</pre></div>
+</details>
 </div>
-</div>
-</div>
-<p>Let’s explain what all this means.
-Notice that there are some default values for the hyperparameters (they are all one).
-Also, notice that <code class="docutils literal notranslate"><span class="pre">GPy</span></code> is keeping track of how many parameters it needs to fit.
-Here we have three parameters (<span class="math notranslate nohighlight">\(s,\ell\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>).
-The second column are constraints for the parameters.
-The <code class="docutils literal notranslate"><span class="pre">+ve</span></code> term means that the corresponding hyperparamer has to be positive.
-Notice that there is nothing in the <code class="docutils literal notranslate"><span class="pre">priors</span></code> column.
-This is because we have set no priors right now.
-When this happens, <code class="docutils literal notranslate"><span class="pre">GPy</span></code> assumes that we assign a flat prior, i.e., here it assumes that we have assigned <span class="math notranslate nohighlight">\(p(\theta)\propto 1\)</span> and <span class="math notranslate nohighlight">\(p(\sigma)\propto 1\)</span>.
-That’s not the best choice, but it should be ok for now.</p>
-<p>Now, pay attention to the <code class="docutils literal notranslate"><span class="pre">Objective</span></code>. This is the <span class="math notranslate nohighlight">\(-\log p(\theta,\sigma|\mathcal{D})\)</span> for the current choice of parameters.
-Let’s now find the MAP:</p>
+<p>The model has the following parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">model.mean.constant</span></code>: the constant of the mean function.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model.covar_module.outputscale</span></code>: the output scale of the kernel (variance or signal strength).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model.covar_module.base_kernel.lengthscale</span></code>: the length scale of the kernel.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model.likelihood.noise</span></code>: the standard deviation of the noise.</p></li>
+</ul>
+<p>The mean constant can be any real number. The output scale, the length scale, and the noise standard deviation must be positive.
+Typically, one explicitly enforces the constraints by working with a transformed version of the parameters.
+For example, one works with its logarithm instead of the length scale.</p>
+<p>GPyTorch automatically does this for us.
+If you want to learn more about this, go over over <a class="reference external" href="https://docs.gpytorch.ai/en/stable/examples/00_Basic_Usage/Hyperparameters.htmls">this</a>.
+GPyTorch calls the transformed parameters <code class="docutils literal notranslate"><span class="pre">raw_&lt;NAME&gt;</span></code>.
+For example, the raw length scale is <code class="docutils literal notranslate"><span class="pre">model.covar_module.base_kernel.raw_lengthscale</span></code>.
+The raw parameters are the ones that are optimized.
+Here is how you can see them:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gpm</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">messages</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">gpm</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Parameter name: </span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s1">42</span><span class="si">}</span><span class="s1"> value = </span><span class="si">{</span><span class="n">param</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">1.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "763aa8b6b3534458b640157a1e7164a6", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Name : GP regression
-Objective : 9.376317801621127
-Number of Parameters : 3
-Number of Optimization Parameters : 3
-Updates : True
-Parameters:
-  <span class=" -Color -Color-Bold">GP_regression.         </span>  |                 value  |  constraints  |  priors
-  <span class=" -Color -Color-Bold">rbf.variance           </span>  |    0.4296554984401683  |      +ve      |        
-  <span class=" -Color -Color-Bold">rbf.lengthscale        </span>  |  0.023487942263585294  |      +ve      |        
-  <span class=" -Color -Color-Bold">Gaussian_noise.variance</span>  |   0.07952049967422603  |      +ve      |        
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Parameter name: likelihood.noise_covar.raw_noise           value = 0.00
+Parameter name: mean_module.raw_constant                   value = 0.00
+Parameter name: covar_module.raw_outputscale               value = 0.00
+Parameter name: covar_module.base_kernel.raw_lengthscale   value = 0.00
 </pre></div>
 </div>
 </div>
 </div>
-<p>Ok. We did find something with higher posterior value.
-Let’s plot the prediction:</p>
+<p>Here is now how we can maximize the marginal log likelihood:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xstar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
-<span class="n">plot_1d_regression</span><span class="p">(</span><span class="n">xstar</span><span class="p">,</span> <span class="n">gpm</span><span class="p">,</span> <span class="n">f_true</span><span class="o">=</span><span class="n">f_true</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># THis is necessary to initialize the model</span>
+<span class="c1"># but it is not all we need to do</span>
+<span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+<span class="c1">#likelihood.train()</span>
+
+<span class="c1"># This is the optimizer that we will use</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">LBFGS</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="c1"># This is the loss function</span>
+<span class="n">mll</span> <span class="o">=</span> <span class="n">gpytorch</span><span class="o">.</span><span class="n">mlls</span><span class="o">.</span><span class="n">ExactMarginalLogLikelihood</span><span class="p">(</span><span class="n">likelihood</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+
+<span class="c1"># This functions runs at each iteration of the optimizer</span>
+<span class="c1"># and it calculates the loss and its gradients</span>
+<span class="k">def</span> <span class="nf">closure</span><span class="p">():</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">train_x</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">mll</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">loss</span>
+
+<span class="c1"># This is the training loop</span>
+<span class="n">n_iter</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_iter</span><span class="p">):</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">closure</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Iter </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s1">3d</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">n_iter</span><span class="si">}</span><span class="s1"> - Loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># We are done training, so we can switch to eval mode</span>
+<span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+<span class="c1">#likelihood.eval();</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/89e8b11c6f82ae3b87451f7c4f0c35b5add2a8c15066b05db24cdb023e0d6544.png" src="../_images/89e8b11c6f82ae3b87451f7c4f0c35b5add2a8c15066b05db24cdb023e0d6544.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iter   1/10 - Loss: 1.195
+Iter   2/10 - Loss: 0.981
+Iter   3/10 - Loss: 0.985
+Iter   4/10 - Loss: 0.938
+Iter   5/10 - Loss: 0.936
+Iter   6/10 - Loss: 0.936
+Iter   7/10 - Loss: 0.936
+Iter   8/10 - Loss: 0.936
+Iter   9/10 - Loss: 0.936
+Iter  10/10 - Loss: 0.936
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ExactGP(
+  (likelihood): GaussianLikelihood(
+    (noise_covar): HomoskedasticNoise(
+      (raw_noise_constraint): GreaterThan(0.000E+00)
+    )
+  )
+  (mean_module): ConstantMean()
+  (covar_module): ScaleKernel(
+    (base_kernel): RBFKernel(
+      (raw_lengthscale_constraint): Positive()
+    )
+    (raw_outputscale_constraint): Positive()
+  )
+)
+</pre></div>
 </div>
 </div>
-<p>Admitidly, this doesn’t look very good.
-(Of course, we can tell this only because we know the truth).
-It seems that the assigned lengthscale is too small.
-Also, the likelihood variance seems smaller than it really is.
+</div>
+<p>It is convenient to organize this into a function that we can reuse:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Train the model.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    model   --  The model to train.</span>
+<span class="sd">    n_iter  --  The number of iterations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">LBFGS</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="n">mll</span> <span class="o">=</span> <span class="n">gpytorch</span><span class="o">.</span><span class="n">mlls</span><span class="o">.</span><span class="n">ExactMarginalLogLikelihood</span><span class="p">(</span><span class="n">likelihood</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">closure</span><span class="p">():</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">train_x</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">mll</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">loss</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_iter</span><span class="p">):</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">closure</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Iter </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s1">3d</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">n_iter</span><span class="si">}</span><span class="s1"> - Loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here are the trained parameters:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Parameter name: </span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s1">42</span><span class="si">}</span><span class="s1"> value = </span><span class="si">{</span><span class="n">param</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">1.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Parameter name: likelihood.noise_covar.raw_noise           value = -2.49
+Parameter name: mean_module.raw_constant                   value = -0.04
+Parameter name: covar_module.raw_outputscale               value = -0.63
+Parameter name: covar_module.base_kernel.raw_lengthscale   value = -3.73
+</pre></div>
+</div>
+</div>
+</div>
+<p>In terms of the original parameters:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mean constant: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">mean_module</span><span class="o">.</span><span class="n">constant</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;output scale: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">covar_module</span><span class="o">.</span><span class="n">outputscale</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;length scale: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">covar_module</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;noise: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">noise</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mean constant: -0.041
+output scale: 0.428
+length scale: 0.024
+noise: 0.080
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s plot the predictions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_star</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">plot_1d_regression</span><span class="p">(</span><span class="n">x_star</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">f_true</span><span class="o">=</span><span class="n">f_true</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e3761f6ffe71aa6a9455657f217e8b2984e8fbfddea9f7cc6a6c10d39a26ec8d.svg" src="../_images/e3761f6ffe71aa6a9455657f217e8b2984e8fbfddea9f7cc6a6c10d39a26ec8d.svg" /></div>
+</div>
+<p>Admittedly, this could look better.
+(We can tell this only because we know the truth).
+The assigned length scale is too small.
+Also, the likelihood variance seems smaller than it is.
 What do we do now?
 You have two choices:</p>
 <ul class="simple">
 <li><p>You encode some prior knowledge and repeat.</p></li>
 <li><p>You add some more data and repeat.</p></li>
 </ul>
-<p>Let’s start with some prior knowledge and let the other item for the questions section.
+<p>Let’s start with prior knowledge and leave the other item for the questions section.
 Let’s say that we know that the noise variance.
 How do we encode this?
 Here you go:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gpm</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">variance</span><span class="o">.</span><span class="n">constrain_fixed</span><span class="p">(</span><span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">gpm</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">noise_covar</span><span class="o">.</span><span class="n">noise</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<span class="c1"># Verify that the change went through</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;noise: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">noise</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># To make sure that the noise is not optimized, we need to do:</span>
+<span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">raw_noise</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">False</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Name : GP regression
-Objective : 9.649326603819407
-Number of Parameters : 3
-Number of Optimization Parameters : 2
-Updates : True
-Parameters:
-  <span class=" -Color -Color-Bold">GP_regression.         </span>  |                 value  |  constraints  |  priors
-  <span class=" -Color -Color-Bold">rbf.variance           </span>  |    0.4296554984401683  |      +ve      |        
-  <span class=" -Color -Color-Bold">rbf.lengthscale        </span>  |  0.023487942263585294  |      +ve      |        
-  <span class=" -Color -Color-Bold">Gaussian_noise.variance</span>  |   0.16000000000000003  |   +ve fixed   |        
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>noise: 0.100
 </pre></div>
 </div>
 </div>
 </div>
-<p>Notice that it now <code class="docutils literal notranslate"><span class="pre">GPy</span></code> reports that the likelihood variance is fixed.
-Let’s repeat the optimization:</p>
+<p>This makes the optimizer ignore the noise parameter. Let’s retrain:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gpm</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">messages</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">gpm</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "637ff80464204db9a6eb980a84b172a1", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Name : GP regression
-Objective : 9.574736850990453
-Number of Parameters : 3
-Number of Optimization Parameters : 2
-Updates : True
-Parameters:
-  <span class=" -Color -Color-Bold">GP_regression.         </span>  |                value  |  constraints  |  priors
-  <span class=" -Color -Color-Bold">rbf.variance           </span>  |   0.4079238212592344  |      +ve      |        
-  <span class=" -Color -Color-Bold">rbf.lengthscale        </span>  |   0.0504172036832454  |      +ve      |        
-  <span class=" -Color -Color-Bold">Gaussian_noise.variance</span>  |  0.16000000000000003  |   +ve fixed   |        
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iter   1/10 - Loss: 0.939
+Iter   2/10 - Loss: 0.939
+Iter   3/10 - Loss: 0.939
+Iter   4/10 - Loss: 0.939
+Iter   5/10 - Loss: 0.939
+Iter   6/10 - Loss: 0.939
+Iter   7/10 - Loss: 0.939
+Iter   8/10 - Loss: 0.939
+Iter   9/10 - Loss: 0.939
+Iter  10/10 - Loss: 0.939
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_1d_regression</span><span class="p">(</span><span class="n">xstar</span><span class="p">,</span> <span class="n">gpm</span><span class="p">,</span> <span class="n">f_true</span><span class="o">=</span><span class="n">f_true</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_1d_regression</span><span class="p">(</span><span class="n">x_star</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">f_true</span><span class="o">=</span><span class="n">f_true</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/52daa5270543a2985b4b618316be977f03e95421e2b131123c53a690370d1ffa.png" src="../_images/52daa5270543a2985b4b618316be977f03e95421e2b131123c53a690370d1ffa.png" />
-</div>
+<img alt="../_images/79262cfea1d5bc0f3f82ff10672bd7dc3f1fab6227e97eca3f60d2cd00b87a0e.svg" src="../_images/79262cfea1d5bc0f3f82ff10672bd7dc3f1fab6227e97eca3f60d2cd00b87a0e.svg" /></div>
 </div>
 <p>This looks better.
-But it seems that the automatically selected lengthscale is smaller than the true one.
-(Of course, in reality, we don’t really know what the true lengthscale is).
-Let’s assign a prior probability density on the lengthscale which pushes it to be greater.
-Since we are dealing with a positie parameter and we don’t know much about it, let’s assign an exponential prior with a rate of 2 (which will yield an expectation of 0.5):
+But, the automatically selected length scale seems smaller than the true one.
+Let’s assign a prior probability density on the length scale so that it is forced to be greater.
+Since we are dealing with a positive parameter and we don’t know much about it, let’s assign an exponential prior with a rate of 2 (which will yield an expectation of 0.5):
 $<span class="math notranslate nohighlight">\(
 \ell \sim \operatorname{Log-N}(0.2, 1).
 \)</span>$</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ell_prior</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">priors</span><span class="o">.</span><span class="n">LogGaussian</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ells</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ells</span><span class="p">,</span> <span class="n">ell_prior</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">ells</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$\ell$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$p(\ell)$&#39;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">covar_module</span><span class="o">.</span><span class="n">register_prior</span><span class="p">(</span>
+    <span class="s2">&quot;lengthscale_prior&quot;</span><span class="p">,</span>
+    <span class="n">gpytorch</span><span class="o">.</span><span class="n">priors</span><span class="o">.</span><span class="n">LogNormalPrior</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="k">lambda</span> <span class="n">module</span><span class="p">:</span> <span class="n">module</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s see what difference this makes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/363270e24d6face4959ced0a786effe5993e58f0cdb4d046787f5b9318a8a2f2.png" src="../_images/363270e24d6face4959ced0a786effe5993e58f0cdb4d046787f5b9318a8a2f2.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iter   1/10 - Loss: 1.510
+Iter   2/10 - Loss: 1.228
+Iter   3/10 - Loss: 1.226
+Iter   4/10 - Loss: 1.226
+Iter   5/10 - Loss: 1.226
+Iter   6/10 - Loss: 1.226
+Iter   7/10 - Loss: 1.226
+Iter   8/10 - Loss: 1.226
+Iter   9/10 - Loss: 1.226
+Iter  10/10 - Loss: 1.226
+</pre></div>
+</div>
 </div>
 </div>
 <p>Now here is how you can set it:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gpm</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">lengthscale</span><span class="o">.</span><span class="n">set_prior</span><span class="p">(</span><span class="n">ell_prior</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">gpm</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mean constant: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">mean_module</span><span class="o">.</span><span class="n">constant</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;output scale: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">covar_module</span><span class="o">.</span><span class="n">outputscale</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;length scale: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">covar_module</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;noise: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">noise</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>reconstraining parameters GP_regression.rbf.lengthscale
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Name : GP regression
-Objective : 15.598610190278492
-Number of Parameters : 3
-Number of Optimization Parameters : 2
-Updates : True
-Parameters:
-  <span class=" -Color -Color-Bold">GP_regression.         </span>  |                value  |  constraints  |    priors   
-  <span class=" -Color -Color-Bold">rbf.variance           </span>  |   0.4079238212592344  |      +ve      |             
-  <span class=" -Color -Color-Bold">rbf.lengthscale        </span>  |   0.0504172036832454  |      +ve      |  lnN(0.2, 1)
-  <span class=" -Color -Color-Bold">Gaussian_noise.variance</span>  |  0.16000000000000003  |   +ve fixed   |             
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mean constant: 0.081
+output scale: 0.589
+length scale: 0.111
+noise: 0.100
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gpm</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">messages</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">gpm</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_1d_regression</span><span class="p">(</span><span class="n">x_star</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">f_true</span><span class="o">=</span><span class="n">f_true</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "549ced533fe04a26b34a405a655605d9", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Name : GP regression
-Objective : 12.755925770647496
-Number of Parameters : 3
-Number of Optimization Parameters : 2
-Updates : True
-Parameters:
-  <span class=" -Color -Color-Bold">GP_regression.         </span>  |                value  |  constraints  |    priors   
-  <span class=" -Color -Color-Bold">rbf.variance           </span>  |  0.46913636718256563  |      +ve      |             
-  <span class=" -Color -Color-Bold">rbf.lengthscale        </span>  |  0.23199119551940342  |      +ve      |  lnN(0.2, 1)
-  <span class=" -Color -Color-Bold">Gaussian_noise.variance</span>  |  0.16000000000000003  |   +ve fixed   |             
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_1d_regression</span><span class="p">(</span><span class="n">xstar</span><span class="p">,</span> <span class="n">gpm</span><span class="p">,</span> <span class="n">f_true</span><span class="o">=</span><span class="n">f_true</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/0d69a5e263eb1c23769dd959f839e059a63302ba0b442a54178884a634e5a1b5.png" src="../_images/0d69a5e263eb1c23769dd959f839e059a63302ba0b442a54178884a634e5a1b5.png" />
-</div>
+<img alt="../_images/017b22f5a71bcc489429b1d9b4b47615d85f8c8496d659c7b2edd91eacd7216e.svg" src="../_images/017b22f5a71bcc489429b1d9b4b47615d85f8c8496d659c7b2edd91eacd7216e.svg" /></div>
 </div>
 <p>That’s better, but not perfect.
-But remember: You don’t know what the truth is…</p>
+But remember: You don’t know what the truth is.
+There is only so much you can get without additional data.</p>
 </section>
 <section id="questions">
 <h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
-<p>Let’s investigate what happens to the previous examples as you increase the number of observations.</p>
+<p>Let’s investigate what happens to the previous examples as you increase the observations.</p>
 <ul class="simple">
 <li><p>Rerun everything gradually increasing the number of samples from <span class="math notranslate nohighlight">\(n=10\)</span> to <span class="math notranslate nohighlight">\(n=100\)</span>.
-Notice that as the number of samples increases it doesn’t really matter what your prior knowledge is.
+Notice that as the number of samples increases, it doesn’t matter what your prior knowledge is.
 As a matter of fact, for the largest number of samples you try, pick a very wrong prior probability for <span class="math notranslate nohighlight">\(\ell\)</span>.
 See what happens.</p></li>
 <li><p>Rerun everything with <span class="math notranslate nohighlight">\(\sigma=0.01\)</span> (small noise) and gradually increasing the number of samples from <span class="math notranslate nohighlight">\(n=10\)</span> to <span class="math notranslate nohighlight">\(n=100\)</span>.
 For small noise, the model is trying to interpolate.
-Is it capable of figuring out that the noise is small when the number of observations is limited? When does the method realize the noise is indeed small?</p></li>
+Is it capable of detecting that the noise is small when the number of observations is limited? When does the method realize the noise is indeed small?</p></li>
 </ul>
 </section>
 </section>
@@ -1066,8 +1192,6 @@ Is it capable of figuring out that the noise is small when the number of observa
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-gaussian-process-regression-with-fitted-hyperparameters">Example: Gaussian process regression with fitted hyperparameters</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
