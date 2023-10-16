@@ -575,8 +575,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation-a-fully-bayesian-paradigm-for-curve-fitting">Motivation: A fully Bayesian paradigm for curve fitting</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reminder-the-prior-p-f-cdot">Reminder: The prior <span class="math notranslate nohighlight">\(p(f(\cdot))\)</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-process-regression">Gaussian process regression</a><ul class="nav section-nav flex-column">
@@ -601,30 +599,16 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="gaussian-process-regression-theory">
 <h1>Gaussian Process Regression - Theory<a class="headerlink" href="#gaussian-process-regression-theory" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Perform Gaussian process regression without measurement noise</p></li>
-<li><p>Perform Gaussian process regression with measurement noise</p></li>
-<li><p>Tune the hyper-parameters of a Gaussian process using maximum marginal likelihood</p></li>
-<li><p>Perform multivariate Gaussian process regression with automatic relevance determination</p></li>
-</ul>
-</section>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="http://www.gaussianprocess.org/gpml/chapters/RW2.pdf">Chapter 3 from C.E. Rasmussen’s textbook on Gaussian processes</a></p></li>
-<li><p><a class="reference external" href="http://www.gaussianprocess.org/gpml/chapters/RW5.pdf">Section 5.4 in GP for ML textbook</a>.</p></li>
-</ul>
-</section>
+<p>We discuss how to perform Gaussian process regression without and with measurement noise, tune the hyperparameters of the covariance function, and perform automatic relevance determination.
+My exposition closely follows the Chapter 3 and Section 5.4 of <span id="id1">[<a class="reference internal" href="../bibliography.html#id12" title="Carl Edward Rasmussen and Christopher K. I. Williams. Gaussian Processes for Machine Learning. The MIT Press, 11 2005. ISBN 9780262256834. URL: https://doi.org/10.7551/mitpress/3206.001.0001, doi:10.7551/mitpress/3206.001.0001.">Rasmussen and Williams, 2005</a>]</span>.</p>
 <section id="motivation-a-fully-bayesian-paradigm-for-curve-fitting">
 <h2>Motivation: A fully Bayesian paradigm for curve fitting<a class="headerlink" href="#motivation-a-fully-bayesian-paradigm-for-curve-fitting" title="Permalink to this heading">#</a></h2>
 <p>Remember why we are doing this:</p>
 <ul class="simple">
 <li><p>Let’s say that you have to learn some function <span class="math notranslate nohighlight">\(f(\cdot)\)</span> from some space <span class="math notranslate nohighlight">\(\mathcal{X}\)</span> to <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> (this could either be a supervised learning problem (regression or classification) or even an unsupervised learning problem.</p></li>
-<li><p>You sit down and you think about <span class="math notranslate nohighlight">\(f(\cdot)\)</span>. What do you know about it? How large do you expect it be? How small do you expect it be? Is it continuous? Is it differentiable? Is it periodic? How fast does it change as you change its inputs?</p></li>
-<li><p>You create a probability measure on the space of functions in which <span class="math notranslate nohighlight">\(f(\cdot)\)</span> lives which is compatible with everything you know about it. Abusing mathematical notation a lot, let’s write this probability measure as <span class="math notranslate nohighlight">\(p(f(\cdot))\)</span>. Now you can sample from it. Any sample you take is compatible with your prior beliefs. You cannot tell which one is better than any other. Any of them could be the true <span class="math notranslate nohighlight">\(f(\cdot)\)</span>.</p></li>
-<li><p>Then, you get a little bit of data, say <span class="math notranslate nohighlight">\(\mathcal{D}\)</span>. You model the likelihood of the data, <span class="math notranslate nohighlight">\(p(\mathcal{D}|f(\cdot))\)</span>, i.e., you model how the data may have been generated if you knew <span class="math notranslate nohighlight">\(f(\cdot)\)</span>.</p></li>
+<li><p>You sit down and you think about <span class="math notranslate nohighlight">\(f(\cdot)\)</span>. What do you know about it? How large do you expect it to be? How small do you expect it to be? Is it continuous? Is it differentiable? Is it periodic? How fast does it change as you change its inputs?</p></li>
+<li><p>You create a probability measure on the space of functions in which <span class="math notranslate nohighlight">\(f(\cdot)\)</span> lives, which is compatible with everything you know. Abusing mathematical notation a lot, let’s write this probability measure as <span class="math notranslate nohighlight">\(p(f(\cdot))\)</span>. Now you can sample from it. Any sample you take is compatible with your prior beliefs. You cannot tell which one is better than any other. They could be the true <span class="math notranslate nohighlight">\(f(\cdot)\)</span>.</p></li>
+<li><p>Then, you get some data, say <span class="math notranslate nohighlight">\(\mathcal{D}\)</span>. You model the likelihood of the data, <span class="math notranslate nohighlight">\(p(\mathcal{D}|f(\cdot))\)</span>, i.e., you model how the data may have been generated if you knew <span class="math notranslate nohighlight">\(f(\cdot)\)</span>.</p></li>
 <li><p>Finally, you use Bayes’ rule to come up with your posterior probability measure over the space of functions:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
@@ -632,7 +616,7 @@ document.write(`
 p(f(\cdot)|\mathcal{D}) \propto p(\mathcal{D}|f(\cdot)) p(f(\cdot)),
 \]</div>
 <p>which is simultaneously compatible with your prior beliefs and the data.</p>
-<p>In the last lecture, we formalized mathematically the prior <span class="math notranslate nohighlight">\(p(f(\cdot))\)</span>.
+<p>In the previous lecture, we mathematically formalized the prior <span class="math notranslate nohighlight">\(p(f(\cdot))\)</span>.
 Today, we will mathematically formalize the posterior <span class="math notranslate nohighlight">\(p(f(\cdot)|\mathcal{D})\)</span>.</p>
 </section>
 <section id="reminder-the-prior-p-f-cdot">
@@ -643,7 +627,7 @@ We argued that it defines a probability measure on a function space.
 We wrote:</p>
 <div class="math notranslate nohighlight">
 \[
-f(\cdot) \sim \mbox{GP}\left(m(\cdot), k(\cdot, \cdot) \right),
+f(\cdot) \sim \text{GP}\left(m(\cdot), k(\cdot, \cdot) \right),
 \]</div>
 <p>where
 <span class="math notranslate nohighlight">\(m:\mathbb{R}^d \rightarrow \mathbb{R}\)</span> is the <em>mean function</em> and
@@ -710,7 +694,7 @@ For all the observations together, we can write:</p>
 y_{1:n}| \mathbf{f}_{1:n} \sim \mathcal{N}(\mathbf{f}_{1:n}, \sigma^2\mathbf{I}_n),
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathbf{I}_n\)</span> is the <span class="math notranslate nohighlight">\(n\times n\)</span> unit matrix.</p>
-<p>Let’s draw a graphical model representation what we have here.
+<p>Let’s draw a graphical model representation of what we have here.
 Remember that <span class="math notranslate nohighlight">\(\sigma\)</span> and the hyperparameters of the covariance function, let’s call them <span class="math notranslate nohighlight">\(\theta\)</span>, are (for the time being) fixed.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -737,14 +721,14 @@ Remember that <span class="math notranslate nohighlight">\(\sigma\)</span> and t
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/58d06ea1304938da950ef82078ce36c4f973e330f30657d9768bc6cdeb901f87.svg" src="../_images/58d06ea1304938da950ef82078ce36c4f973e330f30657d9768bc6cdeb901f87.svg" /></div>
+<img alt="../_images/be39ae119c464a02df55d6f37c25f7e4932954919321b7b8b3f6867da87373fe.svg" src="../_images/be39ae119c464a02df55d6f37c25f7e4932954919321b7b8b3f6867da87373fe.svg" /></div>
 </div>
-<p>So, far so good, but how do we make predictions?
+<p>So far, so good, but how do we make predictions?
 How do we get <span class="math notranslate nohighlight">\(p(f(\cdot)|\mathcal{D})\)</span>.
 There are some nuances here.
 We are looking for a posterior measure over a function space.
 This is a strange beast.
-The only way we can describe it is through the joint probability density of the function values at any arbitrary collection of <strong>test</strong> points.
+We can only describe it through the joint probability density of the function values at any arbitrary collection of <strong>test</strong> points.
 So, let’s take <span class="math notranslate nohighlight">\(n^*\)</span> such test points:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -812,9 +796,9 @@ Let’s visualize the situation again.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/96880064a7659c4d5004a47d6dad9f07c271541a760cb741fd4532ce5800d36a.svg" src="../_images/96880064a7659c4d5004a47d6dad9f07c271541a760cb741fd4532ce5800d36a.svg" /></div>
+<img alt="../_images/a1e83cc45c3dce362e15b58d9076b13d21d587cba93c18213b7e00487a5e3b31.svg" src="../_images/a1e83cc45c3dce362e15b58d9076b13d21d587cba93c18213b7e00487a5e3b31.svg" /></div>
 </div>
-<p>Ok, now we have only finite dimensional probability densities.
+<p>Okay, now we have only finite-dimensional probability densities.
 This is great. We know what to do next.
 We will use the basic probability rules:</p>
 <div class="math notranslate nohighlight">
@@ -826,8 +810,8 @@ p(\mathbf{f}^*_{1:n^*} | \mathbf{x}^*_{1:n^*}, \mathcal{D}) &amp;=&amp; p(\mathb
 \end{array}
 \end{split}\]</div>
 <p>This is the integral of a Gaussian times a Gaussian.
-We are not going to go into the details, but you can actually do it analytically.
-The result is… a Gaussian:</p>
+We will not go into the details, but you can do it analytically.
+The result is a Gaussian:</p>
 <div class="math notranslate nohighlight">
 \[
 p(\mathbf{f}^*_{1:n^*}| \mathbf{x}^*_{1:n^*}, \mathcal{D}) = \mathcal{N}\left(\mathbf{f}^*_{1:n^*}\middle| \mathbf{m}_n(\mathbf{x}^*_{1:n^*}), \mathbf{K}_n(\mathbf{x}^*_{1:n^*},\mathbf{x}^*_{1:n^*})\right),
@@ -849,7 +833,7 @@ k_n(x, x') = k(x,x') - \mathbf{k}(x,\mathbf{x}_{1:n})\left(\mathbf{K}(\mathbf{x}
 \]</div>
 <p>being the cross-covariance vector.</p>
 <p>Now notice that the test points <span class="math notranslate nohighlight">\(\mathbf{x}^*_{1:n^*}\)</span> are arbitrary and that the joint distribution of the function values at these points, <span class="math notranslate nohighlight">\(\mathbf{f}^*\)</span>, conditioned on the observations <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> is a multivariate Gaussian with a mean and covariance matrix specified by the posterior mean and covariance functions, respectively.
-This is the defintion of a Gaussian process!
+This is the definition of a Gaussian process!
 Therefore, we conclude that the posterior probability measure over the space of functions is also a Gaussian process:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -857,7 +841,7 @@ f(\cdot)|\mathcal{D} \sim \operatorname{GP}(m_n(\cdot), k_n(\cdot, \cdot)).
 \]</div>
 <section id="the-point-predictive-distribution">
 <h3>The point predictive distribution<a class="headerlink" href="#the-point-predictive-distribution" title="Permalink to this heading">#</a></h3>
-<p>What if you just want to make a prediction at a single point?
+<p>What if you want to predict at a single point?
 How do you do that?
 Well, this is quite simple.
 Your “test points” <span class="math notranslate nohighlight">\(\mathbf{x}^*_{1:n^*}\)</span> are now just a single point, say <span class="math notranslate nohighlight">\(\mathbf{x}^*\)</span>.
@@ -877,13 +861,13 @@ p\left(f(\mathbf{x}^*) | \mathcal{D}\right) = \mathcal{N}\left(f(\mathbf{x}^*)\m
 \[
 p(y^*|\mathbf{x}^*, \mathcal{D}) = \int p(y^*|f(\mathbf{x}^*)) p(f(\mathbf{x}^*)|\mathcal{D}) df(\mathbf{x}^*) = \mathcal{N}\left(f(\mathbf{x}^*)\middle|m_n(\mathbf{x}^*), \sigma_n^2(\mathbf{x}^*)+\sigma^2\right).
 \]</div>
-<p>Notice that you need to add the noise variance when you are talking about the measurement.</p>
+<p>Notice that you need to add the noise variance when discussing the measurement.</p>
 </section>
 </section>
 <section id="calibrating-the-hyperparameters-of-a-gaussian-process">
 <h2>Calibrating the Hyperparameters of a Gaussian Process<a class="headerlink" href="#calibrating-the-hyperparameters-of-a-gaussian-process" title="Permalink to this heading">#</a></h2>
-<p>So, we saw how GP regression works but everything we did was conditional on knowing the hyperparameters of the covariance function, we called them <span class="math notranslate nohighlight">\(\theta\)</span>, and the likelihood variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.
-But if what do we do if we are not sure about them?
+<p>So, we saw how GP regression works, but everything we did was conditional on knowing the hyperparameters of the covariance function; we called them <span class="math notranslate nohighlight">\(\theta\)</span> and the likelihood variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.
+But what do we do if we are not sure about them?
 We will do what we always do:</p>
 <ul class="simple">
 <li><p>We summarize our state of knowledge about them by assigning prior probability density <span class="math notranslate nohighlight">\(p(\theta)\)</span> and <span class="math notranslate nohighlight">\(p(\sigma)\)</span>.</p></li>
@@ -897,7 +881,7 @@ p(\theta,\sigma | \mathcal{D}) &amp;\propto&amp; p(\mathcal{D}|\theta,\sigma)p(\
 \end{array}
 \end{split}\]</div>
 <ul class="simple">
-<li><p>We somehow approximate this posterior. So far, we only know of one way of approximating this posterior, and that is by a maximum a posteriori estimate.</p></li>
+<li><p>We approximate this posterior. So far, we only know of one way of approximating this posterior, and that is by a maximum a posteriori estimate.</p></li>
 </ul>
 <section id="making-a-little-bit-of-analytical-progress-in-the-posterior">
 <h3>Making a little bit of analytical progress in the posterior<a class="headerlink" href="#making-a-little-bit-of-analytical-progress-in-the-posterior" title="Permalink to this heading">#</a></h3>
@@ -906,9 +890,9 @@ p(\theta,\sigma | \mathcal{D}) &amp;\propto&amp; p(\mathcal{D}|\theta,\sigma)p(\
 \[
 p(\theta,\sigma|\mathcal{D}) \propto \int p(\mathbf{y}_{1:n}|\mathbf{f}_{1:n},\sigma)p(\mathbf{f}_{1:n}|\mathbf{x}_{1:n},\theta)d\mathbf{f}_{1:n}p(\theta)p(\sigma).
 \]</div>
-<p>You should ry to familiriaze yourself with these expressions.
-How can you just see the validity of these expressions?
-It’s quite simple if you look at the graph.
+<p>You should try to familiarize yourself with these expressions.
+How can you see the validity of these expressions?
+It’s easier if you look at the graph.
 So, let’s draw the graph.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -934,9 +918,9 @@ So, let’s draw the graph.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/d42362a30563fe00b7214d0a21767ef27a6ff49c3aecb0733d21e2fbbc77363e.svg" src="../_images/d42362a30563fe00b7214d0a21767ef27a6ff49c3aecb0733d21e2fbbc77363e.svg" /></div>
+<img alt="../_images/87666e6faef46b9ca0cd552392ecd784ba6f46b87a0c1878c5768d654fcb879d.svg" src="../_images/87666e6faef46b9ca0cd552392ecd784ba6f46b87a0c1878c5768d654fcb879d.svg" /></div>
 </div>
-<p>The graph, tells you how the joint distribution of all the variables decomposes in conditional probabilities.
+<p>The graph shows how the joint distribution of all the variables decomposes in conditional probabilities.
 You know that the parent nodes condition the children nodes.
 Here is the decomposition here:</p>
 <div class="math notranslate nohighlight">
@@ -955,7 +939,7 @@ p(\theta, \sigma, \mathbf{f}_{1:n} | \mathbf{x}_{1:n}, \mathbf{y}_{1:n}) \propto
 p(\theta, \sigma, \mathbf{f}_{1:n} | \mathbf{x}_{1:n}, \mathbf{y}_{1:n}) \propto p(\mathbf{y}_{1:n} | \mathbf{f}_{1:n}, \sigma) p(\mathbf{f}_{1:n} | \mathbf{x}_{1:n}, \theta)p(\theta)p(\sigma).
 \]</div>
 <p>Finally, to get the posterior over <span class="math notranslate nohighlight">\(\theta\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> only, we <em>marginalize</em> (i.e., integrate out) the unobserved variable <span class="math notranslate nohighlight">\(\mathbf{f}_{1:n}\)</span>.
-Here, the integral is actually analytically available (integral of a Gaussian times a Gaussian which is a Gaussian).
+Here, the integral is analytically available (integral of Gaussian times a Gaussian, which is a Gaussian).
 If you do the math, you will get:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -965,7 +949,7 @@ p(\theta,\sigma | \mathcal{D}) \propto \mathcal{N}\left(\mathbf{y}_{1:n}\middle|
 </section>
 <section id="maximum-a-posteriori-estimate-of-the-hyperparameters">
 <h3>Maximum a Posteriori Estimate of the Hyperparameters<a class="headerlink" href="#maximum-a-posteriori-estimate-of-the-hyperparameters" title="Permalink to this heading">#</a></h3>
-<p>In the maximum a posteriori estimate (MAP) we are basically approximating the posterior with the <span class="math notranslate nohighlight">\(\delta\)</span>-function centered at its pick.
+<p>In the maximum a posteriori estimate (MAP), we approximate the posterior with the <span class="math notranslate nohighlight">\(\ delta\)</span> function centered at its pick.
 That is, we are approximating:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -988,15 +972,15 @@ It is:</p>
 \end{split}\]</div>
 <p>The constants are terms that do not depend on <span class="math notranslate nohighlight">\(\theta\)</span> or <span class="math notranslate nohighlight">\(\sigma\)</span>.
 The first term is a familiar one.
-It kind of looks like least squares (it is actually a form of least squares).
-The third and forth term are familiar regularizers stemming from our prior knowledge.
-The second term is a naturally occuring regularizer.</p>
+It looks like least squares (it is a form of least squares).
+The third and fourth terms are familiar regularizers stemming from our prior knowledge.
+The second term is a naturally occurring regularizer.</p>
 <p>Now, back to solving the optimization problem that yields the MAP.
-Of course, you need to get the deratives of <span class="math notranslate nohighlight">\(\log p(\theta,\sigma|\mathcal{D})\)</span> and use an optimization algorithm.
+Of course, you need to get the derivatives of <span class="math notranslate nohighlight">\(\log p(\theta,\sigma|\mathcal{D})\)</span> and use an optimization algorithm.
 Back in the stone age, we were doing this by hand.
 Now you don’t have to worry about it.
 Automatic differentiation can work through the entire expression (including the matrix determinant).
-Once you have the derivative you can use a gradient-based optimization algorithm from <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/optimize.html">scipy.optimize</a>.
+Once you have the derivative, you can use a gradient-based optimization algorithm from <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/optimize.html">scipy.optimize</a>.
 <code class="docutils literal notranslate"><span class="pre">GPy</span></code> is using by default the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/optimize.minimize-lbfgsb.html">L-BFGS algorithm</a> but you could change it if you want.
 These are minimization algorithms.
 So, <code class="docutils literal notranslate"><span class="pre">GPy</span></code> is actually minimizing <span class="math notranslate nohighlight">\(-\log p(\theta,\sigma)\)</span>.
@@ -1072,8 +1056,6 @@ Let’s see how it works through our previous example:</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation-a-fully-bayesian-paradigm-for-curve-fitting">Motivation: A fully Bayesian paradigm for curve fitting</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reminder-the-prior-p-f-cdot">Reminder: The prior <span class="math notranslate nohighlight">\(p(f(\cdot))\)</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-process-regression">Gaussian process regression</a><ul class="nav section-nav flex-column">
