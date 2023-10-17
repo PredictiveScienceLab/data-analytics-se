@@ -575,11 +575,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Multivariate Gaussian Process Regression</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions:</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions:</a></li>
 </ul>
             </nav>
         </div>
@@ -594,12 +590,12 @@ document.write(`
   <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -607,30 +603,14 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="multivariate-gaussian-process-regression">
 <h1>Multivariate Gaussian Process Regression<a class="headerlink" href="#multivariate-gaussian-process-regression" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Perform multivariate Gaussian process regression with automatic relevance determination.</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[
-\newcommand{\x}{\mathbf{x}}
-\newcommand{\z}{\mathbf{z}}
-\newcommand{\y}{\mathbf{y}}
-\newcommand{\W}{\mathbf{W}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\E}{\mathbf{E}}
-\]</div>
-</section>
-<section id="id1">
-<h2>Multivariate Gaussian Process Regression<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
-<p>When we say “multivariate” here we refer to many function inputs, not outputs.
-This just means that the input of the function we are interested in learning is a vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^D\)</span>.
-In that regard, nothing really changes compared to one-input GPR.
-The formulas are exactly the same.
-However, in higher dimensional settings one must pay attention to the selection of the covariance function.</p>
+<p>We perform multivariate Gaussian process regression with automatic relevance determination.
+When we say “multivariate” here, we refer to many function inputs, not outputs.
+This means that the input of the function we are interested in learning is a vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^D\)</span>.
+Nothing changes compared to one-input GPR.
+The formulas are the same.
+However, in higher dimensional settings, one must pay attention to selecting the covariance function.</p>
 <p>Let’s demonstrate this using an example.
-Here is an analytical function, known as the Branin-Hoo function:</p>
+Here is an analytical function known as the Branin-Hoo function:</p>
 <div class="math notranslate nohighlight">
 \[
 f(\mathbf{x}) = f(x_1,x_2) = \frac{1}{51.95}\left[\left(15x_2 - \frac{5.1(15x_1)^2}{4\pi^2} + \frac{75x_1}{\pi} - 6\right)^2 + \left(10 - \frac{10}{8\pi}\right)\cos(15x_1)-44.81\right]
@@ -672,7 +652,7 @@ Let’s superimpose the synthetic data on a contour of this function.</p>
 <span class="n">N</span> <span class="o">=</span> <span class="mi">30</span>
 <span class="n">Xdata</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="n">sigma</span> <span class="o">=</span> <span class="mf">0.01</span>
-<span class="n">Ydata</span> <span class="o">=</span> <span class="n">f_branin</span><span class="p">(</span><span class="n">Xdata</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">Ydata</span> <span class="o">=</span> <span class="n">f_branin</span><span class="p">(</span><span class="n">Xdata</span><span class="p">)</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
@@ -693,17 +673,60 @@ Let’s superimpose the synthetic data on a contour of this function.</p>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/d5041704a6da0a310738e0539bc22d91cdd086cafb379be5e9e82a04312c25e6.png" src="../_images/d5041704a6da0a310738e0539bc22d91cdd086cafb379be5e9e82a04312c25e6.png" />
+<img alt="../_images/933ef696aef37f49b2442114cebe20c521b0e2e06a244251c79ad1edd21e7662.svg" src="../_images/933ef696aef37f49b2442114cebe20c521b0e2e06a244251c79ad1edd21e7662.svg" /></div>
+</div>
+<p>You may need to install gpytorch:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>gpytorch
+</pre></div>
 </div>
 </div>
-<p>We will be using a the squared exponential covariance function for a regression along with a zero mean.
+</div>
+<p>And we also need the function that trains the model:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Train the model.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    model   --  The model to train.</span>
+<span class="sd">    train_x --  The training inputs.</span>
+<span class="sd">    train_y --  The training labels.</span>
+<span class="sd">    n_iter  --  The number of iterations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">LBFGS</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">line_search_fn</span><span class="o">=</span><span class="s1">&#39;strong_wolfe&#39;</span><span class="p">)</span>
+    <span class="n">likelihood</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">likelihood</span>
+    <span class="n">mll</span> <span class="o">=</span> <span class="n">gpytorch</span><span class="o">.</span><span class="n">mlls</span><span class="o">.</span><span class="n">ExactMarginalLogLikelihood</span><span class="p">(</span><span class="n">likelihood</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">closure</span><span class="p">():</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">train_x</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">mll</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">loss</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_iter</span><span class="p">):</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">closure</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Iter </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s1">3d</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">n_iter</span><span class="si">}</span><span class="s1"> - Loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<p>We will be using a the squared exponential covariance function for a regression along with a constant mean.
 So our prior GP is:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -719,54 +742,94 @@ k(\mathbf{x}, \mathbf{x}') = s^2\exp\left(-\frac{(x_1-x_1')^2}{2\ell_1^2}-\frac{
 \[
 \ell_1 = \ell_2.
 \]</div>
-<p>This is what you get by default from <code class="docutils literal notranslate"><span class="pre">GPy</span></code>:</p>
+<p>To save ourselves some coding, we are going to make the <code class="docutils literal notranslate"><span class="pre">ExactGP</span></code> model class a bit more general.
+We will make it accept a covariance function as a constructor argument.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">GPy</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">gpytorch</span>
+<span class="kn">from</span> <span class="nn">gpytorch.kernels</span> <span class="kn">import</span> <span class="n">RBFKernel</span><span class="p">,</span> <span class="n">ScaleKernel</span>
 
-<span class="c1"># The 2 here is for the dimensionality of the input space</span>
-<span class="n">k</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">gp</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">GPRegression</span><span class="p">(</span><span class="n">Xdata</span><span class="p">,</span> <span class="n">Ydata</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ExactGP</span><span class="p">(</span><span class="n">gpytorch</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">ExactGP</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Exact Gaussian Process model.</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">gp</span><span class="p">)</span>
+<span class="sd">    Arguments</span>
+<span class="sd">    train_x     --  The training inputs.</span>
+<span class="sd">    train_y     --  The training labels.</span>
+<span class="sd">    mean_module --  The mean module. Defaults to a constant mean.</span>
+<span class="sd">    covar_module--  The covariance module. Defaults to a RBF kernel.</span>
+<span class="sd">    likelihood  --  The likelihood function. Defaults to Gaussian.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">train_x</span><span class="p">,</span>
+            <span class="n">train_y</span><span class="p">,</span>
+            <span class="n">mean_module</span><span class="o">=</span><span class="n">gpytorch</span><span class="o">.</span><span class="n">means</span><span class="o">.</span><span class="n">ConstantMean</span><span class="p">(),</span>
+            <span class="n">covar_module</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span><span class="n">RBFKernel</span><span class="p">()),</span>
+            <span class="n">likelihood</span><span class="o">=</span><span class="n">gpytorch</span><span class="o">.</span><span class="n">likelihoods</span><span class="o">.</span><span class="n">GaussianLikelihood</span><span class="p">(</span>
+                <span class="n">noise_constraint</span><span class="o">=</span><span class="n">gpytorch</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="n">GreaterThan</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+            <span class="p">)</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mean_module</span> <span class="o">=</span> <span class="n">mean_module</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">covar_module</span> <span class="o">=</span> <span class="n">covar_module</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">mean_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_module</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">covar_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">covar_module</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">gpytorch</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">MultivariateNormal</span><span class="p">(</span><span class="n">mean_x</span><span class="p">,</span> <span class="n">covar_x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here is how to use it with the default options:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">Xdata</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+<span class="n">train_y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">Ydata</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ExactGP</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Optimize the hyper-parameters:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Name : GP regression
-Objective : 39.13997971047789
-Number of Parameters : 3
-Number of Optimization Parameters : 3
-Updates : True
-Parameters:
-  <span class=" -Color -Color-Bold">GP_regression.         </span>  |  value  |  constraints  |  priors
-  <span class=" -Color -Color-Bold">rbf.variance           </span>  |    1.0  |      +ve      |        
-  <span class=" -Color -Color-Bold">rbf.lengthscale        </span>  |    1.0  |      +ve      |        
-  <span class=" -Color -Color-Bold">Gaussian_noise.variance</span>  |    1.0  |      +ve      |        
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iter   1/10 - Loss: 1.046
+Iter   2/10 - Loss: -0.078
+Iter   3/10 - Loss: -0.078
+Iter   4/10 - Loss: -0.078
+Iter   5/10 - Loss: -0.078
+Iter   6/10 - Loss: -0.078
+Iter   7/10 - Loss: -0.078
+Iter   8/10 - Loss: -0.078
+Iter   9/10 - Loss: -0.078
+Iter  10/10 - Loss: -0.078
 </pre></div>
 </div>
 </div>
-</div>
-<p>Optimize for the hyper-parameters:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gp</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">messages</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "46afcd7901604f52b50e1883efebe791", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>Check the lengthscales:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">gp</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">lengthscale</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mean constant:</span><span class="se">\t</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">mean_module</span><span class="o">.</span><span class="n">constant</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;output scale:</span><span class="se">\t</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">covar_module</span><span class="o">.</span><span class="n">outputscale</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;length scale:</span><span class="se">\t</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">covar_module</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;noise:</span><span class="se">\t\t</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">noise</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  <span class=" -Color -Color-Bold">index</span>  |  GP_regression.rbf.lengthscale  |  constraints  |  priors
-  <span class=" -Color -Color-Bold">[0]  </span>  |                          0.313  |      +ve      |        
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mean constant:	0.081
+output scale:	0.672
+length scale:	0.236
+noise:		0.001
 </pre></div>
 </div>
 </div>
@@ -774,7 +837,9 @@ Parameters:
 <p>Make predictions:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Ypred_flat</span><span class="p">,</span> <span class="n">Yvar_flat</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xs</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fpred_flat</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">Xs</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">())</span>
+<span class="n">Ypred_flat</span> <span class="o">=</span> <span class="n">fpred_flat</span><span class="o">.</span><span class="n">mean</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="n">Yvar_flat</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="p">(</span><span class="n">fpred_flat</span><span class="p">)</span><span class="o">.</span><span class="n">variance</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -784,7 +849,6 @@ Parameters:
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">14</span><span class="p">))</span>
 
-<span class="c1"># Predictions</span>
 <span class="n">Ypred</span> <span class="o">=</span> <span class="n">Ypred_flat</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
 <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">Ypred</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;plasma&#39;</span><span class="p">)</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -834,8 +898,7 @@ Parameters:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e1ee063ad0e02fedd95b50d9c530c439ce98d7bfc3a04959e3366541f007ab56.png" src="../_images/e1ee063ad0e02fedd95b50d9c530c439ce98d7bfc3a04959e3366541f007ab56.png" />
-</div>
+<img alt="../_images/3a521243743de4dcec616b38af44aec69fec7bde57f4df922c5c93d08af2719d.svg" src="../_images/3a521243743de4dcec616b38af44aec69fec7bde57f4df922c5c93d08af2719d.svg" /></div>
 </div>
 <p>Let’s get some test data and make some predictions.</p>
 <div class="cell docutils container">
@@ -844,115 +907,120 @@ Parameters:
 
 <span class="n">Ntest</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">Xtest</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">Ntest</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">Ytest</span> <span class="o">=</span> <span class="n">f_branin</span><span class="p">(</span><span class="n">Xtest</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span> 
-<span class="n">Ytest_m</span><span class="p">,</span> <span class="n">Ytest_v</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xtest</span><span class="p">,</span> <span class="n">full_cov</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> 
+<span class="n">Ytest</span> <span class="o">=</span> <span class="n">f_branin</span><span class="p">(</span><span class="n">Xtest</span><span class="p">)</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">Ntest</span><span class="p">)</span>
+<span class="n">ftest</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">Xtest</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">())</span>
+<span class="n">Ytest_m</span> <span class="o">=</span> <span class="n">ftest</span><span class="o">.</span><span class="n">mean</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="n">Ytest_v</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="p">(</span><span class="n">ftest</span><span class="p">)</span><span class="o">.</span><span class="n">variance</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
 <span class="n">error_m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">Ytest</span><span class="p">,</span> <span class="n">Ytest_m</span><span class="p">)</span> <span class="p">)</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">Ytest</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">Ytest</span><span class="p">),</span> <span class="mi">100</span> <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$x=y$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Ytest</span><span class="p">,</span> <span class="n">Ytest_m</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Predictions vs True test values&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Predictions vs True test values (RMSE=</span><span class="si">{</span><span class="n">error_m</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Test labels&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Predictions&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Predictions&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f7653840e61538f53ee79885cce797a549aa71ec616a21ae17d68892dc8660c6.png" src="../_images/f7653840e61538f53ee79885cce797a549aa71ec616a21ae17d68892dc8660c6.png" />
-</div>
+<img alt="../_images/2575562d3b87be175d84e357fa320cd0b56656e8a295e7bee7830c093c747e08.svg" src="../_images/2575562d3b87be175d84e357fa320cd0b56656e8a295e7bee7830c093c747e08.svg" /></div>
 </div>
 <p>Now let’s repeat the same analysis but allowing for a different lengthscale per input.
 First, we set up and train the model:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">ARD</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">gp</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">GPRegression</span><span class="p">(</span><span class="n">Xdata</span><span class="p">,</span> <span class="n">Ydata</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">gp</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Name : GP regression
-Objective : 39.13997971047789
-Number of Parameters : 4
-Number of Optimization Parameters : 4
-Updates : True
-Parameters:
-  <span class=" -Color -Color-Bold">GP_regression.         </span>  |  value  |  constraints  |  priors
-  <span class=" -Color -Color-Bold">rbf.variance           </span>  |    1.0  |      +ve      |        
-  <span class=" -Color -Color-Bold">rbf.lengthscale        </span>  |   (2,)  |      +ve      |        
-  <span class=" -Color -Color-Bold">Gaussian_noise.variance</span>  |    1.0  |      +ve      |        
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">ExactGP</span><span class="p">(</span>
+    <span class="n">train_x</span><span class="p">,</span>
+    <span class="n">train_y</span><span class="p">,</span>
+    <span class="n">covar_module</span><span class="o">=</span><span class="n">ScaleKernel</span><span class="p">(</span><span class="n">RBFKernel</span><span class="p">(</span><span class="n">ard_num_dims</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Note that you now cannot see what the lengthscale values are.
-You need to do this to see them:</p>
 <p>And you can train the model as usual:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gp</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">messages</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">gp</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">gp</span><span class="o">.</span><span class="n">rbf</span><span class="o">.</span><span class="n">lengthscale</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0e63bb8f127741a1a1c22d01749ef38b", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Name : GP regression
-Objective : -9.12138086601402
-Number of Parameters : 4
-Number of Optimization Parameters : 4
-Updates : True
-Parameters:
-  <span class=" -Color -Color-Bold">GP_regression.         </span>  |                   value  |  constraints  |  priors
-  <span class=" -Color -Color-Bold">rbf.variance           </span>  |       5.542500019348663  |      +ve      |        
-  <span class=" -Color -Color-Bold">rbf.lengthscale        </span>  |                    (2,)  |      +ve      |        
-  <span class=" -Color -Color-Bold">Gaussian_noise.variance</span>  |  0.00013694305014856943  |      +ve      |        
-  <span class=" -Color -Color-Bold">index</span>  |  GP_regression.rbf.lengthscale  |  constraints  |  priors
-  <span class=" -Color -Color-Bold">[0]  </span>  |                          0.235  |      +ve      |        
-  <span class=" -Color -Color-Bold">[1]  </span>  |                          0.788  |      +ve      |        
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iter   1/10 - Loss: 11.799
+Iter   2/10 - Loss: -0.546
+Iter   3/10 - Loss: -0.546
+Iter   4/10 - Loss: -0.546
+Iter   5/10 - Loss: -0.546
+Iter   6/10 - Loss: -0.546
+Iter   7/10 - Loss: -0.546
+Iter   8/10 - Loss: -0.546
+Iter   9/10 - Loss: -0.546
+Iter  10/10 - Loss: -0.546
 </pre></div>
 </div>
 </div>
 </div>
-<p>So, you see that the lengthscale assigned to <span class="math notranslate nohighlight">\(x_1\)</span> is slightly smaller than the lengthscale assigned to <span class="math notranslate nohighlight">\(x_2\)</span>. This means that the first input is slightly more important than the second input.
+<p>And here are the parameters we found:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mean constant:</span><span class="se">\t</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">mean_module</span><span class="o">.</span><span class="n">constant</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;output scale:</span><span class="se">\t</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">covar_module</span><span class="o">.</span><span class="n">outputscale</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;length scale </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">:</span><span class="se">\t</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">covar_module</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;noise:</span><span class="se">\t\t</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">noise</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mean constant:	2.134
+output scale:	5.979
+length scale 0:	0.253
+length scale 1:	0.966
+noise:		0.000
+</pre></div>
+</div>
+</div>
+</div>
+<p>The length scale assigned to <span class="math notranslate nohighlight">\( x_1 \)</span> is slightly smaller than that given to <span class="math notranslate nohighlight">\( x_2 \)</span>. This means the first input is more important than the second one.
 This is the automatic relevance determination (ARD) in action.</p>
-<p>Now let’s try to make some predictions with the ARD version of the GP regression model.</p>
+<p>Now, let’s make some predictions with the ARD version of the GP regression model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Ntest</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">Xtest</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">Ntest</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">Ytest</span> <span class="o">=</span> <span class="n">f_branin</span><span class="p">(</span><span class="n">Xtest</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span> 
-<span class="n">Ytest_m</span><span class="p">,</span> <span class="n">Ytest_v</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xtest</span><span class="p">,</span> <span class="n">full_cov</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> 
+<span class="n">Ytest</span> <span class="o">=</span> <span class="n">f_branin</span><span class="p">(</span><span class="n">Xtest</span><span class="p">)</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">Ntest</span><span class="p">)</span>
+<span class="n">ftest</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">Xtest</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">())</span>
+<span class="n">Ytest_m</span> <span class="o">=</span> <span class="n">ftest</span><span class="o">.</span><span class="n">mean</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="n">Ytest_v</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="p">(</span><span class="n">ftest</span><span class="p">)</span><span class="o">.</span><span class="n">variance</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
 <span class="n">error_m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">Ytest</span><span class="p">,</span> <span class="n">Ytest_m</span><span class="p">)</span> <span class="p">)</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-
 <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">Ytest</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">Ytest</span><span class="p">),</span> <span class="mi">100</span> <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$x=y$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Ytest</span><span class="p">,</span> <span class="n">Ytest_m</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Predictions vs True test values&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Predictions vs True test values (ARD, RMSE = </span><span class="si">{</span><span class="n">error_m</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Test labels&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Predictions&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Predictions&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/4897b01ef8445f5f2435560a29f05bbd230ad18fbc9f847d0d610807ed42ad12.png" src="../_images/4897b01ef8445f5f2435560a29f05bbd230ad18fbc9f847d0d610807ed42ad12.png" />
+<img alt="../_images/32aedc31ec2bc3c9f99ebac39d8e00bafa0c8f63a86530942f7a3d16d32aed4f.svg" src="../_images/32aedc31ec2bc3c9f99ebac39d8e00bafa0c8f63a86530942f7a3d16d32aed4f.svg" /></div>
 </div>
-</div>
-<p>Let’s add a third dimension to the Branin function, <span class="math notranslate nohighlight">\(x_3\)</span>, such that <span class="math notranslate nohighlight">\(f\)</span> has a weak linear dependence on <span class="math notranslate nohighlight">\(x_3\)</span>.</p>
-<p>The added term is highlighted in blue.</p>
+<p>The RMSE in much smaller than the previous case. And the parity plot shows that the predictions are much better.</p>
+<p>Let’s add a third dimension to the Branin function, <span class="math notranslate nohighlight">\(x_3\)</span>, such that <span class="math notranslate nohighlight">\(f\)</span> has a weak linear dependence on <span class="math notranslate nohighlight">\(x_3\)</span>.
+The new function is:</p>
 <div class="math notranslate nohighlight">
 \[
-f(\mathbf{x}) = f(x_1,x_2, x_3) = \frac{1}{51.95}\left[\left(15x_2 - \frac{5.1(15x_1)^2}{4\pi^2} + \frac{75x_1}{\pi} - 6\right)^2 + \left(10 - \frac{10}{8\pi}\right)\cos(15x_1)-44.81\right] + \color{blue}{0.1 x_3}.
+f(\mathbf{x}) = f(x_1,x_2, x_3) = \frac{1}{51.95}\left[\left(15x_2 - \frac{5.1(15x_1)^2}{4\pi^2} + \frac{75x_1}{\pi} - 6\right)^2 + \left(10 - \frac{10}{8\pi}\right)\cos(15x_1)-44.81\right] +\color{blue}{0.1 x_3}.
 \]</div>
+<p>Here is the code:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the function</span>
-<span class="k">def</span> <span class="nf">f_branin_1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f_branin_1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Input must be 2D array of size N x 2.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -969,7 +1037,7 @@ f(\mathbf{x}) = f(x_1,x_2, x_3) = \frac{1}{51.95}\left[\left(15x_2 - \frac{5.1(1
 <span class="n">Xdata</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">ndim</span><span class="p">)</span>
 
 <span class="n">sigma</span> <span class="o">=</span> <span class="mf">0.01</span>
-<span class="n">Ydata</span> <span class="o">=</span> <span class="n">f_branin_1</span><span class="p">(</span><span class="n">Xdata</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">Ydata</span> <span class="o">=</span> <span class="n">f_branin_1</span><span class="p">(</span><span class="n">Xdata</span><span class="p">)</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -977,48 +1045,80 @@ f(\mathbf{x}) = f(x_1,x_2, x_3) = \frac{1}{51.95}\left[\left(15x_2 - \frac{5.1(1
 <p>Train a GP:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span><span class="n">ndim</span><span class="p">,</span> <span class="n">ARD</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
-<span class="n">gp</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">GPRegression</span><span class="p">(</span><span class="n">Xdata</span><span class="p">,</span> <span class="n">Ydata</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
-
-<span class="n">gp</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">messages</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">gp</span><span class="o">.</span><span class="n">rbf</span><span class="o">.</span><span class="n">lengthscale</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">Xdata</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+<span class="n">train_y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">Ydata</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ExactGP</span><span class="p">(</span>
+    <span class="n">train_x</span><span class="p">,</span>
+    <span class="n">train_y</span><span class="p">,</span>
+    <span class="n">covar_module</span><span class="o">=</span><span class="n">ScaleKernel</span><span class="p">(</span><span class="n">RBFKernel</span><span class="p">(</span><span class="n">ard_num_dims</span><span class="o">=</span><span class="n">ndim</span><span class="p">))</span>
+<span class="p">)</span>
+<span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "57cc467d82ee46fd805fbc49d415427c", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  <span class=" -Color -Color-Bold">index</span>  |  GP_regression.rbf.lengthscale  |  constraints  |  priors
-  <span class=" -Color -Color-Bold">[0]  </span>  |                          0.207  |      +ve      |        
-  <span class=" -Color -Color-Bold">[1]  </span>  |                          0.700  |      +ve      |        
-  <span class=" -Color -Color-Bold">[2]  </span>  |                         12.233  |      +ve      |        
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iter   1/10 - Loss: 15.501
+Iter   2/10 - Loss: -0.977
+Iter   3/10 - Loss: -0.982
+Iter   4/10 - Loss: -0.982
+Iter   5/10 - Loss: -0.982
+Iter   6/10 - Loss: -0.982
+Iter   7/10 - Loss: -0.982
+Iter   8/10 - Loss: -0.982
+Iter   9/10 - Loss: -0.982
+Iter  10/10 - Loss: -0.982
 </pre></div>
 </div>
 </div>
 </div>
-<p>Notice from the results above that the lengthscale in the 3rd dimension is very large relative to the lengthscales along the 1st and 2nd dimensions.
-This means that our trained GP model depends very weakly on <span class="math notranslate nohighlight">\(x_3\)</span>. Clearly, we are able to capture the weak dependence of <span class="math notranslate nohighlight">\(f\)</span> on <span class="math notranslate nohighlight">\(x_3\)</span>.</p>
+<p>Here are the results:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mean constant:</span><span class="se">\t</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">mean_module</span><span class="o">.</span><span class="n">constant</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;output scale:</span><span class="se">\t</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">covar_module</span><span class="o">.</span><span class="n">outputscale</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;length scale </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">:</span><span class="se">\t</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">covar_module</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;noise:</span><span class="se">\t\t</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">noise</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mean constant:	2.896
+output scale:	8.075
+length scale 0:	0.254
+length scale 1:	1.064
+length scale 2:	47.006
+noise:		0.000
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice from the results above that the length scale of the 3rd dimension is enormous relative to the length scales along the 1st and 2nd dimensions.
+This means that our trained GP model depends very weakly on <span class="math notranslate nohighlight">\(x_3\)</span>. We can capture the weak dependence of <span class="math notranslate nohighlight">\(f\)</span> on <span class="math notranslate nohighlight">\(x_3\)</span>.</p>
 <p>Let’s make some predictions on the test data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Ntest</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">Xtest</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">Ntest</span><span class="p">,</span> <span class="n">ndim</span><span class="p">)</span>
-<span class="n">Ytest</span> <span class="o">=</span> <span class="n">f_branin_1</span><span class="p">(</span><span class="n">Xtest</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span> 
-<span class="n">Ytest_m</span><span class="p">,</span> <span class="n">Ytest_v</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xtest</span><span class="p">,</span> <span class="n">full_cov</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> 
+<span class="n">Ytest</span> <span class="o">=</span> <span class="n">f_branin_1</span><span class="p">(</span><span class="n">Xtest</span><span class="p">)</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">Ntest</span><span class="p">)</span>
+<span class="n">ftest</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">Xtest</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">())</span>
+<span class="n">Ytest_m</span> <span class="o">=</span> <span class="n">ftest</span><span class="o">.</span><span class="n">mean</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="n">Ytest_v</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="p">(</span><span class="n">ftest</span><span class="p">)</span><span class="o">.</span><span class="n">variance</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
 <span class="n">error_m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">Ytest</span><span class="p">,</span> <span class="n">Ytest_m</span><span class="p">)</span> <span class="p">)</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-
-<span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">Ytest</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">Ytest</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">Ytest</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">Ytest</span><span class="p">),</span> <span class="mi">100</span> <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$x=y$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Ytest</span><span class="p">,</span> <span class="n">Ytest_m</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Predictions vs True test values&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Predictions vs True test values (ARD, RMSE = </span><span class="si">{</span><span class="n">error_m</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Test labels&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Predictions&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Predictions&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8f90c79d8d579c0a371f4615fb212374ffde3686d082b6e59da1955f898897e9.png" src="../_images/8f90c79d8d579c0a371f4615fb212374ffde3686d082b6e59da1955f898897e9.png" />
-</div>
+<img alt="../_images/50182dcbe4e1fc80b9682f016229dac473a76313dd402b7c215767d7c9d01aa0.svg" src="../_images/50182dcbe4e1fc80b9682f016229dac473a76313dd402b7c215767d7c9d01aa0.svg" /></div>
 </div>
 <p>Now let’s add a fourth dimension to the Branin function, <span class="math notranslate nohighlight">\(x_4\)</span>, such that <span class="math notranslate nohighlight">\(f(x_1, x_2, x_3, x_4) = f(x_1, x_2, x_3)\)</span>, i.e., <span class="math notranslate nohighlight">\(f\)</span> does not actually depend on <span class="math notranslate nohighlight">\(x_4\)</span>.</p>
 <div class="math notranslate nohighlight">
@@ -1043,7 +1143,7 @@ f(\mathbf{x}) = f(x_1,x_2, x_3, x_4) = \frac{1}{51.95}\left[\left(15x_2 - \frac{
 <span class="n">Xdata</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">ndim</span><span class="p">)</span>
 
 <span class="n">sigma</span> <span class="o">=</span> <span class="mf">0.01</span>
-<span class="n">Ydata</span> <span class="o">=</span> <span class="n">f_branin_2</span><span class="p">(</span><span class="n">Xdata</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">Ydata</span> <span class="o">=</span> <span class="n">f_branin_2</span><span class="p">(</span><span class="n">Xdata</span><span class="p">)</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1051,59 +1151,80 @@ f(\mathbf{x}) = f(x_1,x_2, x_3, x_4) = \frac{1}{51.95}\left[\left(15x_2 - \frac{
 <p>Train a GP:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span><span class="n">ndim</span><span class="p">,</span> <span class="n">ARD</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
-<span class="n">gp</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">GPRegression</span><span class="p">(</span><span class="n">Xdata</span><span class="p">,</span> <span class="n">Ydata</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">Xdata</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+<span class="n">train_y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">Ydata</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ExactGP</span><span class="p">(</span>
+    <span class="n">train_x</span><span class="p">,</span>
+    <span class="n">train_y</span><span class="p">,</span>
+    <span class="n">covar_module</span><span class="o">=</span><span class="n">ScaleKernel</span><span class="p">(</span><span class="n">RBFKernel</span><span class="p">(</span><span class="n">ard_num_dims</span><span class="o">=</span><span class="n">ndim</span><span class="p">))</span>
+<span class="p">)</span>
+<span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
-<span class="n">gp</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">messages</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span> <span class="c1"># No messages shown here</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">gp</span><span class="o">.</span><span class="n">rbf</span><span class="o">.</span><span class="n">lengthscale</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mean constant:</span><span class="se">\t</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">mean_module</span><span class="o">.</span><span class="n">constant</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;output scale:</span><span class="se">\t</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">covar_module</span><span class="o">.</span><span class="n">outputscale</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;length scale </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">:</span><span class="se">\t</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">covar_module</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;noise:</span><span class="se">\t\t</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">noise</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "697fcdcb365c40b69a358e59850eb50d", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  <span class=" -Color -Color-Bold">index</span>  |  GP_regression.rbf.lengthscale  |  constraints  |  priors
-  <span class=" -Color -Color-Bold">[0]  </span>  |                          0.226  |      +ve      |        
-  <span class=" -Color -Color-Bold">[1]  </span>  |                          0.588  |      +ve      |        
-  <span class=" -Color -Color-Bold">[2]  </span>  |                          7.785  |      +ve      |        
-  <span class=" -Color -Color-Bold">[3]  </span>  |                         52.699  |      +ve      |        
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iter   1/10 - Loss: 7.194
+Iter   2/10 - Loss: -0.798
+Iter   3/10 - Loss: -0.862
+Iter   4/10 - Loss: -0.862
+Iter   5/10 - Loss: -0.862
+Iter   6/10 - Loss: -0.862
+Iter   7/10 - Loss: -0.862
+Iter   8/10 - Loss: -0.862
+Iter   9/10 - Loss: -0.862
+Iter  10/10 - Loss: -0.862
+mean constant:	2.669
+output scale:	6.715
+length scale 0:	0.249
+length scale 1:	0.960
+length scale 2:	49.234
+length scale 3:	43.728
+noise:		0.000
 </pre></div>
 </div>
 </div>
 </div>
-<p>Notice that <span class="math notranslate nohighlight">\(\ell_4\)</span> is much larger than <span class="math notranslate nohighlight">\(\ell_3\)</span>, which itself is much larger than <span class="math notranslate nohighlight">\(\ell_1\)</span> and <span class="math notranslate nohighlight">\(\ell_2\)</span>.
-The ARD training procedure discovers that the dependence of the function <span class="math notranslate nohighlight">\(f\)</span> is very weak in the input <span class="math notranslate nohighlight">\(x_4\)</span>.</p>
+<p>Notice that <span class="math notranslate nohighlight">\(\ell_4\)</span> is also very large.
+The ARD training procedure discovers that the dependence of the function <span class="math notranslate nohighlight">\(f\)</span> is very weak in the input <span class="math notranslate nohighlight">\(x_4\)</span> as well.</p>
 <p>Now let’s make some predictions and compare it to the test observations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Ntest</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">Xtest</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">Ntest</span><span class="p">,</span> <span class="n">ndim</span><span class="p">)</span>
-<span class="n">Ytest</span> <span class="o">=</span> <span class="n">f_branin_2</span><span class="p">(</span><span class="n">Xtest</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span> 
-<span class="n">Ytest_m</span><span class="p">,</span> <span class="n">Ytest_v</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xtest</span><span class="p">,</span> <span class="n">full_cov</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> 
+<span class="n">Ytest</span> <span class="o">=</span> <span class="n">f_branin_1</span><span class="p">(</span><span class="n">Xtest</span><span class="p">)</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">Ntest</span><span class="p">)</span>
+<span class="n">ftest</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">Xtest</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">())</span>
+<span class="n">Ytest_m</span> <span class="o">=</span> <span class="n">ftest</span><span class="o">.</span><span class="n">mean</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="n">Ytest_v</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="p">(</span><span class="n">ftest</span><span class="p">)</span><span class="o">.</span><span class="n">variance</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
 <span class="n">error_m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">Ytest</span><span class="p">,</span> <span class="n">Ytest_m</span><span class="p">)</span> <span class="p">)</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-
-<span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">Ytest</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">Ytest</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">Ytest</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">Ytest</span><span class="p">),</span> <span class="mi">100</span> <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$x=y$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Ytest</span><span class="p">,</span> <span class="n">Ytest_m</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Predictions vs True test values&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Predictions vs True test values (ARD, RMSE = </span><span class="si">{</span><span class="n">error_m</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Test labels&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Predictions&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Predictions&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/aac4df1c854c41a29370c6f51fb1bc7ec7bee3bd18df215aa04a2e6bb00e661a.png" src="../_images/aac4df1c854c41a29370c6f51fb1bc7ec7bee3bd18df215aa04a2e6bb00e661a.png" />
-</div>
+<img alt="../_images/92c39c4fab5484f82e5a5d22cb44e357bc272154802349118e349f80a8e08950.svg" src="../_images/92c39c4fab5484f82e5a5d22cb44e357bc272154802349118e349f80a8e08950.svg" /></div>
 </div>
 <section id="questions">
-<h3>Questions:<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
+<h2>Questions:<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <p>For the very last example (4D):</p>
 <ul class="simple">
-<li><p>Add code cells above that compute the standarized errors and does the quantile-quantile plots.</p></li>
-<li><p>Experiment with very small number of samples <span class="math notranslate nohighlight">\(N\)</span>. What happens?</p></li>
-<li><p>Experiment with very large number of samples, say <span class="math notranslate nohighlight">\(N = 500\)</span>. What happens?</p></li>
+<li><p>Add code cells above that compute the standardized errors and do the quantile-quantile plots.</p></li>
+<li><p>Experiment with a tiny number of samples <span class="math notranslate nohighlight">\(N\)</span>. What happens?</p></li>
+<li><p>Experiment with many samples, say <span class="math notranslate nohighlight">\(N = 500\)</span>. What happens?</p></li>
 </ul>
-</section>
 </section>
 </section>
 
@@ -1174,11 +1295,7 @@ The ARD training procedure discovers that the dependence of the function <span c
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Multivariate Gaussian Process Regression</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions:</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions:</a></li>
 </ul>
   </nav></div>
 

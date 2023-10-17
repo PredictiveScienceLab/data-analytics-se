@@ -611,6 +611,14 @@ document.write(`
 <section class="tex2jax_ignore mathjax_ignore" id="tuning-the-hyperparameters">
 <h1>Tuning the Hyperparameters<a class="headerlink" href="#tuning-the-hyperparameters" title="Permalink to this heading">#</a></h1>
 <p>We tune the hyper-parameters of a Gaussian process using maximum marginal likelihood. See Chapter 5 of <span id="id1">[<a class="reference internal" href="../bibliography.html#id12" title="Carl Edward Rasmussen and Christopher K. I. Williams. Gaussian Processes for Machine Learning. The MIT Press, 11 2005. ISBN 9780262256834. URL: https://doi.org/10.7551/mitpress/3206.001.0001, doi:10.7551/mitpress/3206.001.0001.">Rasmussen and Williams, 2005</a>]</span> for details.</p>
+<p>Again, you may need to install the <code class="docutils literal notranslate"><span class="pre">gpytorch</span></code> package.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>gpytorch
+</pre></div>
+</div>
+</div>
+</div>
 <section id="example-gaussian-process-regression-with-fitted-hyperparameters">
 <h2>Example: Gaussian process regression with fitted hyperparameters<a class="headerlink" href="#example-gaussian-process-regression-with-fitted-hyperparameters" title="Permalink to this heading">#</a></h2>
 <p>Let’s generate synthetic data:</p>
@@ -639,7 +647,7 @@ document.write(`
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/d640ae36ebfe80f6741f4d6b771a6ba790748d1e364eaf383368842528ccfd9e.svg" src="../_images/d640ae36ebfe80f6741f4d6b771a6ba790748d1e364eaf383368842528ccfd9e.svg" /></div>
+<img alt="../_images/a85c06bc813ab4c4c68cb2c0899484bfd875d8d0bafc4efe9839687b21c9768c.svg" src="../_images/a85c06bc813ab4c4c68cb2c0899484bfd875d8d0bafc4efe9839687b21c9768c.svg" /></div>
 </div>
 <p>We repeat some of the code from the previous section:</p>
 <div class="cell tag_hide-input docutils container">
@@ -838,10 +846,9 @@ Parameter name: covar_module.base_kernel.raw_lengthscale   value = 0.00
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># THis is necessary to initialize the model</span>
 <span class="c1"># but it is not all we need to do</span>
 <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
-<span class="c1">#likelihood.train()</span>
 
 <span class="c1"># This is the optimizer that we will use</span>
-<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">LBFGS</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">LBFGS</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">line_search_fn</span><span class="o">=</span><span class="s1">&#39;strong_wolfe&#39;</span><span class="p">)</span>
 
 <span class="c1"># This is the loss function</span>
 <span class="n">mll</span> <span class="o">=</span> <span class="n">gpytorch</span><span class="o">.</span><span class="n">mlls</span><span class="o">.</span><span class="n">ExactMarginalLogLikelihood</span><span class="p">(</span><span class="n">likelihood</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
@@ -863,16 +870,15 @@ Parameter name: covar_module.base_kernel.raw_lengthscale   value = 0.00
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Iter </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s1">3d</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">n_iter</span><span class="si">}</span><span class="s1"> - Loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
 <span class="c1"># We are done training, so we can switch to eval mode</span>
-<span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
-<span class="c1">#likelihood.eval();</span>
+<span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iter   1/10 - Loss: 1.195
-Iter   2/10 - Loss: 0.981
-Iter   3/10 - Loss: 0.985
-Iter   4/10 - Loss: 0.938
+Iter   2/10 - Loss: 0.936
+Iter   3/10 - Loss: 0.936
+Iter   4/10 - Loss: 0.936
 Iter   5/10 - Loss: 0.936
 Iter   6/10 - Loss: 0.936
 Iter   7/10 - Loss: 0.936
@@ -881,37 +887,22 @@ Iter   9/10 - Loss: 0.936
 Iter  10/10 - Loss: 0.936
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ExactGP(
-  (likelihood): GaussianLikelihood(
-    (noise_covar): HomoskedasticNoise(
-      (raw_noise_constraint): GreaterThan(0.000E+00)
-    )
-  )
-  (mean_module): ConstantMean()
-  (covar_module): ScaleKernel(
-    (base_kernel): RBFKernel(
-      (raw_lengthscale_constraint): Positive()
-    )
-    (raw_outputscale_constraint): Positive()
-  )
-)
-</pre></div>
-</div>
 </div>
 </div>
 <p>It is convenient to organize this into a function that we can reuse:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Train the model.</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    model   --  The model to train.</span>
+<span class="sd">    train_x --  The training inputs.</span>
+<span class="sd">    train_y --  The training labels.</span>
 <span class="sd">    n_iter  --  The number of iterations.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
-    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">LBFGS</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">LBFGS</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">line_search_fn</span><span class="o">=</span><span class="s1">&#39;strong_wolfe&#39;</span><span class="p">)</span>
     <span class="n">mll</span> <span class="o">=</span> <span class="n">gpytorch</span><span class="o">.</span><span class="n">mlls</span><span class="o">.</span><span class="n">ExactMarginalLogLikelihood</span><span class="p">(</span><span class="n">likelihood</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">closure</span><span class="p">():</span>
         <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
@@ -973,7 +964,7 @@ noise: 0.080
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e3761f6ffe71aa6a9455657f217e8b2984e8fbfddea9f7cc6a6c10d39a26ec8d.svg" src="../_images/e3761f6ffe71aa6a9455657f217e8b2984e8fbfddea9f7cc6a6c10d39a26ec8d.svg" /></div>
+<img alt="../_images/88b1b993c6df3f4159c2667be830a8a19837b339c2834e22fb574bf001fd3fa6.svg" src="../_images/88b1b993c6df3f4159c2667be830a8a19837b339c2834e22fb574bf001fd3fa6.svg" /></div>
 </div>
 <p>Admittedly, this could look better.
 (We can tell this only because we know the truth).
@@ -1010,7 +1001,7 @@ Here you go:</p>
 <p>This makes the optimizer ignore the noise parameter. Let’s retrain:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1036,7 +1027,7 @@ Iter  10/10 - Loss: 0.939
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/79262cfea1d5bc0f3f82ff10672bd7dc3f1fab6227e97eca3f60d2cd00b87a0e.svg" src="../_images/79262cfea1d5bc0f3f82ff10672bd7dc3f1fab6227e97eca3f60d2cd00b87a0e.svg" /></div>
+<img alt="../_images/d3b144489aaf0f3724b7752236e5d73af312d56db44ffa8c475263ebb8a991db.svg" src="../_images/d3b144489aaf0f3724b7752236e5d73af312d56db44ffa8c475263ebb8a991db.svg" /></div>
 </div>
 <p>This looks better.
 But, the automatically selected length scale seems smaller than the true one.
@@ -1059,13 +1050,13 @@ $<span class="math notranslate nohighlight">\(
 <p>Let’s see what difference this makes:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iter   1/10 - Loss: 1.510
-Iter   2/10 - Loss: 1.228
+Iter   2/10 - Loss: 1.226
 Iter   3/10 - Loss: 1.226
 Iter   4/10 - Loss: 1.226
 Iter   5/10 - Loss: 1.226
@@ -1104,7 +1095,7 @@ noise: 0.100
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/017b22f5a71bcc489429b1d9b4b47615d85f8c8496d659c7b2edd91eacd7216e.svg" src="../_images/017b22f5a71bcc489429b1d9b4b47615d85f8c8496d659c7b2edd91eacd7216e.svg" /></div>
+<img alt="../_images/c5189b3af44474682981eac95b70f5f4bd4e73a235d029cb26e3f3cdc5cf783d.svg" src="../_images/c5189b3af44474682981eac95b70f5f4bd4e73a235d029cb26e3f3cdc5cf783d.svg" /></div>
 </div>
 <p>That’s better, but not perfect.
 But remember: You don’t know what the truth is.
