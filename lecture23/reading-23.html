@@ -575,11 +575,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#baysian-global-optimization-of-a-scalar-function-without-noise">Baysian Global Optimization of a Scalar Function without Noise</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-information-acquisition-for-optimization">Sequential Information Acquisition for Optimization</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bayesian-optimization-approach">The Bayesian optimization approach</a></li>
 </ul>
             </nav>
         </div>
@@ -592,16 +588,11 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="bayesian-global-optimization">
-<h1>Bayesian Global Optimization<a class="headerlink" href="#bayesian-global-optimization" title="Permalink to this heading">#</a></h1>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://arxiv.org/abs/1807.02811#:~:text=Bayesian%20optimization%20is%20an%20approach,stochastic%20noise%20in%20function%20evaluations.">A Tutorial on Bayesian Global Optimization, by Peter Frazier</a></p></li>
-</ul>
-</section>
-<section id="baysian-global-optimization-of-a-scalar-function-without-noise">
-<h2>Baysian Global Optimization of a Scalar Function without Noise<a class="headerlink" href="#baysian-global-optimization-of-a-scalar-function-without-noise" title="Permalink to this heading">#</a></h2>
-<p>We are going to addresss the problem:</p>
+<span id="id1"></span><h1>Bayesian Global Optimization<a class="headerlink" href="#bayesian-global-optimization" title="Permalink to this heading">#</a></h1>
+<p>We discuss various cases of the problem of finding the global maximum of an expensive-to-evaluate function.
+We follow the so-called <em>Bayesian optimization</em> approach, a heuristic that is very popular in the machine-learning community.
+See <span id="id2">[<a class="reference internal" href="../bibliography.html#id15" title="P. Frazier. A tutorial on bayesian optimization. ArXiv, 2018. URL: https://api.semanticscholar.org/CorpusID:49656213.">Frazier, 2018</a>]</span> for more technical details.</p>
+<p>We are going to address the problem:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbf{x}^* = \arg\max_{\mathbf{x}}f(\mathbf{x}).
@@ -614,21 +605,21 @@ document.write(`
 <li><p>the dimensionality of <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is not very high.</p></li>
 </ul>
 <p>Why is this an important problem?
-Well, <span class="math notranslate nohighlight">\(\mathbf{f}(\mathbf{x})\)</span> may be a very expensive simulation that you would like to optimize under a limitted budget.
-It could also be an experimentally measured quantity of interest, but you would have to make sure that the noise is not very big.
+<span class="math notranslate nohighlight">\(\mathbf{f}(\mathbf{x})\)</span> may be a costly simulation that you would like to optimize under a limited budget.
+It could also be an experimentally measured quantity of interest, but you must ensure the noise is small.
 We will see what you can do when you have noise later.</p>
-<section id="sequential-information-acquisition-for-optimization">
-<h3>Sequential Information Acquisition for Optimization<a class="headerlink" href="#sequential-information-acquisition-for-optimization" title="Permalink to this heading">#</a></h3>
-<p>What do we mean by <em>sequential information acquisiton</em> for optimization?
+<section id="the-bayesian-optimization-approach">
+<h2>The Bayesian optimization approach<a class="headerlink" href="#the-bayesian-optimization-approach" title="Permalink to this heading">#</a></h2>
+<p>Bayesian optimization does <em>sequential information acquisition</em> for optimization.
 It is just an algorithm that tells us where to evaluate a function next if we would like to find its maximum/minimum.
 The problem can be formulated in a rigorous mathematical way using the theory and tools of dynamic programming.
-However, the full fledged mathematical problem of designing optimal evaluation policies tends to be harder than the original problem of just maximizing a function.
-So, we usually resort to heurestics.
+However, the full-fledged mathematical problem of designing optimal evaluation policies tends to be more complicated than the original problem of maximizing a function.
+So, we usually resort to heuristics.
 These heuristics are not optimal in a mathematical sense, but they are convenient in a practical sense.
-In a way, the heuristics strike a balance the theoretically optimal (but computationally intractable) thing to do, and just randomly selecting evaluations.</p>
-<p>A generic heuristic, which we are going to call “one-step-look ahead information acquisition policy” works as follows:</p>
+In a way, the heuristics balance the theoretically optimal (but computationally intractable) thing to do and randomly select evaluations.</p>
+<p>A generic heuristic, which we are going to call “one-step-look ahead information acquisition policy,” works as follows:</p>
 <ul class="simple">
-<li><p>We start with an initial data set consiting of <span class="math notranslate nohighlight">\(n_0\)</span> input-output observations:</p></li>
+<li><p>We start with an initial data set consisting of <span class="math notranslate nohighlight">\(n_0\)</span> input-output observations:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[
@@ -648,24 +639,24 @@ For example, we can use Gaussian process regression (GPR) or any other Bayesian 
 <li><p>Then we pick the <em>most important</em> point to evaluate next by looking at maximizing an <em>acquisition function</em>
 <span class="math notranslate nohighlight">\(a_{n_0}(\mathbf{x})\)</span> which depends on our current state of knowledge (we will see specific examples below).
 This acquisition function quantifies, for example, how much value or how much information there is in
-in doing an evaluation at <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>.
+evaluating <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>.
 We can assume that it is a nonnegative function.
-So, we to pick the next point we solve a problem of the form:</p></li>
+So, to pick the next point, we solve a problem of the form:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[
     \mathbf{x}_{n+1} = \arg\max a_{n}(\mathbf{x}).
     \]</div>
-<p>That is, we pick the point with the maximum value or the maximum information.</p>
+<p>We pick the point with the maximum value or the maximum information.</p>
 <ul class="simple">
-<li><p>If maximum value of the acquisition function is smaller than a threshold, e.g., if <span class="math notranslate nohighlight">\(a_n(\mathbf{x}) \le \epsilon\)</span> for some <span class="math notranslate nohighlight">\(\epsilon &gt; 0\)</span>, then we STOP.</p></li>
-<li><p>Otheweise, we evaluate the function at the selected <span class="math notranslate nohighlight">\(\mathbf{x}_{n+1}\)</span> to obtain:</p></li>
+<li><p>If the maximum value of the acquisition function is smaller than a threshold, e.g., if <span class="math notranslate nohighlight">\(a_n(\mathbf{x}) \le \epsilon\)</span> for some <span class="math notranslate nohighlight">\(\epsilon &gt; 0\)</span>, then we STOP.</p></li>
+<li><p>Otherwise, we evaluate the function at the selected <span class="math notranslate nohighlight">\(\mathbf{x}_{n+1}\)</span> to obtain:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[
     y_n = f(\mathbf{x}_n).
     \]</div>
-<p>This would entain either running a simulation or doing an experiment.</p>
+<p>This would entail either running a simulation or doing an experiment.</p>
 <ul class="simple">
 <li><p>We augment our original data set with the new observation:</p></li>
 </ul>
@@ -693,9 +684,8 @@ That is, we can find the index of the evaluation corresponding to the observed m
 i^* = \arg\max_{1\le i\le n} y_i,
 \]</div>
 <p>and say that the maximum was <span class="math notranslate nohighlight">\(y_{i^*}\)</span> and the location of the maximum is <span class="math notranslate nohighlight">\(\mathbf{x}_{i^*}\)</span>.
-Alternatively, and in particular if our optimizatioin budget is low, we can also quantify our epistemic uncertainty about the location of the maximum. We discuss this idea in detail towards the end of this notebook.</p>
-<p>We will provide specific examples of information acquisition functions in the hands-on activities.</p>
-</section>
+Alternatively, and in particular, if our optimization budget is low, we can also quantify our epistemic uncertainty about the location of the maximum. We discuss this idea in detail towards the end of this notebook.</p>
+<p>We will provide specific examples of information acquisition functions in the following sections.</p>
 </section>
 </section>
 
@@ -766,11 +756,7 @@ Alternatively, and in particular if our optimizatioin budget is low, we can also
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#baysian-global-optimization-of-a-scalar-function-without-noise">Baysian Global Optimization of a Scalar Function without Noise</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-information-acquisition-for-optimization">Sequential Information Acquisition for Optimization</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bayesian-optimization-approach">The Bayesian optimization approach</a></li>
 </ul>
   </nav></div>
 
