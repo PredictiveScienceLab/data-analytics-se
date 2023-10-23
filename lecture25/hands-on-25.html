@@ -585,10 +585,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cifar10-dataset">The CIFAR10 dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-a-classifier-using-a-dense-dnns">Training a classifier using a dense DNNs</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-a-classifier-using-dense-dnns">Training a classifier using dense DNNs</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
 </li>
@@ -611,16 +609,14 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
-<span class="kn">import</span> <span class="nn">scipy</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
 <span class="kn">import</span> <span class="nn">urllib.request</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
@@ -645,17 +641,8 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="classification-with-deep-neural-networks">
 <h1>Classification with Deep Neural Networks<a class="headerlink" href="#classification-with-deep-neural-networks" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Implement image classification network in <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code>.</p></li>
-<li><p>Add L2 regularization.</p></li>
-<li><p>Add convolutional layers.</p></li>
-<li><p>Add hyperparameter tuning.</p></li>
-</ul>
-</section>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<p>We implement image classification network in <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code>. We add L2 regularization, convolutional layers, and hyper parameter tuning.
+You may find these tutorials useful:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html">Deep Learning with PyTorch: A 60 minute blitz</a> and in particular:</p>
 <ul>
@@ -663,16 +650,15 @@ document.write(`
 </ul>
 </li>
 </ul>
-</section>
 <section id="the-cifar10-dataset">
 <h2>The CIFAR10 dataset<a class="headerlink" href="#the-cifar10-dataset" title="Permalink to this heading">#</a></h2>
-<p>We are going to use the <a class="reference external" href="https://www.cs.toronto.edu/~kriz/cifar.html">CIFAR10 dateset</a> to demonstrate multiclass classification.
+<p>We will demonstrate multiclass classification using the <a class="reference external" href="https://www.cs.toronto.edu/~kriz/cifar.html">CIFAR10 dateset</a>.
 The dataset consists of 60000 32x32 color images in 10 classes (plane, car, bird, cat, deer, dog, frog, horse, ship, and truck), with 6000 images per class.
-The dataset can be download direclty from <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code> using the module <code class="docutils literal notranslate"><span class="pre">torchvision</span></code>.</p>
+The dataset can be downloaded directly from <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code> using the <code class="docutils literal notranslate"><span class="pre">torchvision</span></code> module.</p>
 <p>You can think of the original images as 32x32x3 arrays.
 The first two dimensions correspond to the pixels.
 The third dimension corresponds to the color (red, green, blue).
-Of course, we will have to turn them into <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code> tensors.
+Of course, we must turn them into <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code> tensors.
 Also, it is more convenient to scale them to be between <span class="math notranslate nohighlight">\([-1,1]\)</span>.
 We will achieve this using a transformation.
 Don’t worry about this now.
@@ -706,13 +692,16 @@ We will explain it as we go.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz to ./data/cifar-10-python.tar.gz
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "9eda2ef8fea54a55bc52f47aa168ea24", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extracting ./data/cifar-10-python.tar.gz to ./data
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 170498071/170498071 [00:04&lt;00:00, 34368893.07it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extracting ./data/cifar-10-python.tar.gz to ./data
 Files already downloaded and verified
 </pre></div>
 </div>
 </div>
 </div>
-<p>Now, all these data went in the folder “./data.”
+<p>Now, all these data went into the folder “./data.”
 Here is what this folder contains:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -728,7 +717,7 @@ Here is what this folder contains:</p>
 </div>
 <p>The file <code class="docutils literal notranslate"><span class="pre">cifar-10-python.tar.gz</span></code> is a compressed file containing everything.
 The contents were automatically extracted and put in the folder <code class="docutils literal notranslate"><span class="pre">cifar-10-batches-py</span></code>.
-Let’s look insider this folder:</p>
+Let’s look inside this folder:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls<span class="w"> </span>-lht<span class="w"> </span>data/cifar-10-batches-py
@@ -737,21 +726,21 @@ Let’s look insider this folder:</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>total 363752
--rw-r--r--@ 1 ibilion  staff    88B Jun  4  2009 readme.html
--rw-r--r--@ 1 ibilion  staff   158B Mar 31  2009 batches.meta
--rw-r--r--@ 1 ibilion  staff    30M Mar 31  2009 data_batch_4
--rw-r--r--@ 1 ibilion  staff    30M Mar 31  2009 data_batch_1
--rw-r--r--@ 1 ibilion  staff    30M Mar 31  2009 data_batch_5
--rw-r--r--@ 1 ibilion  staff    30M Mar 31  2009 data_batch_2
--rw-r--r--@ 1 ibilion  staff    30M Mar 31  2009 data_batch_3
--rw-r--r--@ 1 ibilion  staff    30M Mar 31  2009 test_batch
+-rw-r--r--  1 ibilion  staff    88B Jun  4  2009 readme.html
+-rw-r--r--  1 ibilion  staff   158B Mar 31  2009 batches.meta
+-rw-r--r--  1 ibilion  staff    30M Mar 31  2009 data_batch_4
+-rw-r--r--  1 ibilion  staff    30M Mar 31  2009 data_batch_1
+-rw-r--r--  1 ibilion  staff    30M Mar 31  2009 data_batch_5
+-rw-r--r--  1 ibilion  staff    30M Mar 31  2009 data_batch_2
+-rw-r--r--  1 ibilion  staff    30M Mar 31  2009 data_batch_3
+-rw-r--r--  1 ibilion  staff    30M Mar 31  2009 test_batch
 </pre></div>
 </div>
 </div>
 </div>
 <p>You see several files.
 The important ones are <code class="docutils literal notranslate"><span class="pre">data_batch_1</span></code> to <code class="docutils literal notranslate"><span class="pre">data_batch_5</span></code> and <code class="docutils literal notranslate"><span class="pre">test_batch</span></code>.
-Each of these contains 10000 images in a binary format.
+Each of these contains 10,000 images in a binary format.
 The format is explained <a class="reference external" href="https://www.cs.toronto.edu/~kriz/cifar.html">here</a>.
 We can read them as follows:</p>
 <div class="cell docutils container">
@@ -834,8 +823,7 @@ Here is how to visualize it:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7b6823b1263b3b86052d6429cd8324d5258432ebc3d0c1a447cc6c42ad0091f3.png" src="../_images/7b6823b1263b3b86052d6429cd8324d5258432ebc3d0c1a447cc6c42ad0091f3.png" />
-</div>
+<img alt="../_images/3155a8cbd231f4e210c288f4c7ee3e785b02f5c45b2484753028e07bc8f12c51.svg" src="../_images/3155a8cbd231f4e210c288f4c7ee3e785b02f5c45b2484753028e07bc8f12c51.svg" /></div>
 </div>
 <p>This is clearly a frog.
 Let’s verify this:</p>
@@ -852,7 +840,7 @@ Let’s verify this:</p>
 </div>
 </div>
 <p>This is nice. And we could proceed manually like this.
-However, <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code> offers some useful functionality.
+However, <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code> offers some helpful functionality.
 Let’s investigate the <code class="docutils literal notranslate"><span class="pre">trainset</span></code> that was returned by <code class="docutils literal notranslate"><span class="pre">CIFAR10</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -992,10 +980,10 @@ Data point: 12000 input size: torch.Size([4, 3, 32, 32])
 </div>
 </div>
 </div>
-<p>When you reach the end of the loop you have visited all the images once.
+<p>When you reach the end of the loop, you have visited all the images once.
 Notice that <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code> has reshaped the images to 3 x 32 x 32 3D arrays.
-This is more convenient for the convolutional layers we are going to use later.
-Also, <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code> is using the transformations we gave it to scale the data to array elements to <span class="math notranslate nohighlight">\([-1, 1]\)</span>.
+This is more convenient for the convolutional layers we will use later.
+Also, <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code> uses the transformations we gave it to scale the data to array elements to <span class="math notranslate nohighlight">\([-1, 1]\)</span>.
 Let me show you an example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1007,40 +995,40 @@ Let me show you an example:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[[-0.8980, -0.8667, -0.8510,  ..., -0.8039, -0.8118, -0.8196],
-         [-0.8196, -0.7882, -0.8118,  ..., -0.8039, -0.8196, -0.8196],
-         [-0.7255, -0.7255, -0.8431,  ..., -0.7804, -0.7961, -0.8196],
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[[ 0.6627,  0.7098,  0.4824,  ..., -0.0510, -0.0902, -0.4039],
+         [ 0.6235,  0.7255,  0.6078,  ..., -0.3412, -0.4431, -0.7333],
+         [ 0.3647,  0.4588,  0.4588,  ..., -0.4745, -0.5608, -0.7255],
          ...,
-         [ 0.4353,  0.4902,  0.4824,  ...,  0.6392,  0.7020,  0.7255],
-         [ 0.2157,  0.2235,  0.0745,  ...,  0.7961,  0.7569,  0.7333],
-         [-0.0431, -0.0824, -0.1137,  ...,  0.7255,  0.6549,  0.6706]],
+         [ 0.2627, -0.1137, -0.2471,  ...,  0.2314, -0.1765, -0.3647],
+         [ 0.2863, -0.1373, -0.2863,  ...,  0.2078, -0.2392, -0.3725],
+         [-0.0039, -0.5608, -0.5765,  ..., -0.2941, -0.4980, -0.3882]],
 
-        [[-0.6471, -0.6392, -0.6471,  ..., -0.5843, -0.5922, -0.6000],
-         [-0.6235, -0.6000, -0.6549,  ..., -0.6000, -0.6157, -0.6157],
-         [-0.5608, -0.5843, -0.7490,  ..., -0.6000, -0.6157, -0.6314],
+        [[ 0.8510,  0.8353,  0.7098,  ...,  0.0667, -0.0118, -0.3569],
+         [ 0.7490,  0.6784,  0.6627,  ..., -0.2549, -0.3882, -0.7176],
+         [ 0.6078,  0.5294,  0.4431,  ..., -0.4196, -0.5451, -0.7490],
          ...,
-         [ 0.3412,  0.2941,  0.2000,  ...,  0.5765,  0.6392,  0.6627],
-         [ 0.0431, -0.0196, -0.2314,  ...,  0.7333,  0.6941,  0.6706],
-         [-0.2392, -0.3176, -0.3725,  ...,  0.6627,  0.5922,  0.6078]],
+         [ 0.5529,  0.1059, -0.0667,  ...,  0.2078, -0.1922, -0.3804],
+         [ 0.5294,  0.0431, -0.1529,  ...,  0.1843, -0.2549, -0.3882],
+         [ 0.1922, -0.4275, -0.4980,  ..., -0.3176, -0.5216, -0.4039]],
 
-        [[-0.3333, -0.3333, -0.3804,  ..., -0.2549, -0.2549, -0.2471],
-         [-0.2235, -0.2549, -0.3961,  ..., -0.3098, -0.3176, -0.3098],
-         [-0.1373, -0.2392, -0.5059,  ..., -0.2706, -0.2941, -0.3255],
+        [[ 1.0000,  0.9216,  0.9059,  ...,  0.3804,  0.2392, -0.1843],
+         [ 0.9216,  0.6784,  0.7569,  ..., -0.0667, -0.2549, -0.6157],
+         [ 0.9059,  0.6314,  0.5216,  ..., -0.2706, -0.4275, -0.6549],
          ...,
-         [ 0.2078,  0.1059, -0.0667,  ...,  0.5529,  0.6157,  0.6392],
-         [-0.1137, -0.2078, -0.4353,  ...,  0.7098,  0.6784,  0.6471],
-         [-0.3725, -0.4510, -0.5059,  ...,  0.6314,  0.5608,  0.5765]]])
+         [ 0.9059,  0.4510,  0.2000,  ...,  0.2627, -0.1608, -0.3725],
+         [ 0.9059,  0.3490,  0.0667,  ...,  0.2392, -0.2235, -0.3804],
+         [ 0.4745, -0.2392, -0.3490,  ..., -0.2627, -0.4902, -0.3961]]])
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="training-a-classifier-using-a-dense-dnns">
-<h2>Training a classifier using a dense DNNs<a class="headerlink" href="#training-a-classifier-using-a-dense-dnns" title="Permalink to this heading">#</a></h2>
-<p>Let’s just train a classifer using a dense neural network.
-It’s not going to work very well, but it is very easy to put together.
-We are going to start the network with 3 x 32 x 32 = 3072, followed up with a few dense layers that end at 10 outputs passed through softmax.
-However, for reasons of numerical stability, we are not going to end with the softmax layer during training.</p>
+<section id="training-a-classifier-using-dense-dnns">
+<h2>Training a classifier using dense DNNs<a class="headerlink" href="#training-a-classifier-using-dense-dnns" title="Permalink to this heading">#</a></h2>
+<p>Let’s train a classifier using a dense neural network.
+It could be better, but it is very easy to put together.
+We will start the network with 3 x 32 x 32 = 3072, followed by a few dense layers ending with ten outputs passed through softmax.
+However, for numerical stability reasons, we will not end with the softmax layer during training.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
@@ -1076,7 +1064,7 @@ However, for reasons of numerical stability, we are not going to end with the so
 </div>
 </div>
 </div>
-<p>Let’s train the network. This is going to take a while…</p>
+<p>Let’s train the network. This is going to take a while (about 3 minutes on my desktop):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># How many times do you want to go over the entire dataset?</span>
@@ -1112,30 +1100,30 @@ However, for reasons of numerical stability, we are not going to end with the so
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1,  1000] loss: 2.274
-[1,  2000] loss: 2.061
-[1,  3000] loss: 1.908
-[1,  4000] loss: 1.845
-[1,  5000] loss: 1.766
-[1,  6000] loss: 1.737
-[1,  7000] loss: 1.663
-[1,  8000] loss: 1.665
-[1,  9000] loss: 1.620
-[1, 10000] loss: 1.598
-[1, 11000] loss: 1.616
-[1, 12000] loss: 1.604
-[2,  1000] loss: 1.507
-[2,  2000] loss: 1.529
-[2,  3000] loss: 1.462
-[2,  4000] loss: 1.467
-[2,  5000] loss: 1.460
-[2,  6000] loss: 1.480
-[2,  7000] loss: 1.495
-[2,  8000] loss: 1.431
-[2,  9000] loss: 1.457
-[2, 10000] loss: 1.459
-[2, 11000] loss: 1.412
-[2, 12000] loss: 1.428
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1,  1000] loss: 2.289
+[1,  2000] loss: 2.098
+[1,  3000] loss: 1.915
+[1,  4000] loss: 1.814
+[1,  5000] loss: 1.758
+[1,  6000] loss: 1.718
+[1,  7000] loss: 1.707
+[1,  8000] loss: 1.671
+[1,  9000] loss: 1.624
+[1, 10000] loss: 1.615
+[1, 11000] loss: 1.604
+[1, 12000] loss: 1.559
+[2,  1000] loss: 1.473
+[2,  2000] loss: 1.481
+[2,  3000] loss: 1.479
+[2,  4000] loss: 1.488
+[2,  5000] loss: 1.481
+[2,  6000] loss: 1.470
+[2,  7000] loss: 1.472
+[2,  8000] loss: 1.433
+[2,  9000] loss: 1.463
+[2, 10000] loss: 1.450
+[2, 11000] loss: 1.409
+[2, 12000] loss: 1.404
 Finished Training
 </pre></div>
 </div>
@@ -1157,7 +1145,7 @@ Finished Training
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-r--r--  1 ibilion  staff    16M May  9 08:34 hands-on-25-model-dense.pth
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-r--r--  1 ibilion  staff    16M Oct 23 16:45 hands-on-25-model-dense.pth
 </pre></div>
 </div>
 </div>
@@ -1167,7 +1155,7 @@ Finished Training
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the first four images and their labels</span>
 <span class="n">dataiter</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">testloader</span><span class="p">)</span>
-<span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">dataiter</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">dataiter</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1209,25 +1197,18 @@ Finished Training
     <span class="n">ax2</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">predictions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
     <span class="n">ax2</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
     <span class="n">ax2</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">classes</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/71a8b97927870b4cfccbf69f4332536cdb26bfb07e306389d4e76e8b40e84aad.png" src="../_images/71a8b97927870b4cfccbf69f4332536cdb26bfb07e306389d4e76e8b40e84aad.png" />
-<img alt="../_images/c4f05c9f4572e7fbe7abaa41477086f206f3fff21644ec8eb271fc445019636c.png" src="../_images/c4f05c9f4572e7fbe7abaa41477086f206f3fff21644ec8eb271fc445019636c.png" />
-<img alt="../_images/26aff259f967260f2578b6b6b35736413463c15adef5e3975cc0a3b8c6b9b49c.png" src="../_images/26aff259f967260f2578b6b6b35736413463c15adef5e3975cc0a3b8c6b9b49c.png" />
-<img alt="../_images/d2e0e26d65e46910aecd7f99ada6b245f54101b97d5f568f3ca8d1b24654373d.png" src="../_images/d2e0e26d65e46910aecd7f99ada6b245f54101b97d5f568f3ca8d1b24654373d.png" />
-<img alt="../_images/6a6894cd79b6e45e37768eb9c4f35f74771fccc6802d8607b4593054fd6b9e89.png" src="../_images/6a6894cd79b6e45e37768eb9c4f35f74771fccc6802d8607b4593054fd6b9e89.png" />
-<img alt="../_images/1ebac1a0fe980ed3127be81d2a8db7eef9568cc00fc68714f5d2c959f190a873.png" src="../_images/1ebac1a0fe980ed3127be81d2a8db7eef9568cc00fc68714f5d2c959f190a873.png" />
-<img alt="../_images/33306d4a684f3e00889c100233f41f13290d689deb3066a0fa6c239044b65786.png" src="../_images/33306d4a684f3e00889c100233f41f13290d689deb3066a0fa6c239044b65786.png" />
-<img alt="../_images/a81e0dde5c7662e5391b83d1e81a451c192df94577a077a6933e631b1705e443.png" src="../_images/a81e0dde5c7662e5391b83d1e81a451c192df94577a077a6933e631b1705e443.png" />
-</div>
+<img alt="../_images/4da3f7ebc55a63541dc45405328ed91a368ccf2112645ecd5ed4333993025393.svg" src="../_images/4da3f7ebc55a63541dc45405328ed91a368ccf2112645ecd5ed4333993025393.svg" /><img alt="../_images/d12c0ca799d7d1737c03b2b522b95c007103e5878cd4fbfa5d4e7f8044f2ffd8.svg" src="../_images/d12c0ca799d7d1737c03b2b522b95c007103e5878cd4fbfa5d4e7f8044f2ffd8.svg" /><img alt="../_images/be36f89eb46f20bee1caec065eb82220a7b31111388f9798140af47b9122b43c.svg" src="../_images/be36f89eb46f20bee1caec065eb82220a7b31111388f9798140af47b9122b43c.svg" /><img alt="../_images/9341c8e128c1c652b17d4cfdd18966747c85adc09b51d32b745ae8b6784b8a21.svg" src="../_images/9341c8e128c1c652b17d4cfdd18966747c85adc09b51d32b745ae8b6784b8a21.svg" /><img alt="../_images/fa5f48e136a36b2dc2cc9ebbc24b3b69ae566f46b0c2456dbdff49905bb9350f.svg" src="../_images/fa5f48e136a36b2dc2cc9ebbc24b3b69ae566f46b0c2456dbdff49905bb9350f.svg" /><img alt="../_images/ed4ca72115a81d6855bfc897c828a0efedf36d35dc808d7f23c09f670318e10a.svg" src="../_images/ed4ca72115a81d6855bfc897c828a0efedf36d35dc808d7f23c09f670318e10a.svg" /><img alt="../_images/441138b4d890c2174f7463fc1deef2f0026c52cf75147cf774b09d9dc2229df7.svg" src="../_images/441138b4d890c2174f7463fc1deef2f0026c52cf75147cf774b09d9dc2229df7.svg" /><img alt="../_images/228235a85aafcd93809520953a118e5df7fa2155d1e1bbae867b4efa722d2a78.svg" src="../_images/228235a85aafcd93809520953a118e5df7fa2155d1e1bbae867b4efa722d2a78.svg" /></div>
 </div>
 <p>Now, let’s do the same thing with a convolutional neural network.
 We are not going to use <code class="docutils literal notranslate"><span class="pre">nn.Sequential</span></code> this time.
-Instead, we are going to use <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> to manually create the network.
+Instead, we will use <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> to manually create the network.
 The documentation is <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html">here</a>.
-You basically need to inherit <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>, and implement <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> and <code class="docutils literal notranslate"><span class="pre">forward()</span></code>.</p>
+You need to inherit <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>, and implement <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> and <code class="docutils literal notranslate"><span class="pre">forward()</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
@@ -1271,26 +1252,7 @@ You basically need to inherit <code class="docutils literal notranslate"><span c
 </div>
 </div>
 </div>
-<p>Here is a new optimizer:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_cnn</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Net(
-  (conv1): Conv2d(3, 6, kernel_size=(5, 5), stride=(1, 1))
-  (pool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
-  (conv2): Conv2d(6, 16, kernel_size=(5, 5), stride=(1, 1))
-  (fc1): Linear(in_features=400, out_features=120, bias=True)
-  (fc2): Linear(in_features=120, out_features=84, bias=True)
-  (fc3): Linear(in_features=84, out_features=10, bias=True)
-)
-</pre></div>
-</div>
-</div>
-</div>
+<p>Here is the optimizer:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">model_cnn</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
@@ -1298,11 +1260,12 @@ You basically need to inherit <code class="docutils literal notranslate"><span c
 </div>
 </div>
 </div>
+<p>And here is the training loop. Notice that this network trains faster.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># How many times do you want to go over the entire dataset?</span>
 <span class="c1"># Don&#39;t pick a very big number because you will overfit</span>
-<span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">5</span>
 
 <span class="c1"># Here is the main training algorithm</span>
 <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">):</span>  <span class="c1"># loop over the dataset multiple times</span>
@@ -1333,30 +1296,66 @@ You basically need to inherit <code class="docutils literal notranslate"><span c
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1,  1000] loss: 2.270
-[1,  2000] loss: 2.052
-[1,  3000] loss: 1.881
-[1,  4000] loss: 1.756
-[1,  5000] loss: 1.695
-[1,  6000] loss: 1.607
-[1,  7000] loss: 1.581
-[1,  8000] loss: 1.538
-[1,  9000] loss: 1.534
-[1, 10000] loss: 1.493
-[1, 11000] loss: 1.456
-[1, 12000] loss: 1.450
-[2,  1000] loss: 1.444
-[2,  2000] loss: 1.377
-[2,  3000] loss: 1.373
-[2,  4000] loss: 1.380
-[2,  5000] loss: 1.356
-[2,  6000] loss: 1.362
-[2,  7000] loss: 1.333
-[2,  8000] loss: 1.317
-[2,  9000] loss: 1.318
-[2, 10000] loss: 1.270
-[2, 11000] loss: 1.294
-[2, 12000] loss: 1.310
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1,  1000] loss: 1.835
+[1,  2000] loss: 1.763
+[1,  3000] loss: 1.705
+[1,  4000] loss: 1.674
+[1,  5000] loss: 1.667
+[1,  6000] loss: 1.645
+[1,  7000] loss: 1.619
+[1,  8000] loss: 1.609
+[1,  9000] loss: 1.607
+[1, 10000] loss: 1.542
+[1, 11000] loss: 1.567
+[1, 12000] loss: 1.564
+[2,  1000] loss: 1.523
+[2,  2000] loss: 1.519
+[2,  3000] loss: 1.478
+[2,  4000] loss: 1.515
+[2,  5000] loss: 1.481
+[2,  6000] loss: 1.506
+[2,  7000] loss: 1.455
+[2,  8000] loss: 1.493
+[2,  9000] loss: 1.465
+[2, 10000] loss: 1.448
+[2, 11000] loss: 1.446
+[2, 12000] loss: 1.450
+[3,  1000] loss: 1.404
+[3,  2000] loss: 1.380
+[3,  3000] loss: 1.376
+[3,  4000] loss: 1.405
+[3,  5000] loss: 1.435
+[3,  6000] loss: 1.381
+[3,  7000] loss: 1.412
+[3,  8000] loss: 1.416
+[3,  9000] loss: 1.393
+[3, 10000] loss: 1.406
+[3, 11000] loss: 1.374
+[3, 12000] loss: 1.349
+[4,  1000] loss: 1.313
+[4,  2000] loss: 1.317
+[4,  3000] loss: 1.349
+[4,  4000] loss: 1.353
+[4,  5000] loss: 1.337
+[4,  6000] loss: 1.312
+[4,  7000] loss: 1.316
+[4,  8000] loss: 1.327
+[4,  9000] loss: 1.313
+[4, 10000] loss: 1.333
+[4, 11000] loss: 1.338
+[4, 12000] loss: 1.333
+[5,  1000] loss: 1.227
+[5,  2000] loss: 1.266
+[5,  3000] loss: 1.286
+[5,  4000] loss: 1.267
+[5,  5000] loss: 1.258
+[5,  6000] loss: 1.282
+[5,  7000] loss: 1.280
+[5,  8000] loss: 1.271
+[5,  9000] loss: 1.255
+[5, 10000] loss: 1.283
+[5, 11000] loss: 1.303
+[5, 12000] loss: 1.260
 Finished Training
 </pre></div>
 </div>
@@ -1376,19 +1375,12 @@ Finished Training
     <span class="n">ax2</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">predictions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
     <span class="n">ax2</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
     <span class="n">ax2</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">classes</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/71a8b97927870b4cfccbf69f4332536cdb26bfb07e306389d4e76e8b40e84aad.png" src="../_images/71a8b97927870b4cfccbf69f4332536cdb26bfb07e306389d4e76e8b40e84aad.png" />
-<img alt="../_images/986dd048aa66a0bffb787d0dddeec8d9b12cfb26a8293b4497b7a0d6beb093a1.png" src="../_images/986dd048aa66a0bffb787d0dddeec8d9b12cfb26a8293b4497b7a0d6beb093a1.png" />
-<img alt="../_images/26aff259f967260f2578b6b6b35736413463c15adef5e3975cc0a3b8c6b9b49c.png" src="../_images/26aff259f967260f2578b6b6b35736413463c15adef5e3975cc0a3b8c6b9b49c.png" />
-<img alt="../_images/e67fa5de592e177ec5d8b1ff9260b29e652cfb528b377d8a432f35fbc50f49d9.png" src="../_images/e67fa5de592e177ec5d8b1ff9260b29e652cfb528b377d8a432f35fbc50f49d9.png" />
-<img alt="../_images/6a6894cd79b6e45e37768eb9c4f35f74771fccc6802d8607b4593054fd6b9e89.png" src="../_images/6a6894cd79b6e45e37768eb9c4f35f74771fccc6802d8607b4593054fd6b9e89.png" />
-<img alt="../_images/a9ef502a0b1ccdde2ced4753f7c915c79526b0a5480e18197a7494684e3e9705.png" src="../_images/a9ef502a0b1ccdde2ced4753f7c915c79526b0a5480e18197a7494684e3e9705.png" />
-<img alt="../_images/33306d4a684f3e00889c100233f41f13290d689deb3066a0fa6c239044b65786.png" src="../_images/33306d4a684f3e00889c100233f41f13290d689deb3066a0fa6c239044b65786.png" />
-<img alt="../_images/7cad56179f269f4153bbab8b8d4757d1e611206803cc3b5f43822c823b72e7bf.png" src="../_images/7cad56179f269f4153bbab8b8d4757d1e611206803cc3b5f43822c823b72e7bf.png" />
-</div>
+<img alt="../_images/20b6bdd6ef97b2996081d167f56d31792b00022a8504071ac92a7cee79cdd203.svg" src="../_images/20b6bdd6ef97b2996081d167f56d31792b00022a8504071ac92a7cee79cdd203.svg" /><img alt="../_images/6535a663e502f6adf0cd97c4fd61eeb170aac88f625b5208a9d6317c4a550abb.svg" src="../_images/6535a663e502f6adf0cd97c4fd61eeb170aac88f625b5208a9d6317c4a550abb.svg" /><img alt="../_images/41683aa3861889fd521ba88a21bdb2b35cd8c623c8aa3036ed743250b23aabae.svg" src="../_images/41683aa3861889fd521ba88a21bdb2b35cd8c623c8aa3036ed743250b23aabae.svg" /><img alt="../_images/d87ffe99777307de8ee74c76ddfa6e26ce389b1725eb3ed2a951b3303ba8337b.svg" src="../_images/d87ffe99777307de8ee74c76ddfa6e26ce389b1725eb3ed2a951b3303ba8337b.svg" /><img alt="../_images/1aa152035e3e1814e1d586df97c9e289e11047b616b7bf6bc6c9ad9c15a9604b.svg" src="../_images/1aa152035e3e1814e1d586df97c9e289e11047b616b7bf6bc6c9ad9c15a9604b.svg" /><img alt="../_images/0203e0a508ec6ee8f71ed6510aeaa719e45fa749a3d45ed48f66fe3e31df5591.svg" src="../_images/0203e0a508ec6ee8f71ed6510aeaa719e45fa749a3d45ed48f66fe3e31df5591.svg" /><img alt="../_images/7a636ac1dd16b98282bade556725b668664e53a2146cc9d552727cd3525dfdb9.svg" src="../_images/7a636ac1dd16b98282bade556725b668664e53a2146cc9d552727cd3525dfdb9.svg" /><img alt="../_images/3e8eb708a9e596a239708e4f4247ec6de2e57fc6eaafa7cfd47d030593bacc58.svg" src="../_images/3e8eb708a9e596a239708e4f4247ec6de2e57fc6eaafa7cfd47d030593bacc58.svg" /></div>
 </div>
 <p>It doesn’t work equally well for all classes.
 Here is some code from the <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code> tutorial to get the accuracy for each class:</p>
@@ -1415,31 +1407,32 @@ Here is some code from the <code class="docutils literal notranslate"><span clas
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy of plane : 56 %
-Accuracy of   car : 81 %
-Accuracy of  bird : 55 %
-Accuracy of   cat : 17 %
-Accuracy of  deer : 53 %
-Accuracy of   dog : 36 %
-Accuracy of  frog : 76 %
-Accuracy of horse : 53 %
-Accuracy of  ship : 64 %
-Accuracy of truck : 48 %
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy of plane : 59 %
+Accuracy of   car : 65 %
+Accuracy of  bird : 46 %
+Accuracy of   cat : 25 %
+Accuracy of  deer : 42 %
+Accuracy of   dog : 48 %
+Accuracy of  frog : 66 %
+Accuracy of horse : 62 %
+Accuracy of  ship : 59 %
+Accuracy of truck : 62 %
 </pre></div>
 </div>
 </div>
 </div>
-<p>This is not very good. There are several things that we can do.
-First, we would run this for more epochs. At least 50 epochs are probably needed to train it properly.
+<p>This could be better. There are several things that we can do.
+First, we would run this for more epochs. At least 50 epochs are needed to train it properly.
 Second, we could add data augmentation.
-This can be done through transformation, see <a class="reference external" href="https://discuss.pytorch.org/t/data-augmentation-in-pytorch/7925">this</a>.
-Third, we have to make the netork a little bit bigger.
+This can be done through a transformation; see <a class="reference external" href="https://discuss.pytorch.org/t/data-augmentation-in-pytorch/7925">this</a>.
+Third, we have to make the network bigger.
 Here is <a class="reference external" href="https://github.com/kuangliu/pytorch-cifar">a list of large networks trained on CIFAR10</a>.
 It is possible to reach an accuracy of 95%.</p>
+<p>A general advice: When you train neural networks think big. Make them big. Add a lot of data. Train more (but not too much).</p>
 <section id="questions">
 <h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Set the number of epochs for the CNN-based model to 40. How much better accuracy do you get? Make sure you do this right before you go to bed and look at it in the morning. Alternatively, you can go for a run…</p></li>
+<li><p>Set the number of epochs for the CNN-based model to 40. How much better accuracy do you get? Make sure you do this before bed and look at it in the morning. It takes a while to train.</p></li>
 </ul>
 </section>
 </section>
@@ -1508,10 +1501,8 @@ It is possible to reach an accuracy of 95%.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cifar10-dataset">The CIFAR10 dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-a-classifier-using-a-dense-dnns">Training a classifier using a dense DNNs</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-a-classifier-using-dense-dnns">Training a classifier using dense DNNs</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
 </li>

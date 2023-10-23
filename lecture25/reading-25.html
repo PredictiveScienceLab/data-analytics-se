@@ -585,7 +585,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loss-functions-for-classification">Loss functions for classification</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-classification">Binary classification</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiclass-classification">Multiclass classification</a></li>
@@ -606,15 +605,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="deep-neural-networks-continued">
-<h1>Deep Neural Networks Continued<a class="headerlink" href="#deep-neural-networks-continued" title="Permalink to this heading">#</a></h1>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Chapters 7, 9, and 11 of <a class="reference external" href="https://www.deeplearningbook.org/">https://www.deeplearningbook.org/</a></p></li>
-<li><p>These notes.</p></li>
-</ul>
-<p>These notes are not exhaustive. They merely provide a summary of the key concepts. Please consult the book chapters for the complete details.</p>
-</section>
+<span id="id1"></span><h1>Deep Neural Networks Continued<a class="headerlink" href="#deep-neural-networks-continued" title="Permalink to this heading">#</a></h1>
 <section id="loss-functions-for-classification">
 <h2>Loss functions for classification<a class="headerlink" href="#loss-functions-for-classification" title="Permalink to this heading">#</a></h2>
 <p>Take some features <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}\)</span> and some discrete targets <span class="math notranslate nohighlight">\(y_{1:n}\)</span>.
@@ -647,7 +638,7 @@ p(y|\mathbf{x},\theta) = \left[\operatorname{sigm}(f(\mathbf{x};\theta))\right]^
 p(y_{1:n}|\mathbf{x}_{1:n},\theta) = \prod_{i=1}^n p(y_i|\mathbf{x},\theta).
 \]</div>
 <p>We are almost done.
-The idea is to train the network by maximizing the log likelihood, which is the same as minimizing the following loss function:</p>
+The idea is to train the network by maximizing the log-likelihood, which is the same as minimizing the following loss function:</p>
 <p>\begin{split}
 L(\theta) &amp;= -\log p(y_{1:n}|\mathbf{x}<em>{1:n},\theta)\
 &amp;= -\sum</em>{i=1}^n \left{y_i \log \operatorname{sigm}(f(\mathbf{x}_i;\theta))</p>
@@ -691,16 +682,16 @@ p(y_{1:n}|\mathbf{x}_{1:n},\theta) = \prod_{i=1}^n p(y_i|\mathbf{x},\theta).
 L(\theta) &amp;= -\log p(y_{1:n}|\mathbf{x}<em>{1:n},\theta)\
 &amp;= -\sum</em>{i=1}^n \log \left[\operatorname{softmax}_{y_i}(\mathbf{f}(\mathbf{x}_i;\theta))\right].
 \end{split}</p>
-<p>This is also a called <em>cross entropy</em> loss, but for multiclass classification.
+<p>This is also called <em>cross entropy</em> loss.
 Sometimes, it is called the <em>softmax cross entropy</em> loss.
-Now all these names are not really important.
+Now, all these names are not important.
 What is important is to understand how these losses are derived from maximum likelihood.</p>
 </section>
 </section>
 <section id="regularization">
 <h2>Regularization<a class="headerlink" href="#regularization" title="Permalink to this heading">#</a></h2>
-<p>DNNs are extremely flexible. However, this makes them prone to overfitting.
-As we have discussed in the past one way to avoid overfitting is to add regularization to the loss function.
+<p>DNNs are incredibly flexible. However, this makes them prone to overfitting.
+As we have discussed, one way to avoid overfitting is to add regularization to the loss function.
 This works as follows.
 Instead of minimizing <span class="math notranslate nohighlight">\(L(\theta)\)</span> you minimize:</p>
 <div class="math notranslate nohighlight">
@@ -713,9 +704,9 @@ One possibility of <span class="math notranslate nohighlight">\(R(\theta)\)</spa
 \[
 R(\theta) = \sum_j \theta_j^2.
 \]</div>
-<p>But, there are many more.
+<p>But there are many more.
 Also, you could add multiple regularizers - not just one.
-Now, the bigger <span class="math notranslate nohighlight">\(\lambda\)</span> is the more you regularize and the smaller it is the less you regularize.
+The bigger <span class="math notranslate nohighlight">\(\lambda\)</span> is, the more you regularize, and the smaller it is, the less you regularize.
 So, <span class="math notranslate nohighlight">\(\lambda\)</span> is a parameter you would like to tune - but more on this later.</p>
 </section>
 <section id="bayesian-interpretation-of-regularization">
@@ -728,7 +719,7 @@ Then, write down the posterior of the parameters:</p>
 \[
 p(\theta|\mathbf{x}_{1:n}, y_{1:n}) \propto p(y_{1:n}|\mathbf{x}_{1:n},\theta)p(\theta).
 \]</div>
-<p>Instead of picking the parameters by maximizing the log likelihood, let’s pick the parameters by maximizing the log posterior.
+<p>Instead of picking the parameters by maximizing the log-likelihood, let’s pick the parameters by maximizing the log posterior.
 This is equivalent to minimizing the following loss function:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -751,10 +742,10 @@ p(\theta) = N(\theta|0, \alpha^{-1}I).
 <section id="convolution-neural-networks">
 <h2>Convolution neural networks<a class="headerlink" href="#convolution-neural-networks" title="Permalink to this heading">#</a></h2>
 <p>Convolutional neural networks try to mimic the operations carried out by the animal visual cortex.
-By construction, they satisfy certain properties (e.g., invariance to small translations and rotations) that make them particularly succesfful in image recognition tasks.
-It is beyond the scope of to explain the mathematical details of convolutional neural networks.
+By construction, they satisfy certain properties (e.g., invariance to small translations and rotations) that make them particularly successful in image recognition tasks.
+Explaining the mathematical details of convolutional neural networks is beyond the scope.
 The details presented in the lecture videos should be enough for this course and for building standard image classifiers.
-If you want to know more, you can read <a class="reference external" href="https://www.deeplearningbook.org/">chapter 9 of the Deep Learning Book</a> or take a course on deep neural networks, e.g., BME 646 Deep Learning- Theory and Practice of Deep Neural Networks.</p>
+If you want to know more, read Chapter 9 of <span id="id2">[<a class="reference internal" href="../bibliography.html#id16" title="Ian Goodfellow, Yoshua Bengio, and Aaron Courville. Deep Learning. MIT Press, 2016. http://www.deeplearningbook.org.">Goodfellow <em>et al.</em>, 2016</a>]</span>.</p>
 </section>
 </section>
 
@@ -821,7 +812,6 @@ If you want to know more, you can read <a class="reference external" href="https
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loss-functions-for-classification">Loss functions for classification</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-classification">Binary classification</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiclass-classification">Multiclass classification</a></li>
