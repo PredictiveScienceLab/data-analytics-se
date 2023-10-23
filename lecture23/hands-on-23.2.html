@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,8 +38,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -78,6 +79,15 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -537,10 +547,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -548,7 +558,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -614,6 +624,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">gpytorch</span>
 <span class="kn">from</span> <span class="nn">gpytorch.kernels</span> <span class="kn">import</span> <span class="n">RBFKernel</span><span class="p">,</span> <span class="n">ScaleKernel</span>
+
 
 <span class="k">class</span> <span class="nc">ExactGP</span><span class="p">(</span><span class="n">gpytorch</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">ExactGP</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
@@ -728,8 +739,8 @@ document.write(`
             <span class="n">sample_shape</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">10</span><span class="p">])</span>
         <span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-            <span class="n">x_star</span><span class="p">,</span>
-            <span class="n">f_post_samples</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+            <span class="n">x_star</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>
+            <span class="n">f_post_samples</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>
             <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
             <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span>
         <span class="p">)</span>
@@ -775,6 +786,176 @@ document.write(`
         <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Iter </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s1">3d</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">n_iter</span><span class="si">}</span><span class="s1"> - Loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">plot_iaf</span><span class="p">(</span>
+    <span class="n">x_star</span><span class="p">,</span>
+    <span class="n">gpr</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="p">,</span>
+    <span class="n">alpha_params</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">f_true</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the information acquisition function.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments</span>
+<span class="sd">    x_star       -- A set of points to plot on.</span>
+<span class="sd">    gpr          -- A rained Gaussian process regression</span>
+<span class="sd">                    object.</span>
+<span class="sd">    alpha        -- The information acquisition function.</span>
+<span class="sd">                    This assumed to be a function of the</span>
+<span class="sd">                    posterior mean and standard deviation.</span>
+<span class="sd">              </span>
+<span class="sd">    Keyword Arguments</span>
+<span class="sd">    ax           -- An axes object to plot on.</span>
+<span class="sd">    f_true       -- The true function - if available.</span>
+<span class="sd">    </span>
+<span class="sd">    The evaluation of the information acquisition function</span>
+<span class="sd">    is as follows:</span>
+<span class="sd">    </span>
+<span class="sd">        af_values = alpha(mu, sigma, y_max, **alpha_params)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+        <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">k</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">alpha_params</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">)</span>
+    <span class="p">)</span>
+    
+    <span class="n">m</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">plot_1d_regression</span><span class="p">(</span>
+        <span class="n">x_star</span><span class="p">,</span>
+        <span class="n">gpr</span><span class="p">,</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+        <span class="n">f_true</span><span class="o">=</span><span class="n">f_true</span><span class="p">,</span>
+        <span class="n">num_samples</span><span class="o">=</span><span class="mi">0</span>
+    <span class="p">)</span>
+    
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="n">af_values</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">gpr</span><span class="o">.</span><span class="n">train_targets</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="o">**</span><span class="n">alpha_params</span><span class="p">)</span>
+    <span class="n">next_id</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">af_values</span><span class="p">)</span>
+    <span class="n">next_x</span> <span class="o">=</span> <span class="n">x_star</span><span class="p">[</span><span class="n">next_id</span><span class="p">]</span>
+    <span class="n">af_max</span> <span class="o">=</span> <span class="n">af_values</span><span class="p">[</span><span class="n">next_id</span><span class="p">]</span>
+    
+    <span class="n">ax2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_star</span><span class="p">,</span> <span class="n">af_values</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span>
+        <span class="s1">&#39;Maximum Upper Interval&#39;</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">(),</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">next_x</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">af_max</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="mi">100</span><span class="p">),</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">maximize</span><span class="p">(</span>
+    <span class="n">f</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">,</span>
+    <span class="n">X_design</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="p">,</span>
+    <span class="n">alpha_params</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">max_it</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">optimize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Optimize a function using a limited number of evaluations.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments</span>
+<span class="sd">    f            -- The function to optimize.</span>
+<span class="sd">    gpr          -- A Gaussian process model to use for representing</span>
+<span class="sd">                    our state of knowledge.</span>
+<span class="sd">    X_design     -- The set of candidate points for identifying the</span>
+<span class="sd">                    maximum.</span>
+<span class="sd">    alpha        -- The information acquisition function.</span>
+<span class="sd">                    This assumed to be a function of the</span>
+<span class="sd">                    posterior mean and standard deviation.</span>
+<span class="sd">    </span>
+<span class="sd">    Keyword Arguments</span>
+<span class="sd">    alpha_params -- Extra parameters to the information</span>
+<span class="sd">                    acquisition function.</span>
+<span class="sd">    max_it       -- The maximum number of iterations.</span>
+<span class="sd">    optimize     -- Whether or not to optimize the hyper-parameters.</span>
+<span class="sd">    plot         -- Determines how often to plot. Make it one</span>
+<span class="sd">                    to plot at each iteration. Make it max_it</span>
+<span class="sd">                    to plot at the last iteration.</span>
+<span class="sd">                    </span>
+<span class="sd">    The rest of the keyword arguments are passed to plot_iaf().</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">af_all</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_it</span><span class="p">):</span>
+        <span class="c1"># Predict</span>
+        <span class="n">f_design</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">X_design</span><span class="p">)</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">f_design</span><span class="o">.</span><span class="n">mean</span>
+        <span class="n">sigma2</span> <span class="o">=</span> <span class="n">f_design</span><span class="o">.</span><span class="n">variance</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sigma2</span><span class="p">)</span>
+        
+        <span class="c1"># Evaluate information acquisition function</span>
+        <span class="n">y_train</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train_targets</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">af_values</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">(</span>
+            <span class="n">m</span><span class="p">,</span>
+            <span class="n">sigma</span><span class="p">,</span>
+            <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+            <span class="o">**</span><span class="n">alpha_params</span>
+        <span class="p">)</span>
+        
+        <span class="c1"># Find best point to include</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">af_values</span><span class="p">)</span>
+        <span class="n">af_all</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">af_values</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        
+        <span class="n">new_x</span> <span class="o">=</span> <span class="n">X_design</span><span class="p">[</span><span class="n">i</span><span class="p">:(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="n">new_y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">new_x</span><span class="p">)</span>
+        <span class="n">train_x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">model</span><span class="o">.</span><span class="n">train_inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">new_x</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]])</span>
+        <span class="n">train_y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">model</span><span class="o">.</span><span class="n">train_targets</span><span class="p">,</span> <span class="n">new_y</span><span class="p">])</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">set_train_data</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">optimize</span><span class="p">:</span>
+            <span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+        
+        <span class="c1"># Plot if required</span>
+        <span class="k">if</span> <span class="n">count</span> <span class="o">%</span> <span class="n">plot</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;ax&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                <span class="n">ax</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">ax</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+            <span class="n">plot_iaf</span><span class="p">(</span>
+                <span class="n">X_design</span><span class="p">,</span>
+                <span class="n">model</span><span class="p">,</span>
+                <span class="n">alpha</span><span class="p">,</span>
+                <span class="n">alpha_params</span><span class="o">=</span><span class="n">alpha_params</span><span class="p">,</span>
+                <span class="n">f_true</span><span class="o">=</span><span class="n">f</span><span class="p">,</span>
+                <span class="n">ax</span><span class="o">=</span><span class="n">ax</span>
+            <span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;N=</span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">, &quot;</span> <span class="o">+</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_title</span><span class="p">()</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="n">af_all</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>gpytorch
 </pre></div>
 </div>
 </div>
@@ -808,7 +989,7 @@ We will explore the first such acquisition function, the maximum upper interval,
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A function to optimize.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">8</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">6</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="mf">7.</span><span class="p">)))</span> 
+    <span class="k">return</span> <span class="o">-</span><span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">8</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">6</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="mf">7.</span><span class="p">)))</span> 
 
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
 
@@ -826,7 +1007,7 @@ We will explore the first such acquisition function, the maximum upper interval,
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/ba22f99b1c9cad5e61744e891484f7962f536c8fd20e1d00875834346c4bfc6e.svg" src="../_images/ba22f99b1c9cad5e61744e891484f7962f536c8fd20e1d00875834346c4bfc6e.svg" /></div>
+<img alt="../_images/8c70f6d231e49f4733af5e9936bcac1bbc84a97d129cc8f35fd2891ce105fee3.svg" src="../_images/8c70f6d231e49f4733af5e9936bcac1bbc84a97d129cc8f35fd2891ce105fee3.svg" /></div>
 </div>
 </section>
 <section id="id1">
@@ -862,45 +1043,19 @@ Here is the code for this:</p>
     <span class="n">x</span><span class="p">,</span>
     <span class="n">model</span><span class="p">,</span>
     <span class="n">f_true</span><span class="o">=</span><span class="n">f</span>
-<span class="p">)</span>
+<span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(tensor([0.1779, 0.1930, 0.2084, 0.2241, 0.2398, 0.2555, 0.2711, 0.2863, 0.3010,
-         0.3151, 0.3284, 0.3407, 0.3519, 0.3619, 0.3706, 0.3778, 0.3834, 0.3874,
-         0.3898, 0.3904, 0.3894, 0.3867, 0.3823, 0.3763, 0.3689, 0.3600, 0.3498,
-         0.3385, 0.3262, 0.3129, 0.2990, 0.2844, 0.2694, 0.2542, 0.2388, 0.2235,
-         0.2082, 0.1933, 0.1787, 0.1645, 0.1509, 0.1379, 0.1256, 0.1140, 0.1032,
-         0.0931, 0.0838, 0.0754, 0.0677, 0.0608, 0.0548, 0.0495, 0.0450, 0.0412,
-         0.0382, 0.0359, 0.0343, 0.0334, 0.0332, 0.0336, 0.0348, 0.0366, 0.0390,
-         0.0421, 0.0459, 0.0503, 0.0553, 0.0609, 0.0671, 0.0738, 0.0811, 0.0889,
-         0.0972, 0.1058, 0.1149, 0.1241, 0.1336, 0.1432, 0.1529, 0.1625, 0.1719,
-         0.1811, 0.1899, 0.1983, 0.2061, 0.2132, 0.2196, 0.2252, 0.2298, 0.2335,
-         0.2362, 0.2379, 0.2384, 0.2379, 0.2363, 0.2337, 0.2301, 0.2255, 0.2199,
-         0.2136], grad_fn=&lt;ViewBackward0&gt;),
- tensor([2.7811e+00, 2.5927e+00, 2.3910e+00, 2.1783e+00, 1.9575e+00, 1.7322e+00,
-         1.5062e+00, 1.2837e+00, 1.0692e+00, 8.6700e-01, 6.8096e-01, 5.1457e-01,
-         3.7053e-01, 2.5063e-01, 1.5558e-01, 8.5009e-02, 3.7424e-02, 1.0327e-02,
-         3.7644e-04, 3.6005e-03, 1.5703e-02, 3.2362e-02, 4.9557e-02, 6.3866e-02,
-         7.2738e-02, 7.4675e-02, 6.9359e-02, 5.7673e-02, 4.1629e-02, 2.4216e-02,
-         9.1773e-03, 7.0982e-04, 3.1670e-03, 2.0729e-02, 5.7103e-02, 1.1526e-01,
-         1.9724e-01, 3.0401e-01, 4.3543e-01, 5.9027e-01, 7.6629e-01, 9.6042e-01,
-         1.1689e+00, 1.3877e+00, 1.6123e+00, 1.8384e+00, 2.0620e+00, 2.2792e+00,
-         2.4869e+00, 2.6823e+00, 2.8635e+00, 3.0290e+00, 3.1780e+00, 3.3103e+00,
-         3.4259e+00, 3.5254e+00, 3.6096e+00, 3.6793e+00, 3.7355e+00, 3.7793e+00,
-         3.8115e+00, 3.8328e+00, 3.8437e+00, 3.8446e+00, 3.8355e+00, 3.8164e+00,
-         3.7868e+00, 3.7461e+00, 3.6936e+00, 3.6285e+00, 3.5497e+00, 3.4565e+00,
-         3.3480e+00, 3.2235e+00, 3.0827e+00, 2.9254e+00, 2.7522e+00, 2.5638e+00,
-         2.3618e+00, 2.1480e+00, 1.9252e+00, 1.6965e+00, 1.4657e+00, 1.2369e+00,
-         1.0146e+00, 8.0356e-01, 6.0848e-01, 4.3398e-01, 2.8436e-01, 1.6342e-01,
-         7.4295e-02, 1.9367e-02, 1.1921e-04, 1.7058e-02, 6.9740e-02, 1.5673e-01,
-         2.7573e-01, 4.2363e-01, 5.9666e-01, 7.9056e-01],
-        grad_fn=&lt;ExpandBackward0&gt;))
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/ibilion/.pyenv/versions/3.11.6/lib/python3.11/site-packages/linear_operator/utils/cholesky.py:40: NumericalWarning: A not p.d., added jitter of 1.0e-06 to the diagonal
+  warnings.warn(
+/Users/ibilion/.pyenv/versions/3.11.6/lib/python3.11/site-packages/linear_operator/utils/cholesky.py:40: NumericalWarning: A not p.d., added jitter of 1.0e-05 to the diagonal
+  warnings.warn(
 </pre></div>
 </div>
-<img alt="../_images/1295e0fd1383279bcf9f2531deeae88e55c3667f9b01fe4ea090e3e19d9bf4c6.svg" src="../_images/1295e0fd1383279bcf9f2531deeae88e55c3667f9b01fe4ea090e3e19d9bf4c6.svg" /></div>
+<img alt="../_images/859f6f8df3a09861a378165b417cf153ac545b8c59731c8bd90e664d64b54491.svg" src="../_images/859f6f8df3a09861a378165b417cf153ac545b8c59731c8bd90e664d64b54491.svg" /></div>
 </div>
 <p>The maximum upper interval is defined to be:</p>
 <div class="math notranslate nohighlight">
@@ -1017,7 +1172,7 @@ Let’s implement it:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7e06e376199294563434b588c2f78a2b986cd3ace35cf6c4ea982d8fca7be0e3.svg" src="../_images/7e06e376199294563434b588c2f78a2b986cd3ace35cf6c4ea982d8fca7be0e3.svg" /></div>
+<img alt="../_images/dc21b8fd99a95c27f315e82fbbef31a3ee2f2ddae25046a079133049cc02a8f2.svg" src="../_images/dc21b8fd99a95c27f315e82fbbef31a3ee2f2ddae25046a079133049cc02a8f2.svg" /></div>
 </div>
 <section id="questions">
 <h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
@@ -1125,8 +1280,8 @@ For convenience, I have written the following generic code for you:</p>
 </div>
 <p>The code accepts the information acquisition function as an input.
 Here is how you can use it:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
 <span class="n">train_y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
 <span class="n">covar_module</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span><span class="n">RBFKernel</span><span class="p">())</span>
@@ -1147,14 +1302,20 @@ Here is how you can use it:</p>
     <span class="n">X_design</span><span class="p">,</span>
     <span class="n">mui</span><span class="p">,</span>
     <span class="n">alpha_params</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">psi</span><span class="o">=</span><span class="mf">1.96</span><span class="p">),</span>
-    <span class="n">max_it</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">max_it</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
     <span class="n">plot</span><span class="o">=</span><span class="mi">1</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
 <div class="cell_output docutils container">
-<img alt="../_images/ec08268680beedb25903fedb44a25ddaf2beb2dbaad226ce66ba51dc7ab5ef8d.svg" src="../_images/ec08268680beedb25903fedb44a25ddaf2beb2dbaad226ce66ba51dc7ab5ef8d.svg" /><img alt="../_images/c393bc48955d31f4ed0965c5c75556bf2c8b685a3f79fe72c99ebacd5ecf2d76.svg" src="../_images/c393bc48955d31f4ed0965c5c75556bf2c8b685a3f79fe72c99ebacd5ecf2d76.svg" /><img alt="../_images/626db3eb318858adafb402519cbb13f56bf5822a91c608cf8927203bb88a9e58.svg" src="../_images/626db3eb318858adafb402519cbb13f56bf5822a91c608cf8927203bb88a9e58.svg" /><img alt="../_images/5c83c07c9b13a0120d93acb4df6d6f1e99091282b79fdcde53aede5033235c81.svg" src="../_images/5c83c07c9b13a0120d93acb4df6d6f1e99091282b79fdcde53aede5033235c81.svg" /><img alt="../_images/6abf7ac5a1c8679700e7aa140eb116be98d18c99fbd2554249014c1dd0805c21.svg" src="../_images/6abf7ac5a1c8679700e7aa140eb116be98d18c99fbd2554249014c1dd0805c21.svg" /><img alt="../_images/c7bce89418c85a319c6651e276104a780a76053cbfb5ca7949a15fbe3e2f505d.svg" src="../_images/c7bce89418c85a319c6651e276104a780a76053cbfb5ca7949a15fbe3e2f505d.svg" /><img alt="../_images/50e41b6dc08c589c24d2be46508bd987101b698ee1b1a9bd0b0a780dd5f8323f.svg" src="../_images/50e41b6dc08c589c24d2be46508bd987101b698ee1b1a9bd0b0a780dd5f8323f.svg" /><img alt="../_images/934f4353b22bcf74433a72db6f2038cde55c90eab29f06a34607a598b9de5eae.svg" src="../_images/934f4353b22bcf74433a72db6f2038cde55c90eab29f06a34607a598b9de5eae.svg" /><img alt="../_images/e5a805c4c988f63672b15417ca7d6bf7cf1015d12597886f9f96ea5a4a0a8bb5.svg" src="../_images/e5a805c4c988f63672b15417ca7d6bf7cf1015d12597886f9f96ea5a4a0a8bb5.svg" /><img alt="../_images/8e63edc62327850fe8e1dff3ccadf7a005692aad94ab63feed837238c2a024f9.svg" src="../_images/8e63edc62327850fe8e1dff3ccadf7a005692aad94ab63feed837238c2a024f9.svg" /></div>
+<img alt="../_images/2e93ad995f4d6ca7b2f10ecdde25a991e54fcbca633caedd747a9c97daa1f625.svg" src="../_images/2e93ad995f4d6ca7b2f10ecdde25a991e54fcbca633caedd747a9c97daa1f625.svg" /><img alt="../_images/2a02c06148be13c4b81a2695a9ae7d89f3df15b38b75d6017f69be6b41d5c029.svg" src="../_images/2a02c06148be13c4b81a2695a9ae7d89f3df15b38b75d6017f69be6b41d5c029.svg" /><img alt="../_images/0ee69089a351c72551e59841c916b5a791812f223c8fa12f2e34eeea563ec533.svg" src="../_images/0ee69089a351c72551e59841c916b5a791812f223c8fa12f2e34eeea563ec533.svg" /><img alt="../_images/8e8c72b435f42afc64c1a84d09338d72912ec1002c1fcb3b0ba432ae38e4205d.svg" src="../_images/8e8c72b435f42afc64c1a84d09338d72912ec1002c1fcb3b0ba432ae38e4205d.svg" /><img alt="../_images/9d5f2ecd7e0d8545a6f99ef4e7bca276dca57e1fe14b42420998e5fbd8d042f0.svg" src="../_images/9d5f2ecd7e0d8545a6f99ef4e7bca276dca57e1fe14b42420998e5fbd8d042f0.svg" /></div>
+</details>
 </div>
 <section id="id2">
 <h3>Questions<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
@@ -1191,11 +1352,10 @@ Here is how you can use it:</p>
 
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="hands-on-23.1.html"
@@ -1215,10 +1375,7 @@ Here is how you can use it:</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -1289,8 +1446,8 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
   </footer>

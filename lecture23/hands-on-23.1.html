@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,8 +38,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -78,6 +79,15 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -537,10 +547,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -548,7 +558,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -723,8 +733,8 @@ document.write(`
             <span class="n">sample_shape</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">10</span><span class="p">])</span>
         <span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-            <span class="n">x_star</span><span class="p">,</span>
-            <span class="n">f_post_samples</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+            <span class="n">x_star</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>
+            <span class="n">f_post_samples</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>
             <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
             <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span>
         <span class="p">)</span>
@@ -772,6 +782,19 @@ document.write(`
 </div>
 </details>
 </div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>gpytorch
+</pre></div>
+</div>
+</div>
+</details>
+</div>
 <section class="tex2jax_ignore mathjax_ignore" id="maximum-mean-a-bad-information-acquisition-function">
 <h1>Maximum Mean - A Bad Information Acquisition Function<a class="headerlink" href="#maximum-mean-a-bad-information-acquisition-function" title="Permalink to this heading">#</a></h1>
 <p>An naive information acquisition function is to select the arm with the highest mean. This is a bad idea. You should never do this. We will show why.</p>
@@ -783,7 +806,7 @@ Let’s work with a synthetic 1D function defined in <span class="math notransla
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A function to optimize.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">8</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">6</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="mf">7.</span><span class="p">)))</span> 
+    <span class="k">return</span> <span class="o">-</span><span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">8</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">6</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="mf">7.</span><span class="p">)))</span> 
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
@@ -794,7 +817,7 @@ Let’s work with a synthetic 1D function defined in <span class="math notransla
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/0bbe3c3305d57996d5811217f809374343ca11492ea7887e28b204f40a6bef6b.svg" src="../_images/0bbe3c3305d57996d5811217f809374343ca11492ea7887e28b204f40a6bef6b.svg" /></div>
+<img alt="../_images/1f3297e19b06090b6f20edb8df34df7d3d404d2adc37d9746e8ad42c264d8cda.svg" src="../_images/1f3297e19b06090b6f20edb8df34df7d3d404d2adc37d9746e8ad42c264d8cda.svg" /></div>
 </div>
 <p>We wish to maximize this function.
 Let us generate some starting data:</p>
@@ -815,7 +838,7 @@ Let us generate some starting data:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/57c6512b9bc7a6854cb11a81d0671ecf4b5e09e3972e08614d416a466ebcaf7d.svg" src="../_images/57c6512b9bc7a6854cb11a81d0671ecf4b5e09e3972e08614d416a466ebcaf7d.svg" /></div>
+<img alt="../_images/8d36f4abfad327a1981606131f913c89400c138544c54d0b43cf41539fb78954.svg" src="../_images/8d36f4abfad327a1981606131f913c89400c138544c54d0b43cf41539fb78954.svg" /></div>
 </div>
 <p>Assume we do some Bayesian regression using our data so far.
 Here, we will do GPR, but any Bayesian regression would work.
@@ -829,26 +852,31 @@ where \)</span>m_{n}(\mathbf{x})<span class="math notranslate nohighlight">\( an
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
 <span class="n">train_y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
-<span class="n">covar_module</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span><span class="n">RBFKernel</span><span class="p">())</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">ExactGP</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span>
 
 <span class="c1"># It is not a good idea to train the model when we don&#39;t have enough data</span>
 <span class="c1"># So we fix the hyperparameters to something reasonable</span>
 <span class="n">model</span><span class="o">.</span><span class="n">covar_module</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="mf">0.15</span>
 <span class="n">model</span><span class="o">.</span><span class="n">covar_module</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="mf">4.0</span>
-<span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">noise</span> <span class="o">=</span> <span class="mf">1e-6</span>
+<span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">noise</span> <span class="o">=</span> <span class="mf">1e-4</span>
 <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
 
 <span class="n">plot_1d_regression</span><span class="p">(</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">(),</span>
     <span class="n">model</span><span class="p">,</span>
     <span class="n">f_true</span><span class="o">=</span><span class="n">f</span>
-<span class="p">)</span>
+<span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/44889a2e2e8128720da24ef06843f555d02817f06a90ca9171a0c2989130df6a.svg" src="../_images/44889a2e2e8128720da24ef06843f555d02817f06a90ca9171a0c2989130df6a.svg" /></div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/ibilion/.pyenv/versions/3.11.6/lib/python3.11/site-packages/linear_operator/utils/cholesky.py:40: NumericalWarning: A not p.d., added jitter of 1.0e-06 to the diagonal
+  warnings.warn(
+/Users/ibilion/.pyenv/versions/3.11.6/lib/python3.11/site-packages/linear_operator/utils/cholesky.py:40: NumericalWarning: A not p.d., added jitter of 1.0e-05 to the diagonal
+  warnings.warn(
+</pre></div>
+</div>
+<img alt="../_images/a0ce2e415fed91511cb3695c951a7921a70086397cc61054c2513554653f4686.svg" src="../_images/a0ce2e415fed91511cb3695c951a7921a70086397cc61054c2513554653f4686.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -917,20 +945,22 @@ Let’s see what happens.</p>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_design</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
 <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
 <span class="n">maximize_naive</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">X_design</span><span class="p">,</span> <span class="n">max_it</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/lib/python3.11/site-packages/gpytorch/distributions/multivariate_normal.py:319: NumericalWarning: Negative variance values detected. This is likely due to numerical instabilities. Rounding negative variances up to 1e-06.
-  warnings.warn(
-</pre></div>
-</div>
-<img alt="../_images/02370b8e7f8d962fbb5b7b38df551fb8074a1a49031a2c84954ffa829b3f685f.svg" src="../_images/02370b8e7f8d962fbb5b7b38df551fb8074a1a49031a2c84954ffa829b3f685f.svg" /><img alt="../_images/53890f51ec5e05c7cff1b86ca338c682efe376aed70ffd5e4225e264fefd9a92.svg" src="../_images/53890f51ec5e05c7cff1b86ca338c682efe376aed70ffd5e4225e264fefd9a92.svg" /><img alt="../_images/aa993ed6f76167c3c4df6e709fbda22c20626c7265973843b5eb49644ffcd27c.svg" src="../_images/aa993ed6f76167c3c4df6e709fbda22c20626c7265973843b5eb49644ffcd27c.svg" /></div>
+<img alt="../_images/e5438abea453aabd1a127c1c18e6a87532c7162a65120d90c4849f513bac3449.svg" src="../_images/e5438abea453aabd1a127c1c18e6a87532c7162a65120d90c4849f513bac3449.svg" /><img alt="../_images/3106458cdb46ee8d70314b3830c71f8b17fdec21533aa97617b7b0c9e8505df5.svg" src="../_images/3106458cdb46ee8d70314b3830c71f8b17fdec21533aa97617b7b0c9e8505df5.svg" /><img alt="../_images/69a3f5472428c78cde5f16437c04ac89b653e0fcebf4f1d7dca9451d2586948a.svg" src="../_images/69a3f5472428c78cde5f16437c04ac89b653e0fcebf4f1d7dca9451d2586948a.svg" /></div>
+</details>
 </div>
 <p>Observe that the algorithm misses the actual maximum.
 It gets trapped.
@@ -969,11 +999,10 @@ This is because using the posterior mean as an acquisition function focuses too 
 
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="reading-23.html"
@@ -993,10 +1022,7 @@ This is because using the posterior mean as an acquisition function focuses too 
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -1062,8 +1088,8 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
   </footer>

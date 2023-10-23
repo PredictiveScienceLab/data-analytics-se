@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,8 +38,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -78,6 +79,15 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -537,10 +547,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -548,7 +558,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -575,7 +585,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizing-noisy-functions">Optimizing Noisy Functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-upper-interval-with-noise">Maximum upper interval with noise</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-of-improvement-with-noise">Probability of improvement with noise</a></li>
@@ -600,19 +609,42 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
-<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">gpytorch</span>
+<span class="kn">from</span> <span class="nn">gpytorch.kernels</span> <span class="kn">import</span> <span class="n">RBFKernel</span><span class="p">,</span> <span class="n">ScaleKernel</span>
+
+
+<span class="k">class</span> <span class="nc">ExactGP</span><span class="p">(</span><span class="n">gpytorch</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">ExactGP</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">train_x</span><span class="p">,</span>
+                 <span class="n">train_y</span><span class="p">,</span>
+                 <span class="n">likelihood</span><span class="o">=</span><span class="n">gpytorch</span><span class="o">.</span><span class="n">likelihoods</span><span class="o">.</span><span class="n">GaussianLikelihood</span><span class="p">(</span>
+                     <span class="n">noise_constraint</span><span class="o">=</span><span class="n">gpytorch</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="n">GreaterThan</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+                <span class="p">),</span>
+                <span class="n">mean_module</span><span class="o">=</span><span class="n">gpytorch</span><span class="o">.</span><span class="n">means</span><span class="o">.</span><span class="n">ConstantMean</span><span class="p">(),</span>
+                <span class="n">covar_module</span><span class="o">=</span><span class="n">ScaleKernel</span><span class="p">(</span><span class="n">RBFKernel</span><span class="p">())</span>
+        <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mean_module</span> <span class="o">=</span> <span class="n">mean_module</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">covar_module</span> <span class="o">=</span> <span class="n">covar_module</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">mean_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_module</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">covar_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">covar_module</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">gpytorch</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">MultivariateNormal</span><span class="p">(</span><span class="n">mean_x</span><span class="p">,</span> <span class="n">covar_x</span><span class="p">)</span>
+
 
 <span class="k">def</span> <span class="nf">plot_1d_regression</span><span class="p">(</span>
     <span class="n">x_star</span><span class="p">,</span>
-    <span class="n">gpm</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">,</span>
     <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">f_true</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">num_samples</span><span class="o">=</span><span class="mi">10</span>
@@ -621,34 +653,74 @@ document.write(`
 <span class="sd">    </span>
 <span class="sd">    Arguments</span>
 <span class="sd">    x_start  --  The test points on which to evaluate.</span>
-<span class="sd">    gpm      --  The trained model.</span>
+<span class="sd">    model    --  The trained model.</span>
 <span class="sd">    </span>
 <span class="sd">    Keyword Arguments</span>
 <span class="sd">    ax          --  An axes object to write on.</span>
 <span class="sd">    f_true      --  The true function.</span>
 <span class="sd">    num_samples --  The number of samples.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">m_star</span><span class="p">,</span> <span class="n">v_star</span> <span class="o">=</span> <span class="n">gpm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_star</span><span class="p">)</span>
+    <span class="n">f_star</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x_star</span><span class="p">)</span>
+    <span class="n">m_star</span> <span class="o">=</span> <span class="n">f_star</span><span class="o">.</span><span class="n">mean</span>
+    <span class="n">v_star</span> <span class="o">=</span> <span class="n">f_star</span><span class="o">.</span><span class="n">variance</span>
+    <span class="n">y_star</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="p">(</span><span class="n">f_star</span><span class="p">)</span>
+    <span class="n">yv_star</span> <span class="o">=</span> <span class="n">y_star</span><span class="o">.</span><span class="n">variance</span>
 
     <span class="n">f_lower</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">m_star</span> <span class="o">-</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_star</span> <span class="o">-</span> <span class="n">gpm</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">variance</span><span class="p">)</span>
+        <span class="n">m_star</span> <span class="o">-</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_star</span><span class="p">)</span>
     <span class="p">)</span>
     <span class="n">f_upper</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">m_star</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_star</span> <span class="o">-</span> <span class="n">gpm</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">variance</span><span class="p">)</span>
+        <span class="n">m_star</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_star</span><span class="p">)</span>
     <span class="p">)</span>
     
+    <span class="n">y_lower</span> <span class="o">=</span> <span class="n">m_star</span> <span class="o">-</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">yv_star</span><span class="p">)</span>
+    <span class="n">y_upper</span> <span class="o">=</span> <span class="n">m_star</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">yv_star</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
     
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_star</span><span class="p">,</span> <span class="n">m_star</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$m_n(x)$&#39;</span><span class="p">)</span>
-   
-    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
-        <span class="n">x_star</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
-        <span class="n">f_lower</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
-        <span class="n">f_upper</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
-        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$f(\mathbf</span><span class="si">{x}</span><span class="s1">^*)$ 95% pred.&#39;</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">train_inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">train_targets</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+            <span class="s1">&#39;kx&#39;</span><span class="p">,</span>
+            <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+            <span class="n">markeredgewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observations&#39;</span>
     <span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">x_star</span><span class="p">,</span>
+        <span class="n">m_star</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+        <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$m_n(x)$&#39;</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
+        <span class="n">x_star</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+        <span class="n">f_lower</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+        <span class="n">f_upper</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$f(\mathbf</span><span class="si">{x}</span><span class="s1">^*)$ 95% pred.&#39;</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
+        <span class="n">x_star</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">y_lower</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">f_lower</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$y^*$ 95% pred.&#39;</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
+        <span class="n">x_star</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">f_upper</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">y_upper</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">)</span>
+
     
     <span class="k">if</span> <span class="n">f_true</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
@@ -657,29 +729,59 @@ document.write(`
             <span class="s1">&#39;m-.&#39;</span><span class="p">,</span>
             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True function&#39;</span>
         <span class="p">)</span>
-
+        
     <span class="k">if</span> <span class="n">num_samples</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">f_post_samples</span> <span class="o">=</span> <span class="n">gpm</span><span class="o">.</span><span class="n">posterior_samples_f</span><span class="p">(</span>
-            <span class="n">x_star</span><span class="p">,</span>
-            <span class="n">num_samples</span>
+        <span class="n">f_post_samples</span> <span class="o">=</span> <span class="n">f_star</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span>
+            <span class="n">sample_shape</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">10</span><span class="p">])</span>
         <span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_star</span><span class="p">,</span> <span class="n">f_post_samples</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Posterior samples&quot;</span><span class="p">)</span>
-
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gpm</span><span class="o">.</span><span class="n">X</span><span class="p">,</span>
-            <span class="n">gpm</span><span class="o">.</span><span class="n">Y</span><span class="p">,</span>
-            <span class="s1">&#39;kx&#39;</span><span class="p">,</span>
-            <span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-            <span class="n">markeredgewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observations&#39;</span>
-    <span class="p">)</span>
-
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">x_star</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>
+            <span class="n">f_post_samples</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+            <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span>
+        <span class="p">)</span>
+        <span class="c1"># This is just to add the legend entry</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="p">[],</span>
+            <span class="p">[],</span>
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+            <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Posterior samples&quot;</span>
+        <span class="p">)</span>
+        
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">m_star</span><span class="p">,</span> <span class="n">v_star</span>
+
+
+<span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Train the model.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    model   --  The model to train.</span>
+<span class="sd">    train_x --  The training inputs.</span>
+<span class="sd">    train_y --  The training labels.</span>
+<span class="sd">    n_iter  --  The number of iterations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">LBFGS</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">line_search_fn</span><span class="o">=</span><span class="s1">&#39;strong_wolfe&#39;</span><span class="p">)</span>
+    <span class="n">likelihood</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">likelihood</span>
+    <span class="n">mll</span> <span class="o">=</span> <span class="n">gpytorch</span><span class="o">.</span><span class="n">mlls</span><span class="o">.</span><span class="n">ExactMarginalLogLikelihood</span><span class="p">(</span><span class="n">likelihood</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">closure</span><span class="p">():</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">train_x</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">mll</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">loss</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_iter</span><span class="p">):</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">closure</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Iter </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s1">3d</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">n_iter</span><span class="si">}</span><span class="s1"> - Loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
 
 
 <span class="k">def</span> <span class="nf">plot_iaf</span><span class="p">(</span>
@@ -688,7 +790,8 @@ document.write(`
     <span class="n">alpha</span><span class="p">,</span>
     <span class="n">alpha_params</span><span class="o">=</span><span class="p">{},</span>
     <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">f_true</span><span class="o">=</span><span class="kc">None</span>
+    <span class="n">f_true</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">iaf_label</span><span class="o">=</span><span class="s2">&quot;Information Acquisition Function&quot;</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the information acquisition function.</span>
 <span class="sd">    </span>
@@ -703,8 +806,14 @@ document.write(`
 <span class="sd">    Keyword Arguments</span>
 <span class="sd">    ax           -- An axes object to plot on.</span>
 <span class="sd">    f_true       -- The true function - if available.</span>
+<span class="sd">    alpha_params -- Extra parameters to the information</span>
+<span class="sd">                    acquisition function.</span>
+<span class="sd">    ax           -- An axes object to plot on.</span>
+<span class="sd">    f_true       -- The true function - if available.</span>
+<span class="sd">    iaf_label    -- The label for the information acquisition</span>
+<span class="sd">                    function. Default is &quot;Information Acquisition&quot;.</span>
 <span class="sd">    </span>
-<span class="sd">    The evaluation of the informationa acquisition function</span>
+<span class="sd">    The evaluation of the information acquisition function</span>
 <span class="sd">    is as follows:</span>
 <span class="sd">    </span>
 <span class="sd">        af_values = alpha(mu, sigma, y_max, **alpha_params)</span>
@@ -728,17 +837,16 @@ document.write(`
         <span class="n">num_samples</span><span class="o">=</span><span class="mi">0</span>
     <span class="p">)</span>
     
-    <span class="c1"># THIS CHANGED FROM THE PREVIOUS VERSION</span>
-    <span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v</span> <span class="o">-</span> <span class="n">gpr</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">variance</span><span class="p">)</span>
-    <span class="n">af_values</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">Y</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="o">**</span><span class="n">alpha_params</span><span class="p">)</span>
-    <span class="n">next_id</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">af_values</span><span class="p">)</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="n">af_values</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">gpr</span><span class="o">.</span><span class="n">train_targets</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="o">**</span><span class="n">alpha_params</span><span class="p">)</span>
+    <span class="n">next_id</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">af_values</span><span class="p">)</span>
     <span class="n">next_x</span> <span class="o">=</span> <span class="n">x_star</span><span class="p">[</span><span class="n">next_id</span><span class="p">]</span>
     <span class="n">af_max</span> <span class="o">=</span> <span class="n">af_values</span><span class="p">[</span><span class="n">next_id</span><span class="p">]</span>
     
     <span class="n">ax2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_star</span><span class="p">,</span> <span class="n">af_values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_star</span><span class="p">,</span> <span class="n">af_values</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
     <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span>
-        <span class="s1">&#39;Maximum Upper Interval&#39;</span><span class="p">,</span>
+        <span class="n">iaf_label</span><span class="p">,</span>
         <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
     <span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span>
@@ -747,14 +855,15 @@ document.write(`
     <span class="p">)</span>
     <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
         <span class="n">next_x</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">af_max</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">af_max</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="mi">100</span><span class="p">),</span>
         <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
         <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span>
     <span class="p">)</span>
-    
+
+
 <span class="k">def</span> <span class="nf">maximize</span><span class="p">(</span>
     <span class="n">f</span><span class="p">,</span>
-    <span class="n">gpr</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">,</span>
     <span class="n">X_design</span><span class="p">,</span>
     <span class="n">alpha</span><span class="p">,</span>
     <span class="n">alpha_params</span><span class="o">=</span><span class="p">{},</span>
@@ -768,7 +877,7 @@ document.write(`
 <span class="sd">    Arguments</span>
 <span class="sd">    f            -- The function to optimize.</span>
 <span class="sd">    gpr          -- A Gaussian process model to use for representing</span>
-<span class="sd">                    our state of knowldege.</span>
+<span class="sd">                    our state of knowledge.</span>
 <span class="sd">    X_design     -- The set of candidate points for identifying the</span>
 <span class="sd">                    maximum.</span>
 <span class="sd">    alpha        -- The information acquisition function.</span>
@@ -789,29 +898,35 @@ document.write(`
     <span class="n">af_all</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_it</span><span class="p">):</span>
         <span class="c1"># Predict</span>
-        <span class="n">m</span><span class="p">,</span> <span class="n">sigma2</span> <span class="o">=</span> <span class="n">gpr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_design</span><span class="p">)</span>
-        <span class="c1"># THIS CHANGED FROM THE PREVIOUS VERSION</span>
-        <span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sigma2</span> <span class="o">-</span> <span class="n">gpr</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">variance</span><span class="p">)</span>
+        <span class="n">f_design</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">X_design</span><span class="p">)</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">f_design</span><span class="o">.</span><span class="n">mean</span>
+        <span class="n">sigma2</span> <span class="o">=</span> <span class="n">f_design</span><span class="o">.</span><span class="n">variance</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sigma2</span><span class="p">)</span>
         
         <span class="c1"># Evaluate information acquisition function</span>
+        <span class="n">y_train</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train_targets</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
         <span class="n">af_values</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">(</span>
             <span class="n">m</span><span class="p">,</span>
             <span class="n">sigma</span><span class="p">,</span>
-            <span class="n">gpr</span><span class="o">.</span><span class="n">Y</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+            <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
             <span class="o">**</span><span class="n">alpha_params</span>
         <span class="p">)</span>
         
         <span class="c1"># Find best point to include</span>
-        <span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">af_values</span><span class="p">)</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">gpr</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">X_design</span><span class="p">[</span><span class="n">i</span><span class="p">:(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="p">:]])</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">af_values</span><span class="p">)</span>
         <span class="n">af_all</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">af_values</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-
-        <span class="c1"># Make observation</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">gpr</span><span class="o">.</span><span class="n">Y</span><span class="p">,</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">X_design</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:])]])</span>
-        <span class="c1"># Update GPR</span>
-        <span class="n">gpr</span><span class="o">.</span><span class="n">set_XY</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        
+        <span class="n">new_x</span> <span class="o">=</span> <span class="n">X_design</span><span class="p">[</span><span class="n">i</span><span class="p">:(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="n">new_y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">new_x</span><span class="p">)</span>
+        <span class="n">train_x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">model</span><span class="o">.</span><span class="n">train_inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">new_x</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]])</span>
+        <span class="n">train_y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">model</span><span class="o">.</span><span class="n">train_targets</span><span class="p">,</span> <span class="n">new_y</span><span class="p">])</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">set_train_data</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        
         <span class="k">if</span> <span class="n">optimize</span><span class="p">:</span>
-            <span class="n">gpr</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
+            <span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
         
         <span class="c1"># Plot if required</span>
         <span class="k">if</span> <span class="n">count</span> <span class="o">%</span> <span class="n">plot</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -821,11 +936,12 @@ document.write(`
                 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
             <span class="n">plot_iaf</span><span class="p">(</span>
                 <span class="n">X_design</span><span class="p">,</span>
-                <span class="n">gpr</span><span class="p">,</span>
+                <span class="n">model</span><span class="p">,</span>
                 <span class="n">alpha</span><span class="p">,</span>
                 <span class="n">alpha_params</span><span class="o">=</span><span class="n">alpha_params</span><span class="p">,</span>
                 <span class="n">f_true</span><span class="o">=</span><span class="n">f</span><span class="p">,</span>
-                <span class="n">ax</span><span class="o">=</span><span class="n">ax</span>
+                <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span>
             <span class="p">)</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;N=</span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">, &quot;</span> <span class="o">+</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_title</span><span class="p">()</span>
@@ -848,7 +964,8 @@ document.write(`
 <span class="sd">    ymax  -- The maximum observed value (so far).</span>
 <span class="sd">    psi   -- A parameter that controls exploration.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">((</span><span class="n">m</span> <span class="o">-</span> <span class="n">ymax</span> <span class="o">-</span> <span class="n">psi</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">cdf</span><span class="p">((</span><span class="n">m</span> <span class="o">-</span> <span class="n">ymax</span> <span class="o">-</span> <span class="n">psi</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">)</span>
+
 
 <span class="k">def</span> <span class="nf">ei</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">ymax</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the expected improvement.</span>
@@ -859,8 +976,11 @@ document.write(`
 <span class="sd">             the test points.</span>
 <span class="sd">    ymax  -- The maximum observed value (so far).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">u</span> <span class="o">=</span> <span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="n">ymax</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span>
-    <span class="n">ei</span> <span class="o">=</span> <span class="n">sigma</span> <span class="o">*</span> <span class="p">(</span><span class="n">u</span> <span class="o">*</span> <span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">+</span> <span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">m</span> <span class="o">-</span> <span class="n">ymax</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">diff</span> <span class="o">/</span> <span class="n">sigma</span>
+    <span class="n">ei</span> <span class="o">=</span> <span class="p">(</span> <span class="n">diff</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">+</span> 
+          <span class="n">sigma</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="o">.</span><span class="n">exp</span><span class="p">()</span>
+    <span class="p">)</span>
     <span class="n">ei</span><span class="p">[</span><span class="n">sigma</span> <span class="o">&lt;=</span> <span class="mf">0.</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
     <span class="k">return</span> <span class="n">ei</span>
 </pre></div>
@@ -868,20 +988,28 @@ document.write(`
 </div>
 </details>
 </div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>gpytorch
+</pre></div>
+</div>
+</div>
+</details>
+</div>
 <section class="tex2jax_ignore mathjax_ignore" id="expected-improvement-with-observation-noise">
 <h1>Expected Improvement - With Observation Noise<a class="headerlink" href="#expected-improvement-with-observation-noise" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Develop intuition about the expected improvement in the presence of observation noise</p></li>
-</ul>
-</section>
+<p>We develop intuition about the expected improvement in the presence of observation noise.</p>
 <section id="optimizing-noisy-functions">
 <h2>Optimizing Noisy Functions<a class="headerlink" href="#optimizing-noisy-functions" title="Permalink to this heading">#</a></h2>
 <p>The optimization of noisy functions is relevant when you are dealing with experimentally measured objectives.
-In such a scenario, you do not observe <span class="math notranslate nohighlight">\(f(\mathbf{x})\)</span>, but a noisy version of it.
+In such a scenario, you do not observe <span class="math notranslate nohighlight">\(f(\mathbf{x})\)</span>, but a noisy version.
 Here is a prototypical scenario of an experimentally measured objective.
-Let <span class="math notranslate nohighlight">\(\xi\)</span> be all the variables that affect the objective and assume that they are distributed in a way, not necessarily known to you:</p>
+Let <span class="math notranslate nohighlight">\(\xi\)</span> be all the variables that affect the objective and assume that they are distributed in a way not necessarily known to you:</p>
 <div class="math notranslate nohighlight">
 \[
 \xi \sim p(\xi).
@@ -891,53 +1019,51 @@ Let <span class="math notranslate nohighlight">\(\xi\)</span> be all the variabl
 \[
 y = g(\mathbf{x}, \xi).
 \]</div>
-<p>Let’s assume now, that you would like to maximize the expectation of this function, i.e., you want to maximize</p>
+<p>Let’s assume now that you would like to maximize the expectation of this function, i.e., you want to maximize</p>
 <div class="math notranslate nohighlight">
 \[
 f(\mathbf{x}) = \mathbb{E}_\xi[g(\mathbf{x},\xi)].
 \]</div>
 <p>The expectation here is over the experimental noise.</p>
 <p>A naïve way of solving this problem is to approximate the expectation using sample averaging.
-That is, at each <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> you do many experiments instead of just one.
-If your experiments are not very expensive, you may just do that.
-Then any of the algorithms above would work in your problem.</p>
-<p>So, what do you do when you cannot get rid of the noise?
+At each <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>, you do many experiments instead of just one.
+If your experiments are not very expensive, you may do that.
+Then, any of the algorithms above would work in your problem.</p>
+<p>So, what do you do when you cannot eliminate the noise?
 Well, this is an open problem.
-But here is a quick and dirty solution which may work in many cases.
+But here is a quick and dirty solution that may work in many cases.
 First, use GPR to approximate <span class="math notranslate nohighlight">\(f(\mathbf{x})\)</span> using noisy measurements:</p>
 <div class="math notranslate nohighlight">
 \[
 y_i = g(\mathbf{x},\xi_i),
 \]</div>
 <p>for <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>.
-Note that here you do not necessarily have to observe the <span class="math notranslate nohighlight">\(\xi\)</span>’s.
+You do not necessarily have to observe the <span class="math notranslate nohighlight">\(\xi\)</span>’s.
 You can assume that they are hidden. If you do observe them, you can exploit this fact.
 But, for now, let’s assume that you don’t observe them.
-If you don’t observe them you need to somehow model their effect.
-The easier thing to do is to assume that their effect is additive, zero mean, and Gaussian.
-That is, we just assume that:</p>
+If you don’t observe them, you need to model their effect.
+The more straightforward thing to do is to assume that their effect is additive, zero mean, and Gaussian.
+That is, we assume that:</p>
 <div class="math notranslate nohighlight">
 \[
 y_i = f(\mathbf{x}_i) + \epsilon_i,
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\epsilon_i \sim \mathcal{N}(0,\sigma^2)\)</span>, where <span class="math notranslate nohighlight">\(\sigma^2\)</span> is to be determined.
-Of course, this is, in general, not the right assumption for the noise.
-It is, however, the easiest thing to do.
-When we do this, we can just use GPR to find our posterior state of knowledge about <span class="math notranslate nohighlight">\(f(\cdot)\)</span> and any hyperparameters).
+When we do this, we can use GPR to find our posterior state of knowledge about <span class="math notranslate nohighlight">\(f(\cdot)\)</span> and any hyperparameters).
 We will be just using a MAP estimate for the hyperparameters.</p>
 <p>The posterior GP conditioned on the observed data is given by the usual formulas:</p>
 <div class="math notranslate nohighlight">
 \[
 f(\cdot)|\mathcal{D}_n \sim \operatorname{GP}(m_n(\cdot), k_n(\cdot,\cdot)).
 \]</div>
-<p>Since we will be doing sequential experiment design, we are also going to need the point-predictive distribution for the measurement <span class="math notranslate nohighlight">\(y\)</span> at a hypothetical <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>.
+<p>Since we will be doing sequential experiment design, we will also need the point-predictive distribution for the measurement <span class="math notranslate nohighlight">\(y\)</span> at a hypothetical <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>.
 It is:</p>
 <div class="math notranslate nohighlight">
 \[
 p(y|\mathbf{x},\mathcal{D}_n) = \mathcal{N}(y|m_n(\mathbf{x}), \sigma_n^2(\mathbf{x}) + \sigma^2),
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\sigma_n^2(\mathbf{x}) = k_n(\mathbf{x},\mathbf{x})\)</span>, i.e., the posterior variance for <span class="math notranslate nohighlight">\(f(\mathbf{x})\)</span>.
-We now have all the ingredients to modify the information acquisition functions we had above for the noisy cases.</p>
+We now have all the ingredients to modify the information acquisition functions above for the noisy cases.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
@@ -945,7 +1071,7 @@ We now have all the ingredients to modify the information acquisition functions 
 
 <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A function to optimize.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">8</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">6</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="mf">7.</span><span class="p">)))</span> 
+    <span class="k">return</span> <span class="o">-</span><span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">8</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">6</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="mf">7.</span><span class="p">)))</span> 
 
 <span class="c1"># noisy version of the above function</span>
 <span class="n">sigma_noise</span> <span class="o">=</span> <span class="mf">0.4</span>
@@ -960,24 +1086,32 @@ We now have all the ingredients to modify the information acquisition functions 
 <span class="n">Y</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
 <span class="c1"># Do GPR</span>
-<span class="kn">import</span> <span class="nn">GPy</span>
-<span class="n">k</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">lengthscale</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="mf">4.</span><span class="p">)</span>
-<span class="n">gpr</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">GPRegression</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">Y</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">k</span><span class="p">)</span>
-<span class="n">gpr</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">variance</span><span class="o">.</span><span class="n">constrain_fixed</span><span class="p">(</span><span class="n">sigma_noise</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">train_x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+<span class="n">train_y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ExactGP</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span>
 
-<span class="c1"># Plot posterior predictive</span>
-<span class="n">x_star</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="n">model</span><span class="o">.</span><span class="n">covar_module</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="mf">0.15</span>
+<span class="n">model</span><span class="o">.</span><span class="n">covar_module</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="mf">4.0</span>
+<span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">noise</span> <span class="o">=</span> <span class="mf">0.4</span>
+<span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">plot_1d_regression</span><span class="p">(</span>
-    <span class="n">x_star</span><span class="p">,</span>
-    <span class="n">gpr</span><span class="p">,</span>
+    <span class="n">x</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">,</span>
     <span class="n">f_true</span><span class="o">=</span><span class="n">f</span>
 <span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a43181f1cb8b3d261912ad538ab65fdac273dcbf91aa627c6a49b30692727fba.png" src="../_images/a43181f1cb8b3d261912ad538ab65fdac273dcbf91aa627c6a49b30692727fba.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/ibilion/.pyenv/versions/3.11.6/lib/python3.11/site-packages/linear_operator/utils/cholesky.py:40: NumericalWarning: A not p.d., added jitter of 1.0e-06 to the diagonal
+  warnings.warn(
+/Users/ibilion/.pyenv/versions/3.11.6/lib/python3.11/site-packages/linear_operator/utils/cholesky.py:40: NumericalWarning: A not p.d., added jitter of 1.0e-05 to the diagonal
+  warnings.warn(
+</pre></div>
 </div>
+<img alt="../_images/17eeb9a9babf49eabd0a027fcdb72c03a4f4eb43578ce1fcf555e2d35b932978.svg" src="../_images/17eeb9a9babf49eabd0a027fcdb72c03a4f4eb43578ce1fcf555e2d35b932978.svg" /></div>
 </div>
 </section>
 <section id="maximum-upper-interval-with-noise">
@@ -988,14 +1122,13 @@ We now have all the ingredients to modify the information acquisition functions 
 a_n(\mathbf{x}) = \mu_n(\mathbf{x}) + \psi \sigma_n(\mathbf{x}),
 \]</div>
 <p>for some <span class="math notranslate nohighlight">\(\psi \ge 0\)</span>.
-Just make sure you don’t add the <span class="math notranslate nohighlight">\(\sigma^2\)</span> term in the variance.
-Of course, we need to modify the way we grab the variance from <code class="docutils literal notranslate"><span class="pre">GPy</span></code> for this.
+Ensure you don’t add the <span class="math notranslate nohighlight">\(\sigma^2\)</span> term in the variance.
 Here it is:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_iaf</span><span class="p">(</span>
-    <span class="n">x_star</span><span class="p">,</span>
-    <span class="n">gpr</span><span class="p">,</span>
+    <span class="n">x</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">,</span>
     <span class="n">mui</span><span class="p">,</span>
     <span class="n">alpha_params</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">psi</span><span class="o">=</span><span class="mf">1.96</span><span class="p">)</span>
 <span class="p">)</span>
@@ -1003,28 +1136,27 @@ Here it is:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a883ee62299dac6970686b2246dcd59953faee1fbe33bc1b418c89fb6ef73e3f.png" src="../_images/a883ee62299dac6970686b2246dcd59953faee1fbe33bc1b418c89fb6ef73e3f.png" />
-</div>
+<img alt="../_images/8e3af5d501eb87d1814e17a2cdf7f301f3f27fd97d584d0db12edf8307a25d5f.svg" src="../_images/8e3af5d501eb87d1814e17a2cdf7f301f3f27fd97d584d0db12edf8307a25d5f.svg" /></div>
 </div>
 </section>
 <section id="probability-of-improvement-with-noise">
 <h2>Probability of improvement with noise<a class="headerlink" href="#probability-of-improvement-with-noise" title="Permalink to this heading">#</a></h2>
 <p>We need to make some modifications to the probability of improvement.
-First, we cannot just use the <span class="math notranslate nohighlight">\(y_n^*\)</span> as the maximum of the <span class="math notranslate nohighlight">\(y_i\)</span>’s, because they are noisy.
+First, because they are noisy, we cannot use the <span class="math notranslate nohighlight">\(y_n^*\)</span> as the maximum of the <span class="math notranslate nohighlight">\(y_i\)</span>’s.
 Instead, we are looking at the predictive mean of the GP, <span class="math notranslate nohighlight">\(m_n(\mathbf{x}_i)\)</span>, at the corresponding inputs, <span class="math notranslate nohighlight">\(\mathbf{x}_i\)</span>, and we find their maximum.
 So, define:</p>
 <div class="math notranslate nohighlight">
 \[
 m_n^* = \max_{1\le i\le n}m_n(\mathbf{x}_i).
 \]</div>
-<p>Essentially, instead of finding the maximum of the noisy observations, we are smoothing with the predictive mean of the GP and find the maximum of the smoothed versions.
+<p>Instead of finding the maximum of the noisy observations, we are smoothing with the predictive mean of the GP and find the maximum of the smoothed versions.
 The rest is similar.
 The acquisition function is defined by:</p>
 <div class="math notranslate nohighlight">
 \[
 a_n(\mathbf{x}) = \mathbb{P}[f(\mathbf{x}) &gt; m_n^* + \psi | \mathbf{x}, \mathcal{D}_n].
 \]</div>
-<p>We read “<span class="math notranslate nohighlight">\(a_n(\mathbf{x})\)</span>” is the probability that we observe at <span class="math notranslate nohighlight">\(x\)</span> a <span class="math notranslate nohighlight">\(y\)</span> that is greater than the currently observed maximum <span class="math notranslate nohighlight">\(y_n^*\)</span> by at least <span class="math notranslate nohighlight">\(\psi&gt;0\)</span>.
+<p>We read that “<span class="math notranslate nohighlight">\(a_n(\mathbf{x})\)</span>” is the probability that we observe at <span class="math notranslate nohighlight">\(x\)</span> a <span class="math notranslate nohighlight">\(y\)</span> that is greater than the currently observed maximum <span class="math notranslate nohighlight">\(y_n^*\)</span> by at least <span class="math notranslate nohighlight">\(\psi&gt;0\)</span>.
 The good thing is that it is possible to get an analytical answer because our point predictive distribution is Gaussian.
 In particular, we get:</p>
 <div class="math notranslate nohighlight">
@@ -1039,8 +1171,8 @@ a_n(\mathbf{x}) &amp;=&amp; \mathbb{P}[f(\mathbf{x}) &gt; m_n^* + \psi | \mathbf
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_iaf</span><span class="p">(</span>
-    <span class="n">x_star</span><span class="p">,</span>
-    <span class="n">gpr</span><span class="p">,</span>
+    <span class="n">x</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">,</span>
     <span class="n">poi</span><span class="p">,</span>
     <span class="n">alpha_params</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">psi</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="p">)</span>
@@ -1048,8 +1180,7 @@ a_n(\mathbf{x}) &amp;=&amp; \mathbb{P}[f(\mathbf{x}) &gt; m_n^* + \psi | \mathbf
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5997152fb2f62e6116c74eb00c473b9b2546f178d7c50a3cc3442df76556258d.png" src="../_images/5997152fb2f62e6116c74eb00c473b9b2546f178d7c50a3cc3442df76556258d.png" />
-</div>
+<img alt="../_images/3a5cb52bde1c6f6cfa2f7fbb122cf8d21457e30eb1a24e3c3de00c06e0d28464.svg" src="../_images/3a5cb52bde1c6f6cfa2f7fbb122cf8d21457e30eb1a24e3c3de00c06e0d28464.svg" /></div>
 </div>
 </section>
 <section id="expected-improvment-with-noise">
@@ -1070,55 +1201,45 @@ f(\mathbf{x}) - m_n^*,&amp;\;\text{otherwise},
 Taking the expectation over <span class="math notranslate nohighlight">\(y\)</span> would give you:</p>
 <div class="math notranslate nohighlight">
 \[
-\operatorname{EI}_n(\mathbf{x}) = \frac{m_n(\mathbf{x}) - m_n^*}{\sigma_n(\mathbf{x})}\Phi\left(\frac{m_n(\mathbf{x}) - m_n^*}{\sigma_n(\mathbf{x})}\right)
-+ \phi\left(\frac{m_n(\mathbf{x}) - m_n^*}{\sigma_n(\mathbf{x})}\right).
+\operatorname{EI}_n(\mathbf{x}) = \left(m_n(\mathbf{x}) - m_n^*\right)\Phi\left(\frac{m_n(\mathbf{x}) - m_n^*}{\sigma_n(\mathbf{x})}\right)
++ \sigma_n(\mathbf{x})\phi\left(\frac{m_n(\mathbf{x}) - m_n^*}{\sigma_n(\mathbf{x})}\right).
 \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_iaf</span><span class="p">(</span>
-    <span class="n">x_star</span><span class="p">,</span>
-    <span class="n">gpr</span><span class="p">,</span>
+    <span class="n">x</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">,</span>
     <span class="n">ei</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b056df7007f12ab370939fff6b955b7c2c29d71dafe9e8215fba391646c730c1.png" src="../_images/b056df7007f12ab370939fff6b955b7c2c29d71dafe9e8215fba391646c730c1.png" />
-</div>
+<img alt="../_images/5141d424d30cd9c2329c76f27173aecf178867956e46d3384ff2dcb535d2f951.svg" src="../_images/5141d424d30cd9c2329c76f27173aecf178867956e46d3384ff2dcb535d2f951.svg" /></div>
 </div>
 <p>And here optimization with noise:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Prepare the initial statistical model</span>
-<span class="n">k</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">lengthscale</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="mf">4.</span><span class="p">)</span>
-<span class="n">gpr</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">GPRegression</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">Y</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">k</span><span class="p">)</span>
-<span class="n">gpr</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">variance</span><span class="o">.</span><span class="n">constrain_fixed</span><span class="p">(</span><span class="n">sigma_noise</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
-
-<span class="c1"># Run the algorithm</span>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run the algorithm</span>
 <span class="n">af_all</span> <span class="o">=</span> <span class="n">maximize</span><span class="p">(</span>
     <span class="n">f</span><span class="p">,</span>
-    <span class="n">gpr</span><span class="p">,</span>
-    <span class="n">x_star</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">,</span>
+    <span class="n">x</span><span class="p">,</span>
     <span class="n">ei</span><span class="p">,</span>
-    <span class="n">max_it</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">max_it</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
     <span class="n">plot</span><span class="o">=</span><span class="mi">1</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
 <div class="cell_output docutils container">
-<img alt="../_images/ba0637b8116388e5aa3d414bde5b3227a00deacf97277f1ad2ff4ca732023f77.png" src="../_images/ba0637b8116388e5aa3d414bde5b3227a00deacf97277f1ad2ff4ca732023f77.png" />
-<img alt="../_images/17a07af0070b3da0e4fefa8debdd611356b7e70c3067be3e9dd12e6349816c77.png" src="../_images/17a07af0070b3da0e4fefa8debdd611356b7e70c3067be3e9dd12e6349816c77.png" />
-<img alt="../_images/efec2169553bb56f28f1b7f63b849f9786ddc8ee2f674947c60243e822168473.png" src="../_images/efec2169553bb56f28f1b7f63b849f9786ddc8ee2f674947c60243e822168473.png" />
-<img alt="../_images/05d9384de636b0b2d134098bb180b75f7b5ecd5c2181af857be8b558719d71c9.png" src="../_images/05d9384de636b0b2d134098bb180b75f7b5ecd5c2181af857be8b558719d71c9.png" />
-<img alt="../_images/461cef85fd0ae4ba739d63a0ce60846d7bb349a4ef174e62c0521bcb63633d9c.png" src="../_images/461cef85fd0ae4ba739d63a0ce60846d7bb349a4ef174e62c0521bcb63633d9c.png" />
-<img alt="../_images/112a097d92b226d519e5f7d49744ae248f07ba7c3522fb10e6f269523bc17d7e.png" src="../_images/112a097d92b226d519e5f7d49744ae248f07ba7c3522fb10e6f269523bc17d7e.png" />
-<img alt="../_images/b6703d2eb22201bfb88258ba7b3c7d58f539ebebc3b9b746a2aa8cd3c802d165.png" src="../_images/b6703d2eb22201bfb88258ba7b3c7d58f539ebebc3b9b746a2aa8cd3c802d165.png" />
-<img alt="../_images/d662b790fc0f7331e2e67737727c7d7475bd2773d949a21812dd3e6b0de83f2a.png" src="../_images/d662b790fc0f7331e2e67737727c7d7475bd2773d949a21812dd3e6b0de83f2a.png" />
-<img alt="../_images/72627d42450d097739aa93a31ac410c0ffe90b66c84d6cbd022ff4a3d0c14a7c.png" src="../_images/72627d42450d097739aa93a31ac410c0ffe90b66c84d6cbd022ff4a3d0c14a7c.png" />
-<img alt="../_images/b87cd4cf3638d1475ab6cb854213c45cb35374194cf0f9394fd05714d5c4e09d.png" src="../_images/b87cd4cf3638d1475ab6cb854213c45cb35374194cf0f9394fd05714d5c4e09d.png" />
-</div>
+<img alt="../_images/a152f4d8633c88e4271d0b791b5b80e9ef58e38a35bc31f792c7874392349a13.svg" src="../_images/a152f4d8633c88e4271d0b791b5b80e9ef58e38a35bc31f792c7874392349a13.svg" /><img alt="../_images/f95cbd58678891a387768bc203c77f41667f4dfc03c4bc95c5ac74aa79a65e2f.svg" src="../_images/f95cbd58678891a387768bc203c77f41667f4dfc03c4bc95c5ac74aa79a65e2f.svg" /><img alt="../_images/dcd365cdccd4f6218a617cf9e7ab8c98dd93f9c0c78e485147d21f423710d666.svg" src="../_images/dcd365cdccd4f6218a617cf9e7ab8c98dd93f9c0c78e485147d21f423710d666.svg" /><img alt="../_images/ec637f9a379ef06a8146d9bd1d6fc42de9784464e62cec9fc3e3d90d68e059df.svg" src="../_images/ec637f9a379ef06a8146d9bd1d6fc42de9784464e62cec9fc3e3d90d68e059df.svg" /><img alt="../_images/862997dd8562ef03af387545291917725fed6a024ebeb4764187dad3df16355c.svg" src="../_images/862997dd8562ef03af387545291917725fed6a024ebeb4764187dad3df16355c.svg" /><img alt="../_images/01fbdb0086ff133261c6e88d3ffcaa1b3e7feb508b9aa7a651084473868ba676.svg" src="../_images/01fbdb0086ff133261c6e88d3ffcaa1b3e7feb508b9aa7a651084473868ba676.svg" /><img alt="../_images/594dd79ec1ae1934ead5b8f178ac6965d0e2aa8334aa4aaca167611ef0e19360.svg" src="../_images/594dd79ec1ae1934ead5b8f178ac6965d0e2aa8334aa4aaca167611ef0e19360.svg" /><img alt="../_images/46b7ddc07e6c15c3dd8e03e199aafc9ecae4cf535f3b898b947875a0443395c8.svg" src="../_images/46b7ddc07e6c15c3dd8e03e199aafc9ecae4cf535f3b898b947875a0443395c8.svg" /><img alt="../_images/2e6ff61db519b2392ce69694fea2f483de31a675d5e4ddbd3447fdb24d945ccb.svg" src="../_images/2e6ff61db519b2392ce69694fea2f483de31a675d5e4ddbd3447fdb24d945ccb.svg" /><img alt="../_images/7bc512b239822fa88690d7f6473db62ec24678840d5916d12a8c40414c24cb65.svg" src="../_images/7bc512b239822fa88690d7f6473db62ec24678840d5916d12a8c40414c24cb65.svg" /><img alt="../_images/2492cd5f34a05a5428bc7a4ba03e7eed625c1fa5279c4909bdfa614da473d2ef.svg" src="../_images/2492cd5f34a05a5428bc7a4ba03e7eed625c1fa5279c4909bdfa614da473d2ef.svg" /><img alt="../_images/42ebd7b98bc3f0f2dae452c84e280bebb0ce43bea98a1d342f89ea57b6878c64.svg" src="../_images/42ebd7b98bc3f0f2dae452c84e280bebb0ce43bea98a1d342f89ea57b6878c64.svg" /><img alt="../_images/90327170616010d92eae7832d81e89a66b598b2c51e37fd76d4cd9848fd0aca3.svg" src="../_images/90327170616010d92eae7832d81e89a66b598b2c51e37fd76d4cd9848fd0aca3.svg" /><img alt="../_images/47045983a085dd1c0aa0d19e1d6939b5c20ca15a847013c7535ca95f58053f1d.svg" src="../_images/47045983a085dd1c0aa0d19e1d6939b5c20ca15a847013c7535ca95f58053f1d.svg" /><img alt="../_images/a881deaeba3333d58107b972ec8cb5f5020b3841dd88952d37ad61218590b65c.svg" src="../_images/a881deaeba3333d58107b972ec8cb5f5020b3841dd88952d37ad61218590b65c.svg" /><img alt="../_images/fc65320a0002b392dedb6cd9ae3f62b5f0a6de1f7392cfc1f644a3969c939c6f.svg" src="../_images/fc65320a0002b392dedb6cd9ae3f62b5f0a6de1f7392cfc1f644a3969c939c6f.svg" /><img alt="../_images/dd64a30ccd2f510661d940e2307080d4fab1f3440553afd14832f39abe6ed475.svg" src="../_images/dd64a30ccd2f510661d940e2307080d4fab1f3440553afd14832f39abe6ed475.svg" /><img alt="../_images/f52d5628739b6b137a0caaaa4096efc05988134bf8c95f24a9a49961e026082b.svg" src="../_images/f52d5628739b6b137a0caaaa4096efc05988134bf8c95f24a9a49961e026082b.svg" /><img alt="../_images/a1c35b72974b61cfad30e1133f3db4e2efd21103b5eefdf1d4f882d182f344b1.svg" src="../_images/a1c35b72974b61cfad30e1133f3db4e2efd21103b5eefdf1d4f882d182f344b1.svg" /><img alt="../_images/4dddcb5044a4bdc9b77a81030c23e1f71b0bacbac0a88ba0d7fdf4a5b312fc5a.svg" src="../_images/4dddcb5044a4bdc9b77a81030c23e1f71b0bacbac0a88ba0d7fdf4a5b312fc5a.svg" /></div>
+</details>
 </div>
 </section>
 <section id="questions">
@@ -1157,11 +1278,10 @@ If not, why?</p></li>
 
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="hands-on-23.4.html"
@@ -1181,10 +1301,7 @@ If not, why?</p></li>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -1199,7 +1316,6 @@ If not, why?</p></li>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizing-noisy-functions">Optimizing Noisy Functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-upper-interval-with-noise">Maximum upper interval with noise</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-of-improvement-with-noise">Probability of improvement with noise</a></li>
@@ -1252,8 +1368,8 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
   </footer>
