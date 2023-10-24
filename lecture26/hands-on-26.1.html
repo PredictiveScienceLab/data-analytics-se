@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,9 +38,8 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -79,15 +78,6 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
-
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -547,10 +537,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
 `);
 </script>
@@ -558,7 +548,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
 `);
 </script>
@@ -585,12 +575,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-single-ode">Example 1: Single ODE</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-any-dynamical-system-with-neural-networks">Solving any dynamical system with neural networks</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-a-dynamical-system-with-neural-networks">Solving a dynamical system with neural networks</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question">Question</a></li>
 </ul>
 </li>
@@ -613,33 +602,13 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
-
-<span class="kn">import</span> <span class="nn">scipy</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
-<span class="kn">import</span> <span class="nn">urllib.request</span>
-<span class="kn">import</span> <span class="nn">os</span>
-
-<span class="k">def</span> <span class="nf">download</span><span class="p">(</span>
-    <span class="n">url</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">local_filename</span> <span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Download a file from a url.</span>
-<span class="sd">    </span>
-<span class="sd">    Arguments</span>
-<span class="sd">    url            -- The url we want to download.</span>
-<span class="sd">    local_filename -- The filemame to write on. If not</span>
-<span class="sd">                      specified </span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">local_filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">local_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">local_filename</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -647,12 +616,8 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="physics-informed-regularization-solving-odes">
 <h1>Physics-informed regularization: Solving ODEs<a class="headerlink" href="#physics-informed-regularization-solving-odes" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Learn how to solve ODEs with neural networks.</p></li>
-</ul>
-<p>This notebook replicates some of the results of <a class="reference external" href="https://arxiv.org/pdf/physics/9705023.pdf">Lagaris et al. 1998)</a>.</p>
+<p>We learn how to solve ODEs with neural networks.
+This notebook replicates some of the results of <span id="id1">[]</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
@@ -665,10 +630,9 @@ document.write(`
 </div>
 </div>
 </div>
-</section>
 <section id="example-1-single-ode">
 <h2>Example 1: Single ODE<a class="headerlink" href="#example-1-single-ode" title="Permalink to this heading">#</a></h2>
-<p>Consider the ode:</p>
+<p>Consider the ODE:</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{d\Psi}{dx} = f(x, \Psi),
@@ -715,8 +679,8 @@ L(\theta) = \int_0^1 \left[\frac{d\Psi_t(x;\theta)}{dx} - f(x,\hat{\Psi}(x;\thet
 </div>
 </div>
 </div>
-<p>First, I am going to use the method that we find in Lagaris et al.
-Instead of using stochastic optimization, they use a lot of points to estimate the loss integral (I am going to use 100) and then they just do gradient-based optimization (I am going to do BFGS).</p>
+<p>First, I will use the method we find in Lagaris et al.
+Instead of stochastic optimization, they use a lot of points to estimate the loss integral (I am going to use 100) and then do gradient-based optimization (I am going to do BFGS).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Optimize (same algorithm as in Lagaris)</span>
@@ -746,13 +710,13 @@ Instead of using stochastic optimization, they use a lot of points to estimate t
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Neural network approximation&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$\Psi(x)$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2a7d7f211f32fd8f087cda105f48d8c372deb171a952a6470a08fe2760e1a1e9.png" src="../_images/2a7d7f211f32fd8f087cda105f48d8c372deb171a952a6470a08fe2760e1a1e9.png" />
-</div>
+<img alt="../_images/f844f91c374b75753e639b544f56923bdcd93075862d425d03ce20b3b10e102a.svg" src="../_images/f844f91c374b75753e639b544f56923bdcd93075862d425d03ce20b3b10e102a.svg" /></div>
 </div>
 <p>Now, we are going to do the same thing using stochastic gradient descent:</p>
 <div class="cell docutils container">
@@ -814,39 +778,39 @@ Instead of using stochastic optimization, they use a lot of points to estimate t
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Neural network approximation&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$\Psi(x)$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f0ad1c017929715f6b1f5050431627f740b86dce85463e4a03384dfb51709b6e.png" src="../_images/f0ad1c017929715f6b1f5050431627f740b86dce85463e4a03384dfb51709b6e.png" />
-</div>
+<img alt="../_images/fb12e0172efd72be8aabce76bcaf36a70a62abcd906465caac3abf1d0d7b54c0.svg" src="../_images/fb12e0172efd72be8aabce76bcaf36a70a62abcd906465caac3abf1d0d7b54c0.svg" /></div>
 </div>
 <section id="questions">
 <h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
-<p>In the following questions, just use the stochastic gradient approach.</p>
+<p>In the following questions, use the stochastic gradient approach.</p>
 <ul class="simple">
 <li><p>Change <code class="docutils literal notranslate"><span class="pre">n_batch</span></code> to just 1. Does the algorithm work? Did you have to increase the iterations to achieve the same accuracy?</p></li>
-<li><p>Modify the code, so that you now solve the problem for <span class="math notranslate nohighlight">\(x\)</span> between 0 and 5. Play with the <code class="docutils literal notranslate"><span class="pre">n_batch</span></code> and <code class="docutils literal notranslate"><span class="pre">max_it</span></code> until you get a good solution.</p></li>
+<li><p>Modify the code to solve the problem for <span class="math notranslate nohighlight">\(x\)</span> between 0 and 5. Play with the <code class="docutils literal notranslate"><span class="pre">n_batch</span></code> and <code class="docutils literal notranslate"><span class="pre">max_it</span></code> until you get a good solution.</p></li>
 </ul>
 </section>
 </section>
-<section id="solving-any-dynamical-system-with-neural-networks">
-<h2>Solving any dynamical system with neural networks<a class="headerlink" href="#solving-any-dynamical-system-with-neural-networks" title="Permalink to this heading">#</a></h2>
+<section id="solving-a-dynamical-system-with-neural-networks">
+<h2>Solving a dynamical system with neural networks<a class="headerlink" href="#solving-a-dynamical-system-with-neural-networks" title="Permalink to this heading">#</a></h2>
 <p>Let’s write some code that will allow us to solve any dynamical system:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">DynamicalSystem</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A class representing an initial value problem.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A class representing an initial value problem.</span>
 <span class="sd">    </span>
-<span class="sd">    :param dim:               The dimensionality of the problem.</span>
-<span class="sd">    :param rhs:               The right hand side of the equation.</span>
-<span class="sd">                              This must be a function with signature rhs(t, y)</span>
-<span class="sd">                              where t is time and y is the state of the system.</span>
-<span class="sd">    :param init_conditions:   Initial conditions. Must be a vector of dimension dim.</span>
-<span class="sd">    :param net:               A neural network for representing the solution. This must have</span>
-<span class="sd">                              one-dimensional input and dim-dimensional output.</span>
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    dim               -- The dimensionality of the problem.</span>
+<span class="sd">    rhs               -- The right hand side of the equation. This must be a function with signature</span>
+<span class="sd">                         rhs(t, y) where t is time and y is the state of the system.</span>
+<span class="sd">    init_conditions   -- Initial conditions. Must be a vector of dimension dim.</span>
+<span class="sd">    net               -- A neural network for representing the solution. This must have</span>
+<span class="sd">                         one-dimensional input and dim-dimensional output.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">rhs</span><span class="p">,</span> <span class="n">init_conditions</span><span class="p">,</span> <span class="n">net</span><span class="p">):</span>
@@ -879,16 +843,16 @@ Instead of using stochastic optimization, they use a lot of points to estimate t
     
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return the solution function.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the solution function.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span>
     
     <span class="k">def</span> <span class="nf">squared_residual_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">T</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the squared residual loss at times T.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the squared residual loss at times T.</span>
 <span class="sd">        </span>
-<span class="sd">        :param T:    Must be a 1D torch tensor.</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        T       --    Must be a 1D torch tensor.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">T</span><span class="o">.</span><span class="n">requires_grad</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">sol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
@@ -901,10 +865,11 @@ Instead of using stochastic optimization, they use a lot of points to estimate t
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">dsol_dt</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">rhs</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">sol</span><span class="p">))</span> <span class="o">**</span> <span class="mf">2.</span><span class="p">)</span>
     
     <span class="k">def</span> <span class="nf">solve_lbfgs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">T_colloc</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Solve the problem by minimizing the squared residual loss.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Solve the problem by minimizing the squared residual loss.</span>
 <span class="sd">        </span>
-<span class="sd">        :param T_colloc: The collocation points used to solve the problem.</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        T_colloc    --  The collocation points used to solve the problem.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">LBFGS</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span>
 
@@ -917,6 +882,34 @@ Instead of using stochastic optimization, they use a lot of points to estimate t
     
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
             <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">closure</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">solve_sgd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Solve the problem using stochastic gradient descent.</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        a          -- The left end point of the interval.</span>
+<span class="sd">        b          -- The right end point of the interval.</span>
+<span class="sd">        max_iter   -- The maximum number of iterations to do. Default is 1000.</span>
+<span class="sd">        batch_size -- The batch size to use. Default is 10.</span>
+<span class="sd">        lr         -- The learning rate. Default is 0.01.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+            <span class="c1"># Randomly pick n_batch random x&#39;s:</span>
+            <span class="n">T</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">a</span>
+            <span class="c1"># Zero-out the gradient buffers</span>
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+            <span class="c1"># Evaluate the loss</span>
+            <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">squared_residual_loss</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+            <span class="c1"># Calculate the gradients</span>
+            <span class="n">l</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+            <span class="c1"># Update the network</span>
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+            <span class="c1"># Print the iteration number</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">99</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;it = </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">, loss = </span><span class="si">{</span><span class="n">l</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -946,13 +939,13 @@ Instead of using stochastic optimization, they use a lot of points to estimate t
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">sol</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Net solution&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$t$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y(t)$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/0bc90176f03cfaab406ed483977f0a4bd519eb7092e82036b070db72e66481c0.png" src="../_images/0bc90176f03cfaab406ed483977f0a4bd519eb7092e82036b070db72e66481c0.png" />
-</div>
+<img alt="../_images/393c11a5c222366d9d911142a69a650056cea2557f21c9e537c0e72d533e308a.svg" src="../_images/393c11a5c222366d9d911142a69a650056cea2557f21c9e537c0e72d533e308a.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -974,13 +967,13 @@ Instead of using stochastic optimization, they use a lot of points to estimate t
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">sol</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Net solution&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$t$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y(t)$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1b6a9ac4e373db54dc6497247aad4942c66102b0a799de06301d6c86c51c9912.png" src="../_images/1b6a9ac4e373db54dc6497247aad4942c66102b0a799de06301d6c86c51c9912.png" />
-</div>
+<img alt="../_images/8db9c0848303238caac9475bc61dfa3af31f189543ffe2d5e08cc390ce77dcec.svg" src="../_images/8db9c0848303238caac9475bc61dfa3af31f189543ffe2d5e08cc390ce77dcec.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -996,8 +989,113 @@ Instead of using stochastic optimization, they use a lot of points to estimate t
                       <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]),</span>
                       <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sigmoid</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
                       <span class="p">)</span>
-<span class="n">T_colloc</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">])</span>
-<span class="n">ex4</span><span class="o">.</span><span class="n">solve_lbfgs</span><span class="p">(</span><span class="n">T_colloc</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span> <span class="c1"># Does not work everytime. Sometimes the optimization fails.</span>
+<span class="c1">#T_colloc = torch.Tensor(np.linspace(0, 3, 10)[:, None])</span>
+<span class="c1">#ex4.solve_lbfgs(T_colloc, max_iter=20) # Does not work everytime. Sometimes the optimization fails.</span>
+<span class="n">ex4</span><span class="o">.</span><span class="n">solve_sgd</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>it = 99, loss = 0.3463767468929291
+it = 199, loss = 0.06628534942865372
+it = 299, loss = 0.042410608381032944
+it = 399, loss = 0.029202649369835854
+it = 499, loss = 0.017537761479616165
+it = 599, loss = 0.021197479218244553
+it = 699, loss = 0.016754930838942528
+it = 799, loss = 0.014986802823841572
+it = 899, loss = 0.01844801940023899
+it = 999, loss = 0.0070878989063203335
+it = 1099, loss = 0.007116688881069422
+it = 1199, loss = 0.015013654716312885
+it = 1299, loss = 0.006453638430684805
+it = 1399, loss = 0.07719659805297852
+it = 1499, loss = 0.004118545912206173
+it = 1599, loss = 0.007084548473358154
+it = 1699, loss = 0.02322331815958023
+it = 1799, loss = 0.00993071123957634
+it = 1899, loss = 0.008378610946238041
+it = 1999, loss = 0.007640938274562359
+it = 2099, loss = 0.01079554297029972
+it = 2199, loss = 0.002479827031493187
+it = 2299, loss = 0.008639696054160595
+it = 2399, loss = 0.012458952143788338
+it = 2499, loss = 0.058060139417648315
+it = 2599, loss = 0.0054211700335145
+it = 2699, loss = 0.009485768154263496
+it = 2799, loss = 0.005846458487212658
+it = 2899, loss = 0.004885559435933828
+it = 2999, loss = 0.005111613776534796
+it = 3099, loss = 0.002829298609867692
+it = 3199, loss = 0.0035969086457043886
+it = 3299, loss = 0.0021282562520354986
+it = 3399, loss = 0.0019377758726477623
+it = 3499, loss = 0.012861981987953186
+it = 3599, loss = 0.022117432206869125
+it = 3699, loss = 0.0049068862572312355
+it = 3799, loss = 0.04736264422535896
+it = 3899, loss = 0.003565039485692978
+it = 3999, loss = 0.0035635209642350674
+it = 4099, loss = 0.002026042202487588
+it = 4199, loss = 0.0021670334972441196
+it = 4299, loss = 0.002549380762502551
+it = 4399, loss = 0.04531533643603325
+it = 4499, loss = 0.11380358040332794
+it = 4599, loss = 0.002592099830508232
+it = 4699, loss = 0.0027779857628047466
+it = 4799, loss = 0.0014052388723939657
+it = 4899, loss = 0.0021159271709620953
+it = 4999, loss = 0.002115819603204727
+it = 5099, loss = 0.10842223465442657
+it = 5199, loss = 0.04687771201133728
+it = 5299, loss = 0.0020898880902677774
+it = 5399, loss = 0.0017970474436879158
+it = 5499, loss = 0.0011046119034290314
+it = 5599, loss = 0.0007937207701615989
+it = 5699, loss = 0.008249855600297451
+it = 5799, loss = 0.006347476039081812
+it = 5899, loss = 0.0010504350066184998
+it = 5999, loss = 0.0012247497215867043
+it = 6099, loss = 0.0006221215589903295
+it = 6199, loss = 0.0009926960337907076
+it = 6299, loss = 0.0007292762165889144
+it = 6399, loss = 0.0035610590130090714
+it = 6499, loss = 0.0031069221440702677
+it = 6599, loss = 0.02476700022816658
+it = 6699, loss = 0.0014403884997591376
+it = 6799, loss = 0.0008173917303793132
+it = 6899, loss = 0.00023808248806744814
+it = 6999, loss = 0.0016775386175140738
+it = 7099, loss = 0.0008319422486238182
+it = 7199, loss = 0.0005546907195821404
+it = 7299, loss = 0.0002487456367816776
+it = 7399, loss = 8.758953481446952e-05
+it = 7499, loss = 0.00033935444662347436
+it = 7599, loss = 0.0004222230927553028
+it = 7699, loss = 0.0005156350089237094
+it = 7799, loss = 0.07708616554737091
+it = 7899, loss = 0.0013448568060994148
+it = 7999, loss = 0.00025449026725254953
+it = 8099, loss = 0.26882433891296387
+it = 8199, loss = 0.0012748611625283957
+it = 8299, loss = 0.00039095402462407947
+it = 8399, loss = 0.00028596268384717405
+it = 8499, loss = 0.000193130734260194
+it = 8599, loss = 0.003904965939000249
+it = 8699, loss = 0.00032825476955622435
+it = 8799, loss = 0.00019814984989352524
+it = 8899, loss = 0.045916058123111725
+it = 8999, loss = 0.0035664972383528948
+it = 9099, loss = 0.0004057659243699163
+it = 9199, loss = 0.00014216727868188173
+it = 9299, loss = 0.0002512291248422116
+it = 9399, loss = 0.00038475735345855355
+it = 9499, loss = 0.0010441048070788383
+it = 9599, loss = 0.005958168767392635
+it = 9699, loss = 0.00010795214620884508
+it = 9799, loss = 0.00018100043234881014
+it = 9899, loss = 8.72066302690655e-05
+it = 9999, loss = 0.00011468210868770257
 </pre></div>
 </div>
 </div>
@@ -1015,18 +1113,18 @@ Instead of using stochastic optimization, they use a lot of points to estimate t
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">sol</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Net solution (1)&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$t$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y(t)$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/97a026c0dfe989caff679273ae0c01e4a645c2397e5dd87fcdf4cd766e22cc8c.png" src="../_images/97a026c0dfe989caff679273ae0c01e4a645c2397e5dd87fcdf4cd766e22cc8c.png" />
-</div>
+<img alt="../_images/99e7623b7fb0e9d0217f4fe29a376de82ee38cb72dbb79f96f1952bdb4956830.svg" src="../_images/99e7623b7fb0e9d0217f4fe29a376de82ee38cb72dbb79f96f1952bdb4956830.svg" /></div>
 </div>
 <section id="question">
 <h3>Question<a class="headerlink" href="#question" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Feel free to skip this as it can be hard if you are not expert with Python. Add a method to the class <code class="docutils literal notranslate"><span class="pre">DynamicalSystem</span></code> that uses stochastic gradient descent to solve the same problems. Once you are done, rerun the problems above with your code.</p></li>
+<li><p>Try BFGS on the above problem. It does not work all the time. Why?</p></li>
 </ul>
 </section>
 </section>
@@ -1057,10 +1155,11 @@ Instead of using stochastic optimization, they use a lot of points to estimate t
 
               
               
-              
-              
-                <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="reading-26.html"
@@ -1080,7 +1179,10 @@ Instead of using stochastic optimization, they use a lot of points to estimate t
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -1095,12 +1197,11 @@ Instead of using stochastic optimization, they use a lot of points to estimate t
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-single-ode">Example 1: Single ODE</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-any-dynamical-system-with-neural-networks">Solving any dynamical system with neural networks</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-a-dynamical-system-with-neural-networks">Solving a dynamical system with neural networks</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question">Question</a></li>
 </ul>
 </li>
@@ -1151,8 +1252,8 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

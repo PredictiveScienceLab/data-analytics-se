@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,9 +38,8 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -62,6 +61,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture26/reading-26';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -77,15 +78,6 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
-
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -545,10 +537,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
 `);
 </script>
@@ -556,13 +548,11 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -578,15 +568,6 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -598,29 +579,15 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="physics-informed-deep-neural-networks">
 <h1>Physics-informed Deep Neural Networks<a class="headerlink" href="#physics-informed-deep-neural-networks" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Develop intuition about the potential applications of the ability to combine existing physical knowledge with data</p></li>
-<li><p>Develop intuition about the importance of symmetries in helping us learn with less data</p></li>
-<li><p>Use physics-informed neural networks to solve ordinary differential equations</p></li>
-<li><p>Use physics-informed neural networks to solve partial differential equations</p></li>
-<li><p>Use physics-informed neural networks to solve high-dimensional stochastic partial differential equations</p></li>
-</ul>
-<p>Here, it is not my intension to give you a complete exposition of the theory.
-This would take several pages.
-Instead, I am going to provide you with some references for learning more about the topics that are of interest to you.
-In the hands-on activities, we will see specific examples of everything.</p>
-</section>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://ieeexplore.ieee.org/abstract/document/712178">Lagaris et al. 1998</a> is one of the first papers to use neural networks to solve ODEs and PDEs.</p></li>
-<li><p><a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S0021999118307125">Raisi et al. 2019</a> is the first succesful application of physics-informed neural networks in model ODE and PDE problems (forward and inverse).</p></li>
-<li><p><a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S0021999119308253">Karumuri et al. 2020</a> is an application of physics-informed neural networks to high-dimensional uncertainty propagation.</p></li>
-<li><p><a class="reference external" href="https://arxiv.org/abs/1803.01588">Kondor 2018</a> is an example of how physical symmetries can be incorporated in the neural network structure. The application is representing energies of molecules.</p></li>
-</ul>
-</section>
+<p>Physics-informed neural networks, or PINNs, combine physics and data. The idea is to use physics, typically an ordinary or partial differential equation, as a physics-informed regularizer to the loss function. The most common way to create such a regularizer is via the so-called <em>integrated squared residual</em> of the ODE/PDE. You can do this by moving everything to the left-hand side of the equation and squaring it, then integrating it over the domain. We will see examples in the hands-on activities.
+The loss becomes:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Loss} = \text{Data loss} + \text{Physics regularizer}.
+\]</div>
+<p>Such approaches have been shown to be very effective in many applications, including fluid dynamics, solid mechanics, and quantum mechanics. The main advantage is that you can use a small amount of data to train a neural network and then use the neural network to make predictions in regions where you have no data. This is particularly useful in scientific applications, where data is often scarce.</p>
+<p>One of the first papers to introduce physics-informed neural networks, albeit for just solving ODEs/PDEs, was <span id="id1">[<a class="reference internal" href="../bibliography.html#id18" title="I.E. Lagaris, A. Likas, and D.I. Fotiadis. Artificial neural networks for solving ordinary and partial differential equations. IEEE Transactions on Neural Networks, 9(5):987-1000, 1998. doi:10.1109/72.712178.">Lagaris <em>et al.</em>, 1998</a>]</span>.
+The approach was revitalized by <span id="id2">[]</span> and became what we now call PINNs. <span id="id3">[]</span> applied PINNs to parametric PDEs. <span id="id4">[<a class="reference internal" href="../bibliography.html#id21" title="Liu Yang, Xuhui Meng, and George Em Karniadakis. B-pinns: bayesian physics-informed neural networks for forward and inverse pde problems with noisy data. Journal of Computational Physics, 425:109913, 2021. URL: https://www.sciencedirect.com/science/article/pii/S0021999120306872, doi:https://doi.org/10.1016/j.jcp.2020.109913.">Yang <em>et al.</em>, 2021</a>]</span> introduced Bayesian PINNs.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -648,10 +615,11 @@ In the hands-on activities, we will see specific examples of everything.</p>
 
               
               
-              
-              
-                <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="intro.html"
@@ -671,27 +639,15 @@ In the hands-on activities, we will see specific examples of everything.</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
@@ -735,8 +691,8 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

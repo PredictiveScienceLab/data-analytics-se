@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,9 +38,8 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -79,15 +78,6 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
-
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -547,10 +537,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
 `);
 </script>
@@ -558,7 +548,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
 `);
 </script>
@@ -585,7 +575,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-solving-pdes">Example: Solving PDEs</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
@@ -609,33 +598,13 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
-
-<span class="kn">import</span> <span class="nn">scipy</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
-<span class="kn">import</span> <span class="nn">urllib.request</span>
-<span class="kn">import</span> <span class="nn">os</span>
-
-<span class="k">def</span> <span class="nf">download</span><span class="p">(</span>
-    <span class="n">url</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">local_filename</span> <span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Download a file from a url.</span>
-<span class="sd">    </span>
-<span class="sd">    Arguments</span>
-<span class="sd">    url            -- The url we want to download.</span>
-<span class="sd">    local_filename -- The filemame to write on. If not</span>
-<span class="sd">                      specified </span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">local_filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">local_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">local_filename</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -643,12 +612,7 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="physics-informed-regularization-solving-pdes">
 <h1>Physics-informed regularization: Solving PDEs<a class="headerlink" href="#physics-informed-regularization-solving-pdes" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Learn how to solve PDEs with neural networks.</p></li>
-</ul>
-<p>This notebook replicates some of the results of <a class="reference external" href="https://arxiv.org/pdf/physics/9705023.pdf">Lagaris et al. 1998)</a>.</p>
+<p>We learn how to solve PDEs with neural networks. We solve problems from <span id="id1">[<a class="reference internal" href="../bibliography.html#id18" title="I.E. Lagaris, A. Likas, and D.I. Fotiadis. Artificial neural networks for solving ordinary and partial differential equations. IEEE Transactions on Neural Networks, 9(5):987-1000, 1998. doi:10.1109/72.712178.">Lagaris <em>et al.</em>, 1998</a>]</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -662,7 +626,6 @@ document.write(`
 </div>
 </div>
 </div>
-</section>
 <section id="example-solving-pdes">
 <h2>Example: Solving PDEs<a class="headerlink" href="#example-solving-pdes" title="Permalink to this heading">#</a></h2>
 <p>consider a PDE of the form:</p>
@@ -712,20 +675,18 @@ L(\theta) = \int_{[0,1]^2} \left\{\frac{\partial^2}{\partial x^2}\hat{\Psi}(x,y;
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">PDEProblemDC</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A class representing PDE with DC boundary.</span>
-<span class="sd">    </span>
-<span class="sd">    :param rhs:               The right hand side of the equation.</span>
-<span class="sd">                              This must be a function with signature rhs((x,y))</span>
-<span class="sd">                              where t is time and y is the state of the system.</span>
-<span class="sd">    :param f0:                Left boundary conditon.</span>
-<span class="sd">    :param f1:                Right boundary condition.</span>
-<span class="sd">    :param g0:                Bottom boundary conditon.</span>
-<span class="sd">    :param g1:                Top boundary condition.</span>
-<span class="sd">    :param net:               A neural network for representing the solution. This must have</span>
-<span class="sd">                              two-dimensional input and one-dimensional output.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A class representing PDE with DC boundary.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    rhs   -- The right hand side of the equation.</span>
+<span class="sd">    f0    -- Left boundary condition.</span>
+<span class="sd">    f1    -- Right boundary condition.</span>
+<span class="sd">    g0    -- Bottom boundary condition.</span>
+<span class="sd">    g1    -- Top boundary condition.</span>
+<span class="sd">    net   -- A neural network for representing the solution. This must have</span>
+<span class="sd">                two-dimensional input and one-dimensional output.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rhs</span><span class="p">,</span> <span class="n">f0</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">g0</span><span class="p">,</span> <span class="n">g1</span><span class="p">,</span> <span class="n">net</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_rhs</span> <span class="o">=</span> <span class="n">rhs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_f0</span> <span class="o">=</span> <span class="n">f0</span>
@@ -777,16 +738,15 @@ L(\theta) = \int_{[0,1]^2} \left\{\frac{\partial^2}{\partial x^2}\hat{\Psi}(x,y;
     
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return the solution function.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the solution function.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span>
     
     <span class="k">def</span> <span class="nf">squared_residual_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the squared residual loss at spatial locations X.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the squared residual loss at spatial locations X.</span>
 <span class="sd">        </span>
-<span class="sd">        :param T:    Must be a 1D torch tensor.</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        X     -- The spatial locations where the loss is evaluated.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">X</span><span class="o">.</span><span class="n">requires_grad</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">sol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
@@ -799,10 +759,11 @@ L(\theta) = \int_{[0,1]^2} \left\{\frac{\partial^2}{\partial x^2}\hat{\Psi}(x,y;
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">sol_xx</span> <span class="o">+</span> <span class="n">sol_yy</span> <span class="o">-</span> <span class="n">rhs</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
     
     <span class="k">def</span> <span class="nf">solve_lbfgs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_colloc</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Solve the problem by minimizing the squared residual loss.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Solve the problem by minimizing the squared residual loss.</span>
 <span class="sd">        </span>
-<span class="sd">        :param T_colloc: The collocation points used to solve the problem.</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        X_colloc -- The collocation points used to solve the problem.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">LBFGS</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span>
 
@@ -815,6 +776,36 @@ L(\theta) = \int_{[0,1]^2} \left\{\frac{\partial^2}{\partial x^2}\hat{\Psi}(x,y;
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
             <span class="n">res</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">closure</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">solve_sgd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Solve the problem using stochastic gradient descent.</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        bounds     -- The bounds of the domain. A 2x2 array. The first column</span>
+<span class="sd">                        is the lower bound and the second column is the upper</span>
+<span class="sd">                        bound.</span>
+<span class="sd">        max_iter   -- The maximum number of iterations to do. Default is 1000.</span>
+<span class="sd">        batch_size -- The batch size to use. Default is 10.</span>
+<span class="sd">        lr         -- The learning rate. Default is 0.01.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+            <span class="c1"># Randomly pick n_batch random x&#39;s:</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">bounds</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">X</span>
+            <span class="c1"># Zero-out the gradient buffers</span>
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+            <span class="c1"># Evaluate the loss</span>
+            <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">squared_residual_loss</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="c1"># Calculate the gradients</span>
+            <span class="n">l</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+            <span class="c1"># Update the network</span>
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+            <span class="c1"># Print the iteration number</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">99</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;it = </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">, loss = </span><span class="si">{</span><span class="n">l</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             
 
 <span class="k">def</span> <span class="nf">plot_contour</span><span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="n">true_sol</span><span class="p">):</span>
@@ -840,7 +831,7 @@ L(\theta) = \int_{[0,1]^2} \left\{\frac{\partial^2}{\partial x^2}\hat{\Psi}(x,y;
 </div>
 </details>
 </div>
-<p>And here is how to solve it with neural networks:</p>
+<p>Here is how to solve it with neural networks:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Problem 5 of Lagaris</span>
@@ -854,21 +845,21 @@ L(\theta) = \int_{[0,1]^2} \left\{\frac{\partial^2}{\partial x^2}\hat{\Psi}(x,y;
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 <span class="n">X_flat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">Y</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[:,</span> <span class="kc">None</span><span class="p">]]))</span>
-<span class="n">ex5</span><span class="o">.</span><span class="n">solve_lbfgs</span><span class="p">(</span><span class="n">X_flat</span><span class="p">)</span>
+<span class="n">ex5</span><span class="o">.</span><span class="n">solve_lbfgs</span><span class="p">(</span><span class="n">X_flat</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor(0.0107, grad_fn=&lt;MeanBackward0&gt;)
-tensor(0.0001, grad_fn=&lt;MeanBackward0&gt;)
-tensor(9.8839e-05, grad_fn=&lt;MeanBackward0&gt;)
-tensor(1.4855e-05, grad_fn=&lt;MeanBackward0&gt;)
-tensor(6.9040e-06, grad_fn=&lt;MeanBackward0&gt;)
-tensor(1.5973e-06, grad_fn=&lt;MeanBackward0&gt;)
-tensor(6.9797e-07, grad_fn=&lt;MeanBackward0&gt;)
-tensor(5.1638e-07, grad_fn=&lt;MeanBackward0&gt;)
-tensor(4.4831e-07, grad_fn=&lt;MeanBackward0&gt;)
-tensor(4.4608e-07, grad_fn=&lt;MeanBackward0&gt;)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor(0.1201, grad_fn=&lt;MeanBackward0&gt;)
+tensor(6.5121e-05, grad_fn=&lt;MeanBackward0&gt;)
+tensor(5.6691e-06, grad_fn=&lt;MeanBackward0&gt;)
+tensor(4.8895e-06, grad_fn=&lt;MeanBackward0&gt;)
+tensor(4.8895e-06, grad_fn=&lt;MeanBackward0&gt;)
+tensor(4.8895e-06, grad_fn=&lt;MeanBackward0&gt;)
+tensor(4.8895e-06, grad_fn=&lt;MeanBackward0&gt;)
+tensor(4.8895e-06, grad_fn=&lt;MeanBackward0&gt;)
+tensor(4.8895e-06, grad_fn=&lt;MeanBackward0&gt;)
+tensor(4.8895e-06, grad_fn=&lt;MeanBackward0&gt;)
 </pre></div>
 </div>
 </div>
@@ -876,14 +867,12 @@ tensor(4.4608e-07, grad_fn=&lt;MeanBackward0&gt;)
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ex5_true_sol</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">**</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">plot_contour</span><span class="p">(</span><span class="n">ex5</span><span class="p">,</span> <span class="n">ex5_true_sol</span><span class="p">)</span>
+<span class="n">plot_contour</span><span class="p">(</span><span class="n">ex5</span><span class="p">,</span> <span class="n">ex5_true_sol</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a095819427326994ada1df1b0f6dba704d6180b571f20827550313c8b57efbc8.png" src="../_images/a095819427326994ada1df1b0f6dba704d6180b571f20827550313c8b57efbc8.png" />
-<img alt="../_images/a5622ad29af8564b6a68e2557832e82e087bb820389734a2118966cba40169c8.png" src="../_images/a5622ad29af8564b6a68e2557832e82e087bb820389734a2118966cba40169c8.png" />
-</div>
+<img alt="../_images/377b696a515fd58195e641918f8836d17df5465b2b633dc031305687298e5840.svg" src="../_images/377b696a515fd58195e641918f8836d17df5465b2b633dc031305687298e5840.svg" /><img alt="../_images/a9038f9756a2767b1bfff23ffed3e7ce12f2a6b3acc42382205acdef6c359940.svg" src="../_images/a9038f9756a2767b1bfff23ffed3e7ce12f2a6b3acc42382205acdef6c359940.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -906,21 +895,113 @@ tensor(4.4608e-07, grad_fn=&lt;MeanBackward0&gt;)
 <span class="n">X_flat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">Y</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[:,</span> <span class="kc">None</span><span class="p">]]))</span>
 <span class="c1"># Does not always work because of local minima.</span>
 <span class="c1"># Try multiple times.</span>
-<span class="n">ex6</span><span class="o">.</span><span class="n">solve_lbfgs</span><span class="p">(</span><span class="n">X_flat</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="c1"># ex6.solve_lbfgs(X_flat, max_iter=10)</span>
+<span class="n">ex6</span><span class="o">.</span><span class="n">solve_sgd</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)),</span>
+              <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor(28.7037, grad_fn=&lt;MeanBackward0&gt;)
-tensor(28.6589, grad_fn=&lt;MeanBackward0&gt;)
-tensor(28.7512, grad_fn=&lt;MeanBackward0&gt;)
-tensor(28.7028, grad_fn=&lt;MeanBackward0&gt;)
-tensor(28.7028, grad_fn=&lt;MeanBackward0&gt;)
-tensor(28.7028, grad_fn=&lt;MeanBackward0&gt;)
-tensor(28.7028, grad_fn=&lt;MeanBackward0&gt;)
-tensor(28.7353, grad_fn=&lt;MeanBackward0&gt;)
-tensor(28.7353, grad_fn=&lt;MeanBackward0&gt;)
-tensor(28.7941, grad_fn=&lt;MeanBackward0&gt;)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>it = 99, loss = 2.2737367544323206e-13
+it = 199, loss = 2.2737367544323206e-13
+it = 299, loss = 2.2737367544323206e-13
+it = 399, loss = 2.2737367544323206e-13
+it = 499, loss = 2.2737367544323206e-13
+it = 599, loss = 2.2737367544323206e-13
+it = 699, loss = 2.2737367544323206e-13
+it = 799, loss = 2.2737367544323206e-13
+it = 899, loss = 2.2737367544323206e-13
+it = 999, loss = 2.2737367544323206e-13
+it = 1099, loss = 2.2737367544323206e-13
+it = 1199, loss = 2.2737367544323206e-13
+it = 1299, loss = 2.2737367544323206e-13
+it = 1399, loss = 2.2737367544323206e-13
+it = 1499, loss = 2.2737367544323206e-13
+it = 1599, loss = 2.2737367544323206e-13
+it = 1699, loss = 2.2737367544323206e-13
+it = 1799, loss = 2.2737367544323206e-13
+it = 1899, loss = 2.2737367544323206e-13
+it = 1999, loss = 2.2737367544323206e-13
+it = 2099, loss = 2.2737367544323206e-13
+it = 2199, loss = 2.2737367544323206e-13
+it = 2299, loss = 2.2737367544323206e-13
+it = 2399, loss = 2.2737367544323206e-13
+it = 2499, loss = 2.2737367544323206e-13
+it = 2599, loss = 2.2737367544323206e-13
+it = 2699, loss = 2.2737367544323206e-13
+it = 2799, loss = 2.2737367544323206e-13
+it = 2899, loss = 2.2737367544323206e-13
+it = 2999, loss = 2.2737367544323206e-13
+it = 3099, loss = 2.2737367544323206e-13
+it = 3199, loss = 2.2737367544323206e-13
+it = 3299, loss = 2.2737367544323206e-13
+it = 3399, loss = 2.2737367544323206e-13
+it = 3499, loss = 2.2737367544323206e-13
+it = 3599, loss = 2.2737367544323206e-13
+it = 3699, loss = 2.2737367544323206e-13
+it = 3799, loss = 2.2737367544323206e-13
+it = 3899, loss = 2.2737367544323206e-13
+it = 3999, loss = 2.2737367544323206e-13
+it = 4099, loss = 2.2737367544323206e-13
+it = 4199, loss = 2.2737367544323206e-13
+it = 4299, loss = 2.2737367544323206e-13
+it = 4399, loss = 2.2737367544323206e-13
+it = 4499, loss = 2.2737367544323206e-13
+it = 4599, loss = 2.2737367544323206e-13
+it = 4699, loss = 2.2737367544323206e-13
+it = 4799, loss = 2.2737367544323206e-13
+it = 4899, loss = 2.2737367544323206e-13
+it = 4999, loss = 2.2737367544323206e-13
+it = 5099, loss = 2.2737367544323206e-13
+it = 5199, loss = 2.2737367544323206e-13
+it = 5299, loss = 2.2737367544323206e-13
+it = 5399, loss = 2.2737367544323206e-13
+it = 5499, loss = 2.2737367544323206e-13
+it = 5599, loss = 2.2737367544323206e-13
+it = 5699, loss = 2.2737367544323206e-13
+it = 5799, loss = 2.2737367544323206e-13
+it = 5899, loss = 2.2737367544323206e-13
+it = 5999, loss = 2.2737367544323206e-13
+it = 6099, loss = 2.2737367544323206e-13
+it = 6199, loss = 2.2737367544323206e-13
+it = 6299, loss = 2.2737367544323206e-13
+it = 6399, loss = 2.2737367544323206e-13
+it = 6499, loss = 2.2737367544323206e-13
+it = 6599, loss = 2.2737367544323206e-13
+it = 6699, loss = 2.2737367544323206e-13
+it = 6799, loss = 2.2737367544323206e-13
+it = 6899, loss = 2.2737367544323206e-13
+it = 6999, loss = 2.2737367544323206e-13
+it = 7099, loss = 2.2737367544323206e-13
+it = 7199, loss = 2.2737367544323206e-13
+it = 7299, loss = 2.2737367544323206e-13
+it = 7399, loss = 2.2737367544323206e-13
+it = 7499, loss = 2.2737367544323206e-13
+it = 7599, loss = 2.2737367544323206e-13
+it = 7699, loss = 2.2737367544323206e-13
+it = 7799, loss = 2.2737367544323206e-13
+it = 7899, loss = 2.2737367544323206e-13
+it = 7999, loss = 2.2737367544323206e-13
+it = 8099, loss = 2.2737367544323206e-13
+it = 8199, loss = 2.2737367544323206e-13
+it = 8299, loss = 2.2737367544323206e-13
+it = 8399, loss = 2.2737367544323206e-13
+it = 8499, loss = 2.2737367544323206e-13
+it = 8599, loss = 2.2737367544323206e-13
+it = 8699, loss = 2.2737367544323206e-13
+it = 8799, loss = 2.2737367544323206e-13
+it = 8899, loss = 2.2737367544323206e-13
+it = 8999, loss = 2.2737367544323206e-13
+it = 9099, loss = 2.2737367544323206e-13
+it = 9199, loss = 2.2737367544323206e-13
+it = 9299, loss = 2.2737367544323206e-13
+it = 9399, loss = 2.2737367544323206e-13
+it = 9499, loss = 2.2737367544323206e-13
+it = 9599, loss = 2.2737367544323206e-13
+it = 9699, loss = 2.2737367544323206e-13
+it = 9799, loss = 2.2737367544323206e-13
+it = 9899, loss = 2.2737367544323206e-13
+it = 9999, loss = 2.2737367544323206e-13
 </pre></div>
 </div>
 </div>
@@ -932,13 +1013,11 @@ tensor(28.7941, grad_fn=&lt;MeanBackward0&gt;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/4d74318feb610a8dc4e842e57586d0449466dab54632b01ba85575046da310a3.png" src="../_images/4d74318feb610a8dc4e842e57586d0449466dab54632b01ba85575046da310a3.png" />
-<img alt="../_images/24955ab6cff222fdbab80b5d8872e3de4dff62097d02435946d4074b2d752b5a.png" src="../_images/24955ab6cff222fdbab80b5d8872e3de4dff62097d02435946d4074b2d752b5a.png" />
-</div>
+<img alt="../_images/a7f6c3678e57077236e026505e47bfac842acdadc78adf997ce06e6e0d2f98b4.svg" src="../_images/a7f6c3678e57077236e026505e47bfac842acdadc78adf997ce06e6e0d2f98b4.svg" /><img alt="../_images/ffacb97fc5524dcb6e6e0fbbe5fcaae369847457bab689d86fc90fa3c4fc934a.svg" src="../_images/ffacb97fc5524dcb6e6e0fbbe5fcaae369847457bab689d86fc90fa3c4fc934a.svg" /></div>
 </div>
 <section id="questions">
 <h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
-<p>Feel free to skip this as it can be hard if you are not expert with Python.</p>
+<p>Feel free to skip this, as it can be challenging if you are not an expert in Python.</p>
 <ul class="simple">
 <li><p>Add a method to the class <code class="docutils literal notranslate"><span class="pre">PDEProblemDC</span></code> that uses stochastic gradient descent to solve the same problems. Once you are done, rerun the problems above with your code.</p></li>
 <li><p>According to the <a class="reference external" href="https://en.wikipedia.org/wiki/Dirichlet%27s_principle#:~:text=In%20mathematics%2C%20and%20particularly%20in,a%20solution%20to%20Poisson's%20equation.">Dirchlet principle</a>, the solution of the PDE:</p></li>
@@ -988,10 +1067,11 @@ J(\theta) = \int_{[0,1]^2} \left[\frac{1}{2}\parallel \nabla \hat{\Psi}(x,y;\the
 
               
               
-              
-              
-                <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="hands-on-26.1.html"
@@ -1011,7 +1091,10 @@ J(\theta) = \int_{[0,1]^2} \left[\frac{1}{2}\parallel \nabla \hat{\Psi}(x,y;\the
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -1026,7 +1109,6 @@ J(\theta) = \int_{[0,1]^2} \left[\frac{1}{2}\parallel \nabla \hat{\Psi}(x,y;\the
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-solving-pdes">Example: Solving PDEs</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 </ul>
@@ -1078,8 +1160,8 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>
