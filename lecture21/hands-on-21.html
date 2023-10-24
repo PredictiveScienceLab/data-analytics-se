@@ -688,8 +688,8 @@ Here is how:</p>
 <span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
         <span class="n">RBFKernel</span><span class="p">()</span>
 <span class="p">)</span>
-<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">ell</span><span class="p">)</span>
-<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">variance</span><span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">ell</span> 
+<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">variance</span>
 <span class="c1"># Print it</span>
 <span class="n">k</span>
 </pre></div>
@@ -722,7 +722,7 @@ Here is how:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/56ddd6d70a7b516408fb01423dba19db2a67fd540bf58915f86bed2b91aa4d0d.svg" src="../_images/56ddd6d70a7b516408fb01423dba19db2a67fd540bf58915f86bed2b91aa4d0d.svg" /></div>
+<img alt="../_images/41af19a98542daff24f89b1358a5b90c1c8fa3b2c268e346ab382a300ad53ab6.svg" src="../_images/41af19a98542daff24f89b1358a5b90c1c8fa3b2c268e346ab382a300ad53ab6.svg" /></div>
 </div>
 </section>
 <section id="example-1-plotting-a-covariance-function">
@@ -739,8 +739,8 @@ Here is how:</p>
     <span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
         <span class="n">RBFKernel</span><span class="p">()</span>
     <span class="p">)</span>
-    <span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">ell</span><span class="p">)</span>
-    <span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">variance</span><span class="p">)</span>
+    <span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">ell</span>
+    <span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">variance</span>
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">200</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
     <span class="n">zero</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
@@ -761,7 +761,7 @@ Here is how:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/82e9c21eda8b07f6ea4ed63abc1b568440bcadd0375915db9ac21cb75d33b281.svg" src="../_images/82e9c21eda8b07f6ea4ed63abc1b568440bcadd0375915db9ac21cb75d33b281.svg" /></div>
+<img alt="../_images/a6660d88f15965cf5411814d887e3b5930e2d6b60f0ef31dbcd607baec243f0a.svg" src="../_images/a6660d88f15965cf5411814d887e3b5930e2d6b60f0ef31dbcd607baec243f0a.svg" /></div>
 </div>
 <section id="questions">
 <h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
@@ -779,8 +779,8 @@ Here is how:</p>
     <span class="n">k1</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
         <span class="n">RBFKernel</span><span class="p">()</span>
     <span class="p">)</span>
-    <span class="n">k1</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">ell</span><span class="p">)</span>
-    <span class="n">k1</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">variance</span><span class="p">)</span>
+    <span class="n">k1</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">ell</span>
+    <span class="n">k1</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">variance</span>
     <span class="n">k2</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
         <span class="n">MaternKernel</span><span class="p">(</span><span class="n">nu</span><span class="o">=</span><span class="n">nu</span><span class="p">)</span>
     <span class="p">)</span>
@@ -810,7 +810,7 @@ Here is how:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/61c8da4fb808184916e7813af78d925f975787942ff1f8c6e11146899c6486ee.svg" src="../_images/61c8da4fb808184916e7813af78d925f975787942ff1f8c6e11146899c6486ee.svg" /></div>
+<img alt="../_images/097452330ab5e5665ccd5738c8e4a44045aad78ae2ed7c296c2e47939ec713c5.svg" src="../_images/097452330ab5e5665ccd5738c8e4a44045aad78ae2ed7c296c2e47939ec713c5.svg" /></div>
 </div>
 </section>
 </section>
@@ -825,7 +825,7 @@ Here is how:</p>
         <span class="n">RBFKernel</span><span class="p">(</span><span class="n">ard_num_dims</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="p">)</span>
     <span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">ell1</span><span class="p">,</span> <span class="n">ell2</span><span class="p">])</span>
-    <span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">variance</span><span class="p">)</span>
+    <span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">variance</span>
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
     <span class="c1"># Get a grid of points</span>
     <span class="n">x1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
@@ -854,7 +854,11 @@ Here is how:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/cddff4ba95eff65003c611e4bd2c84151020e6d1935f4c7bb533b8f0f9cc9fae.svg" src="../_images/cddff4ba95eff65003c611e4bd2c84151020e6d1935f4c7bb533b8f0f9cc9fae.svg" /></div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/lib/python3.11/site-packages/torch/functional.py:504: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/aten/src/ATen/native/TensorShape.cpp:3527.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+</pre></div>
+</div>
+<img alt="../_images/ae771ef4c377adb98191fc2e494d9d54e96229a5ed7ca7f8de24845d3f195629.svg" src="../_images/ae771ef4c377adb98191fc2e494d9d54e96229a5ed7ca7f8de24845d3f195629.svg" /></div>
 </div>
 <section id="id1">
 <h3>Questions<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
@@ -927,8 +931,8 @@ k(x, x') = k_1(x, x') / k_2(x, x')?
 <span class="n">k1</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
         <span class="n">RBFKernel</span><span class="p">()</span>
     <span class="p">)</span>
-<span class="n">k1</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">ell</span><span class="p">)</span>
-<span class="n">k1</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">variance</span><span class="p">)</span>
+<span class="n">k1</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">ell</span>
+<span class="n">k1</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">variance</span>
 
 <span class="c1"># Draw a random set of inputs points in [0, 1]^dim</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
@@ -956,7 +960,7 @@ k(x, x') = k_1(x, x') / k_2(x, x')?
 &gt; they must all be positive
 </pre></div>
 </div>
-<img alt="../_images/61dc30a3a8d21c8460d734d1cd3d4609f06c3bcb9ac0a49d8ab6bc5441abedfc.svg" src="../_images/61dc30a3a8d21c8460d734d1cd3d4609f06c3bcb9ac0a49d8ab6bc5441abedfc.svg" /></div>
+<img alt="../_images/37540ad0404ece7895a7ffc4c2b16134adcf42d0676d41dda9cf9d93c084f32a.svg" src="../_images/37540ad0404ece7895a7ffc4c2b16134adcf42d0676d41dda9cf9d93c084f32a.svg" /></div>
 </div>
 <p>Now create another covariance function:</p>
 <div class="cell docutils container">
@@ -964,8 +968,8 @@ k(x, x') = k_1(x, x') / k_2(x, x')?
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k2</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
         <span class="n">RBFKernel</span><span class="p">()</span>
     <span class="p">)</span>
-<span class="n">k2</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">ell</span><span class="p">)</span>
-<span class="n">k2</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">k2</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">ell</span>
+<span class="n">k2</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="mf">1.5</span>
 </pre></div>
 </div>
 </div>
@@ -999,7 +1003,7 @@ k(x, x') = k_1(x, x') / k_2(x, x')?
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/879f30335c019dd7d41304d94177581674c1def5750928aa7592421052669e59.svg" src="../_images/879f30335c019dd7d41304d94177581674c1def5750928aa7592421052669e59.svg" /></div>
+<img alt="../_images/d41a9154371b0b9edf57639e38e646e8a49aa5ad2f8005f8721700f32b8c432c.svg" src="../_images/d41a9154371b0b9edf57639e38e646e8a49aa5ad2f8005f8721700f32b8c432c.svg" /></div>
 </div>
 <p>If this is a valid covariance function, then it must be positive-definite.
 Let’s test it:</p>
@@ -1016,7 +1020,7 @@ Let’s test it:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/89b8902c848264b458f1f1946fb4374c8c5d30c7e35b0a87573027e9c4ffa367.svg" src="../_images/89b8902c848264b458f1f1946fb4374c8c5d30c7e35b0a87573027e9c4ffa367.svg" /></div>
+<img alt="../_images/d39f3c32af89a278956353b6b1eab9a2f6ece6a44a72649ce4f8c410136c1f8c.svg" src="../_images/d39f3c32af89a278956353b6b1eab9a2f6ece6a44a72649ce4f8c410136c1f8c.svg" /></div>
 </div>
 </section>
 </section>
@@ -1066,8 +1070,8 @@ This is how we do it:</p>
 <span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
         <span class="n">RBFKernel</span><span class="p">()</span>
     <span class="p">)</span>
-<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="mf">1.0</span>
 
 <span class="c1"># Pick a mean function</span>
 <span class="n">mean_func</span> <span class="o">=</span> <span class="n">ConstantMean</span><span class="p">()</span>
@@ -1105,7 +1109,7 @@ This is how we do it:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/68c5ca7287f29f35509d2d1995e424b2f2d68fce95281327567541fdb8de2156.svg" src="../_images/68c5ca7287f29f35509d2d1995e424b2f2d68fce95281327567541fdb8de2156.svg" /></div>
+<img alt="../_images/8bd46138c48b93df06c4e25cb6cdba665c5078834384a4c694d4cf6d860a32db.svg" src="../_images/8bd46138c48b93df06c4e25cb6cdba665c5078834384a4c694d4cf6d860a32db.svg" /></div>
 </div>
 <p>The solid line is the mean function, and the dashed lines are three f samples. These do not look like functions yet. This is because we have used only 10 test points to represent the GP.</p>
 <section id="id3">
@@ -1174,7 +1178,7 @@ This is how we do it:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/38324ae6282bf66912cd1da6e9d34e99b132e05dfe45bea45717dca0a0d040c2.svg" src="../_images/38324ae6282bf66912cd1da6e9d34e99b132e05dfe45bea45717dca0a0d040c2.svg" /></div>
+<img alt="../_images/61539f907f910db1511e20716cbfd296a280ced3c7e6721c593477942ed8c96e.svg" src="../_images/61539f907f910db1511e20716cbfd296a280ced3c7e6721c593477942ed8c96e.svg" /></div>
 </div>
 </section>
 <section id="id4">
@@ -1201,14 +1205,14 @@ m(x) = ax + b.
 <span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
         <span class="n">RBFKernel</span><span class="p">()</span>
     <span class="p">)</span>
-<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="mf">1.0</span>
 <span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/db565c741bcae3934e10ad62e5a22c797d59581e41d869e7e83a30d4004300f5.svg" src="../_images/db565c741bcae3934e10ad62e5a22c797d59581e41d869e7e83a30d4004300f5.svg" /></div>
+<img alt="../_images/e93f23997edf05db122c681f5cc8d6b484672cd4c794dccae50ef878286b0804.svg" src="../_images/e93f23997edf05db122c681f5cc8d6b484672cd4c794dccae50ef878286b0804.svg" /></div>
 </div>
 </section>
 <section id="id5">
@@ -1254,14 +1258,14 @@ We need to inherit from the <code class="docutils literal notranslate"><span cla
 <span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
         <span class="n">RBFKernel</span><span class="p">()</span>
     <span class="p">)</span>
-<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
-<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="mf">1.0</span>
 <span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8a793b12c4c40b6061a76354330e0888be82485e143e187a7fabe25a7509a4a9.svg" src="../_images/8a793b12c4c40b6061a76354330e0888be82485e143e187a7fabe25a7509a4a9.svg" /></div>
+<img alt="../_images/5051351df83e9f0771a2a91920941e1f1fcfd8d269edc7e66356cd985641a5bb.svg" src="../_images/5051351df83e9f0771a2a91920941e1f1fcfd8d269edc7e66356cd985641a5bb.svg" /></div>
 </div>
 </section>
 <section id="id6">
@@ -1297,14 +1301,14 @@ For example if <span class="math notranslate nohighlight">\(\nu=1.5\)</span>, th
 <span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
         <span class="n">MaternKernel</span><span class="p">(</span><span class="n">nu</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
     <span class="p">)</span>
-<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="mf">1.0</span>
 <span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">num_test</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e3db34a4ef755c5fe5b29bb5bedc8fbafb02b75ec01dffd49acf3ffba6f8584f.svg" src="../_images/e3db34a4ef755c5fe5b29bb5bedc8fbafb02b75ec01dffd49acf3ffba6f8584f.svg" /></div>
+<img alt="../_images/9dae33d42cb243e9fd864e77a218476f8fa91b3539809c21fdd8fb9c3e7e680b.svg" src="../_images/9dae33d42cb243e9fd864e77a218476f8fa91b3539809c21fdd8fb9c3e7e680b.svg" /></div>
 </div>
 </section>
 <section id="id8">
@@ -1340,9 +1344,9 @@ Let’s look at the samples:</p>
         <span class="n">PeriodicKernel</span><span class="p">()</span>
     <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="p">)</span>
-<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">period_length</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">period_length</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="mf">1.0</span>
 <span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_test</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">nugget</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1354,7 +1358,7 @@ Let’s look at the samples:</p>
 )
 </pre></div>
 </div>
-<img alt="../_images/b8584aaa00d985aa892c9e7ec1be4daff9040ffcc527eba63d102d3b5204bef6.svg" src="../_images/b8584aaa00d985aa892c9e7ec1be4daff9040ffcc527eba63d102d3b5204bef6.svg" /></div>
+<img alt="../_images/556e71a43506f4549a84eec1b3463a1147b9ee6479b678d62b497d0bf00b0db7.svg" src="../_images/556e71a43506f4549a84eec1b3463a1147b9ee6479b678d62b497d0bf00b0db7.svg" /></div>
 </div>
 <section id="id9">
 <h3>Questions<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
@@ -1386,13 +1390,13 @@ k(x, x') = vxx',
 
 <span class="n">mean_func</span> <span class="o">=</span> <span class="n">ConstantMean</span><span class="p">()</span>
 <span class="n">k</span> <span class="o">=</span> <span class="n">LinearKernel</span><span class="p">()</span>
-<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="mf">1.0</span>
 <span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/fbe4781c912d730b366887d34507066da0e5410bb841c8f39d0ceb022eb89fb3.svg" src="../_images/fbe4781c912d730b366887d34507066da0e5410bb841c8f39d0ceb022eb89fb3.svg" /></div>
+<img alt="../_images/a0906f7b21b10798dfe15a7e2483e18f96f22c173f37fca1edfc164c9168b0c0.svg" src="../_images/a0906f7b21b10798dfe15a7e2483e18f96f22c173f37fca1edfc164c9168b0c0.svg" /></div>
 </div>
 <p>They are lines starting from the origin.</p>
 <p>Another classic non-stationary covariance function is the <code class="docutils literal notranslate"><span class="pre">PolynomialKernel</span></code>:</p>
@@ -1408,14 +1412,14 @@ k(x, x') = (x^Tx' + c)^d,
 
 <span class="n">mean_func</span> <span class="o">=</span> <span class="n">ConstantMean</span><span class="p">()</span>
 <span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span><span class="n">PolynomialKernel</span><span class="p">(</span><span class="n">power</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
-<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="mf">1.0</span>
 <span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/db1872a550bc62bed67a3bf06d345d6e697353df0d69290ddcab83b741406bc5.svg" src="../_images/db1872a550bc62bed67a3bf06d345d6e697353df0d69290ddcab83b741406bc5.svg" /></div>
+<img alt="../_images/6bb6c513466ae9fdc93186c056127a963606ebe125eb1f9f1107754cd2b5ac3e.svg" src="../_images/6bb6c513466ae9fdc93186c056127a963606ebe125eb1f9f1107754cd2b5ac3e.svg" /></div>
 </div>
 </section>
 <section id="id10">
@@ -1435,18 +1439,18 @@ Let’s see how this works.</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_func</span> <span class="o">=</span> <span class="n">ConstantMean</span><span class="p">()</span>
 <span class="n">kslow</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span><span class="n">RBFKernel</span><span class="p">())</span>
-<span class="n">kslow</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span>
-<span class="n">kslow</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">kslow</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">kslow</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="mf">1.0</span>
 <span class="n">kfast</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span><span class="n">RBFKernel</span><span class="p">())</span>
-<span class="n">kfast</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
-<span class="n">kfast</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">kfast</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">kfast</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="mf">0.4</span>
 <span class="n">k</span> <span class="o">=</span> <span class="n">kslow</span> <span class="o">+</span> <span class="n">kfast</span>
 <span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">num_test</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/fdf99972f956602daeb6018021dd7271e3670f0f21cdf47a0750bff8b9917dbd.svg" src="../_images/fdf99972f956602daeb6018021dd7271e3670f0f21cdf47a0750bff8b9917dbd.svg" /></div>
+<img alt="../_images/6d2603a6983cf8c3ccde54c97e2e1285cde42d0b3901c4786f43924a6553d8cd.svg" src="../_images/6d2603a6983cf8c3ccde54c97e2e1285cde42d0b3901c4786f43924a6553d8cd.svg" /></div>
 </div>
 </section>
 <section id="id11">

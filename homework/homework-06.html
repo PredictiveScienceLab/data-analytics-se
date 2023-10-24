@@ -580,7 +580,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-defining-priors-on-function-spaces">Problem 1 - Defining priors on function spaces</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-a-super-smooth-function-with-known-length-scale">Part A - Super smooth function with known length scale</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-b-super-smooth-function-with-known-ultra-small-length-scale">Part B - Super smooth function with known ultra small length scale</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-b-super-smooth-function-with-known-ultra-small-length-scale">Part B - Super smooth function with known ultra-small length scale</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-c-continuous-function-with-known-length-scale">Part C - Continuous function with known length scale</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-d-smooth-periodic-function-with-known-length-scale">Part D - Smooth periodic function with known length scale</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-e-smooth-periodic-function-with-known-length-scale">Part E - Smooth periodic function with known length scale</a></li>
@@ -593,28 +593,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-b-improving-the-prior-covariance">Part B - Improving the prior covariance</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-c-predicting-the-future">Part C - Predicting the future</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-d-bayesian-information-criterion">Part D - Bayesian information criterion</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-e-plot-samples-from-the-posterior-gaussian-process">Part E - Plot samples from the posterior Gaussian process</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-using-bayesian-global-optimization-to-calibrate-an-expensive-physical-model">Problem 3 - Using Bayesian Global optimization to calibrate an expensive physical model</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-theory-of-inverse-problems">Classical theory of inverse problems</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formulation-of-inverse-problems-as-optimization-problems">Formulation of Inverse Problems as Optimization Problems</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-square-loss">The Square Loss</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-methodologies">Solution Methodologies</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#back-to-the-catalysis-model">Back to the catalysis model</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-making-our-life-easier-by-simplifying-the-notation">Step 1: Making our life easier by simplifying the notation</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-scale-the-unknown-parameters-to-your-best-of-your-abilities">Step 2: Scale the unknown parameters to your best of your abilities</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-making-the-connection-between-our-model-and-the-experimental-measurements">Step 3: Making the connection between our model and the experimental measurements</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-programming-our-ode-solver-and-the-loss-function">Step 4: Programming our ODE solver and the loss function</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-minimize-the-loss-function">Step 5: Minimize the loss function</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-a-perform-multivariate-gaussian-process-regression-on-an-initial-set-of-data">Part A - Perform multivariate Gaussian process regression on an initial set of data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-b-inspecting-your-model">Part B - Inspecting your model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-c-diagnostics">Part C - Diagnostics</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-d-calibrate-the-model-with-bayesian-global-optimization">Part D - Calibrate the model with Bayesian global optimization</a></li>
 </ul>
             </nav>
         </div>
@@ -650,12 +628,12 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">scipy</span>
@@ -678,12 +656,200 @@ document.write(`
         <span class="n">local_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">local_filename</span><span class="p">)</span>
 
-<span class="k">try</span><span class="p">:</span>
-  <span class="kn">import</span> <span class="nn">GPy</span>
-<span class="k">except</span><span class="p">:</span>
-  <span class="n">_</span><span class="o">=!</span>pip<span class="w"> </span>install<span class="w"> </span>GPy
-  <span class="kn">import</span> <span class="nn">GPy</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="k">def</span> <span class="nf">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">kernel_func</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">num_test</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">nugget</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sample functions from a Gaussian process.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        mean_func -- the mean function. It must be a callable that takes a tensor</span>
+<span class="sd">            of shape (num_test, dim) and returns a tensor of shape (num_test, 1).</span>
+<span class="sd">        kernel_func -- the covariance function. It must be a callable that takes</span>
+<span class="sd">            a tensor of shape (num_test, dim) and returns a tensor of shape</span>
+<span class="sd">            (num_test, num_test).</span>
+<span class="sd">        num_samples -- the number of samples to take. Defaults to 10.</span>
+<span class="sd">        num_test -- the number of test points. Defaults to 100.</span>
+<span class="sd">        nugget -- a small number required for stability. Defaults to 1e-5.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num_test</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">mean_func</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="n">nugget</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_samples</span><span class="p">):</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span> 
+        <span class="n">f</span> <span class="o">=</span> <span class="n">m</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">L</span> <span class="o">@</span> <span class="n">z</span>  
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">f</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> 
+                <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sample&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+
+<span class="k">class</span> <span class="nc">ExactGP</span><span class="p">(</span><span class="n">gpytorch</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">ExactGP</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">train_x</span><span class="p">,</span>
+                 <span class="n">train_y</span><span class="p">,</span>
+                 <span class="n">likelihood</span><span class="o">=</span><span class="n">gpytorch</span><span class="o">.</span><span class="n">likelihoods</span><span class="o">.</span><span class="n">GaussianLikelihood</span><span class="p">(),</span>
+                <span class="n">mean_module</span><span class="o">=</span><span class="n">gpytorch</span><span class="o">.</span><span class="n">means</span><span class="o">.</span><span class="n">ConstantMean</span><span class="p">(),</span>
+                <span class="n">covar_module</span><span class="o">=</span><span class="n">ScaleKernel</span><span class="p">(</span><span class="n">RBFKernel</span><span class="p">())</span>
+        <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mean_module</span> <span class="o">=</span> <span class="n">mean_module</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">covar_module</span> <span class="o">=</span> <span class="n">covar_module</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">mean_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_module</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">covar_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">covar_module</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">gpytorch</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">MultivariateNormal</span><span class="p">(</span><span class="n">mean_x</span><span class="p">,</span> <span class="n">covar_x</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">plot_1d_regression</span><span class="p">(</span>
+    <span class="n">x_star</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">f_true</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">num_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;$x$&#39;</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;$y$&#39;</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the posterior predictive.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments</span>
+<span class="sd">    x_start  --  The test points on which to evaluate.</span>
+<span class="sd">    model    --  The trained model.</span>
+<span class="sd">    </span>
+<span class="sd">    Keyword Arguments</span>
+<span class="sd">    ax          --  An axes object to write on.</span>
+<span class="sd">    f_true      --  The true function.</span>
+<span class="sd">    num_samples --  The number of samples.</span>
+<span class="sd">    xlabel      --  The x-axis label.</span>
+<span class="sd">    ylabel      --  The y-axis label.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">f_star</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x_star</span><span class="p">)</span>
+    <span class="n">m_star</span> <span class="o">=</span> <span class="n">f_star</span><span class="o">.</span><span class="n">mean</span>
+    <span class="n">v_star</span> <span class="o">=</span> <span class="n">f_star</span><span class="o">.</span><span class="n">variance</span>
+    <span class="n">y_star</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="p">(</span><span class="n">f_star</span><span class="p">)</span>
+    <span class="n">yv_star</span> <span class="o">=</span> <span class="n">y_star</span><span class="o">.</span><span class="n">variance</span>
+
+    <span class="n">f_lower</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">m_star</span> <span class="o">-</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_star</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">f_upper</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">m_star</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_star</span><span class="p">)</span>
+    <span class="p">)</span>
+    
+    <span class="n">y_lower</span> <span class="o">=</span> <span class="n">m_star</span> <span class="o">-</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">yv_star</span><span class="p">)</span>
+    <span class="n">y_upper</span> <span class="o">=</span> <span class="n">m_star</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">yv_star</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">train_inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">train_targets</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+            <span class="s1">&#39;k.&#39;</span><span class="p">,</span>
+            <span class="n">markersize</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">markeredgewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observations&#39;</span>
+    <span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">x_star</span><span class="p">,</span>
+        <span class="n">m_star</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+        <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Posterior mean&#39;</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
+        <span class="n">x_star</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+        <span class="n">f_lower</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+        <span class="n">f_upper</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Epistemic uncertainty&#39;</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
+        <span class="n">x_star</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">y_lower</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">f_lower</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Aleatory uncertainty&#39;</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
+        <span class="n">x_star</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">f_upper</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">y_upper</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">)</span>
+
+    
+    <span class="k">if</span> <span class="n">f_true</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">x_star</span><span class="p">,</span>
+            <span class="n">f_true</span><span class="p">(</span><span class="n">x_star</span><span class="p">),</span>
+            <span class="s1">&#39;m-.&#39;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True function&#39;</span>
+        <span class="p">)</span>
+        
+    <span class="k">if</span> <span class="n">num_samples</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">f_post_samples</span> <span class="o">=</span> <span class="n">f_star</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span>
+            <span class="n">sample_shape</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">10</span><span class="p">])</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">x_star</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>
+            <span class="n">f_post_samples</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+            <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span>
+        <span class="p">)</span>
+        <span class="c1"># This is just to add the legend entry</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="p">[],</span>
+            <span class="p">[],</span>
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+            <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Posterior samples&quot;</span>
+        <span class="p">)</span>
+        
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">m_star</span><span class="o">=</span><span class="n">m_star</span><span class="p">,</span> <span class="n">v_star</span><span class="o">=</span><span class="n">v_star</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Train the model.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    model   --  The model to train.</span>
+<span class="sd">    train_x --  The training inputs.</span>
+<span class="sd">    train_y --  The training labels.</span>
+<span class="sd">    n_iter  --  The number of iterations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">LBFGS</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">line_search_fn</span><span class="o">=</span><span class="s1">&#39;strong_wolfe&#39;</span><span class="p">)</span>
+    <span class="n">likelihood</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">likelihood</span>
+    <span class="n">mll</span> <span class="o">=</span> <span class="n">gpytorch</span><span class="o">.</span><span class="n">mlls</span><span class="o">.</span><span class="n">ExactMarginalLogLikelihood</span><span class="p">(</span><span class="n">likelihood</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">closure</span><span class="p">():</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">train_x</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">mll</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">loss</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_iter</span><span class="p">):</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">closure</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Iter </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s1">3d</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">n_iter</span><span class="si">}</span><span class="s1"> - Loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -697,17 +863,25 @@ document.write(`
 <li><p><strong>Last Name:</strong></p></li>
 <li><p><strong>Email:</strong></p></li>
 </ul>
+<p>If on Google Colab, install the following packages:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>gpytorch
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="problem-1-defining-priors-on-function-spaces">
 <h2>Problem 1 - Defining priors on function spaces<a class="headerlink" href="#problem-1-defining-priors-on-function-spaces" title="Permalink to this heading">#</a></h2>
-<p>In this problem we are going to explore further how Gaussian processes can be used to define probability measures over function spaces.
+<p>In this problem, we will explore further how Gaussian processes can be used to define probability measures over function spaces.
 To this end, assume that there is a 1D function, call if <span class="math notranslate nohighlight">\(f(x)\)</span>, which we do not know.
 For simplicity, assume that <span class="math notranslate nohighlight">\(x\)</span> takes values in <span class="math notranslate nohighlight">\([0,1]\)</span>.
-We will employ Gaussian process regression to encode our state of knowledge about <span class="math notranslate nohighlight">\(f(x)\)</span> and sample some possibilities for it.
+We will employ Gaussian process regression to encode our state of knowledge about <span class="math notranslate nohighlight">\(f(x)\)</span> and sample some possibilities.
 For each of the cases below:</p>
 <ul class="simple">
-<li><p>assume that <span class="math notranslate nohighlight">\(f\sim \operatorname{GP}(m, k)\)</span> and pick a mean (<span class="math notranslate nohighlight">\(m(x)\)</span>) and a covariance function <span class="math notranslate nohighlight">\(f(x)\)</span> that match the provided information.</p></li>
-<li><p>write code that samples a few times (up to five) the values of <span class="math notranslate nohighlight">\(f(x)\)</span> at a 100 equidistant points between 0 and 1.</p></li>
+<li><p>Assume that <span class="math notranslate nohighlight">\(f\sim \operatorname{GP}(m, k)\)</span> and pick a mean (<span class="math notranslate nohighlight">\(m(x)\)</span>) and a covariance function <span class="math notranslate nohighlight">\(f(x)\)</span> that match the provided information.</p></li>
+<li><p>Write code that samples a few times (up to five) the values of <span class="math notranslate nohighlight">\(f(x)\)</span> at 100 equidistant points between 0 and 1.</p></li>
 </ul>
 <section id="part-a-super-smooth-function-with-known-length-scale">
 <h3>Part A - Super smooth function with known length scale<a class="headerlink" href="#part-a-super-smooth-function-with-known-length-scale" title="Permalink to this heading">#</a></h3>
@@ -736,38 +910,33 @@ k(x,x') = s^2\exp\left\{-\frac{(x-x')^2}{2\ell^2}\right\},
 s^2 = k(x,x) = \mathbb{V}[f(x)] = 4,
 \]</div>
 <p>and lengthscale <span class="math notranslate nohighlight">\(\ell = 0.1\)</span>.
-We chose the variance to be 4 so that with (about) 95% probability the values of <span class="math notranslate nohighlight">\(f(x)\)</span> are between -4 and 4.</p>
+We chose the variance to be 4.0 so that with (about) 95% probability, the values of <span class="math notranslate nohighlight">\(f(x)\)</span> are between -4 and 4.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the covariance function</span>
-<span class="n">k</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">k</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="mf">0.1</span>
-<span class="n">k</span><span class="o">.</span><span class="n">variance</span> <span class="o">=</span> <span class="mf">4.0</span>
-<span class="c1"># Sample</span>
-<span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="c1"># The mean function at xs</span>
-<span class="n">ms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">xs</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="c1"># Find the covariance matrix. You need to add a small number</span>
-<span class="c1"># to the diagonal to ensure numerical stability</span>
-<span class="n">nugget</span> <span class="o">=</span> <span class="mf">1e-6</span>
-<span class="n">K</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">K</span><span class="p">(</span><span class="n">xs</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">])</span> <span class="o">+</span> <span class="n">nugget</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">xs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="c1"># A multivariate normal that can be used to sample the function values</span>
-<span class="n">F</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="n">ms</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">cov</span><span class="o">=</span><span class="n">K</span><span class="p">)</span>
-<span class="c1"># Take the function samples</span>
-<span class="n">f_samples</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="c1"># Plot the samples</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">f_samples</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">gpytorch</span>
+<span class="kn">from</span> <span class="nn">gpytorch.kernels</span> <span class="kn">import</span> <span class="n">RBFKernel</span><span class="p">,</span> <span class="n">ScaleKernel</span>
+
+<span class="c1"># Define the covariance function</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span><span class="n">RBFKernel</span><span class="p">())</span>
+<span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="mf">4.0</span>
+<span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<span class="c1"># Define the mean function</span>
+<span class="n">mean</span> <span class="o">=</span> <span class="n">gpytorch</span><span class="o">.</span><span class="n">means</span><span class="o">.</span><span class="n">ConstantMean</span><span class="p">()</span>
+<span class="n">mean</span><span class="o">.</span><span class="n">constant</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+<span class="c1"># Sample functions</span>
+<span class="n">sample_functions</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">nugget</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/adf81a6e3be88960dc509fa17017472779905d235ab20b24c5aa2184ff5e0b76.png" src="../_images/adf81a6e3be88960dc509fa17017472779905d235ab20b24c5aa2184ff5e0b76.png" />
-</div>
+<img alt="../_images/1ad8431dc02857149d812a10c5be5fec7c71343ca45a2e12f3720700a2cba813.svg" src="../_images/1ad8431dc02857149d812a10c5be5fec7c71343ca45a2e12f3720700a2cba813.svg" /></div>
 </div>
 </section>
 <section id="part-b-super-smooth-function-with-known-ultra-small-length-scale">
-<h3>Part B - Super smooth function with known ultra small length scale<a class="headerlink" href="#part-b-super-smooth-function-with-known-ultra-small-length-scale" title="Permalink to this heading">#</a></h3>
+<h3>Part B - Super smooth function with known ultra-small length scale<a class="headerlink" href="#part-b-super-smooth-function-with-known-ultra-small-length-scale" title="Permalink to this heading">#</a></h3>
 <p>Assume that you hold the following beliefs</p>
 <ul class="simple">
 <li><p>You know that <span class="math notranslate nohighlight">\(f(x)\)</span> has as many derivatives as you want and they are all continuous</p></li>
@@ -790,7 +959,7 @@ We chose the variance to be 4 so that with (about) 95% probability the values of
 <ul class="simple">
 <li><p>You know that <span class="math notranslate nohighlight">\(f(x)\)</span> is continuous, nowhere differentiable.</p></li>
 <li><p>You don’t know if <span class="math notranslate nohighlight">\(f(x)\)</span> has a specific trend.</p></li>
-<li><p>You think that <span class="math notranslate nohighlight">\(f(x)\)</span> has “wiggles” that are approximatly of size <span class="math notranslate nohighlight">\(\Delta x=0.1\)</span>.</p></li>
+<li><p>You think that <span class="math notranslate nohighlight">\(f(x)\)</span> has “wiggles” that are approximately of size <span class="math notranslate nohighlight">\(\Delta x=0.1\)</span>.</p></li>
 <li><p>You think that <span class="math notranslate nohighlight">\(f(x)\)</span> is between -5 and 5.</p></li>
 </ul>
 <p>Hint: Use <code class="docutils literal notranslate"><span class="pre">GPy.kern.Exponential</span></code>.</p>
@@ -810,7 +979,7 @@ We chose the variance to be 4 so that with (about) 95% probability the values of
 <li><p>You know that <span class="math notranslate nohighlight">\(f(x)\)</span> is smooth.</p></li>
 <li><p>You know that <span class="math notranslate nohighlight">\(f(x)\)</span> is periodic with period 0.1.</p></li>
 <li><p>You don’t know if <span class="math notranslate nohighlight">\(f(x)\)</span> has a specific trend.</p></li>
-<li><p>You think that <span class="math notranslate nohighlight">\(f(x)\)</span> has “wiggles” that are approximatly of size <span class="math notranslate nohighlight">\(\Delta x=0.5\)</span> of the period.</p></li>
+<li><p>You think that <span class="math notranslate nohighlight">\(f(x)\)</span> has “wiggles” that are approximately of size <span class="math notranslate nohighlight">\(\Delta x=0.5\)</span> of the period.</p></li>
 <li><p>You think that <span class="math notranslate nohighlight">\(f(x)\)</span> is between -5 and 5.</p></li>
 </ul>
 <p>Hint: Use <code class="docutils literal notranslate"><span class="pre">GPy.kern.StdPeriodic</span></code>.</p>
@@ -830,7 +999,7 @@ We chose the variance to be 4 so that with (about) 95% probability the values of
 <li><p>You know that <span class="math notranslate nohighlight">\(f(x)\)</span> is smooth.</p></li>
 <li><p>You know that <span class="math notranslate nohighlight">\(f(x)\)</span> is periodic with period 0.1.</p></li>
 <li><p>You don’t know if <span class="math notranslate nohighlight">\(f(x)\)</span> has a specific trend.</p></li>
-<li><p>You think that <span class="math notranslate nohighlight">\(f(x)\)</span> has “wiggles” that are approximatly of size <span class="math notranslate nohighlight">\(\Delta x=0.1\)</span> of the period (<strong>the only thing that is different compared to D</strong>).</p></li>
+<li><p>You think that <span class="math notranslate nohighlight">\(f(x)\)</span> has “wiggles” that are approximately of size <span class="math notranslate nohighlight">\(\Delta x=0.1\)</span> of the period (<strong>the only thing that is different compared to D</strong>).</p></li>
 <li><p>You think that <span class="math notranslate nohighlight">\(f(x)\)</span> is between -5 and 5.</p></li>
 </ul>
 <p>Hint: Use <code class="docutils literal notranslate"><span class="pre">GPy.kern.StdPeriodic</span></code>.</p>
@@ -849,8 +1018,8 @@ We chose the variance to be 4 so that with (about) 95% probability the values of
 <ul class="simple">
 <li><p>You know that <span class="math notranslate nohighlight">\(f(x) = f_1(x) + f_2(x)\)</span>, where:</p>
 <ul>
-<li><p><span class="math notranslate nohighlight">\(f_1(x)\)</span> is smooth with variance 2 and lengthscale 0.5</p></li>
-<li><p><span class="math notranslate nohighlight">\(f_2(x)\)</span> is continuous, nowhere differentiable with variance 0.1 and lengthscale 0.1</p></li>
+<li><p><span class="math notranslate nohighlight">\(f_1(x)\)</span> is smooth with variance 2 and length scale 0.5</p></li>
+<li><p><span class="math notranslate nohighlight">\(f_2(x)\)</span> is continuous, nowhere differentiable with variance 0.1 and length scale 0.1</p></li>
 </ul>
 </li>
 </ul>
@@ -869,8 +1038,8 @@ We chose the variance to be 4 so that with (about) 95% probability the values of
 <ul class="simple">
 <li><p>You know that <span class="math notranslate nohighlight">\(f(x) = f_1(x)f_2(x)\)</span>, where:</p>
 <ul>
-<li><p><span class="math notranslate nohighlight">\(f_1(x)\)</span> is smooth, periodic (period = 0.1), lengthscale 0.1 (relative to the period), and variance 2.</p></li>
-<li><p><span class="math notranslate nohighlight">\(f_2(x)\)</span> is smooth with lengthscale 0.5 and variance 1.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f_1(x)\)</span> is smooth, periodic (period = 0.1), length scale 0.1 (relative to the period), and variance 2.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f_2(x)\)</span> is smooth with length scale 0.5 and variance 1.</p></li>
 </ul>
 </li>
 </ul>
@@ -886,9 +1055,9 @@ We chose the variance to be 4 so that with (about) 95% probability the values of
 </section>
 <section id="problem-2">
 <h2>Problem 2<a class="headerlink" href="#problem-2" title="Permalink to this heading">#</a></h2>
-<p>The National Oceanic and Atmospheric Administration (NOAA) has been measuring the levels of atmospheric CO2 at the Mauna Loa, Hawaii. The measurements start on March 1958 and go all the way to Janurary 2016.
+<p>The National Oceanic and Atmospheric Administration (NOAA) has been measuring the levels of atmospheric CO2 at the Mauna Loa, Hawaii. The measurements start in March 1958 and go back to January 2016.
 The data can be found <a class="reference external" href="http://www.esrl.noaa.gov/gmd/ccgg/trends/data.html">here</a>.
-The Python script below, downloads and plots the data set.</p>
+The Python cell below downloads and plots the data set.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/PredictiveScienceLab/data-analytics-se/raw/master/lecturebook/data/mauna_loa_co2.txt&quot;</span>
@@ -907,21 +1076,21 @@ The Python script below, downloads and plots the data set.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#load data </span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">][:,</span> <span class="kc">None</span><span class="p">]</span>  <span class="c1">#time (in decimal dates)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">][:,</span> <span class="kc">None</span><span class="p">]</span>  <span class="c1">#CO2 level (mole fraction in dry air, micromol/mol, abbreviated as ppm)</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1">#time (in decimal dates)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">]</span>  <span class="c1">#CO2 level (mole fraction in dry air, micromol/mol, abbreviated as ppm)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$t$ (year)&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$ (CO2 level in ppm)&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$ (CO2 level in ppm)&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/437def5ccdf3a1783ea80e8394e3e89a1f168201532da148c14505bfb0a9c705.png" src="../_images/437def5ccdf3a1783ea80e8394e3e89a1f168201532da148c14505bfb0a9c705.png" />
+<img alt="../_images/5db350ee886b2d98c45bac190d02de8f30d666b8d496a078968ad9508ddc02e6.svg" src="../_images/5db350ee886b2d98c45bac190d02de8f30d666b8d496a078968ad9508ddc02e6.svg" /></div>
 </div>
-</div>
-<p>Overall, we observe a steady growth of CO2 levels. The wiggles correspond to seasonal changes. Since the vast majority of the population inhabits the Northen hemisphere, fuel consumption goes up during the Northen winters and CO2 emissions follow. Our goal is to study this dataset with Gaussian process regression. Specifically we would like to predict the evolution of the CO2 levels from Feb 2018 to Feb 2028 and quantify our uncertainty about this prediction.</p>
-<p>It’s always a good idea to work with at scaled version of the inptus and the outputs. We are going to scale the times as follows:</p>
+<p>Overall, we observe a steady growth of CO2 levels. The wiggles correspond to seasonal changes. Since most of the population inhabits the northern hemisphere, fuel consumption increases during the northern winters, and CO2 emissions follow. Our goal is to study this dataset with Gaussian process regression. Specifically, we would like to predict the evolution of the CO2 levels from Feb 2018 to Feb 2028 and quantify our uncertainty about this prediction.</p>
+<p>Working with a scaled version of the inputs and outputs is always a good idea. We are going to scale the times as follows:</p>
 <div class="math notranslate nohighlight">
 \[
 t_s = t - t_{\min}.
@@ -933,33 +1102,150 @@ We scale the <span class="math notranslate nohighlight">\(y\)</span>’s as:</p>
 y_s = \frac{y - y_{\min}}{y_{\max}-y_{\min}}.
 \]</div>
 <p>This takes all the <span class="math notranslate nohighlight">\(y\)</span> between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>.
-Here is how the scaled data look like:</p>
+Here is what the scaled data look like:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t_s</span> <span class="o">=</span> <span class="n">t</span> <span class="o">-</span> <span class="n">t</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
 <span class="n">y_s</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_s</span><span class="p">,</span> <span class="n">y_s</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_s</span><span class="p">,</span> <span class="n">y_s</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$t_s$ (Scaled year)&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y_s (Scaled CO2 level)$&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y_s$ (Scaled CO2 level)&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/61f1171963353d19bd7d9ebcc938cf9c5c099833be53ef74a0e58927a9777a78.png" src="../_images/61f1171963353d19bd7d9ebcc938cf9c5c099833be53ef74a0e58927a9777a78.png" />
+<img alt="../_images/98e5294f327ccad9570f68ace3e1002f84270c30ef2b1c943ed623fd27ac0241.svg" src="../_images/98e5294f327ccad9570f68ace3e1002f84270c30ef2b1c943ed623fd27ac0241.svg" /></div>
 </div>
-</div>
-<p>In what follows, just work with the scaled data as you develop your model.
+<p>Work with the scaled data in what follows as you develop your model.
 Scale back to the original units for your final predictions.</p>
 </section>
 <section id="part-a-naive-approach">
 <h2>Part A - Naive approach<a class="headerlink" href="#part-a-naive-approach" title="Permalink to this heading">#</a></h2>
 <p>Use a zero mean Gaussian process with a squared exponential covariance function to fit the data and make the required prediction (ten years after the last observation).</p>
 <p><strong>Answer:</strong></p>
+<p><strong>Again, this is done for you so that you have a concrete example of what is requested.</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
-<span class="n">naive_model</span> <span class="o">=</span> <span class="o">?</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cov_module</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span><span class="n">RBFKernel</span><span class="p">())</span>
+<span class="n">mean_module</span> <span class="o">=</span> <span class="n">gpytorch</span><span class="o">.</span><span class="n">means</span><span class="o">.</span><span class="n">ConstantMean</span><span class="p">()</span>
+<span class="n">train_x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">t_s</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+<span class="n">train_y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">y_s</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+<span class="n">naive_model</span> <span class="o">=</span> <span class="n">ExactGP</span><span class="p">(</span>
+    <span class="n">train_x</span><span class="p">,</span>
+    <span class="n">train_y</span><span class="p">,</span>
+    <span class="n">mean_module</span><span class="o">=</span><span class="n">mean_module</span><span class="p">,</span>
+    <span class="n">covar_module</span><span class="o">=</span><span class="n">cov_module</span>
+<span class="p">)</span>
+<span class="n">train</span><span class="p">(</span><span class="n">naive_model</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor(0.8545, grad_fn=&lt;NegBackward0&gt;)
+tensor(0.7392, grad_fn=&lt;NegBackward0&gt;)
+tensor(-0.5164, grad_fn=&lt;NegBackward0&gt;)
+tensor(-1.7390, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.1109, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.2523, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.0013, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.2894, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3039, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3159, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3302, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3335, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.2837, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3380, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3401, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3443, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3464, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3477, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3481, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3505, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3518, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3526, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3527, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3529, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3531, grad_fn=&lt;NegBackward0&gt;)
+Iter   1/10 - Loss: 0.854
+tensor(-2.3531, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3537, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3538, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3541, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3541, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3541, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3542, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3540, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3539, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+Iter   2/10 - Loss: -2.353
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3541, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3542, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3540, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3539, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+Iter   3/10 - Loss: -2.354
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3541, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3542, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3540, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3539, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+Iter   4/10 - Loss: -2.354
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3541, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3542, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3540, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3539, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+Iter   5/10 - Loss: -2.354
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3541, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3542, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3540, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3539, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+Iter   6/10 - Loss: -2.354
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3541, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3542, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3540, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3539, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+Iter   7/10 - Loss: -2.354
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3541, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3542, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3540, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3539, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+Iter   8/10 - Loss: -2.354
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3541, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3542, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3540, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3539, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+Iter   9/10 - Loss: -2.354
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3541, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3542, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3540, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3539, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+tensor(-2.3543, grad_fn=&lt;NegBackward0&gt;)
+Iter  10/10 - Loss: -2.354
 </pre></div>
 </div>
 </div>
@@ -967,38 +1253,47 @@ Scale back to the original units for your final predictions.</p>
 <p>Predict everything:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">t_s</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
-<span class="n">ys</span><span class="p">,</span> <span class="n">vs</span> <span class="o">=</span> <span class="n">naive_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">tss</span><span class="p">)</span>
-<span class="n">ls</span> <span class="o">=</span> <span class="n">ys</span> <span class="o">-</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">vs</span><span class="p">)</span>
-<span class="n">us</span> <span class="o">=</span> <span class="n">ys</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">vs</span><span class="p">)</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tss</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Posterior mean&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">tss</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">ls</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">us</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_s</span><span class="p">,</span> <span class="n">y_s</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Scaled observed data&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$t_s$ (Scaled year)&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y_s$ (Scaled CO2 level)&#39;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_star</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">plot_1d_regression</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">naive_model</span><span class="p">,</span> <span class="n">x_star</span><span class="o">=</span><span class="n">x_star</span><span class="p">,</span> 
+                   <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;$t_s$ (Scaled year)&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;$y_s$ (Scaled CO2 level)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e237a51cd6257f175474d58e43b68597e9e10af565f64a81eff01a9c9e144dc4.svg" src="../_images/e237a51cd6257f175474d58e43b68597e9e10af565f64a81eff01a9c9e144dc4.svg" /></div>
+</div>
+<p>Notice that the squared exponential covariance captures the long terms but fails to capture the seasonal fluctuations. The seasonal fluctuations are treated as noise. This is wrong. You will have to fix this in the next part.</p>
+</section>
+<section id="part-b-improving-the-prior-covariance">
+<h2>Part B - Improving the prior covariance<a class="headerlink" href="#part-b-improving-the-prior-covariance" title="Permalink to this heading">#</a></h2>
+<p>Now, use the ideas of Problem 1 to develop a covariance function that exhibits the following characteristics visible in the data (call <span class="math notranslate nohighlight">\(f(x)\)</span> the scaled CO2 level.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(f(x)\)</span> is smooth.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f(x)\)</span> has a clear trend with a multi-year length scale.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f(x)\)</span> has seasonal fluctuations with a period of one year.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f(x)\)</span> exhibits small fluctuations within its period.</p></li>
+</ul>
+<p>There is more than one correct answer.</p>
+<p><strong>Answer:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cov_module</span> <span class="o">=</span> <span class="c1"># Your choice of covariance here</span>
+<span class="n">mean_module</span> <span class="o">=</span> <span class="c1"># Your choice of mean here</span>
+<span class="n">naive_model</span> <span class="o">=</span> <span class="n">ExactGP</span><span class="p">(</span>
+    <span class="n">train_x</span><span class="p">,</span>
+    <span class="n">train_y</span><span class="p">,</span>
+    <span class="n">mean_module</span><span class="o">=</span><span class="n">mean_module</span><span class="p">,</span>
+    <span class="n">covar_module</span><span class="o">=</span><span class="n">cov_module</span>
+<span class="p">)</span>
+<span class="n">train</span><span class="p">(</span><span class="n">naive_model</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Notice that the squared exponential covariance caputes the long terms, but it fails to capture the seasonal fluctuations. As a matter of fact the seasonabl fluctions as treated as noise. This is clearly false. How can we fix it?</p>
-</section>
-<section id="part-b-improving-the-prior-covariance">
-<h2>Part B - Improving the prior covariance<a class="headerlink" href="#part-b-improving-the-prior-covariance" title="Permalink to this heading">#</a></h2>
-<p>Now use the ideas of Problem 1, to come up with a covariance function that is exhibits the following characteristics clearly visible in the data (call <span class="math notranslate nohighlight">\(f(x)\)</span> the scaled CO2 level.</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(f(x)\)</span> is smooth</p></li>
-<li><p><span class="math notranslate nohighlight">\(f(x)\)</span> has a clear trend with a multi-year lengthscale (it is also an increasing trend, but we are not going to impose this)</p></li>
-<li><p><span class="math notranslate nohighlight">\(f(x)\)</span> has seasonal fluctations with a period of one year</p></li>
-<li><p><span class="math notranslate nohighlight">\(f(x)\)</span> exhibits small fluctiations within its period.</p></li>
-</ul>
-<p>Use summation and multiplication of simple covariance functions to create a covariance function that exhibits these trends.
-Sample a few times from it.</p>
-<p>Hint: Do not attempt to fit the data in any way. Just try to find a covariance function that has the right features. We also do not care about getting the parameters 100% right at this point. The parameters will be optimized later.</p>
-<p><strong>Answer:</strong></p>
+<p>Plot using the following block:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_1d_regression</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">naive_model</span><span class="p">,</span> <span class="n">x_star</span><span class="o">=</span><span class="n">train_x</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -1006,16 +1301,10 @@ Sample a few times from it.</p>
 </section>
 <section id="part-c-predicting-the-future">
 <h2>Part C - Predicting the future<a class="headerlink" href="#part-c-predicting-the-future" title="Permalink to this heading">#</a></h2>
-<p>Use a zero mean Gaussian process with the covariance function you picked above to do Gaussian process regression
-and make the required prediction (ten years after the last observation).</p>
-<p><strong>Answer:</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
-</pre></div>
-</div>
-</div>
-</div>
+<p>How does your model predict the future? Why is it better than the naive model?</p>
+<p><strong>Answer:</strong>
+<em>Your answer here</em>
+<br><br></p>
 </section>
 <section id="part-d-bayesian-information-criterion">
 <h2>Part D - Bayesian information criterion<a class="headerlink" href="#part-d-bayesian-information-criterion" title="Permalink to this heading">#</a></h2>
@@ -1034,752 +1323,76 @@ The criterion says that one should:</p>
 <li><p>pick the model with the smallest BIC.</p></li>
 </ul>
 <p>Use BIC to show that the model you constructed in Part C is indeed better than the naïve model of Part A.</p>
-<p>Hint: Do a <code class="docutils literal notranslate"><span class="pre">help(GPy.models.GPRegression)</span></code> and you will find a way to get both the number of parameters and the log likelihood. Ask on piazza if you can’t find it - or Google it.</p>
 <p><strong>Answer:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hint: You can find the parameters of a model like this</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">naive_model</span><span class="o">.</span><span class="n">hyperparameters</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Parameter containing:
+ tensor([-7.8281], requires_grad=True),
+ Parameter containing:
+ tensor(0.8690, requires_grad=True),
+ Parameter containing:
+ tensor(-1.2034, requires_grad=True),
+ Parameter containing:
+ tensor([[32.5616]], requires_grad=True)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">naive_model</span><span class="o">.</span><span class="n">hyperparameters</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hint: You can find the (marginal) log likelihood of a model like this</span>
+<span class="n">mll</span> <span class="o">=</span> <span class="n">gpytorch</span><span class="o">.</span><span class="n">mlls</span><span class="o">.</span><span class="n">ExactMarginalLogLikelihood</span><span class="p">(</span><span class="n">naive_model</span><span class="o">.</span><span class="n">likelihood</span><span class="p">,</span> <span class="n">naive_model</span><span class="p">)</span>
+<span class="n">log_like</span> <span class="o">=</span> <span class="n">mll</span><span class="p">(</span><span class="n">naive_model</span><span class="p">(</span><span class="n">train_x</span><span class="p">),</span> <span class="n">train_y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">log_like</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor(2.3863, grad_fn=&lt;DivBackward0&gt;)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/ibilion/.pyenv/versions/3.11.6/lib/python3.11/site-packages/gpytorch/models/exact_gp.py:284: GPInputWarning: The input matches the stored training data. Did you forget to call model.train()?
+  warnings.warn(
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hint: The BIC is</span>
+<span class="n">bic</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">log_like</span> <span class="o">+</span> <span class="n">m</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">train_x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bic</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor(21.5389, grad_fn=&lt;AddBackward0&gt;)
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="part-e-plot-samples-from-the-posterior-gaussian-process">
-<h2>Part E - Plot samples from the posterior Gaussian process<a class="headerlink" href="#part-e-plot-samples-from-the-posterior-gaussian-process" title="Permalink to this heading">#</a></h2>
-<p>Using the model of Part C, plot 5 samples from the posterior Gaussian process between 2018 and 2028.</p>
-<p>Hint: You need to use <code class="docutils literal notranslate"><span class="pre">GPy.models.GPRegression.posterior_samples_f</span></code>.</p>
-<p><strong>Answer:</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="problem-3-using-bayesian-global-optimization-to-calibrate-an-expensive-physical-model">
-<h2>Problem 3 - Using Bayesian Global optimization to calibrate an expensive physical model<a class="headerlink" href="#problem-3-using-bayesian-global-optimization-to-calibrate-an-expensive-physical-model" title="Permalink to this heading">#</a></h2>
-<p>This is Example 3.1 of <a class="reference external" href="http://arxiv.org/abs/1410.5522">(Tsilifis, 2014)</a>.</p>
-<p>Consider the catalytic
-conversion of nitrate (<span class="math notranslate nohighlight">\(\mbox{NO}_3^-\)</span>) to nitrogen (<span class="math notranslate nohighlight">\(\mbox{N}_2\)</span>) and other
-by-products by electrochemical means.
-The mechanism that is followed is complex and not well understood.
-The experiment of <a class="reference external" href="http://www.sciencedirect.com/science/article/pii/S0013468612005208">(Katsounaros, 2012)</a> confirmed the
-production of nitrogen (<span class="math notranslate nohighlight">\(\mbox{N}_2\)</span>), ammonia
-(<span class="math notranslate nohighlight">\(\mbox{NH}_3\)</span>), and nitrous oxide (<span class="math notranslate nohighlight">\(\mbox{N}_2\mbox{O}\)</span>) as final products
-of the reaction, as well as the intermediate production of nitrite (<span class="math notranslate nohighlight">\(\mbox{NO}_2^-\)</span>).
-The data are reproduced in <a class="reference external" href="https://en.wikipedia.org/wiki/Comma-separated_values">Comma-separated values</a> (CSV) and stored in
-<a class="reference external" href="https://raw.githubusercontent.com/PredictiveScienceLab/data-analytics-se/master/homework/catalysis.csv">catalysis.csv</a>.
-The time is measured in minutes and the conentrations are measured in <span class="math notranslate nohighlight">\(\mbox{mmol}\cdot\mbox{L}^{-1}\)</span>.
-Let’s load the data into this notebook using the <a class="reference external" href="http://pandas.pydata.org">Pandas</a> Python module:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/PredictiveScienceLab/data-analytics-se/raw/master/lecturebook/data/catalysis.csv&quot;</span>
-<span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the data</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="n">catalysis_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;catalysis.csv&#39;</span><span class="p">)</span>
-<span class="n">catalysis_data</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Time</th>
-      <th>NO3</th>
-      <th>NO2</th>
-      <th>N2</th>
-      <th>NH3</th>
-      <th>N2O</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0</td>
-      <td>500.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>30</td>
-      <td>250.95</td>
-      <td>107.32</td>
-      <td>18.51</td>
-      <td>3.33</td>
-      <td>4.98</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>60</td>
-      <td>123.66</td>
-      <td>132.33</td>
-      <td>74.85</td>
-      <td>7.34</td>
-      <td>20.14</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>90</td>
-      <td>84.47</td>
-      <td>98.81</td>
-      <td>166.19</td>
-      <td>13.14</td>
-      <td>42.10</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>120</td>
-      <td>30.24</td>
-      <td>38.74</td>
-      <td>249.78</td>
-      <td>19.54</td>
-      <td>55.98</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>150</td>
-      <td>27.94</td>
-      <td>10.42</td>
-      <td>292.32</td>
-      <td>24.07</td>
-      <td>60.65</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>180</td>
-      <td>13.54</td>
-      <td>6.11</td>
-      <td>309.50</td>
-      <td>27.26</td>
-      <td>62.54</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">catalysis_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/7990c6fe9a3a48ebcc2b771f694178b6262c899b02a1c816e66848ba95a56b75.png" src="../_images/7990c6fe9a3a48ebcc2b771f694178b6262c899b02a1c816e66848ba95a56b75.png" />
-</div>
-</div>
-<p>The theory of catalytic reactions guarantees that the total mass must be conserved.
-However, this is not the case in our dataset:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">catalysis_data</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    500.00
-1    415.09
-2    418.32
-3    494.71
-4    514.28
-5    565.40
-6    598.95
-dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<p>This inconsistency suggests the existence of an intermediate unobserved reaction product X.
-<a class="reference external" href="http://www.sciencedirect.com/science/article/pii/S0013468612005208">(Katsounaros, 2012)</a> suggested that the following reaction path shown in the following figure.</p>
-<p>The dynamical system associated with the reaction is:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{array}{cc}
-\frac{d \left[\mbox{NO}_3^-\right]}{dt} &amp;= -k_1\left[\mbox{NO}_3^-\right], \\
-\frac{d\left[\mbox{NO}_2^-\right]}{dt} &amp;= k_1\left[\mbox{NO}_3^-\right] - (k_2 + k_4 +
-k_5)[\mbox{NO}_2^-], \\
-\frac{d \left[\mbox{X}\right]}{dt} &amp;= k_2 \left[\mbox{NO}_2^-\right] - k_3 [X],\\
-\frac{d \left[\mbox{N}_2\right]}{dt} &amp;= k_3 \left[\mbox{X}\right], \\
-\frac{d \left[\mbox{NH}_3\right]}{dt} &amp;= k_4 \left[\mbox{NO}_2^-\right],\\
-\frac{d \left[\mbox{N}_2O\right]}{dt} &amp;= k_5 \left[\mbox{NO}_2^-\right],
-\end{array}
-\end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\([\cdot]\)</span> denotes the concentration of a quantity, and
-<span class="math notranslate nohighlight">\(k_i &gt; 0\)</span>, <span class="math notranslate nohighlight">\(i=1,...5\)</span> are the <em>kinetic rate constants</em>.</p>
-<p>In this problem, I am going to guide you through the calibration of the parameters of this model so that we match the observations.
-These problems are also known as <em>inverse problems</em>.
-The problem can, and should, be formulated in a Bayesian way.
-However, in this homework problem we are going to do it using a classical loss-minimization approach.
-We will discuss the Bayesian approach for calibrating the same model in a later lecture.</p>
-<p>Before you proceed, please read a little bit about the “classical theory of inverse problems:”</p>
-<section id="classical-theory-of-inverse-problems">
-<h3>Classical theory of inverse problems<a class="headerlink" href="#classical-theory-of-inverse-problems" title="Permalink to this heading">#</a></h3>
-<p>Suppose that you have a model (any model really) that predicts a quantity of interest.
-Let’s assume that this model has parameters that you do not know.
-These parameters could be simple scalars (mass, spring constant, dumping coefficients, etc.) or it could be also be functions (initial conditions, boundary values, spatially distributed constitutive relations, etc.)
-Let’s denote all these parameters with the vector <span class="math notranslate nohighlight">\(x\)</span>.
-Assume that:</p>
-<div class="math notranslate nohighlight">
-\[
-x\in\mathcal{X} \subset\mathbb{R}^d.
-\]</div>
-<p>Now, let’s say we perform an experiment that measures a <em>noisy</em> vector:</p>
-<div class="math notranslate nohighlight">
-\[
-y\in\mathcal{Y}\subset \mathbb{R}^m.
-\]</div>
-<p>Assume that, you can use your model <em>model</em> to predict <span class="math notranslate nohighlight">\(y\)</span>.
-It does not matter how complicated your model is.
-It could be a system of ordinary differential or partial differential equations, or something more complicated.
-If it predicts <span class="math notranslate nohighlight">\(y\)</span>, you can always think of it as a function from the unknown parameter space <span class="math notranslate nohighlight">\(\mathcal{X}\)</span> to the space of <span class="math notranslate nohighlight">\(y\)</span>’s, <span class="math notranslate nohighlight">\(\mathcal{Y}\subset\mathbb{R}^m\)</span>.
-That is, you can think of it as giving rise to a function:</p>
-<div class="math notranslate nohighlight">
-\[
-f :\mathcal{X} \rightarrow \mathcal{Y}.
-\]</div>
-<p>The <strong>inverse problem</strong>, otherwise known as the <strong>model calibration</strong> problem is to find the best <span class="math notranslate nohighlight">\(x\in\mathcal{X}\)</span> so that:</p>
-<div class="math notranslate nohighlight">
-\[
-f(x) \approx y.
-\]</div>
-</section>
-<section id="formulation-of-inverse-problems-as-optimization-problems">
-<h3>Formulation of Inverse Problems as Optimization Problems<a class="headerlink" href="#formulation-of-inverse-problems-as-optimization-problems" title="Permalink to this heading">#</a></h3>
-<p>Saying that <span class="math notranslate nohighlight">\(f(x)\approx y\)</span> is not an exact mathematical statement.
-What does it really mean for <span class="math notranslate nohighlight">\(f(x)\)</span> to be close to <span class="math notranslate nohighlight">\(y\)</span>?
-To quantify this, let us introduce a <em>loss metric</em>:</p>
-<div class="math notranslate nohighlight">
-\[
-\ell: \mathcal{Y}\times\mathcal{Y}\rightarrow \mathbb{R},
-\]</div>
-<p>such that <span class="math notranslate nohighlight">\(\ell(f(x),y)\)</span> is how much our prediction is off if we chose the input <span class="math notranslate nohighlight">\(x\in\mathcal{X}\)</span>.
-Equiped with this loss metric, we can formulate the mathematical problem as:</p>
-<div class="math notranslate nohighlight">
-\[
-\min_{x\in\mathcal{X}} \ell(f(x),y).
-\]</div>
-<section id="the-square-loss">
-<h4>The Square Loss<a class="headerlink" href="#the-square-loss" title="Permalink to this heading">#</a></h4>
-<p>The choice of the metric is somewhat subjective (it depends on what it means to be wrong in your problem).
-However, a very common assumption is that to take the <em>square loss</em>:</p>
-<div class="math notranslate nohighlight">
-\[
-\ell(f(x), y) = \frac{1}{2}\parallel f(x) - y\parallel_2^2 = \frac{1}{2}\sum_{i=1}^m\left(f_i(x)-y_i\right)^2.
-\]</div>
-<p>For this case, the inverse problem can be formulated as:</p>
-<div class="math notranslate nohighlight">
-\[
-\min_{x\in\mathcal{X}}\frac{1}{2}\parallel f(x) - y\parallel_2^2.
-\]</div>
-</section>
-<section id="solution-methodologies">
-<h4>Solution Methodologies<a class="headerlink" href="#solution-methodologies" title="Permalink to this heading">#</a></h4>
-<p>We basically have to solve an optimization problem.
-For the square loss function, if <span class="math notranslate nohighlight">\(f(x)\)</span> is linear, then you get the classic least squares problem which has a known solution.
-Otherwise, you get what is known as <em>generalized least squares</em>.
-There are many algorithms that you could use this problem.
-Several are implemented in <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/optimize.html">scipy.optimize</a>.
-If you are able to implement your model as a simple python function, then you can use them.
-Alternatively, and this is what we are going to do here, we could use Bayesian global optimization instead.
-The absolutely, essential thing that you need to provide to these methods is the function they are optimizing, i.e.,</p>
-<div class="math notranslate nohighlight">
-\[
-L(x,y) = \ell(f(x),y).
-\]</div>
-</section>
-</section>
-<section id="back-to-the-catalysis-model">
-<h3>Back to the catalysis model<a class="headerlink" href="#back-to-the-catalysis-model" title="Permalink to this heading">#</a></h3>
-<p>Let’s now formulate the calibration problem for the catalysis model.
-We proceed in several steps.</p>
-<section id="step-1-making-our-life-easier-by-simplifying-the-notation">
-<h4>Step 1: Making our life easier by simplifying the notation<a class="headerlink" href="#step-1-making-our-life-easier-by-simplifying-the-notation" title="Permalink to this heading">#</a></h4>
-<p>Note that this is actually a linear system.
-To simplify our notation, let’s define:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{array}{ccc}
-z_1 &amp;:=&amp; \left[\mbox{NO}_3^-\right],\\
-z_2 &amp;:=&amp; \left[\mbox{NO}_2^-\right],\\
-z_3 &amp;:=&amp; \left[\mbox{X}\right],\\
-z_4 &amp;:=&amp; \left[\mbox{N}_2\right],\\
-z_5 &amp;:=&amp; \left[\mbox{NH}_3\right],\\
-z_6 &amp;:=&amp; \left[\mbox{N}_2O\right],
-\end{array}
-\end{split}\]</div>
-<p>the vector:</p>
-<div class="math notranslate nohighlight">
-\[
-z = (z_1,z_2,z_3,z_4,z_5,z_6),
-\]</div>
-<p>and the matrix:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-A(k_1,\dots,k_5) = \left(\begin{array}{cccccc}
--k_1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
-k_1 &amp; -(k_2+k_4+k_5) &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
-0 &amp; k_2 &amp; -k_3 &amp; 0 &amp; 0 &amp; 0\\
-0 &amp; 0 &amp; k_3 &amp; 0 &amp; 0 &amp; 0\\
-0 &amp; k_4 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
-0 &amp; k_5 &amp; 0 &amp; 0 &amp; 0 &amp; 0
-\end{array}\right)\in\mathbb{R}^{6\times 6}.
-\end{split}\]</div>
-<p>With these definitions, the dynamical system becomes:</p>
-<div class="math notranslate nohighlight">
-\[
-\dot{z} = A(k_1,\dots,k_5)z,
-\]</div>
-<p>with initial conditions</p>
-<div class="math notranslate nohighlight">
-\[
-z(0) = z_0 = (500, 0, 0, 0, 0, 0)\in\mathbb{R}^6,
-\]</div>
-<p>read directly from the experimental data.
-What we are definitely going to need is a solver for this system.
-That’s easy.
-Let’s denote the solution of the system at time <span class="math notranslate nohighlight">\(t\)</span> by:</p>
-<div class="math notranslate nohighlight">
-\[
-z(t;k_1,\dots,k_5).
-\]</div>
-</section>
-<section id="step-2-scale-the-unknown-parameters-to-your-best-of-your-abilities">
-<h4>Step 2: Scale the unknown parameters to your best of your abilities<a class="headerlink" href="#step-2-scale-the-unknown-parameters-to-your-best-of-your-abilities" title="Permalink to this heading">#</a></h4>
-<p>The constraints you have on your parameters, the better.
-If you do have constraints, you would have to use constrained optimization algorithms.
-The way you scale things depend on the problem.
-Here we would think as follows:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(k_i\)</span> has units of inverse time. It is proparly appropriate to scale it with the total time which is 180 minutes.
-So, let’s just multiply <span class="math notranslate nohighlight">\(k_i\)</span> with 180. This makes the resulting variable dimensionless:</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[
-\hat{x}_i = 180k_i.
-\]</div>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(k_i\)</span> is positive, therefore <span class="math notranslate nohighlight">\(\hat{x_i}\)</span> must be positive.
-So, let’s just work with the logarithm of <span class="math notranslate nohighlight">\(\hat{x_i}\)</span>:</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[
-x_i = \log \hat{x_i} = \log 180k_i.
-\]</div>
-<ul class="simple">
-<li><p>define the parameter vector:</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[
-x = (x_1,\dots,x_5)\in\mathcal{X} = \mathbb{R}^5.
-\]</div>
-<p>From now on, we will write</p>
-<div class="math notranslate nohighlight">
-\[
-A = A(x),
-\]</div>
-<p>for the matrix of the dynamical system, and</p>
-<div class="math notranslate nohighlight">
-\[
-z = z(t;x),
-\]</div>
-<p>for the solution at <span class="math notranslate nohighlight">\(t\)</span> given that the parameters are <span class="math notranslate nohighlight">\(x\)</span>.</p>
-</section>
-<section id="step-3-making-the-connection-between-our-model-and-the-experimental-measurements">
-<h4>Step 3: Making the connection between our model and the experimental measurements<a class="headerlink" href="#step-3-making-the-connection-between-our-model-and-the-experimental-measurements" title="Permalink to this heading">#</a></h4>
-<p>Our experimental data include measurements of everything except <span class="math notranslate nohighlight">\(z_3\)</span> at times six (6) time instants:</p>
-<div class="math notranslate nohighlight">
-\[
-t_j = 30j\;\mbox{minutes},
-\]</div>
-<p><span class="math notranslate nohighlight">\(j=1,\dots,6\)</span>.</p>
-<p>Now, let <span class="math notranslate nohighlight">\(Y\in\mathbb{R}^{5\times 6}\)</span> be the experimental measurements:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">catalysis_data</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>You can think of the measurements as vector by flattening the matrix:</p>
-<div class="math notranslate nohighlight">
-\[
-y = \operatorname{vec}(Y)\in\mathbb{R}^{30}.
-\]</div>
-<p>Note that <code class="docutils literal notranslate"><span class="pre">vec</span></code> is the vectorization operator.</p>
-<p>What is the connection between the solution of the dynamical system <span class="math notranslate nohighlight">\(z(t,x)\)</span> and the experimental data?
-It is as follows:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{array}{ccc}
-z_1(30j;x) &amp;\longrightarrow&amp; Y_{j1},\\
-z_2(30j;x) &amp;\longrightarrow&amp; Y_{j2},\\
-z_4(30j;x) &amp;\longrightarrow&amp; Y_{j3},\\
-z_5(30j;x) &amp;\longrightarrow&amp; Y_{j4},\\
-z_6(30j;x) &amp;\longrightarrow&amp; Y_{j5},
-\end{array}
-\end{split}\]</div>
-<p>for <span class="math notranslate nohighlight">\(j=1,\dots,6\)</span>.</p>
-<p>We are now ready to define a function:</p>
-<div class="math notranslate nohighlight">
-\[
-f:\mathcal{X} \rightarrow \mathcal{Y}=\mathbb{R}^{30}_+,
-\]</div>
-<p>as follows:</p>
-<ul class="simple">
-<li><p>Define the matrix function:</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[
-F:\mathcal{X} \rightarrow \mathbb{R}^{5\times 6},
-\]</div>
-<p>by:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{array}{ccccc}
-F_{j1}(x) &amp;=&amp; z_1(30j;x)&amp;\longrightarrow&amp; Y_{j1},\\
-F_{j2}(x) &amp;=&amp; z_2(30j;x) &amp;\longrightarrow&amp; Y_{j2},\\
-F_{j3}(x) &amp;=&amp; z_4(30j;x) &amp;\longrightarrow&amp; Y_{j3},\\
-F_{j4}(x) &amp;=&amp; z_5(30j;x) &amp;\longrightarrow&amp; Y_{j4},\\
-F_{j5}(x) &amp;=&amp; z_6(30j;x) &amp;\longrightarrow&amp; Y_{j5},
-\end{array}
-\end{split}\]</div>
-<ul class="simple">
-<li><p>And flatten that function:</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[
-f(x) = \operatorname{vec}(F(x))\in\mathbb{R}^{30}.
-\]</div>
-<p>Now, we have made the connection with our theoretical formulation of inverse problems crystal clear.</p>
-</section>
-<section id="step-4-programming-our-ode-solver-and-the-loss-function">
-<h4>Step 4: Programming our ODE solver and the loss function<a class="headerlink" href="#step-4-programming-our-ode-solver-and-the-loss-function" title="Permalink to this heading">#</a></h4>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.integrate</span>
-
-<span class="k">def</span> <span class="nf">A</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return the matrix of the dynamical system.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Scale back to the k&#39;s</span>
-    <span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="mf">180.</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-    <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">k</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">k</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
-    <span class="n">res</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">res</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">k</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-    <span class="n">res</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-    <span class="n">res</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> 
-    <span class="n">res</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">res</span>
-    
-
-<span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The right hand side of the dynamical system.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">z</span><span class="p">)</span>
-
-
-<span class="c1"># The initial conditions</span>
-<span class="n">z0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">500.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span>
-
-
-<span class="c1"># The times at which we need the solution (experimental times)</span>
-<span class="n">t_exp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">30.</span> <span class="o">*</span> <span class="n">j</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)])</span>
-
-<span class="c1"># The experimental data as a matrix</span>
-<span class="n">Y</span> <span class="o">=</span> <span class="n">catalysis_data</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
-
-<span class="c1"># The experimental as a vector</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
-
-<span class="c1"># The full solution of the dynamical system</span>
-<span class="k">def</span> <span class="nf">Z</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns the solution for parameters x at times t.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">scipy</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">odeint</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">z0</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,))</span>
-
-
-<span class="c1"># The matrix function F (matches to Y)</span>
-<span class="k">def</span> <span class="nf">F</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">Z</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">res</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">],</span> <span class="n">res</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">:]])</span>
-    
-
-<span class="c1"># The function f (matches to y)</span>
-<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
-
-<span class="c1"># Finally, the loss function that we need to minimize over x:</span>
-<span class="k">def</span> <span class="nf">L</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="mf">500.</span> <span class="o">-</span> <span class="n">y</span> <span class="o">/</span> <span class="mf">500.</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="c1"># We scale for numerical stability</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="step-5-minimize-the-loss-function">
-<h4>Step 5: Minimize the loss function<a class="headerlink" href="#step-5-minimize-the-loss-function" title="Permalink to this heading">#</a></h4>
-<p>Let’s optimize with scipy.optimize:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.optimize</span>
-
-<span class="c1"># Initial guess for x</span>
-<span class="n">x0</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.0</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-
-<span class="c1"># Optimize</span>
-<span class="n">res</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">t_exp</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> /opt/homebrew/lib/python3.9/site-packages/scipy/integrate/_odepack_py.py:247: ODEintWarning:Excess work done on this call (perhaps wrong Dfun type). Run with full_output = 1 to get quantitative information.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      fun: 0.281663032651243
- hess_inv: array([[ 113.712,    1.636,  121.512,  -78.324, -121.997],
-       [   1.636,    0.954,    1.953,   -1.742,   -1.875],
-       [ 121.512,    1.953,  130.795,  -83.975, -131.128],
-       [ -78.324,   -1.742,  -83.975,   54.762,   84.125],
-       [-121.997,   -1.875, -131.128,   84.125,  131.58 ]])
-      jac: array([ 0.012,  0.004, -0.007, -0.002, -0.003])
-  message: &#39;Desired error not necessarily achieved due to precision loss.&#39;
-     nfev: 282
-      nit: 13
-     njev: 45
-   status: 2
-  success: False
-        x: array([4.205, 6.916, 0.257, 0.611, 2.083])
-</pre></div>
-</div>
-</div>
-</div>
-<p>And here is how you can visualize the model with the “best” parameters:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">x</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.359</span><span class="p">,</span> <span class="mf">1.657</span><span class="p">,</span> <span class="mf">1.347</span><span class="p">,</span> <span class="o">-</span><span class="mf">.16</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.01</span><span class="p">])</span>
-<span class="n">Yp</span> <span class="o">=</span> <span class="n">Z</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="n">catalysis_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Yp</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model NO3-&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Yp</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model NO2-&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Yp</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">5</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model X&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Yp</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">2</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model N2&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Yp</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">3</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model NH3&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Yp</span><span class="p">[:,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">4</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model N2O&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/87bac22481f1674b502b7ccd6c75979f63a368a5b5b9ba121931a9d59ba47e80.png" src="../_images/87bac22481f1674b502b7ccd6c75979f63a368a5b5b9ba121931a9d59ba47e80.png" />
-</div>
-</div>
-<p>Note that the code above will not work every time… Some times it will work and sometimes it won’t work.
-Run it 3-4 times if it accidentally works.
-There are several problems.
-Here are the three most relevant in our context:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> needs the gradient of the loss function. Since we do not provide it, it tries to get it using numerical differentiation. Numerical differentiation introduces errors…</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> find a local minimum of the loss function. This may actually be a bad local minimum.</p></li>
-<li><p>okay, this particular model is not very computationally expensive. But imagine trying to calibrate a model that takes a while for a single evaluation (e.g., a finite element model). Then, using scipy.optimize (especially without supplying the derivatives), is doomed to fail.</p></li>
-</ul>
-<p>To overcome these difficulties, you have to use Bayesian global optimization to solve the problem.
-Note that in the hands-on activities, we introduced this code:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ei</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">psi</span><span class="o">=</span><span class="mf">0.</span><span class="p">):</span>
-    <span class="n">u</span> <span class="o">=</span> <span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="n">ymax</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span>
-    <span class="n">ei</span> <span class="o">=</span> <span class="n">sigma</span> <span class="o">*</span> <span class="p">(</span><span class="n">u</span> <span class="o">*</span> <span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">+</span> <span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
-    <span class="n">ei</span><span class="p">[</span><span class="n">sigma</span> <span class="o">&lt;=</span> <span class="mf">0.</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
-    <span class="k">return</span> <span class="n">ei</span>
-
-<span class="k">def</span> <span class="nf">maximize</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">gpr</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">num_candidates</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
-             <span class="n">alpha</span><span class="o">=</span><span class="n">ei</span><span class="p">,</span> <span class="n">psi</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">max_it</span><span class="o">=</span><span class="mi">6</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Optimize f using a limited number of evaluations.</span>
-<span class="sd">    </span>
-<span class="sd">    :param f:        The function to optimize.</span>
-<span class="sd">    :param gpr:      A Gaussian process model to use for representing our state of knowldege.</span>
-<span class="sd">    :param X_design: The set of candidate points for identifying the maximum.</span>
-<span class="sd">    :param alpha:    The acquisition function.</span>
-<span class="sd">    :param psi:      The parameter value for the acquisition function (not used for EI).</span>
-<span class="sd">    :param max_it:   The maximum number of iterations.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">af_all</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Iteration</span><span class="se">\t</span><span class="s1">Current best objective </span><span class="se">\t</span><span class="s1">Current acquisition func. value&#39;</span><span class="p">)</span>
-    <span class="n">dim</span> <span class="o">=</span> <span class="n">gpr</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_it</span><span class="p">):</span>
-        <span class="n">X_design</span> <span class="o">=</span> <span class="n">domain</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> \
-                   <span class="p">(</span><span class="n">domain</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">domain</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">*</span> \
-                        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
-        <span class="n">m</span><span class="p">,</span> <span class="n">sigma2</span> <span class="o">=</span> <span class="n">gpr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_design</span><span class="p">)</span>
-        <span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sigma2</span><span class="p">)</span>
-        <span class="n">af_values</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">gpr</span><span class="o">.</span><span class="n">Y</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">psi</span><span class="o">=</span><span class="n">psi</span><span class="p">)</span>
-        <span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">af_values</span><span class="p">)</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">gpr</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">X_design</span><span class="p">[</span><span class="n">i</span><span class="p">:(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="p">:]])</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">gpr</span><span class="o">.</span><span class="n">Y</span><span class="p">,</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">X_design</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:])]])</span>
-        <span class="n">gpr</span><span class="o">.</span><span class="n">set_XY</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-        <span class="c1"># Uncomment the following to optimize the hyper-parameters</span>
-        <span class="c1">#gpr.optimize()</span>
-        <span class="n">idx_opt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">gpr</span><span class="o">.</span><span class="n">Y</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
-        <span class="n">f_opt</span> <span class="o">=</span> <span class="n">gpr</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">idx_opt</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0:d}</span><span class="se">\t\t</span><span class="si">{1:1.2f}</span><span class="se">\t\t\t</span><span class="si">{2:1.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">f_opt</span><span class="p">,</span> <span class="n">af_values</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
-    <span class="n">x_opt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gpr</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">idx_opt</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">x_opt</span><span class="p">,</span> <span class="n">f_opt</span><span class="p">,</span> <span class="n">gpr</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>The code <em>maximizes</em> a function, but you want to <em>minimize</em> the loss.
-To recast the problem as a maximization problem, you need to work with <em>minus the loss</em>.
-Also, the code does not allow for a function with extra parameters (like the <code class="docutils literal notranslate"><span class="pre">t_exp</span></code> and the <code class="docutils literal notranslate"><span class="pre">y</span></code> we have for <code class="docutils literal notranslate"><span class="pre">L</span></code>).
-Here is the function that you should be optimizing:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">L</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t_exp</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-</section>
-</section>
-<section id="part-a-perform-multivariate-gaussian-process-regression-on-an-initial-set-of-data">
-<h2>Part A - Perform multivariate Gaussian process regression on an initial set of data<a class="headerlink" href="#part-a-perform-multivariate-gaussian-process-regression-on-an-initial-set-of-data" title="Permalink to this heading">#</a></h2>
-<p>We are going to search for the best parameters <span class="math notranslate nohighlight">\(x\)</span> within the set <span class="math notranslate nohighlight">\([-2,2]^5\)</span>.
-Consider the following two datasets consisting of parameter and minus loss pairs:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initial training points</span>
-<span class="n">n_init_train</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="n">X_init_train</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.0</span> <span class="o">+</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_init_train</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="n">Y_init_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">h</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X_init_train</span><span class="p">])[:,</span> <span class="kc">None</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Use a squared exponential covariance function with automatic relevance determination to do Gaussian process regression with <code class="docutils literal notranslate"><span class="pre">X_init_train</span></code> and <code class="docutils literal notranslate"><span class="pre">Y_init_train</span></code>.</p>
-<p>Hint: You may want to experiment by constraining the likelihood noise of your model to be very small, say <span class="math notranslate nohighlight">\(10^{-6}\)</span>. This is because the observations of the loss do not really have any noise.</p>
-<p><strong>Answer:</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="part-b-inspecting-your-model">
-<h2>Part B - Inspecting your model<a class="headerlink" href="#part-b-inspecting-your-model" title="Permalink to this heading">#</a></h2>
-<p>Use the lengthscale information to rank the model parameters according their effect on the calibration loss.</p>
-<p><strong>Answer:</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Your</span> <span class="n">code</span> <span class="n">here</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="part-c-diagnostics">
-<h2>Part C - Diagnostics<a class="headerlink" href="#part-c-diagnostics" title="Permalink to this heading">#</a></h2>
-<p>Here are some test data:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Test points</span>
-<span class="n">n_test</span> <span class="o">=</span> <span class="mi">50</span>
-<span class="n">X_test</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.0</span> <span class="o">+</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_test</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="n">Y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">h</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X_test</span><span class="p">])[:,</span> <span class="kc">None</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Do the following:</p>
-<ul class="simple">
-<li><p>Predictions vs observations plot</p></li>
-<li><p>Standarized errors plot</p></li>
-</ul>
-<p><strong>Answer:</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="part-d-calibrate-the-model-with-bayesian-global-optimization">
-<h2>Part D - Calibrate the model with Bayesian global optimization<a class="headerlink" href="#part-d-calibrate-the-model-with-bayesian-global-optimization" title="Permalink to this heading">#</a></h2>
-<p>Now use Bayesian global optimization with expected improvement to calibrate your model using the GP that you built above as the starting point.
-Do not expect this to give you a perfect model.
-But it will be better than nothing.
-We will get the best possible model in the next homework assignment.</p>
-<p><strong>Hint:</strong> Here you basically need to read the docstring of <code class="docutils literal notranslate"><span class="pre">maximize</span></code> and use it correctly.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># For your convenience, the `domain` argument of minimize should be:
-domain = np.array([[-2, 2], [-2, 2], [-2, 2], [-2, 2], [-2, 2]])
-# Run maximize here:
-# Your code here
-x_opt = ? # The best parameters
-</pre></div>
-</div>
-</div>
-</div>
-<p>Use this code to plot your calibrated model:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">x_opt</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.359</span><span class="p">,</span> <span class="mf">1.657</span><span class="p">,</span> <span class="mf">1.347</span><span class="p">,</span> <span class="o">-</span><span class="mf">.16</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.01</span><span class="p">])</span>
-<span class="n">Yp</span> <span class="o">=</span> <span class="n">Z</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="n">catalysis_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Yp</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model NO3-&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Yp</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model NO2-&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Yp</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">5</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model X&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Yp</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">2</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model N2&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Yp</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">3</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model NH3&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Yp</span><span class="p">[:,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">4</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model N2O&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
@@ -1859,7 +1472,7 @@ x_opt = ? # The best parameters
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-defining-priors-on-function-spaces">Problem 1 - Defining priors on function spaces</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-a-super-smooth-function-with-known-length-scale">Part A - Super smooth function with known length scale</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-b-super-smooth-function-with-known-ultra-small-length-scale">Part B - Super smooth function with known ultra small length scale</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-b-super-smooth-function-with-known-ultra-small-length-scale">Part B - Super smooth function with known ultra-small length scale</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-c-continuous-function-with-known-length-scale">Part C - Continuous function with known length scale</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-d-smooth-periodic-function-with-known-length-scale">Part D - Smooth periodic function with known length scale</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-e-smooth-periodic-function-with-known-length-scale">Part E - Smooth periodic function with known length scale</a></li>
@@ -1872,28 +1485,6 @@ x_opt = ? # The best parameters
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-b-improving-the-prior-covariance">Part B - Improving the prior covariance</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-c-predicting-the-future">Part C - Predicting the future</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-d-bayesian-information-criterion">Part D - Bayesian information criterion</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-e-plot-samples-from-the-posterior-gaussian-process">Part E - Plot samples from the posterior Gaussian process</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-using-bayesian-global-optimization-to-calibrate-an-expensive-physical-model">Problem 3 - Using Bayesian Global optimization to calibrate an expensive physical model</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-theory-of-inverse-problems">Classical theory of inverse problems</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formulation-of-inverse-problems-as-optimization-problems">Formulation of Inverse Problems as Optimization Problems</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-square-loss">The Square Loss</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-methodologies">Solution Methodologies</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#back-to-the-catalysis-model">Back to the catalysis model</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-making-our-life-easier-by-simplifying-the-notation">Step 1: Making our life easier by simplifying the notation</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-scale-the-unknown-parameters-to-your-best-of-your-abilities">Step 2: Scale the unknown parameters to your best of your abilities</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-making-the-connection-between-our-model-and-the-experimental-measurements">Step 3: Making the connection between our model and the experimental measurements</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-programming-our-ode-solver-and-the-loss-function">Step 4: Programming our ODE solver and the loss function</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-minimize-the-loss-function">Step 5: Minimize the loss function</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-a-perform-multivariate-gaussian-process-regression-on-an-initial-set-of-data">Part A - Perform multivariate Gaussian process regression on an initial set of data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-b-inspecting-your-model">Part B - Inspecting your model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-c-diagnostics">Part C - Diagnostics</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-d-calibrate-the-model-with-bayesian-global-optimization">Part D - Calibrate the model with Bayesian global optimization</a></li>
 </ul>
   </nav></div>
 
