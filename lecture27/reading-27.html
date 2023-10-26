@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,8 +38,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -66,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture27/reading-27';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Probabilistic programming with PyMC3" href="hands-on-27.1.html" />
+    <link rel="next" title="Probabilistic programming with PyMC" href="hands-on-27.1.html" />
     <link rel="prev" title="Lecture 27 - Sampling Methods" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -78,6 +79,15 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -134,6 +144,7 @@ const thebe_selector_output = ".output, .cell_output"
   
 
 <a class="navbar-brand logo" href="../index.html">
+  
   
   
   
@@ -354,7 +365,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../advanced_methods.html">Advanced Methods for Characterizing Posteriors</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-36"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 27 - Sampling Methods</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-37"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Sampling Methods</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-27.1.html">Probabilistic programming with <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-27.1.html">Probabilistic programming with <code class="docutils literal notranslate"><span class="pre">PyMC</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-27.2.html">Sampling From the Distributions With Random Walk Metropolis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-27.3.html">The Metropolis-Hastings Algorithm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-27.4.html">Gibbs Sampling</a></li>
@@ -537,10 +548,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -548,7 +559,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -575,7 +586,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-definition">Problem Definition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#markov-chains">Markov Chains</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definition">Definition</a></li>
@@ -607,39 +617,33 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="sampling-methods">
-<h1>Sampling Methods<a class="headerlink" href="#sampling-methods" title="Permalink to this heading">#</a></h1>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>These notes.</p></li>
-<li><p>Chapter 11 of Bishop 2006.</p></li>
-</ul>
-</section>
+<span id="id1"></span><h1>Sampling Methods<a class="headerlink" href="#sampling-methods" title="Permalink to this heading">#</a></h1>
+<p>For more information, see Chapter 11 of <span id="id2">[<a class="reference internal" href="../bibliography.html#id10" title="Christopher M. Bishop. Pattern Recognition and Machine Learning (Information Science and Statistics). Springer-Verlag, Berlin, Heidelberg, 2006. ISBN 0387310738.">Bishop, 2006</a>]</span></p>
 <section id="problem-definition">
 <h2>Problem Definition<a class="headerlink" href="#problem-definition" title="Permalink to this heading">#</a></h2>
 <p>We have seen that the Bayesian formulation of inverse problems results in intractable posterior distributions.
 In particular, these posteriors are known only up to a normalization constant.
-In the next series of lectures, we are going to develop methodologies that allows us to sample from these distributions.
-The most celebrated of these methodologies is Markov Chain Monte Carlo (MCMC) which has at its core the Metropolis algorithms.
-It is a long way to go, but we can state right away the problem definition and what we are set out to do.</p>
-<p>Without loss of generality, let <span class="math notranslate nohighlight">\(X\in\mathcal{X}\subset\mathbb{R}^d\)</span> be random variable with an arbitrary probability density, say <span class="math notranslate nohighlight">\(\pi(x)\)</span> known up to a normalization constant.
+In the next series of lectures, we will develop methodologies that allow us to sample from these distributions.
+The most celebrated of these methodologies is Markov Chain Monte Carlo (MCMC), which has at its core the Metropolis algorithms.
+There is a long way to go, but we can immediately state the problem definition and what we plan to do.</p>
+<p>Without loss of generality, let <span class="math notranslate nohighlight">\(X\in\mathcal{X}\subset\mathbb{R}^d\)</span> be a random variable with an arbitrary probability density, say <span class="math notranslate nohighlight">\(\pi(x)\)</span> known up to a normalization constant.
 That is, we have that:</p>
 <div class="math notranslate nohighlight">
 \[
 \pi(x) = \frac{h(x)}{Z},
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(h(x)\)</span> is a known function that we can evaluate at will, but <span class="math notranslate nohighlight">\(Z\)</span> is not known.
-Our goal is to generate samples from <span class="math notranslate nohighlight">\(\pi(x)\)</span>, by only evaluating <span class="math notranslate nohighlight">\(h(x)\)</span>.
-The revolutionary idea of Metropolis was to construct a stochastic process using only <span class="math notranslate nohighlight">\(h(x)\)</span> samples from which resemble (in some way we will specify below) samples from <span class="math notranslate nohighlight">\(\pi(x)\)</span>.
+<p>where <span class="math notranslate nohighlight">\(h(x)\)</span> is a known function that we can evaluate at will, but <span class="math notranslate nohighlight">\(Z\)</span> is unknown.
+We aim to generate samples from <span class="math notranslate nohighlight">\(\pi(x)\)</span> by only evaluating <span class="math notranslate nohighlight">\(h(x)\)</span>.
+The revolutionary idea of Metropolis was to construct a stochastic process using only <span class="math notranslate nohighlight">\(h(x)\)</span> samples which resemble (in some way we will specify below) samples from <span class="math notranslate nohighlight">\(\pi(x)\)</span>.
 To understand the details, we will have to introduce some key concepts.</p>
 </section>
 <section id="markov-chains">
 <h2>Markov Chains<a class="headerlink" href="#markov-chains" title="Permalink to this heading">#</a></h2>
 <section id="definition">
 <h3>Definition<a class="headerlink" href="#definition" title="Permalink to this heading">#</a></h3>
-<p>Let <span class="math notranslate nohighlight">\(X_n, n=1,2,\dots\)</span> be a stochastic process taking values in <span class="math notranslate nohighlight">\(\mathcal{X}\subset\mathbb{R}^d\)</span> whcih could either be discrete or continuous.
+<p>Let <span class="math notranslate nohighlight">\(X_n, n=1,2,\dots\)</span> be a stochastic process taking values in <span class="math notranslate nohighlight">\(\mathcal{X}\subset\mathbb{R}^d\)</span>, which could be discrete or continuous.
 We will refer to <span class="math notranslate nohighlight">\(n\)</span> as the <em>time step</em>.
-We say that this stochastic process is a <em>Markov chain</em> if the evolution of <span class="math notranslate nohighlight">\(X_{n+1}\)</span> depends only on the value of <span class="math notranslate nohighlight">\(X_n\)</span> and not on all the history of the process.
+We say that this stochastic process is a <em>Markov chain</em> if the evolution of <span class="math notranslate nohighlight">\(X_{n+1}\)</span> depends only on the value of <span class="math notranslate nohighlight">\(X_n\)</span> and not on the history of the process.
 Let us define this a little bit more rigorously.</p>
 <p>Let <span class="math notranslate nohighlight">\(x_1,\dots,x_n\in\mathcal{X}\)</span> be the observed values of the process up to <span class="math notranslate nohighlight">\(n\)</span>-th time step.
 The Markov property can now be expressed as:</p>
@@ -647,8 +651,8 @@ The Markov property can now be expressed as:</p>
 \[
 p(X_{n+1}=x_{n+1}|X_1=x_1,\dots,X_n=x_n) = p(X_{n+1}=x_{n+1}|X_n=x_n).
 \]</div>
-<p>If there is no ambiguity, we will be simplifying the notation by dropping the capital letters.
-That is, we will be writting:</p>
+<p>We will simplify the notation by dropping the capital letters.
+That is, we will be writing:</p>
 <div class="math notranslate nohighlight">
 \[
 p(x_{n+1}|x_1,\dots,x_n) = p(x_{n+1}|x_n).
@@ -671,7 +675,7 @@ p(x_{n+1}|x_{1:n}) = p(x_{n+1}|x_n).
 \[
 p(x_{1:n}) := P(X_1=x_1,\dots,X_n=x_n).
 \]</div>
-<p>If <span class="math notranslate nohighlight">\(X_n\)</span> is a Markov chain, then we simply have:</p>
+<p>If <span class="math notranslate nohighlight">\(X_n\)</span> is a Markov chain, then we have:</p>
 <div class="math notranslate nohighlight">
 \[
 p(x_{1:n}) = p(x_1)p(x_2|x_1)\dots p(x_n|x_{n-1}),
@@ -681,8 +685,8 @@ p(x_{1:n}) = p(x_1)p(x_2|x_1)\dots p(x_n|x_{n-1}),
 \[
 p(x_{1:n}) = p(x_1)\prod_{t=2}^np(x_t|x_{t-1}).
 \]</div>
-<p>So, we see that we know the joint distribution of a Markov chain if we know the probability of hoping from one state to the next.
-This propability is known as the transition kernel of the Markov chain.</p>
+<p>So, we know the joint distribution of a Markov chain if we know the probability of hopping from one state to the next.
+This probability is known as the transition kernel of the Markov chain.</p>
 </section>
 <section id="transition-kernel">
 <h3>Transition Kernel<a class="headerlink" href="#transition-kernel" title="Permalink to this heading">#</a></h3>
@@ -699,14 +703,14 @@ T_n:\mathcal{X}\times \mathcal{X}\rightarrow \mathbb{R}_+,
 T_n(x_n, x_{n+1}) = P(X_{n+1}=x_{n+1}|X_n=x_n).
 \]</div>
 <p>In words, <span class="math notranslate nohighlight">\(T_n(x_n, x_{n+1})\)</span> is the probability that at step <span class="math notranslate nohighlight">\(n\)</span> we jump from state <span class="math notranslate nohighlight">\(x_n\)</span> to to state <span class="math notranslate nohighlight">\(x_{n+1}\)</span>.</p>
-<p>Please, note that the transition kernel, in general, depends on the time step <span class="math notranslate nohighlight">\(n\)</span>.
-We say that the Markov chain is <em>stationary</em>, if the transition kernel does not depend on <span class="math notranslate nohighlight">\(n\)</span>, i.e., if</p>
+<p>Please note that the transition kernel generally depends on the time step <span class="math notranslate nohighlight">\(n\)</span>.
+We say that the Markov chain is <em>stationary</em> if the transition kernel does not depend on <span class="math notranslate nohighlight">\(n\)</span>, i.e., if</p>
 <div class="math notranslate nohighlight">
 \[
 T_n(x_n, x_{n+1}) = T(x_n,x_{n+1}).
 \]</div>
 <p><strong>From now on, we will only consider stationary Markov chains.</strong>
-For stationary Markov chains, and when there is now ambiguity, we will be writing:</p>
+For stationary Markov chains, and when there is no ambiguity, we will be writing:</p>
 <div class="math notranslate nohighlight">
 \[
 T(x_n,x_{n+1}) = p(x_{n+1}|x_n).
@@ -721,59 +725,62 @@ We say that the Markov chain leaves <span class="math notranslate nohighlight">\
 \[
 \pi(x) = \int \pi(x')T(x',x)dx'.
 \]</div>
-<p>In words, <span class="math notranslate nohighlight">\(\pi(x)\)</span> is invariant if when you start from a sample from it and you follow the Markov chain you get a sample from it.</p>
+<p>In other words, <span class="math notranslate nohighlight">\(\pi(x)\)</span> is invariant if you start from a sample from it and follow the Markov chain, you get a sample from it.</p>
 <p>Invariance is one of the key requirements of a working MCMC algorithm.
 Whatever you do, the chain you construct must be invariant with respect to the distribution from which you want to sample.
-If you manage to do that, then once you get one sample from your distribution, you can get as many as you want by simply following the transition kernel.</p>
+Once you get one sample from your distribution, you can get as many as you want by following the transition kernel.</p>
 </section>
 <section id="the-detailed-balance-condition">
 <h2>The Detailed Balance Condition<a class="headerlink" href="#the-detailed-balance-condition" title="Permalink to this heading">#</a></h2>
 <p>Checking invariance is not trivial for a generic Markov chain.
 However, there is a sufficient condition that guarantees invariance.
-This condition is known as the <em>detailed balance condition</em> and it is:
-$<span class="math notranslate nohighlight">\(
+This condition is known as the <em>detailed balance condition</em> and it is:</p>
+<div class="math notranslate nohighlight">
+\[
 \pi(x)T(x,x') = \pi(x')T(x',x).
-\)</span><span class="math notranslate nohighlight">\(
-In words, a Markov chain that satisfies the detailed balance condition is *reversible* in the following sense.
-The probability of sampling an \)</span>x<span class="math notranslate nohighlight">\( and transitioning to \)</span>x’$ is the same as the probability of doing the reverse.</p>
-<p>If the detailed balance condition is satisfied, then <span class="math notranslate nohighlight">\(\pi(x)\)</span> is an invariant distribution:
-$<span class="math notranslate nohighlight">\(
+\]</div>
+<p>A Markov chain that satisfies the detailed balance condition is <em>reversible</em> in the following sense.
+The probability of sampling an <span class="math notranslate nohighlight">\(x\)</span> and transitioning to <span class="math notranslate nohighlight">\(x'\)</span> is the same as the probability of doing the reverse.</p>
+<p>If the detailed balance condition is satisfied, then <span class="math notranslate nohighlight">\(\pi(x)\)</span> is an invariant distribution:</p>
+<div class="math notranslate nohighlight">
+\[
 \int \pi(x')T(x',x)dx' = \int \pi(x)T(x,x')dx' = \pi(x)\int T(x,x')dx' = \pi(x),
-\)</span><span class="math notranslate nohighlight">\(
-since
-\)</span><span class="math notranslate nohighlight">\(
+\]</div>
+<p>since</p>
+<div class="math notranslate nohighlight">
+\[
 \int T(x,x') dx' = \int p(x'|x)dx' = 1.
-\)</span>$
-The reverse does not necessarily hold.
+\]</div>
+<p>The reverse does not necessarily hold.
 The key idea of Metropolis was to construct a Markov chain that satisfies the detailed balance condition for the distribution you are interested in.</p>
 </section>
 <section id="ergodicity">
 <h2>Ergodicity<a class="headerlink" href="#ergodicity" title="Permalink to this heading">#</a></h2>
 <p>A Markov chain may have no invariant distribution (e.g., the random walk does not have an invariant distribution), one, or more than one.
-To guarantee uniqueness of the invariant distribution, need <em>ergodicity</em>.
-To define ergodicity precicely for contiuous Markov chains, we need a little bit of notation.
-In words, ergodicity requires that the random variable <span class="math notranslate nohighlight">\(X_n\)</span> converges in distribution to <span class="math notranslate nohighlight">\(\pi(x)\)</span> irrespective of the starting point.
-Obviously, this is not easy to show for a generic Markov chain.
+We need <em>ergodicity</em> to guarantee the invariant distribution’s uniqueness.
+We need a little notation to define ergodicity precisely for continuous Markov chains.
+Ergodicity requires that the random variable <span class="math notranslate nohighlight">\(X_n\)</span> converges in distribution to <span class="math notranslate nohighlight">\(\pi(x)\)</span> irrespective of the starting point.
+This is challenging to show for a generic Markov chain.
 Fortunately, we know that a Markov chain is ergodic if:</p>
 <ul class="simple">
-<li><p>it is <em>aperiodic</em> (i.e., it does not return to the same state at fixed intervals)</p></li>
-<li><p>it is <em>positive recurrent</em> (i.e., the expected number of steps for returning to the same state is finite).</p></li>
+<li><p>It is <em>aperiodic</em> (i.e., it does not return to the same state at fixed intervals);</p></li>
+<li><p>It is <em>positive recurrent</em> (i.e., the expected number of steps for returning to the same state is finite).</p></li>
 </ul>
 </section>
 <section id="equilibrium-distribution">
 <h2>Equilibrium Distribution<a class="headerlink" href="#equilibrium-distribution" title="Permalink to this heading">#</a></h2>
-<p>If a Markov chain is ergodic and it has an invariant distribution, then that invariant distribution is unique and it is called the <em>equilibrium distribution</em>.
-The Metropolis algorithms constructs a Markov chain that has a desired equilibrium distribution.</p>
+<p>If a Markov chain is ergodic and has an invariant distribution, then that invariant distribution is unique and called the <em>equilibrium distribution</em>.
+The Metropolis algorithm constructs a Markov chain that has a desired equilibrium distribution.</p>
 </section>
 <section id="the-metropolis-algorithm">
 <h2>The Metropolis Algorithm<a class="headerlink" href="#the-metropolis-algorithm" title="Permalink to this heading">#</a></h2>
-<p>Now, let’s get back to the initial problem of sampling from:</p>
+<p>Now, let’s get back to the initial problem of sampling:</p>
 <div class="math notranslate nohighlight">
 \[
 \pi(x) = \frac{h(x)}{Z},
 \]</div>
 <p>without knowing <span class="math notranslate nohighlight">\(Z\)</span>.
-In 1953, Metropolis et al. demonstrated how we can construct a Markov chain with <span class="math notranslate nohighlight">\(\pi(x)\)</span> as the equilibrium density.
+In 1953, Metropolis et al. demonstrated how to construct a Markov chain with <span class="math notranslate nohighlight">\(\pi(x)\)</span> as the equilibrium density.
 The algorithm is based on biasing an underlying symmetric, stationary Markov chain.
 Let <span class="math notranslate nohighlight">\(T(x,x')\)</span> be the transition kernel of this underlying Markov chain (also called the <em>proposal distribution</em>.
 The transition kernel must be symmetric, i.e.,</p>
@@ -781,13 +788,13 @@ The transition kernel must be symmetric, i.e.,</p>
 \[
 T(x,x') = T(x',x).
 \]</div>
-<p>A very common choice of the proposal distribution is the random walk transition kernel:</p>
+<p>A ubiquitous choice of the proposal distribution is the random walk transition kernel:</p>
 <div class="math notranslate nohighlight">
 \[
 T(x,x') = \mathcal{N}(x'|x, \Sigma).
 \]</div>
 <p>However, this is just one possibility.
-Once we have pick a proposal, we construct the desired Markov chain as follows:</p>
+Once we have picked a proposal, we construct the desired Markov chain as follows:</p>
 <ul>
 <li><p><strong>Initialization:</strong> Pick an arbitrary starting point <span class="math notranslate nohighlight">\(x_0\)</span>.</p></li>
 <li><p>For each time step <span class="math notranslate nohighlight">\(n\)</span>:</p>
@@ -799,23 +806,18 @@ Once we have pick a proposal, we construct the desired Markov chain as follows:<
 \[
     \alpha(x_n, x) = \min\left\{1, \frac{h(x)}{h(x_n)}\right\}.
     \]</div>
-<p>This is the only place where you may need to evaluate the underlying model.</p>
-<ul class="simple">
-<li><p><strong>Accept/Reject:</strong></p>
-<ul>
-<li><p>Generate a uniform number <span class="math notranslate nohighlight">\(u\sim \mathcal{U}([0,1])\)</span>.</p></li>
-<li><p>If <span class="math notranslate nohighlight">\(u\le \alpha\)</span>, <em>accept</em> and set <span class="math notranslate nohighlight">\(x_{n+1}=x\)</span>.</p></li>
-<li><p>If <span class="math notranslate nohighlight">\(u &gt; \alpha\)</span>, <em>reject</em> ad set <span class="math notranslate nohighlight">\(x_{n+1} = x_n\)</span>.</p></li>
-</ul>
 </li>
 </ul>
-</li>
-</ul>
+<p>This is the only place where you may need to evaluate the underlying model.
+- <strong>Accept/Reject:</strong>
+- Generate a uniform number <span class="math notranslate nohighlight">\(u\sim \mathcal{U}([0,1])\)</span>.
+- If <span class="math notranslate nohighlight">\(u\le \alpha\)</span>, <em>accept</em> and set <span class="math notranslate nohighlight">\(x_{n+1}=x\)</span>.
+- If <span class="math notranslate nohighlight">\(u &gt; \alpha\)</span>, <em>reject</em> ad set <span class="math notranslate nohighlight">\(x_{n+1} = x_n\)</span>.</p>
 </section>
 <section id="why-does-metropolis-work">
 <h2>Why Does Metropolis Work?<a class="headerlink" href="#why-does-metropolis-work" title="Permalink to this heading">#</a></h2>
-<p>Well, it works because it gives us a Markov chain with the desired equilibrium distribution.
-That is, a chain that has an invariant distribution of our choice that it is also ergodic.</p>
+<p>It works because it gives us a Markov chain with the desired equilibrium distribution.
+That chain has an invariant distribution of our choice that is also ergodic.</p>
 <p>To show that <span class="math notranslate nohighlight">\(\pi(x)\)</span> is the invariant distribution of the Metropolis Markov chain, we will show that the latter satisfies the detailed balance condition.
 To this end, we need the transition kernel of the chain.
 The transition kernel <span class="math notranslate nohighlight">\(K(x,x')\)</span> gives the probability that the Metropolis chain moves from <span class="math notranslate nohighlight">\(x\)</span> to <span class="math notranslate nohighlight">\(x'\)</span>.
@@ -836,7 +838,7 @@ r(x) = \int T(x, y)\alpha(x, y)dy,
 \]</div>
 <p>is the probability of accepting any move, i.e., <span class="math notranslate nohighlight">\(1 - r(x)\)</span> is the probability of not accepting the move, and <span class="math notranslate nohighlight">\(\delta(x-x')\)</span> is the Dirac delta centered at <span class="math notranslate nohighlight">\(x'\)</span>.</p>
 <p>Let’s prove that the detailed balance holds for this transition kernel.
-For <span class="math notranslate nohighlight">\(x = x'\)</span> the equation holds trivially (even though we would have to interpret it slightly differently to be 100% rigorous).
+The equation holds trivially for <span class="math notranslate nohighlight">\(x = x'\)</span> (even though we would have to interpret it slightly differently to be 100% rigorous).
 For <span class="math notranslate nohighlight">\(x\not= x'\)</span>, we have:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -851,14 +853,14 @@ For <span class="math notranslate nohighlight">\(x\not= x'\)</span>, we have:</p
 &amp;=&amp; \pi(x')K(x',x),
 \end{array}
 \end{split}\]</div>
-<p>where we also made use of the symmetry of the proposl <span class="math notranslate nohighlight">\(T(x,x') = T(x',x)\)</span>.</p>
+<p>we also used the symmetry of the proposl <span class="math notranslate nohighlight">\(T(x,x') = T(x',x)\)</span>.</p>
 </section>
 <section id="the-metropolis-hastings-algorithm">
 <h2>The Metropolis-Hastings Algorithm<a class="headerlink" href="#the-metropolis-hastings-algorithm" title="Permalink to this heading">#</a></h2>
-<p>The Metroplis algorithm requires that the proposal kernel <span class="math notranslate nohighlight">\(T(x,x')\)</span> is symmetric.
+<p>The Metropolis algorithm requires that the proposal kernel <span class="math notranslate nohighlight">\(T(x,x')\)</span> is symmetric.
 Hastings (1970) created an algorithm that does not require symmetric proposal kernels.
 The only thing that changes is the acceptance ratio.
-In every other regard, the algorithm is exactly the same:</p>
+In every other regard, the algorithm is the same:</p>
 <ul>
 <li><p><strong>Initialization:</strong> Pick an arbitrary starting point <span class="math notranslate nohighlight">\(x_0\)</span>.</p></li>
 <li><p>For each time step <span class="math notranslate nohighlight">\(n\)</span>:</p>
@@ -885,8 +887,8 @@ In every other regard, the algorithm is exactly the same:</p>
 </section>
 <section id="why-does-metropolis-hastings-work">
 <h2>Why Does Metropolis-Hastings Work?<a class="headerlink" href="#why-does-metropolis-hastings-work" title="Permalink to this heading">#</a></h2>
-<p>Well, it works because it gives us a Markov chain with the desired equilibrium distribution.
-That is, a chain that has an invariant distribution of our choice that it is also ergodic.</p>
+<p>It works because it gives us a Markov chain with the desired equilibrium distribution.
+That chain has an invariant distribution of our choice that is also ergodic.</p>
 <p>To show that <span class="math notranslate nohighlight">\(\pi(x)\)</span> is the invariant distribution of the Metropolis-Hastings Markov chain, we will show that the latter satisfies the detailed balance condition.
 To this end, we need the transition kernel of the chain.
 The transition kernel <span class="math notranslate nohighlight">\(K(x,x')\)</span> gives the probability that the Metropolis chain moves from <span class="math notranslate nohighlight">\(x\)</span> to <span class="math notranslate nohighlight">\(x'\)</span>.
@@ -904,7 +906,7 @@ r(x) = \int T(x, y)\alpha(x, y)dy,
 \)</span><span class="math notranslate nohighlight">\(
 is the probability of accepting any move, i.e., \)</span>1 - r(x)<span class="math notranslate nohighlight">\( is the probability of not accepting the move, and \)</span>\delta(x-x’)<span class="math notranslate nohighlight">\( is the Dirac delta centered at \)</span>x’$.</p>
 <p>Let’s prove that the detailed balance holds for this transition kernel.
-For <span class="math notranslate nohighlight">\(x = x'\)</span> the equation holds trivially (even though we would have to interpret it slightly differntly to be 100% rigorous).
+The equation holds trivially for <span class="math notranslate nohighlight">\(x = x'\)</span> (even though we would have to interpret it slightly differently to be 100% rigorous).
 For <span class="math notranslate nohighlight">\(x\not= x'\)</span>, we have:
 $<span class="math notranslate nohighlight">\(
 \begin{array}{ccc}
@@ -920,20 +922,20 @@ $<span class="math notranslate nohighlight">\(
 </section>
 <section id="the-metropolis-hastings-algorithm-is-not-one-algorithm">
 <h2>The Metropolis-Hastings Algorithm is Not One Algorithm!<a class="headerlink" href="#the-metropolis-hastings-algorithm-is-not-one-algorithm" title="Permalink to this heading">#</a></h2>
-<p>For every choice of proposal <span class="math notranslate nohighlight">\(T(x',x)\)</span>, you get a different MH algorithm.
-This is extremely empowering, since you can construct an MH that best exploits your problem.
+<p>You get a different MH algorithm for every choice of proposal <span class="math notranslate nohighlight">\(T(x',x)\)</span>.
+This is exceptionally empowering since you can construct an MH that best exploits your problem.
 Over the years, several cases have been proposed that are extremely useful.
 We enumerate a few:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Metropolis-adjusted_Langevin_algorithm">Metrpolis Adjusted Langevin Dynamics</a>: This algorithm uses gradient information to push your chain towards highly probable states.</p></li>
-<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Hamiltonian_Monte_Carlo">Hybrid Monte Carlo</a>: This method associates the random variables you have with the generalized coordinates of a hypothetical physical system, and the negative log of the probability density you want to sample from with a fictitious energy. The proposal follows the hypothetical Hamiltonian dynamics with randomly sampled (fake) velocities. This moves you to low energy states which are associated with high probabilities.</p></li>
-<li><p><a class="reference external" href="https://arxiv.org/abs/0907.1100">Riemannian Manifold Hamiltonian Monte Carlo</a>: One of the most advanced algorithms. Like HMC, but it exploits the Riemannian structure of the parameter space to automatically adapts to local features.</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Hamiltonian_Monte_Carlo">Hybrid Monte Carlo</a>: This method associates the random variables you have with the generalized coordinates of a hypothetical physical system and the negative log of the probability density you want to sample from with fictitious energy. The proposal follows the hypothetical Hamiltonian dynamics with randomly sampled (fake) velocities. This moves you to low-energy states associated with high probabilities.</p></li>
+<li><p><a class="reference external" href="https://arxiv.org/abs/0907.1100">Riemannian Manifold Hamiltonian Monte Carlo</a>: One of the most advanced algorithms. Like HMC, it exploits the parameter space’s Riemannian structure to adapt to local features automatically.</p></li>
 </ul>
 </section>
 <section id="metropolis-adjusted-langevin-dynamics-mala">
 <h2>Metropolis Adjusted Langevin Dynamics (MALA)<a class="headerlink" href="#metropolis-adjusted-langevin-dynamics-mala" title="Permalink to this heading">#</a></h2>
-<p>Understanding Langevin dynamics fully requires familiarity with <a class="reference external" href="https://en.wikipedia.org/wiki/It%C3%B4_calculus">Itô calculus</a>.
-The math is very advanced, but we will do our best to explain what is going on intuitively.
+<p>Understanding Langevin dynamics requires familiarity with <a class="reference external" href="https://en.wikipedia.org/wiki/It%C3%B4_calculus">Itô calculus</a>.
+The math is very advanced, but we will do our best to explain what is happening intuitively.
 Remember that we want to sample from:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -947,15 +949,15 @@ Remember that we want to sample from:</p>
 \]</div>
 <p>where the time is continuous, and <span class="math notranslate nohighlight">\(W_t\)</span> is a Brownian motion.
 This is called the Langevin equation.
-Intuitively, think of <span class="math notranslate nohighlight">\(X_t\)</span> as the position of a particle that wants to move towards regions of low potential energy <span class="math notranslate nohighlight">\(V(x)\)</span> but it is bombarded continuously by random forces.
-What we want to do, is pick a <span class="math notranslate nohighlight">\(V(x)\)</span> that will force this fictitious particle to move towards regions of high <span class="math notranslate nohighlight">\(h(x)\)</span>.
+Intuitively, think of <span class="math notranslate nohighlight">\(X_t\)</span> as the position of a particle that wants to move towards regions of low potential energy <span class="math notranslate nohighlight">\(V(x)\)</span>, but it is bombarded continuously by random forces.
+We want to pick a <span class="math notranslate nohighlight">\(V(x)\)</span> that will force this fictitious particle to move towards regions of high <span class="math notranslate nohighlight">\(h(x)\)</span>.
 This can be done in many ways, but let us take:</p>
 <div class="math notranslate nohighlight">
 \[
 V(x) = -\log h(x),
 \]</div>
 <p>because we already know the answer!
-Using the theory of stochastic differential equations one can show that the distribution of <span class="math notranslate nohighlight">\(X_t\)</span>, say <span class="math notranslate nohighlight">\(\rho_t\)</span>, converges to a stationary distribution <span class="math notranslate nohighlight">\(\rho_\infty\)</span>.
+Using the theory of stochastic differential equations, one can show that the distribution of <span class="math notranslate nohighlight">\(X_t\)</span>, say <span class="math notranslate nohighlight">\(\rho_t\)</span>, converges to a stationary distribution <span class="math notranslate nohighlight">\(\rho_\infty\)</span>.
 Well, it turns out that:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -966,30 +968,26 @@ Well, it turns out that:</p>
 \[
 \rho_\infty = \pi.
 \]</div>
-<p>So, here is the idea:</p>
-<ul class="simple">
-<li><p>simulate the Langevin equation for a large enough time</p></li>
-<li><p>and you should get a sample from <span class="math notranslate nohighlight">\(\pi\)</span>.</p></li>
-</ul>
+<p>Here is the idea: Simulate the Langevin equation for a long time, and you should get a sample from <span class="math notranslate nohighlight">\( \pi \)</span>.</p>
 <p>The only issue is that you cannot get exact sample paths from the Langevin equation.
 You have to use a time discretization scheme.
-The simplest such scheme is the Euler-Maruyama method (generalization of the Euler method for ODEs to SODEs).
+The simplest scheme is the Euler-Maruyama method (a generalization of the Euler method for ODEs to SODEs).
 You fix a time step <span class="math notranslate nohighlight">\(\Delta t &gt; 0\)</span> and you take:</p>
 <div class="math notranslate nohighlight">
 \[
 X_{n+1} = X_n + \Delta t \nabla \log h(X_n) + \sqrt{2\Delta t}Z_n,
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(Z_n\sim \mathcal{N}(0,I_d)\)</span> independent.
-This is basically a discrete time Markov chain with a non-symmetric transition kernel:</p>
+This is a discrete-time Markov chain with a non-symmetric transition kernel:</p>
 <div class="math notranslate nohighlight">
 \[
 T(x,x') = \mathcal{N}\left(x'|x + \Delta t\nabla \log h(x), 2\Delta t\right) \propto \exp\left\{-\frac{\parallel x+\Delta t\log h(x)-x'\parallel_2^2}{4\Delta t}\right\}.
 \]</div>
-<p>In the limit of <span class="math notranslate nohighlight">\(\Delta t\rightarrow 0\)</span>, you will get exact sample paths and, hence, samples from <span class="math notranslate nohighlight">\(\pi(x)\)</span>.
+<p>In the <span class="math notranslate nohighlight">\(\Delta t\rightarrow 0\)</span> limit, you will get exact sample paths and samples from <span class="math notranslate nohighlight">\(\pi(x)\)</span>.
 Unfortunately, for finite <span class="math notranslate nohighlight">\(\Delta t\)</span>, you will converge to a perturbed version of <span class="math notranslate nohighlight">\(\pi(x)\)</span>.
 Fortunately, you can use <span class="math notranslate nohighlight">\(T(x,x')\)</span> as the proposal kernel of a Metropolis-Hastings algorithm.
 In other words, you can Metropolize the discretized version of the Langevin equation.
-Then, your resulting Markov chain will satisfy the detailed balance for the right probability density and you are all set.</p>
+Then, your resulting Markov chain will satisfy the detailed balance for the right probability density, and you are all set.</p>
 </section>
 <section id="combining-transition-kernels">
 <h2>Combining Transition Kernels<a class="headerlink" href="#combining-transition-kernels" title="Permalink to this heading">#</a></h2>
@@ -1023,13 +1021,13 @@ You will still be getting samples from the target distribution.</p>
 </section>
 <section id="gibbs-sampler">
 <h2>Gibbs Sampler<a class="headerlink" href="#gibbs-sampler" title="Permalink to this heading">#</a></h2>
-<p>The Gibbs sampler is based on the idea of combining kernels that operate on groups of components of your random variables and exploit the availability of the conditional distributions.
+<p>The Gibbs sampler is based on combining kernels that operate on groups of components of your random variables and exploit the availability of the conditional distributions.
 For example, assume that <span class="math notranslate nohighlight">\(x\)</span> consists of <span class="math notranslate nohighlight">\(m\)</span> groups:</p>
 <div class="math notranslate nohighlight">
 \[
 x = (x_{g1}, \dots, x_{gm}).
 \]</div>
-<p>Note that each group may consist of more than one variables.
+<p>Note that each group may consist of more than one variable.
 That is, the number of groups <span class="math notranslate nohighlight">\(m\le d\)</span>.</p>
 <p>Let <span class="math notranslate nohighlight">\(x_{gi}\)</span> denote the <span class="math notranslate nohighlight">\(i\)</span>-th group of variables, <span class="math notranslate nohighlight">\(i=1,\dots,m\)</span>, and</p>
 <div class="math notranslate nohighlight">
@@ -1049,10 +1047,10 @@ x = (x_{gi}, x_{g,-i}).
 \]</div>
 <p>If it is possible to sample easily from this distribution, then we are all set.
 Then we say that we are using an <em>exact Gibbs sampler</em>.
-If analytical samples are not possible, then we can simply construct a Metropolis-Hastings kernel that samples from the conditional (you just think of <span class="math notranslate nohighlight">\(x_{g,-i}\)</span> as given when you are using this kernel.
-Then we say that we are using an <em>approximate Gibbs sampler</em>.</p>
-<p>There are many possible versions of the Gibbs depending on how we select from which conditional to sample next.
-The simplest version is this following in which we sample from all the conditionals in order:</p>
+If analytical samples are not possible, we can construct a Metropolis-Hastings kernel that samples from the conditional (you just think of <span class="math notranslate nohighlight">\(x_{g,-i}\)</span> as given when using this kernel.
+Then, we say we are using an <em>approximate Gibbs sampler</em>.</p>
+<p>Many possible versions of the Gibbs depend on how we select from which conditional to sample next.
+The simplest version is the following, in which we sample from all the conditionals in order:</p>
 <ul class="simple">
 <li><p>Initialize the sampler:</p></li>
 </ul>
@@ -1078,8 +1076,8 @@ x_0 = (x_{0g1},\dots,x_{0gm}).
 </ul>
 </li>
 </ul>
-<p>There various flavors of the (approximate) Gibbs sampler; each one with its own pros and cons.
-For example, another very common approach is to select <span class="math notranslate nohighlight">\(i\)</span> at random for each step <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<p>The (approximate) Gibbs sampler has various flavors, each with pros and cons.
+For example, another common approach is to select <span class="math notranslate nohighlight">\(i\)</span> at random for each step <span class="math notranslate nohighlight">\(t\)</span>.</p>
 </section>
 </section>
 
@@ -1108,11 +1106,10 @@ For example, another very common approach is to select <span class="math notrans
 
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="intro.html"
@@ -1128,14 +1125,11 @@ For example, another very common approach is to select <span class="math notrans
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Probabilistic programming with <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code></p>
+        <p class="prev-next-title">Probabilistic programming with <code class="docutils literal notranslate"><span class="pre">PyMC</span></code></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -1150,7 +1144,6 @@ For example, another very common approach is to select <span class="math notrans
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-definition">Problem Definition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#markov-chains">Markov Chains</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definition">Definition</a></li>
@@ -1217,8 +1210,8 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
 
   <footer class="bd-footer">
   </footer>

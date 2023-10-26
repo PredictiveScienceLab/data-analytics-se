@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,8 +38,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -78,6 +79,15 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -134,6 +144,7 @@ const thebe_selector_output = ".output, .cell_output"
   
 
 <a class="navbar-brand logo" href="../index.html">
+  
   
   
   
@@ -354,7 +365,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../advanced_methods.html">Advanced Methods for Characterizing Posteriors</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-36"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="intro.html">Lecture 27 - Sampling Methods</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-37"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="reading-27.html">Sampling Methods</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hands-on-27.1.html">Probabilistic programming with <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-27.1.html">Probabilistic programming with <code class="docutils literal notranslate"><span class="pre">PyMC</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-27.2.html">Sampling From the Distributions With Random Walk Metropolis</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">The Metropolis-Hastings Algorithm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-27.4.html">Gibbs Sampling</a></li>
@@ -537,10 +548,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -548,7 +559,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -575,8 +586,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#readings">Readings</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metropolis-adjusted-langevin-dynamics-mala">Metropolis Adjusted Langevin Dynamics (MALA)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-sampling-from-a-gaussian-with-mala">Example 1: Sampling from a Gaussian with MALA</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
@@ -601,12 +610,12 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">scipy</span>
@@ -638,73 +647,80 @@ document.write(`
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="the-metropolis-hastings-algorithm">
 <h1>The Metropolis-Hastings Algorithm<a class="headerlink" href="#the-metropolis-hastings-algorithm" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Use the Metropolis-Hastings algorithm (the most general Markov Chain Monte Carlo (MCMC) algorithm) to sample from an arbitrary probability density known up to a normalization constant.</p></li>
-<li><p>Build new algorithms with Metropolis-Hastings. Example: Metrpolis Adjusted Langevin Dynamics.</p></li>
-<li><p>Combining transition kernels using (approximate) Gibbs sampling to sample from complicated joint distributions.</p></li>
-<li><p>Use MCMC to calibrate the reaction kinetics problem using the Bayesian formulation.</p></li>
-</ul>
-</section>
-<section id="readings">
-<h2>Readings<a class="headerlink" href="#readings" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Chapter 11 of Bishop.</p></li>
-<li><p>These notes.</p></li>
-</ul>
-</section>
+<p>We build the Metropolis Adjusted Langevin dynamics algorithm.
+This algorithm uses the gradient of the log of the target distribution to
+guide the proposal distribution.
+It’s a pretty cool algorithm that shares some similarities with the NUTS (which is better but more complicated).</p>
 <section id="metropolis-adjusted-langevin-dynamics-mala">
 <h2>Metropolis Adjusted Langevin Dynamics (MALA)<a class="headerlink" href="#metropolis-adjusted-langevin-dynamics-mala" title="Permalink to this heading">#</a></h2>
-<p>Here is a basic implementation of the MALA algorithm we introduced in the lecture.</p>
+<p>The proposal distribution of the MALA algorithm is given by</p>
+<div class="math notranslate nohighlight">
+\[
+q(x'|x) = \mathcal{N}\left(x' | x + \Delta t \nabla \log p(x), 2\Delta t^2 I\right),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Delta t\)</span> is a step size parameter.
+Recall from calculus that the gradient of a function points in the direction of steepest ascent.
+So, the MALA algorithm is proposing a new state that is a random walk in the direction of steepest ascent of the log of the target distribution.
+It tries to take a step in the direction of the peak of the distribution.
+The gradient of the log of the target distribution is called the <em>score</em> function.
+Remember the name if you dig deeper into generative models such as diffusion.</p>
+<p>We provide a basic implementation of the MALA algorithm below.
+We use <code class="docutils literal notranslate"><span class="pre">pytorch</span></code> to compute the gradient of the log of the target distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mala</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">log_h</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">()):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Random walk metropolis.</span>
-<span class="sd">    </span>
-<span class="sd">    :param x0:     The initial point (numpy array).</span>
-<span class="sd">    :param log_h:  The logartihm of the function that is proportional to the density you want to sample from (function).</span>
-<span class="sd">                   Returns also the gradient.</span>
-<span class="sd">    :param n:      The maximum number of steps you want to take.</span>
-<span class="sd">    :param dt:     The time step you want to use.</span>
-<span class="sd">    :param args:   Any parameters to log_h</span>
-<span class="sd">    </span>
-<span class="sd">    :returns:  X, acceptance_rate</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">x0</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span>
-    <span class="c1"># Dimensionality of space</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="n">x0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="c1"># A place to store the samples</span>
-    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span>
-    <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">x0</span>
-    <span class="c1"># Previous value of log(h(x))</span>
-    <span class="n">log_h_p</span><span class="p">,</span> <span class="n">grad_log_h_p</span> <span class="o">=</span> <span class="n">log_h</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span> 
 
-    <span class="c1"># Keep track of how many samples are accepted</span>
+<span class="k">def</span> <span class="nf">mala</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">log_h</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">()):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Random walk metropolis.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x0     -- The initial point.</span>
+<span class="sd">    log_h  -- The logarithm of the target distribution.</span>
+<span class="sd">    n      -- The maximum number of steps you want to take.</span>
+<span class="sd">    dt     -- The time step you want to use.</span>
+<span class="sd">    args   -- Any parameters to log_h</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    x, acceptance_rate  -- The samples and the acceptance rate.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">x0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span>
+    <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">x0</span>
+
+    <span class="n">x0</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">log_h_p</span> <span class="o">=</span> <span class="n">log_h</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">log_h_p</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">grad_log_h_p</span> <span class="o">=</span> <span class="n">x0</span><span class="o">.</span><span class="n">grad</span>
+
     <span class="n">count_accepted</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="c1"># Start the simulation</span>
     <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)):</span>
-        <span class="c1"># Generation</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+</span> <span class="n">dt</span> <span class="o">*</span> <span class="n">grad_log_h_p</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">dt</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+        <span class="c1"># Proposal</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+</span> <span class="n">dt</span> <span class="o">*</span> <span class="n">x0</span><span class="o">.</span><span class="n">grad</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">dt</span><span class="p">)</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
         <span class="c1"># Calculation</span>
-        <span class="n">log_h_c</span><span class="p">,</span> <span class="n">grad_log_h_c</span> <span class="o">=</span> <span class="n">log_h</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="c1"># Current value of log(h(x))</span>
-        <span class="n">log_alpha_1</span> <span class="o">=</span> <span class="n">log_h_c</span> <span class="o">-</span> <span class="n">log_h_p</span>
-        <span class="n">log_T_p_to_c</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">X</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">dt</span> <span class="o">*</span> <span class="n">grad_log_h_p</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">4.</span> <span class="o">*</span> <span class="n">dt</span><span class="p">))</span>
-        <span class="n">log_T_c_to_p</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x</span> <span class="o">+</span> <span class="n">dt</span> <span class="o">*</span> <span class="n">grad_log_h_c</span> <span class="o">-</span> <span class="n">X</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">4.</span> <span class="o">*</span> <span class="n">dt</span><span class="p">))</span>
-        <span class="n">log_alpha_2</span> <span class="o">=</span> <span class="n">log_T_c_to_p</span> <span class="o">-</span> <span class="n">log_T_p_to_c</span>
-        <span class="n">log_alpha</span> <span class="o">=</span> <span class="n">log_alpha_1</span> <span class="o">+</span> <span class="n">log_alpha_2</span>
-        <span class="n">alpha</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_alpha</span><span class="p">))</span>
+        <span class="n">x</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">log_h_c</span> <span class="o">=</span> <span class="n">log_h</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">log_h_c</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">log_alpha_1</span> <span class="o">=</span> <span class="n">log_h_c</span> <span class="o">-</span> <span class="n">log_h_p</span>
+            <span class="n">grad_log_h_c</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">grad</span>
+            <span class="n">log_T_p_to_c</span> <span class="o">=</span> <span class="o">-</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">X</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">dt</span> <span class="o">*</span> <span class="n">grad_log_h_p</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">4.</span> <span class="o">*</span> <span class="n">dt</span><span class="p">))</span>
+            <span class="n">log_T_c_to_p</span> <span class="o">=</span> <span class="o">-</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x</span> <span class="o">+</span> <span class="n">dt</span> <span class="o">*</span> <span class="n">grad_log_h_c</span> <span class="o">-</span> <span class="n">X</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">4.</span> <span class="o">*</span> <span class="n">dt</span><span class="p">))</span>
+            <span class="n">log_alpha_2</span> <span class="o">=</span> <span class="n">log_T_c_to_p</span> <span class="o">-</span> <span class="n">log_T_p_to_c</span>
+            <span class="n">log_alpha</span> <span class="o">=</span> <span class="n">log_alpha_1</span> <span class="o">+</span> <span class="n">log_alpha_2</span>
+            <span class="n">alpha</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_alpha</span><span class="p">))</span>
         <span class="c1"># Accept/Reject</span>
-        <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">u</span> <span class="o">&lt;=</span> <span class="n">alpha</span><span class="p">:</span> <span class="c1"># Accept</span>
-            <span class="n">X</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">x</span>
-            <span class="n">log_h_p</span> <span class="o">=</span> <span class="n">log_h_c</span>
-            <span class="n">grad_log_h_p</span> <span class="o">=</span> <span class="n">grad_log_h_c</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">u</span> <span class="o">&lt;=</span> <span class="n">alpha</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+                <span class="n">X</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">x</span>
+                <span class="n">log_h_p</span> <span class="o">=</span> <span class="n">log_h_c</span>
+                <span class="n">grad_log_h_p</span> <span class="o">=</span> <span class="n">grad_log_h_c</span>
             <span class="n">count_accepted</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">else</span><span class="p">:</span>          <span class="c1"># Reject</span>
-            <span class="n">X</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+                <span class="n">X</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
     <span class="c1"># Empirical acceptance rate</span>
     <span class="n">acceptance_rate</span> <span class="o">=</span> <span class="n">count_accepted</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">acceptance_rate</span>
@@ -735,33 +751,35 @@ We need:</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">log_h_mvn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">Lambda</span><span class="p">):</span>
     <span class="n">tmp</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">mu</span>
-    <span class="k">return</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Lambda</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Lambda</span><span class="p">,</span> <span class="n">x</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">tmp</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="p">(</span><span class="n">Lambda</span> <span class="o">@</span> <span class="n">tmp</span><span class="p">)</span>
 
-<span class="c1"># The parameters of the disribution from which we wish to sample</span>
-<span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">5.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">])</span>
-<span class="n">Sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">.4</span><span class="p">],</span>
-                  <span class="p">[</span><span class="mf">.3</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]])</span> <span class="c1"># This has to be positive definite - otherwise you will get garbage!</span>
-<span class="n">Lambda</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">Sigma</span><span class="p">)</span>
+
+<span class="c1"># The parameters of the distribution from which we wish to sample</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">5.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">])</span>
+<span class="n">Sigma</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">.4</span><span class="p">],</span>
+                      <span class="p">[</span><span class="mf">.3</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]])</span> <span class="c1"># This has to be positive definite - otherwise you will get garbage!</span>
+
+<span class="n">Lambda</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">Sigma</span><span class="p">)</span>
 
 <span class="c1"># Initialiazation:</span>
-<span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="c1"># Parameters of the proposal:</span>
-<span class="n">dt</span> <span class="o">=</span> <span class="mf">0.15</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mf">0.1</span>
 <span class="c1"># Number of steps:</span>
 <span class="n">n</span> <span class="o">=</span> <span class="mi">10000</span>
 
 <span class="c1"># Start sampling</span>
 <span class="n">X</span><span class="p">,</span> <span class="n">acceptance_rate</span> <span class="o">=</span> <span class="n">mala</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">log_h_mvn</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">Lambda</span><span class="p">))</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Acceptance rate: </span><span class="si">%1.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">acceptance_rate</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Acceptance rate: </span><span class="si">{</span><span class="n">acceptance_rate</span><span class="si">:</span><span class="s2">1.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████████████████████████████| 10000/10000 [00:00&lt;00:00, 60722.77it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 10000/10000 [00:01&lt;00:00, 6480.25it/s]
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Acceptance rate: 0.46
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Acceptance rate: 0.91
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
@@ -772,15 +790,14 @@ We need:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">X</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">X</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$n$ (steps)&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$X_</span><span class="si">{ni}</span><span class="s1">$&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/206e4619bfefb7cd19f6a06526d1e0acb4e1b9121f29aa7aef7c2c711fb5d9b6.png" src="../_images/206e4619bfefb7cd19f6a06526d1e0acb4e1b9121f29aa7aef7c2c711fb5d9b6.png" />
-</div>
+<img alt="../_images/4f952cef81094f738d60ed75ca63b23c61d170f749718d032e78dc3c25d502a6.svg" src="../_images/4f952cef81094f738d60ed75ca63b23c61d170f749718d032e78dc3c25d502a6.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -851,11 +868,10 @@ We need:</p>
 
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="hands-on-27.2.html"
@@ -875,10 +891,7 @@ We need:</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -893,8 +906,6 @@ We need:</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#readings">Readings</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metropolis-adjusted-langevin-dynamics-mala">Metropolis Adjusted Langevin Dynamics (MALA)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-sampling-from-a-gaussian-with-mala">Example 1: Sampling from a Gaussian with MALA</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
@@ -947,8 +958,8 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
 
   <footer class="bd-footer">
   </footer>
