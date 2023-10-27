@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Gibbs Sampling &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+    <title>Hierarchical Bayesian Models &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
   
   
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,9 +38,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -144,6 +144,7 @@ const thebe_selector_output = ".output, .cell_output"
   
 
 <a class="navbar-brand logo" href="../index.html">
+  
   
   
   
@@ -367,7 +368,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l3"><a class="reference internal" href="hands-on-27.1.html">Probabilistic programming with <code class="docutils literal notranslate"><span class="pre">PyMC</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-27.2.html">Sampling From the Distributions With Random Walk Metropolis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-27.3.html">The Metropolis-Hastings Algorithm</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">Gibbs Sampling</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Hierarchical Bayesian Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hands-on-27.5.html">Sequential Monte Carlo</a></li>
 </ul>
 </li>
@@ -575,7 +576,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Gibbs Sampling</h1>
+    <h1>Hierarchical Bayesian Models</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -585,27 +586,20 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#real-data-example-1-coal-mining-disaster">Real Data Example 1 - Coal Mining Disaster</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-coal-mining-disaster">Example 1 - Coal Mining Disaster</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#information-about-the-dataset">Information about the dataset</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling-approach">Modeling Approach</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pymc3-model"><code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-and-posterior-visualization">Inference and posterior visualization</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#real-data-example-2-challenger-space-shuttle-disaster">Real Data Example 2 - Challenger Space Shuttle Disaster</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Information about the dataset</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Questions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Modeling approach</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-challenger-space-shuttle-disaster">Example 2 - Challenger Space Shuttle Disaster</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Information about the dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Questions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Modeling Approach</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question">Question:</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Inference and posterior visualization</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-predictive-distribution">Posterior predictive distribution</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Question</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyro-implementation"><code class="docutils literal notranslate"><span class="pre">Pyro</span></code> Implementation</a></li>
 </ul>
 </li>
 </ul>
@@ -627,12 +621,12 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">scipy</span>
@@ -659,66 +653,12 @@ document.write(`
 </div>
 </details>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run this on Google colab</span>
-<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pymc3<span class="w"> </span>--upgrade
-<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>arziv<span class="w"> </span>--upgrade
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
-<span class="kn">import</span> <span class="nn">theano.tensor</span> <span class="k">as</span> <span class="nn">tt</span>
-
-<span class="kn">import</span> <span class="nn">warnings</span>
-
-<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
-
-<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
-<span class="n">az</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;arviz-darkgrid&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Running on PyMC3 v</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">__version__</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Running on ArviZ v</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">az</span><span class="o">.</span><span class="n">__version__</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Running on PyMC3 v3.11.5
-Running on ArviZ v0.12.0
-</pre></div>
-</div>
-</div>
-</div>
-<section class="tex2jax_ignore mathjax_ignore" id="gibbs-sampling">
-<h1>Gibbs Sampling<a class="headerlink" href="#gibbs-sampling" title="Permalink to this heading">#</a></h1>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Combine transition kernels using (approximate) Gibbs sampling to sample from complicated joint distributions.</p></li>
-</ul>
-<p><strong>Notes:</strong></p>
-<ul class="simple">
-<li><p>We are not going to do Gibbs sampling by hand. Gibbs sampling is behind the scenes in PyMC3.
-So, we are just going to use PyMC to sample from the postrior of some somewhat complicated models.</p></li>
-<li><p>The first version of this notebook was compiled by <a class="reference external" href="https://rohittripathy.netlify.app">Dr. Rohit Tripathy</a>.</p></li>
-</ul>
-</section>
-<section id="id1">
-<h2>Objectives<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To introduce probabilistic programming as a flexible paradigm for data-driven inference.</p></li>
-<li><p>Introduce <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> - a popular probabilistic programming library.</p></li>
-<li><p>Demonstrate key features of the <code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> API and demonstrate it’s use with some simple examples.</p></li>
-</ul>
-</section>
-<section id="real-data-example-1-coal-mining-disaster">
-<h2>Real Data Example 1 - Coal Mining Disaster<a class="headerlink" href="#real-data-example-1-coal-mining-disaster" title="Permalink to this heading">#</a></h2>
-<p>We are going to work on Coal Mining disaster dataset. Consider the following time series dataset of recorded coal mining disasters in the UK from 1851 to 1962. Let us first import this dataset and visualize it.</p>
+<section class="tex2jax_ignore mathjax_ignore" id="hierarchical-bayesian-models">
+<h1>Hierarchical Bayesian Models<a class="headerlink" href="#hierarchical-bayesian-models" title="Permalink to this heading">#</a></h1>
+<p>We build some relative simple hierarchical Bayesian models in <code class="docutils literal notranslate"><span class="pre">pyro</span></code>.</p>
+<section id="example-1-coal-mining-disaster">
+<h2>Example 1 - Coal Mining Disaster<a class="headerlink" href="#example-1-coal-mining-disaster" title="Permalink to this heading">#</a></h2>
+<p>We are going to work on the Coal Mining disaster dataset. Consider the following time series dataset of recorded coal mining disasters in the UK from 1851 to 1962. Let us first import this dataset and visualize it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/PredictiveScienceLab/data-analytics-se/raw/master/lecturebook/data/coal_mining_disasters.csv&quot;</span>
@@ -825,59 +765,55 @@ So, we are just going to use PyMC to sample from the postrior of some somewhat c
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">disaster_data</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">disaster_data</span><span class="o">.</span><span class="n">disasters</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of disasters&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Recorded coal mining disasters in the UK.&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">disaster_data</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">disaster_data</span><span class="o">.</span><span class="n">disasters</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Year&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of disasters&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Recorded coal mining disasters in the UK.&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/628881fba4511650676c8e54e5c83338f054d78b52826f45448ad29a8ac2290d.png" src="../_images/628881fba4511650676c8e54e5c83338f054d78b52826f45448ad29a8ac2290d.png" />
-</div>
+<img alt="../_images/2e258bd40cebd692917601755b9dd560bc40a7c857962de25dd315ad7de4469b.svg" src="../_images/2e258bd40cebd692917601755b9dd560bc40a7c857962de25dd315ad7de4469b.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">bp</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">disaster_data</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">disaster_data</span><span class="o">.</span><span class="n">disasters</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Year&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Number of disasters&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Recorded coal mining disasters in the UK.&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Year&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Number of disasters&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Recorded coal mining disasters in the UK.&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5f511b9b6a4c6701a900bd173d7d81a947ae6166efa27be9914a7d03333186d4.png" src="../_images/5f511b9b6a4c6701a900bd173d7d81a947ae6166efa27be9914a7d03333186d4.png" />
-</div>
+<img alt="../_images/e5e2dbd8f33065af3e1acd8f82d5426c7d0e79ce24cd1aa058d609969233d15d.svg" src="../_images/e5e2dbd8f33065af3e1acd8f82d5426c7d0e79ce24cd1aa058d609969233d15d.svg" /></div>
 </div>
 <section id="questions">
 <h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
 <ol class="arabic simple">
-<li><p>How can we represent this disaster time series data? What are quantities of interests?</p></li>
-<li><p>Is ‘disasters’ variable categorial or continous? Can it be negative? What are some other constraints?</p></li>
+<li><p>How can we represent this disaster time series data? What are the quantities of interests?</p></li>
+<li><p>Is the ‘disasters’ variable categorial or continuous? Can it be negative? What are some other constraints?</p></li>
 </ol>
 </section>
 <section id="information-about-the-dataset">
 <h3>Information about the dataset<a class="headerlink" href="#information-about-the-dataset" title="Permalink to this heading">#</a></h3>
-<p>Occurrences of disasters in the time series is thought to be derived from a Poisson process with a large rate parameter in the early part of the time series (more disasters in early years), and from one with a smaller rate in the later part (less number of disasters in later years). We are interested in locating the change point in the series, which might be because of changes in mining safety regulations in latter years.</p>
+<p>Occurrences of disasters in the time series are thought to be derived from a Poisson process with a large rate parameter in the early part of the time series (more disasters in earlier years) and from one with a smaller rate in the later part (less number of disasters in later years). We are interested in locating the change point in the series, which might be because of changes in mining safety regulations in later years.</p>
 </section>
 <section id="modeling-approach">
 <h3>Modeling Approach<a class="headerlink" href="#modeling-approach" title="Permalink to this heading">#</a></h3>
-<p>How are we going to develop model for this data? A good starting point would be to think about <em>how this data might be generated?</em> Try to imagine how you would recreate the dataset. We begin by asking how our observations might have been generated.</p>
-<ol class="arabic">
-<li><p>We start by thinking “what is the best random variable to describe this count data?” A Poisson random variable is a good candidate because it can represent count data. So we model the number of coal mining related disasters as sampled from a Poisson distribution.</p></li>
-<li><p>Next, we think, “Ok, assuming number of disasters are Poisson-distributed, what do I need for the Poisson distribution?” Well, the Poisson distribution has a rate parameter <span class="math notranslate nohighlight">\(\lambda\)</span>.</p></li>
-<li><p>Do we know <span class="math notranslate nohighlight">\(\lambda\)</span>? No. In fact, we have a suspicion that there are <em>two</em> <span class="math notranslate nohighlight">\(\lambda\)</span> values, one for the earlier years and one for the later years. We don’t know when the change in this rate parameter occurs though, but call the switchpoint <span class="math notranslate nohighlight">\(\tau\)</span>.</p></li>
-<li><p>What is a good distribution for the two <span class="math notranslate nohighlight">\(\lambda\)</span>s? The exponential is good, as it assigns probabilities to positive real numbers. Well the exponential distribution has a parameter too, call it <span class="math notranslate nohighlight">\(\alpha\)</span>.</p></li>
-<li><p>Do we know what the parameter <span class="math notranslate nohighlight">\(\alpha\)</span> might be? No. At this point, we could continue and assign a distribution to <span class="math notranslate nohighlight">\(\alpha\)</span>, but it’s better to stop once we reach a set level of ignorance: whereas we have a prior belief about <span class="math notranslate nohighlight">\(\lambda\)</span>, (“it probably changes over time”, “it’s likely between 1 and 3”, etc.), we don’t really have any strong beliefs about <span class="math notranslate nohighlight">\(\alpha\)</span>. So it’s best to stop here.</p>
-<p>What is a good value for <span class="math notranslate nohighlight">\(\alpha\)</span> then? We think that the <span class="math notranslate nohighlight">\(\lambda\)</span>s are between 1-3, so if we set <span class="math notranslate nohighlight">\(\alpha\)</span> really low (which corresponds to larger probability on high values) we are not reflecting our prior well. Similar, a too-high alpha misses our prior belief as well. A good idea for <span class="math notranslate nohighlight">\(\alpha\)</span> as to reflect our belief is to set the value so that the mean of <span class="math notranslate nohighlight">\(\lambda\)</span>, given <span class="math notranslate nohighlight">\(\alpha\)</span>, is equal to our observed mean.</p>
-</li>
-<li><p>We have no expert opinion of when <span class="math notranslate nohighlight">\(\tau\)</span> might have occurred. So we will suppose <span class="math notranslate nohighlight">\(\tau\)</span> is from a discrete uniform distribution over the entire timespan.</p></li>
+<p>How are we going to develop a model for these data? Thinking about how the data might be generated is a good starting point.* Try to imagine how you would recreate the dataset. We begin by asking how our observations might have been generated.</p>
+<ol class="arabic simple">
+<li><p>We start by thinking, “What is the best random variable to describe this count data?” A Poisson random variable is a good candidate because it can represent count data. So, we model the number of coal mining-related disasters sampled from a Poisson distribution.</p></li>
+<li><p>Next, we think, “Okay, assuming the number of disasters is Poisson-distributed, what do I need for the Poisson distribution?” Well, the Poisson distribution has a rate parameter <span class="math notranslate nohighlight">\(\lambda\)</span>.</p></li>
+<li><p>Do we know <span class="math notranslate nohighlight">\(\lambda\)</span>? No. We suspect there are <em>two</em> <span class="math notranslate nohighlight">\(\lambda\)</span> values, one for earlier and one for later years. We don’t know when the change in this rate parameter occurs, though, but we call the switchpoint <span class="math notranslate nohighlight">\(\tau\)</span>.</p></li>
+<li><p>What is a good distribution for the two <span class="math notranslate nohighlight">\(\lambda\)</span>s? The exponential is good, as it assigns probabilities to positive real numbers. Well, the exponential distribution has a parameter too. Call it <span class="math notranslate nohighlight">\(\alpha\)</span>.</p></li>
+<li><p>Do we know what the parameter <span class="math notranslate nohighlight">\(\alpha\)</span> might be? No. At this point, we could continue and assign a distribution to <span class="math notranslate nohighlight">\(\alpha\)</span>. Still, it’s better to stop once we reach a set level of ignorance: whereas we have a prior belief about <span class="math notranslate nohighlight">\(\lambda\)</span> (“it probably changes over time,” “it’s likely between 1 and 3”, etc.), we don’t have any strong beliefs about <span class="math notranslate nohighlight">\(\alpha\)</span>.</p></li>
+<li><p>We know that <span class="math notranslate nohighlight">\(\alpha\)</span> is positive. But, we don’t know its exact value. So, let’s pick a distribution that assigns positive probability to positive numbers. The exponential distribution is a good choice. We will pick a rate parameter of 1.0 for the exponential distribution.</p></li>
+<li><p>We have no expert opinion of when <span class="math notranslate nohighlight">\(\tau\)</span> might have occurred. So, we will suppose <span class="math notranslate nohighlight">\(\tau\)</span> is from a discrete uniform distribution over the entire timespan.
+That’s a bit tricky to do in Pyro, so we will use a trick: we will use a <code class="docutils literal notranslate"><span class="pre">pyro.sample</span></code> statement to sample a value from a uniform distribution, and then we will use a <code class="docutils literal notranslate"><span class="pre">pyro.deterministic</span></code> statement to deterministically transform that value into an integer in the correct range.</p></li>
 </ol>
 <p>Here’s a graphical model describing the relationships between the variables in our model:</p>
 <div class="cell tag_hide-input docutils container">
@@ -892,7 +828,7 @@ So, we are just going to use PyMC to sample from the postrior of some somewhat c
 <span class="n">gcp</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">(</span><span class="s1">&#39;coal_mining_disasters_model&#39;</span><span class="p">)</span>
 
 <span class="c1"># define the nodes </span>
-<span class="n">gcp</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;alpha;&gt;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;alpha;&gt;&#39;</span><span class="p">)</span>
 <span class="n">gcp</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;tau;&gt;&#39;</span><span class="p">)</span>
 <span class="n">gcp</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;lambda_1&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;lambda;&lt;sub&gt;1&lt;/sub&gt;&gt;&#39;</span><span class="p">)</span>
 <span class="n">gcp</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;lambda_2&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;lambda;&lt;sub&gt;2&lt;/sub&gt;&gt;&#39;</span><span class="p">)</span>
@@ -913,226 +849,226 @@ So, we are just going to use PyMC to sample from the postrior of some somewhat c
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/2349d5010650fd920a7579c80382152f7a2a8120da84ace1ed840ee45c1ba811.svg" src="../_images/2349d5010650fd920a7579c80382152f7a2a8120da84ace1ed840ee45c1ba811.svg" /></div>
+<img alt="../_images/5ef38b554c29b0cbfeb521d6fa73dd1039810863b7d88c7c4d3c597e977f4cb1.svg" src="../_images/5ef38b554c29b0cbfeb521d6fa73dd1039810863b7d88c7c4d3c597e977f4cb1.svg" /></div>
 </div>
 <p>More formally, the generative model is expressed as:</p>
+<div class="math notranslate nohighlight">
+\[\alpha \sim \mathrm{Exp}(1.0),\]</div>
 <div class="math notranslate nohighlight">
 \[\lambda_1 \sim \mathrm{Exp}(\lambda_1 | \alpha),\]</div>
 <div class="math notranslate nohighlight">
 \[\lambda_2 \sim \mathrm{Exp}(\lambda_2 | \alpha),\]</div>
 <div class="math notranslate nohighlight">
-\[ \tau \sim \mathrm{DiscreteUniform}([1851, 1852, \dots, 1961]), \]</div>
+\[ \tau \sim \mathrm{Uniform}(1851, 1961), \]</div>
 <div class="math notranslate nohighlight">
-\[\lambda = 
-\begin{cases}
-\lambda_1  &amp; \text{if } t \lt \tau \cr
-\lambda_2 &amp; \text{if } t \ge \tau
+\[\lambda_i = \begin{cases}
+\lambda_1  &amp; \text{if } t_i \lt \tau \cr
+\lambda_2 &amp; \text{if } t_i \ge \tau
 \end{cases}\]</div>
 <div class="math notranslate nohighlight">
-\[\mathrm{obs}_i \sim \mathrm{Poisson}(\lambda_i)\]</div>
+\[\mathrm{obs}_i \sim \mathrm{Poisson}(\lambda_i).\]</div>
+<p>Here <span class="math notranslate nohighlight">\(t_i\)</span> is the year of the <span class="math notranslate nohighlight">\(i\)</span> th observation, and <span class="math notranslate nohighlight">\(\text{obs}_i\)</span> is the number of disasters in year <span class="math notranslate nohighlight">\(i\)</span>.</p>
 <p>We will set the rate parameter <span class="math notranslate nohighlight">\(\alpha\)</span> on the exponential priors on <span class="math notranslate nohighlight">\(\lambda_1\)</span> and <span class="math notranslate nohighlight">\(\lambda_2\)</span> as a constant.
 The latent variables to be inferred are <span class="math notranslate nohighlight">\(\lambda_1, \lambda_2, \tau\)</span>.</p>
-</section>
-<section id="pymc3-model">
-<h3><code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> model<a class="headerlink" href="#pymc3-model" title="Permalink to this heading">#</a></h3>
+<p>Let’s make this model in <code class="docutils literal notranslate"><span class="pre">pyro</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">disaster_model</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span>
-<span class="n">lower_year</span><span class="p">,</span> <span class="n">upper_year</span> <span class="o">=</span> <span class="n">years</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">years</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-<span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">pyro</span>
+<span class="kn">import</span> <span class="nn">pyro.distributions</span> <span class="k">as</span> <span class="nn">dist</span>
 
-<span class="k">with</span> <span class="n">disaster_model</span><span class="p">:</span>
-    <span class="c1"># define the prior </span>
-    <span class="n">lambda_1</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Exponential</span><span class="p">(</span><span class="s2">&quot;lambda_1&quot;</span><span class="p">,</span> <span class="n">lam</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
-    <span class="n">lambda_2</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Exponential</span><span class="p">(</span><span class="s2">&quot;lambda_2&quot;</span><span class="p">,</span> <span class="n">lam</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
-    <span class="n">tau</span>      <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">DiscreteUniform</span><span class="p">(</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="n">lower_year</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="n">upper_year</span><span class="p">)</span>
-    <span class="n">lmbda</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;lambda&#39;</span><span class="p">,</span> <span class="n">tt</span><span class="o">.</span><span class="n">switch</span><span class="p">(</span><span class="n">tau</span> <span class="o">&gt;=</span> <span class="n">years</span><span class="p">,</span> <span class="n">lambda_1</span><span class="p">,</span> <span class="n">lambda_2</span><span class="p">))</span>
-    
-    <span class="c1"># define the likelihood </span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Poisson</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">lmbda</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">disasters</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">years</span><span class="p">,</span> <span class="n">disasters</span><span class="p">):</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">years</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">years</span><span class="p">)</span>
+    <span class="n">disasters</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">disasters</span><span class="p">)</span>
+    <span class="n">tau</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="s2">&quot;tau&quot;</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">Uniform</span><span class="p">(</span><span class="mf">1851.0</span><span class="p">,</span> <span class="mf">1962.0</span><span class="p">))</span>
+    <span class="n">lambda_1</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="s2">&quot;lambda_1&quot;</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">Exponential</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
+    <span class="n">lambda_2</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="s2">&quot;lambda_2&quot;</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">Exponential</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
+    <span class="k">with</span> <span class="n">pyro</span><span class="o">.</span><span class="n">plate</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">disasters</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">lambda_</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">deterministic</span><span class="p">(</span>
+            <span class="s2">&quot;lambda&quot;</span><span class="p">,</span> 
+            <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">gt</span><span class="p">(</span><span class="n">tau</span><span class="p">,</span> <span class="n">years</span><span class="p">),</span> <span class="n">lambda_1</span><span class="p">,</span> <span class="n">lambda_2</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">pyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">Poisson</span><span class="p">(</span><span class="n">lambda_</span><span class="p">),</span> <span class="n">obs</span><span class="o">=</span><span class="n">disasters</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">locals</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+</div>
+<p>This was not that bad. But there is a problem. Let’s try to sample from the model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyro.infer</span> <span class="kn">import</span> <span class="n">MCMC</span><span class="p">,</span> <span class="n">NUTS</span>
+
+<span class="n">nuts_kernel</span> <span class="o">=</span> <span class="n">NUTS</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">jit_compile</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ignore_jit_warnings</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mcmc</span> <span class="o">=</span> <span class="n">MCMC</span><span class="p">(</span><span class="n">nuts_kernel</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">warmup_steps</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">mcmc</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">pt_years</span><span class="p">,</span> <span class="n">pt_disasters</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample: 100%|██████████| 200/200 [01:29,  2.24it/s, step size=6.11e-03, acc. prob=0.633]
+</pre></div>
+</div>
+</div>
+</div>
+<p>It takes forever. <code class="docutils literal notranslate"><span class="pre">pyro</span></code> can be very slow with sampling. It is good at variational inference (next lecture), but sometimes, if your model is complicated, it can take a long time to sample.
+Fortunately, there is an alternative.
+<code class="docutils literal notranslate"><span class="pre">numpyro</span></code> is a new library that is built on top of <code class="docutils literal notranslate"><span class="pre">jax</span></code> and <code class="docutils literal notranslate"><span class="pre">pyro</span></code>. It is much faster than <code class="docutils literal notranslate"><span class="pre">pyro</span></code> when it comes to sampling and has a similar interface. Let’s try it out.
+The main difference is that we will use <code class="docutils literal notranslate"><span class="pre">jax</span></code> instead of <code class="docutils literal notranslate"><span class="pre">torch</span></code> for the backend. I will highlight the points that differ.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The imports are all different</span>
+<span class="kn">import</span> <span class="nn">numpyro</span>
+<span class="kn">import</span> <span class="nn">numpyro.distributions</span> <span class="k">as</span> <span class="nn">dist</span>
+<span class="kn">import</span> <span class="nn">jax</span>
+<span class="kn">import</span> <span class="nn">jax.numpy</span> <span class="k">as</span> <span class="nn">jnp</span>
+
+
+<span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">years</span><span class="p">,</span> <span class="n">disasters</span><span class="p">):</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="c1"># This is different</span>
+    <span class="n">years</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">years</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">jnp</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="c1"># And this</span>
+    <span class="n">disasters</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">disasters</span><span class="p">)</span>
+    <span class="c1"># Here we only need to change the name of the library</span>
+    <span class="n">tau</span> <span class="o">=</span> <span class="n">numpyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="s2">&quot;tau&quot;</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">Uniform</span><span class="p">(</span><span class="mf">1851.0</span><span class="p">,</span> <span class="mf">1962.0</span><span class="p">))</span>
+    <span class="n">lambda_1</span> <span class="o">=</span> <span class="n">numpyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="s2">&quot;lambda_1&quot;</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">Exponential</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
+    <span class="n">lambda_2</span> <span class="o">=</span> <span class="n">numpyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="s2">&quot;lambda_2&quot;</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">Exponential</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
+    <span class="k">with</span> <span class="n">numpyro</span><span class="o">.</span><span class="n">plate</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">disasters</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="c1"># Here we are using jax instead of torch</span>
+        <span class="n">lambda_</span> <span class="o">=</span> <span class="n">numpyro</span><span class="o">.</span><span class="n">deterministic</span><span class="p">(</span>
+            <span class="s2">&quot;lambda&quot;</span><span class="p">,</span>
+            <span class="n">jnp</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">jax</span><span class="o">.</span><span class="n">lax</span><span class="o">.</span><span class="n">gt</span><span class="p">(</span><span class="n">tau</span><span class="p">,</span> <span class="n">years</span><span class="p">),</span> <span class="n">lambda_1</span><span class="p">,</span> <span class="n">lambda_2</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">numpyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">Poisson</span><span class="p">(</span><span class="n">lambda_</span><span class="p">),</span> <span class="n">obs</span><span class="o">=</span><span class="n">disasters</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">locals</span><span class="p">()</span>
+
+
+<span class="kn">from</span> <span class="nn">numpyro.infer</span> <span class="kn">import</span> <span class="n">MCMC</span><span class="p">,</span> <span class="n">NUTS</span>
+<span class="n">nuts_kernel</span> <span class="o">=</span> <span class="n">NUTS</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<span class="n">mcmc</span> <span class="o">=</span> <span class="n">MCMC</span><span class="p">(</span><span class="n">nuts_kernel</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">num_warmup</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="c1"># This is also different</span>
+<span class="n">rng_key</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">PRNGKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1"># And you need to pass it to the run method</span>
+<span class="n">mcmc</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">rng_key</span><span class="p">,</span> <span class="n">jax_years</span><span class="p">,</span> <span class="n">jax_disasters</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sample: 100%|██████████| 2000/2000 [00:02&lt;00:00, 766.78it/s, 1023 steps of size 3.00e-04. acc. prob=0.88] 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Okay, that was fast. Let’s look at the results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is different btw, it used to be mcmc.summary()</span>
+<span class="n">mcmc</span><span class="o">.</span><span class="n">print_summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                mean       std    median      5.0%     95.0%     n_eff     r_hat
+  lambda_1      1.93      0.10      1.92      1.79      2.10      7.80      1.02
+  lambda_2      0.38      0.15      0.34      0.11      0.59     10.77      1.01
+       tau   1946.65      0.46   1946.60   1946.00   1947.33     46.78      1.00
+
+Number of divergences: 0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">samples</span> <span class="o">=</span> <span class="n">mcmc</span><span class="o">.</span><span class="n">get_samples</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">samples</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="n">param</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Sample number&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="n">param</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="n">param</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">param</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="n">param</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/8bd0827ecbdf8fc9182315b046fba614ad626ee784ede427089327bae055cd88.svg" src="../_images/8bd0827ecbdf8fc9182315b046fba614ad626ee784ede427089327bae055cd88.svg" /><img alt="../_images/e3a7d8d7fa5e4d513ce4750aeeb1c0032aa07c782726e2bb5afd383d6a797558.svg" src="../_images/e3a7d8d7fa5e4d513ce4750aeeb1c0032aa07c782726e2bb5afd383d6a797558.svg" /><img alt="../_images/fece8cd5314c31fbeee4ba6f0cb02096001a5bf7743d1a9c9c27f755d365ef49.svg" src="../_images/fece8cd5314c31fbeee4ba6f0cb02096001a5bf7743d1a9c9c27f755d365ef49.svg" /><img alt="../_images/1174d366d2cc377a7f94639ec59e982996e6ffd6b57834bdd1cdc48c780baac8.svg" src="../_images/1174d366d2cc377a7f94639ec59e982996e6ffd6b57834bdd1cdc48c780baac8.svg" /><img alt="../_images/ca4fc9cdadb59d633b6a0ba67603339a0e346771591898b79d751fb0d0788dec.svg" src="../_images/ca4fc9cdadb59d633b6a0ba67603339a0e346771591898b79d751fb0d0788dec.svg" /><img alt="../_images/87e22cc65efabf875b39026655892e8c557b0ae138062dd8de5f926eb9512ba3.svg" src="../_images/87e22cc65efabf875b39026655892e8c557b0ae138062dd8de5f926eb9512ba3.svg" /></div>
+</div>
+<p>Let’s finish by plotting the rate parameter <span class="math notranslate nohighlight">\(\lambda\)</span> over time.
+Recall that <span class="math notranslate nohighlight">\(\lambda\)</span> is different depending on whether the year is before or after the switchpoint <span class="math notranslate nohighlight">\(\tau\)</span>.
+Also, <span class="math notranslate nohighlight">\(\lambda\)</span> is a deterministic function of <span class="math notranslate nohighlight">\(\lambda_1\)</span>, <span class="math notranslate nohighlight">\(\lambda_2\)</span> and <span class="math notranslate nohighlight">\(\tau\)</span>.
+It is not stored in the samples, but we can compute it from them.
+This is done through the <code class="docutils literal notranslate"><span class="pre">numpyro.infer.Predictive</span></code>.
+Here is how:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predict</span> <span class="o">=</span> <span class="n">numpyro</span><span class="o">.</span><span class="n">infer</span><span class="o">.</span><span class="n">Predictive</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">samples</span><span class="p">)(</span><span class="n">rng_key</span><span class="p">,</span> <span class="n">jax_years</span><span class="p">,</span> <span class="n">jax_disasters</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_items([(&#39;lambda&#39;, Array([[1.9828763 , 1.9828763 , 1.9828763 , ..., 0.40891236, 0.40891236,
+        0.40891236],
+       [1.9894089 , 1.9894089 , 1.9894089 , ..., 0.40647042, 0.40647042,
+        0.40647042],
+       [1.9763205 , 1.9763205 , 1.9763205 , ..., 0.39520258, 0.39520258,
+        0.39520258],
+       ...,
+       [1.9366734 , 1.9366734 , 1.9366734 , ..., 0.35683027, 0.35683027,
+        0.35683027],
+       [2.000598  , 2.000598  , 2.000598  , ..., 0.3435446 , 0.3435446 ,
+        0.3435446 ],
+       [1.9987974 , 1.9987974 , 1.9987974 , ..., 0.37061924, 0.37061924,
+        0.37061924]], dtype=float32)), (&#39;obs&#39;, Array([[4, 5, 4, ..., 1, 0, 1],
+       [4, 5, 4, ..., 1, 0, 1],
+       [4, 5, 4, ..., 1, 0, 1],
+       ...,
+       [4, 5, 4, ..., 1, 0, 1],
+       [4, 5, 4, ..., 1, 0, 1],
+       [4, 5, 4, ..., 1, 0, 1]], dtype=int32))])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">lambda_050</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">predict</span><span class="p">[</span><span class="s2">&quot;lambda&quot;</span><span class="p">],</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">lambda_500</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">predict</span><span class="p">[</span><span class="s2">&quot;lambda&quot;</span><span class="p">],</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">lambda_950</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">predict</span><span class="p">[</span><span class="s2">&quot;lambda&quot;</span><span class="p">],</span> <span class="mf">0.95</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">jax_years</span><span class="p">,</span> <span class="n">lambda_500</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">jax_years</span><span class="p">,</span> <span class="n">lambda_050</span><span class="p">,</span> <span class="n">lambda_950</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Year&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Rate of coal mining disasters&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Posterior distribution of the rate of coal mining disasters&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/5b8aa06da18ac87e93e2b99c571525cf386e95415d93936fc1525ed49b3c23bc.svg" src="../_images/5b8aa06da18ac87e93e2b99c571525cf386e95415d93936fc1525ed49b3c23bc.svg" /></div>
 </div>
 </section>
-<section id="inference-and-posterior-visualization">
-<h3>Inference and posterior visualization<a class="headerlink" href="#inference-and-posterior-visualization" title="Permalink to this heading">#</a></h3>
-<p>Now let’s infer the hidden parameters with MCMC.
-The Gibbs sampler is operating on the background along with a different Metropolis-Hastings algorithm associated with each parameter.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">disaster_model</span><span class="p">:</span>
-    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">draws</span><span class="o">=</span><span class="mi">40000</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Multiprocess sampling (4 chains in 4 jobs)
-CompoundStep
-&gt;NUTS: [lambda_2, lambda_1]
-&gt;Metropolis: [tau]
-</pre></div>
-</div>
-<div class="output text_html">
-<style>
-    /* Turns off some styling */
-    progress {
-        /* gets rid of default border in Firefox and Opera. */
-        border: none;
-        /* Needs to be in here for Safari polyfill so background images work as expected. */
-        background-size: auto;
-    }
-    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-        background: #F44336;
-    }
-</style>
-</div><div class="output text_html">
-    <div>
-      <progress value='164000' class='' max='164000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [164000/164000 00:10<00:00 Sampling 4 chains, 0 divergences]
-    </div>
-    </div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/lib/python3.9/site-packages/scipy/stats/_continuous_distns.py:624: RuntimeWarning: overflow encountered in _beta_ppf
-  return _boost._beta_ppf(q, a, b)
-/opt/homebrew/lib/python3.9/site-packages/scipy/stats/_continuous_distns.py:624: RuntimeWarning: overflow encountered in _beta_ppf
-  return _boost._beta_ppf(q, a, b)
-/opt/homebrew/lib/python3.9/site-packages/scipy/stats/_continuous_distns.py:624: RuntimeWarning: overflow encountered in _beta_ppf
-  return _boost._beta_ppf(q, a, b)
-/opt/homebrew/lib/python3.9/site-packages/scipy/stats/_continuous_distns.py:624: RuntimeWarning: overflow encountered in _beta_ppf
-  return _boost._beta_ppf(q, a, b)
-Sampling 4 chains for 1_000 tune and 40_000 draw iterations (4_000 + 160_000 draws total) took 16 seconds.
-The number of effective samples is smaller than 25% for some parameters.
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="o">=</span><span class="n">pm</span><span class="o">.</span><span class="n">traceplot</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda_1&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda_2&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/5y/28n32xmx0551k29hd21qs87c0000gp/T/ipykernel_43649/4119530376.py:1: DeprecationWarning: The function `traceplot` from PyMC3 is just an alias for `plot_trace` from ArviZ. Please switch to `pymc3.plot_trace` or `arviz.plot_trace`.
-  _=pm.traceplot(trace, var_names=[&#39;tau&#39;, &#39;lambda_1&#39;, &#39;lambda_2&#39;])
-Got error No model on context stack. trying to find log_likelihood in translation.
-Got error No model on context stack. trying to find log_likelihood in translation.
-</pre></div>
-</div>
-<img alt="../_images/514d7052b9b322f042a7106a8e6fddfe7ac8d5c514c68115cf764dcf128d283e.png" src="../_images/514d7052b9b322f042a7106a8e6fddfe7ac8d5c514c68115cf764dcf128d283e.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="o">=</span><span class="n">pm</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda_1&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda_2&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Got error No model on context stack. trying to find log_likelihood in translation.
-</pre></div>
-</div>
-<img alt="../_images/22ed51065b9a936f17322cc0969a90d70495b313dcd9acb2df51560ad7326470.png" src="../_images/22ed51065b9a936f17322cc0969a90d70495b313dcd9acb2df51560ad7326470.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="o">=</span><span class="n">pm</span><span class="o">.</span><span class="n">plot_autocorr</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span><span class="s1">&#39;lambda_1&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda_2&#39;</span><span class="p">],</span> <span class="n">combined</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Got error No model on context stack. trying to find log_likelihood in translation.
-</pre></div>
-</div>
-<img alt="../_images/1ef2687cb9139ed429263f37c5191787e81c4b9905e58078a12fa3bced88e2e7.png" src="../_images/1ef2687cb9139ed429263f37c5191787e81c4b9905e58078a12fa3bced88e2e7.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thinned_trace</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="mi">10000</span><span class="p">::</span><span class="mi">10</span><span class="p">]</span>
-<span class="n">_</span><span class="o">=</span><span class="n">pm</span><span class="o">.</span><span class="n">plot_autocorr</span><span class="p">(</span><span class="n">thinned_trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda_1&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda_2&#39;</span><span class="p">],</span> <span class="n">combined</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Got error No model on context stack. trying to find log_likelihood in translation.
-</pre></div>
-</div>
-<img alt="../_images/71ee7d5af6cb20b3e1759b9024caa07b4384159e96162718e247826aa10c9489.png" src="../_images/71ee7d5af6cb20b3e1759b9024caa07b4384159e96162718e247826aa10c9489.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm</span><span class="o">.</span><span class="n">traceplot</span><span class="p">(</span><span class="n">thinned_trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda_1&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda_2&#39;</span><span class="p">]);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/5y/28n32xmx0551k29hd21qs87c0000gp/T/ipykernel_43649/191797834.py:1: DeprecationWarning: The function `traceplot` from PyMC3 is just an alias for `plot_trace` from ArviZ. Please switch to `pymc3.plot_trace` or `arviz.plot_trace`.
-  pm.traceplot(thinned_trace, var_names=[&#39;tau&#39;, &#39;lambda_1&#39;, &#39;lambda_2&#39;]);
-Got error No model on context stack. trying to find log_likelihood in translation.
-Got error No model on context stack. trying to find log_likelihood in translation.
-</pre></div>
-</div>
-<img alt="../_images/2135bdafde7f4ec61fa2aebde1ca423358d9fe9cce428344604ae880190df5be.png" src="../_images/2135bdafde7f4ec61fa2aebde1ca423358d9fe9cce428344604ae880190df5be.png" />
-</div>
-</div>
-<p>We can now use the samples from the posterior of the unknown parameters in this model to estimate the expected number of disasters between <span class="math notranslate nohighlight">\(t = 1851\)</span> and <span class="math notranslate nohighlight">\(t=1962\)</span>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ppsamples</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> 
-                                           <span class="n">model</span><span class="o">=</span><span class="n">disaster_model</span><span class="p">,</span> 
-                                           <span class="n">trace</span><span class="o">=</span><span class="n">thinned_trace</span><span class="p">)[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">bp</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">disaster_data</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">disaster_data</span><span class="o">.</span><span class="n">disasters</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">disaster_data</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">ppsamples</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> 
-         <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Posterior predictive expectation&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Year&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Number of disasters&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Recorded coal mining disasters in the UK.&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/lib/python3.9/site-packages/pymc3/sampling.py:1708: UserWarning: samples parameter is smaller than nchains times ndraws, some draws and/or chains may not be represented in the returned posterior predictive sample
-  warnings.warn(
-</pre></div>
-</div>
-<div class="output text_html">
-<style>
-    /* Turns off some styling */
-    progress {
-        /* gets rid of default border in Firefox and Opera. */
-        border: none;
-        /* Needs to be in here for Safari polyfill so background images work as expected. */
-        background-size: auto;
-    }
-    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-        background: #F44336;
-    }
-</style>
-</div><div class="output text_html">
-    <div>
-      <progress value='2000' class='' max='2000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [2000/2000 00:00<00:00]
-    </div>
-    </div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x1779a61f0&gt;
-</pre></div>
-</div>
-<img alt="../_images/9ed95bbe6eadc716e47236c175165e9e4960fbf5084d047b0ed1a32ca07a6360.png" src="../_images/9ed95bbe6eadc716e47236c175165e9e4960fbf5084d047b0ed1a32ca07a6360.png" />
-</div>
-</div>
 </section>
-</section>
-<section id="real-data-example-2-challenger-space-shuttle-disaster">
-<h2>Real Data Example 2 - Challenger Space Shuttle Disaster<a class="headerlink" href="#real-data-example-2-challenger-space-shuttle-disaster" title="Permalink to this heading">#</a></h2>
-<p>For this tutorial, we are going to work on Challenger space shuttle disaster dataset.
-We have revisited the problem in <a class="reference external" href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/homework/homework_05.ipynb">HW 5</a>. There, we used logistic regression and we trained it with maximum likelihood.
+<section id="example-2-challenger-space-shuttle-disaster">
+<h2>Example 2 - Challenger Space Shuttle Disaster<a class="headerlink" href="#example-2-challenger-space-shuttle-disaster" title="Permalink to this heading">#</a></h2>
+<p>For this tutorial, we will work on the Challenger space shuttle disaster dataset.
+We have revisited the problem in <a class="reference external" href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/homework/homework_05.ipynb">HW 5</a>. There, we used logistic regression, and we trained it with maximum likelihood.
 We can now follow a Bayesian approach to the fullest extent.</p>
-<p>On January 28, 1986, the twenty-fifth flight of the U.S. space shuttle program ended in disaster when one of the rocket boosters of the Shuttle Challenger exploded shortly after lift-off, killing all seven crew members. The presidential commission on the accident concluded that it was caused by the failure of an O-ring in a field joint on the rocket booster, and that this failure was due to a faulty design that made the O-ring unacceptably sensitive to a number of factors including outside temperature. Of the previous 24 flights, data were available on failures of O-rings on 23, (one was lost at sea), and these data were discussed on the evening preceding the Challenger launch, but unfortunately only the data corresponding to the 7 flights on which there was a damage incident were considered important and these were thought to show no obvious trend. The data are shown below:</p>
+<p>On January 28, 1986, the twenty-fifth flight of the U.S. space shuttle program ended in disaster when one of the rocket boosters of the Shuttle Challenger exploded shortly after lift-off, killing all seven crew members. The presidential commission on the accident concluded that it was caused by the failure of an O-ring in a field joint on the rocket booster. This failure was due to a faulty design that made the O-ring unacceptably sensitive to several factors, including outside temperature. Of the previous 24 flights, data were available on failures of O-rings on 23 (one was lost at sea), and these data were discussed on the evening preceding the Challenger launch. Unfortunately, only the data corresponding to the seven flights on which there was a damage incident were considered important, and these were thought to show no obvious trend. The data are shown below:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/PredictiveScienceLab/data-analytics-se/raw/master/lecturebook/data/challenger_data.csv&quot;</span>
@@ -1184,48 +1120,45 @@ We can now follow a Bayesian approach to the fullest extent.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot it, as a function of temperature (the first column)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> 
-         <span class="n">markersize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Damage Incident?&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Outside temperature (Fahrenheit)&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Defects of the Space Shuttle O-Rings vs temperature&quot;</span><span class="p">,</span>
-          <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ro&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Damage Incident?&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Outside temperature (Fahrenheit)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Defects of the Space Shuttle O-Rings vs temperature&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/66e963505fa527e9226b28d96aaff4358e2247553b0aa556a75127cd4b3ac309.png" src="../_images/66e963505fa527e9226b28d96aaff4358e2247553b0aa556a75127cd4b3ac309.png" />
+<img alt="../_images/22096b2426604bc9e5adfe2c5e744aa9794d3bdafcbf0eca0239e3b2c4578fd4.svg" src="../_images/22096b2426604bc9e5adfe2c5e744aa9794d3bdafcbf0eca0239e3b2c4578fd4.svg" /></div>
 </div>
-</div>
+<section id="id1">
+<h3>Information about the dataset<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>It looks clear that <em>the probability</em> of damage incidents occurring increases as the outside temperature decreases. We are interested in modeling the probability here because it does not look like there is a strict cutoff point between temperature and a damage incident occurring. The best we can do is ask, “At temperature <span class="math notranslate nohighlight">\(t\)</span>, what is the probability of a damage incident?”. The goal of this example is to answer that question.</p>
+</section>
 <section id="id2">
-<h3>Information about the dataset<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
-<p>It looks clear that <em>the probability</em> of damage incidents occurring increases as the outside temperature decreases. We are interested in modeling the probability here because it does not look like there is a strict cutoff point between temperature and a damage incident occurring. The best we can do is ask “At temperature <span class="math notranslate nohighlight">\(t\)</span>, what is the probability of a damage incident?”. The goal of this example is to answer that question.</p>
+<h3>Questions<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>How can we represent this disaster binary 1/0 data? What are the quantities of interests?</p></li>
+<li><p>Is the “damage incident” variable categorical or continuous? What are some other constraints?</p></li>
+</ul>
 </section>
 <section id="id3">
-<h3>Questions<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
-<ol class="arabic simple">
-<li><p>How can we represent this disaster binary 1/0 data? What are quantities of interests?</p></li>
-<li><p>Is ‘damage incident’ variable categorial or continous? What are some other constraints?</p></li>
-</ol>
-</section>
-<section id="id4">
-<h3>Modeling approach<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
-<p>How are we going to develop model for this data? A good starting point would be to think about <em>how this data might be generated?</em> Try to imagine how you would recreate the dataset. We begin by asking how our observations might have been generated.</p>
+<h3>Modeling Approach<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>How are we going to develop a model for this data? Thinking about how this data might be generated is a good starting point.* Try to imagine how you would recreate the dataset. We begin by asking how our observations might have been generated.</p>
 <ul class="simple">
-<li><p>We start by thinking “what is the best random variable to describe this binary categorical data?” A Bernoulli random variable is a good candidate because it can represent binary data. So we model the variable of ‘damage incident’ as sampled from a Bernoulli distribution. A <em>Bernoulli</em> random variable with parameter <span class="math notranslate nohighlight">\(p\)</span>, denoted <span class="math notranslate nohighlight">\(\text{Ber}(p)\)</span>, is a random variable that takes value 1 with probability <span class="math notranslate nohighlight">\(p\)</span>, and 0 else. Thus, our model can look like:</p></li>
+<li><p>We start by thinking, “what is the best random variable to describe this binary categorical data?” A Bernoulli random variable is a good candidate because it can represent binary data. So, we model the <code class="docutils literal notranslate"><span class="pre">defect</span> <span class="pre">incident</span></code> variable as sampled from a Bernoulli distribution. A <em>Bernoulli</em> random variable with parameter <span class="math notranslate nohighlight">\(p\)</span>, denoted <span class="math notranslate nohighlight">\(\text{Ber}(p)\)</span>, is a random variable that takes value 1 with probability <span class="math notranslate nohighlight">\(p\)</span>, and 0 else. Thus, our model can look like:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[ \text{Defect Incident, $D_i$} \sim \text{Ber}( \;p_i\; ), \;\; i=1..N\]</div>
 <ul class="simple">
-<li><p>Next, we think, “Ok, assuming damage incident variable is Bernoulli-distributed, what do I need for the Bernoulli distribution?” Well, the Bernoulli distribution has a probability parameter <span class="math notranslate nohighlight">\(p_i\)</span>.</p></li>
-<li><p>Do we know <span class="math notranslate nohighlight">\(p_i\)</span> parameter? No. But we have a suspicion (intuition) that this parameter is dependent on outside temperature values. Less the value of outside temperature, more is the probability of damage incident. More the value of outside temperature, less is the probability of damage incident. With slight abuse in notation, we can define this as:</p></li>
+<li><p>Next, we think, “Okay, assuming the damage incident variable is Bernoulli-distributed, what do I need for the Bernoulli distribution?” Well, the Bernoulli distribution has a probability parameter <span class="math notranslate nohighlight">\(p_i\)</span>.</p></li>
+<li><p>Do we know the <span class="math notranslate nohighlight">\(p_i\)</span> parameter? No. But, we suspect (intuition) that this parameter depends on outside temperature values. The lower the outside temperature value, the greater the probability of damage incident. The higher the outside temperature value, the less the probability of damage incident. With slight abuse in notation, we can define this as:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[p_i = p(t_i) = \sigma(t_i),\]</div>
-<p>where <span class="math notranslate nohighlight">\(\sigma: \mathbb{R} \rightarrow (0, 1)\)</span> is a suitable function that maps arbitrary temperature values to the interval <span class="math notranslate nohighlight">\((0, 1)\)</span> (so that we can then interpret the output of <span class="math notranslate nohighlight">\(\sigma\)</span> as a probability). For this problem, we are going to use logistic link function which is given as:</p>
+<p>where <span class="math notranslate nohighlight">\(\sigma: \mathbb{R} \rightarrow (0, 1)\)</span> is a suitable function that maps arbitrary temperature values to the interval <span class="math notranslate nohighlight">\((0, 1)\)</span> (so that we can then interpret the output of <span class="math notranslate nohighlight">\(\sigma\)</span> as a probability). For this problem, we are going to use the logistic link function, which is given as:</p>
 <div class="math notranslate nohighlight">
 \[\sigma(t) = \frac{1}{ 1 + e^{ \;\beta t + \alpha } } \]</div>
 <p>Some plots are shown below, with differing <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> parameter values:</p>
@@ -1235,7 +1168,7 @@ We can now follow a Bayesian approach to the fullest extent.</p>
     <span class="k">return</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">alpha</span><span class="p">))</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">alphas</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
 <span class="n">betas</span>  <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">]</span>
 <span class="n">params</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">alphas</span><span class="p">,</span> <span class="n">betas</span><span class="p">)</span>
@@ -1243,23 +1176,23 @@ We can now follow a Bayesian approach to the fullest extent.</p>
     <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">param</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">alpha$ = </span><span class="si">%d</span><span class="s2">, $</span><span class="se">\\</span><span class="s2">beta$ = </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">logistic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">alpha</span><span class="p">),</span>
-             <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> 
-             <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Logistic functon with bias&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">);</span>
+             <span class="n">label</span><span class="o">=</span><span class="n">label</span>
+    <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Logistic functon with bias&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/04de15b1e60549009a26d637335eb7061f99916170dc46bc07c69d4b1538281b.png" src="../_images/04de15b1e60549009a26d637335eb7061f99916170dc46bc07c69d4b1538281b.png" />
-</div>
+<img alt="../_images/badfae9d46d7f09ce0dff6530ee23bf992f9aeb1d030edefd8f48056caf9f1aa.svg" src="../_images/badfae9d46d7f09ce0dff6530ee23bf992f9aeb1d030edefd8f48056caf9f1aa.svg" /></div>
 </div>
 <section id="question">
 <h4>Question:<a class="headerlink" href="#question" title="Permalink to this heading">#</a></h4>
-<p><strong>How can we represent  <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> parameter values? Are they categorical or continous? Do they need to be positive?</strong></p>
-<p>The <span class="math notranslate nohighlight">\(\beta, \alpha\)</span> parameters have no reason to be positive, bounded or relatively large, so they are best modeled by a <em>Normal random variable</em>. Since we dont have any prior beliefs about the value of parameters beta or alpha, we place a vague prior Normal distribution (small precision, large variance) over their values.</p>
+<ul class="simple">
+<li><p>How can we represent  <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> parameter values? Are they categorical or continuous? Do they need to be positive?__</p></li>
+</ul>
+<p>The <span class="math notranslate nohighlight">\(\beta, \alpha\)</span> parameters have no reason to be positive, bounded, or relatively large, so they are best modeled by a <em>Normal random variable</em>. Since we do not have any prior beliefs about the value of parameters beta or alpha, we place a vague prior Normal distribution (small precision, large variance) over their values.</p>
 <p>The graphical model for the data generation process is shown below.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1290,234 +1223,111 @@ We can now follow a Bayesian approach to the fullest extent.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/881ae309577e8a3ecd03cc4a99f7b7d90e15f0a05247f95791c53cc8f05c57f0.svg" src="../_images/881ae309577e8a3ecd03cc4a99f7b7d90e15f0a05247f95791c53cc8f05c57f0.svg" /></div>
+<img alt="../_images/bdf993bccd63567fa98a78a22886a15d9ccd32e02435238455a153223f91cbc1.svg" src="../_images/bdf993bccd63567fa98a78a22886a15d9ccd32e02435238455a153223f91cbc1.svg" /></div>
 </div>
 </section>
 </section>
-<section id="id5">
-<h3><code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> model<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<section id="pyro-implementation">
+<h3><code class="docutils literal notranslate"><span class="pre">Pyro</span></code> Implementation<a class="headerlink" href="#pyro-implementation" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># gather the data and apply preprocessing if any </span>
-<span class="n">temp</span> <span class="o">=</span> <span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
-<span class="n">temp_scaled</span> <span class="o">=</span> <span class="p">(</span><span class="n">temp</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">temp</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">challenger</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">failure</span><span class="p">):</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">numpyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="s2">&quot;alpha&quot;</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">numpyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="s2">&quot;beta&quot;</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">numpyro</span><span class="o">.</span><span class="n">deterministic</span><span class="p">(</span>
+        <span class="s2">&quot;p&quot;</span><span class="p">,</span> 
+        <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">jnp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">beta</span> <span class="o">*</span> <span class="n">temperature</span> <span class="o">+</span> <span class="n">alpha</span><span class="p">))</span>
+    <span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">numpyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">Bernoulli</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="n">obs</span><span class="o">=</span><span class="n">failure</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">locals</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here is how the model looks like graphically:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">numpyro</span><span class="o">.</span><span class="n">render_model</span><span class="p">(</span><span class="n">challenger</span><span class="p">,</span> <span class="n">model_args</span><span class="o">=</span><span class="p">(</span><span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]),</span> <span class="n">render_distributions</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/24c41f03997f5082a3eadf5461a3c08965a5d3440194f08a7d3009aead9ee6c0.svg" src="../_images/24c41f03997f5082a3eadf5461a3c08965a5d3440194f08a7d3009aead9ee6c0.svg" /></div>
+</div>
+<p>Let’s sample from it:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nuts_kernel</span> <span class="o">=</span> <span class="n">NUTS</span><span class="p">(</span><span class="n">challenger</span><span class="p">)</span>
+<span class="n">mcmc</span> <span class="o">=</span> <span class="n">MCMC</span><span class="p">(</span><span class="n">nuts_kernel</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">num_warmup</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">rng_key</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">PRNGKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">mcmc</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">rng_key</span><span class="p">,</span> <span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">mcmc</span><span class="o">.</span><span class="n">print_summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sample: 100%|██████████| 2000/2000 [00:01&lt;00:00, 1677.74it/s, 39 steps of size 7.18e-02. acc. prob=0.96]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                mean       std    median      5.0%     95.0%     n_eff     r_hat
+     alpha    -11.21      5.33    -10.75    -19.99     -2.93    137.53      1.00
+      beta      0.18      0.08      0.17      0.05      0.30    132.25      1.00
 
-<span class="c1"># instantiate the pymc3 model</span>
-<span class="n">challenger_model</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span>
+Number of divergences: 0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here are all the posterior distributions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">samples</span> <span class="o">=</span> <span class="n">mcmc</span><span class="o">.</span><span class="n">get_samples</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">samples</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">param</span> <span class="o">==</span> <span class="s2">&quot;p&quot;</span><span class="p">:</span>
+        <span class="k">continue</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="n">param</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Sample number&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="n">param</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 
-<span class="c1"># define the graph </span>
-<span class="k">with</span> <span class="n">challenger_model</span><span class="p">:</span>
-    <span class="c1"># define the prior</span>
-    <span class="n">alpha</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">10.</span><span class="p">)</span>
-    <span class="n">beta</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">10.</span><span class="p">)</span>
-    
-    <span class="c1"># get the probabilities of failure at each observed temp </span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="mf">1.</span><span class="o">/</span><span class="p">(</span><span class="mf">1.</span> <span class="o">+</span> <span class="n">tt</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">alpha</span> <span class="o">+</span> <span class="n">beta</span><span class="o">*</span><span class="n">temp_scaled</span><span class="p">)))</span>
-    
-    <span class="c1"># define the likelihood </span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Bernoulli</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Challenger space shuttle disaster model:&quot;</span><span class="p">)</span>
-<span class="n">challenger_model</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="n">param</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">param</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="n">param</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Challenger space shuttle disaster model:
-</pre></div>
+<img alt="../_images/1de27177e64161126e9c17df4125ea67aa947c72ecc26dd754915cfdd94c52e6.svg" src="../_images/1de27177e64161126e9c17df4125ea67aa947c72ecc26dd754915cfdd94c52e6.svg" /><img alt="../_images/e05a6d55135c319e1eb397a0e4c270d22aaac31b1294c1321275f6f196a6ed45.svg" src="../_images/e05a6d55135c319e1eb397a0e4c270d22aaac31b1294c1321275f6f196a6ed45.svg" /><img alt="../_images/179cda3c5ca631b0dab767691a319a7e1c070bbc2ed9d07471216d122197e9ea.svg" src="../_images/179cda3c5ca631b0dab767691a319a7e1c070bbc2ed9d07471216d122197e9ea.svg" /><img alt="../_images/6578348b4c75a29c69aacc4b72e14f4a2c0e85728ec01b449e6faed72287fbf9.svg" src="../_images/6578348b4c75a29c69aacc4b72e14f4a2c0e85728ec01b449e6faed72287fbf9.svg" /></div>
 </div>
-<div class="output text_latex math notranslate nohighlight">
-\[\begin{split}
-                \begin{array}{rcl}
-                \text{alpha} &amp;\sim &amp; \text{Normal}\\\text{beta} &amp;\sim &amp; \text{Normal}\\\text{p} &amp;\sim &amp; \text{Deterministic}\\\text{x} &amp;\sim &amp; \text{Bernoulli}
-                \end{array}
-                \end{split}\]</div>
-</div>
-</div>
-</section>
-<section id="id6">
-<h3>Inference and posterior visualization<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
-<p>Now let’s infer the hidden parameters with MCMC. We will use the default NUTS sampler.</p>
+<p>Let’s now end with our prediction of the probability of a damage incident occurring at a given temperature.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">challenger_model</span><span class="p">:</span>
-    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">draws</span><span class="o">=</span><span class="mi">40000</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#probs = 1.0 / (1.0 + np.exp(-(samples[&quot;beta&quot;] * temps.reshape(1, -1) + samples[&quot;alpha&quot;]).T))</span>
+<span class="n">temps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="n">probs</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s2">&quot;beta&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">temps</span> <span class="o">+</span> <span class="n">samples</span><span class="p">[</span><span class="s2">&quot;alpha&quot;</span><span class="p">]))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">probs_025</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">probs_500</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">probs_975</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="mf">0.975</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="n">probs_500</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">temps</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">probs_025</span><span class="p">,</span> <span class="n">probs_975</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Temperature&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Probability of defect&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Posterior probability of defect vs temperature&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;observed&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">31</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Challenger disaster&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">31</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="s2">&quot;Challenger disaster&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
-Initializing NUTS using jitter+adapt_diag...
-Multiprocess sampling (4 chains in 4 jobs)
-NUTS: [beta, alpha]
-</pre></div>
+<img alt="../_images/4da87aa3c164991bd59eea40e6863696450c5481353b79943154fb007f0ccd54.svg" src="../_images/4da87aa3c164991bd59eea40e6863696450c5481353b79943154fb007f0ccd54.svg" /></div>
 </div>
-<div class="output text_html">
-<style>
-    /* Turns off some styling */
-    progress {
-        /* gets rid of default border in Firefox and Opera. */
-        border: none;
-        /* Needs to be in here for Safari polyfill so background images work as expected. */
-        background-size: auto;
-    }
-    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-        background: #F44336;
-    }
-</style>
-</div><div class="output text_html">
-    <div>
-      <progress value='164000' class='' max='164000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [164000/164000 00:07<00:00 Sampling 4 chains, 0 divergences]
-    </div>
-    </div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/lib/python3.9/site-packages/scipy/stats/_continuous_distns.py:624: RuntimeWarning: overflow encountered in _beta_ppf
-  return _boost._beta_ppf(q, a, b)
-/opt/homebrew/lib/python3.9/site-packages/scipy/stats/_continuous_distns.py:624: RuntimeWarning: overflow encountered in _beta_ppf
-  return _boost._beta_ppf(q, a, b)
-/opt/homebrew/lib/python3.9/site-packages/scipy/stats/_continuous_distns.py:624: RuntimeWarning: overflow encountered in _beta_ppf
-  return _boost._beta_ppf(q, a, b)
-/opt/homebrew/lib/python3.9/site-packages/scipy/stats/_continuous_distns.py:624: RuntimeWarning: overflow encountered in _beta_ppf
-  return _boost._beta_ppf(q, a, b)
-Sampling 4 chains for 1_000 tune and 40_000 draw iterations (4_000 + 160_000 draws total) took 13 seconds.
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">]</span>
-<span class="n">pm</span><span class="o">.</span><span class="n">traceplot</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/5y/28n32xmx0551k29hd21qs87c0000gp/T/ipykernel_43649/1817153717.py:2: DeprecationWarning: The function `traceplot` from PyMC3 is just an alias for `plot_trace` from ArviZ. Please switch to `pymc3.plot_trace` or `arviz.plot_trace`.
-  pm.traceplot(trace, var_names=var_names);
-Got error No model on context stack. trying to find log_likelihood in translation.
-Got error No model on context stack. trying to find log_likelihood in translation.
-</pre></div>
-</div>
-<img alt="../_images/312692bffcbf457c1ba63f8850daac7fd613370dcb6ec37c50b507798844d67a.png" src="../_images/312692bffcbf457c1ba63f8850daac7fd613370dcb6ec37c50b507798844d67a.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="o">=</span><span class="n">pm</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Got error No model on context stack. trying to find log_likelihood in translation.
-</pre></div>
-</div>
-<img alt="../_images/c77500bc5a1cd66b150ecb9a609adeae808a00a9e33d6e8be2e1d8d64082778b.png" src="../_images/c77500bc5a1cd66b150ecb9a609adeae808a00a9e33d6e8be2e1d8d64082778b.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="o">=</span><span class="n">pm</span><span class="o">.</span><span class="n">plot_autocorr</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">combined</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Got error No model on context stack. trying to find log_likelihood in translation.
-</pre></div>
-</div>
-<img alt="../_images/93824ecca2a3dc9e74166e8a3396b38e93b64f838b531caff81c790ff171e0b2.png" src="../_images/93824ecca2a3dc9e74166e8a3396b38e93b64f838b531caff81c790ff171e0b2.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thinned_trace</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="mi">10000</span><span class="p">::</span><span class="mi">10</span><span class="p">]</span>
-<span class="n">_</span><span class="o">=</span><span class="n">pm</span><span class="o">.</span><span class="n">autocorrplot</span><span class="p">(</span><span class="n">thinned_trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">combined</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/5y/28n32xmx0551k29hd21qs87c0000gp/T/ipykernel_43649/2563560967.py:2: DeprecationWarning: The function `autocorrplot` from PyMC3 is just an alias for `plot_autocorr` from ArviZ. Please switch to `pymc3.plot_autocorr` or `arviz.plot_autocorr`.
-  _=pm.autocorrplot(thinned_trace, var_names=var_names, figsize=(12, 8), combined=True)
-Got error No model on context stack. trying to find log_likelihood in translation.
-</pre></div>
-</div>
-<img alt="../_images/ca235fc2c53c82eec42246842756b316ef58ab31667ba300e4e4cae352e375de.png" src="../_images/ca235fc2c53c82eec42246842756b316ef58ab31667ba300e4e4cae352e375de.png" />
-</div>
-</div>
-</section>
-<section id="posterior-predictive-distribution">
-<h3>Posterior predictive distribution<a class="headerlink" href="#posterior-predictive-distribution" title="Permalink to this heading">#</a></h3>
-<p>We can use the samples of posterior generated from MCMC to get a predictive over the probability of failure at any given temperature.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">challenger_model</span><span class="p">:</span>
-    <span class="n">ppsamples</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">trace</span><span class="o">=</span><span class="n">thinned_trace</span><span class="p">,</span> 
-                                               <span class="n">samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
-                                               <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">])[</span><span class="s1">&#39;p&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/lib/python3.9/site-packages/pymc3/sampling.py:1708: UserWarning: samples parameter is smaller than nchains times ndraws, some draws and/or chains may not be represented in the returned posterior predictive sample
-  warnings.warn(
-</pre></div>
-</div>
-<div class="output text_html">
-<style>
-    /* Turns off some styling */
-    progress {
-        /* gets rid of default border in Firefox and Opera. */
-        border: none;
-        /* Needs to be in here for Safari polyfill so background images work as expected. */
-        background-size: auto;
-    }
-    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-        background: #F44336;
-    }
-</style>
-</div><div class="output text_html">
-    <div>
-      <progress value='2000' class='' max='2000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [2000/2000 00:00<00:00]
-    </div>
-    </div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get posterior predictive mean and 95% interval</span>
-<span class="n">ppmean</span> <span class="o">=</span> <span class="n">ppsamples</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">pp_lower</span><span class="p">,</span> <span class="n">pp_upper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">ppsamples</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="p">[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observed data&#39;</span><span class="p">)</span>
-<span class="n">idx</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">ppmean</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> 
-         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Post. pred. mean prob.&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">pp_lower</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">pp_upper</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> 
-                <span class="n">color</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;95% Confidence&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Probability estimate&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Outside temperature (Fahrenheit)&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Defects of the Space Shuttle O-Rings vs temperature&quot;</span><span class="p">,</span>
-          <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.01</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/88a27c9697d8b37dd20e3641665f48ba817ee895826879b71ae33e49e5dadbb4.png" src="../_images/88a27c9697d8b37dd20e3641665f48ba817ee895826879b71ae33e49e5dadbb4.png" />
-</div>
-</div>
-<p>The <em>95% credible interval</em>, or 95% CI, painted in purple, represents the interval, for each temperature, that contains 95% of the distribution. For example, at 65 degrees, we can be 95% sure that the probability of defect lies between 0.25 and 0.75.</p>
-<p>More generally, we can see that as the temperature nears 60 degrees, the CI’s spread out quickly. As we pass 70 degrees, the CI’s tighten again. This can give us insight about how to proceed next: we should probably test more O-rings around 60-65 temperature to get a better estimate of probabilities in that range. Similarly, when reporting to scientists your estimates, you should be very cautious about simply telling them the expected probability, as we can see this does not reflect how <em>wide</em> the posterior distribution is.</p>
-</section>
-<section id="id7">
-<h3>Question<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
-<p>On the day of the Challenger disaster, the outside temperature was 31 degrees Fahrenheit. What is the posterior distribution of a defect occurring,  given this temperature? The distribution is plotted below. It looks almost guaranteed that the Challenger was going to be subject to defective O-rings.</p>
+<p>The <em>95% credible interval</em>, or 95% CI, painted in blue, represents the interval for each temperature that contains 95% of the distribution. For example, at 65 degrees, we can be 95% sure that the defect probability lies between 0.25 and 0.75.</p>
+<p>More generally, as the temperature nears 60 degrees, the CIs spread out quickly. As we pass 70 degrees, the CIs tighten again. This can give us insight into how to proceed: we should test more O-rings around 60-65 temperature to estimate probabilities in that range better. Similarly, when reporting to scientists your estimates, you should be very cautious about simply telling them the expected probability. As we can see, this does not reflect how <em>wide</em> the posterior distribution is.</p>
+<p>On the day of the Challenger disaster, the outside temperature was 31 degrees Fahrenheit. What is the posterior distribution of a defect occurring,  given this temperature? The distribution is plotted below. It looks almost guaranteed that the Challenger would be subject to defective O-rings.</p>
 </section>
 </section>
 </section>
@@ -1585,27 +1395,20 @@ Got error No model on context stack. trying to find log_likelihood in translatio
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#real-data-example-1-coal-mining-disaster">Real Data Example 1 - Coal Mining Disaster</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-coal-mining-disaster">Example 1 - Coal Mining Disaster</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#information-about-the-dataset">Information about the dataset</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling-approach">Modeling Approach</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pymc3-model"><code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-and-posterior-visualization">Inference and posterior visualization</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#real-data-example-2-challenger-space-shuttle-disaster">Real Data Example 2 - Challenger Space Shuttle Disaster</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Information about the dataset</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Questions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Modeling approach</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-challenger-space-shuttle-disaster">Example 2 - Challenger Space Shuttle Disaster</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Information about the dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Questions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Modeling Approach</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#question">Question:</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><code class="docutils literal notranslate"><span class="pre">PyMC3</span></code> model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Inference and posterior visualization</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-predictive-distribution">Posterior predictive distribution</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Question</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyro-implementation"><code class="docutils literal notranslate"><span class="pre">Pyro</span></code> Implementation</a></li>
 </ul>
 </li>
 </ul>
@@ -1655,8 +1458,8 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
 
   <footer class="bd-footer">
   </footer>
