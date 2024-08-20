@@ -19,8 +19,9 @@ You can find the lecture book [here](https://predictivesciencelab.github.io/data
 ## Older Course Versions
 
 + [Fall 2020 version](https://github.com/PredictiveScienceLab/data-analytics-se/tree/fall2020)
-+ [Fall 2021 version](https://github.com/PredictiveScienceLab/data-analytics-se/tree/fall2021).
++ [Fall 2021 version](https://github.com/PredictiveScienceLab/data-analytics-se/tree/fall2021)
 + [Summer 2022 version](https://github.com/PredictiveScienceLab/data-analytics-se/tree/summer2022)
++ [Fall 2023 version](https://github.com/PredictiveScienceLab/data-analytics-se/tree/fall2023)
 
 This course evolved from the ME 597 "Data Analytics for Scientists and Engineers," taught two times by Prof. Bilionis, and the ME 597/MA 598 "Introduction to Uncertainty Quantification," taught three times by Prof. Bilionis (the first time, Spring 2016 it was co-taught with Prof. Guang Lin).
 If you are interested in accessing the old versions of the course, they can be found [here](https://github.com/PredictiveScienceLab/uq-course).
