@@ -1,7 +1,7 @@
 # ME 539 -  Introduction to Scientific Machine Learning
 
-This repository includes the source code for the course "ME 539 Introduction to Scientific Machine Learning," which is being taught during Fall 2023 by Prof. [Ilias Bilionis](https://www.predictivesciencelab.org) at Purdue University.
-The in-person version of the course meets every Tuesday and Thursday 12:00-1:15 pm at ARMS B071.
+This repository includes the source code for the course "ME 539 Introduction to Scientific Machine Learning," which is being taught during Fall 2024 by Dr. Alex Alberts at Purdue University.
+The in-person version of the course meets every Tuesday and Thursday 4:30-5:45 pm at HAMP 2118.
 Please only come to the room if registered, as there is insufficient physical space.
 There is also a Purdue online version of the class and an [EdX](https://courses.edx.org/courses/course-v1:PurdueX+ME597x+2T2020/course/) version.
 
