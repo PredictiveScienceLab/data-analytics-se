@@ -6,6 +6,6 @@ In this chapter, we cover the basics of supervised learning including regression
 :::{note}
 In these lectures, I want to move fast to the state of the art.
 So, I am assuming that you seen how a linear model can be fitted using least squares.
-If you haven't, then I suggest reviewing Lectures 14, 15, and 16 of my [undergraduate data science course](https://purduemechanicalengineering.github.io/me-297-intro-to-data-science/index.html) prior to starting the section.
+If you haven't, then I suggest reviewing Lectures 14, 15, and 16 of my [undergraduate data science course](https://purduemechanicalengineering.github.io/me-239-intro-to-data-science/index.html) prior to starting the section.
 Some of the text and activities is repeated here, but the pace is much slower in the undergraduate course.
 :::
