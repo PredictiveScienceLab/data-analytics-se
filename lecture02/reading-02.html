@@ -618,18 +618,144 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="cell docutils container">
+  <div class="cell tag_hide-input tag_hide-output docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAKE_BOOK_FIGURES</span><span class="o">=</span><span class="kc">True</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">import</span> <span class="nn">matplotlib_inline</span>
 <span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">set_book_style</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span> 
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
+
+    <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="c1"># Font settings</span>
+        <span class="s1">&#39;font.family&#39;</span><span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>  <span class="c1"># For academic publishing</span>
+        <span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>  <span class="c1"># As requested, 10pt font</span>
+        <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>  <span class="c1"># Slightly smaller for better readability</span>
+        <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        
+        <span class="c1"># Line and marker settings for consistency</span>
+        <span class="s1">&#39;axes.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;grid.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;lines.linewidth&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="s1">&#39;lines.markersize&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        
+        <span class="c1"># Layout to prevent clipped labels</span>
+        <span class="s1">&#39;figure.constrained_layout.use&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        
+        <span class="c1"># Default DPI (will override when saving)</span>
+        <span class="s1">&#39;figure.dpi&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+        <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+        
+        <span class="c1"># Despine - remove top and right spines</span>
+        <span class="s1">&#39;axes.spines.top&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s1">&#39;axes.spines.right&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Remove legend frame</span>
+        <span class="s1">&#39;legend.frameon&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Additional trim settings</span>
+        <span class="s1">&#39;figure.autolayout&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Alternative to constrained_layout</span>
+        <span class="s1">&#39;savefig.bbox&#39;</span><span class="p">:</span> <span class="s1">&#39;tight&#39;</span><span class="p">,</span>    <span class="c1"># Trim when saving</span>
+        <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>   <span class="c1"># Small padding to ensure nothing gets cut off</span>
+    <span class="p">})</span>
+
+<span class="k">def</span> <span class="nf">set_notebook_style</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
+
+    <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="c1"># Font settings - using default sizes</span>
+        <span class="s1">&#39;font.family&#39;</span><span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        
+        <span class="c1"># Line and marker settings</span>
+        <span class="s1">&#39;axes.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;grid.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;lines.linewidth&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="s1">&#39;lines.markersize&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        
+        <span class="c1"># Layout settings</span>
+        <span class="s1">&#39;figure.constrained_layout.use&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        
+        <span class="c1"># Remove only top and right spines</span>
+        <span class="s1">&#39;axes.spines.top&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s1">&#39;axes.spines.right&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Remove legend frame</span>
+        <span class="s1">&#39;legend.frameon&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Additional settings</span>
+        <span class="s1">&#39;figure.autolayout&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;savefig.bbox&#39;</span><span class="p">:</span> <span class="s1">&#39;tight&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>
+    <span class="p">})</span>
+
+<span class="k">def</span> <span class="nf">save_for_book</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">is_vector</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Save a figure with book-optimized settings.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    fig : matplotlib figure</span>
+<span class="sd">        The figure to save</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        Filename without extension</span>
+<span class="sd">    is_vector : bool</span>
+<span class="sd">        If True, saves as vector at 1000 dpi. If False, saves as raster at 600 dpi.</span>
+<span class="sd">    **kwargs : dict</span>
+<span class="sd">        Additional kwargs to pass to savefig</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="c1"># Set appropriate DPI and format based on figure type</span>
+    <span class="k">if</span> <span class="n">is_vector</span><span class="p">:</span>
+        <span class="n">dpi</span> <span class="o">=</span> <span class="mi">1000</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;.pdf&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">dpi</span> <span class="o">=</span> <span class="mi">600</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;.tif&#39;</span>
+    
+    <span class="c1"># Save the figure with book settings</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">make_full_width_fig</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.7</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">make_half_width_fig</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">2.35</span><span class="p">,</span> <span class="mf">1.45</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span><span class="p">:</span>
+    <span class="n">set_book_style</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">set_notebook_style</span><span class="p">()</span>
+
+<span class="n">make_full_width_fig</span> <span class="o">=</span> <span class="n">make_full_width_fig</span> <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span> <span class="k">else</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">make_half_width_fig</span> <span class="o">=</span> <span class="n">make_half_width_fig</span> <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span> <span class="k">else</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="basics-of-probability-theory">
 <span id="id1"></span><h1>Basics of Probability Theory<a class="headerlink" href="#basics-of-probability-theory" title="Link to this heading">#</a></h1>
@@ -802,19 +928,17 @@ Here is the graphical causal model up to this point:</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">graphviz</span> <span class="kn">import</span> <span class="n">Digraph</span>
 <span class="n">gu1</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">(</span><span class="s1">&#39;Urn1&#39;</span><span class="p">)</span>
-<span class="n">gu1</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;reds&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;# red balls&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
-<span class="n">gu1</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;blues&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;# blue balls&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
-<span class="n">gu1</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;1st draw&#39;</span><span class="p">)</span>
-<span class="n">gu1</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;reds&#39;</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span><span class="p">)</span>
-<span class="n">gu1</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;blues&#39;</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span><span class="p">)</span>
-<span class="n">gu1</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s1">&#39;urn1_graph&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">)</span>
+<span class="n">gu1</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Background information I&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
+<span class="n">gu1</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Result of 1st draw&#39;</span><span class="p">)</span>
+<span class="n">gu1</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span><span class="p">)</span>
+<span class="n">gu1</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s1">&#39;ch2.fig1&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;pdf&#39;</span><span class="p">)</span>
 <span class="n">gu1</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/69d6fa61c53f0051d11266e708179fdb989e78952dc6e0ade660992a3a2ecec7.svg" src="../_images/69d6fa61c53f0051d11266e708179fdb989e78952dc6e0ade660992a3a2ecec7.svg" />
+<img alt="../_images/006572a43fb583b948f1ed75f94eb43d9d8151703eded04601fcf5ef72e680cd.svg" src="../_images/006572a43fb583b948f1ed75f94eb43d9d8151703eded04601fcf5ef72e680cd.svg" />
 </div>
 </div>
 <p>Now, let’s say that we draw the first ball.
@@ -854,23 +978,20 @@ We need to fill the node corresponding to the first draw with color:</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gu3</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">(</span><span class="s1">&#39;Urn3&#39;</span><span class="p">)</span>
-<span class="n">gu3</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;reds&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;# red balls&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
-<span class="n">gu3</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;blues&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;# blue balls&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
-<span class="n">gu3</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;1st draw&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
-<span class="n">gu3</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;second&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;2nd draw&#39;</span><span class="p">)</span>
-<span class="n">gu3</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;reds&#39;</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span><span class="p">)</span>
-<span class="n">gu3</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;blues&#39;</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span><span class="p">)</span>
+<span class="n">gu3</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Background information I&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
+<span class="n">gu3</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Result of 1st draw&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
+<span class="n">gu3</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;second&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Result of 2nd draw&#39;</span><span class="p">)</span>
+<span class="n">gu3</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span><span class="p">)</span>
+<span class="n">gu3</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">)</span>
 <span class="n">gu3</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">)</span>
-<span class="n">gu3</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;reds&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">)</span>
-<span class="n">gu3</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;blues&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">)</span>
-<span class="n">gu3</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s1">&#39;urn3_graph&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">)</span>
+<span class="n">gu3</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s1">&#39;ch2.fig2&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;pdf&#39;</span><span class="p">)</span>
 <span class="n">gu3</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/02d8f39a8cd40d5c4bd00edd26e0c6a2bd3decbf96111aacd3f48c07401c3547.svg" src="../_images/02d8f39a8cd40d5c4bd00edd26e0c6a2bd3decbf96111aacd3f48c07401c3547.svg" />
+<img alt="../_images/fff2ed5767e888002db1cf8091eb87bfbd5235270038755b4fd962f08bc4c9fe.svg" src="../_images/fff2ed5767e888002db1cf8091eb87bfbd5235270038755b4fd962f08bc4c9fe.svg" />
 </div>
 </div>
 <p>Consider the sentence <span class="math notranslate nohighlight">\(R_2\)</span>:</p>
@@ -910,23 +1031,20 @@ Here is the causal graph (notice that we do not shade the first draw):</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gu2</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">(</span><span class="s1">&#39;Urn2&#39;</span><span class="p">)</span>
-<span class="n">gu2</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;reds&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;# red balls&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
-<span class="n">gu2</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;blues&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;# blue balls&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
-<span class="n">gu2</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;1st draw&#39;</span><span class="p">)</span>
-<span class="n">gu2</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;second&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;2nd draw&#39;</span><span class="p">)</span>
-<span class="n">gu2</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;reds&#39;</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span><span class="p">)</span>
-<span class="n">gu2</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;blues&#39;</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span><span class="p">)</span>
+<span class="n">gu2</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Background information I&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
+<span class="n">gu2</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Result of 1st draw&#39;</span><span class="p">)</span>
+<span class="n">gu2</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;second&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Result of 2nd draw&#39;</span><span class="p">)</span>
+<span class="n">gu2</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span><span class="p">)</span>
+<span class="n">gu2</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">)</span>
 <span class="n">gu2</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">)</span>
-<span class="n">gu2</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;reds&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">)</span>
-<span class="n">gu2</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;blues&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">)</span>
-<span class="n">gu2</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s1">&#39;urn2_graph&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">)</span>
+<span class="n">gu2</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s1">&#39;ch2.fig3&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;pdf&#39;</span><span class="p">)</span>
 <span class="n">gu2</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/f02b48d6b43e6ab1f2cc7a0d5e77f4b4736ab300df5e38ede9ab69fdfd28afc8.svg" src="../_images/f02b48d6b43e6ab1f2cc7a0d5e77f4b4736ab300df5e38ede9ab69fdfd28afc8.svg" />
+<img alt="../_images/65f4ed5b58d0b1af78a66a7c2ee7f731f9b90a26d9ddfee017d92ae5955c20b8.svg" src="../_images/65f4ed5b58d0b1af78a66a7c2ee7f731f9b90a26d9ddfee017d92ae5955c20b8.svg" />
 </div>
 </div>
 <p>Let’s find the probability that we will draw a blue ball in the first draw (A) and a red ball in the second draw (B).
@@ -970,7 +1088,7 @@ p(A+B|I) &amp;= 1 - p(\neg (A+B)|I)\\
 &amp;= 1 - p(\neg B|I) + p(\neg B|A,I) p(A|I)\;\text{(product rule)}\\
 &amp;= 1 - p(\neg B|I) + \left[1 - p(B|A,I)\right]p(A|I)\;\text{(obvious rule)}\\
 &amp;= 1 - p(\neg B|I) + p(A|I) - p(B|A,I)p(A|I)\\
-&amp;= 1 - \left[1 - p(B|I)\right] + p(A|I) - p(B|A,I)p(A|I)\;\text{obvious rule})\\
+&amp;= 1 - \left[1 - p(B|I)\right] + p(A|I) - p(B|A,I)p(A|I)\;\text{(obvious rule)}\\
 &amp;= p(A|I) + p(B|I) - p(B|A,I)p(A|I)\\
 &amp;= p(A|I) + p(B|I) - p(AB|I)\;\text{(product rule)}.
 \end{split}
@@ -993,7 +1111,7 @@ It goes as follows.</p>
 p(B_1 + \dots + B_n|I) = 1.
 \]</div>
 <ul class="simple">
-<li><p>They are mutually exclusive:</p></li>
+<li><p>No two of them can be true at the same time:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1005,7 +1123,7 @@ p(B_iB_j|I) = \delta_{ij} = \begin{cases}1,&amp;\;\text{if}\;i=j,\\ 0,&amp;\;\te
 p(A|I) = \sum_{i=1}^n p(AB_i|I) = \sum_{i=1}^n p(A|B_i,I)p(B_i|I).
 \]</div>
 <p>Again, this requires a bit of meditation.
-You take any logical sentence A and set of exclusive but exhaustive possibilities <span class="math notranslate nohighlight">\(B_1,\dots, B_n\)</span>, and you break down the probability of <span class="math notranslate nohighlight">\(A\)</span> in terms of the probabilities of the <span class="math notranslate nohighlight">\(B_i\)</span>’s.
+You take any logical sentence A and set of <em>mutually exclusive</em> but <em>exhaustive</em> possibilities <span class="math notranslate nohighlight">\(B_1,\dots, B_n\)</span>, and you break down the probability of <span class="math notranslate nohighlight">\(A\)</span> in terms of the probabilities of the <span class="math notranslate nohighlight">\(B_i\)</span>’s.
 The Venn diagrams help to understand the situation:</p>
 <figure class="align-default" id="venn-sum-rul">
 <img alt="../_images/venn_sum_rule.png" src="../_images/venn_sum_rule.png" />
@@ -1083,7 +1201,7 @@ I visualize the situation in the following graph:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/ee3b87d1de66e9ccbadbb727ea4d1c08c93f8bc34e3c36422fbe3f5127da4230.svg" src="../_images/ee3b87d1de66e9ccbadbb727ea4d1c08c93f8bc34e3c36422fbe3f5127da4230.svg" />
+<img alt="../_images/c5158f084f54dd9f99b489c86a13bed567a204dc305777210b958353a89480e6.svg" src="../_images/c5158f084f54dd9f99b489c86a13bed567a204dc305777210b958353a89480e6.svg" />
 </div>
 </div>
 <p>You can write down the mathematical expression <span class="math notranslate nohighlight">\(p(B_1|R_2, I)\)</span>.

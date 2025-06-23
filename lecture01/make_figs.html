@@ -1,0 +1,747 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture01/make_figs';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to Scientific Machine Learning (Lecture Book)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Preface
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../introduction.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="intro.html">Lecture 1 - Introduction to Predictive Modeling</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="reading-01.html">The Basics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-01.1.html">The Uncertainty Propagation Problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hands-on-01.2.html">The Model Calibration Problem</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../review_probability.html">Review of Probability</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture02/intro.html">Lecture 2 - Basics of Probability Theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture02/reading-02.html">Basics of Probability Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture02/hands-on-02.html">Experiment with “Randomness”</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture03/intro.html">Lecture 3 - Discrete Random Variables</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture03/reading-03.html">Discrete Random Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture03/hands-on-03.html">Discrete Random Variables in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture04/intro.html">Lecture 4 - Continuous Random Variables</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture04/reading-04.html">Continuous Random Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture04/hands-on-04.1.html">The Uniform Distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture04/hands-on-04.2.html">The Gaussian Distribution</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture05/intro.html">Lecture 5 - Collections of Random Variables</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture05/reading-05.html">Collections of Random Variables: Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture05/hands-on-05.html">Practicing with Joint Probability Mass Functions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture06/intro.html">Lecture 6 - Random Vectors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture06/reading-06.html">Random Vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture06/hands-on-06.1.html">The Multivariate Normal - Diagonal Covariance Case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture06/hands-on-06.2.html">The Multivariate Normal - Full Covariance Case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture06/hands-on-06.3.html">The Multivariate Normal - Marginalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture06/hands-on-06.4.html">The Multivariate Normal - Conditioning</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../uncertainty_propagation.html">Uncertainty Propagation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture07/intro.html">Lecture 7 - Basic Sampling</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture07/hands-on-07.1.html">Pseudo-random number generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture07/hands-on-07.2.html">Sampling the uniform distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture07/hands-on-07.3.html">Sampling the categorical</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture07/hands-on-07.4.html">Sampling from continuous distributions - Inverse sampling</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture08/intro.html">Lecture 8 - The Monte Carlo Method for Estimating Expectations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture08/reading-08.html">The Uncertainty Propagation Problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture08/hands-on-08.3.html">The Monte Carlo Method for Estimating Expectations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture08/hands-on-08.4.html">Sampling Estimates of Variance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture09/intro.html">Lecture 9 - Monte Carlo Estimates of Various Statistics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture09/hands-on-09.1.html">Sampling Estimates of the Cumulative Distribution Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture09/hands-on-09.2.html">Sampling Estimates of the Probability Density via Histograms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture09/hands-on-09.3.html">Estimating Predictive Quantiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture09/hands-on-09.4.html">Uncertainty propagation through an ordinary differential equation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture10/intro.html">Lecture 10 - Quantify Uncertainty in Monte Carlo Estimates</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture10/hands-on-10.1.html">Visualizing Monte Carlo Uncertainty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture10/hands-on-10.2.html">The Central Limit Theorem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture10/hands-on-10.3.html">Quantifying Epistemic Uncertainty in Monte Carlo Estimates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture10/hands-on-10.4.html">Uncertainty Propagation Through a Boundary Value Problem</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../principles_of_bi.html">Principles of Bayesian Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture11/intro.html">Lecture 11 - Selecting Prior Information</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture11/reading-11.html">Selecting Prior Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture11/hands-on-11.1.html">Information Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture11/hands-on-11.2.html">The Principle of Maximum Entropy for Discrete Random Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture11/hands-on-11.3.html">The Principle of Maximum Entropy for Continuous Random Variables</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture12/intro.html">Lecture 12 - Analytical Examples of Bayesian Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture12/reading-12.html">Bayesian inference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture12/hands-on-12.1.html">Example: Inferring the probability of a coin toss from data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture12/hands-on-12.2.html">Credible Intervals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture12/hands-on-12.3.html">Decision Making</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture12/hands-on-12.4.html">Posterior Predictive Checking</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../supervised_learning.html">Supervised Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture13/intro.html">Lecture 13 - Linear Regression via Least Squares</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture13/reading-13.html">Linear Regression via Least Squares</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture13/hands-on-13.1.html">Linear regression with a single variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture13/hands-on-13.2.html">Polynomial Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture13/hands-on-13.3.html">The Generalized Linear Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture13/hands-on-13.4.html">Measures of Predictive Accuracy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture14/intro.html">Lecture 14 - Bayesian Linear Regression</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture14/reading-14.html">Bayesian Linear Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture14/hands-on-14.1.html">Probabilistic Interpretation of Least Squares - Estimating the Measurement Noise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture14/hands-on-14.2.html">Maximum a Posteriori Estimate - Avoiding Overfitting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture14/hands-on-14.3.html">Bayesian Linear Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture14/hands-on-14.4.html">The point-predictive Distribution - Separating Epistemic and Aleatory Uncertainty</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture15/intro.html">Lecture 15 - Advanced Topics in Bayesian Linear Regression</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture15/reading-15.html">Advanced Topics in Bayesian Linear Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture15/hands-on-15.1.html">Evidence approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture15/hands-on-15.2.html">Automatic Relevance Determination</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture15/hands-on-15.3.html">Diagnostics for Posterior Predictive</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture16/intro.html">Lecture 16 - Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture16/reading-16.html">Theoretical Background on Classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture16/hands-on-16.1.html">Logistic regression with one variable (High melting explosives)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture16/hands-on-16.2.html">Logistic Regression with Many Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture16/hands-on-16.3.html">Decision making</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture16/hands-on-16.4.html">Diagnostics for Classifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture16/hands-on-16.5.html">Multi-class Logistic Regression</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../unsupervised_learning.html">Unsupervised Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture17/intro.html">Lecture 17 - Clustering and Density Estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture17/reading-17.html">Unsupervised Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture17/hands-on-17.1.html">Clustering using k-means</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture17/hands-on-17.2.html">Density Estimation via Gaussian mixtures</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture18/intro.html">Lecture 18 - Dimensionality Reduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture18/reading-18.html">Dimensionality Reduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture18/hands-on-18.1.html">Dimensionality Reduction Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture18/hands-on-18.2.html">Clustering High-dimensional Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture18/hands-on-18.3.html">Density Estimation with High-dimensional Data</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../state_space_models.html">State Space Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture19/intro.html">Lecture 19 - State Space Models - Filtering Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture19/reading-19.html">State Space Models - Filtering Basics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture19/hands-on-19.1.html">Object Tracking Example</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture20/intro.html">Lecture 20 - State Space Models - Kalman Filters</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture20/reading-20.html">State Space Models - Kalman Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture20/hands-on-20.1.html">Kalman Filter for the Object Tracking Example</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../gaussian_process_regression.html">Gaussian Process Regression</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture21/intro.html">Lecture 21 - Gaussian Process Regression: Priors on Function Spaces</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture21/reading-21.html">Gaussian Process Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture21/hands-on-21.html">Example: Priors on function spaces</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture22/intro.html">Lecture 22 - Gaussian Process Regression: Conditioning on Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture22/reading-22.html">Gaussian Process Regression - Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture22/hands-on-22.1.html">Gaussian Process Regression Without Noise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture22/hands-on-22.2.html">Gaussian Process Regression with Noise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture22/hands-on-22.3.html">Tuning the Hyperparameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture22/hands-on-22.4.html">Multivariate Gaussian Process Regression</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture23/intro.html">Lecture 23 - Bayesian Global Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture23/reading-23.html">Bayesian Global Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture23/hands-on-23.1.html">Maximum Mean - A Bad Information Acquisition Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture23/hands-on-23.2.html">Maximum Upper Interval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture23/hands-on-23.3.html">Probability of Improvement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture23/hands-on-23.4.html">Expected Improvement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture23/hands-on-23.5.html">Expected Improvement - With Observation Noise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture23/hands-on-23.6.html">Quantifying Epistemic Uncertainty about the Solution of the Optimization problem</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../neural_networks.html">Neural Networks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture24/intro.html">Lecture 24 - Deep Neural Networks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture24/reading-24.html">Deep Neural Networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture24/hands-on-24.html">Regression with Deep Neural Networks</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture25/intro.html">Lecture 25 - Deep Neural Networks Continued</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture25/reading-25.html">Deep Neural Networks Continued</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture25/hands-on-25.html">Classification with Deep Neural Networks</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture26/intro.html">Lecture 26 - Physics-informed Deep Neural Networks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture26/reading-26.html">Physics-informed Deep Neural Networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture26/hands-on-26.1.html">Physics-informed regularization: Solving ODEs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture26/hands-on-26.2.html">Physics-informed regularization: Solving PDEs</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../advanced_methods.html">Advanced Methods for Characterizing Posteriors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture27/intro.html">Lecture 27 - Sampling Methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture27/reading-27.html">Sampling Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture27/hands-on-27.1.html">Probabilistic numerics using <code class="docutils literal notranslate"><span class="pre">pyro</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture27/hands-on-27.2.html">Sampling From the Distributions With Random Walk Metropolis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture27/hands-on-27.3.html">The Metropolis-Hastings Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture27/hands-on-27.4.html">Hierarchical Bayesian Models</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../lecture28/intro.html">Lecture 28 - Variational Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lecture28/reading-28.html">Variational Inference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lecture28/hands-on-28.html">Variational Inference Examples</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../homework/intro.html">Homework</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-01.html">Homework 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-02.html">Homework 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-03.html">Homework 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-04.html">Homework 4</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-05.html">Homework 5</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-06.html">Homework 6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-07.html">Homework 7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-08.html">Homework 8</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture01/make_figs.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lecture01/make_figs.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1><no title></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">graphviz</span> <span class="kn">import</span> <span class="n">Digraph</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">(</span><span class="s1">&#39;Trailer&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;y0&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;y&lt;sub&gt;0&lt;/sub&gt;&gt;&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;omega&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;omega;&gt;&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="s1">&#39;omega&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="s1">&#39;omega&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;y0&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;omega&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="c1">#g.render(&#39;trailer_g&#39;, format=&#39;png&#39;)</span>
+<span class="n">g</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/2714281c63087400f757c4e8dd677f7930308b930357e5c722b3ef1ed52d36a0.svg" src="../_images/2714281c63087400f757c4e8dd677f7930308b930357e5c722b3ef1ed52d36a0.svg" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">graphviz</span> <span class="kn">import</span> <span class="n">Digraph</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">(</span><span class="s1">&#39;CausalDiagram&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;node&#39;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s1">&#39;ellipse&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;X (treatment)&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Z (air pollution)&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Y (asthma)&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s1">&#39;ch1.fig1&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;pdf&#39;</span><span class="p">)</span>
+<span class="n">g</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/42e38983b24aafc351d4e8fd02323d899c8ea41713dc1b0ca61ee700f8e8e63e.svg" src="../_images/42e38983b24aafc351d4e8fd02323d899c8ea41713dc1b0ca61ee700f8e8e63e.svg" />
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lecture01"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ilias Bilionis (ibilion[at]purdue.edu)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

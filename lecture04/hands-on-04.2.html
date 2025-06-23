@@ -616,13 +616,133 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAKE_BOOK_FIGURES</span><span class="o">=</span><span class="kc">True</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">import</span> <span class="nn">matplotlib_inline</span>
 <span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">set_book_style</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span> 
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
+
+    <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="c1"># Font settings</span>
+        <span class="s1">&#39;font.family&#39;</span><span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>  <span class="c1"># For academic publishing</span>
+        <span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>  <span class="c1"># As requested, 10pt font</span>
+        <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>  <span class="c1"># Slightly smaller for better readability</span>
+        <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        
+        <span class="c1"># Line and marker settings for consistency</span>
+        <span class="s1">&#39;axes.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;grid.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;lines.linewidth&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="s1">&#39;lines.markersize&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        
+        <span class="c1"># Layout to prevent clipped labels</span>
+        <span class="s1">&#39;figure.constrained_layout.use&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        
+        <span class="c1"># Default DPI (will override when saving)</span>
+        <span class="s1">&#39;figure.dpi&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+        <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+        
+        <span class="c1"># Despine - remove top and right spines</span>
+        <span class="s1">&#39;axes.spines.top&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s1">&#39;axes.spines.right&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Remove legend frame</span>
+        <span class="s1">&#39;legend.frameon&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Additional trim settings</span>
+        <span class="s1">&#39;figure.autolayout&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Alternative to constrained_layout</span>
+        <span class="s1">&#39;savefig.bbox&#39;</span><span class="p">:</span> <span class="s1">&#39;tight&#39;</span><span class="p">,</span>    <span class="c1"># Trim when saving</span>
+        <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>   <span class="c1"># Small padding to ensure nothing gets cut off</span>
+    <span class="p">})</span>
+
+<span class="k">def</span> <span class="nf">set_notebook_style</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
+
+    <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="c1"># Font settings - using default sizes</span>
+        <span class="s1">&#39;font.family&#39;</span><span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        
+        <span class="c1"># Line and marker settings</span>
+        <span class="s1">&#39;axes.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;grid.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;lines.linewidth&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="s1">&#39;lines.markersize&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        
+        <span class="c1"># Layout settings</span>
+        <span class="s1">&#39;figure.constrained_layout.use&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        
+        <span class="c1"># Remove only top and right spines</span>
+        <span class="s1">&#39;axes.spines.top&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s1">&#39;axes.spines.right&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Remove legend frame</span>
+        <span class="s1">&#39;legend.frameon&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Additional settings</span>
+        <span class="s1">&#39;figure.autolayout&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;savefig.bbox&#39;</span><span class="p">:</span> <span class="s1">&#39;tight&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>
+    <span class="p">})</span>
+
+<span class="k">def</span> <span class="nf">save_for_book</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">is_vector</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Save a figure with book-optimized settings.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    fig : matplotlib figure</span>
+<span class="sd">        The figure to save</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        Filename without extension</span>
+<span class="sd">    is_vector : bool</span>
+<span class="sd">        If True, saves as vector at 1000 dpi. If False, saves as raster at 600 dpi.</span>
+<span class="sd">    **kwargs : dict</span>
+<span class="sd">        Additional kwargs to pass to savefig</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="c1"># Set appropriate DPI and format based on figure type</span>
+    <span class="k">if</span> <span class="n">is_vector</span><span class="p">:</span>
+        <span class="n">dpi</span> <span class="o">=</span> <span class="mi">1000</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;.pdf&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">dpi</span> <span class="o">=</span> <span class="mi">600</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;.tif&#39;</span>
+    
+    <span class="c1"># Save the figure with book settings</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">make_full_width_fig</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.7</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">make_half_width_fig</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">2.35</span><span class="p">,</span> <span class="mf">1.45</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span><span class="p">:</span>
+    <span class="n">set_book_style</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">set_notebook_style</span><span class="p">()</span>
+
+<span class="n">make_full_width_fig</span> <span class="o">=</span> <span class="n">make_full_width_fig</span> <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span> <span class="k">else</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">make_half_width_fig</span> <span class="o">=</span> <span class="n">make_half_width_fig</span> <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span> <span class="k">else</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -718,7 +838,13 @@ First, let’s make a standard normal random variable in <code class="docutils l
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/6e12e45cc4070bfc0bf2d5eae67648cc8d52c012ff6459ba9abf76693e0dcdc1.svg" src="../_images/6e12e45cc4070bfc0bf2d5eae67648cc8d52c012ff6459ba9abf76693e0dcdc1.svg" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;&gt;:6: SyntaxWarning: invalid escape sequence &#39;\p&#39;
+&lt;&gt;:6: SyntaxWarning: invalid escape sequence &#39;\p&#39;
+/var/folders/3n/r5vj11ss7lzcdl10vfhb_mw00000gs/T/ipykernel_68902/2154087378.py:6: SyntaxWarning: invalid escape sequence &#39;\p&#39;
+  ax.set_ylabel(&quot;$\phi(z)$&quot;)
+</pre></div>
+</div>
+<img alt="../_images/e8755e25d288de1e7c9bc53a024ccc725d4fb693373559f7756497afbabcef42.svg" src="../_images/e8755e25d288de1e7c9bc53a024ccc725d4fb693373559f7756497afbabcef42.svg" />
 </div>
 </div>
 <p>And here is the CDF:</p>
@@ -739,7 +865,13 @@ First, let’s make a standard normal random variable in <code class="docutils l
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/84939d813874e36f2fc126d439349d9586257567bfab5caf9b89f934aa54e333.svg" src="../_images/84939d813874e36f2fc126d439349d9586257567bfab5caf9b89f934aa54e333.svg" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;&gt;:4: SyntaxWarning: invalid escape sequence &#39;\P&#39;
+&lt;&gt;:4: SyntaxWarning: invalid escape sequence &#39;\P&#39;
+/var/folders/3n/r5vj11ss7lzcdl10vfhb_mw00000gs/T/ipykernel_68902/625513495.py:4: SyntaxWarning: invalid escape sequence &#39;\P&#39;
+  ax.set_ylabel(&quot;$\Phi(z)$&quot;)
+</pre></div>
+</div>
+<img alt="../_images/41a2341d6c777b634bb7473e4f2f9f5ddeeb0207a3f59062593618ff27e520df.svg" src="../_images/41a2341d6c777b634bb7473e4f2f9f5ddeeb0207a3f59062593618ff27e520df.svg" />
 </div>
 </div>
 <p>Here is the expectation:</p>
@@ -797,26 +929,26 @@ First, let’s make a standard normal random variable in <code class="docutils l
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-0.68098751, -0.08219633,  0.20786469, -0.50730995,  0.45700647,
-       -0.2559003 ,  0.65936334, -0.23402872,  1.09875376, -0.65752522,
-        0.87598653, -0.0461331 ,  0.50262267,  0.70764474, -0.98254677,
-       -1.41454882, -0.11455164,  0.75359663, -1.02398395, -1.86342273,
-       -0.22218493, -0.57929841,  1.61763382, -0.3512537 , -0.58212603,
-       -1.42276009,  1.30183894, -0.79181306,  0.87481463,  0.26491516,
-       -0.99758581,  0.7516001 , -1.35293929,  0.14887563, -1.81354551,
-       -1.03881138, -0.66440162, -1.29772731, -0.03500321,  0.1314219 ,
-        0.45940001, -1.50587312,  0.6103862 ,  0.66813906, -0.31945307,
-        1.2086607 , -0.04778578, -0.50059914, -0.13445603, -0.86555327,
-        0.91601074, -0.97407919, -1.42836505, -0.18455424, -1.26131747,
-       -0.19964524,  1.65131343,  0.23724141,  0.20041386,  0.53681951,
-       -1.67482189, -1.65050958,  1.14247417,  1.08756538, -0.07532283,
-       -1.47098224,  1.24651781, -0.74154696,  0.05659722, -0.27788922,
-        0.89646394,  1.07632242,  0.92632264, -0.5623226 ,  0.10293485,
-        0.07106044, -0.14816709, -0.55905882,  0.22567311,  0.13283325,
-       -1.43633922, -0.40999822,  0.72885276,  0.67071962, -0.45190328,
-       -0.819717  ,  1.46093725, -0.55625844, -0.67173311,  0.27282091,
-        0.14917277,  0.66093895,  0.49070751,  0.10162476, -2.40113228,
-        0.24445444,  1.43220066,  1.47577485, -0.57539355, -1.90800178])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 0.77396451, -1.48721031, -0.87313953, -1.18401958, -0.21754929,
+        0.27586982, -1.08656157, -0.86566957,  1.55318281, -0.19342273,
+       -0.78622608,  0.13478383,  1.54074117,  0.17214298,  0.27161673,
+       -1.2380911 , -0.36197178, -0.78936041, -0.6815666 ,  0.92103456,
+       -0.15214387,  0.03534538,  0.8393984 , -0.89000648,  0.40387164,
+        0.62659767, -1.51911925, -1.18005863,  0.20033529,  1.61414491,
+       -1.22993179,  0.11912838,  0.25654946,  1.10733318, -0.44513903,
+        1.91009009,  0.26086856, -0.66955878,  1.98908038, -0.21763121,
+       -2.2971759 ,  0.24816766,  0.201445  ,  1.28315847, -2.08099102,
+       -0.56733173, -0.89095781, -0.96356551, -1.75465258, -0.61748181,
+        0.08699428, -0.28059637,  0.27244073, -0.23929956, -1.60494419,
+       -0.94540808,  1.17485109,  0.34651006,  0.40084924, -1.10066057,
+        0.83975381, -0.65897245, -1.12865652, -0.14710822, -0.77490008,
+       -0.3793593 ,  0.63063709, -0.70302011,  0.17851961,  0.9697284 ,
+       -0.44266376,  0.25477334, -1.65458553, -1.2130857 , -2.84432746,
+        1.15679565,  1.37868611, -1.24801873,  1.0121717 ,  0.94174045,
+       -1.44868446,  0.46436837, -0.45546363,  1.2884788 , -0.63547916,
+       -2.26601822,  1.11398688, -1.21262538, -0.24789627, -0.0933873 ,
+       -1.11176788, -0.40920903, -1.48526598, -2.47366014,  0.30910977,
+        0.71134407,  0.15372894, -0.76188738,  0.61177773,  0.92517893])
 </pre></div>
 </div>
 </div>
@@ -835,26 +967,26 @@ First, let’s make a standard normal random variable in <code class="docutils l
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 0.17675988,  2.08604093, -2.32928242, -0.31336707, -0.63508336,
-        0.67371205,  1.90808253, -0.02121881,  0.5099677 , -0.77540186,
-       -0.64627549, -1.54157974,  0.26082948,  2.69541908,  0.2675784 ,
-       -1.06147151, -1.64492616,  0.68948065,  1.03904888,  0.25079342,
-       -0.56337513,  0.38106535,  0.05408547, -0.397527  ,  0.20617051,
-        2.06732106, -0.77393155, -0.5615434 ,  1.70336458,  1.27549767,
-        2.144291  ,  0.00601306,  0.33266612, -1.13324241, -1.93575747,
-       -0.60570986, -0.8859008 ,  1.07228981,  0.60790884, -0.50623704,
-       -0.71449871,  1.0671928 , -1.22584563, -1.37429395, -1.38428782,
-       -1.19234723, -0.43768159, -0.35739968, -1.15151434, -1.07603713,
-        0.42115532,  0.90580295,  0.2056319 ,  0.71246248, -0.554142  ,
-        1.59157731, -1.97265792,  0.69586134, -0.69544253,  0.94968473,
-        0.12604349, -0.03078179, -1.12016362,  0.39424782,  0.05911653,
-       -0.54681854,  1.37700422, -0.35340388,  0.95453985,  0.40723134,
-       -1.55549029, -0.42597788, -0.6278352 ,  0.33644935, -0.16735517,
-       -1.53184807, -0.94499227,  1.3118843 ,  0.1585745 ,  0.78911817,
-        0.4914747 , -0.90895756, -1.18857701, -0.14776013, -0.95868734,
-       -1.91836248,  1.10461855,  1.59235448, -0.12523874,  0.70358221,
-        0.57531609,  0.28489483, -1.61977487, -1.60483268, -0.97463031,
-       -1.20620496, -1.22983379,  0.14890532, -0.14807777,  0.35014314])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-0.19111325, -0.6453608 , -1.96387739, -0.38231048, -0.09099078,
+        0.77315521,  1.00604657,  0.66433165,  0.4754342 ,  0.77920195,
+        0.21941652, -0.28269514,  1.61272514,  0.26438265,  1.41491337,
+       -0.08100957, -1.54772226, -1.45644361,  0.52081911, -1.52457126,
+        0.82300903,  0.39232574, -0.04852367, -1.0927025 , -1.55747125,
+       -0.82735297,  1.79077325,  0.06754657,  0.73554895, -0.88954289,
+        3.49517929,  2.0797295 ,  0.65299799, -0.27727807, -1.64510812,
+       -0.63171301, -1.5893341 ,  0.21779921, -1.41290421, -0.985492  ,
+        1.13853714, -0.79190342,  0.45669176, -0.07485896, -0.93228366,
+        0.18210763, -0.46802337,  0.02053922, -1.22571843, -1.21057126,
+        1.45734644,  0.33237954,  1.8819529 ,  0.24849147, -0.08902988,
+       -0.78894393,  1.31458458, -0.28345112, -0.14858496,  0.62262479,
+        0.90839704,  2.0025784 , -0.71152332, -0.0566658 ,  1.25634954,
+        0.61898397,  1.26286392, -1.62359586, -0.22028196, -0.50655798,
+        1.33014869,  0.05883045,  0.87100132, -2.51130404,  0.43135631,
+        0.06169748,  1.54306041, -0.0404344 ,  1.51522668, -1.35129189,
+       -0.08413538,  2.12404358,  0.57463037,  0.61650194, -1.29946454,
+        1.69677663,  1.46073416, -0.84625391, -0.57005918, -0.13721844,
+       -0.60219684, -0.62746731,  0.49440066,  1.1692391 , -0.65016316,
+       -0.89140837,  1.26722422, -0.29782693, -0.35937502,  0.1799308 ])
 </pre></div>
 </div>
 </div>
@@ -904,7 +1036,21 @@ First, the mean <span class="math notranslate nohighlight">\(\mu\)</span> shifts
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7f114d0d8ec89ad37797906d095e41d4cc7115c2cbf6e8d4c98f23f8090c4fb9.svg" src="../_images/7f114d0d8ec89ad37797906d095e41d4cc7115c2cbf6e8d4c98f23f8090c4fb9.svg" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;&gt;:5: SyntaxWarning: invalid escape sequence &#39;\p&#39;
+&lt;&gt;:6: SyntaxWarning: invalid escape sequence &#39;\m&#39;
+&lt;&gt;:8: SyntaxWarning: invalid escape sequence &#39;\p&#39;
+&lt;&gt;:5: SyntaxWarning: invalid escape sequence &#39;\p&#39;
+&lt;&gt;:6: SyntaxWarning: invalid escape sequence &#39;\m&#39;
+&lt;&gt;:8: SyntaxWarning: invalid escape sequence &#39;\p&#39;
+/var/folders/3n/r5vj11ss7lzcdl10vfhb_mw00000gs/T/ipykernel_68902/2312143129.py:5: SyntaxWarning: invalid escape sequence &#39;\p&#39;
+  ax.plot(zs, Z.pdf(zs), label=&quot;$\phi(x)$&quot;)
+/var/folders/3n/r5vj11ss7lzcdl10vfhb_mw00000gs/T/ipykernel_68902/2312143129.py:6: SyntaxWarning: invalid escape sequence &#39;\m&#39;
+  ax.plot(zs, st.norm(loc=1.0).pdf(zs), label=&quot;$N(x|\mu=1,\sigma^2=1)$&quot;)
+/var/folders/3n/r5vj11ss7lzcdl10vfhb_mw00000gs/T/ipykernel_68902/2312143129.py:8: SyntaxWarning: invalid escape sequence &#39;\p&#39;
+  ax.set_ylabel(&quot;$\phi(x)$&quot;)
+</pre></div>
+</div>
+<img alt="../_images/3efc44ee331fe3a19e968901b6114f491c708a770e6f4fdccaef6205b97768d9.svg" src="../_images/3efc44ee331fe3a19e968901b6114f491c708a770e6f4fdccaef6205b97768d9.svg" />
 </div>
 </div>
 <p>The standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> scales the distribution.</p>
@@ -924,7 +1070,17 @@ First, the mean <span class="math notranslate nohighlight">\(\mu\)</span> shifts
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/cf42dd148dd82f5d78bab816b9636e4b4d9232eb443c2d06ebce7b0c90856de4.svg" src="../_images/cf42dd148dd82f5d78bab816b9636e4b4d9232eb443c2d06ebce7b0c90856de4.svg" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;&gt;:4: SyntaxWarning: invalid escape sequence &#39;\p&#39;
+&lt;&gt;:5: SyntaxWarning: invalid escape sequence &#39;\m&#39;
+&lt;&gt;:4: SyntaxWarning: invalid escape sequence &#39;\p&#39;
+&lt;&gt;:5: SyntaxWarning: invalid escape sequence &#39;\m&#39;
+/var/folders/3n/r5vj11ss7lzcdl10vfhb_mw00000gs/T/ipykernel_68902/775679383.py:4: SyntaxWarning: invalid escape sequence &#39;\p&#39;
+  ax.plot(zs, Z.pdf(zs), label=&quot;$\phi(x)$&quot;)
+/var/folders/3n/r5vj11ss7lzcdl10vfhb_mw00000gs/T/ipykernel_68902/775679383.py:5: SyntaxWarning: invalid escape sequence &#39;\m&#39;
+  ax.plot(zs, st.norm(loc=0.0, scale=np.sqrt(2.0)).pdf(zs), label=&quot;$N(x|\mu=0,\sigma^2=2)$&quot;)
+</pre></div>
+</div>
+<img alt="../_images/bf43cbbffe40edcc12ada20eda36244c7e9df8d61d7372fdeafc2106869090d1.svg" src="../_images/bf43cbbffe40edcc12ada20eda36244c7e9df8d61d7372fdeafc2106869090d1.svg" />
 </div>
 </div>
 </section>
@@ -1010,7 +1166,7 @@ Being engineers, we are going to call the -1.96 a two.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/cab05fbac5392caf21845008542df68cfe91a6708ed38bc329eb1d3d1f672336.svg" src="../_images/cab05fbac5392caf21845008542df68cfe91a6708ed38bc329eb1d3d1f672336.svg" />
+<img alt="../_images/ddaeb30849e958b84e55e9387a05b9ef325ed3f2855b66c2d201237f054da794.svg" src="../_images/ddaeb30849e958b84e55e9387a05b9ef325ed3f2855b66c2d201237f054da794.svg" />
 </div>
 </div>
 <div class="admonition note">
@@ -1084,7 +1240,17 @@ Here is how:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/dcddf11e64100ca30541f61bfbe1b8c0089da7eae67a7098b1e2875aefe03e98.svg" src="../_images/dcddf11e64100ca30541f61bfbe1b8c0089da7eae67a7098b1e2875aefe03e98.svg" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;&gt;:2: SyntaxWarning: invalid escape sequence &#39;\m&#39;
+&lt;&gt;:3: SyntaxWarning: invalid escape sequence &#39;\m&#39;
+&lt;&gt;:2: SyntaxWarning: invalid escape sequence &#39;\m&#39;
+&lt;&gt;:3: SyntaxWarning: invalid escape sequence &#39;\m&#39;
+/var/folders/3n/r5vj11ss7lzcdl10vfhb_mw00000gs/T/ipykernel_68902/1046293625.py:2: SyntaxWarning: invalid escape sequence &#39;\m&#39;
+  ax.hist(x_samples, density=True, alpha=0.5, label=&quot;Samples from $X = \mu + \sigma Z$&quot;)
+/var/folders/3n/r5vj11ss7lzcdl10vfhb_mw00000gs/T/ipykernel_68902/1046293625.py:3: SyntaxWarning: invalid escape sequence &#39;\m&#39;
+  ax.plot(xs, X.pdf(xs), label=&quot;PDF of $N(\mu, \sigma^2)$&quot;)
+</pre></div>
+</div>
+<img alt="../_images/6c085bcc574e2fd230224d02e9b17a8cb66b29b910d02ab9da30faedc0ae88a7.svg" src="../_images/6c085bcc574e2fd230224d02e9b17a8cb66b29b910d02ab9da30faedc0ae88a7.svg" />
 </div>
 </div>
 <p>How can you find the quantiles of this normal? Well, you can simply use the functionality of <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code>.
@@ -1188,7 +1354,7 @@ x_q = \mu + \sigma z_q.
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/109829a5b1a83a4eca92ecafd8576a10107c2243620c4295dd346bb61bb0cf50.svg" src="../_images/109829a5b1a83a4eca92ecafd8576a10107c2243620c4295dd346bb61bb0cf50.svg" />
+<img alt="../_images/43b7532df7bfc30b696cc1c814116f984a83a747a65e42054f2c283a2d15c161.svg" src="../_images/43b7532df7bfc30b696cc1c814116f984a83a747a65e42054f2c283a2d15c161.svg" />
 </div>
 </div>
 <p>Now, let’s find the distance between <span class="math notranslate nohighlight">\(x_{2.5}\)</span> and <span class="math notranslate nohighlight">\(x_{97.5}\)</span> in terms of the standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>.

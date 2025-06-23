@@ -608,13 +608,133 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAKE_BOOK_FIGURES</span><span class="o">=</span><span class="kc">True</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">import</span> <span class="nn">matplotlib_inline</span>
 <span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">);</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">set_book_style</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span> 
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
+
+    <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="c1"># Font settings</span>
+        <span class="s1">&#39;font.family&#39;</span><span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>  <span class="c1"># For academic publishing</span>
+        <span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>  <span class="c1"># As requested, 10pt font</span>
+        <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>  <span class="c1"># Slightly smaller for better readability</span>
+        <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        
+        <span class="c1"># Line and marker settings for consistency</span>
+        <span class="s1">&#39;axes.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;grid.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;lines.linewidth&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="s1">&#39;lines.markersize&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        
+        <span class="c1"># Layout to prevent clipped labels</span>
+        <span class="s1">&#39;figure.constrained_layout.use&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        
+        <span class="c1"># Default DPI (will override when saving)</span>
+        <span class="s1">&#39;figure.dpi&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+        <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+        
+        <span class="c1"># Despine - remove top and right spines</span>
+        <span class="s1">&#39;axes.spines.top&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s1">&#39;axes.spines.right&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Remove legend frame</span>
+        <span class="s1">&#39;legend.frameon&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Additional trim settings</span>
+        <span class="s1">&#39;figure.autolayout&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Alternative to constrained_layout</span>
+        <span class="s1">&#39;savefig.bbox&#39;</span><span class="p">:</span> <span class="s1">&#39;tight&#39;</span><span class="p">,</span>    <span class="c1"># Trim when saving</span>
+        <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>   <span class="c1"># Small padding to ensure nothing gets cut off</span>
+    <span class="p">})</span>
+
+<span class="k">def</span> <span class="nf">set_notebook_style</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
+
+    <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="c1"># Font settings - using default sizes</span>
+        <span class="s1">&#39;font.family&#39;</span><span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        
+        <span class="c1"># Line and marker settings</span>
+        <span class="s1">&#39;axes.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;grid.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;lines.linewidth&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="s1">&#39;lines.markersize&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        
+        <span class="c1"># Layout settings</span>
+        <span class="s1">&#39;figure.constrained_layout.use&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        
+        <span class="c1"># Remove only top and right spines</span>
+        <span class="s1">&#39;axes.spines.top&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s1">&#39;axes.spines.right&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Remove legend frame</span>
+        <span class="s1">&#39;legend.frameon&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Additional settings</span>
+        <span class="s1">&#39;figure.autolayout&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;savefig.bbox&#39;</span><span class="p">:</span> <span class="s1">&#39;tight&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>
+    <span class="p">})</span>
+
+<span class="k">def</span> <span class="nf">save_for_book</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">is_vector</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Save a figure with book-optimized settings.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    fig : matplotlib figure</span>
+<span class="sd">        The figure to save</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        Filename without extension</span>
+<span class="sd">    is_vector : bool</span>
+<span class="sd">        If True, saves as vector at 1000 dpi. If False, saves as raster at 600 dpi.</span>
+<span class="sd">    **kwargs : dict</span>
+<span class="sd">        Additional kwargs to pass to savefig</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="c1"># Set appropriate DPI and format based on figure type</span>
+    <span class="k">if</span> <span class="n">is_vector</span><span class="p">:</span>
+        <span class="n">dpi</span> <span class="o">=</span> <span class="mi">1000</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;.pdf&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">dpi</span> <span class="o">=</span> <span class="mi">600</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;.tif&#39;</span>
+    
+    <span class="c1"># Save the figure with book settings</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">make_full_width_fig</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.7</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">make_half_width_fig</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">2.35</span><span class="p">,</span> <span class="mf">1.45</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span><span class="p">:</span>
+    <span class="n">set_book_style</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">set_notebook_style</span><span class="p">()</span>
+
+<span class="n">make_full_width_fig</span> <span class="o">=</span> <span class="n">make_full_width_fig</span> <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span> <span class="k">else</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">make_half_width_fig</span> <span class="o">=</span> <span class="n">make_half_width_fig</span> <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span> <span class="k">else</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -687,7 +807,7 @@ f_X(x) := U(x|[0,1]) := \begin{cases}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/54bfc565c8317a6b04503d30a733f19f396c5f95cc6980c5b9a876fe9323a4a5.svg" src="../_images/54bfc565c8317a6b04503d30a733f19f396c5f95cc6980c5b9a876fe9323a4a5.svg" />
+<img alt="../_images/aed1af4c40947b2ffd8eda6475cd49b228db1a6b40353f57dac1998466dc5177.svg" src="../_images/aed1af4c40947b2ffd8eda6475cd49b228db1a6b40353f57dac1998466dc5177.svg" />
 </div>
 </div>
 <p>The CDF of the uniform is for <span class="math notranslate nohighlight">\(x\)</span> in <span class="math notranslate nohighlight">\([0,1]\)</span>:</p>
@@ -721,7 +841,7 @@ F(x) = p(X \le x) = \int_0^x f_X(u) du = \int_0^x du = x.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2673fb1e59e8c0d1c39e659d3247c2b8b031dca1aa28888a2c4654f189e3e894.svg" src="../_images/2673fb1e59e8c0d1c39e659d3247c2b8b031dca1aa28888a2c4654f189e3e894.svg" />
+<img alt="../_images/9d48b89a51ead4bfcb3e724629565b2ae4f0bb1834d1c717aef15f3bfb5433e3.svg" src="../_images/9d48b89a51ead4bfcb3e724629565b2ae4f0bb1834d1c717aef15f3bfb5433e3.svg" />
 </div>
 </div>
 <p>The probability that <span class="math notranslate nohighlight">\(X\)</span> takes values in <span class="math notranslate nohighlight">\([a,b]\)</span> for <span class="math notranslate nohighlight">\(a &lt; b\)</span> in <span class="math notranslate nohighlight">\([0,1]\)</span> is:</p>
@@ -779,26 +899,26 @@ p(a \le X \le b) = F(b) - F(a) = b - a.
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.09539232, 0.77524467, 0.1165174 , 0.17251136, 0.40433054,
-       0.72158   , 0.38796207, 0.06261768, 0.6408136 , 0.18536892,
-       0.35787089, 0.81968133, 0.03752348, 0.39551494, 0.24574092,
-       0.75824217, 0.9642853 , 0.06583551, 0.08171757, 0.25362503,
-       0.72914223, 0.8837704 , 0.02631866, 0.95030773, 0.7060529 ,
-       0.8930821 , 0.39822756, 0.82410637, 0.18128167, 0.55625658,
-       0.97856713, 0.06468715, 0.97174219, 0.94518788, 0.8766769 ,
-       0.02038775, 0.30426117, 0.17927524, 0.13101756, 0.2317204 ,
-       0.88418449, 0.45675778, 0.69759984, 0.04638995, 0.13877671,
-       0.68515328, 0.70644869, 0.76041054, 0.09915309, 0.99840908,
-       0.04972821, 0.58472795, 0.64568846, 0.28645003, 0.28803998,
-       0.16994   , 0.3151959 , 0.77308367, 0.37186481, 0.26694347,
-       0.73817172, 0.6150509 , 0.61194572, 0.80847813, 0.93691158,
-       0.67311239, 0.12722363, 0.18093929, 0.53266398, 0.68873768,
-       0.43517983, 0.69703678, 0.04487793, 0.96773282, 0.39516136,
-       0.6490977 , 0.06924699, 0.74477372, 0.17175712, 0.00946398,
-       0.21438731, 0.90366678, 0.22026249, 0.19304039, 0.63719114,
-       0.02878915, 0.63537944, 0.66062147, 0.64241864, 0.9159541 ,
-       0.32671907, 0.7661052 , 0.91168297, 0.41423243, 0.07588457,
-       0.40145792, 0.67562391, 0.77792787, 0.59545402, 0.10586877])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.76729017, 0.36952278, 0.10087681, 0.07862868, 0.60059355,
+       0.67411476, 0.52692837, 0.74775941, 0.32725188, 0.09251002,
+       0.84754023, 0.48967682, 0.53803498, 0.63307813, 0.31388762,
+       0.81414139, 0.71660186, 0.40905378, 0.46989262, 0.16505625,
+       0.8165627 , 0.58280347, 0.84913497, 0.65398629, 0.92523862,
+       0.55441257, 0.15409921, 0.75380523, 0.81245847, 0.15343603,
+       0.93335657, 0.85958455, 0.57108753, 0.17125569, 0.24601956,
+       0.25005015, 0.89133982, 0.10301823, 0.64911844, 0.22709183,
+       0.01927219, 0.95021723, 0.6476825 , 0.01218941, 0.89630753,
+       0.59988331, 0.33984252, 0.66573216, 0.69288164, 0.62555955,
+       0.27574074, 0.5206354 , 0.61875597, 0.41581619, 0.4513762 ,
+       0.92981875, 0.227476  , 0.43180579, 0.21190154, 0.49153453,
+       0.49341273, 0.61105989, 0.07411594, 0.1829612 , 0.01207508,
+       0.24722949, 0.55046647, 0.04399492, 0.09769202, 0.43167262,
+       0.70403407, 0.07128094, 0.04293587, 0.70561647, 0.17386921,
+       0.36427349, 0.05374578, 0.19023514, 0.64702886, 0.17007486,
+       0.71964167, 0.06407958, 0.76850661, 0.929924  , 0.89864387,
+       0.23800754, 0.89793791, 0.97326305, 0.47128844, 0.75338281,
+       0.59765009, 0.44245882, 0.76754975, 0.25625771, 0.97200478,
+       0.09419354, 0.29462606, 0.47367611, 0.41960741, 0.76614393])
 </pre></div>
 </div>
 </div>
@@ -817,26 +937,26 @@ p(a \le X \le b) = F(b) - F(a) = b - a.
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.80586055, 0.11824385, 0.16970896, 0.23699974, 0.37712543,
-       0.95392772, 0.3167166 , 0.29377652, 0.03252983, 0.12010956,
-       0.50480532, 0.74594687, 0.46786984, 0.23535419, 0.76501325,
-       0.4868536 , 0.24281247, 0.56834828, 0.73510174, 0.65209475,
-       0.40019549, 0.51742407, 0.90883814, 0.07134155, 0.81721201,
-       0.03008084, 0.18048499, 0.60085674, 0.04253718, 0.2604787 ,
-       0.21244718, 0.97700233, 0.4507617 , 0.5235795 , 0.66534106,
-       0.89016926, 0.65434185, 0.97440304, 0.31200708, 0.08642   ,
-       0.82021427, 0.66455954, 0.72986889, 0.60272292, 0.59986421,
-       0.71106608, 0.02076019, 0.644577  , 0.21984685, 0.83109709,
-       0.28888499, 0.19897096, 0.35633719, 0.31888049, 0.88103772,
-       0.61011618, 0.78859155, 0.92172975, 0.09794496, 0.26354898,
-       0.88442024, 0.14780904, 0.72500108, 0.74646945, 0.64247196,
-       0.89706545, 0.28715704, 0.46458434, 0.76452549, 0.07750805,
-       0.93848269, 0.56619284, 0.36794383, 0.37993545, 0.39500912,
-       0.18791823, 0.96039442, 0.82659114, 0.12148711, 0.99411616,
-       0.95130704, 0.20910239, 0.27437508, 0.5050475 , 0.93813519,
-       0.83777349, 0.8593612 , 0.26183294, 0.45411316, 0.13210563,
-       0.76234838, 0.93534534, 0.46668538, 0.81264633, 0.5485471 ,
-       0.99254412, 0.54846434, 0.2541332 , 0.7283944 , 0.92028981])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.93093137, 0.16267519, 0.98072917, 0.55046935, 0.61283248,
+       0.74779252, 0.22316264, 0.56462595, 0.92195484, 0.76353306,
+       0.4694509 , 0.78917924, 0.04214299, 0.75893337, 0.25455189,
+       0.9561007 , 0.62399571, 0.6791297 , 0.72893628, 0.05441865,
+       0.85144579, 0.97866923, 0.85819365, 0.64255414, 0.28482819,
+       0.11235003, 0.27351465, 0.19731848, 0.48427637, 0.67619509,
+       0.34797569, 0.70134629, 0.04246567, 0.08694933, 0.93984669,
+       0.87682069, 0.41592074, 0.35655285, 0.13357834, 0.01134986,
+       0.80493372, 0.07183044, 0.51270814, 0.76724534, 0.22777905,
+       0.93031754, 0.40681666, 0.72016314, 0.31751413, 0.359763  ,
+       0.89388459, 0.1223253 , 0.84354193, 0.17038232, 0.30717771,
+       0.65363139, 0.98618411, 0.46358422, 0.25264433, 0.79273715,
+       0.9239096 , 0.017061  , 0.58550893, 0.73638448, 0.57617304,
+       0.45232555, 0.20714044, 0.8360547 , 0.7700278 , 0.8926971 ,
+       0.74378973, 0.62038716, 0.83780607, 0.02930129, 0.16029063,
+       0.42704029, 0.75474664, 0.59888824, 0.84668931, 0.70842054,
+       0.72007957, 0.29441483, 0.46133129, 0.99088283, 0.33129073,
+       0.30146832, 0.79466372, 0.89290712, 0.74968618, 0.32788356,
+       0.16177775, 0.3871587 , 0.10573329, 0.46312394, 0.65462353,
+       0.37192501, 0.85224172, 0.61887343, 0.99525838, 0.85706736])
 </pre></div>
 </div>
 </div>
@@ -944,7 +1064,7 @@ F(x) = p(X\le x) = \int_{-\infty}^x f_X(u)du = \int_a^x \frac{1}{b-a}du = \frac{
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/ead8c4caa78a662b06af7c294c625f6c318424554a82f1707766046dd72c7492.svg" src="../_images/ead8c4caa78a662b06af7c294c625f6c318424554a82f1707766046dd72c7492.svg" />
+<img alt="../_images/51786b3e1f5a21a482ce919c92f988652319fc470cbf77631fcee21f755dc476.svg" src="../_images/51786b3e1f5a21a482ce919c92f988652319fc470cbf77631fcee21f755dc476.svg" />
 </div>
 </div>
 <p>The CDF is:</p>
@@ -966,7 +1086,7 @@ F(x) = p(X\le x) = \int_{-\infty}^x f_X(u)du = \int_a^x \frac{1}{b-a}du = \frac{
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/d0f8b7c84c13fa987fbcb1a048e896c111bf08dcf56ed519a81435bdb6446335.svg" src="../_images/d0f8b7c84c13fa987fbcb1a048e896c111bf08dcf56ed519a81435bdb6446335.svg" />
+<img alt="../_images/94679b612e8efbf02741baff611af91ad46a078bc199955aff62a933e8a53807.svg" src="../_images/94679b612e8efbf02741baff611af91ad46a078bc199955aff62a933e8a53807.svg" />
 </div>
 </div>
 <p>The expectation is:</p>
@@ -1009,26 +1129,26 @@ F(x) = p(X\le x) = \int_{-\infty}^x f_X(u)du = \int_a^x \frac{1}{b-a}du = \frac{
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 1.44828788,  3.41171026,  2.87684174,  4.8983561 , -0.1312805 ,
-       -1.70245574,  2.26979439,  1.6466782 ,  4.34652482,  0.35543454,
-        4.53818962, -1.33718623,  0.04536362,  0.41322555,  3.78249496,
-        4.68216223,  3.28923988,  2.60780789,  4.18933089,  4.00611092,
-        2.57420565,  4.94090822,  1.98921428, -1.49104842,  1.08427018,
-        0.77995007, -0.18844224,  0.4527731 , -0.52566889,  1.92956296,
-        4.02993221,  4.41533211,  2.00825063,  3.67496822, -1.74089817,
-        4.37543734,  3.18883896,  2.05146579, -1.54908546,  3.57873337,
-       -1.53078455,  4.10284175, -1.25869879,  4.39609846,  4.08372762,
-        1.59054529, -1.88254861, -1.31531624,  2.72709832, -1.72031435,
-        4.16180122,  1.2298621 ,  0.90993575, -1.44662087,  4.11556168,
-       -0.02735795,  2.34190311,  0.95310295,  3.94416729, -0.37474025,
-        2.89650481,  0.32614986,  1.87890769,  2.30208277,  1.70514826,
-       -1.2640151 ,  3.98274136, -0.51666423,  0.38175858,  4.50485523,
-        2.59398841,  4.56469552,  1.21358654,  2.88875989,  4.69242704,
-       -0.4574542 ,  0.90836318, -1.53365789, -0.98508496,  2.78899496,
-       -1.44765717, -1.48304314,  4.30368088,  0.29395015,  3.02711301,
-        4.31544499, -1.99617301,  2.12661733,  1.95365674, -0.28018737,
-        3.70934999, -0.09200282,  1.98819365,  3.75772142,  4.32743015,
-        3.77284658, -0.83542659,  0.56102761,  2.29900879, -0.36813604])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 3.16665541, -0.18104791,  1.96342543,  4.18870164,  3.23764465,
+       -0.82096326,  4.98052135, -1.38981321, -0.50330442,  3.04544003,
+        3.57291963, -0.0246068 , -0.75965116,  2.95439047, -1.12582801,
+       -0.21330492, -0.06041608,  1.05717779,  3.74259905,  1.22815532,
+        4.46087461,  4.65834513,  1.98313002, -0.3457419 ,  0.52873396,
+        2.19216614,  0.58014778,  3.48916931,  2.58836805, -0.09261791,
+        2.6469498 ,  1.44946877,  2.43532653,  0.58238562, -0.49375135,
+        1.56556198,  2.15663798,  4.02352609,  0.50995412, -1.3694415 ,
+        3.63864776,  4.20909284,  0.21081806,  0.9119826 ,  0.39183794,
+        3.40977852,  0.4506317 , -0.81889945,  0.43709493,  2.72611971,
+        2.79490825,  0.28771322,  1.04592226,  2.35724624,  0.23814042,
+        3.04293161,  3.45193204,  4.64232531, -1.44629507,  2.22385568,
+       -0.14967713,  2.57377918, -1.03224389,  1.61921102, -0.97853337,
+        0.29126199,  2.56444605,  2.32616012,  0.57708777, -0.61447082,
+        4.63412622, -1.87452257,  3.49904636, -1.52254057,  2.02114143,
+       -0.25032501, -1.00256198,  0.12084568,  2.75575215, -0.33447655,
+        4.87899017, -1.61458953,  4.94087464, -0.45925774,  3.66770739,
+        3.72933382,  2.56221919, -0.81862425, -0.19654772,  4.28578981,
+        0.87723842,  2.8401387 , -0.29426586, -1.43155218, -1.83854561,
+       -0.54418838,  2.13432151, -0.13853689,  0.9280982 ,  2.39894963])
 </pre></div>
 </div>
 </div>
@@ -1068,256 +1188,173 @@ Equipped with this result, we can sample <span class="math notranslate nohighlig
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-1.17968315e+00 -9.91679588e-01  1.34411789e+00  1.14593570e+00
-  6.37846308e-01 -3.55504159e-01 -1.33171178e+00  1.18303712e+00
-  3.20876200e+00  3.19667735e+00 -1.27515305e+00  2.51508002e+00
-  6.84081866e-01  2.44487554e+00  4.91615360e+00  3.09205003e+00
-  1.44013657e+00  2.15047448e+00 -1.30341195e+00 -4.41178353e-01
-  2.59401696e+00  1.98714760e+00  2.01425439e+00  4.96415606e+00
-  4.24264777e+00  4.88138233e+00 -1.55005597e+00  1.62766182e+00
- -5.59193830e-01  4.59853007e-01 -1.79581400e+00  2.14846678e+00
-  3.30474256e+00 -1.42148694e+00  1.61251214e+00 -1.14294509e+00
- -9.76485259e-01  3.14474495e-01 -1.58248222e+00  1.78018802e-01
-  4.13978083e+00 -7.66317089e-01 -2.41124441e-01 -1.14919158e+00
-  5.44683158e-01 -1.54367814e-01  3.16869882e+00  2.55781126e+00
-  4.81829577e+00  4.12587892e+00  1.03292936e+00  1.59955571e+00
-  3.25948809e+00  2.64536298e+00  4.23719619e+00  3.33727502e+00
- -1.00696879e-01  3.57550671e+00  1.51327194e+00  1.04445845e+00
- -1.02823256e+00  3.63510969e+00  1.79652898e+00  1.56104435e+00
-  2.50746351e+00  2.67487158e+00  2.20292496e+00  3.90029262e+00
- -1.17324854e+00 -1.18876164e+00  1.19950558e+00 -1.65240941e-01
-  2.32275869e+00  2.47379659e-01  8.92987479e-01  7.37173769e-01
-  2.77864400e+00  4.97192317e+00  3.08384800e-02  1.23544520e+00
-  3.64543947e+00 -3.69787503e-01  4.38784321e+00  1.12058327e-01
-  2.48687455e+00 -1.36717106e+00  1.25885672e+00  1.03121999e+00
-  3.91622677e+00  1.48368014e+00  4.42145309e+00  3.61980557e+00
-  4.61402820e+00  3.61519450e+00  2.16269649e-01  1.64432456e+00
-  1.24830833e+00  1.73655333e+00  3.05957195e+00  3.58732430e+00
- -6.99010100e-01  3.50998068e+00  4.81228913e+00  1.82948753e+00
-  2.02008991e+00 -1.40290818e+00  4.75843655e+00 -1.27289899e+00
- -4.84665557e-02  3.09671948e+00  4.13372571e+00 -1.96571316e+00
- -1.59265249e+00 -8.50618471e-02 -5.48769674e-01  4.23469323e+00
-  4.88158664e+00 -1.34303456e+00  3.50968782e+00  4.62135837e+00
-  4.56286817e+00  3.52011956e+00  9.30428299e-01  1.66177549e+00
-  2.26345132e+00  4.71694438e+00 -8.64846133e-01  2.74455730e+00
-  4.13924095e-01  5.93697461e-01  2.48922515e+00  7.29692294e-01
-  6.92201518e-01 -8.76923231e-01  3.84216815e+00  3.68478361e+00
-  3.99199047e+00 -7.10897975e-01 -1.10915113e+00  4.84954354e+00
-  2.50872947e+00 -1.12522238e-02  1.85080108e+00 -1.17286785e+00
- -7.02283619e-01  1.15886604e+00  3.95732753e+00  1.89822021e+00
- -1.28627619e+00 -1.46130076e+00  3.79115282e+00 -2.90722078e-01
- -1.48284716e+00  4.45962731e+00  2.28789043e-01  3.12628672e+00
-  2.65737999e+00  2.31442143e+00  4.18292470e+00  2.52586745e+00
- -1.93987682e+00  3.76118238e+00 -1.79062515e+00  2.88817016e+00
- -8.49007671e-01  3.46449930e+00 -1.23173168e+00 -4.03804837e-01
-  1.81314008e+00  4.54591476e+00  1.44679810e+00  1.61688406e+00
- -1.64820579e+00  3.99238562e+00  2.87893082e-01 -9.99431046e-01
-  2.91072152e+00 -1.50827027e-01  9.63256245e-01  1.31340762e+00
-  4.10862356e+00  4.74900253e+00 -9.96871664e-01 -1.66698853e+00
-  2.45847924e+00 -4.10866461e-01  3.02009409e+00  3.95800337e+00
-  2.91496150e+00 -1.64498094e+00 -2.96170832e-01  3.68000716e-01
-  4.33827706e+00  3.75519415e+00  1.39413566e+00 -6.70876230e-01
-  6.64632082e-01  4.46970515e+00  3.07917656e+00  8.60269017e-01
-  4.68654139e+00  3.40511540e+00 -1.03833445e+00 -1.62963673e-01
- -4.64769991e-01  5.27086568e-01  1.62677553e+00  2.09679050e+00
-  1.99516774e+00  3.83995224e+00  2.48795436e-01  4.60076713e+00
-  5.86476646e-01 -7.01901275e-01  4.94013081e+00  1.89350669e+00
-  2.51934322e+00  4.56646324e+00 -3.14754974e-01 -9.72362524e-01
-  1.85137701e+00  2.57042174e+00 -1.10693823e+00 -6.29945840e-01
-  2.62747590e+00  4.03724437e+00 -3.35904085e-01  4.92277153e+00
-  3.77833210e+00  2.99047110e+00  2.85609328e+00  2.60528917e+00
-  3.33690449e+00 -1.77260483e+00 -7.36628168e-01 -3.46722992e-01
-  4.94538524e+00  3.44638989e+00 -1.10465184e+00  1.92122119e+00
-  3.27221482e+00  2.98461427e+00  3.68561931e+00  6.45502620e-01
-  2.63160190e+00  2.82349001e+00  3.62051805e+00 -1.58135309e+00
-  2.35474995e+00 -1.73016667e+00  1.54126125e+00 -9.38997653e-01
-  2.59732064e+00  1.10902090e+00  1.03304785e+00  3.48388935e+00
- -1.14124501e+00  2.14887295e+00 -1.63822445e+00  2.57059233e+00
-  3.32360432e-02 -1.43902543e+00  5.52638193e-01 -5.12670429e-01
-  2.82026753e+00 -9.91218462e-02  2.43082384e+00 -2.45619298e-01
- -1.70300116e+00  3.34293495e+00  1.95664920e+00  2.92331577e+00
-  4.56635306e+00 -4.98279946e-01 -1.04653454e+00  4.74972290e-01
-  6.65034502e-01  2.65243000e+00  2.43681424e+00  1.75301147e+00
-  3.57944551e+00  4.19371942e+00  4.83178144e+00 -8.96606131e-01
-  7.84391986e-01  4.26719660e+00 -9.21063767e-01 -1.76895436e+00
-  1.34736035e+00  1.17607890e+00  2.65263703e+00  3.53709218e+00
- -2.68653849e-01 -6.44862688e-01 -1.62450664e+00  3.14368470e+00
-  9.12024151e-01  1.21942517e+00 -1.08850357e+00  1.76873260e+00
-  3.18957663e+00  1.63841859e+00  2.10881072e+00  5.58304619e-01
-  3.11722650e+00  1.86382016e+00 -3.25826798e-01 -1.56137351e+00
-  2.50823715e+00  2.11310233e+00  2.86570090e+00  2.19831825e+00
-  2.87119312e+00  1.59738048e+00  6.84367501e-01  1.45093508e-02
-  2.65241558e-01  3.51586644e+00  1.43018564e+00  2.32120146e-01
- -6.78654449e-01  3.43718973e+00 -1.08071237e+00  5.30138205e-02
- -2.56510272e-01 -1.48780393e+00  2.59271428e+00 -7.96299654e-01
-  4.99204788e+00 -2.71422151e-01  3.14528517e+00  2.70119342e+00
- -2.14414723e-03  2.67431079e+00 -4.87553999e-01 -1.58956844e+00
- -9.60100129e-01  6.32609387e-01  1.86106696e+00  4.22514463e+00
-  6.21380654e-01  2.64581644e+00  5.11884800e-01  4.83880852e+00
-  1.14470014e+00  1.81623020e+00  2.75448351e+00  1.89109281e+00
-  3.09898592e+00 -3.01292075e-01  3.25455867e+00  4.81881825e+00
-  3.98140410e+00  3.70493946e+00 -1.91123086e+00  3.58374602e+00
- -1.72815707e-01  3.04319653e+00  3.50354764e+00  2.87950607e+00
-  3.82993556e+00  2.67370550e+00  4.50638047e+00  3.64539181e+00
-  5.48990879e-01  3.61833891e+00  2.29936440e-02 -8.80769959e-01
- -1.07774566e+00  5.09763338e-01  2.12468763e-01  1.24183991e+00
-  4.89325126e-01 -1.25264819e+00  1.15898636e+00  3.60900084e+00
-  1.42489021e+00 -5.90282091e-01  3.87549148e+00 -1.94265553e-01
- -6.85288990e-02  1.26086840e+00 -8.48392953e-01  2.36168026e+00
-  3.76885391e+00  1.55656277e+00  2.69930222e+00 -1.63759912e-01
-  3.92927627e+00  1.19607070e-01  2.73050922e+00  4.24870766e+00
-  3.61563020e+00  4.00221263e+00 -1.23196734e+00  3.16729514e+00
-  2.69546009e+00  3.08126507e+00  2.04336608e-01  2.29908041e+00
-  3.30198934e+00  1.34120457e-01  1.11295405e+00  3.24292912e+00
-  4.59840938e+00  4.16176129e+00  3.33603324e+00  3.93297982e+00
-  2.13455929e+00  3.52721610e+00  2.83034984e+00 -1.94538368e+00
- -8.51150965e-01  2.20695027e-01  3.25951926e+00  1.34469265e+00
-  1.75681953e+00  4.92958859e+00 -1.23500975e+00  1.82916076e+00
-  3.93068854e+00 -5.57709782e-01  2.70708100e+00  3.08674226e+00
-  4.46900090e+00  2.87104901e+00  2.38090201e+00  9.33917154e-01
-  4.51148347e+00  1.55960652e+00  1.88861504e+00 -1.58126633e-01
-  6.50686205e-01  1.95641893e-01 -1.88288652e+00 -2.14960184e-01
-  3.18100337e+00 -1.75279492e+00  4.43724845e+00 -1.46063342e+00
-  3.34932044e+00 -1.12412002e+00  2.63260905e-01 -1.44679184e+00
-  2.86392629e+00 -3.93575915e-01  4.02005957e-01 -1.68980037e+00
- -3.87662249e-01 -1.76373196e+00 -1.59572879e+00  1.14948817e-01
-  4.70592922e+00 -6.67311548e-01  3.62582700e+00  3.27910843e-01
- -5.57605724e-01  3.10979215e+00  4.28914977e+00  2.40426594e+00
- -1.83396538e+00  3.54239938e+00  2.27112060e+00  4.89851310e+00
-  4.91597033e+00  4.61836500e+00  2.32825306e+00  4.57321239e+00
- -8.54783356e-01  4.88519011e+00  7.37729750e-02  4.88248989e+00
-  3.72626918e-01  4.32956439e+00 -1.60054659e+00  9.63607857e-01
-  3.97454871e+00  3.15575376e+00  1.98230613e+00  2.20719134e-01
-  4.74169870e+00  4.17836096e-01  3.68926833e+00  3.74305210e+00
-  6.59819777e-01 -3.13615369e-02  8.68314671e-01 -1.42349664e+00
- -1.88875025e+00  4.80845794e+00  2.31358835e+00  5.00291436e-01
-  2.93958352e-01  1.33995414e+00  1.28806626e+00  1.71614200e+00
- -1.78606723e+00 -1.54053536e+00  2.73110211e+00 -1.45019387e+00
-  2.56447480e+00  7.84116201e-01  2.85443554e+00  1.76874211e+00
-  4.73493124e+00  2.62624499e+00  1.32660253e+00 -6.21590586e-01
-  3.85938881e+00  4.55761909e+00  2.88899120e+00  3.93243113e+00
-  3.53552470e+00  5.87721631e-02 -1.78894729e+00 -1.68933435e+00
-  6.17382494e-01 -8.16284399e-01 -1.10909752e+00  2.59552809e+00
-  2.73267289e+00 -1.25131788e+00  2.07608639e+00  1.40933810e-01
-  4.91459291e+00  3.07747624e+00  1.47682333e+00  1.27978073e+00
-  2.25447345e+00  8.26771642e-03  8.12947073e-01  1.34495536e+00
-  4.95587890e+00  4.30467189e+00  3.76429217e+00  1.23105618e-01
- -1.98813044e+00  4.50835805e+00 -1.11115118e+00 -1.77786181e+00
-  1.29918317e+00  2.93150209e+00 -1.30608599e+00  3.11616434e+00
- -1.50247046e+00 -9.45985580e-01 -1.67346829e+00  4.30365351e+00
- -5.94430487e-01  1.00933090e+00  1.63721303e+00 -5.47427783e-02
-  8.39629373e-01 -1.64316049e+00 -1.45627642e+00  3.68321319e+00
-  4.29068375e+00  1.07538451e+00  4.84905430e+00  5.23491209e-01
- -9.22008074e-01  4.31356805e+00  3.08340278e+00  1.05558310e+00
-  6.93878430e-01  1.65548891e+00  3.33763914e+00  4.52550119e-01
-  3.20258690e+00  3.19161860e+00 -3.19798198e-01 -1.39583793e+00
- -7.90998728e-01 -1.97789542e-01  3.19509526e+00 -6.70635438e-01
-  2.80491663e+00  3.92201508e+00 -5.49844003e-01 -8.87159828e-01
-  3.93179601e+00 -1.74935107e+00 -1.70121196e+00 -1.00515293e+00
-  4.09212966e+00  1.96356994e+00 -1.62045434e+00  1.12502898e-01
-  1.15332377e+00  4.54124934e+00  2.41171925e+00  3.33223708e+00
-  3.98897343e+00  4.75587675e+00 -3.72707721e-02  1.65828133e-01
-  1.91644349e+00 -1.86070627e+00 -1.43623405e+00 -5.41351525e-02
-  2.79089989e+00  3.22775321e-01  3.17681804e-01  4.48747535e-01
-  3.65312448e+00  4.24991481e+00  3.18370398e-01  4.96713917e+00
-  3.77813261e+00  2.37598405e+00 -5.58605054e-01 -1.82255562e+00
- -1.98526742e+00  2.34984967e+00  1.74455170e+00  2.82058623e+00
- -8.13346033e-01 -1.56350265e+00  3.11279665e+00  4.93229778e-01
-  2.04654495e+00 -3.32360329e-01 -1.84328512e+00  4.54447274e+00
-  3.76532536e+00  2.37120310e+00  4.62711857e+00  4.33597706e+00
-  6.60218409e-01  2.41802050e+00  3.16123928e+00  3.58817491e+00
- -1.88900673e-02  1.13539988e+00  4.34285339e+00  8.30465305e-01
- -9.29094975e-01 -1.10898097e+00  3.28860969e+00 -1.23198211e-01
-  1.58046692e+00  4.06493563e+00  1.19870122e+00 -1.14904838e+00
- -2.96567237e-01  1.83475222e+00  9.87157046e-01  4.96417492e+00
- -8.01205594e-01  8.05202457e-01  1.14394240e+00  9.57317707e-01
-  5.20990315e-01  4.00905204e+00 -1.31166107e+00 -1.27842497e+00
-  4.63444051e+00  2.94702970e+00 -4.44153254e-01  8.93521438e-01
-  3.01912497e+00 -1.87876571e+00 -1.21066095e+00  4.63039011e+00
-  3.02219837e+00  3.67503206e+00  8.22734670e-02  1.14938628e+00
- -1.58654398e+00  4.28517428e+00  1.35969610e+00  7.51088564e-01
-  1.10186346e+00  6.76939523e-01 -6.63213596e-01  4.20058586e+00
- -5.49273719e-01 -9.36348108e-01  4.53435336e+00  1.72573634e+00
-  4.98412551e+00  1.72884694e+00 -1.44786328e+00 -4.65172575e-01
-  4.70134541e-01  3.51882536e+00 -3.27947245e-01  2.94943386e+00
-  1.10558976e+00  5.94128479e-01  5.13668707e-02  2.01251370e+00
-  4.77588991e+00 -1.36660742e+00  1.40323993e+00 -6.17246522e-01
-  3.76454318e-02  1.61875157e+00  2.62555780e+00  2.51100914e+00
-  9.71934086e-01  1.28696761e+00  4.86646442e+00  3.34283628e+00
- -1.16291918e+00 -1.63768176e+00 -9.14209770e-01  2.41793307e+00
-  4.34451149e+00  3.12311487e+00  3.52099286e+00  2.51556501e+00
-  4.02125976e+00 -1.36399282e+00  3.21969678e+00  2.43667257e+00
-  2.85415595e+00  3.30862087e-01  8.74264174e-01  1.82222357e+00
-  7.09078157e-01  3.59907724e+00  9.38805710e-01 -1.73722746e+00
- -1.94567182e-01  2.26535810e-01 -1.72182695e+00  2.47187106e+00
- -1.81327998e+00  1.24300369e+00  3.89367462e+00  1.49186894e+00
-  2.65565319e+00  2.75979813e+00  2.73027975e+00 -1.11124209e+00
-  2.85472912e+00 -1.73321440e+00  2.12759186e+00  3.94404796e+00
- -6.71224244e-01  3.35192633e+00 -1.65440389e+00  2.17759684e+00
-  3.01280356e+00  4.85603584e+00  1.68852794e+00 -7.36289102e-01
- -1.67648899e+00  2.73268896e-01  1.41094108e+00 -9.44328818e-02
- -2.28820495e-01  1.21309049e+00 -1.61188562e+00  1.16804575e-01
-  3.93775745e+00  4.39512512e+00  4.14571825e+00  1.82170181e+00
-  3.01031650e-01  1.03176985e+00 -1.61039519e+00 -6.81306148e-01
- -1.45697489e+00 -1.14588803e+00  2.91927657e+00  4.85841711e+00
- -1.90629246e+00  2.00478247e+00  2.61794342e-03  1.37823772e+00
- -5.70446564e-01  2.50250605e+00 -1.63341780e+00  1.09064398e+00
-  4.64098810e-03  2.48940427e+00  4.38575745e+00  2.13360074e+00
-  4.85672168e+00 -1.77615989e+00  1.20585871e+00  1.53445605e+00
-  4.35565370e+00  3.75031336e+00 -1.99909335e+00  3.92048256e+00
-  3.79743390e+00  2.90317250e+00 -8.12562644e-01  1.34543303e+00
-  1.10225416e+00  4.22211622e+00  3.66320443e+00 -9.02155091e-01
-  1.83744419e+00 -1.65203859e+00 -1.04950458e-01 -7.75115305e-01
-  4.35328142e+00  2.02248015e+00  2.02081803e+00  1.36663108e+00
-  1.75451005e+00  4.96751545e+00  2.71852013e+00  4.77137308e+00
-  4.60196908e-01  1.55541284e+00  3.15670520e+00 -9.03671011e-01
-  2.01525528e+00  4.30333721e+00 -1.83418269e+00  5.19544543e-03
- -1.41885784e+00  2.33031313e+00  4.99677116e+00  1.21329980e+00
- -1.56382860e+00  4.92984509e+00  6.52193912e-02  2.85275198e+00
-  3.64811294e+00  3.38141018e+00  3.02112006e+00 -1.57834433e+00
- -1.07806834e+00  3.86225064e+00  4.24086049e+00  3.15656983e+00
-  4.79561096e+00  1.42342006e+00  1.29379194e+00  3.19897927e+00
- -1.17169010e+00  3.83448780e+00  1.47958116e+00  4.66395286e+00
-  2.92778806e+00  4.84385655e+00  2.68033896e+00  1.44234072e+00
-  3.55882978e+00 -1.77304755e+00  6.59709051e-01  1.92613344e+00
-  4.81035676e+00  3.99521769e-01  4.00542814e+00  3.63348060e+00
-  2.86258813e+00  1.38511844e-01  3.39779845e+00 -1.44561639e+00
- -4.43754401e-01  1.72424489e+00  4.86670268e+00 -1.07507981e+00
- -5.40606621e-02  2.46476373e+00  1.33547953e+00  1.78203830e+00
-  2.31218055e+00  2.14754310e+00 -1.30931774e+00 -1.57985844e+00
-  1.24383856e+00  3.45769450e+00  2.67088351e+00 -6.81272817e-01
-  2.13591010e+00  2.81212334e+00  1.77093463e+00  2.45249901e+00
-  4.52779350e+00  3.98823774e+00  3.67789409e+00  4.76537984e+00
-  4.42325695e+00  3.85071100e+00  4.04899926e+00 -1.88285219e+00
- -1.97835087e+00 -5.34923685e-01  3.17271174e+00  1.79181359e+00
- -3.02267971e-01  3.66072915e+00  4.64331571e+00  2.25077418e+00
-  1.80126359e+00  4.81678697e+00  1.38441717e+00  1.53981446e+00
-  1.43484719e+00  2.74129845e+00  8.51697576e-01  2.99384294e+00
-  3.84421544e+00 -1.86054969e+00 -1.79720231e+00 -2.42727602e-01
-  1.89817911e+00  3.31739622e+00  4.59365092e+00  4.71400809e+00
-  4.46132833e+00  3.40425390e+00  4.62916342e+00  2.59875540e+00
-  4.47826237e-01  3.81509244e+00 -1.03925269e+00  2.54388222e+00
- -1.53190313e+00  4.37195991e+00  3.67361133e+00  1.87619717e+00
-  1.34210800e-01  6.99252223e-01  7.26615144e-01  1.34924827e+00
-  4.99473288e+00  8.55607816e-01  1.30541738e+00  2.30127458e+00
-  3.06510865e+00 -1.51599947e-01  3.49814358e-01 -1.67084304e+00
-  5.47426766e-01  1.39338941e+00 -1.58883980e+00  2.55738646e+00
-  1.16948438e+00 -1.13989071e+00 -2.08432874e-01  4.21074186e+00
-  8.52639422e-01  3.90064884e+00  2.17521755e+00  2.95573596e+00
- -1.35506331e+00  6.85377238e-01  3.70716443e+00 -1.16310672e+00
- -1.81317717e+00  4.21617538e+00  4.00580665e+00  1.11263129e+00
-  1.74351666e+00  4.40077066e+00  2.42870255e+00  3.31673513e+00
-  3.58083026e+00 -1.48543413e-01 -8.65696513e-01  3.95046392e+00
-  4.42107765e-01  2.90212938e+00  1.50203805e+00  4.41142692e+00
- -1.45816387e-01  3.96240617e+00  2.62051307e+00  1.31791778e+00
-  3.09028980e+00  9.01557115e-01  2.58879839e+00 -3.29452981e-01
- -9.07002460e-01  1.35883064e+00 -1.66821428e+00  2.47880300e+00
-  2.79033856e+00  4.02906211e+00  2.05679809e+00 -3.05864192e-01
-  3.71065325e+00  3.70183402e+00  3.04348528e+00  9.99156148e-01
-  2.77439554e+00 -9.24842652e-01  1.08952793e+00  3.61516544e+00
-  1.71853445e+00  4.65637095e+00  3.07562353e+00 -1.15923567e+00
-  1.13099281e+00  1.84052542e+00  3.73088838e+00  1.72587936e-01
- -1.86799416e+00  3.95129583e+00  3.23722970e+00  2.81583500e+00]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 1.69239621  0.9757347   2.01930877  0.97124803 -1.78383998  3.50721793
+  3.85687481  1.34565458  2.65133676  2.73446522  3.58543036  0.03099628
+  3.00420889 -1.49087007  3.98757702  0.62403014  4.06576063  3.34915879
+  0.7844617  -0.01357119  3.79397164 -0.41609199 -0.1838001   3.73428323
+  1.74670737  3.28665485  2.66908929  0.38709258  2.62388955  0.14602571
+  1.12803562 -1.07811501  0.4938018   0.87187493 -0.17122994  3.63108869
+ -1.62355923  3.09161146  3.95091639  2.52920018  0.41394578  4.83210917
+  1.01172741 -0.0238804   2.69182884 -1.92775519  2.73843321 -1.93005121
+ -1.05087812  2.36430478  3.4843959   1.50841697  0.48301237  1.11976217
+  1.0858566   2.74410851  4.10218827  2.31230585  1.86022678 -0.43176399
+  2.19977026  2.61475477  0.44763574 -1.68342423  1.29116325  0.41739773
+  4.68193632 -0.58008792  0.24255565  4.16571672  3.09296445  1.63990842
+ -1.40279869 -0.74046118  2.84061453 -0.39366519  4.02480577 -0.24199919
+  3.95768273  4.57654153  0.89029425  3.94460064 -0.21364654 -0.93256834
+ -1.67810641  4.20794745  3.37431458  0.46095725 -0.2828538   2.43185576
+  4.70701524  3.52363113  3.12029176  0.49645088 -1.59392279  4.30275722
+ -0.81028296  4.91802452  1.16206686 -0.06496322 -0.46547529  3.17572741
+  0.22555509 -1.96911046 -1.49935839 -1.37990789  2.21387946  2.64317858
+  3.54794944  2.60540981  2.65537739  4.91447408  2.55111586 -0.16833468
+  3.23147335  2.82929278  2.45067751  4.07499066  2.64126431  4.79485783
+  3.04951659  2.19951283  3.225053   -1.119928    2.67309166  3.59512495
+  2.92063932  4.8301531   3.27312004  2.60848257  3.94279962  4.39631093
+  1.16245675  2.88604704  0.19413883 -1.0123574   3.37618291  0.54166036
+  1.0599277   0.90956041 -1.66188155  2.4950896  -0.16982471 -1.70007416
+ -0.32933826  4.9849717   3.21771311  0.01113271  3.74848347 -0.39398217
+  2.6328304   3.17993177  4.86731973  4.65143931  2.47186087  0.53639529
+  3.21089198  4.39799823 -0.74483947  3.6630386  -1.25694502  3.18646792
+  0.66148662 -1.37783143  4.97880851  4.91220526 -0.44270476 -0.20860791
+ -0.14577594  2.46205913  2.57880247  3.82608033  0.93399996  3.21421695
+  2.53183075 -0.01712106 -0.91560922 -0.15606679  4.60644124  3.29311881
+  1.21777326 -1.72354653  2.05485699  0.55114528 -1.98667878  4.56782795
+ -1.18856038  4.14512619 -0.67809452  0.13775855  1.69631917  3.78898137
+  4.96428696 -0.25391899  1.36279535 -0.58343045  4.67717957 -0.53539081
+ -1.98048713 -0.63206958 -0.59228126  0.11487649  1.64527795  3.30415489
+  0.09505727 -1.90547527 -1.32037148 -0.21860963  4.01717372  1.84711659
+  1.5600234   1.83159288 -1.81988983  4.60295725 -1.14387323  4.16421847
+  0.30588997  2.84105631  2.23526888  1.029097    4.21632116 -0.93070824
+  1.55172418  2.77141873  1.70069941  2.42137239  1.19168579  3.95831433
+  2.62718735 -1.99134272  4.44446191  3.39083447  2.64457541  1.07821767
+  4.98927454  4.04287803 -0.5281115  -0.0570207  -0.41891663 -0.84142561
+  1.67248892  3.09397812 -0.82391329  1.60651842 -1.9785378   4.6243466
+  0.62137735  4.25026859 -1.72434718  2.06274063 -1.16040357 -0.31558658
+  2.46518921  4.58086644  0.75467885  4.04254744  0.5907563   0.33755603
+  0.25467695 -0.8754782   1.01793792 -0.78259359  0.55439143  2.21404879
+ -1.65950501  1.5276296   4.35576097 -1.81216882  0.27136631 -1.88569699
+ -0.89926001  1.15200213  0.80084609  3.70797987  1.27811039  4.69874356
+  0.33821269 -0.86602172  0.48264791  3.74547627  1.02413839 -0.19060522
+  2.99081473  0.50275256  1.99213164 -0.96873555 -1.39009264 -1.16157027
+  3.26919111  2.51838299 -1.98687465 -1.96483707 -0.22442162  3.40690677
+  0.3964887   0.54432659 -1.93964358  1.90535547  3.56722818 -0.05389979
+  1.03552764 -0.90048828  4.18692911 -1.59212372  1.01009508  2.51508675
+  4.46567906  2.97204386  1.24453106  3.99364745  0.63258402  2.88593814
+ -1.16735446 -0.97149864  3.73928129  1.29209307  2.78808252  2.12876421
+  1.85431108  1.38935528  0.67304959  2.53895831  0.08333362  1.21630742
+ -1.23277459  3.64512489  4.7405222   4.01098079  4.73471929  2.68865283
+  0.1512616   3.59087967  1.40710095  3.68301795  4.58440582 -0.28747618
+ -0.43237625  3.37270069  3.78695699  4.93706603 -1.90999428 -0.2368028
+ -1.97446711  1.34503382  1.48080322  2.96080208  4.99341139  1.26885021
+  4.86979571 -1.06358222  1.47921356  2.06268878 -1.53684037  1.56656437
+  1.83161779  0.38207411 -1.34681487  4.23978764  3.48028991  4.29588141
+ -0.34872137 -1.45194009 -0.2047992   1.05363221  2.58544432  1.20998416
+  4.52983916 -1.87403626 -0.46682638  1.8040523  -0.2474103  -1.88775563
+  4.88119462 -0.87977156  1.68328372 -1.93164725  1.13732868  4.39450803
+  4.72514294 -1.60757219  1.52973059  0.26575866  4.23161035  1.07549971
+ -0.55979883  1.80901393  4.43283738 -1.44719744  1.21653104  0.69518783
+  3.65968577 -0.45175112 -1.8315917   1.79873147 -0.4955834  -1.79687415
+  3.58181323  4.39017682  1.80138449 -0.79645392 -1.9562498  -0.80539048
+  1.74945652  0.96689893  4.74743232  3.95486104 -1.28051136  1.52309636
+  2.07624929  3.91723876 -1.35042832  1.1666016  -0.53164564  3.46860343
+  1.21712726  4.80957348 -1.94680537  4.79934605 -0.14450988  2.13270591
+  2.31695315  0.61281806  3.79091824 -1.84823256  2.47080525  0.61989889
+  3.33301575  2.48732878 -0.40946618  4.48969634  2.90030514  2.03896491
+  4.57192511  2.46973188  0.14598982  2.3617642   0.98914687  3.82049531
+  3.32187279  1.59527795  0.0908875  -1.42845533  3.50486909  2.327694
+  0.48261385  0.53057875 -1.99241133  2.15756853  2.09120998 -1.75890102
+  2.01172868 -1.43162256 -1.64598936 -0.23424108  2.91236198  3.13213538
+  4.76046789 -1.20449605  3.78999222  0.46582812  3.9511495   0.33707975
+  1.05886191  1.08572497  2.82631533  1.59258346  2.05099986 -1.89746347
+  0.53163366  1.59025144  0.76051826 -0.32937722  2.09531956 -1.7258793
+  4.34027437 -0.59794967  0.25724681  3.79366945  0.07851849  1.20861127
+  2.14794399  0.76740788  4.45622009  3.6130357   3.71769349  0.10603926
+  3.46581567  1.71346018 -1.87585504  3.35764717  0.69351719  0.91050356
+  2.13180111  0.41378184  4.78194892  4.85807424 -0.60416673  2.61027463
+  1.25359187  2.53032124  3.05545283 -0.71971405  0.80718205  1.94633004
+  2.43334301  3.21115768  0.70713623  1.83685248  3.71165665  1.84755502
+ -1.65971321  1.04389404  0.95394517  2.06591894  4.63900519  0.87614458
+ -1.53386128  4.33411796  2.98404542 -0.40842029  3.93504893  4.00907909
+ -0.36484097  0.01315169  4.14903174  2.02352308 -1.40255963 -1.80385046
+ -1.88186704  3.71422808  4.62692106  4.68813691 -0.48094642 -0.73922472
+ -0.21588873  1.15005933  0.0557341   2.06101754 -0.57809339 -1.26214081
+  4.84263842  0.54970281  0.34218415  0.46832135 -1.36943396  1.62037258
+ -1.43970649  4.67262787 -1.61345085 -0.08838376  4.64322813  1.14822634
+ -0.09211443 -1.22283262 -0.56920481  1.0848626   1.02331957  3.50200884
+  2.02017679 -1.74523647 -0.14237785  3.92525846 -1.82702803  4.29742575
+  2.29928318  0.35623798  2.66715427  1.60323599  0.91722768 -0.79009352
+  4.91553128  2.0429254   1.22208707  3.58691363 -1.90612295  1.00852031
+ -1.70494278  0.92446523 -0.6948281   2.19448497  4.32988567  2.70326521
+  3.96164716  1.4958179   2.88587828  1.16858165  4.79659016 -1.97864233
+  4.84586809  4.24694067  2.00139779  3.17212935  1.06436898  4.85570917
+  4.78291199  2.68908821 -1.34594529 -1.05477144  0.27671221 -1.97444381
+  4.20873216  3.48144499 -0.69175126  4.62572056  4.02138583  1.44168369
+ -0.86836232  3.61625529  2.81563957  4.68047022  4.23158331  0.52801663
+  4.99899405  0.87361555  4.07654918  4.00690442  0.8619838  -1.79755956
+  3.15474018  4.78351268  4.59627569  1.41523868 -1.30263102 -1.32664273
+ -1.57853089 -0.96799864  0.69112193  3.73054697  4.76201102 -0.49532385
+  1.91984693  2.36517057  4.55742796  4.11024979  2.20757356  3.27480039
+  2.38710533  3.62891955  1.32878537  3.46955615  3.56498385  2.18828122
+  1.26383394  1.50652839  3.96035421  2.59328895  1.04808865 -0.17834341
+  0.50685341 -0.03212137  3.42845032  3.45504671  1.43816364 -0.6583519
+ -1.01501844 -1.80520758  4.49904223  4.71196037  0.55808086 -0.75117941
+ -0.87014337  2.79035926  1.81668751  2.25770628 -1.60064612 -0.13411938
+ -0.05322514  2.21176558  0.13117128  2.29040804 -1.80544006  3.62807994
+  2.26358001 -1.52490154  0.94455705 -0.99976016  2.11089303 -0.14611034
+  2.41564413  4.29263333 -0.20933148  0.12238578  0.75143096  2.81486562
+  0.16755794  2.24242409 -1.31260079  4.00047316  1.94384089  1.99416364
+  2.02302687  1.8381222   2.02530926  2.89049564 -0.47009939  0.71196963
+ -0.64041028  2.27243232 -0.89437014  1.94817949 -1.84346263  0.26498987
+  1.71383783  1.5738496  -0.1193343   1.09176536 -0.47072034  4.9401139
+  2.57747024  2.11953695  1.59149625  4.91430433  2.20692505  2.70389622
+  1.83373338  0.47941019  0.56907701  3.52925573  2.0218887   3.87330914
+  1.51191817  4.06211985  2.69039052 -1.81002958  4.47040545 -1.60187394
+  4.95448672  1.59541684  2.81336148  4.45220741 -1.51104356  0.98592701
+  0.65749285  3.46960425  0.73341651  1.00479131  1.86081246  1.48066621
+ -1.44022155  1.57964859  3.73502511 -0.06713501  3.95673961  0.05820612
+  0.3218133   2.44509826  2.98315361  2.09921255  0.80915583  3.9666444
+  2.52456182 -1.0387735   3.95438364  3.606256    0.33385115  0.46061771
+  1.02821248 -1.9151517  -1.82400198  2.40394105  1.30846442  3.90852784
+  1.62061093  1.45585064  1.65903396 -0.41524384  3.03320568  3.34160657
+  3.08352592 -0.36609274  0.60525001  1.51404797  1.98023019  0.74225401
+  4.85121594  3.19506274  2.41255602 -1.1676906   3.92525688  0.2045407
+  1.28738112  4.42209625  4.35753633  2.52687736 -1.2786669   2.35141043
+  3.37084498  4.02607462  1.91154069  4.16980131 -0.59167696  3.98453861
+ -0.26572306  0.4604129   1.59300907 -0.2322581  -0.89182593  3.34575429
+  0.62841105 -1.43536613 -0.3775873   0.02847658  0.34724231  4.20093122
+  1.78709366  3.83945749  2.70473437  2.34109668 -1.982536    4.55006968
+  2.32487668 -1.91812651  4.21769505 -1.2437192  -1.20781333 -1.67073473
+  0.40846688  0.94627468  1.61377492  3.50924512  3.32501051 -0.80899006
+  4.38871083  4.66051007  1.15018701  3.60467976  3.12660407  4.22538408
+ -1.81379209  2.1627863  -1.88243428  1.30135871  1.10013978  2.50071349
+  3.15812902  0.4785657   0.0362454  -0.77122499  2.39061806  4.21093057
+  0.58792104 -1.81421365  3.90948953  0.75237699  2.10455222 -0.91724553
+  3.62957224 -0.62426159  3.84193227  3.50501826  4.28065837  0.31423015
+  1.37705043 -1.04345964 -1.26729065  3.82397924  0.28575911 -0.47583741
+  1.21588883  1.07536132  2.28175763  1.55259446  2.32416492 -0.32716985
+  3.02367369  3.56221802  3.26923544  3.47930336  0.0976459   3.48298969
+  4.19733479  1.56584909 -0.74777953 -0.09606613  0.5185026   1.54149989
+  1.68527384  3.57982406  4.13073086  4.62447488  1.02610429  0.56559754
+  3.89733787 -1.52106627  4.30711104  3.49974279  0.86564778 -1.80419916
+  4.43919857 -0.66795268 -1.22432278  2.85398578 -0.40576424  4.58006509
+  0.23018428  4.24748741 -1.26509809  0.46309073 -1.17496722  3.48716149
+  0.3602364  -0.49728289  3.52434707 -1.28620106  1.35889229  4.63890606
+  4.50283818  4.96301463  0.39531205 -0.45425934  2.93744824 -1.89127113
+  0.62448163  3.33437749  2.21693327 -0.64715955  1.41895322 -1.63199063
+  3.12572361  4.43606788  1.94361289  1.45225518  1.48518027  0.02269611
+  3.82761504  4.14563797 -1.77861794 -1.46884692  3.943601    4.16677748
+  0.09777172  3.55218736 -1.8303875   0.06112043 -1.81745405  2.15887488
+  4.99052199  1.22982198  2.39185509  0.21063392  2.47744229  4.58019045
+ -0.98660092 -0.38313283 -0.88218342  2.34506504 -1.49154776  0.75598947
+ -0.98470803  2.9782695   3.14501455  3.95744167  3.53920458  1.73530938
+  2.70345577 -0.24751947  1.6885114   3.17292182  0.74009202  0.56904162
+  4.35556513  1.34339051  2.94701763  0.15565139  0.21815829  0.07142765
+  1.44353185  1.36499665 -0.61759184  4.59530984  4.81138286 -0.89572365
+ -0.61896139  1.99650076 -1.54438496  0.48564188 -0.31570249 -1.73648016
+ -0.69569907  0.83521097  0.6328362   4.44640203 -0.40579678  0.86578475
+  4.41269431  0.21280814  2.43268396  4.53336063 -1.67359811  3.22033222
+  0.02746641  0.2575197   4.17974066  0.79949443  3.82636379  4.64571801
+ -1.24549326  0.65756483 -1.74377722  3.48519197]
 </pre></div>
 </div>
 </div>
@@ -1338,7 +1375,7 @@ Equipped with this result, we can sample <span class="math notranslate nohighlig
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ae8fe575819f8bc87202c296337e6d0e9b7041018f4ce086b3ac40880a63d2d1.svg" src="../_images/ae8fe575819f8bc87202c296337e6d0e9b7041018f4ce086b3ac40880a63d2d1.svg" />
+<img alt="../_images/fc9bb923c7c42617fead170b5718d7153af19a8dc7d46ad81cf1832aa721a075.svg" src="../_images/fc9bb923c7c42617fead170b5718d7153af19a8dc7d46ad81cf1832aa721a075.svg" />
 </div>
 </div>
 </section>
