@@ -639,7 +639,135 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAKE_BOOK_FIGURES</span><span class="o">=</span><span class="n">Trueimport</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">npimport</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span> <span class="k">as</span> <span class="n">stimport</span> <span class="n">matplotlib</span> <span class="k">as</span> <span class="n">mplimport</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span><span class="o">%</span><span class="k">matplotlib</span> inlineimport matplotlib_inlinematplotlib_inline.backend_inline.set_matplotlib_formats(&#39;svg&#39;)import seaborn as snssns.set_context(&quot;paper&quot;)sns.set_style(&quot;ticks&quot;)def set_book_style():    plt.style.use(&#39;seaborn-v0_8-white&#39;)     sns.set_style(&quot;ticks&quot;)    sns.set_palette(&quot;deep&quot;)    mpl.rcParams.update({        # Font settings        &#39;font.family&#39;: &#39;serif&#39;,  # For academic publishing        &#39;font.size&#39;: 8,  # As requested, 10pt font        &#39;axes.labelsize&#39;: 8,        &#39;axes.titlesize&#39;: 8,        &#39;xtick.labelsize&#39;: 7,  # Slightly smaller for better readability        &#39;ytick.labelsize&#39;: 7,        &#39;legend.fontsize&#39;: 7,                # Line and marker settings for consistency        &#39;axes.linewidth&#39;: 0.5,        &#39;grid.linewidth&#39;: 0.5,        &#39;lines.linewidth&#39;: 1.0,        &#39;lines.markersize&#39;: 4,                # Layout to prevent clipped labels        &#39;figure.constrained_layout.use&#39;: True,                # Default DPI (will override when saving)        &#39;figure.dpi&#39;: 600,        &#39;savefig.dpi&#39;: 600,                # Despine - remove top and right spines        &#39;axes.spines.top&#39;: False,        &#39;axes.spines.right&#39;: False,                # Remove legend frame        &#39;legend.frameon&#39;: False,                # Additional trim settings        &#39;figure.autolayout&#39;: True,  # Alternative to constrained_layout        &#39;savefig.bbox&#39;: &#39;tight&#39;,    # Trim when saving        &#39;savefig.pad_inches&#39;: 0.1   # Small padding to ensure nothing gets cut off    })def set_notebook_style():    plt.style.use(&#39;seaborn-v0_8-white&#39;)    sns.set_style(&quot;ticks&quot;)    sns.set_palette(&quot;deep&quot;)    mpl.rcParams.update({        # Font settings - using default sizes        &#39;font.family&#39;: &#39;serif&#39;,        &#39;axes.labelsize&#39;: 10,        &#39;axes.titlesize&#39;: 10,        &#39;xtick.labelsize&#39;: 9,        &#39;ytick.labelsize&#39;: 9,        &#39;legend.fontsize&#39;: 9,                # Line and marker settings        &#39;axes.linewidth&#39;: 0.5,        &#39;grid.linewidth&#39;: 0.5,        &#39;lines.linewidth&#39;: 1.0,        &#39;lines.markersize&#39;: 4,                # Layout settings        &#39;figure.constrained_layout.use&#39;: True,                # Remove only top and right spines        &#39;axes.spines.top&#39;: False,        &#39;axes.spines.right&#39;: False,                # Remove legend frame        &#39;legend.frameon&#39;: False,                # Additional settings        &#39;figure.autolayout&#39;: True,        &#39;savefig.bbox&#39;: &#39;tight&#39;,        &#39;savefig.pad_inches&#39;: 0.1    })def save_for_book(fig, filename, is_vector=True, **kwargs):    &quot;&quot;&quot;    Save a figure with book-optimized settings.        Parameters:    -----------    fig : matplotlib figure        The figure to save    filename : str        Filename without extension    is_vector : bool        If True, saves as vector at 1000 dpi. If False, saves as raster at 600 dpi.    **kwargs : dict        Additional kwargs to pass to savefig    &quot;&quot;&quot;        # Set appropriate DPI and format based on figure type    if is_vector:        dpi = 1000        ext = &#39;.pdf&#39;    else:        dpi = 600        ext = &#39;.tif&#39;        # Save the figure with book settings    fig.savefig(f&quot;{filename}{ext}&quot;, dpi=dpi, **kwargs)def make_full_width_fig():    return plt.subplots(figsize=(4.7, 2.9), constrained_layout=True)def make_half_width_fig():    return plt.subplots(figsize=(2.35, 1.45), constrained_layout=True)if MAKE_BOOK_FIGURES:    set_book_style()else:    set_notebook_style()make_full_width_fig = make_full_width_fig if MAKE_BOOK_FIGURES else lambda: plt.subplots()make_half_width_fig = make_half_width_fig if MAKE_BOOK_FIGURES else lambda: plt.subplots()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAKE_BOOK_FIGURES</span><span class="o">=</span><span class="kc">False</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">set_book_style</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span> 
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
+
+    <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="c1"># Font settings</span>
+        <span class="s1">&#39;font.family&#39;</span><span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>  <span class="c1"># For academic publishing</span>
+        <span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>  <span class="c1"># As requested, 10pt font</span>
+        <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>  <span class="c1"># Slightly smaller for better readability</span>
+        <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        
+        <span class="c1"># Line and marker settings for consistency</span>
+        <span class="s1">&#39;axes.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;grid.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;lines.linewidth&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="s1">&#39;lines.markersize&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        
+        <span class="c1"># Layout to prevent clipped labels</span>
+        <span class="s1">&#39;figure.constrained_layout.use&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        
+        <span class="c1"># Default DPI (will override when saving)</span>
+        <span class="s1">&#39;figure.dpi&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+        <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+        
+        <span class="c1"># Despine - remove top and right spines</span>
+        <span class="s1">&#39;axes.spines.top&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s1">&#39;axes.spines.right&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Remove legend frame</span>
+        <span class="s1">&#39;legend.frameon&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Additional trim settings</span>
+        <span class="s1">&#39;figure.autolayout&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Alternative to constrained_layout</span>
+        <span class="s1">&#39;savefig.bbox&#39;</span><span class="p">:</span> <span class="s1">&#39;tight&#39;</span><span class="p">,</span>    <span class="c1"># Trim when saving</span>
+        <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>   <span class="c1"># Small padding to ensure nothing gets cut off</span>
+    <span class="p">})</span>
+
+<span class="k">def</span> <span class="nf">set_notebook_style</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
+
+    <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="c1"># Font settings - using default sizes</span>
+        <span class="s1">&#39;font.family&#39;</span><span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        
+        <span class="c1"># Line and marker settings</span>
+        <span class="s1">&#39;axes.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;grid.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;lines.linewidth&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="s1">&#39;lines.markersize&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        
+        <span class="c1"># Layout settings</span>
+        <span class="s1">&#39;figure.constrained_layout.use&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        
+        <span class="c1"># Remove only top and right spines</span>
+        <span class="s1">&#39;axes.spines.top&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s1">&#39;axes.spines.right&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Remove legend frame</span>
+        <span class="s1">&#39;legend.frameon&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Additional settings</span>
+        <span class="s1">&#39;figure.autolayout&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;savefig.bbox&#39;</span><span class="p">:</span> <span class="s1">&#39;tight&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>
+    <span class="p">})</span>
+
+<span class="k">def</span> <span class="nf">save_for_book</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">is_vector</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Save a figure with book-optimized settings.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    fig : matplotlib figure</span>
+<span class="sd">        The figure to save</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        Filename without extension</span>
+<span class="sd">    is_vector : bool</span>
+<span class="sd">        If True, saves as vector at 1000 dpi. If False, saves as raster at 600 dpi.</span>
+<span class="sd">    **kwargs : dict</span>
+<span class="sd">        Additional kwargs to pass to savefig</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="c1"># Set appropriate DPI and format based on figure type</span>
+    <span class="k">if</span> <span class="n">is_vector</span><span class="p">:</span>
+        <span class="n">dpi</span> <span class="o">=</span> <span class="mi">1000</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;.pdf&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">dpi</span> <span class="o">=</span> <span class="mi">600</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;.tif&#39;</span>
+    
+    <span class="c1"># Save the figure with book settings</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">make_full_width_fig</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.7</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">make_half_width_fig</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">2.35</span><span class="p">,</span> <span class="mf">1.45</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span><span class="p">:</span>
+    <span class="n">set_book_style</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">set_notebook_style</span><span class="p">()</span>
+
+<span class="n">make_full_width_fig</span> <span class="o">=</span> <span class="n">make_full_width_fig</span> <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span> <span class="k">else</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">make_half_width_fig</span> <span class="o">=</span> <span class="n">make_half_width_fig</span> <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span> <span class="k">else</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -651,11 +779,40 @@ document.write(`
 <h2>Gaussian process code<a class="headerlink" href="#gaussian-process-code" title="Link to this heading">#</a></h2>
 <p>We will use the <a class="reference external" href="https://gpytorch.ai/">GPyTorch</a> library to implement Gaussian processes. This library is built on top of PyTorch, which is a popular library for deep learning. We will learn more about PyTorch as we go and we will be more elaborate about it in <a class="reference internal" href="../lecture24/hands-on-24.html#regression-with-deep-neural-networks"><span class="std std-ref">Lecture 24</span></a>. The main purpose of PyTorch is to help us with automatic differentiation. For now, think of it as an alternative to numpy that allows us to compute gradients of functions.</p>
 <div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
+<div class="cell_input above-output-prompt docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>gpytorch
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: gpytorch in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (1.14)
+Requirement already satisfied: jaxtyping in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from gpytorch) (0.2.33)
+Requirement already satisfied: mpmath&lt;=1.3,&gt;=0.19 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from gpytorch) (1.3.0)
+Requirement already satisfied: scikit-learn in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from gpytorch) (1.6.1)
+Requirement already satisfied: scipy&gt;=1.6.0 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from gpytorch) (1.12.0)
+Requirement already satisfied: linear-operator&gt;=0.6 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from gpytorch) (0.6)
+Requirement already satisfied: torch&gt;=2.0 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from linear-operator&gt;=0.6-&gt;gpytorch) (2.7.1)
+Requirement already satisfied: numpy&lt;1.29.0,&gt;=1.22.4 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from scipy&gt;=1.6.0-&gt;gpytorch) (1.26.4)
+Requirement already satisfied: filelock in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from torch&gt;=2.0-&gt;linear-operator&gt;=0.6-&gt;gpytorch) (3.18.0)
+Requirement already satisfied: typing-extensions&gt;=4.10.0 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from torch&gt;=2.0-&gt;linear-operator&gt;=0.6-&gt;gpytorch) (4.12.2)
+Requirement already satisfied: setuptools in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from torch&gt;=2.0-&gt;linear-operator&gt;=0.6-&gt;gpytorch) (73.0.1)
+Requirement already satisfied: sympy&gt;=1.13.3 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from torch&gt;=2.0-&gt;linear-operator&gt;=0.6-&gt;gpytorch) (1.13.3)
+Requirement already satisfied: networkx in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from torch&gt;=2.0-&gt;linear-operator&gt;=0.6-&gt;gpytorch) (3.4.2)
+Requirement already satisfied: jinja2 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from torch&gt;=2.0-&gt;linear-operator&gt;=0.6-&gt;gpytorch) (3.1.4)
+Requirement already satisfied: fsspec in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from torch&gt;=2.0-&gt;linear-operator&gt;=0.6-&gt;gpytorch) (2024.12.0)
+Requirement already satisfied: typeguard==2.13.3 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from jaxtyping-&gt;gpytorch) (2.13.3)
+Requirement already satisfied: MarkupSafe&gt;=2.0 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from jinja2-&gt;torch&gt;=2.0-&gt;linear-operator&gt;=0.6-&gt;gpytorch) (2.1.5)
+Requirement already satisfied: joblib&gt;=1.2.0 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from scikit-learn-&gt;gpytorch) (1.4.2)
+Requirement already satisfied: threadpoolctl&gt;=3.1.0 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from scikit-learn-&gt;gpytorch) (3.5.0)
+</pre></div>
+</div>
+</div>
+</details>
 </div>
 </section>
 <section id="squared-exponential-covariance-function">
@@ -727,7 +884,7 @@ Here is how:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/41af19a98542daff24f89b1358a5b90c1c8fa3b2c268e346ab382a300ad53ab6.svg" src="../_images/41af19a98542daff24f89b1358a5b90c1c8fa3b2c268e346ab382a300ad53ab6.svg" />
+<img alt="../_images/64f4b318a3833c4484c2a26c59d959a9a431eb9edb3ed69842ca9802814f39b5.svg" src="../_images/64f4b318a3833c4484c2a26c59d959a9a431eb9edb3ed69842ca9802814f39b5.svg" />
 </div>
 </div>
 </section>
@@ -767,7 +924,7 @@ Here is how:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a6660d88f15965cf5411814d887e3b5930e2d6b60f0ef31dbcd607baec243f0a.svg" src="../_images/a6660d88f15965cf5411814d887e3b5930e2d6b60f0ef31dbcd607baec243f0a.svg" />
+<img alt="../_images/e2235158b164cd7a8eeb87bac6081024706c400f1f9a16c1dbcf3fe8161fd2ab.svg" src="../_images/e2235158b164cd7a8eeb87bac6081024706c400f1f9a16c1dbcf3fe8161fd2ab.svg" />
 </div>
 </div>
 <section id="questions">
@@ -817,7 +974,7 @@ Here is how:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/097452330ab5e5665ccd5738c8e4a44045aad78ae2ed7c296c2e47939ec713c5.svg" src="../_images/097452330ab5e5665ccd5738c8e4a44045aad78ae2ed7c296c2e47939ec713c5.svg" />
+<img alt="../_images/9a9f8b9e98f9da086738fbbdfbef5f6f71e3a20c0649a13b106e6f3bf54eecd7.svg" src="../_images/9a9f8b9e98f9da086738fbbdfbef5f6f71e3a20c0649a13b106e6f3bf54eecd7.svg" />
 </div>
 </div>
 </section>
@@ -838,7 +995,7 @@ Here is how:</p>
     <span class="c1"># Get a grid of points</span>
     <span class="n">x1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
     <span class="n">x2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-    <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+    <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">indexing</span><span class="o">=</span><span class="s1">&#39;ij&#39;</span><span class="p">)</span>
     <span class="c1"># Flatten the grid</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">x1</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">x2</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[:,</span> <span class="kc">None</span><span class="p">]),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="c1"># Compute the covariance</span>
@@ -862,11 +1019,7 @@ Here is how:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/lib/python3.11/site-packages/torch/functional.py:504: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/aten/src/ATen/native/TensorShape.cpp:3527.)
-  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
-</pre></div>
-</div>
-<img alt="../_images/ae771ef4c377adb98191fc2e494d9d54e96229a5ed7ca7f8de24845d3f195629.svg" src="../_images/ae771ef4c377adb98191fc2e494d9d54e96229a5ed7ca7f8de24845d3f195629.svg" />
+<img alt="../_images/2e1178745a7c200044c82fac7a2c032653e05bc33be490541b25c54889e0431e.svg" src="../_images/2e1178745a7c200044c82fac7a2c032653e05bc33be490541b25c54889e0431e.svg" />
 </div>
 </div>
 <section id="id1">
@@ -959,7 +1112,7 @@ k(x, x') = k_1(x, x') / k_2(x, x')?
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">eig_val</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$i$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$\lambda_i$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\lambda_i$&#39;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -969,7 +1122,7 @@ k(x, x') = k_1(x, x') / k_2(x, x')?
 &gt; they must all be positive
 </pre></div>
 </div>
-<img alt="../_images/37540ad0404ece7895a7ffc4c2b16134adcf42d0676d41dda9cf9d93c084f32a.svg" src="../_images/37540ad0404ece7895a7ffc4c2b16134adcf42d0676d41dda9cf9d93c084f32a.svg" />
+<img alt="../_images/893cdf2f43f7c57978c4d9597aac9e1f4128146637ab644c8b3fc38b68fe9395.svg" src="../_images/893cdf2f43f7c57978c4d9597aac9e1f4128146637ab644c8b3fc38b68fe9395.svg" />
 </div>
 </div>
 <p>Now create another covariance function:</p>
@@ -1013,7 +1166,7 @@ k(x, x') = k_1(x, x') / k_2(x, x')?
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d41a9154371b0b9edf57639e38e646e8a49aa5ad2f8005f8721700f32b8c432c.svg" src="../_images/d41a9154371b0b9edf57639e38e646e8a49aa5ad2f8005f8721700f32b8c432c.svg" />
+<img alt="../_images/3231f43939bed824b39c6ecfd58409b1dfb838b92cb009bb6f4700dbd53b37fd.svg" src="../_images/3231f43939bed824b39c6ecfd58409b1dfb838b92cb009bb6f4700dbd53b37fd.svg" />
 </div>
 </div>
 <p>If this is a valid covariance function, then it must be positive-definite.
@@ -1031,7 +1184,13 @@ Let’s test it:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d39f3c32af89a278956353b6b1eab9a2f6ece6a44a72649ce4f8c410136c1f8c.svg" src="../_images/d39f3c32af89a278956353b6b1eab9a2f6ece6a44a72649ce4f8c410136c1f8c.svg" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;&gt;:6: SyntaxWarning: invalid escape sequence &#39;\l&#39;
+&lt;&gt;:6: SyntaxWarning: invalid escape sequence &#39;\l&#39;
+/var/folders/3n/r5vj11ss7lzcdl10vfhb_mw00000gs/T/ipykernel_14263/340980877.py:6: SyntaxWarning: invalid escape sequence &#39;\l&#39;
+  ax.set_ylabel(&#39;$\lambda_i$&#39;)
+</pre></div>
+</div>
+<img alt="../_images/300cb0aff7624ba33853932c82322d81e8ad77739d3ee5f75b2d3004e37bba96.svg" src="../_images/300cb0aff7624ba33853932c82322d81e8ad77739d3ee5f75b2d3004e37bba96.svg" />
 </div>
 </div>
 </section>
@@ -1121,7 +1280,7 @@ This is how we do it:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8bd46138c48b93df06c4e25cb6cdba665c5078834384a4c694d4cf6d860a32db.svg" src="../_images/8bd46138c48b93df06c4e25cb6cdba665c5078834384a4c694d4cf6d860a32db.svg" />
+<img alt="../_images/5d43213ad98b27450302cc6df131754d5931db601496643e2b4be47c319bbd3a.svg" src="../_images/5d43213ad98b27450302cc6df131754d5931db601496643e2b4be47c319bbd3a.svg" />
 </div>
 </div>
 <p>The solid line is the mean function, and the dashed lines are three f samples. These do not look like functions yet. This is because we have used only 10 test points to represent the GP.</p>
@@ -1191,7 +1350,7 @@ This is how we do it:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/61539f907f910db1511e20716cbfd296a280ced3c7e6721c593477942ed8c96e.svg" src="../_images/61539f907f910db1511e20716cbfd296a280ced3c7e6721c593477942ed8c96e.svg" />
+<img alt="../_images/c78538551ef30324f16e7c6d7b6451b60f3fbeab9b7f8cf6c3b50cd6350aadff.svg" src="../_images/c78538551ef30324f16e7c6d7b6451b60f3fbeab9b7f8cf6c3b50cd6350aadff.svg" />
 </div>
 </div>
 </section>
@@ -1226,7 +1385,7 @@ m(x) = ax + b.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e93f23997edf05db122c681f5cc8d6b484672cd4c794dccae50ef878286b0804.svg" src="../_images/e93f23997edf05db122c681f5cc8d6b484672cd4c794dccae50ef878286b0804.svg" />
+<img alt="../_images/8a7db8f9d43d6c164a1412ec475a09d28359c98fd78fcbe14a5a66e557a0b0d1.svg" src="../_images/8a7db8f9d43d6c164a1412ec475a09d28359c98fd78fcbe14a5a66e557a0b0d1.svg" />
 </div>
 </div>
 </section>
@@ -1280,7 +1439,7 @@ We need to inherit from the <code class="docutils literal notranslate"><span cla
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5051351df83e9f0771a2a91920941e1f1fcfd8d269edc7e66356cd985641a5bb.svg" src="../_images/5051351df83e9f0771a2a91920941e1f1fcfd8d269edc7e66356cd985641a5bb.svg" />
+<img alt="../_images/bb997657287fbfb30de34e53f1b6e99d8b6e1a502a0ea45551a623abe5bcc26a.svg" src="../_images/bb997657287fbfb30de34e53f1b6e99d8b6e1a502a0ea45551a623abe5bcc26a.svg" />
 </div>
 </div>
 </section>
@@ -1324,7 +1483,7 @@ For example if <span class="math notranslate nohighlight">\(\nu=1.5\)</span>, th
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9dae33d42cb243e9fd864e77a218476f8fa91b3539809c21fdd8fb9c3e7e680b.svg" src="../_images/9dae33d42cb243e9fd864e77a218476f8fa91b3539809c21fdd8fb9c3e7e680b.svg" />
+<img alt="../_images/50d88446aca77783e147020f2192e4c02cfd5d120b9389c9ffba3ca3f69b5045.svg" src="../_images/50d88446aca77783e147020f2192e4c02cfd5d120b9389c9ffba3ca3f69b5045.svg" />
 </div>
 </div>
 </section>
@@ -1364,7 +1523,7 @@ Let’s look at the samples:</p>
 <span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">period_length</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="mf">0.1</span>
 <span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_test</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">nugget</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
+<span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">num_test</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">nugget</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1375,7 +1534,7 @@ Let’s look at the samples:</p>
 )
 </pre></div>
 </div>
-<img alt="../_images/556e71a43506f4549a84eec1b3463a1147b9ee6479b678d62b497d0bf00b0db7.svg" src="../_images/556e71a43506f4549a84eec1b3463a1147b9ee6479b678d62b497d0bf00b0db7.svg" />
+<img alt="../_images/5d94f9ebbadce9b3a60dc6d98495f09a5462182db6dbbec22a4840a6cdeaaad8.svg" src="../_images/5d94f9ebbadce9b3a60dc6d98495f09a5462182db6dbbec22a4840a6cdeaaad8.svg" />
 </div>
 </div>
 <section id="id9">
@@ -1414,7 +1573,7 @@ k(x, x') = vxx',
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a0906f7b21b10798dfe15a7e2483e18f96f22c173f37fca1edfc164c9168b0c0.svg" src="../_images/a0906f7b21b10798dfe15a7e2483e18f96f22c173f37fca1edfc164c9168b0c0.svg" />
+<img alt="../_images/f74c22593350d7d4c0cfa5b9c5ee489bb44e48cd306482dcb786d3f658f19ee4.svg" src="../_images/f74c22593350d7d4c0cfa5b9c5ee489bb44e48cd306482dcb786d3f658f19ee4.svg" />
 </div>
 </div>
 <p>They are lines starting from the origin.</p>
@@ -1438,7 +1597,7 @@ k(x, x') = (x^Tx' + c)^d,
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6bb6c513466ae9fdc93186c056127a963606ebe125eb1f9f1107754cd2b5ac3e.svg" src="../_images/6bb6c513466ae9fdc93186c056127a963606ebe125eb1f9f1107754cd2b5ac3e.svg" />
+<img alt="../_images/5d0a57fcbd1287999d31d49a97ca2f92508b79c541b8a9ccc7296816faed9fef.svg" src="../_images/5d0a57fcbd1287999d31d49a97ca2f92508b79c541b8a9ccc7296816faed9fef.svg" />
 </div>
 </div>
 </section>
@@ -1470,7 +1629,7 @@ Let’s see how this works.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6d2603a6983cf8c3ccde54c97e2e1285cde42d0b3901c4786f43924a6553d8cd.svg" src="../_images/6d2603a6983cf8c3ccde54c97e2e1285cde42d0b3901c4786f43924a6553d8cd.svg" />
+<img alt="../_images/f486fabafb088da34805f58d95ab0c89ff2402a8fa16bf33be4b42d2d1d9cc4a.svg" src="../_images/f486fabafb088da34805f58d95ab0c89ff2402a8fa16bf33be4b42d2d1d9cc4a.svg" />
 </div>
 </div>
 </section>

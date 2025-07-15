@@ -610,20 +610,481 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAKE_BOOK_FIGURES</span><span class="o">=</span><span class="n">Trueimport</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">npimport</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span> <span class="k">as</span> <span class="n">stimport</span> <span class="n">matplotlib</span> <span class="k">as</span> <span class="n">mplimport</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span><span class="o">%</span><span class="k">matplotlib</span> inlineimport matplotlib_inlinematplotlib_inline.backend_inline.set_matplotlib_formats(&#39;svg&#39;)import seaborn as snssns.set_context(&quot;paper&quot;)sns.set_style(&quot;ticks&quot;)def set_book_style():    plt.style.use(&#39;seaborn-v0_8-white&#39;)     sns.set_style(&quot;ticks&quot;)    sns.set_palette(&quot;deep&quot;)    mpl.rcParams.update({        # Font settings        &#39;font.family&#39;: &#39;serif&#39;,  # For academic publishing        &#39;font.size&#39;: 8,  # As requested, 10pt font        &#39;axes.labelsize&#39;: 8,        &#39;axes.titlesize&#39;: 8,        &#39;xtick.labelsize&#39;: 7,  # Slightly smaller for better readability        &#39;ytick.labelsize&#39;: 7,        &#39;legend.fontsize&#39;: 7,                # Line and marker settings for consistency        &#39;axes.linewidth&#39;: 0.5,        &#39;grid.linewidth&#39;: 0.5,        &#39;lines.linewidth&#39;: 1.0,        &#39;lines.markersize&#39;: 4,                # Layout to prevent clipped labels        &#39;figure.constrained_layout.use&#39;: True,                # Default DPI (will override when saving)        &#39;figure.dpi&#39;: 600,        &#39;savefig.dpi&#39;: 600,                # Despine - remove top and right spines        &#39;axes.spines.top&#39;: False,        &#39;axes.spines.right&#39;: False,                # Remove legend frame        &#39;legend.frameon&#39;: False,                # Additional trim settings        &#39;figure.autolayout&#39;: True,  # Alternative to constrained_layout        &#39;savefig.bbox&#39;: &#39;tight&#39;,    # Trim when saving        &#39;savefig.pad_inches&#39;: 0.1   # Small padding to ensure nothing gets cut off    })def set_notebook_style():    plt.style.use(&#39;seaborn-v0_8-white&#39;)    sns.set_style(&quot;ticks&quot;)    sns.set_palette(&quot;deep&quot;)    mpl.rcParams.update({        # Font settings - using default sizes        &#39;font.family&#39;: &#39;serif&#39;,        &#39;axes.labelsize&#39;: 10,        &#39;axes.titlesize&#39;: 10,        &#39;xtick.labelsize&#39;: 9,        &#39;ytick.labelsize&#39;: 9,        &#39;legend.fontsize&#39;: 9,                # Line and marker settings        &#39;axes.linewidth&#39;: 0.5,        &#39;grid.linewidth&#39;: 0.5,        &#39;lines.linewidth&#39;: 1.0,        &#39;lines.markersize&#39;: 4,                # Layout settings        &#39;figure.constrained_layout.use&#39;: True,                # Remove only top and right spines        &#39;axes.spines.top&#39;: False,        &#39;axes.spines.right&#39;: False,                # Remove legend frame        &#39;legend.frameon&#39;: False,                # Additional settings        &#39;figure.autolayout&#39;: True,        &#39;savefig.bbox&#39;: &#39;tight&#39;,        &#39;savefig.pad_inches&#39;: 0.1    })def save_for_book(fig, filename, is_vector=True, **kwargs):    &quot;&quot;&quot;    Save a figure with book-optimized settings.        Parameters:    -----------    fig : matplotlib figure        The figure to save    filename : str        Filename without extension    is_vector : bool        If True, saves as vector at 1000 dpi. If False, saves as raster at 600 dpi.    **kwargs : dict        Additional kwargs to pass to savefig    &quot;&quot;&quot;        # Set appropriate DPI and format based on figure type    if is_vector:        dpi = 1000        ext = &#39;.pdf&#39;    else:        dpi = 600        ext = &#39;.tif&#39;        # Save the figure with book settings    fig.savefig(f&quot;{filename}{ext}&quot;, dpi=dpi, **kwargs)def make_full_width_fig():    return plt.subplots(figsize=(4.7, 2.9), constrained_layout=True)def make_half_width_fig():    return plt.subplots(figsize=(2.35, 1.45), constrained_layout=True)if MAKE_BOOK_FIGURES:    set_book_style()else:    set_notebook_style()make_full_width_fig = make_full_width_fig if MAKE_BOOK_FIGURES else lambda: plt.subplots()make_half_width_fig = make_half_width_fig if MAKE_BOOK_FIGURES else lambda: plt.subplots()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAKE_BOOK_FIGURES</span><span class="o">=</span><span class="kc">False</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">set_book_style</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span> 
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
+
+    <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="c1"># Font settings</span>
+        <span class="s1">&#39;font.family&#39;</span><span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>  <span class="c1"># For academic publishing</span>
+        <span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>  <span class="c1"># As requested, 10pt font</span>
+        <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>  <span class="c1"># Slightly smaller for better readability</span>
+        <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        
+        <span class="c1"># Line and marker settings for consistency</span>
+        <span class="s1">&#39;axes.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;grid.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;lines.linewidth&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="s1">&#39;lines.markersize&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        
+        <span class="c1"># Layout to prevent clipped labels</span>
+        <span class="s1">&#39;figure.constrained_layout.use&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        
+        <span class="c1"># Default DPI (will override when saving)</span>
+        <span class="s1">&#39;figure.dpi&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+        <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+        
+        <span class="c1"># Despine - remove top and right spines</span>
+        <span class="s1">&#39;axes.spines.top&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s1">&#39;axes.spines.right&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Remove legend frame</span>
+        <span class="s1">&#39;legend.frameon&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Additional trim settings</span>
+        <span class="s1">&#39;figure.autolayout&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Alternative to constrained_layout</span>
+        <span class="s1">&#39;savefig.bbox&#39;</span><span class="p">:</span> <span class="s1">&#39;tight&#39;</span><span class="p">,</span>    <span class="c1"># Trim when saving</span>
+        <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>   <span class="c1"># Small padding to ensure nothing gets cut off</span>
+    <span class="p">})</span>
+
+<span class="k">def</span> <span class="nf">set_notebook_style</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
+
+    <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="c1"># Font settings - using default sizes</span>
+        <span class="s1">&#39;font.family&#39;</span><span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        
+        <span class="c1"># Line and marker settings</span>
+        <span class="s1">&#39;axes.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;grid.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;lines.linewidth&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="s1">&#39;lines.markersize&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        
+        <span class="c1"># Layout settings</span>
+        <span class="s1">&#39;figure.constrained_layout.use&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        
+        <span class="c1"># Remove only top and right spines</span>
+        <span class="s1">&#39;axes.spines.top&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s1">&#39;axes.spines.right&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Remove legend frame</span>
+        <span class="s1">&#39;legend.frameon&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Additional settings</span>
+        <span class="s1">&#39;figure.autolayout&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;savefig.bbox&#39;</span><span class="p">:</span> <span class="s1">&#39;tight&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>
+    <span class="p">})</span>
+
+<span class="k">def</span> <span class="nf">save_for_book</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">is_vector</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Save a figure with book-optimized settings.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    fig : matplotlib figure</span>
+<span class="sd">        The figure to save</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        Filename without extension</span>
+<span class="sd">    is_vector : bool</span>
+<span class="sd">        If True, saves as vector at 1000 dpi. If False, saves as raster at 600 dpi.</span>
+<span class="sd">    **kwargs : dict</span>
+<span class="sd">        Additional kwargs to pass to savefig</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="c1"># Set appropriate DPI and format based on figure type</span>
+    <span class="k">if</span> <span class="n">is_vector</span><span class="p">:</span>
+        <span class="n">dpi</span> <span class="o">=</span> <span class="mi">1000</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;.pdf&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">dpi</span> <span class="o">=</span> <span class="mi">600</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;.tif&#39;</span>
+    
+    <span class="c1"># Save the figure with book settings</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">make_full_width_fig</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.7</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">make_half_width_fig</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">2.35</span><span class="p">,</span> <span class="mf">1.45</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span><span class="p">:</span>
+    <span class="n">set_book_style</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">set_notebook_style</span><span class="p">()</span>
+
+<span class="n">make_full_width_fig</span> <span class="o">=</span> <span class="n">make_full_width_fig</span> <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span> <span class="k">else</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">make_half_width_fig</span> <span class="o">=</span> <span class="n">make_half_width_fig</span> <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span> <span class="k">else</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
-<div class="cell tag_hide-input docutils container">
+<div class="cell tag_hide-input tag_hide-output docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
 <span class="collapsed">Show code cell source</span>
 <span class="expanded">Hide code cell source</span>
 </summary>
-<div class="cell_input docutils container">
+<div class="cell_input above-output-prompt docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>gpytorch
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">gpytorch</span>
+<span class="kn">from</span> <span class="nn">gpytorch.kernels</span> <span class="kn">import</span> <span class="n">ScaleKernel</span><span class="p">,</span> <span class="n">RBFKernel</span>
+
+<span class="k">class</span> <span class="nc">ExactGP</span><span class="p">(</span><span class="n">gpytorch</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">ExactGP</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Exact Gaussian Process model.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    train_x     --  The training inputs.</span>
+<span class="sd">    train_y     --  The training labels.</span>
+<span class="sd">    mean_module --  The mean module. Defaults to a constant mean.</span>
+<span class="sd">    covar_module--  The covariance module. Defaults to a RBF kernel.</span>
+<span class="sd">    likelihood  --  The likelihood function. Defaults to Gaussian.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">train_x</span><span class="p">,</span>
+            <span class="n">train_y</span><span class="p">,</span>
+            <span class="n">mean_module</span><span class="o">=</span><span class="n">gpytorch</span><span class="o">.</span><span class="n">means</span><span class="o">.</span><span class="n">ConstantMean</span><span class="p">(),</span>
+            <span class="n">covar_module</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span><span class="n">RBFKernel</span><span class="p">()),</span>
+            <span class="n">likelihood</span><span class="o">=</span><span class="n">gpytorch</span><span class="o">.</span><span class="n">likelihoods</span><span class="o">.</span><span class="n">GaussianLikelihood</span><span class="p">(</span>
+                <span class="n">noise_constraint</span><span class="o">=</span><span class="n">gpytorch</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="n">GreaterThan</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+            <span class="p">)</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mean_module</span> <span class="o">=</span> <span class="n">mean_module</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">covar_module</span> <span class="o">=</span> <span class="n">covar_module</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">mean_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_module</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">covar_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">covar_module</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">gpytorch</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">MultivariateNormal</span><span class="p">(</span><span class="n">mean_x</span><span class="p">,</span> <span class="n">covar_x</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">plot_1d_regression</span><span class="p">(</span>
+    <span class="n">x_star</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">f_true</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">num_samples</span><span class="o">=</span><span class="mi">10</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the posterior predictive.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments</span>
+<span class="sd">    x_start  --  The test points on which to evaluate.</span>
+<span class="sd">    model    --  The trained model.</span>
+<span class="sd">    </span>
+<span class="sd">    Keyword Arguments</span>
+<span class="sd">    ax          --  An axes object to write on.</span>
+<span class="sd">    f_true      --  The true function.</span>
+<span class="sd">    num_samples --  The number of samples.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">f_star</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x_star</span><span class="p">)</span>
+    <span class="n">m_star</span> <span class="o">=</span> <span class="n">f_star</span><span class="o">.</span><span class="n">mean</span>
+    <span class="n">v_star</span> <span class="o">=</span> <span class="n">f_star</span><span class="o">.</span><span class="n">variance</span>
+    <span class="n">y_star</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="p">(</span><span class="n">f_star</span><span class="p">)</span>
+    <span class="n">yv_star</span> <span class="o">=</span> <span class="n">y_star</span><span class="o">.</span><span class="n">variance</span>
+
+    <span class="n">f_lower</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">m_star</span> <span class="o">-</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_star</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">f_upper</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">m_star</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_star</span><span class="p">)</span>
+    <span class="p">)</span>
+    
+    <span class="n">y_lower</span> <span class="o">=</span> <span class="n">m_star</span> <span class="o">-</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">yv_star</span><span class="p">)</span>
+    <span class="n">y_upper</span> <span class="o">=</span> <span class="n">m_star</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">yv_star</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">train_inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">train_targets</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+            <span class="s1">&#39;kx&#39;</span><span class="p">,</span>
+            <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+            <span class="n">markeredgewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observations&#39;</span>
+    <span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">x_star</span><span class="p">,</span>
+        <span class="n">m_star</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+        <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$m_n(x)$&#39;</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
+        <span class="n">x_star</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+        <span class="n">f_lower</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+        <span class="n">f_upper</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$f(\mathbf</span><span class="si">{x}</span><span class="s1">^*)$ 95% pred.&#39;</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
+        <span class="n">x_star</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">y_lower</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">f_lower</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$y^*$ 95% pred.&#39;</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
+        <span class="n">x_star</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">f_upper</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">y_upper</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">)</span>
+
+    
+    <span class="k">if</span> <span class="n">f_true</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">x_star</span><span class="p">,</span>
+            <span class="n">f_true</span><span class="p">(</span><span class="n">x_star</span><span class="p">),</span>
+            <span class="s1">&#39;m-.&#39;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True function&#39;</span>
+        <span class="p">)</span>
+        
+    <span class="k">if</span> <span class="n">num_samples</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">f_post_samples</span> <span class="o">=</span> <span class="n">f_star</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span>
+            <span class="n">sample_shape</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">10</span><span class="p">])</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">x_star</span><span class="p">,</span>
+            <span class="n">f_post_samples</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+            <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span>
+        <span class="p">)</span>
+        <span class="c1"># This is just to add the legend entry</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="p">[],</span>
+            <span class="p">[],</span>
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+            <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Posterior samples&quot;</span>
+        <span class="p">)</span>
+        
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">m_star</span><span class="p">,</span> <span class="n">v_star</span>
+
+<span class="k">def</span> <span class="nf">plot_iaf</span><span class="p">(</span>
+    <span class="n">x_star</span><span class="p">,</span>
+    <span class="n">gpr</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="p">,</span>
+    <span class="n">alpha_params</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">f_true</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the information acquisition function.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments</span>
+<span class="sd">    x_star       -- A set of points to plot on.</span>
+<span class="sd">    gpr          -- A rained Gaussian process regression</span>
+<span class="sd">                    object.</span>
+<span class="sd">    alpha        -- The information acquisition function.</span>
+<span class="sd">                    This assumed to be a function of the</span>
+<span class="sd">                    posterior mean and standard deviation.</span>
+<span class="sd">              </span>
+<span class="sd">    Keyword Arguments</span>
+<span class="sd">    ax           -- An axes object to plot on.</span>
+<span class="sd">    f_true       -- The true function - if available.</span>
+<span class="sd">    </span>
+<span class="sd">    The evaluation of the information acquisition function</span>
+<span class="sd">    is as follows:</span>
+<span class="sd">    </span>
+<span class="sd">        af_values = alpha(mu, sigma, y_max, **alpha_params)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+        <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">k</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">alpha_params</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">)</span>
+    <span class="p">)</span>
+    
+    <span class="n">m</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">plot_1d_regression</span><span class="p">(</span>
+        <span class="n">x_star</span><span class="p">,</span>
+        <span class="n">gpr</span><span class="p">,</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+        <span class="n">f_true</span><span class="o">=</span><span class="n">f_true</span><span class="p">,</span>
+        <span class="n">num_samples</span><span class="o">=</span><span class="mi">0</span>
+    <span class="p">)</span>
+    
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="n">af_values</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">Y</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="o">**</span><span class="n">alpha_params</span><span class="p">)</span>
+    <span class="n">next_id</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">af_values</span><span class="p">)</span>
+    <span class="n">next_x</span> <span class="o">=</span> <span class="n">x_star</span><span class="p">[</span><span class="n">next_id</span><span class="p">]</span>
+    <span class="n">af_max</span> <span class="o">=</span> <span class="n">af_values</span><span class="p">[</span><span class="n">next_id</span><span class="p">]</span>
+    
+    <span class="n">ax2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_star</span><span class="p">,</span> <span class="n">af_values</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span>
+        <span class="s1">&#39;Maximum Upper Interval&#39;</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">(),</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">next_x</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">af_max</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="mi">100</span><span class="p">),</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">maximize</span><span class="p">(</span>
+    <span class="n">f</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">,</span>
+    <span class="n">X_design</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="p">,</span>
+    <span class="n">alpha_params</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">max_it</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">optimize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Optimize a function using a limited number of evaluations.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments</span>
+<span class="sd">    f            -- The function to optimize.</span>
+<span class="sd">    gpr          -- A Gaussian process model to use for representing</span>
+<span class="sd">                    our state of knowledge.</span>
+<span class="sd">    X_design     -- The set of candidate points for identifying the</span>
+<span class="sd">                    maximum.</span>
+<span class="sd">    alpha        -- The information acquisition function.</span>
+<span class="sd">                    This assumed to be a function of the</span>
+<span class="sd">                    posterior mean and standard deviation.</span>
+<span class="sd">    </span>
+<span class="sd">    Keyword Arguments</span>
+<span class="sd">    alpha_params -- Extra parameters to the information</span>
+<span class="sd">                    acquisition function.</span>
+<span class="sd">    max_it       -- The maximum number of iterations.</span>
+<span class="sd">    optimize     -- Whether or not to optimize the hyper-parameters.</span>
+<span class="sd">    plot         -- Determines how often to plot. Make it one</span>
+<span class="sd">                    to plot at each iteration. Make it max_it</span>
+<span class="sd">                    to plot at the last iteration.</span>
+<span class="sd">                    </span>
+<span class="sd">    The rest of the keyword arguments are passed to plot_iaf().</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">af_all</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_it</span><span class="p">):</span>
+        <span class="c1"># Predict</span>
+        <span class="n">f_design</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">X_design</span><span class="p">)</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">f_design</span><span class="o">.</span><span class="n">mean</span>
+        <span class="n">sigma2</span> <span class="o">=</span> <span class="n">f_design</span><span class="o">.</span><span class="n">variance</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sigma2</span><span class="p">)</span>
+        
+        <span class="c1"># Evaluate information acquisition function</span>
+        <span class="n">y_train</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train_targets</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">af_values</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">(</span>
+            <span class="n">m</span><span class="p">,</span>
+            <span class="n">sigma</span><span class="p">,</span>
+            <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+            <span class="o">**</span><span class="n">alpha_params</span>
+        <span class="p">)</span>
+        
+        <span class="c1"># Find best point to include</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">af_values</span><span class="p">)</span>
+        <span class="n">af_all</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">af_values</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        
+        <span class="n">new_x</span> <span class="o">=</span> <span class="n">X_design</span><span class="p">[</span><span class="n">i</span><span class="p">:(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="n">new_y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">new_x</span><span class="p">)</span>
+        <span class="n">train_x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">model</span><span class="o">.</span><span class="n">train_inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">new_x</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]])</span>
+        <span class="n">train_y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">model</span><span class="o">.</span><span class="n">train_targets</span><span class="p">,</span> <span class="n">new_y</span><span class="p">])</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">set_train_data</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">optimize</span><span class="p">:</span>
+            <span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+        
+        <span class="c1"># Plot if required</span>
+        <span class="k">if</span> <span class="n">count</span> <span class="o">%</span> <span class="n">plot</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;ax&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                <span class="n">ax</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">ax</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+            <span class="n">plot_iaf</span><span class="p">(</span>
+                <span class="n">X_design</span><span class="p">,</span>
+                <span class="n">model</span><span class="p">,</span>
+                <span class="n">alpha</span><span class="p">,</span>
+                <span class="n">alpha_params</span><span class="o">=</span><span class="n">alpha_params</span><span class="p">,</span>
+                <span class="n">f_true</span><span class="o">=</span><span class="n">f</span><span class="p">,</span>
+                <span class="n">ax</span><span class="o">=</span><span class="n">ax</span>
+            <span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;N=</span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">, &quot;</span> <span class="o">+</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_title</span><span class="p">()</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="n">af_all</span>
+</pre></div>
+</div>
+</div>
+</details>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: gpytorch in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (1.14)
+Requirement already satisfied: jaxtyping in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from gpytorch) (0.2.33)
+Requirement already satisfied: mpmath&lt;=1.3,&gt;=0.19 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from gpytorch) (1.3.0)
+Requirement already satisfied: scikit-learn in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from gpytorch) (1.6.1)
+Requirement already satisfied: scipy&gt;=1.6.0 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from gpytorch) (1.12.0)
+Requirement already satisfied: linear-operator&gt;=0.6 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from gpytorch) (0.6)
+Requirement already satisfied: torch&gt;=2.0 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from linear-operator&gt;=0.6-&gt;gpytorch) (2.7.1)
+Requirement already satisfied: numpy&lt;1.29.0,&gt;=1.22.4 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from scipy&gt;=1.6.0-&gt;gpytorch) (1.26.4)
+Requirement already satisfied: filelock in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from torch&gt;=2.0-&gt;linear-operator&gt;=0.6-&gt;gpytorch) (3.18.0)
+Requirement already satisfied: typing-extensions&gt;=4.10.0 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from torch&gt;=2.0-&gt;linear-operator&gt;=0.6-&gt;gpytorch) (4.12.2)
+Requirement already satisfied: setuptools in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from torch&gt;=2.0-&gt;linear-operator&gt;=0.6-&gt;gpytorch) (73.0.1)
+Requirement already satisfied: sympy&gt;=1.13.3 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from torch&gt;=2.0-&gt;linear-operator&gt;=0.6-&gt;gpytorch) (1.13.3)
+Requirement already satisfied: networkx in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from torch&gt;=2.0-&gt;linear-operator&gt;=0.6-&gt;gpytorch) (3.4.2)
+Requirement already satisfied: jinja2 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from torch&gt;=2.0-&gt;linear-operator&gt;=0.6-&gt;gpytorch) (3.1.4)
+Requirement already satisfied: fsspec in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from torch&gt;=2.0-&gt;linear-operator&gt;=0.6-&gt;gpytorch) (2024.12.0)
+Requirement already satisfied: typeguard==2.13.3 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from jaxtyping-&gt;gpytorch) (2.13.3)
+Requirement already satisfied: MarkupSafe&gt;=2.0 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from jinja2-&gt;torch&gt;=2.0-&gt;linear-operator&gt;=0.6-&gt;gpytorch) (2.1.5)
+Requirement already satisfied: joblib&gt;=1.2.0 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from scikit-learn-&gt;gpytorch) (1.4.2)
+Requirement already satisfied: threadpoolctl&gt;=3.1.0 in /Users/ibilion/.pyenv/versions/3.12.5/lib/python3.12/site-packages (from scikit-learn-&gt;gpytorch) (3.5.0)
 </pre></div>
 </div>
 </div>
@@ -660,7 +1121,7 @@ Let’s reintroduce the same running example as the previous hands-on activity.<
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/cfe9fbaa427a09aa2f8d3e38c3d3ef032a797b94d3a5d44f27de15afbc8eb871.svg" src="../_images/cfe9fbaa427a09aa2f8d3e38c3d3ef032a797b94d3a5d44f27de15afbc8eb871.svg" />
+<img alt="../_images/ad747f077d5a11f35c9874f3215b039c44ecb6893abaae4b0eaff1cd647c0f6c.svg" src="../_images/ad747f077d5a11f35c9874f3215b039c44ecb6893abaae4b0eaff1cd647c0f6c.svg" />
 </div>
 </div>
 <p>Just like in the previous hands-on activity, assume that we have made some observations and that we have used them to do Gaussian process regression, resulting in the point-predictive distribution:</p>
@@ -693,15 +1154,7 @@ Here is the code for this:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/ibilion/.pyenv/versions/3.11.6/lib/python3.11/site-packages/linear_operator/utils/cholesky.py:40: NumericalWarning: A not p.d., added jitter of 1.0e-06 to the diagonal
-  warnings.warn(
-/Users/ibilion/.pyenv/versions/3.11.6/lib/python3.11/site-packages/linear_operator/utils/cholesky.py:40: NumericalWarning: A not p.d., added jitter of 1.0e-05 to the diagonal
-  warnings.warn(
-/Users/ibilion/.pyenv/versions/3.11.6/lib/python3.11/site-packages/linear_operator/utils/cholesky.py:40: NumericalWarning: A not p.d., added jitter of 1.0e-04 to the diagonal
-  warnings.warn(
-</pre></div>
-</div>
-<img alt="../_images/644d2025923a5eac5e9504caf82a9ea29dfeffbb48e84b310d349e172ded1d8b.svg" src="../_images/644d2025923a5eac5e9504caf82a9ea29dfeffbb48e84b310d349e172ded1d8b.svg" />
+<img alt="../_images/f8451c7cd18058f0e79cc56af4aa5ab24fc60b72118df8de95ae9a6d13ceaaae.svg" src="../_images/f8451c7cd18058f0e79cc56af4aa5ab24fc60b72118df8de95ae9a6d13ceaaae.svg" />
 </div>
 </div>
 <p>What if you try to find the point that maximizes the probability of getting an observation greater than the ones you have so far?
@@ -765,7 +1218,7 @@ a_n(\mathbf{x}) &amp;=&amp; \mathbb{P}[y &gt; y_n^* + \psi | x, \mathcal{D}_n]\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/919da21349d2ad85300ee852a47a53fba990a5552488d5ad6b814937b2b02d65.svg" src="../_images/919da21349d2ad85300ee852a47a53fba990a5552488d5ad6b814937b2b02d65.svg" />
+<img alt="../_images/d0b7403dfd4e75711fe66b690982c750869f5c96d462e59bf4f590f3b510ac28.svg" src="../_images/d0b7403dfd4e75711fe66b690982c750869f5c96d462e59bf4f590f3b510ac28.svg" />
 </div>
 </div>
 <section id="questions">
@@ -815,16 +1268,16 @@ Here is how to use it:</p>
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<img alt="../_images/9c8bd8ba399338899fa5d90018b4420edbd8e74d2e7022f63eff831cb577d1ef.svg" src="../_images/9c8bd8ba399338899fa5d90018b4420edbd8e74d2e7022f63eff831cb577d1ef.svg" />
-<img alt="../_images/2095833eb3bdb74dd912d656e99998a3eff34f96efedb40a65069698eba410eb.svg" src="../_images/2095833eb3bdb74dd912d656e99998a3eff34f96efedb40a65069698eba410eb.svg" />
-<img alt="../_images/054086c625f3386667e67a641a650e53bdfec4df3abe2c547cf0754472e3f9c9.svg" src="../_images/054086c625f3386667e67a641a650e53bdfec4df3abe2c547cf0754472e3f9c9.svg" />
-<img alt="../_images/a6b5b77bfc1f5818e95fa8fa86341b127c018bd07146b79c67e55c3e13e3d8eb.svg" src="../_images/a6b5b77bfc1f5818e95fa8fa86341b127c018bd07146b79c67e55c3e13e3d8eb.svg" />
-<img alt="../_images/6282335950492a53c9ba6579903bb0cb050a4e269d45c6f0ee29e6ce50b367c1.svg" src="../_images/6282335950492a53c9ba6579903bb0cb050a4e269d45c6f0ee29e6ce50b367c1.svg" />
-<img alt="../_images/8863f48429ff9986037bcd152ceac1eb6e6af70b8fd23f231a55a2502172a896.svg" src="../_images/8863f48429ff9986037bcd152ceac1eb6e6af70b8fd23f231a55a2502172a896.svg" />
-<img alt="../_images/271350711b3d96b10f181b3b490cd25c84983c29975c5e3457462f6d494d9ff7.svg" src="../_images/271350711b3d96b10f181b3b490cd25c84983c29975c5e3457462f6d494d9ff7.svg" />
-<img alt="../_images/12fe1c200146241503e4a0427caa1ae7473f388c6500ef6261e60def56306c4a.svg" src="../_images/12fe1c200146241503e4a0427caa1ae7473f388c6500ef6261e60def56306c4a.svg" />
-<img alt="../_images/48e0660eb0ad823b4a29a627d58b29a9c5d5e5b7766054285eb13bf8c9234dff.svg" src="../_images/48e0660eb0ad823b4a29a627d58b29a9c5d5e5b7766054285eb13bf8c9234dff.svg" />
-<img alt="../_images/74ee3b7b2a2879412c68178308e5c7c031b9dc8921013a999b0009e85a3b4641.svg" src="../_images/74ee3b7b2a2879412c68178308e5c7c031b9dc8921013a999b0009e85a3b4641.svg" />
+<img alt="../_images/49943ad10265efe1b9089c2361c8095cb6bdd3c2dd37b0a500237afa0438fd9c.svg" src="../_images/49943ad10265efe1b9089c2361c8095cb6bdd3c2dd37b0a500237afa0438fd9c.svg" />
+<img alt="../_images/ab5e67bf34f3786876adf14793e40671bb828ed93817880c1fe73f5595ca99fe.svg" src="../_images/ab5e67bf34f3786876adf14793e40671bb828ed93817880c1fe73f5595ca99fe.svg" />
+<img alt="../_images/5549ca7ae031da0ebbd39416fe264485d653f8274d2b84d6c9a1443558b27160.svg" src="../_images/5549ca7ae031da0ebbd39416fe264485d653f8274d2b84d6c9a1443558b27160.svg" />
+<img alt="../_images/087b62ca7fe22f188841119ad5a46ffb9409ce09152ab3364307b2398eb7473d.svg" src="../_images/087b62ca7fe22f188841119ad5a46ffb9409ce09152ab3364307b2398eb7473d.svg" />
+<img alt="../_images/22d2308b66e88455b3a48d6fa943c87940b473682f3e6d4e21217b44d656f506.svg" src="../_images/22d2308b66e88455b3a48d6fa943c87940b473682f3e6d4e21217b44d656f506.svg" />
+<img alt="../_images/e2d3d3c75247d4535a488f4efba48954eefff8884f0b36a9ec47e35b19647947.svg" src="../_images/e2d3d3c75247d4535a488f4efba48954eefff8884f0b36a9ec47e35b19647947.svg" />
+<img alt="../_images/fe60b19f0ca4b8a1993d374aa275e48e66bcc89905b16b8c8106d74d6c52cc0d.svg" src="../_images/fe60b19f0ca4b8a1993d374aa275e48e66bcc89905b16b8c8106d74d6c52cc0d.svg" />
+<img alt="../_images/5ac1d99e41a235b74ec5700fe82a5d2f898101c07abd4a2902f8874660552241.svg" src="../_images/5ac1d99e41a235b74ec5700fe82a5d2f898101c07abd4a2902f8874660552241.svg" />
+<img alt="../_images/6c539bda74327d53e1648f9e6983b1ceb3370bd4d540a37653db04af9fa4c5d0.svg" src="../_images/6c539bda74327d53e1648f9e6983b1ceb3370bd4d540a37653db04af9fa4c5d0.svg" />
+<img alt="../_images/99aefd2b9b67eea55c48313a50c68f4e9998aea570dc31eb171c57d859d5b606.svg" src="../_images/99aefd2b9b67eea55c48313a50c68f4e9998aea570dc31eb171c57d859d5b606.svg" />
 </div>
 </details>
 </div>
