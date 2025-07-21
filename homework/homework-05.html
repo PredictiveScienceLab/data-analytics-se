@@ -640,135 +640,34 @@ document.write(`
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAKE_BOOK_FIGURES</span><span class="o">=</span><span class="kc">True</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
-
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
-<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">})</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">set_book_style</span><span class="p">():</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span> 
-    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
-    <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
+<span class="kn">import</span> <span class="nn">os</span>
 
-    <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
-        <span class="c1"># Font settings</span>
-        <span class="s1">&#39;font.family&#39;</span><span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>  <span class="c1"># For academic publishing</span>
-        <span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>  <span class="c1"># As requested, 10pt font</span>
-        <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-        <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-        <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>  <span class="c1"># Slightly smaller for better readability</span>
-        <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
-        <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
-        
-        <span class="c1"># Line and marker settings for consistency</span>
-        <span class="s1">&#39;axes.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
-        <span class="s1">&#39;grid.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
-        <span class="s1">&#39;lines.linewidth&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
-        <span class="s1">&#39;lines.markersize&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-        
-        <span class="c1"># Layout to prevent clipped labels</span>
-        <span class="s1">&#39;figure.constrained_layout.use&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-        
-        <span class="c1"># Default DPI (will override when saving)</span>
-        <span class="s1">&#39;figure.dpi&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
-        <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
-        
-        <span class="c1"># Despine - remove top and right spines</span>
-        <span class="s1">&#39;axes.spines.top&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="s1">&#39;axes.spines.right&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-        
-        <span class="c1"># Remove legend frame</span>
-        <span class="s1">&#39;legend.frameon&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-        
-        <span class="c1"># Additional trim settings</span>
-        <span class="s1">&#39;figure.autolayout&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Alternative to constrained_layout</span>
-        <span class="s1">&#39;savefig.bbox&#39;</span><span class="p">:</span> <span class="s1">&#39;tight&#39;</span><span class="p">,</span>    <span class="c1"># Trim when saving</span>
-        <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>   <span class="c1"># Small padding to ensure nothing gets cut off</span>
-    <span class="p">})</span>
-
-<span class="k">def</span> <span class="nf">set_notebook_style</span><span class="p">():</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span>
-    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
-    <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
-
-    <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
-        <span class="c1"># Font settings - using default sizes</span>
-        <span class="s1">&#39;font.family&#39;</span><span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-        <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-        <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
-        <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
-        <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
-        
-        <span class="c1"># Line and marker settings</span>
-        <span class="s1">&#39;axes.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
-        <span class="s1">&#39;grid.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
-        <span class="s1">&#39;lines.linewidth&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
-        <span class="s1">&#39;lines.markersize&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-        
-        <span class="c1"># Layout settings</span>
-        <span class="s1">&#39;figure.constrained_layout.use&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-        
-        <span class="c1"># Remove only top and right spines</span>
-        <span class="s1">&#39;axes.spines.top&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="s1">&#39;axes.spines.right&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-        
-        <span class="c1"># Remove legend frame</span>
-        <span class="s1">&#39;legend.frameon&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-        
-        <span class="c1"># Additional settings</span>
-        <span class="s1">&#39;figure.autolayout&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="s1">&#39;savefig.bbox&#39;</span><span class="p">:</span> <span class="s1">&#39;tight&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>
-    <span class="p">})</span>
-
-<span class="k">def</span> <span class="nf">save_for_book</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">is_vector</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Save a figure with book-optimized settings.</span>
+<span class="k">def</span> <span class="nf">download</span><span class="p">(</span>
+    <span class="n">url</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">local_filename</span> <span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Download a file from a url.</span>
 <span class="sd">    </span>
-<span class="sd">    Parameters:</span>
-<span class="sd">    -----------</span>
-<span class="sd">    fig : matplotlib figure</span>
-<span class="sd">        The figure to save</span>
-<span class="sd">    filename : str</span>
-<span class="sd">        Filename without extension</span>
-<span class="sd">    is_vector : bool</span>
-<span class="sd">        If True, saves as vector at 1000 dpi. If False, saves as raster at 600 dpi.</span>
-<span class="sd">    **kwargs : dict</span>
-<span class="sd">        Additional kwargs to pass to savefig</span>
-<span class="sd">    &quot;&quot;&quot;</span>    
-    <span class="c1"># Set appropriate DPI and format based on figure type</span>
-    <span class="k">if</span> <span class="n">is_vector</span><span class="p">:</span>
-        <span class="n">dpi</span> <span class="o">=</span> <span class="mi">1000</span>
-        <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;.pdf&#39;</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">dpi</span> <span class="o">=</span> <span class="mi">600</span>
-        <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;.tif&#39;</span>
-    
-    <span class="c1"># Save the figure with book settings</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">make_full_width_fig</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.7</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">make_half_width_fig</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">2.35</span><span class="p">,</span> <span class="mf">1.45</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span><span class="p">:</span>
-    <span class="n">set_book_style</span><span class="p">()</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">set_notebook_style</span><span class="p">()</span>
-
-<span class="n">make_full_width_fig</span> <span class="o">=</span> <span class="n">make_full_width_fig</span> <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span> <span class="k">else</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">make_half_width_fig</span> <span class="o">=</span> <span class="n">make_half_width_fig</span> <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span> <span class="k">else</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="sd">    Arguments</span>
+<span class="sd">    url            -- The url we want to download.</span>
+<span class="sd">    local_filename -- The filemame to write on. If not</span>
+<span class="sd">                      specified </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">local_filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">local_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">local_filename</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -815,113 +714,6 @@ On Google Colab, just run this:</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Date/Time</th>
-      <th>Lat</th>
-      <th>Lon</th>
-      <th>Base</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>4/1/2014 0:11:00</td>
-      <td>40.7690</td>
-      <td>-73.9549</td>
-      <td>B02512</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>4/1/2014 0:17:00</td>
-      <td>40.7267</td>
-      <td>-74.0345</td>
-      <td>B02512</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>4/1/2014 0:21:00</td>
-      <td>40.7316</td>
-      <td>-73.9873</td>
-      <td>B02512</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4/1/2014 0:28:00</td>
-      <td>40.7588</td>
-      <td>-73.9776</td>
-      <td>B02512</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>4/1/2014 0:33:00</td>
-      <td>40.7594</td>
-      <td>-73.9722</td>
-      <td>B02512</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>564511</th>
-      <td>4/30/2014 23:22:00</td>
-      <td>40.7640</td>
-      <td>-73.9744</td>
-      <td>B02764</td>
-    </tr>
-    <tr>
-      <th>564512</th>
-      <td>4/30/2014 23:26:00</td>
-      <td>40.7629</td>
-      <td>-73.9672</td>
-      <td>B02764</td>
-    </tr>
-    <tr>
-      <th>564513</th>
-      <td>4/30/2014 23:31:00</td>
-      <td>40.7443</td>
-      <td>-73.9889</td>
-      <td>B02764</td>
-    </tr>
-    <tr>
-      <th>564514</th>
-      <td>4/30/2014 23:32:00</td>
-      <td>40.6756</td>
-      <td>-73.9405</td>
-      <td>B02764</td>
-    </tr>
-    <tr>
-      <th>564515</th>
-      <td>4/30/2014 23:48:00</td>
-      <td>40.6880</td>
-      <td>-73.9608</td>
-      <td>B02764</td>
-    </tr>
-  </tbody>
-</table>
-<p>564516 rows × 4 columns</p>
-</div></div></div>
 </div>
 <p>If you have never played before with pandas, you can find a nice tutorial <a class="reference external" href="https://purduemechanicalengineering.github.io/me-297-intro-to-data-science/lecture03/python-pandas.html">here</a>.</p>
 <p>We have half a million data points. Let’s extract the latitude and longitude and put them in a numpy array:</p>
@@ -932,95 +724,12 @@ On Google Colab, just run this:</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Lon</th>
-      <th>Lat</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>-73.9549</td>
-      <td>40.7690</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>-74.0345</td>
-      <td>40.7267</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>-73.9873</td>
-      <td>40.7316</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>-73.9776</td>
-      <td>40.7588</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>-73.9722</td>
-      <td>40.7594</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>564511</th>
-      <td>-73.9744</td>
-      <td>40.7640</td>
-    </tr>
-    <tr>
-      <th>564512</th>
-      <td>-73.9672</td>
-      <td>40.7629</td>
-    </tr>
-    <tr>
-      <th>564513</th>
-      <td>-73.9889</td>
-      <td>40.7443</td>
-    </tr>
-    <tr>
-      <th>564514</th>
-      <td>-73.9405</td>
-      <td>40.6756</td>
-    </tr>
-    <tr>
-      <th>564515</th>
-      <td>-73.9608</td>
-      <td>40.6880</td>
-    </tr>
-  </tbody>
-</table>
-<p>564516 rows × 2 columns</p>
-</div></div></div>
 </div>
 <p>Let’s visualize these points on the map of New York City:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/PredictiveScienceLab/data-analytics-se/master/lecturebook/images/ny_map.png&quot;</span>
-<span class="o">!</span>curl<span class="w"> </span>-O<span class="w"> </span><span class="nv">$url</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/PredictiveScienceLab/data-analytics-se/raw/master/lecturebook/images/ny_map.png&quot;</span>
+<span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 <span class="n">ny_map</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;ny_map.png&#39;</span><span class="p">)</span>
 <span class="n">box</span> <span class="o">=</span> <span class="p">((</span><span class="n">loc_data</span><span class="o">.</span><span class="n">Lon</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">loc_data</span><span class="o">.</span><span class="n">Lon</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
         <span class="n">loc_data</span><span class="o">.</span><span class="n">Lat</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">loc_data</span><span class="o">.</span><span class="n">Lat</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
@@ -1046,9 +755,6 @@ On Google Colab, just run this:</p>
 <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/f21923f9db26a3f15cc5561927992b2fb30f3fe45df4d99e92029ccafe1bf24c.png" src="../_images/f21923f9db26a3f15cc5561927992b2fb30f3fe45df4d99e92029ccafe1bf24c.png" />
 </div>
 </div>
 <p>Machine learning algorithms will be a bit slow because we have over half a million data points.
@@ -1151,9 +857,6 @@ The idea is as follows:</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/46e087e9b3264e4055624f83ca3684a40aa6a42a869696fa4a89d5e18ecaa2a9.png" src="../_images/46e087e9b3264e4055624f83ca3684a40aa6a42a869696fa4a89d5e18ecaa2a9.png" />
-</div>
 </div>
 <p>Now, we are going to convert it to grayscale and crop it to make the problem a little bit easier:</p>
 <div class="cell docutils container">
@@ -1195,9 +898,6 @@ Here is this sigmoid:</p>
 <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/2e559ac511b62c6f5a1b7b9bce25a62b894f0109f75aff357ef02a37eafeb36f.png" src="../_images/2e559ac511b62c6f5a1b7b9bce25a62b894f0109f75aff357ef02a37eafeb36f.png" />
 </div>
 </div>
 <p>And here is the code that samples the pixel coordinates.
@@ -1481,11 +1181,6 @@ Here is how:</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2, 100)
-</pre></div>
-</div>
-</div>
 </div>
 <p>The shape of <code class="docutils literal notranslate"><span class="pre">sol.y</span></code> is (2, 100), which means that we have 100 timesteps and two variables (position and velocity).
 Let’s plot the position and the velocity:</p>
@@ -1500,9 +1195,6 @@ Let’s plot the position and the velocity:</p>
 <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/fffa577e3fddb0353b6c8031cec5ebea4a1c8bf86999866cd565457f1004addd.png" src="../_images/fffa577e3fddb0353b6c8031cec5ebea4a1c8bf86999866cd565457f1004addd.png" />
 </div>
 </div>
 <p>Let’s now generate some synthetic observations of the acceleration with some given Gaussian noise.
@@ -1537,9 +1229,6 @@ To get the acceleration, you can do this:</p>
 <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/5c8bf582eeddd3f3287430cdd232a06e63d63851f13e0fb4c6366f2b1351320d.png" src="../_images/5c8bf582eeddd3f3287430cdd232a06e63d63851f13e0fb4c6366f2b1351320d.png" />
 </div>
 </div>
 <p>Okay. Now, imagine that you only see the noisy observations of the acceleration.
