@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Deep Neural Networks Continued &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
@@ -28,35 +29,39 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture25/reading-25';</script>
@@ -154,18 +159,7 @@
     <p class="title logo__title">Introduction to Scientific Machine Learning (Lecture Book)</p>
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -437,9 +431,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -464,14 +458,14 @@
       
       <li><a href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture25/reading-25.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch on Colab"
+   title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+    <img src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -564,9 +558,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -607,15 +601,15 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="deep-neural-networks-continued">
-<span id="id1"></span><h1>Deep Neural Networks Continued<a class="headerlink" href="#deep-neural-networks-continued" title="Link to this heading">#</a></h1>
+<span id="id1"></span><h1>Deep Neural Networks Continued<a class="headerlink" href="#deep-neural-networks-continued" title="Permalink to this heading">#</a></h1>
 <section id="loss-functions-for-classification">
-<h2>Loss functions for classification<a class="headerlink" href="#loss-functions-for-classification" title="Link to this heading">#</a></h2>
+<h2>Loss functions for classification<a class="headerlink" href="#loss-functions-for-classification" title="Permalink to this heading">#</a></h2>
 <p>Take some features <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}\)</span> and some discrete targets <span class="math notranslate nohighlight">\(y_{1:n}\)</span>.
 Because the targets are discrete, we have a classification problem.
 What loss function should we use?
 Let’s examine two cases: binary and multiclass classification.</p>
 <section id="binary-classification">
-<h3>Binary classification<a class="headerlink" href="#binary-classification" title="Link to this heading">#</a></h3>
+<h3>Binary classification<a class="headerlink" href="#binary-classification" title="Permalink to this heading">#</a></h3>
 <p>In binary classification, we use a DNN <span class="math notranslate nohighlight">\(f(\mathbf{x};\theta)\)</span> with parameters <span class="math notranslate nohighlight">\(\theta\)</span> to model the probability that <span class="math notranslate nohighlight">\(y\)</span> take the value <span class="math notranslate nohighlight">\(1\)</span> by:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -652,7 +646,7 @@ L(\theta) &amp;= -\log p(y_{1:n}|\mathbf{x}<em>{1:n},\theta)\
 <p>This loss function is known as the <em>cross entropy</em> loss.</p>
 </section>
 <section id="multiclass-classification">
-<h3>Multiclass classification<a class="headerlink" href="#multiclass-classification" title="Link to this heading">#</a></h3>
+<h3>Multiclass classification<a class="headerlink" href="#multiclass-classification" title="Permalink to this heading">#</a></h3>
 <p>Now assume that <span class="math notranslate nohighlight">\(y\)</span> can take <span class="math notranslate nohighlight">\(K\)</span> different values ranging from <span class="math notranslate nohighlight">\(0\)</span> to <span class="math notranslate nohighlight">\(K-1\)</span>.
 We need to model the probability that <span class="math notranslate nohighlight">\(y=k\)</span> given <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>.
 To do this, we introduce a DNN <span class="math notranslate nohighlight">\(\mathbf{f}(\mathbf{x};\theta)\)</span> with parameters <span class="math notranslate nohighlight">\(\theta\)</span> and <span class="math notranslate nohighlight">\(K\)</span> outputs:</p>
@@ -691,7 +685,7 @@ What is important is to understand how these losses are derived from maximum lik
 </section>
 </section>
 <section id="regularization">
-<h2>Regularization<a class="headerlink" href="#regularization" title="Link to this heading">#</a></h2>
+<h2>Regularization<a class="headerlink" href="#regularization" title="Permalink to this heading">#</a></h2>
 <p>DNNs are incredibly flexible. However, this makes them prone to overfitting.
 As we have discussed, one way to avoid overfitting is to add regularization to the loss function.
 This works as follows.
@@ -712,7 +706,7 @@ The bigger <span class="math notranslate nohighlight">\(\lambda\)</span> is, the
 So, <span class="math notranslate nohighlight">\(\lambda\)</span> is a parameter you would like to tune - but more on this later.</p>
 </section>
 <section id="bayesian-interpretation-of-regularization">
-<h2>Bayesian interpretation of regularization<a class="headerlink" href="#bayesian-interpretation-of-regularization" title="Link to this heading">#</a></h2>
+<h2>Bayesian interpretation of regularization<a class="headerlink" href="#bayesian-interpretation-of-regularization" title="Permalink to this heading">#</a></h2>
 <p>As we showed during our regression lectures, the regularization can be interpreted as a maximum posterior approach to inference.
 To see this, assume that we have a data likelihood <span class="math notranslate nohighlight">\(p(y_{1:n}|\mathbf{x}_{1:n},\theta)\)</span> for either a regression or a classification problem.
 Now, assume that you have a prior over all parameters, say <span class="math notranslate nohighlight">\(p(\theta)\)</span>.
@@ -742,7 +736,7 @@ p(\theta) = N(\theta|0, \alpha^{-1}I).
 <p>And this is how you get the L2 regularization term in a principled way.</p>
 </section>
 <section id="convolution-neural-networks">
-<h2>Convolution neural networks<a class="headerlink" href="#convolution-neural-networks" title="Link to this heading">#</a></h2>
+<h2>Convolution neural networks<a class="headerlink" href="#convolution-neural-networks" title="Permalink to this heading">#</a></h2>
 <p>Convolutional neural networks try to mimic the operations carried out by the animal visual cortex.
 By construction, they satisfy certain properties (e.g., invariance to small translations and rotations) that make them particularly successful in image recognition tasks.
 Explaining the mathematical details of convolutional neural networks is beyond the scope.
@@ -847,7 +841,7 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>

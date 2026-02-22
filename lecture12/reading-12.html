@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Bayesian inference &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
@@ -28,35 +29,39 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture12/reading-12';</script>
@@ -154,18 +159,7 @@
     <p class="title logo__title">Introduction to Scientific Machine Learning (Lecture Book)</p>
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -437,9 +431,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -464,14 +458,14 @@
       
       <li><a href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture12/reading-12.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch on Colab"
+   title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+    <img src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -564,9 +558,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -601,7 +595,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="bayesian-inference">
-<h1>Bayesian inference<a class="headerlink" href="#bayesian-inference" title="Link to this heading">#</a></h1>
+<h1>Bayesian inference<a class="headerlink" href="#bayesian-inference" title="Permalink to this heading">#</a></h1>
 <p>Bayesian inference is about fitting a model to data.
 What is a model, and what is fitting?</p>
 <p>Assume that we have a model that predicts the result of a random experiment.
@@ -615,7 +609,7 @@ x_{1:N} = (x_1,\dots,x_N).
 \]</div>
 <p>How can we use the data to learn about the parameters <span class="math notranslate nohighlight">\(\theta\)</span>?</p>
 <section id="the-maximum-likelihood-principle">
-<span id="maximum-likelihood-principle"></span><h2>The maximum likelihood principle<a class="headerlink" href="#the-maximum-likelihood-principle" title="Link to this heading">#</a></h2>
+<span id="maximum-likelihood-principle"></span><h2>The maximum likelihood principle<a class="headerlink" href="#the-maximum-likelihood-principle" title="Permalink to this heading">#</a></h2>
 <p>The maximum likelihood principle says that we should choose the parameters <span class="math notranslate nohighlight">\(\theta\)</span> that maximize the likelihood of the data.
 In other words, we should choose <span class="math notranslate nohighlight">\(\theta\)</span> such that the data are most likely to be observed.</p>
 <p>The likelihood of a single data point is <span class="math notranslate nohighlight">\(p(x_n|\theta)\)</span>.
@@ -638,7 +632,7 @@ We need to solve the optimization problem:</p>
 If you see the maximum likelihood principle for the first time, you may want to look at my undergraduate lecture notes on <a class="reference external" href="https://purduemechanicalengineering.github.io/me-297-intro-to-data-science/lecture13/intro.html">this topic</a>.</p>
 </section>
 <section id="the-bayesian-approach">
-<h2>The Bayesian approach<a class="headerlink" href="#the-bayesian-approach" title="Link to this heading">#</a></h2>
+<h2>The Bayesian approach<a class="headerlink" href="#the-bayesian-approach" title="Permalink to this heading">#</a></h2>
 <p>The maximum likelihood gives us a point estimate of the parameters <span class="math notranslate nohighlight">\(\theta\)</span>.
 But how can we pick a single value of <span class="math notranslate nohighlight">\(\theta\)</span> when we have limited data?
 We should be uncertain about the value of <span class="math notranslate nohighlight">\(\theta\)</span>.
@@ -657,14 +651,24 @@ The Bayesian approach gives us a way to quantify this uncertainty.</p>
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">npimport</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span> <span class="k">as</span> <span class="n">stfrom</span> <span class="n">graphviz</span> <span class="kn">import</span> <span class="nn">Digraphgcp</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">(</span><span class="s1">&#39;coin_toss_bayes_plate&#39;</span><span class="p">)</span><span class="n">gcp</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;theta;&gt;&#39;</span><span class="p">)</span><span class="k">with</span> <span class="n">gcp</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;cluster_0&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">sg</span><span class="p">:</span>    <span class="n">sg</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;xn&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;x&lt;sub&gt;n&lt;/sub&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>    <span class="n">sg</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;n=1,...,N&#39;</span><span class="p">)</span>    <span class="n">sg</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="n">labelloc</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span><span class="n">gcp</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="s1">&#39;xn&#39;</span><span class="p">)</span><span class="n">gcp</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s1">&#39;coin_toss_bayes_plate&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">)</span><span class="n">gcp</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">st</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">graphviz</span><span class="w"> </span><span class="kn">import</span> <span class="n">Digraph</span>
+<span class="n">gcp</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">(</span><span class="s1">&#39;coin_toss_bayes_plate&#39;</span><span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;theta;&gt;&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">gcp</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;cluster_0&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">sg</span><span class="p">:</span>
+    <span class="n">sg</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;xn&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;x&lt;sub&gt;n&lt;/sub&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
+    <span class="n">sg</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;n=1,...,N&#39;</span><span class="p">)</span>
+    <span class="n">sg</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="n">labelloc</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="s1">&#39;xn&#39;</span><span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s1">&#39;coin_toss_bayes_plate&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">)</span>
+<span class="n">gcp</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/753ef1f61683bca0484f9641443379b1dc10a345b20663474817e760746a91a7.svg" src="../_images/753ef1f61683bca0484f9641443379b1dc10a345b20663474817e760746a91a7.svg" />
-</div>
+<img alt="../_images/753ef1f61683bca0484f9641443379b1dc10a345b20663474817e760746a91a7.svg" src="../_images/753ef1f61683bca0484f9641443379b1dc10a345b20663474817e760746a91a7.svg" /></div>
 </div>
 <p>The plot above is a probabilistic graphical model.
 It shows the conditional dependencies between the random variables.
@@ -832,7 +836,7 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>

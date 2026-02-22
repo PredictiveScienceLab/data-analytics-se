@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Regression with Deep Neural Networks &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
@@ -28,35 +29,39 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture24/hands-on-24';</script>
@@ -154,18 +159,7 @@
     <p class="title logo__title">Introduction to Scientific Machine Learning (Lecture Book)</p>
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -437,9 +431,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -464,14 +458,14 @@
       
       <li><a href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture24/hands-on-24.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch on Colab"
+   title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+    <img src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -564,9 +558,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -615,14 +609,142 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAKE_BOOK_FIGURES</span><span class="o">=</span><span class="n">Trueimport</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">npimport</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span> <span class="k">as</span> <span class="n">stimport</span> <span class="n">matplotlib</span> <span class="k">as</span> <span class="n">mplimport</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span><span class="o">%</span><span class="k">matplotlib</span> inlineimport matplotlib_inlinematplotlib_inline.backend_inline.set_matplotlib_formats(&#39;svg&#39;)import seaborn as snssns.set_context(&quot;paper&quot;)sns.set_style(&quot;ticks&quot;)def set_book_style():    plt.style.use(&#39;seaborn-v0_8-white&#39;)     sns.set_style(&quot;ticks&quot;)    sns.set_palette(&quot;deep&quot;)    mpl.rcParams.update({        # Font settings        &#39;font.family&#39;: &#39;serif&#39;,  # For academic publishing        &#39;font.size&#39;: 8,  # As requested, 10pt font        &#39;axes.labelsize&#39;: 8,        &#39;axes.titlesize&#39;: 8,        &#39;xtick.labelsize&#39;: 7,  # Slightly smaller for better readability        &#39;ytick.labelsize&#39;: 7,        &#39;legend.fontsize&#39;: 7,                # Line and marker settings for consistency        &#39;axes.linewidth&#39;: 0.5,        &#39;grid.linewidth&#39;: 0.5,        &#39;lines.linewidth&#39;: 1.0,        &#39;lines.markersize&#39;: 4,                # Layout to prevent clipped labels        &#39;figure.constrained_layout.use&#39;: True,                # Default DPI (will override when saving)        &#39;figure.dpi&#39;: 600,        &#39;savefig.dpi&#39;: 600,                # Despine - remove top and right spines        &#39;axes.spines.top&#39;: False,        &#39;axes.spines.right&#39;: False,                # Remove legend frame        &#39;legend.frameon&#39;: False,                # Additional trim settings        &#39;figure.autolayout&#39;: True,  # Alternative to constrained_layout        &#39;savefig.bbox&#39;: &#39;tight&#39;,    # Trim when saving        &#39;savefig.pad_inches&#39;: 0.1   # Small padding to ensure nothing gets cut off    })def set_notebook_style():    plt.style.use(&#39;seaborn-v0_8-white&#39;)    sns.set_style(&quot;ticks&quot;)    sns.set_palette(&quot;deep&quot;)    mpl.rcParams.update({        # Font settings - using default sizes        &#39;font.family&#39;: &#39;serif&#39;,        &#39;axes.labelsize&#39;: 10,        &#39;axes.titlesize&#39;: 10,        &#39;xtick.labelsize&#39;: 9,        &#39;ytick.labelsize&#39;: 9,        &#39;legend.fontsize&#39;: 9,                # Line and marker settings        &#39;axes.linewidth&#39;: 0.5,        &#39;grid.linewidth&#39;: 0.5,        &#39;lines.linewidth&#39;: 1.0,        &#39;lines.markersize&#39;: 4,                # Layout settings        &#39;figure.constrained_layout.use&#39;: True,                # Remove only top and right spines        &#39;axes.spines.top&#39;: False,        &#39;axes.spines.right&#39;: False,                # Remove legend frame        &#39;legend.frameon&#39;: False,                # Additional settings        &#39;figure.autolayout&#39;: True,        &#39;savefig.bbox&#39;: &#39;tight&#39;,        &#39;savefig.pad_inches&#39;: 0.1    })def save_for_book(fig, filename, is_vector=True, **kwargs):    &quot;&quot;&quot;    Save a figure with book-optimized settings.        Parameters:    -----------    fig : matplotlib figure        The figure to save    filename : str        Filename without extension    is_vector : bool        If True, saves as vector at 1000 dpi. If False, saves as raster at 600 dpi.    **kwargs : dict        Additional kwargs to pass to savefig    &quot;&quot;&quot;        # Set appropriate DPI and format based on figure type    if is_vector:        dpi = 1000        ext = &#39;.pdf&#39;    else:        dpi = 600        ext = &#39;.tif&#39;        # Save the figure with book settings    fig.savefig(f&quot;{filename}{ext}&quot;, dpi=dpi, **kwargs)def make_full_width_fig():    return plt.subplots(figsize=(4.7, 2.9), constrained_layout=True)def make_half_width_fig():    return plt.subplots(figsize=(2.35, 1.45), constrained_layout=True)if MAKE_BOOK_FIGURES:    set_book_style()else:    set_notebook_style()make_full_width_fig = make_full_width_fig if MAKE_BOOK_FIGURES else lambda: plt.subplots()make_half_width_fig = make_half_width_fig if MAKE_BOOK_FIGURES else lambda: plt.subplots()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAKE_BOOK_FIGURES</span><span class="o">=</span><span class="kc">True</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">st</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">set_book_style</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span> 
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
+
+    <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="c1"># Font settings</span>
+        <span class="s1">&#39;font.family&#39;</span><span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>  <span class="c1"># For academic publishing</span>
+        <span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>  <span class="c1"># As requested, 10pt font</span>
+        <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>  <span class="c1"># Slightly smaller for better readability</span>
+        <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        
+        <span class="c1"># Line and marker settings for consistency</span>
+        <span class="s1">&#39;axes.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;grid.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;lines.linewidth&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="s1">&#39;lines.markersize&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        
+        <span class="c1"># Layout to prevent clipped labels</span>
+        <span class="s1">&#39;figure.constrained_layout.use&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        
+        <span class="c1"># Default DPI (will override when saving)</span>
+        <span class="s1">&#39;figure.dpi&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+        <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+        
+        <span class="c1"># Despine - remove top and right spines</span>
+        <span class="s1">&#39;axes.spines.top&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s1">&#39;axes.spines.right&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Remove legend frame</span>
+        <span class="s1">&#39;legend.frameon&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Additional trim settings</span>
+        <span class="s1">&#39;figure.autolayout&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Alternative to constrained_layout</span>
+        <span class="s1">&#39;savefig.bbox&#39;</span><span class="p">:</span> <span class="s1">&#39;tight&#39;</span><span class="p">,</span>    <span class="c1"># Trim when saving</span>
+        <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>   <span class="c1"># Small padding to ensure nothing gets cut off</span>
+    <span class="p">})</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">set_notebook_style</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
+
+    <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="c1"># Font settings - using default sizes</span>
+        <span class="s1">&#39;font.family&#39;</span><span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        
+        <span class="c1"># Line and marker settings</span>
+        <span class="s1">&#39;axes.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;grid.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;lines.linewidth&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="s1">&#39;lines.markersize&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        
+        <span class="c1"># Layout settings</span>
+        <span class="s1">&#39;figure.constrained_layout.use&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        
+        <span class="c1"># Remove only top and right spines</span>
+        <span class="s1">&#39;axes.spines.top&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s1">&#39;axes.spines.right&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Remove legend frame</span>
+        <span class="s1">&#39;legend.frameon&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Additional settings</span>
+        <span class="s1">&#39;figure.autolayout&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;savefig.bbox&#39;</span><span class="p">:</span> <span class="s1">&#39;tight&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>
+    <span class="p">})</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">save_for_book</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">is_vector</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Save a figure with book-optimized settings.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    fig : matplotlib figure</span>
+<span class="sd">        The figure to save</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        Filename without extension</span>
+<span class="sd">    is_vector : bool</span>
+<span class="sd">        If True, saves as vector at 1000 dpi. If False, saves as raster at 600 dpi.</span>
+<span class="sd">    **kwargs : dict</span>
+<span class="sd">        Additional kwargs to pass to savefig</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="c1"># Set appropriate DPI and format based on figure type</span>
+    <span class="k">if</span> <span class="n">is_vector</span><span class="p">:</span>
+        <span class="n">dpi</span> <span class="o">=</span> <span class="mi">1000</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;.pdf&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">dpi</span> <span class="o">=</span> <span class="mi">600</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;.tif&#39;</span>
+    
+    <span class="c1"># Save the figure with book settings</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_full_width_fig</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.7</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_half_width_fig</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">2.35</span><span class="p">,</span> <span class="mf">1.45</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span><span class="p">:</span>
+    <span class="n">set_book_style</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">set_notebook_style</span><span class="p">()</span>
+
+<span class="n">make_full_width_fig</span> <span class="o">=</span> <span class="n">make_full_width_fig</span> <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span> <span class="k">else</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">make_half_width_fig</span> <span class="o">=</span> <span class="n">make_half_width_fig</span> <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span> <span class="k">else</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="regression-with-deep-neural-networks">
-<span id="id1"></span><h1>Regression with Deep Neural Networks<a class="headerlink" href="#regression-with-deep-neural-networks" title="Link to this heading">#</a></h1>
+<span id="id1"></span><h1>Regression with Deep Neural Networks<a class="headerlink" href="#regression-with-deep-neural-networks" title="Permalink to this heading">#</a></h1>
 <p>We want to understand the basics of <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code> and set up and train regression DNNs with it.
 Some useful references on <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code> are:</p>
 <ul class="simple">
@@ -635,7 +757,7 @@ Some useful references on <code class="docutils literal notranslate"><span class
 </li>
 </ul>
 <section id="what-is-pytorch-and-why-are-we-using-it">
-<h2>What is PyTorch, and why are we using it?<a class="headerlink" href="#what-is-pytorch-and-why-are-we-using-it" title="Link to this heading">#</a></h2>
+<h2>What is PyTorch, and why are we using it?<a class="headerlink" href="#what-is-pytorch-and-why-are-we-using-it" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>PyTorch is an alternative to Numpy that can harness the power of <a class="reference external" href="https://en.wikipedia.org/wiki/Graphics_processing_unit">GPUs</a>.</p></li>
 <li><p>PyTorch provides some core functionality for Neural Networks:</p>
@@ -659,7 +781,7 @@ In research, I use either <code class="docutils literal notranslate"><span class
 It is worth learning both of them, but we will stick to <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code> in this course.</p>
 </section>
 <section id="making-neural-networks-in-pytorch">
-<h2>Making neural networks in PyTorch<a class="headerlink" href="#making-neural-networks-in-pytorch" title="Link to this heading">#</a></h2>
+<h2>Making neural networks in PyTorch<a class="headerlink" href="#making-neural-networks-in-pytorch" title="Permalink to this heading">#</a></h2>
 <p>PyTorch is pretty flexible in allowing you to make any neural network you like.
 You have absolute freedom on how your model looks like.
 However, it does provide a super easy way to make dense neural networks with a fixed activation function.
@@ -667,7 +789,7 @@ That’s what we are going to start with.
 First, import torch:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 </pre></div>
 </div>
 </div>
@@ -675,7 +797,7 @@ First, import torch:</p>
 <p>The submodule <code class="docutils literal notranslate"><span class="pre">torch.nn</span></code> is where the neural network building blocks reside:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
 </pre></div>
 </div>
 </div>
@@ -852,8 +974,7 @@ Here is the sigmoid:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9598c66a43bb0ccecfca68ab070964915203d61f5f00a88873975755f99f6bde.svg" src="../_images/9598c66a43bb0ccecfca68ab070964915203d61f5f00a88873975755f99f6bde.svg" />
-</div>
+<img alt="../_images/9598c66a43bb0ccecfca68ab070964915203d61f5f00a88873975755f99f6bde.svg" src="../_images/9598c66a43bb0ccecfca68ab070964915203d61f5f00a88873975755f99f6bde.svg" /></div>
 </div>
 <p>You could also implement the activation function by hand.
 The only restriction is that you should use’ PyTorch’ instead of <code class="docutils literal notranslate"><span class="pre">numpy</span></code> functions.
@@ -873,8 +994,7 @@ Here is how we would do it for the sigmoid:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/4f7d89ef3d3e1489fc4056c185bdab86c2953a64787be1f5a1b4f15ba16d5b28.svg" src="../_images/4f7d89ef3d3e1489fc4056c185bdab86c2953a64787be1f5a1b4f15ba16d5b28.svg" />
-</div>
+<img alt="../_images/4f7d89ef3d3e1489fc4056c185bdab86c2953a64787be1f5a1b4f15ba16d5b28.svg" src="../_images/4f7d89ef3d3e1489fc4056c185bdab86c2953a64787be1f5a1b4f15ba16d5b28.svg" /></div>
 </div>
 <p>Here are now some of the most commonly used activation functions in <code class="docutils literal notranslate"><span class="pre">torch.nn</span></code>:</p>
 <div class="cell docutils container">
@@ -894,8 +1014,7 @@ Here is how we would do it for the sigmoid:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1e77f8192d975bb7b77ebe9fa7df4ac6040bb03944ff8c5b56b519908a28a3b6.svg" src="../_images/1e77f8192d975bb7b77ebe9fa7df4ac6040bb03944ff8c5b56b519908a28a3b6.svg" />
-</div>
+<img alt="../_images/1e77f8192d975bb7b77ebe9fa7df4ac6040bb03944ff8c5b56b519908a28a3b6.svg" src="../_images/1e77f8192d975bb7b77ebe9fa7df4ac6040bb03944ff8c5b56b519908a28a3b6.svg" /></div>
 </div>
 <p>Now that we have a linear layer and an activation function, here is how we can combine them to make a function that takes us from the input to the internal neurons:</p>
 <div class="cell docutils container">
@@ -983,8 +1102,7 @@ Here is what you need to do:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/55d457ec5348e5a67d4b6ded382af5cf82ba19d7b58f4342c0f259bf2aae07cb.svg" src="../_images/55d457ec5348e5a67d4b6ded382af5cf82ba19d7b58f4342c0f259bf2aae07cb.svg" />
-</div>
+<img alt="../_images/55d457ec5348e5a67d4b6ded382af5cf82ba19d7b58f4342c0f259bf2aae07cb.svg" src="../_images/55d457ec5348e5a67d4b6ded382af5cf82ba19d7b58f4342c0f259bf2aae07cb.svg" /></div>
 </div>
 <p>The class <code class="docutils literal notranslate"><span class="pre">nn.Sequential</span></code> is convenient because it allows us to build deep networks quickly.
 Here is a 5-layer network that starts from one input, takes us through 3 layers with 20 neurons each, and ends on a single output:</p>
@@ -1277,7 +1395,7 @@ You would directly inherit the latter when writing your own class for a non-stan
 We will not cover it in this class, but you can find plenty of examples <a class="reference external" href="https://pytorch.org/tutorials/beginner/pytorch_with_examples.html">here</a>.</p>
 </section>
 <section id="making-a-loss-function">
-<h2>Making a loss function<a class="headerlink" href="#making-a-loss-function" title="Link to this heading">#</a></h2>
+<h2>Making a loss function<a class="headerlink" href="#making-a-loss-function" title="Permalink to this heading">#</a></h2>
 <p>Let’s now make the loss function that we want to minimize.
 It needs to be a <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code> function as well.
 For regression problems, we can think of the loss as a function of the model predictions and the observed data.
@@ -1321,8 +1439,7 @@ L_{\text{MSE}}(\theta) = L_{\text{MSE}}(y_{1:n}, f(x_{1:n};\theta)) = \frac{1}{n
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/fec3579c7ec3a7171d5a4ea0eb310b6964f58f5ea45326c640889a343c697147.svg" src="../_images/fec3579c7ec3a7171d5a4ea0eb310b6964f58f5ea45326c640889a343c697147.svg" />
-</div>
+<img alt="../_images/fec3579c7ec3a7171d5a4ea0eb310b6964f58f5ea45326c640889a343c697147.svg" src="../_images/fec3579c7ec3a7171d5a4ea0eb310b6964f58f5ea45326c640889a343c697147.svg" /></div>
 </div>
 <p>Here is how to calculate the loss (for the random parameters that our net started with):</p>
 <div class="cell docutils container">
@@ -1421,8 +1538,7 @@ it = 9000: loss = 0.002
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3ecc0a1c25194603b10cbf826d45b4983167088b6019d4a30259714268b767b4.svg" src="../_images/3ecc0a1c25194603b10cbf826d45b4983167088b6019d4a30259714268b767b4.svg" />
-</div>
+<img alt="../_images/3ecc0a1c25194603b10cbf826d45b4983167088b6019d4a30259714268b767b4.svg" src="../_images/3ecc0a1c25194603b10cbf826d45b4983167088b6019d4a30259714268b767b4.svg" /></div>
 </div>
 <p>This may or may not work, depending on what random seed you start with.
 It may stack at some local minimum if you run it a few times.
@@ -1439,8 +1555,7 @@ Here is how the loss changes with each iteration:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f36757fd739ef3e6eda75b26ffc9a33629eb487ef90f0ab86dd6e0dffa72e729.svg" src="../_images/f36757fd739ef3e6eda75b26ffc9a33629eb487ef90f0ab86dd6e0dffa72e729.svg" />
-</div>
+<img alt="../_images/f36757fd739ef3e6eda75b26ffc9a33629eb487ef90f0ab86dd6e0dffa72e729.svg" src="../_images/f36757fd739ef3e6eda75b26ffc9a33629eb487ef90f0ab86dd6e0dffa72e729.svg" /></div>
 </div>
 <p>The problem is the plateau we have at the beginning of the optimization.</p>
 <p>Let’s redo this thing with stochastic optimization.
@@ -1521,8 +1636,7 @@ it = 9000: loss = 1.93e-04
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/624455f9825eea162f8cc5c5ac39adb91158d115a12f22006588c5fdc190bd7f.svg" src="../_images/624455f9825eea162f8cc5c5ac39adb91158d115a12f22006588c5fdc190bd7f.svg" />
-</div>
+<img alt="../_images/624455f9825eea162f8cc5c5ac39adb91158d115a12f22006588c5fdc190bd7f.svg" src="../_images/624455f9825eea162f8cc5c5ac39adb91158d115a12f22006588c5fdc190bd7f.svg" /></div>
 </div>
 <p>This fit does look a little bit better.
 Let’s now compare the training loss of stochastic gradient descent to the previous one:</p>
@@ -1539,12 +1653,11 @@ Let’s now compare the training loss of stochastic gradient descent to the prev
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/af0d185caae6938250c42a93bbade26c1103860d84fbc30256d260180414dd58.svg" src="../_images/af0d185caae6938250c42a93bbade26c1103860d84fbc30256d260180414dd58.svg" />
-</div>
+<img alt="../_images/af0d185caae6938250c42a93bbade26c1103860d84fbc30256d260180414dd58.svg" src="../_images/af0d185caae6938250c42a93bbade26c1103860d84fbc30256d260180414dd58.svg" /></div>
 </div>
 <p>This wiggly nature of stochastic gradient descent allows it to escape bad local minima.</p>
 <section id="questions">
-<h3>Questions<a class="headerlink" href="#questions" title="Link to this heading">#</a></h3>
+<h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Rerun the stochastic gradient descent with one sample per iteration (<span class="math notranslate nohighlight">\(m=1\)</span>). Does it converge? Do you need fewer or more iterations? Is it more or less wiggly?</p></li>
 <li><p>Rerun the stochastic gradient descent with ten samples per iteration. How does it perform now?</p></li>
@@ -1552,7 +1665,7 @@ Let’s now compare the training loss of stochastic gradient descent to the prev
 </section>
 </section>
 <section id="example-motorcycle-data">
-<h2>Example - Motorcycle Data<a class="headerlink" href="#example-motorcycle-data" title="Link to this heading">#</a></h2>
+<h2>Example - Motorcycle Data<a class="headerlink" href="#example-motorcycle-data" title="Permalink to this heading">#</a></h2>
 <p>Let’s now use the motorcycle data to do regression with DNNs.
 This will help us demonstrate some best practices specifically:</p>
 <ul class="simple">
@@ -1563,7 +1676,7 @@ This will help us demonstrate some best practices specifically:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/PredictiveScienceLab/data-analytics-se/raw/master/lecturebook/data/motor.dat&quot;</span>
-<span class="o">!</span>curl<span class="w"> </span>-O<span class="w"> </span><span class="nv">$url</span>
+<span class="o">!</span>curl<span class="w"> </span>-LO<span class="w"> </span><span class="nv">$url</span>
 </pre></div>
 </div>
 </div>
@@ -1581,7 +1694,7 @@ This will help us demonstrate some best practices specifically:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Split into training and test datasets</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1601,8 +1714,7 @@ This will help us demonstrate some best practices specifically:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f74397a6f8539bd64df7c7246c2f7e760b3d2cd8decaf61f0dc0f37456f9a6b3.svg" src="../_images/f74397a6f8539bd64df7c7246c2f7e760b3d2cd8decaf61f0dc0f37456f9a6b3.svg" />
-</div>
+<img alt="../_images/f74397a6f8539bd64df7c7246c2f7e760b3d2cd8decaf61f0dc0f37456f9a6b3.svg" src="../_images/f74397a6f8539bd64df7c7246c2f7e760b3d2cd8decaf61f0dc0f37456f9a6b3.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1703,7 +1815,7 @@ Standardization is such a common process that it is already implemented in <a cl
 Here is how it works:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
 
 <span class="n">feature_scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">target_scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
@@ -1765,8 +1877,7 @@ Here they are:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b1d1686093f3949e3c79aaf7fa6b5a1fdc96525a7f057e29c184c698cb3d81a5.svg" src="../_images/b1d1686093f3949e3c79aaf7fa6b5a1fdc96525a7f057e29c184c698cb3d81a5.svg" />
-</div>
+<img alt="../_images/b1d1686093f3949e3c79aaf7fa6b5a1fdc96525a7f057e29c184c698cb3d81a5.svg" src="../_images/b1d1686093f3949e3c79aaf7fa6b5a1fdc96525a7f057e29c184c698cb3d81a5.svg" /></div>
 </div>
 <p>We will train the net using <code class="docutils literal notranslate"><span class="pre">x_scale</span></code> and <code class="docutils literal notranslate"><span class="pre">y_scaled</span></code>. We can always go back to the original scales at the end.
 Let’s see if it works.</p>
@@ -1872,8 +1983,7 @@ it = 9000: loss = 1.85e-01
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f945082e3a49d85d8a715077efb94b96b9e51e16416c842bd78eef82067e574c.svg" src="../_images/f945082e3a49d85d8a715077efb94b96b9e51e16416c842bd78eef82067e574c.svg" />
-</div>
+<img alt="../_images/f945082e3a49d85d8a715077efb94b96b9e51e16416c842bd78eef82067e574c.svg" src="../_images/f945082e3a49d85d8a715077efb94b96b9e51e16416c842bd78eef82067e574c.svg" /></div>
 </div>
 <p>Here is predictions-observations plot on the test data set:</p>
 <div class="cell docutils container">
@@ -1890,8 +2000,7 @@ it = 9000: loss = 1.85e-01
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d2e4b213b416bb84d23a6762665aebd30d19ede645c85dcc8cdc6fbee5ac253e.svg" src="../_images/d2e4b213b416bb84d23a6762665aebd30d19ede645c85dcc8cdc6fbee5ac253e.svg" />
-</div>
+<img alt="../_images/d2e4b213b416bb84d23a6762665aebd30d19ede645c85dcc8cdc6fbee5ac253e.svg" src="../_images/d2e4b213b416bb84d23a6762665aebd30d19ede645c85dcc8cdc6fbee5ac253e.svg" /></div>
 </div>
 <p>Also, if you wish, you can scale the predictions back to the original units:</p>
 <div class="cell docutils container">
@@ -1910,8 +2019,7 @@ it = 9000: loss = 1.85e-01
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a6c71132adbd2fa0cbbd246de9a087926d3cb2459261b02eed86bdaa454f8ebe.svg" src="../_images/a6c71132adbd2fa0cbbd246de9a087926d3cb2459261b02eed86bdaa454f8ebe.svg" />
-</div>
+<img alt="../_images/a6c71132adbd2fa0cbbd246de9a087926d3cb2459261b02eed86bdaa454f8ebe.svg" src="../_images/a6c71132adbd2fa0cbbd246de9a087926d3cb2459261b02eed86bdaa454f8ebe.svg" /></div>
 </div>
 <p>It is instructive to observe how the training and test losses evolve as a function of the optimization iteration:</p>
 <div class="cell docutils container">
@@ -1927,8 +2035,7 @@ it = 9000: loss = 1.85e-01
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/96b7a67e37695f989c0e1475c67006756c87054c5a34c40a3ca78cb1db563b68.svg" src="../_images/96b7a67e37695f989c0e1475c67006756c87054c5a34c40a3ca78cb1db563b68.svg" />
-</div>
+<img alt="../_images/96b7a67e37695f989c0e1475c67006756c87054c5a34c40a3ca78cb1db563b68.svg" src="../_images/96b7a67e37695f989c0e1475c67006756c87054c5a34c40a3ca78cb1db563b68.svg" /></div>
 </div>
 <p>The wiggliness is, of course, due to the stochastic nature of the optimization.
 The training error converges to a minimum as you keep iterating.
@@ -1940,7 +2047,7 @@ What happens is that the algorithm will start overfitting the training data and 
 There are ways around this. We will learn about the basic one in the next lecture (<em>weight regularization</em> and <em>early stopping</em>).
 There are some advanced ways to avoid overfitting (e.g., <em>dropout</em>, <em>Bayesian neural networks</em>), which we will not cover in the class.</p>
 <section id="id2">
-<h3>Questions<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<h3>Questions<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Change the activation function from <code class="docutils literal notranslate"><span class="pre">nn.ReLU</span></code> to <code class="docutils literal notranslate"><span class="pre">nn.Tanh</span></code>. Are you getting a better fit or a worse fit?</p></li>
 <li><p>Rerun the code above for 100,000 iterations. Does it start to overfit the training data? What happens to the test loss?</p></li>
@@ -2048,7 +2155,7 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>

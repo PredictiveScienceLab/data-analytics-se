@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Variational Inference Examples &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
@@ -28,35 +29,39 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture28/hands-on-28';</script>
@@ -154,18 +159,7 @@
     <p class="title logo__title">Introduction to Scientific Machine Learning (Lecture Book)</p>
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -437,9 +431,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -464,14 +458,14 @@
       
       <li><a href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture28/hands-on-28.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch on Colab"
+   title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+    <img src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -564,9 +558,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -612,19 +606,19 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAKE_BOOK_FIGURES</span><span class="o">=</span><span class="kc">True</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">st</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib_inline</span>
 <span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">set_book_style</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_book_style</span><span class="p">():</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span> 
     <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
@@ -665,7 +659,7 @@ document.write(`
         <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>   <span class="c1"># Small padding to ensure nothing gets cut off</span>
     <span class="p">})</span>
 
-<span class="k">def</span> <span class="nf">set_notebook_style</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_notebook_style</span><span class="p">():</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
@@ -701,7 +695,7 @@ document.write(`
         <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>
     <span class="p">})</span>
 
-<span class="k">def</span> <span class="nf">save_for_book</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">is_vector</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">save_for_book</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">is_vector</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Save a figure with book-optimized settings.</span>
 <span class="sd">    </span>
@@ -727,10 +721,10 @@ document.write(`
     <span class="c1"># Save the figure with book settings</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">make_full_width_fig</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_full_width_fig</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.7</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">make_half_width_fig</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_half_width_fig</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">2.35</span><span class="p">,</span> <span class="mf">1.45</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span><span class="p">:</span>
@@ -746,7 +740,7 @@ document.write(`
 </details>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="variational-inference-examples">
-<h1>Variational Inference Examples<a class="headerlink" href="#variational-inference-examples" title="Link to this heading">#</a></h1>
+<h1>Variational Inference Examples<a class="headerlink" href="#variational-inference-examples" title="Permalink to this heading">#</a></h1>
 <p>We introduce variational inference (VI) for approximate Bayesian Inference.
 We implement VI from scratch in <code class="docutils literal notranslate"><span class="pre">pytorch</span></code> and we also show how to do it in <code class="docutils literal notranslate"><span class="pre">pyro</span></code>.</p>
 <ul class="simple">
@@ -757,7 +751,7 @@ We implement VI from scratch in <code class="docutils literal notranslate"><span
 <li><p><a class="reference external" href="https://arxiv.org/pdf/1608.04471.pdf">Stein Variational Gradient Descent (Liu and Wang, 2016)</a>.</p></li>
 <li><p><a class="reference external" href="https://arxiv.org/pdf/1505.05770.pdf">Variational Inference with Normalizing Flows (Rezende and Mohamed, 2016)</a>.</p></li>
 </ul>
-<p><strong>Note:</strong> This notebook was originally developed by <a class="reference external" href="https://rohittripathy.netlify.com">Dr. Rohit Tripathy</a> in <code class="docutils literal notranslate"><span class="pre">PyMC</span></code>. It was modified by <a class="reference internal" href="#www.predictivesciencelab.org"><span class="xref myst">Prof. Bilionis</span></a> using <code class="docutils literal notranslate"><span class="pre">pytorch</span></code> and <code class="docutils literal notranslate"><span class="pre">pyro</span></code>.</p>
+<p><strong>Note:</strong> This notebook was originally developed by <a class="reference external" href="https://rohittripathy.netlify.com">Dr. Rohit Tripathy</a> in <code class="docutils literal notranslate"><span class="pre">PyMC</span></code>. It was modified by <span class="xref myst">Prof. Bilionis</span> using <code class="docutils literal notranslate"><span class="pre">pytorch</span></code> and <code class="docutils literal notranslate"><span class="pre">pyro</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Do this in Google Colab</span>
@@ -767,15 +761,15 @@ We implement VI from scratch in <code class="docutils literal notranslate"><span
 </div>
 </div>
 <section id="example-1-normal-normal-model">
-<h2>Example 1 - normal-normal model<a class="headerlink" href="#example-1-normal-normal-model" title="Link to this heading">#</a></h2>
+<h2>Example 1 - normal-normal model<a class="headerlink" href="#example-1-normal-normal-model" title="Permalink to this heading">#</a></h2>
 <p>Let’s demonstrate the VI process end-to-end with a simple example.
 Consider the task of inferring the gravitational constant from data.
 We perform experiments <span class="math notranslate nohighlight">\(x_{1:n}\)</span> which measure the acceleration of gravity, and we know that the measurement standard deviation is <span class="math notranslate nohighlight">\(\sigma = 0.1\)</span>.
 Here are some synthetic data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">scipy.constants</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.constants</span>
 <span class="n">g_true</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">constants</span><span class="o">.</span><span class="n">g</span>
 
 <span class="c1"># Generate some synthetic data</span>
@@ -791,8 +785,7 @@ Here are some synthetic data.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c1a962e299eb3f6768b997599b810086a51807a8a216c3c7fb8eb9beefebdb4e.svg" src="../_images/c1a962e299eb3f6768b997599b810086a51807a8a216c3c7fb8eb9beefebdb4e.svg" />
-</div>
+<img alt="../_images/c1a962e299eb3f6768b997599b810086a51807a8a216c3c7fb8eb9beefebdb4e.svg" src="../_images/c1a962e299eb3f6768b997599b810086a51807a8a216c3c7fb8eb9beefebdb4e.svg" /></div>
 </div>
 <p>The likelihood of each measurement is given by:</p>
 <div class="math notranslate nohighlight">
@@ -824,7 +817,7 @@ g|x_{1:n} \sim N(\tilde{g}, \tilde{s}^2),
 <p>Let’s write some code to get this analytical posterior:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">post_mean_and_variance</span><span class="p">(</span><span class="n">prior_mean</span><span class="p">,</span> <span class="n">prior_variance</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">likelihood_var</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">post_mean_and_variance</span><span class="p">(</span><span class="n">prior_mean</span><span class="p">,</span> <span class="n">prior_variance</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">likelihood_var</span><span class="p">):</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="n">sigma2</span> <span class="o">=</span> <span class="n">likelihood_var</span>
     <span class="n">s02</span> <span class="o">=</span> <span class="n">prior_variance</span>
@@ -848,8 +841,7 @@ g|x_{1:n} \sim N(\tilde{g}, \tilde{s}^2),
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ff98a30cd53edb4e47f44a361d3d07320faa38ca175db8bc6a6497707f9a662f.svg" src="../_images/ff98a30cd53edb4e47f44a361d3d07320faa38ca175db8bc6a6497707f9a662f.svg" />
-</div>
+<img alt="../_images/ff98a30cd53edb4e47f44a361d3d07320faa38ca175db8bc6a6497707f9a662f.svg" src="../_images/ff98a30cd53edb4e47f44a361d3d07320faa38ca175db8bc6a6497707f9a662f.svg" /></div>
 </div>
 <p>Now let’s try to infer the posterior over <span class="math notranslate nohighlight">\(g\)</span> using VI. We specify the joint log probability of the model first.
 We do everything using <code class="docutils literal notranslate"><span class="pre">pytorch</span></code> so that we can use automatic differentiation.</p>
@@ -859,13 +851,13 @@ We do everything using <code class="docutils literal notranslate"><span class="p
 <span class="n">s0</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.4</span><span class="p">)</span>
 <span class="n">sigma</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">logprior</span><span class="p">(</span><span class="n">g</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">logprior</span><span class="p">(</span><span class="n">g</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="n">g0</span><span class="p">,</span> <span class="n">s0</span><span class="p">)</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">loglikelihood</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">loglikelihood</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 
-<span class="k">def</span> <span class="nf">logjoint</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">logjoint</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">logprior</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="o">+</span> <span class="n">loglikelihood</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -895,12 +887,12 @@ q_{\phi}(g) = N(g | \phi_1, \exp(\phi_2)^2),
 <p>Here is the code for the ELBO:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ELBO</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">ELBO</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">):</span>
     <span class="n">g_samples</span> <span class="o">=</span> <span class="n">phi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">phi</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">num_samples</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">logjoint</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">g_samples</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">+</span> <span class="n">phi</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">negELBO</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">negELBO</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">):</span>
     <span class="k">return</span> <span class="o">-</span><span class="n">ELBO</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -910,7 +902,7 @@ q_{\phi}(g) = N(g | \phi_1, \exp(\phi_2)^2),
 Here we go:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">optim</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">optim</span>
 
 <span class="n">num_samples</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">num_iter</span> <span class="o">=</span> <span class="mi">20_000</span>
@@ -967,8 +959,7 @@ Iteration: 19000 Loss: -6.046360015869141
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5db6c7043c088b948dc10e12366cd321b6405e8879c423a7ebecc2fb35925fd0.svg" src="../_images/5db6c7043c088b948dc10e12366cd321b6405e8879c423a7ebecc2fb35925fd0.svg" />
-</div>
+<img alt="../_images/5db6c7043c088b948dc10e12366cd321b6405e8879c423a7ebecc2fb35925fd0.svg" src="../_images/5db6c7043c088b948dc10e12366cd321b6405e8879c423a7ebecc2fb35925fd0.svg" /></div>
 </div>
 <p>Let’s build and visualize the approximate posterior:</p>
 <div class="cell docutils container">
@@ -988,18 +979,17 @@ Iteration: 19000 Loss: -6.046360015869141
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9ba16c1bfbf1a0f6bae363f0be4d605b6d9032adb851aeddffd23f9f76106ac4.svg" src="../_images/9ba16c1bfbf1a0f6bae363f0be4d605b6d9032adb851aeddffd23f9f76106ac4.svg" />
-</div>
+<img alt="../_images/9ba16c1bfbf1a0f6bae363f0be4d605b6d9032adb851aeddffd23f9f76106ac4.svg" src="../_images/9ba16c1bfbf1a0f6bae363f0be4d605b6d9032adb851aeddffd23f9f76106ac4.svg" /></div>
 </div>
 <p>As you can see, our approximation of the posterior is close. The normal-normal model is a straightforward example with one latent variable. In practice, setting up the variational posterior for all latent variables, keeping track of transformations, and optimizing the variational parameters can become tedious for models of any reasonable level of complexity.</p>
 <p>Now let’s do the same thing using <code class="docutils literal notranslate"><span class="pre">pyro</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyro</span>
-<span class="kn">import</span> <span class="nn">pyro.distributions</span> <span class="k">as</span> <span class="nn">dist</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pyro</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pyro.distributions</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dist</span>
 
 
-<span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">model</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="n">g</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">pyro</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="n">g0</span><span class="p">,</span> <span class="n">s0</span><span class="p">))</span>
     <span class="k">with</span> <span class="n">pyro</span><span class="o">.</span><span class="n">plate</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
         <span class="n">pyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="n">pyro</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">sigma</span><span class="p">),</span> <span class="n">obs</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
@@ -1073,7 +1063,7 @@ Iteration: 19000 Loss: -6.882040023803711
 <p>Let’s put the training loop in a function for later use:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">guide</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">num_iter</span><span class="o">=</span><span class="mi">5_000</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">guide</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">num_iter</span><span class="o">=</span><span class="mi">5_000</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Train a model with a guide.</span>
 
 <span class="sd">    Arguments</span>
@@ -1123,8 +1113,7 @@ Iteration: 19000 Loss: -6.882040023803711
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7aa14cddac6c9151b57a61d68b647c35383790065cb1c27423670fa3881cce2a.svg" src="../_images/7aa14cddac6c9151b57a61d68b647c35383790065cb1c27423670fa3881cce2a.svg" />
-</div>
+<img alt="../_images/7aa14cddac6c9151b57a61d68b647c35383790065cb1c27423670fa3881cce2a.svg" src="../_images/7aa14cddac6c9151b57a61d68b647c35383790065cb1c27423670fa3881cce2a.svg" /></div>
 </div>
 <p>Here is how you can extract information from the posterior:</p>
 <div class="cell docutils container">
@@ -1167,15 +1156,14 @@ Iteration: 19000 Loss: -6.882040023803711
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9f44bde354b4d838117863b20730649f5262d6c9e2ca476e173f75e9bb847735.svg" src="../_images/9f44bde354b4d838117863b20730649f5262d6c9e2ca476e173f75e9bb847735.svg" />
-</div>
+<img alt="../_images/9f44bde354b4d838117863b20730649f5262d6c9e2ca476e173f75e9bb847735.svg" src="../_images/9f44bde354b4d838117863b20730649f5262d6c9e2ca476e173f75e9bb847735.svg" /></div>
 </div>
 <p>The above code works with every guide, even hand-written ones.</p>
 <p>Let’s repeat the above example using our own guide.
 The results will be identical because <code class="docutils literal notranslate"><span class="pre">AutoNormal</span></code> is just a normal distribution with learnable parameters.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">guide</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">guide</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="n">mu</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">param</span><span class="p">(</span><span class="s2">&quot;mu&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">9.0</span><span class="p">))</span>
     <span class="n">sigma</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">param</span><span class="p">(</span><span class="s2">&quot;sigma&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">2.0</span><span class="p">),</span>
                        <span class="n">constraint</span><span class="o">=</span><span class="n">dist</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="n">positive</span><span class="p">)</span>
@@ -1414,8 +1402,7 @@ Iteration: 19900 Loss: -6.803631782531738
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/fb008fd9c6d7358cd2c729ab8d9dc707dcc68a6694067ff304e2fbeebc8882a2.svg" src="../_images/fb008fd9c6d7358cd2c729ab8d9dc707dcc68a6694067ff304e2fbeebc8882a2.svg" />
-</div>
+<img alt="../_images/fb008fd9c6d7358cd2c729ab8d9dc707dcc68a6694067ff304e2fbeebc8882a2.svg" src="../_images/fb008fd9c6d7358cd2c729ab8d9dc707dcc68a6694067ff304e2fbeebc8882a2.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1432,12 +1419,11 @@ Iteration: 19900 Loss: -6.803631782531738
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ef33e44dc9d592fb1e6eba002a4950dea7fe9186f0a9682d1202c0e4a2d59942.svg" src="../_images/ef33e44dc9d592fb1e6eba002a4950dea7fe9186f0a9682d1202c0e4a2d59942.svg" />
-</div>
+<img alt="../_images/ef33e44dc9d592fb1e6eba002a4950dea7fe9186f0a9682d1202c0e4a2d59942.svg" src="../_images/ef33e44dc9d592fb1e6eba002a4950dea7fe9186f0a9682d1202c0e4a2d59942.svg" /></div>
 </div>
 </section>
 <section id="example-2-coin-toss-example">
-<h2>Example 2 - Coin-toss example<a class="headerlink" href="#example-2-coin-toss-example" title="Link to this heading">#</a></h2>
+<h2>Example 2 - Coin-toss example<a class="headerlink" href="#example-2-coin-toss-example" title="Permalink to this heading">#</a></h2>
 <p>Just like in the MCMC lecture, let’s look at the process of setting up a model and performing variational inference and diagnostics with the coin toss example.</p>
 <p>The probabilistic model is as follows. We observe binary coin toss data:</p>
 <div class="math notranslate nohighlight">
@@ -1462,8 +1448,7 @@ x_i|\theta \sim \text{Bernoulli}(\theta),
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2ab1787854f2bdd4ee0ac28fa6564c0665c47e8d2725de24a02465c4110c8f59.svg" src="../_images/2ab1787854f2bdd4ee0ac28fa6564c0665c47e8d2725de24a02465c4110c8f59.svg" />
-</div>
+<img alt="../_images/2ab1787854f2bdd4ee0ac28fa6564c0665c47e8d2725de24a02465c4110c8f59.svg" src="../_images/2ab1787854f2bdd4ee0ac28fa6564c0665c47e8d2725de24a02465c4110c8f59.svg" /></div>
 </div>
 <p>We wish to perform posterior inference on <span class="math notranslate nohighlight">\(\theta\)</span>:</p>
 <div class="math notranslate nohighlight">
@@ -1508,13 +1493,12 @@ p(\theta| x_{1:n}) \propto p(\theta) \prod_{i=1}^{n} p(x_i | \theta).
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5f99d614869c22769b8197b826af7830a3d2ea6c0f5fea27938fd1d325b90273.svg" src="../_images/5f99d614869c22769b8197b826af7830a3d2ea6c0f5fea27938fd1d325b90273.svg" />
-</div>
+<img alt="../_images/5f99d614869c22769b8197b826af7830a3d2ea6c0f5fea27938fd1d325b90273.svg" src="../_images/5f99d614869c22769b8197b826af7830a3d2ea6c0f5fea27938fd1d325b90273.svg" /></div>
 </div>
 <p>Let’s make the model in <code class="docutils literal notranslate"><span class="pre">pyro</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">model</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="n">theta</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="s2">&quot;theta&quot;</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">Beta</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">))</span>
     <span class="k">with</span> <span class="n">pyro</span><span class="o">.</span><span class="n">plate</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
         <span class="n">pyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="s1">&#39;obs&#39;</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">Bernoulli</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">obs</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
@@ -1541,10 +1525,10 @@ z \sim N(\mu, \sigma^2).
 We can either do it by hand:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyro.distributions</span> <span class="kn">import</span> <span class="n">constraints</span>
-<span class="kn">from</span> <span class="nn">pyro.distributions</span> <span class="kn">import</span> <span class="n">transforms</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyro.distributions</span><span class="w"> </span><span class="kn">import</span> <span class="n">constraints</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyro.distributions</span><span class="w"> </span><span class="kn">import</span> <span class="n">transforms</span>
 
-<span class="k">def</span> <span class="nf">gaussian_guide</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">gaussian_guide</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="n">mu</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">param</span><span class="p">(</span><span class="s1">&#39;mu&#39;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.0</span><span class="p">))</span>
     <span class="n">sigma</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">param</span><span class="p">(</span><span class="s1">&#39;sigma&#39;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">.1</span><span class="p">),</span> <span class="n">constraint</span><span class="o">=</span><span class="n">constraints</span><span class="o">.</span><span class="n">positive</span><span class="p">)</span>
     <span class="n">pyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span>
@@ -1789,8 +1773,7 @@ Iteration: 19900 Loss: 124.61317443847656
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7115a43faee1ada5afa5caeba6e79ccabc1c96e405e55915dbc77ffe94fb6153.svg" src="../_images/7115a43faee1ada5afa5caeba6e79ccabc1c96e405e55915dbc77ffe94fb6153.svg" />
-</div>
+<img alt="../_images/7115a43faee1ada5afa5caeba6e79ccabc1c96e405e55915dbc77ffe94fb6153.svg" src="../_images/7115a43faee1ada5afa5caeba6e79ccabc1c96e405e55915dbc77ffe94fb6153.svg" /></div>
 </div>
 <p>Here is the posterior:</p>
 <div class="cell docutils container">
@@ -1809,18 +1792,17 @@ Iteration: 19900 Loss: 124.61317443847656
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ad31737493f5ac7e03caf761b97ded7cf238176c7d4610947a3f1a659e06a630.svg" src="../_images/ad31737493f5ac7e03caf761b97ded7cf238176c7d4610947a3f1a659e06a630.svg" />
-</div>
+<img alt="../_images/ad31737493f5ac7e03caf761b97ded7cf238176c7d4610947a3f1a659e06a630.svg" src="../_images/ad31737493f5ac7e03caf761b97ded7cf238176c7d4610947a3f1a659e06a630.svg" /></div>
 </div>
 <p>Pretty good.</p>
 </section>
 <section id="example-3-challenger-space-shuttle-disaster">
-<h2>Example 3 - Challenger Space Shuttle Disaster<a class="headerlink" href="#example-3-challenger-space-shuttle-disaster" title="Link to this heading">#</a></h2>
+<h2>Example 3 - Challenger Space Shuttle Disaster<a class="headerlink" href="#example-3-challenger-space-shuttle-disaster" title="Permalink to this heading">#</a></h2>
 <p>Let’s revisit this example from the MCMC lecture.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/PredictiveScienceLab/data-analytics-se/master/lecturebook/data/challenger_data.csv&quot;</span>
-<span class="o">!</span>curl<span class="w"> </span>-O<span class="w"> </span><span class="nv">$url</span>
+<span class="o">!</span>curl<span class="w"> </span>-LO<span class="w"> </span><span class="nv">$url</span>
 </pre></div>
 </div>
 </div>
@@ -1878,11 +1860,10 @@ Iteration: 19900 Loss: 124.61317443847656
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e720eea53b9cb1914b6d48ddce1aa9605f5d6f9f195ca8205640233ae70b1906.svg" src="../_images/e720eea53b9cb1914b6d48ddce1aa9605f5d6f9f195ca8205640233ae70b1906.svg" />
-</div>
+<img alt="../_images/e720eea53b9cb1914b6d48ddce1aa9605f5d6f9f195ca8205640233ae70b1906.svg" src="../_images/e720eea53b9cb1914b6d48ddce1aa9605f5d6f9f195ca8205640233ae70b1906.svg" /></div>
 </div>
 <section id="probabilistic-model">
-<h3>Probabilistic model<a class="headerlink" href="#probabilistic-model" title="Link to this heading">#</a></h3>
+<h3>Probabilistic model<a class="headerlink" href="#probabilistic-model" title="Permalink to this heading">#</a></h3>
 <p>The defect probability is modeled as a function of the outside temperature:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1911,7 +1892,7 @@ p(x_i | \alpha, \beta, t) = \text{Bernoulli}(x_i | \sigma(t; \alpha, \beta) ).
 <span class="n">temperature</span> <span class="o">=</span> <span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
 <span class="n">defect</span> <span class="o">=</span> <span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
 
-<span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">defect</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">model</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">defect</span><span class="p">):</span>
     <span class="n">alpha</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">))</span>
     <span class="n">beta</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">))</span>
     <span class="k">with</span> <span class="n">pyro</span><span class="o">.</span><span class="n">plate</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">temperature</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
@@ -2347,8 +2328,7 @@ Iteration: 39900 Loss: 25.219414985062468
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/49ba4d61db17a752bd5a5ae0ccaf5bf47e0ecf5475b01465d14dd5046fb73292.svg" src="../_images/49ba4d61db17a752bd5a5ae0ccaf5bf47e0ecf5475b01465d14dd5046fb73292.svg" />
-</div>
+<img alt="../_images/49ba4d61db17a752bd5a5ae0ccaf5bf47e0ecf5475b01465d14dd5046fb73292.svg" src="../_images/49ba4d61db17a752bd5a5ae0ccaf5bf47e0ecf5475b01465d14dd5046fb73292.svg" /></div>
 </div>
 <p>Now let’s plot the posterior of the parameters:</p>
 <div class="cell docutils container">
@@ -2377,15 +2357,12 @@ Iteration: 39900 Loss: 25.219414985062468
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e15e81a6d3e158f0e817c34f43dd344d86e5c13e038f9e0a906b34be879a26ad.svg" src="../_images/e15e81a6d3e158f0e817c34f43dd344d86e5c13e038f9e0a906b34be879a26ad.svg" />
-<img alt="../_images/ffc4f517c4c4d928dc13788321a25ba9a6bf50fafab31d91b36c7f940e8477e8.svg" src="../_images/ffc4f517c4c4d928dc13788321a25ba9a6bf50fafab31d91b36c7f940e8477e8.svg" />
-<img alt="../_images/0a8e5b4e13ca1176c4d360074e673bcdff0e06cd5459da39d8b76f3add81f394.svg" src="../_images/0a8e5b4e13ca1176c4d360074e673bcdff0e06cd5459da39d8b76f3add81f394.svg" />
-</div>
+<img alt="../_images/e15e81a6d3e158f0e817c34f43dd344d86e5c13e038f9e0a906b34be879a26ad.svg" src="../_images/e15e81a6d3e158f0e817c34f43dd344d86e5c13e038f9e0a906b34be879a26ad.svg" /><img alt="../_images/ffc4f517c4c4d928dc13788321a25ba9a6bf50fafab31d91b36c7f940e8477e8.svg" src="../_images/ffc4f517c4c4d928dc13788321a25ba9a6bf50fafab31d91b36c7f940e8477e8.svg" /><img alt="../_images/0a8e5b4e13ca1176c4d360074e673bcdff0e06cd5459da39d8b76f3add81f394.svg" src="../_images/0a8e5b4e13ca1176c4d360074e673bcdff0e06cd5459da39d8b76f3add81f394.svg" /></div>
 </div>
 <p>Now we would like to plot the posterior predictive distribution as a function of the temperature.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">predictive_model</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">defect</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">predictive_model</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">defect</span><span class="p">):</span>
     <span class="c1"># Use the original model to define the variables</span>
     <span class="nb">vars</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">defect</span><span class="p">)</span>
     <span class="n">alpha</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">[</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span>
@@ -2424,8 +2401,7 @@ Iteration: 39900 Loss: 25.219414985062468
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c30a518a72e6b135a7c66c17c9ef096d6f4326afa276a481addfa954e89a6ebb.svg" src="../_images/c30a518a72e6b135a7c66c17c9ef096d6f4326afa276a481addfa954e89a6ebb.svg" />
-</div>
+<img alt="../_images/c30a518a72e6b135a7c66c17c9ef096d6f4326afa276a481addfa954e89a6ebb.svg" src="../_images/c30a518a72e6b135a7c66c17c9ef096d6f4326afa276a481addfa954e89a6ebb.svg" /></div>
 </div>
 </section>
 </section>
@@ -2525,7 +2501,7 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>

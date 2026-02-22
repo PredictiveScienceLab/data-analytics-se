@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Example: Priors on function spaces &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
@@ -28,35 +29,39 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture21/hands-on-21';</script>
@@ -154,18 +159,7 @@
     <p class="title logo__title">Introduction to Scientific Machine Learning (Lecture Book)</p>
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -437,9 +431,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -464,14 +458,14 @@
       
       <li><a href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture21/hands-on-21.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch on Colab"
+   title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+    <img src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -564,9 +558,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -640,19 +634,19 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAKE_BOOK_FIGURES</span><span class="o">=</span><span class="kc">False</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">st</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib_inline</span>
 <span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">set_book_style</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_book_style</span><span class="p">():</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span> 
     <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
@@ -693,7 +687,7 @@ document.write(`
         <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>   <span class="c1"># Small padding to ensure nothing gets cut off</span>
     <span class="p">})</span>
 
-<span class="k">def</span> <span class="nf">set_notebook_style</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_notebook_style</span><span class="p">():</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
@@ -729,7 +723,7 @@ document.write(`
         <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>
     <span class="p">})</span>
 
-<span class="k">def</span> <span class="nf">save_for_book</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">is_vector</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">save_for_book</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">is_vector</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Save a figure with book-optimized settings.</span>
 <span class="sd">    </span>
@@ -755,10 +749,10 @@ document.write(`
     <span class="c1"># Save the figure with book settings</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">make_full_width_fig</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_full_width_fig</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.7</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">make_half_width_fig</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_half_width_fig</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">2.35</span><span class="p">,</span> <span class="mf">1.45</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span><span class="p">:</span>
@@ -774,9 +768,9 @@ document.write(`
 </details>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="example-priors-on-function-spaces">
-<h1>Example: Priors on function spaces<a class="headerlink" href="#example-priors-on-function-spaces" title="Link to this heading">#</a></h1>
+<h1>Example: Priors on function spaces<a class="headerlink" href="#example-priors-on-function-spaces" title="Permalink to this heading">#</a></h1>
 <section id="gaussian-process-code">
-<h2>Gaussian process code<a class="headerlink" href="#gaussian-process-code" title="Link to this heading">#</a></h2>
+<h2>Gaussian process code<a class="headerlink" href="#gaussian-process-code" title="Permalink to this heading">#</a></h2>
 <p>We will use the <a class="reference external" href="https://gpytorch.ai/">GPyTorch</a> library to implement Gaussian processes. This library is built on top of PyTorch, which is a popular library for deep learning. We will learn more about PyTorch as we go and we will be more elaborate about it in <a class="reference internal" href="../lecture24/hands-on-24.html#regression-with-deep-neural-networks"><span class="std std-ref">Lecture 24</span></a>. The main purpose of PyTorch is to help us with automatic differentiation. For now, think of it as an alternative to numpy that allows us to compute gradients of functions.</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input above-output-prompt docutils container">
@@ -816,7 +810,7 @@ Requirement already satisfied: threadpoolctl&gt;=3.1.0 in /Users/ibilion/.pyenv/
 </div>
 </section>
 <section id="squared-exponential-covariance-function">
-<h2>Squared exponential covariance function<a class="headerlink" href="#squared-exponential-covariance-function" title="Link to this heading">#</a></h2>
+<h2>Squared exponential covariance function<a class="headerlink" href="#squared-exponential-covariance-function" title="Permalink to this heading">#</a></h2>
 <p>Squared exponential (SE) is the most commonly used covariance function.
 Its formula is as follows:</p>
 <div class="math notranslate nohighlight">
@@ -836,9 +830,9 @@ The <code class="docutils literal notranslate"><span class="pre">RBFKernel</span
 Here is how:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">gpytorch</span>
-<span class="kn">from</span> <span class="nn">gpytorch.kernels</span> <span class="kn">import</span> <span class="n">RBFKernel</span><span class="p">,</span> <span class="n">ScaleKernel</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gpytorch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gpytorch.kernels</span><span class="w"> </span><span class="kn">import</span> <span class="n">RBFKernel</span><span class="p">,</span> <span class="n">ScaleKernel</span>
 
 <span class="c1"># The input dimension</span>
 <span class="n">dim</span> <span class="o">=</span> <span class="mi">1</span>
@@ -884,12 +878,11 @@ Here is how:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/64f4b318a3833c4484c2a26c59d959a9a431eb9edb3ed69842ca9802814f39b5.svg" src="../_images/64f4b318a3833c4484c2a26c59d959a9a431eb9edb3ed69842ca9802814f39b5.svg" />
-</div>
+<img alt="../_images/64f4b318a3833c4484c2a26c59d959a9a431eb9edb3ed69842ca9802814f39b5.svg" src="../_images/64f4b318a3833c4484c2a26c59d959a9a431eb9edb3ed69842ca9802814f39b5.svg" /></div>
 </div>
 </section>
 <section id="example-1-plotting-a-covariance-function">
-<h2>Example 1: Plotting a covariance function<a class="headerlink" href="#example-1-plotting-a-covariance-function" title="Link to this heading">#</a></h2>
+<h2>Example 1: Plotting a covariance function<a class="headerlink" href="#example-1-plotting-a-covariance-function" title="Permalink to this heading">#</a></h2>
 <p>Remember:</p>
 <blockquote>
 <div><p>The covariance function <span class="math notranslate nohighlight">\(k(x,x')\)</span> measures the similarity of <span class="math notranslate nohighlight">\(f(x)\)</span> and <span class="math notranslate nohighlight">\(f(x')\)</span>.</p>
@@ -897,7 +890,7 @@ Here is how:</p>
 <p>Let’s organize the plotting code in a function so that you can experiment with different parameters:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_kernel</span><span class="p">(</span><span class="n">variance</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">ell</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_kernel</span><span class="p">(</span><span class="n">variance</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">ell</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the covariance function.&quot;&quot;&quot;</span>
     <span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
         <span class="n">RBFKernel</span><span class="p">()</span>
@@ -924,11 +917,10 @@ Here is how:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e2235158b164cd7a8eeb87bac6081024706c400f1f9a16c1dbcf3fe8161fd2ab.svg" src="../_images/e2235158b164cd7a8eeb87bac6081024706c400f1f9a16c1dbcf3fe8161fd2ab.svg" />
-</div>
+<img alt="../_images/e2235158b164cd7a8eeb87bac6081024706c400f1f9a16c1dbcf3fe8161fd2ab.svg" src="../_images/e2235158b164cd7a8eeb87bac6081024706c400f1f9a16c1dbcf3fe8161fd2ab.svg" /></div>
 </div>
 <section id="questions">
-<h3>Questions<a class="headerlink" href="#questions" title="Link to this heading">#</a></h3>
+<h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>What happens as you increase <span class="math notranslate nohighlight">\(\ell\)</span>?</p></li>
 <li><p>What happens as you decrease <span class="math notranslate nohighlight">\(v\)</span>?</p></li>
@@ -936,9 +928,9 @@ Here is how:</p>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gpytorch.kernels</span> <span class="kn">import</span> <span class="n">MaternKernel</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gpytorch.kernels</span><span class="w"> </span><span class="kn">import</span> <span class="n">MaternKernel</span>
 
-<span class="k">def</span> <span class="nf">compare_kernels</span><span class="p">(</span><span class="n">variance</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">ell</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">compare_kernels</span><span class="p">(</span><span class="n">variance</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">ell</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compare the RBF and Matern kernels.&quot;&quot;&quot;</span>
     <span class="n">k1</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
         <span class="n">RBFKernel</span><span class="p">()</span>
@@ -974,17 +966,16 @@ Here is how:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9a9f8b9e98f9da086738fbbdfbef5f6f71e3a20c0649a13b106e6f3bf54eecd7.svg" src="../_images/9a9f8b9e98f9da086738fbbdfbef5f6f71e3a20c0649a13b106e6f3bf54eecd7.svg" />
-</div>
+<img alt="../_images/9a9f8b9e98f9da086738fbbdfbef5f6f71e3a20c0649a13b106e6f3bf54eecd7.svg" src="../_images/9a9f8b9e98f9da086738fbbdfbef5f6f71e3a20c0649a13b106e6f3bf54eecd7.svg" /></div>
 </div>
 </section>
 </section>
 <section id="example-2-plot-2d-covariance-function">
-<h2>Example 2: Plot 2D covariance function<a class="headerlink" href="#example-2-plot-2d-covariance-function" title="Link to this heading">#</a></h2>
+<h2>Example 2: Plot 2D covariance function<a class="headerlink" href="#example-2-plot-2d-covariance-function" title="Permalink to this heading">#</a></h2>
 <p>Now here is some code to plot a 2D covariance function:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_kernel_2d</span><span class="p">(</span><span class="n">variance</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">ell1</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">ell2</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_kernel_2d</span><span class="p">(</span><span class="n">variance</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">ell1</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">ell2</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot a 2D covariance function.&quot;&quot;&quot;</span>
     <span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
         <span class="n">RBFKernel</span><span class="p">(</span><span class="n">ard_num_dims</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
@@ -1019,11 +1010,10 @@ Here is how:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2e1178745a7c200044c82fac7a2c032653e05bc33be490541b25c54889e0431e.svg" src="../_images/2e1178745a7c200044c82fac7a2c032653e05bc33be490541b25c54889e0431e.svg" />
-</div>
+<img alt="../_images/2e1178745a7c200044c82fac7a2c032653e05bc33be490541b25c54889e0431e.svg" src="../_images/2e1178745a7c200044c82fac7a2c032653e05bc33be490541b25c54889e0431e.svg" /></div>
 </div>
 <section id="id1">
-<h3>Questions<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<h3>Questions<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>What happens as you increase <span class="math notranslate nohighlight">\(\ell\)</span>?</p></li>
 <li><p>What happens as you decrease <span class="math notranslate nohighlight">\(v\)</span>?</p></li>
@@ -1032,7 +1022,7 @@ Here is how:</p>
 </section>
 </section>
 <section id="example-3-properties-of-the-covariance-matrix">
-<h2>Example 3: Properties of the covariance matrix<a class="headerlink" href="#example-3-properties-of-the-covariance-matrix" title="Link to this heading">#</a></h2>
+<h2>Example 3: Properties of the covariance matrix<a class="headerlink" href="#example-3-properties-of-the-covariance-matrix" title="Permalink to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}\)</span> be an arbitrary set of input points. The covariance matrix <span class="math notranslate nohighlight">\(\mathbf{K}\in\mathbb{R}^{n\times n}\)</span> defined by:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1056,7 +1046,7 @@ k(\mathbf{x}_n, \mathbf{x}_1) &amp; \dots &amp; k(\mathbf{x}_n, \mathbf{x}_n)
 <li><p>All the eigenvalues of <span class="math notranslate nohighlight">\(\mathbf{K}\)</span> are positive.</p></li>
 </ul>
 <section id="id2">
-<h3>Questions<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<h3>Questions<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>Using the code provided:</p>
 <ul class="simple">
 <li><p>Verify that the sum of two covariance functions is a positive definite.</p></li>
@@ -1122,8 +1112,7 @@ k(x, x') = k_1(x, x') / k_2(x, x')?
 &gt; they must all be positive
 </pre></div>
 </div>
-<img alt="../_images/893cdf2f43f7c57978c4d9597aac9e1f4128146637ab644c8b3fc38b68fe9395.svg" src="../_images/893cdf2f43f7c57978c4d9597aac9e1f4128146637ab644c8b3fc38b68fe9395.svg" />
-</div>
+<img alt="../_images/893cdf2f43f7c57978c4d9597aac9e1f4128146637ab644c8b3fc38b68fe9395.svg" src="../_images/893cdf2f43f7c57978c4d9597aac9e1f4128146637ab644c8b3fc38b68fe9395.svg" /></div>
 </div>
 <p>Now create another covariance function:</p>
 <div class="cell docutils container">
@@ -1166,8 +1155,7 @@ k(x, x') = k_1(x, x') / k_2(x, x')?
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3231f43939bed824b39c6ecfd58409b1dfb838b92cb009bb6f4700dbd53b37fd.svg" src="../_images/3231f43939bed824b39c6ecfd58409b1dfb838b92cb009bb6f4700dbd53b37fd.svg" />
-</div>
+<img alt="../_images/3231f43939bed824b39c6ecfd58409b1dfb838b92cb009bb6f4700dbd53b37fd.svg" src="../_images/3231f43939bed824b39c6ecfd58409b1dfb838b92cb009bb6f4700dbd53b37fd.svg" /></div>
 </div>
 <p>If this is a valid covariance function, then it must be positive-definite.
 Let’s test it:</p>
@@ -1190,13 +1178,12 @@ Let’s test it:</p>
   ax.set_ylabel(&#39;$\lambda_i$&#39;)
 </pre></div>
 </div>
-<img alt="../_images/300cb0aff7624ba33853932c82322d81e8ad77739d3ee5f75b2d3004e37bba96.svg" src="../_images/300cb0aff7624ba33853932c82322d81e8ad77739d3ee5f75b2d3004e37bba96.svg" />
-</div>
+<img alt="../_images/300cb0aff7624ba33853932c82322d81e8ad77739d3ee5f75b2d3004e37bba96.svg" src="../_images/300cb0aff7624ba33853932c82322d81e8ad77739d3ee5f75b2d3004e37bba96.svg" /></div>
 </div>
 </section>
 </section>
 <section id="example-4-sampling-from-a-gaussian-process">
-<h2>Example 4: Sampling from a Gaussian process<a class="headerlink" href="#example-4-sampling-from-a-gaussian-process" title="Link to this heading">#</a></h2>
+<h2>Example 4: Sampling from a Gaussian process<a class="headerlink" href="#example-4-sampling-from-a-gaussian-process" title="Permalink to this heading">#</a></h2>
 <p>Samples from a Gaussian process are functions. But functions are infinite-dimensional objects?
 We cannot sample directly from a GP.
 However, if we are interested in the values of <span class="math notranslate nohighlight">\(f(\cdot)\)</span> at any given set of test points <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n} = \{\mathbf{x}_1,\dots,\mathbf{x}_b\}\)</span>, then we have that:</p>
@@ -1229,7 +1216,7 @@ This is how we do it:</p>
 \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gpytorch.means</span> <span class="kn">import</span> <span class="n">ConstantMean</span><span class="p">,</span> <span class="n">LinearMean</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gpytorch.means</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConstantMean</span><span class="p">,</span> <span class="n">LinearMean</span>
 
 <span class="c1"># To ensure reproducibility of the experiments</span>
 <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
@@ -1280,19 +1267,18 @@ This is how we do it:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5d43213ad98b27450302cc6df131754d5931db601496643e2b4be47c319bbd3a.svg" src="../_images/5d43213ad98b27450302cc6df131754d5931db601496643e2b4be47c319bbd3a.svg" />
-</div>
+<img alt="../_images/5d43213ad98b27450302cc6df131754d5931db601496643e2b4be47c319bbd3a.svg" src="../_images/5d43213ad98b27450302cc6df131754d5931db601496643e2b4be47c319bbd3a.svg" /></div>
 </div>
 <p>The solid line is the mean function, and the dashed lines are three f samples. These do not look like functions yet. This is because we have used only 10 test points to represent the GP.</p>
 <section id="id3">
-<h3>Questions<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<h3>Questions<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Edit the code above changing the number of test points <code class="docutils literal notranslate"><span class="pre">num_test</span></code> to 20, 50, 100. Rerun the example. What do your samples of f look like now? Do they look more like functions to you? Imagine that the true nature of the GP appears when these test points become infinitely dense.</p></li>
 <li><p>Edit the code above and change the random seed to an arbitrary integer (makeup one). Rerun the example and notice how the sampled functions change.</p></li>
 </ul>
 </section>
 <section id="controlling-the-lengthscale-of-the-sampled-functions">
-<h3>Controlling the lengthscale of the sampled functions<a class="headerlink" href="#controlling-the-lengthscale-of-the-sampled-functions" title="Link to this heading">#</a></h3>
+<h3>Controlling the lengthscale of the sampled functions<a class="headerlink" href="#controlling-the-lengthscale-of-the-sampled-functions" title="Permalink to this heading">#</a></h3>
 <p>Let’s put all the code above in a function so that we can experiment with different parameters:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1301,7 +1287,7 @@ This is how we do it:</p>
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">kernel_func</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">num_test</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">nugget</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">kernel_func</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">num_test</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">nugget</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Sample functions from a Gaussian process.</span>
 
 <span class="sd">    Arguments:</span>
@@ -1350,19 +1336,18 @@ This is how we do it:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c78538551ef30324f16e7c6d7b6451b60f3fbeab9b7f8cf6c3b50cd6350aadff.svg" src="../_images/c78538551ef30324f16e7c6d7b6451b60f3fbeab9b7f8cf6c3b50cd6350aadff.svg" />
-</div>
+<img alt="../_images/c78538551ef30324f16e7c6d7b6451b60f3fbeab9b7f8cf6c3b50cd6350aadff.svg" src="../_images/c78538551ef30324f16e7c6d7b6451b60f3fbeab9b7f8cf6c3b50cd6350aadff.svg" /></div>
 </div>
 </section>
 <section id="id4">
-<h3>Questions<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<h3>Questions<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Use the code above and change the variance to 0.1 and then to 3 each time rerunning the example. Notice the values on the vertical axis of the plot. What happens to the sampled functions as you do this? What is the variance parameter of the SE control?</p></li>
 <li><p>Edit the above code and change the lengthscale parameter to 0.05 and 1. What happens to the sampled functions as you do this?</p></li>
 </ul>
 </section>
 <section id="controlling-the-trend-of-the-sampled-functions">
-<h3>Controlling the trend of the sampled functions<a class="headerlink" href="#controlling-the-trend-of-the-sampled-functions" title="Link to this heading">#</a></h3>
+<h3>Controlling the trend of the sampled functions<a class="headerlink" href="#controlling-the-trend-of-the-sampled-functions" title="Permalink to this heading">#</a></h3>
 <p>We control the trend using the mean function. Let’s do a linear mean function:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1385,12 +1370,11 @@ m(x) = ax + b.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8a7db8f9d43d6c164a1412ec475a09d28359c98fd78fcbe14a5a66e557a0b0d1.svg" src="../_images/8a7db8f9d43d6c164a1412ec475a09d28359c98fd78fcbe14a5a66e557a0b0d1.svg" />
-</div>
+<img alt="../_images/8a7db8f9d43d6c164a1412ec475a09d28359c98fd78fcbe14a5a66e557a0b0d1.svg" src="../_images/8a7db8f9d43d6c164a1412ec475a09d28359c98fd78fcbe14a5a66e557a0b0d1.svg" /></div>
 </div>
 </section>
 <section id="id5">
-<h3>Questions<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<h3>Questions<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Modify the code above to set the mean function to:</p></li>
 </ul>
@@ -1399,7 +1383,7 @@ m(x) = ax + b.
 </div>
 </section>
 <section id="using-a-mean-function-not-in-the-gpytorch-library">
-<h3>Using a mean function not in the GPytorch library<a class="headerlink" href="#using-a-mean-function-not-in-the-gpytorch-library" title="Link to this heading">#</a></h3>
+<h3>Using a mean function not in the GPytorch library<a class="headerlink" href="#using-a-mean-function-not-in-the-gpytorch-library" title="Permalink to this heading">#</a></h3>
 <p>Let’s use a mean function that is not in the GPytorch library. We will the mean function:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1409,13 +1393,13 @@ m(x) = ax + b.
 We need to inherit from the <code class="docutils literal notranslate"><span class="pre">gpytorch.means.Mean</span></code> class and implement the <code class="docutils literal notranslate"><span class="pre">forward</span></code> method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyMean</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyMean</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A custom mean function.&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">()):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">()):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="o">*</span><span class="n">batch_shape</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="s2">&quot;omega&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="o">*</span><span class="n">batch_shape</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">omega</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1439,12 +1423,11 @@ We need to inherit from the <code class="docutils literal notranslate"><span cla
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/bb997657287fbfb30de34e53f1b6e99d8b6e1a502a0ea45551a623abe5bcc26a.svg" src="../_images/bb997657287fbfb30de34e53f1b6e99d8b6e1a502a0ea45551a623abe5bcc26a.svg" />
-</div>
+<img alt="../_images/bb997657287fbfb30de34e53f1b6e99d8b6e1a502a0ea45551a623abe5bcc26a.svg" src="../_images/bb997657287fbfb30de34e53f1b6e99d8b6e1a502a0ea45551a623abe5bcc26a.svg" /></div>
 </div>
 </section>
 <section id="id6">
-<h3>Questions<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<h3>Questions<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Experiment with different values of the lengthscale and variance parameters.</p></li>
 <li><p>Modify the code above to model an exponential decay trend:</p></li>
@@ -1455,7 +1438,7 @@ We need to inherit from the <code class="docutils literal notranslate"><span cla
 \]</div>
 </section>
 <section id="the-smoothness-of-the-sampled-functions-is-controlled-by-the-smoothness-of-the-covariance-function">
-<h3>The smoothness of the sampled functions is controlled by the smoothness of the covariance function<a class="headerlink" href="#the-smoothness-of-the-sampled-functions-is-controlled-by-the-smoothness-of-the-covariance-function" title="Link to this heading">#</a></h3>
+<h3>The smoothness of the sampled functions is controlled by the smoothness of the covariance function<a class="headerlink" href="#the-smoothness-of-the-sampled-functions-is-controlled-by-the-smoothness-of-the-covariance-function" title="Permalink to this heading">#</a></h3>
 <p>The smoothness of the function is the number of times it is continuously differentiable.
 There is a theorem that says that the smoothness of the sampled functions is controlled by the smoothness of the covariance function <span id="id7">[<a class="reference internal" href="../bibliography.html#id12" title="Carl Edward Rasmussen and Christopher K. I. Williams. Gaussian Processes for Machine Learning. The MIT Press, 11 2005. ISBN 9780262256834. URL: https://doi.org/10.7551/mitpress/3206.001.0001, doi:10.7551/mitpress/3206.001.0001.">Rasmussen and Williams, 2005</a>]</span>.
 The covariance function that we have been using so far is the squared exponential (SE) covariance function.
@@ -1483,12 +1466,11 @@ For example if <span class="math notranslate nohighlight">\(\nu=1.5\)</span>, th
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/50d88446aca77783e147020f2192e4c02cfd5d120b9389c9ffba3ca3f69b5045.svg" src="../_images/50d88446aca77783e147020f2192e4c02cfd5d120b9389c9ffba3ca3f69b5045.svg" />
-</div>
+<img alt="../_images/50d88446aca77783e147020f2192e4c02cfd5d120b9389c9ffba3ca3f69b5045.svg" src="../_images/50d88446aca77783e147020f2192e4c02cfd5d120b9389c9ffba3ca3f69b5045.svg" /></div>
 </div>
 </section>
 <section id="id8">
-<h3>Questions<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<h3>Questions<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Experiment with different values <span class="math notranslate nohighlight">\(\nu = 1.5\)</span> and <span class="math notranslate nohighlight">\(\nu=0.5\)</span>.</p></li>
 <li><p>For <span class="math notranslate nohighlight">\(\nu=0.5\)</span> you get continuous but nowhere differentiable samples. To appreciate this, set the number of samples to 1 and increase the number of test points to 1000. If you go through the trouble of modifying the plotting code to zoom in a small region of the plot, you will see that the samples are self-similar. You have just discovered a fractal!</p></li>
@@ -1496,7 +1478,7 @@ For example if <span class="math notranslate nohighlight">\(\nu=1.5\)</span>, th
 </section>
 </section>
 <section id="example-5-modeling-invariances">
-<h2>Example 5: Modeling invariances<a class="headerlink" href="#example-5-modeling-invariances" title="Link to this heading">#</a></h2>
+<h2>Example 5: Modeling invariances<a class="headerlink" href="#example-5-modeling-invariances" title="Permalink to this heading">#</a></h2>
 <p>The covariance function can also be used to model invariances.
 It is better to explain this with an example.</p>
 <p>One common invariance is translation invariance:</p>
@@ -1514,7 +1496,7 @@ k(x, x') = \exp\left\{-\frac{2}{\ell}\sin^2\left(\frac{\pi}{p}|x-x'|\right)\righ
 Let’s look at the samples:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gpytorch.kernels</span> <span class="kn">import</span> <span class="n">PeriodicKernel</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gpytorch.kernels</span><span class="w"> </span><span class="kn">import</span> <span class="n">PeriodicKernel</span>
 <span class="n">mean_func</span> <span class="o">=</span> <span class="n">ConstantMean</span><span class="p">()</span>
 <span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span>
         <span class="n">PeriodicKernel</span><span class="p">()</span>
@@ -1534,17 +1516,16 @@ Let’s look at the samples:</p>
 )
 </pre></div>
 </div>
-<img alt="../_images/5d94f9ebbadce9b3a60dc6d98495f09a5462182db6dbbec22a4840a6cdeaaad8.svg" src="../_images/5d94f9ebbadce9b3a60dc6d98495f09a5462182db6dbbec22a4840a6cdeaaad8.svg" />
-</div>
+<img alt="../_images/5d94f9ebbadce9b3a60dc6d98495f09a5462182db6dbbec22a4840a6cdeaaad8.svg" src="../_images/5d94f9ebbadce9b3a60dc6d98495f09a5462182db6dbbec22a4840a6cdeaaad8.svg" /></div>
 </div>
 <section id="id9">
-<h3>Questions<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<h3>Questions<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Experiment with different values of the period parameter <span class="math notranslate nohighlight">\(p\)</span> and the lengthscale parameter <span class="math notranslate nohighlight">\(\ell\)</span>. Note that at some point you will get an error because the covariance matrix will become singular. You will have to increase the nugget parameter to overcome this.</p></li>
 </ul>
 </section>
 <section id="stationary-and-non-stationary-covariance-functions">
-<h3>Stationary and non-stationary covariance functions<a class="headerlink" href="#stationary-and-non-stationary-covariance-functions" title="Link to this heading">#</a></h3>
+<h3>Stationary and non-stationary covariance functions<a class="headerlink" href="#stationary-and-non-stationary-covariance-functions" title="Permalink to this heading">#</a></h3>
 <p>So far we have only used stationary covariance functions.
 A covariance function is stationary if it depends only on the distance between the inputs:</p>
 <div class="math notranslate nohighlight">
@@ -1563,7 +1544,7 @@ k(x, x') = vxx',
 <p>Let’s look at the samples:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gpytorch.kernels</span> <span class="kn">import</span> <span class="n">LinearKernel</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gpytorch.kernels</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearKernel</span>
 
 <span class="n">mean_func</span> <span class="o">=</span> <span class="n">ConstantMean</span><span class="p">()</span>
 <span class="n">k</span> <span class="o">=</span> <span class="n">LinearKernel</span><span class="p">()</span>
@@ -1573,8 +1554,7 @@ k(x, x') = vxx',
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f74c22593350d7d4c0cfa5b9c5ee489bb44e48cd306482dcb786d3f658f19ee4.svg" src="../_images/f74c22593350d7d4c0cfa5b9c5ee489bb44e48cd306482dcb786d3f658f19ee4.svg" />
-</div>
+<img alt="../_images/f74c22593350d7d4c0cfa5b9c5ee489bb44e48cd306482dcb786d3f658f19ee4.svg" src="../_images/f74c22593350d7d4c0cfa5b9c5ee489bb44e48cd306482dcb786d3f658f19ee4.svg" /></div>
 </div>
 <p>They are lines starting from the origin.</p>
 <p>Another classic non-stationary covariance function is the <code class="docutils literal notranslate"><span class="pre">PolynomialKernel</span></code>:</p>
@@ -1586,7 +1566,7 @@ k(x, x') = (x^Tx' + c)^d,
 <p>Let’s visualize the samples:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gpytorch.kernels</span> <span class="kn">import</span> <span class="n">PolynomialKernel</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gpytorch.kernels</span><span class="w"> </span><span class="kn">import</span> <span class="n">PolynomialKernel</span>
 
 <span class="n">mean_func</span> <span class="o">=</span> <span class="n">ConstantMean</span><span class="p">()</span>
 <span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span><span class="n">PolynomialKernel</span><span class="p">(</span><span class="n">power</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
@@ -1597,18 +1577,17 @@ k(x, x') = (x^Tx' + c)^d,
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5d0a57fcbd1287999d31d49a97ca2f92508b79c541b8a9ccc7296816faed9fef.svg" src="../_images/5d0a57fcbd1287999d31d49a97ca2f92508b79c541b8a9ccc7296816faed9fef.svg" />
-</div>
+<img alt="../_images/5d0a57fcbd1287999d31d49a97ca2f92508b79c541b8a9ccc7296816faed9fef.svg" src="../_images/5d0a57fcbd1287999d31d49a97ca2f92508b79c541b8a9ccc7296816faed9fef.svg" /></div>
 </div>
 </section>
 <section id="id10">
-<h3>Questions<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<h3>Questions<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Experiment with different values of the offsets and degrees.</p></li>
 </ul>
 </section>
 <section id="two-or-more-length-scales-in-samples">
-<h3>Two (or more) length scales in samples<a class="headerlink" href="#two-or-more-length-scales-in-samples" title="Link to this heading">#</a></h3>
+<h3>Two (or more) length scales in samples<a class="headerlink" href="#two-or-more-length-scales-in-samples" title="Permalink to this heading">#</a></h3>
 <p>Suppose that we have a function that is the sum of two functions: one that varies slowly and one that varies quickly.
 How can we model this?
 We need to use two covariance functions: one with a small lengthscale and one with a large lengthscale.
@@ -1629,12 +1608,11 @@ Let’s see how this works.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f486fabafb088da34805f58d95ab0c89ff2402a8fa16bf33be4b42d2d1d9cc4a.svg" src="../_images/f486fabafb088da34805f58d95ab0c89ff2402a8fa16bf33be4b42d2d1d9cc4a.svg" />
-</div>
+<img alt="../_images/f486fabafb088da34805f58d95ab0c89ff2402a8fa16bf33be4b42d2d1d9cc4a.svg" src="../_images/f486fabafb088da34805f58d95ab0c89ff2402a8fa16bf33be4b42d2d1d9cc4a.svg" /></div>
 </div>
 </section>
 <section id="id11">
-<h3>Questions<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<h3>Questions<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Modify the code above to look at the product of two covariance functions.</p></li>
 <li><p>Modify the code to model a slowly varying periodic function contaminated by an additive noise coming from a Matérn covariance function that is nowhere differentiable.</p></li>
@@ -1765,7 +1743,7 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>

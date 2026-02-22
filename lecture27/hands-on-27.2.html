@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Sampling From the Distributions With Random Walk Metropolis &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
@@ -28,35 +29,39 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture27/hands-on-27.2';</script>
@@ -154,18 +159,7 @@
     <p class="title logo__title">Introduction to Scientific Machine Learning (Lecture Book)</p>
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -437,9 +431,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -464,14 +458,14 @@
       
       <li><a href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture27/hands-on-27.2.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch on Colab"
+   title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+    <img src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -564,9 +558,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -628,20 +622,148 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAKE_BOOK_FIGURES</span><span class="o">=</span><span class="n">Trueimport</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">npimport</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span> <span class="k">as</span> <span class="n">stimport</span> <span class="n">matplotlib</span> <span class="k">as</span> <span class="n">mplimport</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span><span class="o">%</span><span class="k">matplotlib</span> inlineimport matplotlib_inlinematplotlib_inline.backend_inline.set_matplotlib_formats(&#39;svg&#39;)import seaborn as snssns.set_context(&quot;paper&quot;)sns.set_style(&quot;ticks&quot;)def set_book_style():    plt.style.use(&#39;seaborn-v0_8-white&#39;)     sns.set_style(&quot;ticks&quot;)    sns.set_palette(&quot;deep&quot;)    mpl.rcParams.update({        # Font settings        &#39;font.family&#39;: &#39;serif&#39;,  # For academic publishing        &#39;font.size&#39;: 8,  # As requested, 10pt font        &#39;axes.labelsize&#39;: 8,        &#39;axes.titlesize&#39;: 8,        &#39;xtick.labelsize&#39;: 7,  # Slightly smaller for better readability        &#39;ytick.labelsize&#39;: 7,        &#39;legend.fontsize&#39;: 7,                # Line and marker settings for consistency        &#39;axes.linewidth&#39;: 0.5,        &#39;grid.linewidth&#39;: 0.5,        &#39;lines.linewidth&#39;: 1.0,        &#39;lines.markersize&#39;: 4,                # Layout to prevent clipped labels        &#39;figure.constrained_layout.use&#39;: True,                # Default DPI (will override when saving)        &#39;figure.dpi&#39;: 600,        &#39;savefig.dpi&#39;: 600,                # Despine - remove top and right spines        &#39;axes.spines.top&#39;: False,        &#39;axes.spines.right&#39;: False,                # Remove legend frame        &#39;legend.frameon&#39;: False,                # Additional trim settings        &#39;figure.autolayout&#39;: True,  # Alternative to constrained_layout        &#39;savefig.bbox&#39;: &#39;tight&#39;,    # Trim when saving        &#39;savefig.pad_inches&#39;: 0.1   # Small padding to ensure nothing gets cut off    })def set_notebook_style():    plt.style.use(&#39;seaborn-v0_8-white&#39;)    sns.set_style(&quot;ticks&quot;)    sns.set_palette(&quot;deep&quot;)    mpl.rcParams.update({        # Font settings - using default sizes        &#39;font.family&#39;: &#39;serif&#39;,        &#39;axes.labelsize&#39;: 10,        &#39;axes.titlesize&#39;: 10,        &#39;xtick.labelsize&#39;: 9,        &#39;ytick.labelsize&#39;: 9,        &#39;legend.fontsize&#39;: 9,                # Line and marker settings        &#39;axes.linewidth&#39;: 0.5,        &#39;grid.linewidth&#39;: 0.5,        &#39;lines.linewidth&#39;: 1.0,        &#39;lines.markersize&#39;: 4,                # Layout settings        &#39;figure.constrained_layout.use&#39;: True,                # Remove only top and right spines        &#39;axes.spines.top&#39;: False,        &#39;axes.spines.right&#39;: False,                # Remove legend frame        &#39;legend.frameon&#39;: False,                # Additional settings        &#39;figure.autolayout&#39;: True,        &#39;savefig.bbox&#39;: &#39;tight&#39;,        &#39;savefig.pad_inches&#39;: 0.1    })def save_for_book(fig, filename, is_vector=True, **kwargs):    &quot;&quot;&quot;    Save a figure with book-optimized settings.        Parameters:    -----------    fig : matplotlib figure        The figure to save    filename : str        Filename without extension    is_vector : bool        If True, saves as vector at 1000 dpi. If False, saves as raster at 600 dpi.    **kwargs : dict        Additional kwargs to pass to savefig    &quot;&quot;&quot;        # Set appropriate DPI and format based on figure type    if is_vector:        dpi = 1000        ext = &#39;.pdf&#39;    else:        dpi = 600        ext = &#39;.tif&#39;        # Save the figure with book settings    fig.savefig(f&quot;{filename}{ext}&quot;, dpi=dpi, **kwargs)def make_full_width_fig():    return plt.subplots(figsize=(4.7, 2.9), constrained_layout=True)def make_half_width_fig():    return plt.subplots(figsize=(2.35, 1.45), constrained_layout=True)if MAKE_BOOK_FIGURES:    set_book_style()else:    set_notebook_style()make_full_width_fig = make_full_width_fig if MAKE_BOOK_FIGURES else lambda: plt.subplots()make_half_width_fig = make_half_width_fig if MAKE_BOOK_FIGURES else lambda: plt.subplots()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAKE_BOOK_FIGURES</span><span class="o">=</span><span class="kc">True</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">st</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">set_book_style</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span> 
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
+
+    <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="c1"># Font settings</span>
+        <span class="s1">&#39;font.family&#39;</span><span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>  <span class="c1"># For academic publishing</span>
+        <span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>  <span class="c1"># As requested, 10pt font</span>
+        <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>  <span class="c1"># Slightly smaller for better readability</span>
+        <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        
+        <span class="c1"># Line and marker settings for consistency</span>
+        <span class="s1">&#39;axes.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;grid.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;lines.linewidth&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="s1">&#39;lines.markersize&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        
+        <span class="c1"># Layout to prevent clipped labels</span>
+        <span class="s1">&#39;figure.constrained_layout.use&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        
+        <span class="c1"># Default DPI (will override when saving)</span>
+        <span class="s1">&#39;figure.dpi&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+        <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+        
+        <span class="c1"># Despine - remove top and right spines</span>
+        <span class="s1">&#39;axes.spines.top&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s1">&#39;axes.spines.right&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Remove legend frame</span>
+        <span class="s1">&#39;legend.frameon&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Additional trim settings</span>
+        <span class="s1">&#39;figure.autolayout&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Alternative to constrained_layout</span>
+        <span class="s1">&#39;savefig.bbox&#39;</span><span class="p">:</span> <span class="s1">&#39;tight&#39;</span><span class="p">,</span>    <span class="c1"># Trim when saving</span>
+        <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>   <span class="c1"># Small padding to ensure nothing gets cut off</span>
+    <span class="p">})</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">set_notebook_style</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
+
+    <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="c1"># Font settings - using default sizes</span>
+        <span class="s1">&#39;font.family&#39;</span><span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        
+        <span class="c1"># Line and marker settings</span>
+        <span class="s1">&#39;axes.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;grid.linewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;lines.linewidth&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="s1">&#39;lines.markersize&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        
+        <span class="c1"># Layout settings</span>
+        <span class="s1">&#39;figure.constrained_layout.use&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        
+        <span class="c1"># Remove only top and right spines</span>
+        <span class="s1">&#39;axes.spines.top&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s1">&#39;axes.spines.right&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Remove legend frame</span>
+        <span class="s1">&#39;legend.frameon&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        
+        <span class="c1"># Additional settings</span>
+        <span class="s1">&#39;figure.autolayout&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;savefig.bbox&#39;</span><span class="p">:</span> <span class="s1">&#39;tight&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>
+    <span class="p">})</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">save_for_book</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">is_vector</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Save a figure with book-optimized settings.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    fig : matplotlib figure</span>
+<span class="sd">        The figure to save</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        Filename without extension</span>
+<span class="sd">    is_vector : bool</span>
+<span class="sd">        If True, saves as vector at 1000 dpi. If False, saves as raster at 600 dpi.</span>
+<span class="sd">    **kwargs : dict</span>
+<span class="sd">        Additional kwargs to pass to savefig</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="c1"># Set appropriate DPI and format based on figure type</span>
+    <span class="k">if</span> <span class="n">is_vector</span><span class="p">:</span>
+        <span class="n">dpi</span> <span class="o">=</span> <span class="mi">1000</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;.pdf&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">dpi</span> <span class="o">=</span> <span class="mi">600</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;.tif&#39;</span>
+    
+    <span class="c1"># Save the figure with book settings</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_full_width_fig</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.7</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_half_width_fig</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">2.35</span><span class="p">,</span> <span class="mf">1.45</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span><span class="p">:</span>
+    <span class="n">set_book_style</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">set_notebook_style</span><span class="p">()</span>
+
+<span class="n">make_full_width_fig</span> <span class="o">=</span> <span class="n">make_full_width_fig</span> <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span> <span class="k">else</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">make_half_width_fig</span> <span class="o">=</span> <span class="n">make_half_width_fig</span> <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span> <span class="k">else</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="sampling-from-the-distributions-with-random-walk-metropolis">
-<h1>Sampling From the Distributions With Random Walk Metropolis<a class="headerlink" href="#sampling-from-the-distributions-with-random-walk-metropolis" title="Link to this heading">#</a></h1>
+<h1>Sampling From the Distributions With Random Walk Metropolis<a class="headerlink" href="#sampling-from-the-distributions-with-random-walk-metropolis" title="Permalink to this heading">#</a></h1>
 <p>We introduce the concept of random walk in 1D and 2D because it is the backbone of many sampling algorithms.
 We use the Metropolis algorithm (the simplest Markov Chain Monte Carlo (MCMC) algorithm) to sample from an arbitrary probability density known up to a normalization constant.
 We learn how to diagnose the convergence of MCMC algorithms by monitoring the acceptance rate and autocorrelation.
 We use MCMC to calibrate the reaction kinetics problem using the Bayesian formulation.</p>
 <section id="attention">
-<h2>Attention<a class="headerlink" href="#attention" title="Link to this heading">#</a></h2>
+<h2>Attention<a class="headerlink" href="#attention" title="Permalink to this heading">#</a></h2>
 <p>We implement the Metropolis algorithm from scratch.
 This is to see what is behind the <code class="docutils literal notranslate"><span class="pre">pyro</span></code> implementation.
 Also, note that the results below need to be corrected! You are supposed to follow the discussion and answer questions to get the correct results!</p>
@@ -655,7 +777,7 @@ Also, note that the results below need to be corrected! You are supposed to foll
 </div>
 </section>
 <section id="example-1-random-walk-in-1d">
-<h2>Example 1: Random walk in 1D.<a class="headerlink" href="#example-1-random-walk-in-1d" title="Link to this heading">#</a></h2>
+<h2>Example 1: Random walk in 1D.<a class="headerlink" href="#example-1-random-walk-in-1d" title="Permalink to this heading">#</a></h2>
 <p>Random walk in 1D is one of the most basic Markov chains.
 It will be the building block for the Metropolis algorithm.
 The <em>state space</em> is:</p>
@@ -705,11 +827,10 @@ X_{n+1} = X_n + \sigma Z_n,
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2e66be96ba19609e54ba00a9ae2d1952affd554033d2d22a0c8248d907a63b10.svg" src="../_images/2e66be96ba19609e54ba00a9ae2d1952affd554033d2d22a0c8248d907a63b10.svg" />
-</div>
+<img alt="../_images/2e66be96ba19609e54ba00a9ae2d1952affd554033d2d22a0c8248d907a63b10.svg" src="../_images/2e66be96ba19609e54ba00a9ae2d1952affd554033d2d22a0c8248d907a63b10.svg" /></div>
 </div>
 <section id="questions">
-<h3>Questions<a class="headerlink" href="#questions" title="Link to this heading">#</a></h3>
+<h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Increase the number of steps <span class="math notranslate nohighlight">\(n\)</span> from 1,000 to 10,000 to 100,000. Run it a couple of times for each case. What do you observe?</p></li>
 <li><p>Get the number of steps <span class="math notranslate nohighlight">\(n\)</span> down to 1,000. Increase <span class="math notranslate nohighlight">\(\sigma\)</span> to 0.1 to 1. What do you observe for the values of <span class="math notranslate nohighlight">\(X\)</span>?</p></li>
@@ -718,7 +839,7 @@ X_{n+1} = X_n + \sigma Z_n,
 </section>
 </section>
 <section id="example-2-random-walk-in-higher-dimensions">
-<h2>Example 2: Random Walk in Higher-dimensions.<a class="headerlink" href="#example-2-random-walk-in-higher-dimensions" title="Link to this heading">#</a></h2>
+<h2>Example 2: Random Walk in Higher-dimensions.<a class="headerlink" href="#example-2-random-walk-in-higher-dimensions" title="Permalink to this heading">#</a></h2>
 <p>The random walk can be generalized to arbitrary dimensions.
 The <em>state space</em> is:</p>
 <div class="math notranslate nohighlight">
@@ -770,11 +891,10 @@ X_{n+1} = X_n + A Z_n,
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c5479e936e1e1eff1abb026323598a0261b48740da0eee41a6efe37885ff32ca.svg" src="../_images/c5479e936e1e1eff1abb026323598a0261b48740da0eee41a6efe37885ff32ca.svg" />
-</div>
+<img alt="../_images/c5479e936e1e1eff1abb026323598a0261b48740da0eee41a6efe37885ff32ca.svg" src="../_images/c5479e936e1e1eff1abb026323598a0261b48740da0eee41a6efe37885ff32ca.svg" /></div>
 </div>
 <section id="id1">
-<h3>Questions<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<h3>Questions<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Increase the number of steps <span class="math notranslate nohighlight">\(n\)</span> from 1,000 to 10,000 to 100,000. Run it a couple of times for each case. What do you observe?</p></li>
 <li><p>Get the number of steps <span class="math notranslate nohighlight">\(n\)</span> down to 1,000. Increase <span class="math notranslate nohighlight">\(\sigma\)</span> to 0.1 to 1. What do you observe for the values of <span class="math notranslate nohighlight">\(X\)</span>?</p></li>
@@ -783,7 +903,7 @@ X_{n+1} = X_n + A Z_n,
 </section>
 </section>
 <section id="the-metropolis-algorithm">
-<h2>The Metropolis Algorithm<a class="headerlink" href="#the-metropolis-algorithm" title="Link to this heading">#</a></h2>
+<h2>The Metropolis Algorithm<a class="headerlink" href="#the-metropolis-algorithm" title="Permalink to this heading">#</a></h2>
 <p>Now, let’s get back to the initial problem of sampling:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -831,7 +951,7 @@ Once we have picked a proposal, we construct the desired Markov chain as follows
 <p>Here is a generic implementation. We use the <span class="math notranslate nohighlight">\(\log h(x)\)</span> for numerical stability.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">rwmetropolis</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">log_h</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">()):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">rwmetropolis</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">log_h</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">()):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Random walk metropolis.</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments:</span>
@@ -880,7 +1000,7 @@ Once we have picked a proposal, we construct the desired Markov chain as follows
 </div>
 </section>
 <section id="example-3-sampling-from-an-exponential-using-random-walk-metropolis">
-<h2>Example 3: Sampling from an Exponential using Random Walk Metropolis<a class="headerlink" href="#example-3-sampling-from-an-exponential-using-random-walk-metropolis" title="Link to this heading">#</a></h2>
+<h2>Example 3: Sampling from an Exponential using Random Walk Metropolis<a class="headerlink" href="#example-3-sampling-from-an-exponential-using-random-walk-metropolis" title="Permalink to this heading">#</a></h2>
 <p>Let’s take <span class="math notranslate nohighlight">\(\mathcal{X}=(0,\infty)\)</span> and:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -899,12 +1019,12 @@ Here we go:</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A function proportional to the logarithm of the density from which you wish to sample.</span>
 <span class="c1"># (We always work with the log for numerical stability)</span>
-<span class="k">def</span> <span class="nf">log_h</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">log_h</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="o">-</span><span class="mf">1e99</span> <span class="c1"># Negative values are not allowed - Give back something very negative</span>
     <span class="k">return</span> <span class="o">-</span><span class="mf">10.</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># The log of h(x)</span>
 
-<span class="c1"># Initialiazation:</span>
+<span class="c1"># Initialization:</span>
 <span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.</span><span class="p">])</span>
 <span class="c1"># Parameters of the proposal:</span>
 <span class="n">sigma</span> <span class="o">=</span> <span class="mf">1.0</span>
@@ -931,7 +1051,7 @@ In general:</p>
 <li><p>If the acceptance rate is too high, our chain needs to be more ambitious.</p></li>
 </ul>
 <section id="id3">
-<h3>Questions<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<h3>Questions<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Choose <code class="docutils literal notranslate"><span class="pre">sigma</span></code> to make the acceptance rate around <span class="math notranslate nohighlight">\(0.25\)</span>. This is how <code class="docutils literal notranslate"><span class="pre">pyro</span></code> does tuning. Hint: Try <code class="docutils literal notranslate"><span class="pre">sigma=0.1</span></code>, <code class="docutils literal notranslate"><span class="pre">sigma=0.2</span></code>, etc., until you get the desired acceptance rate.</p></li>
 </ul>
@@ -949,8 +1069,7 @@ In general:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9be03ba1e4067e78b9021d4e5ba5bd51a383a746671f482c3fe4b072cab8b164.svg" src="../_images/9be03ba1e4067e78b9021d4e5ba5bd51a383a746671f482c3fe4b072cab8b164.svg" />
-</div>
+<img alt="../_images/9be03ba1e4067e78b9021d4e5ba5bd51a383a746671f482c3fe4b072cab8b164.svg" src="../_images/9be03ba1e4067e78b9021d4e5ba5bd51a383a746671f482c3fe4b072cab8b164.svg" /></div>
 </div>
 <p>By construction, samples from this chain are supposed to be samples from the correct probability distribution.
 There are, however, two issues:</p>
@@ -995,8 +1114,7 @@ These samples will look independent.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/96152fb8aeb5bd9dce28df3dfeee8c5b60e5dbe931ea1677da65d25782bf70fc.svg" src="../_images/96152fb8aeb5bd9dce28df3dfeee8c5b60e5dbe931ea1677da65d25782bf70fc.svg" />
-</div>
+<img alt="../_images/96152fb8aeb5bd9dce28df3dfeee8c5b60e5dbe931ea1677da65d25782bf70fc.svg" src="../_images/96152fb8aeb5bd9dce28df3dfeee8c5b60e5dbe931ea1677da65d25782bf70fc.svg" /></div>
 </div>
 <p>If you have chosen <code class="docutils literal notranslate"><span class="pre">burn</span></code> and <code class="docutils literal notranslate"><span class="pre">thin</span></code> the right way (see questions), you should see samples that look almost independent.
 Let’s test this:</p>
@@ -1011,8 +1129,7 @@ Let’s test this:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/57b1c35b3c7c884ec272009d9d98b6715537281aae40530a4c5942029e5db468.svg" src="../_images/57b1c35b3c7c884ec272009d9d98b6715537281aae40530a4c5942029e5db468.svg" />
-</div>
+<img alt="../_images/57b1c35b3c7c884ec272009d9d98b6715537281aae40530a4c5942029e5db468.svg" src="../_images/57b1c35b3c7c884ec272009d9d98b6715537281aae40530a4c5942029e5db468.svg" /></div>
 </div>
 <p>Let’s estimate the mean and the variance by sampling average and compare them to the true values.
 <strong>Note:</strong> It is also possible to get error bars because the CLT holds (if certain regularity condtions hold), but we do not do it here.</p>
@@ -1030,8 +1147,7 @@ Let’s test this:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/04f9a2448689345032ea962620c857d9d596a34a48b010d31ced62326aab6209.svg" src="../_images/04f9a2448689345032ea962620c857d9d596a34a48b010d31ced62326aab6209.svg" />
-</div>
+<img alt="../_images/04f9a2448689345032ea962620c857d9d596a34a48b010d31ced62326aab6209.svg" src="../_images/04f9a2448689345032ea962620c857d9d596a34a48b010d31ced62326aab6209.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1047,8 +1163,7 @@ Let’s test this:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1d5ece3e4f2af3f72ac6297fdf189e7ab788b708c503a46bad14b3f4748788a9.svg" src="../_images/1d5ece3e4f2af3f72ac6297fdf189e7ab788b708c503a46bad14b3f4748788a9.svg" />
-</div>
+<img alt="../_images/1d5ece3e4f2af3f72ac6297fdf189e7ab788b708c503a46bad14b3f4748788a9.svg" src="../_images/1d5ece3e4f2af3f72ac6297fdf189e7ab788b708c503a46bad14b3f4748788a9.svg" /></div>
 </div>
 <p>Now, let’s use these <em>independent</em> variables to draw the empirical histrogram and compare it to the true density:</p>
 <div class="cell docutils container">
@@ -1064,12 +1179,11 @@ Let’s test this:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/155aec446026e2f3c1c23d4086ae76fee158f37edbd034b1367894178ee09b0b.svg" src="../_images/155aec446026e2f3c1c23d4086ae76fee158f37edbd034b1367894178ee09b0b.svg" />
-</div>
+<img alt="../_images/155aec446026e2f3c1c23d4086ae76fee158f37edbd034b1367894178ee09b0b.svg" src="../_images/155aec446026e2f3c1c23d4086ae76fee158f37edbd034b1367894178ee09b0b.svg" /></div>
 </div>
 </section>
 <section id="id4">
-<h3>Questions:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<h3>Questions:<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Choose <code class="docutils literal notranslate"><span class="pre">burn</span></code> so that you ignore the transient regime of the process. How does this affect your averages and your histograms?</p></li>
 <li><p>Choose <code class="docutils literal notranslate"><span class="pre">thin</span></code> (<span class="math notranslate nohighlight">\(k^*\)</span>) to make the autocorrelation almost zero. How does this affect your averages and your histograms?</p></li>
@@ -1077,7 +1191,7 @@ Let’s test this:</p>
 </section>
 </section>
 <section id="example-4-sampling-from-a-beta-using-random-walk-metropolis">
-<h2>Example 4: Sampling from a Beta using Random Walk Metropolis<a class="headerlink" href="#example-4-sampling-from-a-beta-using-random-walk-metropolis" title="Link to this heading">#</a></h2>
+<h2>Example 4: Sampling from a Beta using Random Walk Metropolis<a class="headerlink" href="#example-4-sampling-from-a-beta-using-random-walk-metropolis" title="Permalink to this heading">#</a></h2>
 <p>Let’s take <span class="math notranslate nohighlight">\(\mathcal{X}=(0,1)\)</span> and:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1092,12 +1206,12 @@ T(x_n,x) = \mathcal{N}(x|x_n, \sigma^2),
 Here we go:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">log_h_beta</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">log_h_beta</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">return</span> <span class="o">-</span><span class="mf">1e99</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="p">(</span><span class="n">beta</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
-<span class="c1"># Initialiazation:</span>
+<span class="c1"># Initialization:</span>
 <span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">.5</span><span class="p">])</span>
 <span class="c1"># Parameters of the proposal:</span>
 <span class="n">sigma</span> <span class="o">=</span> <span class="mf">.1</span>
@@ -1131,8 +1245,7 @@ Here we go:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6c64cb347aa3a3d05fd08e4719199f14c083e1796f869bf7faa9e218577c5113.svg" src="../_images/6c64cb347aa3a3d05fd08e4719199f14c083e1796f869bf7faa9e218577c5113.svg" />
-</div>
+<img alt="../_images/6c64cb347aa3a3d05fd08e4719199f14c083e1796f869bf7faa9e218577c5113.svg" src="../_images/6c64cb347aa3a3d05fd08e4719199f14c083e1796f869bf7faa9e218577c5113.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1152,8 +1265,7 @@ Here we go:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/50115d85e32f39b2a4b0218af69fc6506b1932f8eb6b7d43f2bcb267723efa4f.svg" src="../_images/50115d85e32f39b2a4b0218af69fc6506b1932f8eb6b7d43f2bcb267723efa4f.svg" />
-</div>
+<img alt="../_images/50115d85e32f39b2a4b0218af69fc6506b1932f8eb6b7d43f2bcb267723efa4f.svg" src="../_images/50115d85e32f39b2a4b0218af69fc6506b1932f8eb6b7d43f2bcb267723efa4f.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1166,8 +1278,7 @@ Here we go:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/da88ae80cb3788e90290ad1571c122cf9dad175709ae9b9ec642ad1d7b37089c.svg" src="../_images/da88ae80cb3788e90290ad1571c122cf9dad175709ae9b9ec642ad1d7b37089c.svg" />
-</div>
+<img alt="../_images/da88ae80cb3788e90290ad1571c122cf9dad175709ae9b9ec642ad1d7b37089c.svg" src="../_images/da88ae80cb3788e90290ad1571c122cf9dad175709ae9b9ec642ad1d7b37089c.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1183,8 +1294,7 @@ Here we go:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d37d865e161bab3b9b108bc1e82df0094d0ec985ae1181837ea612a6b1df326c.svg" src="../_images/d37d865e161bab3b9b108bc1e82df0094d0ec985ae1181837ea612a6b1df326c.svg" />
-</div>
+<img alt="../_images/d37d865e161bab3b9b108bc1e82df0094d0ec985ae1181837ea612a6b1df326c.svg" src="../_images/d37d865e161bab3b9b108bc1e82df0094d0ec985ae1181837ea612a6b1df326c.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1200,8 +1310,7 @@ Here we go:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/598286e00a3a193746a22648d22aa755a94ed0ab6bca3c455801962bb446f1cd.svg" src="../_images/598286e00a3a193746a22648d22aa755a94ed0ab6bca3c455801962bb446f1cd.svg" />
-</div>
+<img alt="../_images/598286e00a3a193746a22648d22aa755a94ed0ab6bca3c455801962bb446f1cd.svg" src="../_images/598286e00a3a193746a22648d22aa755a94ed0ab6bca3c455801962bb446f1cd.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1216,11 +1325,10 @@ Here we go:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/abd742d45a44469146d2eee073f70ae17a8c5f30227fa111a055e042d11875cb.svg" src="../_images/abd742d45a44469146d2eee073f70ae17a8c5f30227fa111a055e042d11875cb.svg" />
-</div>
+<img alt="../_images/abd742d45a44469146d2eee073f70ae17a8c5f30227fa111a055e042d11875cb.svg" src="../_images/abd742d45a44469146d2eee073f70ae17a8c5f30227fa111a055e042d11875cb.svg" /></div>
 </div>
 <section id="id5">
-<h3>Questions<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<h3>Questions<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>For <span class="math notranslate nohighlight">\(\alpha = 2, \beta=5\)</span> do the following:</p>
 <ul>
@@ -1235,7 +1343,7 @@ Here we go:</p>
 </section>
 </section>
 <section id="example-5-sampling-from-a-gaussian-with-random-walk-metropolis">
-<h2>Example 5: Sampling from a Gaussian with Random Walk Metropolis<a class="headerlink" href="#example-5-sampling-from-a-gaussian-with-random-walk-metropolis" title="Link to this heading">#</a></h2>
+<h2>Example 5: Sampling from a Gaussian with Random Walk Metropolis<a class="headerlink" href="#example-5-sampling-from-a-gaussian-with-random-walk-metropolis" title="Permalink to this heading">#</a></h2>
 <p>Let’s take <span class="math notranslate nohighlight">\(\mathcal{X}=\mathbb{R}^2\)</span> and:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1252,7 +1360,7 @@ Here we go:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The log of the density (up to a normalizing constant) of the distribution from which we want to sample:</span>
-<span class="k">def</span> <span class="nf">log_h_mvn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">Lambda</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">log_h_mvn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">Lambda</span><span class="p">):</span>
     <span class="n">tmp</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">mu</span>
     <span class="k">return</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Lambda</span><span class="p">,</span> <span class="n">tmp</span><span class="p">))</span>
 
@@ -1262,7 +1370,7 @@ Here we go:</p>
                   <span class="p">[</span><span class="mf">.3</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]])</span> <span class="c1"># This has to be positive definite - otherwise you will get garbage!</span>
 <span class="n">Lambda</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">Sigma</span><span class="p">)</span>
 
-<span class="c1"># Initialiazation:</span>
+<span class="c1"># Initialization:</span>
 <span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">])</span>
 <span class="c1"># Parameters of the proposal:</span>
 <span class="n">sigma</span> <span class="o">=</span> <span class="mf">0.2</span>
@@ -1293,8 +1401,7 @@ Here we go:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/58c8cb1306b837246b74c75234df0feb6d49c71846ce0f7d55154f20a04bbe4f.svg" src="../_images/58c8cb1306b837246b74c75234df0feb6d49c71846ce0f7d55154f20a04bbe4f.svg" />
-</div>
+<img alt="../_images/58c8cb1306b837246b74c75234df0feb6d49c71846ce0f7d55154f20a04bbe4f.svg" src="../_images/58c8cb1306b837246b74c75234df0feb6d49c71846ce0f7d55154f20a04bbe4f.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1307,8 +1414,7 @@ Here we go:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2127280b6d7a05393b4112c003e2d2ecfee69667f14a1d994b11334c996de9eb.svg" src="../_images/2127280b6d7a05393b4112c003e2d2ecfee69667f14a1d994b11334c996de9eb.svg" />
-</div>
+<img alt="../_images/2127280b6d7a05393b4112c003e2d2ecfee69667f14a1d994b11334c996de9eb.svg" src="../_images/2127280b6d7a05393b4112c003e2d2ecfee69667f14a1d994b11334c996de9eb.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1329,9 +1435,7 @@ Here we go:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d4fe1594407d6eafafe202518a9a9539810f6e4e0878571450628f4df46dc170.svg" src="../_images/d4fe1594407d6eafafe202518a9a9539810f6e4e0878571450628f4df46dc170.svg" />
-<img alt="../_images/65575f63e1875f5f2188fe8229da1147ef408208fe6c8c210f5766d443022aa5.svg" src="../_images/65575f63e1875f5f2188fe8229da1147ef408208fe6c8c210f5766d443022aa5.svg" />
-</div>
+<img alt="../_images/d4fe1594407d6eafafe202518a9a9539810f6e4e0878571450628f4df46dc170.svg" src="../_images/d4fe1594407d6eafafe202518a9a9539810f6e4e0878571450628f4df46dc170.svg" /><img alt="../_images/65575f63e1875f5f2188fe8229da1147ef408208fe6c8c210f5766d443022aa5.svg" src="../_images/65575f63e1875f5f2188fe8229da1147ef408208fe6c8c210f5766d443022aa5.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1344,11 +1448,10 @@ Here we go:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1e0611e1c46b275edb50b5243232f60052d1a3391fecfe18e3cd0413c059e34a.svg" src="../_images/1e0611e1c46b275edb50b5243232f60052d1a3391fecfe18e3cd0413c059e34a.svg" />
-</div>
+<img alt="../_images/1e0611e1c46b275edb50b5243232f60052d1a3391fecfe18e3cd0413c059e34a.svg" src="../_images/1e0611e1c46b275edb50b5243232f60052d1a3391fecfe18e3cd0413c059e34a.svg" /></div>
 </div>
 <section id="id6">
-<h3>Questions<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<h3>Questions<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>For the case shown:</p>
 <ul>
@@ -1473,7 +1576,7 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>

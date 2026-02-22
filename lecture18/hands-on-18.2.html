@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Clustering High-dimensional Data &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
@@ -28,35 +29,39 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture18/hands-on-18.2';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -152,18 +157,7 @@
     <p class="title logo__title">Introduction to Scientific Machine Learning (Lecture Book)</p>
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -435,9 +429,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -462,14 +456,14 @@
       
       <li><a href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture18/hands-on-18.2.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch on Colab"
+   title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+    <img src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -562,9 +556,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -605,19 +599,19 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAKE_BOOK_FIGURES</span><span class="o">=</span><span class="kc">True</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">st</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib_inline</span>
 <span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">set_book_style</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_book_style</span><span class="p">():</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span> 
     <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
@@ -658,7 +652,7 @@ document.write(`
         <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>   <span class="c1"># Small padding to ensure nothing gets cut off</span>
     <span class="p">})</span>
 
-<span class="k">def</span> <span class="nf">set_notebook_style</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_notebook_style</span><span class="p">():</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
@@ -694,7 +688,7 @@ document.write(`
         <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>
     <span class="p">})</span>
 
-<span class="k">def</span> <span class="nf">save_for_book</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">is_vector</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">save_for_book</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">is_vector</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Save a figure with book-optimized settings.</span>
 <span class="sd">    </span>
@@ -720,10 +714,10 @@ document.write(`
     <span class="c1"># Save the figure with book settings</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">make_full_width_fig</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_full_width_fig</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.7</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">make_half_width_fig</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_half_width_fig</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">2.35</span><span class="p">,</span> <span class="mf">1.45</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span><span class="p">:</span>
@@ -734,7 +728,7 @@ document.write(`
 <span class="n">make_full_width_fig</span> <span class="o">=</span> <span class="n">make_full_width_fig</span> <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span> <span class="k">else</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">make_half_width_fig</span> <span class="o">=</span> <span class="n">make_half_width_fig</span> <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span> <span class="k">else</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 
-<span class="k">def</span> <span class="nf">show_digit_image</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">show_digit_image</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Show a digit as an image.</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments</span>
@@ -747,7 +741,7 @@ document.write(`
     <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([]);</span>
 
-<span class="k">def</span> <span class="nf">imscatter</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">imscatter</span><span class="p">(</span>
     <span class="n">x</span><span class="p">,</span>
     <span class="n">y</span><span class="p">,</span>
     <span class="n">images</span><span class="p">,</span>
@@ -792,7 +786,7 @@ document.write(`
 </details>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="clustering-high-dimensional-data">
-<h1>Clustering High-dimensional Data<a class="headerlink" href="#clustering-high-dimensional-data" title="Link to this heading">#</a></h1>
+<h1>Clustering High-dimensional Data<a class="headerlink" href="#clustering-high-dimensional-data" title="Permalink to this heading">#</a></h1>
 <p>We are going to cluster the MNIST dataset.
 We cannot apply K-means directly to it because of its high dimensionality. If we did, we would get garbage.
 Instead, we will first reduce the dimensionality of MNIST using PCA to two dimensions, and then we will apply K-means to the principal components.</p>
@@ -802,8 +796,8 @@ Let’s see if our process identifies clusters corresponding to digits.
 Here we go. First, download and load the MNIST data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_openml</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_openml</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
 
 <span class="c1"># Load data from https://www.openml.org/d/554</span>
 <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">fetch_openml</span><span class="p">(</span><span class="s2">&quot;mnist_784&quot;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -825,7 +819,7 @@ Here we go. First, download and load the MNIST data:</p>
 <p>Perfortm PCA on the entire data set keep two principal components:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
 
 <span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span>
     <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
@@ -855,15 +849,14 @@ Here we go. First, download and load the MNIST data:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/160886cb8d8b1d2347ba04636407da04bde0b2fb39fd6ab05f37b2236a9f423b.svg" src="../_images/160886cb8d8b1d2347ba04636407da04bde0b2fb39fd6ab05f37b2236a9f423b.svg" />
-</div>
+<img alt="../_images/160886cb8d8b1d2347ba04636407da04bde0b2fb39fd6ab05f37b2236a9f423b.svg" src="../_images/160886cb8d8b1d2347ba04636407da04bde0b2fb39fd6ab05f37b2236a9f423b.svg" /></div>
 </div>
 <p>You can observe that PCA somewhat separates the digits.
 It’s imperfect (and you can do better with non-linear dimensionality reduction techniques), but it will do for now.</p>
 <p>Now it’s time for K-means:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
 
 <span class="n">cl</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
 </pre></div>
@@ -911,8 +904,7 @@ It’s imperfect (and you can do better with non-linear dimensionality reduction
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/27baaa1504029fecb01beccfb056c92559193140bcec53d84e7b2ece5f0b031f.svg" src="../_images/27baaa1504029fecb01beccfb056c92559193140bcec53d84e7b2ece5f0b031f.svg" />
-</div>
+<img alt="../_images/27baaa1504029fecb01beccfb056c92559193140bcec53d84e7b2ece5f0b031f.svg" src="../_images/27baaa1504029fecb01beccfb056c92559193140bcec53d84e7b2ece5f0b031f.svg" /></div>
 </div>
 <p>This is nice! Observe that the clusters look very reasonable.
 Again, they could be better, but they make sense.
@@ -931,20 +923,10 @@ Let’s visualize them as images.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/008cd686746e817963aaa8f0b62db8cf01080b9f1fe2ce8b6b4c6ab8f9aa614b.svg" src="../_images/008cd686746e817963aaa8f0b62db8cf01080b9f1fe2ce8b6b4c6ab8f9aa614b.svg" />
-<img alt="../_images/1d27d867848a8d50dfb5253f45e8b86a80c4ec028e0bb26ca747b092644fd2ec.svg" src="../_images/1d27d867848a8d50dfb5253f45e8b86a80c4ec028e0bb26ca747b092644fd2ec.svg" />
-<img alt="../_images/916b3ba76853c5484e040bb0fd8fe7e32de2f239bc7093ded83b2f2dacd39f37.svg" src="../_images/916b3ba76853c5484e040bb0fd8fe7e32de2f239bc7093ded83b2f2dacd39f37.svg" />
-<img alt="../_images/7e3e8ce6ad3f1d39fca0e4b9c8a836ba8693e75581a1d0745add34e4b570b156.svg" src="../_images/7e3e8ce6ad3f1d39fca0e4b9c8a836ba8693e75581a1d0745add34e4b570b156.svg" />
-<img alt="../_images/99e31f8c77aa5eca3fcf9474eaa36d4d5d1b7bdf8a412033b1b42e9fe968a406.svg" src="../_images/99e31f8c77aa5eca3fcf9474eaa36d4d5d1b7bdf8a412033b1b42e9fe968a406.svg" />
-<img alt="../_images/808546496c6a1d90ba3c1c2bbf96471babd48f746f68df2ca1baae972404d20e.svg" src="../_images/808546496c6a1d90ba3c1c2bbf96471babd48f746f68df2ca1baae972404d20e.svg" />
-<img alt="../_images/b7f81af3a356fe92f28a3e664557f7062aba6a041162d5702d9dc25dbc6ba27f.svg" src="../_images/b7f81af3a356fe92f28a3e664557f7062aba6a041162d5702d9dc25dbc6ba27f.svg" />
-<img alt="../_images/220453bd161691a810666fdf6e59c447313285c31661b2968c20b4a3e96f532d.svg" src="../_images/220453bd161691a810666fdf6e59c447313285c31661b2968c20b4a3e96f532d.svg" />
-<img alt="../_images/1fc48acf90eef02e259711fbfc58d4e02d8bb9712f111db46319c8543e153da2.svg" src="../_images/1fc48acf90eef02e259711fbfc58d4e02d8bb9712f111db46319c8543e153da2.svg" />
-<img alt="../_images/65de99acd5f9cfdaebea6dc8485f94370fab6762d29bade8571574a9a634bb83.svg" src="../_images/65de99acd5f9cfdaebea6dc8485f94370fab6762d29bade8571574a9a634bb83.svg" />
-</div>
+<img alt="../_images/008cd686746e817963aaa8f0b62db8cf01080b9f1fe2ce8b6b4c6ab8f9aa614b.svg" src="../_images/008cd686746e817963aaa8f0b62db8cf01080b9f1fe2ce8b6b4c6ab8f9aa614b.svg" /><img alt="../_images/1d27d867848a8d50dfb5253f45e8b86a80c4ec028e0bb26ca747b092644fd2ec.svg" src="../_images/1d27d867848a8d50dfb5253f45e8b86a80c4ec028e0bb26ca747b092644fd2ec.svg" /><img alt="../_images/916b3ba76853c5484e040bb0fd8fe7e32de2f239bc7093ded83b2f2dacd39f37.svg" src="../_images/916b3ba76853c5484e040bb0fd8fe7e32de2f239bc7093ded83b2f2dacd39f37.svg" /><img alt="../_images/7e3e8ce6ad3f1d39fca0e4b9c8a836ba8693e75581a1d0745add34e4b570b156.svg" src="../_images/7e3e8ce6ad3f1d39fca0e4b9c8a836ba8693e75581a1d0745add34e4b570b156.svg" /><img alt="../_images/99e31f8c77aa5eca3fcf9474eaa36d4d5d1b7bdf8a412033b1b42e9fe968a406.svg" src="../_images/99e31f8c77aa5eca3fcf9474eaa36d4d5d1b7bdf8a412033b1b42e9fe968a406.svg" /><img alt="../_images/808546496c6a1d90ba3c1c2bbf96471babd48f746f68df2ca1baae972404d20e.svg" src="../_images/808546496c6a1d90ba3c1c2bbf96471babd48f746f68df2ca1baae972404d20e.svg" /><img alt="../_images/b7f81af3a356fe92f28a3e664557f7062aba6a041162d5702d9dc25dbc6ba27f.svg" src="../_images/b7f81af3a356fe92f28a3e664557f7062aba6a041162d5702d9dc25dbc6ba27f.svg" /><img alt="../_images/220453bd161691a810666fdf6e59c447313285c31661b2968c20b4a3e96f532d.svg" src="../_images/220453bd161691a810666fdf6e59c447313285c31661b2968c20b4a3e96f532d.svg" /><img alt="../_images/1fc48acf90eef02e259711fbfc58d4e02d8bb9712f111db46319c8543e153da2.svg" src="../_images/1fc48acf90eef02e259711fbfc58d4e02d8bb9712f111db46319c8543e153da2.svg" /><img alt="../_images/65de99acd5f9cfdaebea6dc8485f94370fab6762d29bade8571574a9a634bb83.svg" src="../_images/65de99acd5f9cfdaebea6dc8485f94370fab6762d29bade8571574a9a634bb83.svg" /></div>
 </div>
 <section id="questions">
-<h2>Questions<a class="headerlink" href="#questions" title="Link to this heading">#</a></h2>
+<h2>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Which cluster centers are digits, and which aren’t digits? Pick one of the non-digist clusters and figure out where it is. You can do this by looking at <code class="docutils literal notranslate"><span class="pre">cl.centers_</span></code> to identify the coordinates of the center. Why was it picked? Does its shape make sense now?</p></li>
 <li><p>Repeat the above analysis using three principal components (instead of 2). (Note that the 2D visualization of the principal components will not make much sense now, so take it with a grain of salt.) Pay special attention to the identified cluster centers as images. Better or worse than before?</p></li>
@@ -1043,7 +1025,7 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>

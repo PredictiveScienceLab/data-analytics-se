@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Variational Inference &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
@@ -28,35 +29,39 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture28/reading-28';</script>
@@ -154,18 +159,7 @@
     <p class="title logo__title">Introduction to Scientific Machine Learning (Lecture Book)</p>
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -437,9 +431,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -464,14 +458,14 @@
       
       <li><a href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture28/reading-28.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch on Colab"
+   title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+    <img src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -564,9 +558,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -609,9 +603,9 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="variational-inference">
-<h1>Variational Inference<a class="headerlink" href="#variational-inference" title="Link to this heading">#</a></h1>
+<h1>Variational Inference<a class="headerlink" href="#variational-inference" title="Permalink to this heading">#</a></h1>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>These notes.</p></li>
 <li><p><a class="reference external" href="https://arxiv.org/pdf/1601.00670.pdf">Variational Inference: A Review for Statisticians (Blei et al, 2018)</a>.</p></li>
@@ -626,9 +620,9 @@ Please consult the papers above for more details.</p>
 <p><strong>Note:</strong> This document was originally developed by <a class="reference external" href="https://rohittripathy.netlify.com">Dr. Rohit Tripathy</a>.</p>
 </section>
 <section id="bayesian-inference">
-<h2>Bayesian Inference<a class="headerlink" href="#bayesian-inference" title="Link to this heading">#</a></h2>
+<h2>Bayesian Inference<a class="headerlink" href="#bayesian-inference" title="Permalink to this heading">#</a></h2>
 <section id="quick-review">
-<h3>Quick Review<a class="headerlink" href="#quick-review" title="Link to this heading">#</a></h3>
+<h3>Quick Review<a class="headerlink" href="#quick-review" title="Permalink to this heading">#</a></h3>
 <p>Once again, let’s begin with a review of Bayesian inference.</p>
 <p>Our goal is to derive a probability distribution over unknown quantities (or latent variables), conditional on any observed data (i.e. a posterior distribution).
 Without loss of generality, we denote all unknown quantities in our model as <span class="math notranslate nohighlight">\(\theta\)</span> and the observed data as <span class="math notranslate nohighlight">\(\mathcal{D}\)</span>.</p>
@@ -642,13 +636,13 @@ p(\theta | \mathcal{D}) \propto p(\mathcal{D}, \theta).
 <p>In the Bayesian framework, predictions about unseen data (or test data), are posed as expectations over this posterior distribution.</p>
 </section>
 <section id="what-is-the-problem">
-<h3>What is the problem?<a class="headerlink" href="#what-is-the-problem" title="Link to this heading">#</a></h3>
+<h3>What is the problem?<a class="headerlink" href="#what-is-the-problem" title="Permalink to this heading">#</a></h3>
 <p>Unfortunately, as you already know, the posterior distribution is more often than not unavailable in closed form.
 This is due to the intractablity of the <em>evidence</em> (or <em>marginal likelihood</em>), i.e., the denominator in the Bayes’ rule, <span class="math notranslate nohighlight">\(Z = \int p(\theta, \mathcal{D}) \mathrm{d}\theta\)</span>.
 Infact, there are only a small class of prior-posterior models that admit closed form expressions for the posterior distributions (<em>conjugate models</em>).</p>
 </section>
 <section id="approximating-the-posterior">
-<h3>Approximating the posterior<a class="headerlink" href="#approximating-the-posterior" title="Link to this heading">#</a></h3>
+<h3>Approximating the posterior<a class="headerlink" href="#approximating-the-posterior" title="Permalink to this heading">#</a></h3>
 <p>There are several approaches to do this:</p>
 <ol class="arabic simple">
 <li><p>The posterior density <span class="math notranslate nohighlight">\(p(\theta | \mathcal{D})\)</span> is approximated with a point mass density, i.e., <span class="math notranslate nohighlight">\(p(\theta | \mathcal{D})  = \delta_{\theta^*}(\theta)\)</span>, where, <span class="math notranslate nohighlight">\(\delta_{\theta^*}(\theta) = \begin{cases}  1, \text{ if } \theta = \theta^*, \\  0 \text{ otherwise.} \end{cases}\)</span>
@@ -669,7 +663,7 @@ Needless to say, we want to set up this optimization problem such that we only n
 This is our topic today.</p>
 </section>
 <section id="id1">
-<h3>Variational Inference<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<h3>Variational Inference<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>Different VI procedures are obtained based on different choices of the approximating family <span class="math notranslate nohighlight">\(q_{\phi}(\cdot)\)</span> and the functional <span class="math notranslate nohighlight">\(\mathrm{D}[\cdot, \cdot]\)</span>. The most standard choice for <span class="math notranslate nohighlight">\(\mathrm{D}\)</span> is the <em>Kullback Leibler (KL) divergence</em>.
 The KL divergence between two densities <span class="math notranslate nohighlight">\(q(\theta)\)</span> and <span class="math notranslate nohighlight">\(p(\theta)\)</span> is defined as follows:</p>
 <div class="math notranslate nohighlight">
@@ -690,7 +684,7 @@ p(\theta|\mathcal{D}) \approx q_{\phi}(\theta) = \prod_{i=1}^{M} {q_{i}}_{\phi_i
 <p>where <span class="math notranslate nohighlight">\(q_{\phi_i}(\cdot)\)</span> is the approximate marginal posterior over the latent variable <span class="math notranslate nohighlight">\(\theta_i\)</span> parameterized by <span class="math notranslate nohighlight">\(\phi_i\)</span>.</p>
 </section>
 <section id="evidence-lower-bound-elbo">
-<h3>Evidence Lower Bound (ELBO)<a class="headerlink" href="#evidence-lower-bound-elbo" title="Link to this heading">#</a></h3>
+<h3>Evidence Lower Bound (ELBO)<a class="headerlink" href="#evidence-lower-bound-elbo" title="Permalink to this heading">#</a></h3>
 <p>So, to recap, the generic VI strategy is to pose a suitable parameterized family of densities <span class="math notranslate nohighlight">\(q_{\phi}(\theta)\)</span> to approximate the true posterior <span class="math notranslate nohighlight">\(p(\theta|\mathcal{D})\)</span> and to minimize the KL divergence from <span class="math notranslate nohighlight">\(q\)</span> to <span class="math notranslate nohighlight">\(p\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -730,7 +724,7 @@ Since  <span class="math notranslate nohighlight">\(\mathcal{L}(\phi)\)</span> d
 <p>Another nice by-product of doing Bayesian inference by maximizing the ELBO is that we can perform Bayesian model selection. Bayesian model selection relies on the estimation and comparison of the model evidence <span class="math notranslate nohighlight">\(Z\)</span> (or it’s log) and in VI we work with an approximation to this quantity.</p>
 </section>
 <section id="automatic-differentiation-variational-inference-advi">
-<h3>Automatic Differentiation Variational Inference (ADVI)<a class="headerlink" href="#automatic-differentiation-variational-inference-advi" title="Link to this heading">#</a></h3>
+<h3>Automatic Differentiation Variational Inference (ADVI)<a class="headerlink" href="#automatic-differentiation-variational-inference-advi" title="Permalink to this heading">#</a></h3>
 <p>In what follows, we will discuss a practical way of curring out VI.
 The details can be found in <a class="reference external" href="https://arxiv.org/pdf/1603.00788.pdf">this</a> paper.
 Suppose you have put together the joint probability model <span class="math notranslate nohighlight">\(p(\theta, \mathcal{D})\)</span>. The latent variables that have to be inferred are <span class="math notranslate nohighlight">\(\theta = (\theta_1, \theta_2, \dots, \theta_M)\)</span>. Variational inference in generic probability models can become extremely tedious and complicated due to the fact the individual <span class="math notranslate nohighlight">\(\theta_i\)</span>s may come from different probability spaces and have different supports. This means that the user must pose appropriate variational distributions for each <span class="math notranslate nohighlight">\(\theta_i\)</span> and derive gradients of the probability model, <span class="math notranslate nohighlight">\(p\)</span>, wrt to the individual latent variables separately. Furthermore, taking the gradient of the ELBO wrt to the variational parameters require differentiating through a sampling procedure for approximating the datafit term - <span class="math notranslate nohighlight">\(\mathbb{E}_{q(\theta)}[\log p(\theta, \mathcal{D})] \approx \frac{1}{S} \sum_{s=1}^{S}\log p(\theta^{(s)}, \mathcal{D}), \theta^{(s)} \sim q(\theta)\)</span>.
@@ -757,7 +751,8 @@ q_{\phi}(\theta) = \mathrm{MVN}(\theta| \mu , \Sigma),
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">npimport</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span> <span class="k">as</span> <span class="n">st</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">st</span>
 </pre></div>
 </div>
 </div>
@@ -864,7 +859,7 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>

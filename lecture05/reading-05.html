@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Collections of Random Variables: Theory &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
@@ -28,35 +29,39 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture05/reading-05';</script>
@@ -154,18 +159,7 @@
     <p class="title logo__title">Introduction to Scientific Machine Learning (Lecture Book)</p>
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -437,9 +431,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -464,14 +458,14 @@
       
       <li><a href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture05/reading-05.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch on Colab"
+   title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+    <img src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -564,9 +558,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -615,9 +609,9 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="collections-of-random-variables-theory">
-<h1>Collections of Random Variables: Theory<a class="headerlink" href="#collections-of-random-variables-theory" title="Link to this heading">#</a></h1>
+<h1>Collections of Random Variables: Theory<a class="headerlink" href="#collections-of-random-variables-theory" title="Permalink to this heading">#</a></h1>
 <section id="joint-probability-mass-function">
-<h2>Joint probability mass function<a class="headerlink" href="#joint-probability-mass-function" title="Link to this heading">#</a></h2>
+<h2>Joint probability mass function<a class="headerlink" href="#joint-probability-mass-function" title="Permalink to this heading">#</a></h2>
 <p>Consider two random variables, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.
 The <em>joint probability mass function</em> of the pair <span class="math notranslate nohighlight">\((X, Y)\)</span> is the function <span class="math notranslate nohighlight">\(f_{X, Y}(x,y)\)</span> giving the probability that <span class="math notranslate nohighlight">\(X=x\)</span> and <span class="math notranslate nohighlight">\(Y=y\)</span>.
 Mathematically (and introducing a simplified notation), we have:</p>
@@ -626,7 +620,7 @@ Mathematically (and introducing a simplified notation), we have:</p>
 p(x,y) \equiv p(X=x, Y=y) \equiv f_{X,Y}(x,y) := p\left(\{\omega: X(\omega) = x, Y(\omega)=y\}\right).
 \]</div>
 <section id="properties-of-the-joint-probability-mass-function">
-<h3>Properties of the joint probability mass function<a class="headerlink" href="#properties-of-the-joint-probability-mass-function" title="Link to this heading">#</a></h3>
+<h3>Properties of the joint probability mass function<a class="headerlink" href="#properties-of-the-joint-probability-mass-function" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>It is nonnegative:</p></li>
 </ul>
@@ -657,7 +651,7 @@ p(y) = \sum_x p(x, y).
 </section>
 </section>
 <section id="joint-probability-density-function">
-<h2>Joint probability density function<a class="headerlink" href="#joint-probability-density-function" title="Link to this heading">#</a></h2>
+<h2>Joint probability density function<a class="headerlink" href="#joint-probability-density-function" title="Permalink to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables.
 Their joint probability density <span class="math notranslate nohighlight">\(f_{X, Y}(x,y)\)</span> is the function that can give us the probability that the pair <span class="math notranslate nohighlight">\((X, Y)\)</span> belongs to any “good” subset <span class="math notranslate nohighlight">\(A\)</span> of <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> as follows:</p>
 <div class="math notranslate nohighlight">
@@ -685,7 +679,7 @@ p(y) = \int_{-\infty}^\infty p(x, y) dx.
 The process we follow is called <em>marginalization</em>.</p>
 </section>
 <section id="conditioning-a-random-variable-on-another">
-<h2>Conditioning a random variable on another<a class="headerlink" href="#conditioning-a-random-variable-on-another" title="Link to this heading">#</a></h2>
+<h2>Conditioning a random variable on another<a class="headerlink" href="#conditioning-a-random-variable-on-another" title="Permalink to this heading">#</a></h2>
 <p>Consider two random variables, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.
 If we had observed that <span class="math notranslate nohighlight">\(Y=y\)</span>, how would this change the PDF of <span class="math notranslate nohighlight">\(X\)</span>?
 The answer is given via Bayes’ rule.
@@ -710,7 +704,7 @@ p(x|y) = \frac{p(x,y)}{\int_{-\infty}^\infty p(x',y)dx'}.
 The joint contains all the information you need.</p>
 </section>
 <section id="expectation-of-a-function-of-two-random-variables">
-<h2>Expectation of a function of two random variables<a class="headerlink" href="#expectation-of-a-function-of-two-random-variables" title="Link to this heading">#</a></h2>
+<h2>Expectation of a function of two random variables<a class="headerlink" href="#expectation-of-a-function-of-two-random-variables" title="Permalink to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables.
 Take a third random variable <span class="math notranslate nohighlight">\(Z = g(X, Y)\)</span>.
 One can show that the expectation of <span class="math notranslate nohighlight">\(Z\)</span> is given in terms of the joint PDF of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> as follows:</p>
@@ -740,7 +734,7 @@ In this case, one can show that:</p>
 </div>
 </section>
 <section id="the-covariance-operator">
-<h2>The covariance operator<a class="headerlink" href="#the-covariance-operator" title="Link to this heading">#</a></h2>
+<h2>The covariance operator<a class="headerlink" href="#the-covariance-operator" title="Permalink to this heading">#</a></h2>
 <p>The covariance operator measures how correlated two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are.
 Its definition is:</p>
 <div class="math notranslate nohighlight">
@@ -757,7 +751,7 @@ When one is above its mean, the other is below its mean.</p></li>
 </ul>
 <p>In the first case, we say that the two random variables are positively correlated; in the second case, we say they are negatively correlated.</p>
 <section id="properties-of-the-covariance-operator">
-<h3>Properties of the covariance operator<a class="headerlink" href="#properties-of-the-covariance-operator" title="Link to this heading">#</a></h3>
+<h3>Properties of the covariance operator<a class="headerlink" href="#properties-of-the-covariance-operator" title="Permalink to this heading">#</a></h3>
 <p>The covariance operator has the following properties:</p>
 <ul class="simple">
 <li><p>It is symmetric:</p></li>
@@ -802,7 +796,7 @@ Here the two random variables tend to cancel each other out.
 If the two random variables are not correlated, then the covariance is zero, and the variance of the sum is the sum of the variances.</p>
 </section>
 <section id="the-correlation-coefficient">
-<h3>The correlation coefficient<a class="headerlink" href="#the-correlation-coefficient" title="Link to this heading">#</a></h3>
+<h3>The correlation coefficient<a class="headerlink" href="#the-correlation-coefficient" title="Permalink to this heading">#</a></h3>
 <p>The covariance of two random variables is not a very useful correlation measure because it depends on the units of the random variables.
 For example, if you measure a person’s height in meters or feet, the covariance of the height and the weight of the person will be different.
 To solve this problem, we can define the correlation coefficient:</p>
@@ -818,7 +812,7 @@ The correlation coefficient is unitless and a more useful measure of correlation
 </section>
 </section>
 <section id="independent-random-variables">
-<h2>Independent random variables<a class="headerlink" href="#independent-random-variables" title="Link to this heading">#</a></h2>
+<h2>Independent random variables<a class="headerlink" href="#independent-random-variables" title="Permalink to this heading">#</a></h2>
 <p>Take two random variables, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.
 We say that the two random variables are independent given the background, and we write:</p>
 <div class="math notranslate nohighlight">
@@ -850,7 +844,7 @@ p(y|x) &amp;= \frac{p(x,y)}{p(x)}\\
 \end{split}\]</div>
 </div>
 <section id="properties-of-independent-random-variables">
-<h3>Properties of independent random variables<a class="headerlink" href="#properties-of-independent-random-variables" title="Link to this heading">#</a></h3>
+<h3>Properties of independent random variables<a class="headerlink" href="#properties-of-independent-random-variables" title="Permalink to this heading">#</a></h3>
 <p>The joint pmf factories:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -914,7 +908,8 @@ We will see an example of this in the homework.</p>
 \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">npimport</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span> <span class="k">as</span> <span class="n">st</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">st</span>
 </pre></div>
 </div>
 </div>
@@ -1027,7 +1022,7 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>

@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>State Space Models - Kalman Filters &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
@@ -28,35 +29,39 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture20/reading-20';</script>
@@ -154,18 +159,7 @@
     <p class="title logo__title">Introduction to Scientific Machine Learning (Lecture Book)</p>
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -437,9 +431,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -464,14 +458,14 @@
       
       <li><a href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture20/reading-20.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch on Colab"
+   title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+    <img src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -564,9 +558,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -605,7 +599,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="state-space-models-kalman-filters">
-<span id="kalman-filters"></span><h1>State Space Models - Kalman Filters<a class="headerlink" href="#state-space-models-kalman-filters" title="Link to this heading">#</a></h1>
+<span id="kalman-filters"></span><h1>State Space Models - Kalman Filters<a class="headerlink" href="#state-space-models-kalman-filters" title="Permalink to this heading">#</a></h1>
 <p>Kalman filters solve the filtering problem for the case of linear transitions and emissions with Gaussian probabilities.
 In the notation of the previous lecture, these can be expressed either as equations:</p>
 <ul class="simple">
@@ -658,7 +652,7 @@ p(\mathbf{y}_{t}|\mathbf{x}_t) = N(\mathbf{y}_t|\mathbf{C}\mathbf{x}_t,\mathbf{R
 If you want to dive deeper into the technical part, I suggest you read <a class="reference external" href="https://www.springer.com/gp/book/9780387310732">Chapter 13.3, Bishop (2006)</a>.
 Another excellent resource, albeit rather extensive, is the open-source book <a class="reference external" href="https://github.com/rlabbe/Kalman-and-Bayesian-Filters-in-Python">Kalman and Bayesian Filters in Python</a> and in particular <a class="reference external" href="https://github.com/rlabbe/Kalman-and-Bayesian-Filters-in-Python/blob/master/07-Kalman-Filter-Math.ipynb">Chapter 7</a>.</p>
 <section id="the-kalmann-filter-algorithm">
-<h2>The Kalmann filter algorithm<a class="headerlink" href="#the-kalmann-filter-algorithm" title="Link to this heading">#</a></h2>
+<h2>The Kalmann filter algorithm<a class="headerlink" href="#the-kalmann-filter-algorithm" title="Permalink to this heading">#</a></h2>
 <p>The Kalman filter algorithm is a recursive algorithm that computes the posterior distribution <span class="math notranslate nohighlight">\(p(\mathbf{x}_t|\mathbf{y}_{1:t}, \mathbf{u}_{1:t})\)</span>.
 It is composed of two steps:</p>
 <ul class="simple">
@@ -667,7 +661,7 @@ It is composed of two steps:</p>
 </ul>
 <p>We will now go through each of these steps in detail.</p>
 <section id="prediction-step">
-<h3>Prediction step<a class="headerlink" href="#prediction-step" title="Link to this heading">#</a></h3>
+<h3>Prediction step<a class="headerlink" href="#prediction-step" title="Permalink to this heading">#</a></h3>
 <p>Suppose we have computed the posterior distribution <span class="math notranslate nohighlight">\(p(\mathbf{x}_{t-1}|\mathbf{y}_{1:t-1}, \mathbf{u}_{1:t-1})\)</span>.
 It turns out that this distribution is a Gaussian distribution with mean <span class="math notranslate nohighlight">\(\boldsymbol{\mu}_{t-1}\)</span> and covariance matrix <span class="math notranslate nohighlight">\(\mathbf{V}_{t-1}\)</span>.
 We will see how we can compute these parameters recursively in the update step.
@@ -699,7 +693,7 @@ We write the mean and covariance matrix of the prior distribution as:</p>
 <p>We have used a superscript <span class="math notranslate nohighlight">\(p\)</span> to denote that these are computed in the prediction step.</p>
 </section>
 <section id="update-step">
-<h3>Update step<a class="headerlink" href="#update-step" title="Link to this heading">#</a></h3>
+<h3>Update step<a class="headerlink" href="#update-step" title="Permalink to this heading">#</a></h3>
 <p>Now suppose we have computed the prior distribution <span class="math notranslate nohighlight">\(p(\mathbf{x}_t|\mathbf{y}_{1:t-1}, \mathbf{u}_{1:t})\)</span> during the prediction step.
 It is a Gaussian distribution with mean <span class="math notranslate nohighlight">\(\boldsymbol{\mu}^p_t\)</span> and covariance matrix <span class="math notranslate nohighlight">\(\mathbf{V}^p_t\)</span>.
 We want to condition on a new measurement <span class="math notranslate nohighlight">\(\mathbf{y}_t\)</span>.
@@ -729,7 +723,7 @@ The mean and covariance matrix of this distribution are given by:</p>
 </section>
 </section>
 <section id="smoothing">
-<h2>Smoothing<a class="headerlink" href="#smoothing" title="Link to this heading">#</a></h2>
+<h2>Smoothing<a class="headerlink" href="#smoothing" title="Permalink to this heading">#</a></h2>
 <p>The Kalman filter algorithm computes the posterior distribution <span class="math notranslate nohighlight">\(p(\mathbf{x}_t|\mathbf{y}_{1:t}, \mathbf{u}_{1:t})\)</span>.
 This is the distribution of the state at time <span class="math notranslate nohighlight">\(t\)</span> given all measurements and control inputs up to time <span class="math notranslate nohighlight">\(t\)</span>.
 This is useful for many applications.
@@ -905,7 +899,7 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>

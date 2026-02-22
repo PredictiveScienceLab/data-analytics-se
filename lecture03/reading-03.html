@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Discrete Random Variables &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
@@ -28,35 +29,39 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture03/reading-03';</script>
@@ -154,18 +159,7 @@
     <p class="title logo__title">Introduction to Scientific Machine Learning (Lecture Book)</p>
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -437,9 +431,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -464,14 +458,14 @@
       
       <li><a href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture03/reading-03.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch on Colab"
+   title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+    <img src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -564,9 +558,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -619,11 +613,11 @@ document.write(`
                   
   <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
-<span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">st</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn-v0_8-white&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
@@ -633,9 +627,9 @@ document.write(`
 </div>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="discrete-random-variables">
-<span id="id1"></span><h1>Discrete Random Variables<a class="headerlink" href="#discrete-random-variables" title="Link to this heading">#</a></h1>
+<span id="id1"></span><h1>Discrete Random Variables<a class="headerlink" href="#discrete-random-variables" title="Permalink to this heading">#</a></h1>
 <section id="probability-spaces">
-<h2>Probability spaces<a class="headerlink" href="#probability-spaces" title="Link to this heading">#</a></h2>
+<h2>Probability spaces<a class="headerlink" href="#probability-spaces" title="Permalink to this heading">#</a></h2>
 <p>We condition the probabilities on our current information <span class="math notranslate nohighlight">\(I\)</span> in whatever we write below.
 Because this information is always in the background, we will not explicitly show it in our notation.</p>
 <p>Let’s suppose we are doing an experiment.
@@ -663,7 +657,7 @@ You will have to take a course in measure theory to learn more about this.</p>
 </div>
 </section>
 <section id="the-mathematical-definition-of-a-random-variable">
-<h2>The mathematical definition of a random variable<a class="headerlink" href="#the-mathematical-definition-of-a-random-variable" title="Link to this heading">#</a></h2>
+<h2>The mathematical definition of a random variable<a class="headerlink" href="#the-mathematical-definition-of-a-random-variable" title="Permalink to this heading">#</a></h2>
 <p>Call <span class="math notranslate nohighlight">\(X\)</span> the result of the experiment.
 It is, say, the number we read in a measuring device.
 What does the measuring device do?
@@ -690,7 +684,7 @@ The random variable has to be a measurable function from <span class="math notra
 <li><p>We will use lowercase letters to represent the values of random variables, like <span class="math notranslate nohighlight">\(x, y, z\)</span>.</p></li>
 </ul>
 <section id="example-the-random-variable-corresponding-to-the-result-of-a-coin-toss-1-2">
-<h3>Example: The random variable corresponding to the result of a coin toss (1/2)<a class="headerlink" href="#example-the-random-variable-corresponding-to-the-result-of-a-coin-toss-1-2" title="Link to this heading">#</a></h3>
+<h3>Example: The random variable corresponding to the result of a coin toss (1/2)<a class="headerlink" href="#example-the-random-variable-corresponding-to-the-result-of-a-coin-toss-1-2" title="Permalink to this heading">#</a></h3>
 <p>Let’s consider the coin tossing example we introduced in <a class="reference internal" href="../lecture02/hands-on-02.html#coin-toss"><span class="std std-ref">the previous lecture</span></a> again.
 Recall that we denoted with <span class="math notranslate nohighlight">\(v_0\)</span> and <span class="math notranslate nohighlight">\(\omega_0\)</span> the coin’s initial velocity and angular velocity.
 These two ultimately determine the result of the experiment.
@@ -728,12 +722,11 @@ We reproduce the causal graph:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/8c19b88e5a9e9949f2485289dfc37ec172771224aca184fd1f9c268cb66d4555.svg" src="../_images/8c19b88e5a9e9949f2485289dfc37ec172771224aca184fd1f9c268cb66d4555.svg" />
-</div>
+<img alt="../_images/8c19b88e5a9e9949f2485289dfc37ec172771224aca184fd1f9c268cb66d4555.svg" src="../_images/8c19b88e5a9e9949f2485289dfc37ec172771224aca184fd1f9c268cb66d4555.svg" /></div>
 </div>
 </section>
 <section id="the-probability-mass-function">
-<h3>The probability mass function<a class="headerlink" href="#the-probability-mass-function" title="Link to this heading">#</a></h3>
+<h3>The probability mass function<a class="headerlink" href="#the-probability-mass-function" title="Permalink to this heading">#</a></h3>
 <p>We will now focus on the discrete random variable <span class="math notranslate nohighlight">\(X\)</span>.
 The probability mass function of <span class="math notranslate nohighlight">\(X\)</span> is a function that gives the probability of <span class="math notranslate nohighlight">\(X\)</span> taking a particular value, say <span class="math notranslate nohighlight">\(x\)</span>.</p>
 <p>Mathematicians write <span class="math notranslate nohighlight">\(f_X(x)\)</span> for the probability mass function of <span class="math notranslate nohighlight">\(X\)</span>.
@@ -765,7 +758,7 @@ If we have it, we can calculate any probability we want about the random variabl
 </div>
 </section>
 <section id="properties-of-the-probability-mass-function">
-<h3>Properties of the probability mass function<a class="headerlink" href="#properties-of-the-probability-mass-function" title="Link to this heading">#</a></h3>
+<h3>Properties of the probability mass function<a class="headerlink" href="#properties-of-the-probability-mass-function" title="Permalink to this heading">#</a></h3>
 <p>There are some standard properties of the probability mass function that is worth memorizing:</p>
 <ul class="simple">
 <li><p>It is nonnegative:</p></li>
@@ -792,7 +785,7 @@ p(X\in A) = \sum_{x\in A} p(x).
 \]</div>
 </section>
 <section id="example-the-random-variable-corresponding-to-the-result-of-a-coin-toss-2-2">
-<h3>Example: The random variable corresponding to the result of a coin toss (2/2)<a class="headerlink" href="#example-the-random-variable-corresponding-to-the-result-of-a-coin-toss-2-2" title="Link to this heading">#</a></h3>
+<h3>Example: The random variable corresponding to the result of a coin toss (2/2)<a class="headerlink" href="#example-the-random-variable-corresponding-to-the-result-of-a-coin-toss-2-2" title="Permalink to this heading">#</a></h3>
 <p>Suppose <span class="math notranslate nohighlight">\(X\)</span> is the random variable corresponding to the result of the coin toss.
 We will write <span class="math notranslate nohighlight">\(X=0\)</span> if the result is heads and <span class="math notranslate nohighlight">\(X=1\)</span> if the result is tails.
 As mentioned earlier, we can directly work with the probability mass function instead of trying to define the underlying probability space.
@@ -822,7 +815,7 @@ They have a point, but I’d save myself the trouble of always writing <span cla
 </section>
 </section>
 <section id="functions-of-discrete-random-variables">
-<h2>Functions of discrete random variables<a class="headerlink" href="#functions-of-discrete-random-variables" title="Link to this heading">#</a></h2>
+<h2>Functions of discrete random variables<a class="headerlink" href="#functions-of-discrete-random-variables" title="Permalink to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> be a discrete random variable and <span class="math notranslate nohighlight">\(g\)</span> be a function from the state space of <span class="math notranslate nohighlight">\(X\)</span> to some other set.
 We can now define a new random variable:</p>
 <div class="math notranslate nohighlight">
@@ -843,7 +836,7 @@ p(y) = p(Y = y) = p(X\in g^{-1}(y)) = \sum_{x\in g^{-1}(y)} p(x),
 The correspondence is that <span class="math notranslate nohighlight">\(X\)</span> represents the parameters of a causal model, and <span class="math notranslate nohighlight">\(Y = g(X)\)</span> is the uncertain result of the causal model.</p>
 </section>
 <section id="expectation-of-random-variables">
-<h2>Expectation of random variables<a class="headerlink" href="#expectation-of-random-variables" title="Link to this heading">#</a></h2>
+<h2>Expectation of random variables<a class="headerlink" href="#expectation-of-random-variables" title="Permalink to this heading">#</a></h2>
 <p>The expectation of a random variable is defined by:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -851,7 +844,7 @@ The correspondence is that <span class="math notranslate nohighlight">\(X\)</spa
 \]</div>
 <p>You can think of the expectation as the value of the random variable that one should “expect” to get.</p>
 <section id="example-expectation-of-a-coin-toss">
-<h3>Example: Expectation of a coin toss<a class="headerlink" href="#example-expectation-of-a-coin-toss" title="Link to this heading">#</a></h3>
+<h3>Example: Expectation of a coin toss<a class="headerlink" href="#example-expectation-of-a-coin-toss" title="Permalink to this heading">#</a></h3>
 <p>The expectation of the coin toss random variable is:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -862,7 +855,7 @@ The expectation is not necessarily a value that the random variable can take.
 It is weird to say that we “expect” to get <span class="math notranslate nohighlight">\(0.5\)</span> when we toss a coin.</p>
 </section>
 <section id="properties-of-the-expectation">
-<span id="properties-expectation"></span><h3>Properties of the expectation<a class="headerlink" href="#properties-of-the-expectation" title="Link to this heading">#</a></h3>
+<span id="properties-expectation"></span><h3>Properties of the expectation<a class="headerlink" href="#properties-of-the-expectation" title="Permalink to this heading">#</a></h3>
 <p>Here are some properties of the expectation.</p>
 <ul class="simple">
 <li><p>Take any constant <span class="math notranslate nohighlight">\(c\)</span>. Then we have:</p></li>
@@ -963,7 +956,7 @@ g\left(\mathbb{E}[X]\right) \le \mathbb{E}[g(X)].
 </section>
 </section>
 <section id="variance-of-random-variables">
-<h2>Variance of random variables<a class="headerlink" href="#variance-of-random-variables" title="Link to this heading">#</a></h2>
+<h2>Variance of random variables<a class="headerlink" href="#variance-of-random-variables" title="Permalink to this heading">#</a></h2>
 <p>The variance of a random variable <span class="math notranslate nohighlight">\(X\)</span> is defined as the expectation of the square deviation from its expectation, i.e.:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -972,7 +965,7 @@ g\left(\mathbb{E}[X]\right) \le \mathbb{E}[g(X)].
 <p>You can think of the variance as the spread of the random variable around its expectation.
 However, take this with a grain of salt for discrete random variables.</p>
 <section id="example-variance-of-a-coin-toss">
-<h3>Example: Variance of a coin toss<a class="headerlink" href="#example-variance-of-a-coin-toss" title="Link to this heading">#</a></h3>
+<h3>Example: Variance of a coin toss<a class="headerlink" href="#example-variance-of-a-coin-toss" title="Permalink to this heading">#</a></h3>
 <p>Let’s calculate the variance of the coin toss.
 We need:</p>
 <div class="math notranslate nohighlight">
@@ -986,7 +979,7 @@ We need:</p>
 \]</div>
 </section>
 <section id="properties-of-the-variance">
-<span id="properties-variance"></span><h3>Properties of the variance<a class="headerlink" href="#properties-of-the-variance" title="Link to this heading">#</a></h3>
+<span id="properties-variance"></span><h3>Properties of the variance<a class="headerlink" href="#properties-of-the-variance" title="Permalink to this heading">#</a></h3>
 <p>Here are some properties of the variance.</p>
 <ul class="simple">
 <li><p>It holds that:</p></li>
@@ -1158,7 +1151,7 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>

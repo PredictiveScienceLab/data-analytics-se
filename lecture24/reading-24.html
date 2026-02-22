@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Deep Neural Networks &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
@@ -28,35 +29,39 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture24/reading-24';</script>
@@ -154,18 +159,7 @@
     <p class="title logo__title">Introduction to Scientific Machine Learning (Lecture Book)</p>
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -437,9 +431,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -464,14 +458,14 @@
       
       <li><a href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture24/reading-24.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch on Colab"
+   title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+    <img src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -564,9 +558,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -610,10 +604,10 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="deep-neural-networks">
-<h1>Deep Neural Networks<a class="headerlink" href="#deep-neural-networks" title="Link to this heading">#</a></h1>
+<h1>Deep Neural Networks<a class="headerlink" href="#deep-neural-networks" title="Permalink to this heading">#</a></h1>
 <p>These notes are incomplete. They merely provide a summary. Please consult Chapters 6, 7, and 8 of <span id="id1">[<a class="reference internal" href="../bibliography.html#id16" title="Ian Goodfellow, Yoshua Bengio, and Aaron Courville. Deep Learning. MIT Press, 2016. http://www.deeplearningbook.org.">Goodfellow <em>et al.</em>, 2016</a>]</span> for more details.</p>
 <section id="deep-neural-networks-as-universal-function-approximators">
-<h2>Deep neural networks as universal function approximators<a class="headerlink" href="#deep-neural-networks-as-universal-function-approximators" title="Link to this heading">#</a></h2>
+<h2>Deep neural networks as universal function approximators<a class="headerlink" href="#deep-neural-networks-as-universal-function-approximators" title="Permalink to this heading">#</a></h2>
 <p>Deep neural networks (DNN) are function approximators expressing hierarchically layered information.
 You can use DNNs to approximate a function of <span class="math notranslate nohighlight">\(d\)</span> inputs to <span class="math notranslate nohighlight">\(q\)</span> outputs using some parameters <span class="math notranslate nohighlight">\(\theta\)</span>.
 We, typicaly write <span class="math notranslate nohighlight">\(\mathbf{y} = f(\mathbf{x};\theta)\)</span>.
@@ -641,11 +635,11 @@ Don’t try to memorize this. We will revisit it in the following lecture.</p></
 </ol>
 <p>Different ways of constructing the compositional structure of <span class="math notranslate nohighlight">\(f\)</span> lead to different <em>architectures</em> such as fully connected networks (shown above), <em>recurrent neural networks</em>, <em>convolutional neural networks</em>, <em>autoencoders</em>, <em>residual networks</em>, etc.</p>
 <section id="activation-functions">
-<h3>Activation functions<a class="headerlink" href="#activation-functions" title="Link to this heading">#</a></h3>
+<h3>Activation functions<a class="headerlink" href="#activation-functions" title="Permalink to this heading">#</a></h3>
 <p>The most common activation functions include the rectified Linear Units or ReLU (and variants), sigmoid functions, hyperbolic tangents, sinusoids, step functions, etc. We will visualize them in the hands-on activity.</p>
 </section>
 <section id="universal-theorem-for-neural-networks">
-<h3>Universal theorem for neural networks<a class="headerlink" href="#universal-theorem-for-neural-networks" title="Link to this heading">#</a></h3>
+<h3>Universal theorem for neural networks<a class="headerlink" href="#universal-theorem-for-neural-networks" title="Permalink to this heading">#</a></h3>
 <p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Universal_approximation_theorem">universal approximation theorem</a> guarantees that DNNs are good function approximators.
 In plain English, the (original) theorem states that if you take any decent activation function and build a dense neural network with which you can approximate any continuous function (defined on a compact input domain) arbitrarily well, if you keep increasing the number of neurons you use.
 Recently, researchers have proven similar theorems for deep neural networks.
@@ -655,7 +649,7 @@ In practice, however, it is a bit more difficult than that.</p>
 </section>
 </section>
 <section id="training-regression-networks-loss-function-view">
-<h2>Training regression networks - Loss function view<a class="headerlink" href="#training-regression-networks-loss-function-view" title="Link to this heading">#</a></h2>
+<h2>Training regression networks - Loss function view<a class="headerlink" href="#training-regression-networks-loss-function-view" title="Permalink to this heading">#</a></h2>
 <p>Assume that you want to solve a regression problem.
 You have input data:</p>
 <div class="math notranslate nohighlight">
@@ -690,7 +684,7 @@ It requires special treatment.
 We will talk about it in a while.</p>
 </section>
 <section id="training-regression-networks-probabilistic-view">
-<h2>Training regression networks - Probabilistic view<a class="headerlink" href="#training-regression-networks-probabilistic-view" title="Link to this heading">#</a></h2>
+<h2>Training regression networks - Probabilistic view<a class="headerlink" href="#training-regression-networks-probabilistic-view" title="Permalink to this heading">#</a></h2>
 <p>Sometimes, it is not straightforward how to come up with loss functions.
 In such situations, we can employ a probabilistic view.
 We must develop a likelihood function that helps us connect the model to the observed data.
@@ -730,7 +724,7 @@ L’(\theta) &amp;= -\log p(y_{1:n}|\mathbf{x}<em>{1:n},\theta)\
 The benefit of the probabilistic approach is that it allows you to be more flexible with how you model the measurement process.</p>
 </section>
 <section id="the-minimization-problem-as-a-stochastic-optimization-problem">
-<h2>The minimization problem as a stochastic optimization problem<a class="headerlink" href="#the-minimization-problem-as-a-stochastic-optimization-problem" title="Link to this heading">#</a></h2>
+<h2>The minimization problem as a stochastic optimization problem<a class="headerlink" href="#the-minimization-problem-as-a-stochastic-optimization-problem" title="Permalink to this heading">#</a></h2>
 <p>As mentioned, <span class="math notranslate nohighlight">\(L(\theta)\)</span> is non-linear and non-convex.
 Classic, gradient-based optimization techniques do not work well on it.
 They tend to get trapped in bad local minima.
@@ -802,7 +796,7 @@ Now take the expectation of this over the <span class="math notranslate nohighli
 Therefore, minimizing <span class="math notranslate nohighlight">\(L(\theta)\)</span> is the same as minimizing the expectation of <span class="math notranslate nohighlight">\(\ell_m(\theta;I_{1:m})\)</span>.</p>
 </section>
 <section id="the-robbins-monro-algorithm">
-<h2>The Robbins-Monro algorithm<a class="headerlink" href="#the-robbins-monro-algorithm" title="Link to this heading">#</a></h2>
+<h2>The Robbins-Monro algorithm<a class="headerlink" href="#the-robbins-monro-algorithm" title="Permalink to this heading">#</a></h2>
 <p>We reached the point where we can discuss the simplest variant of a stochastic optimization algorithm.
 It is the <em>stochastic gradient descent</em> or the Robbins-Monro algorithm, <span id="id2">[<a class="reference internal" href="../bibliography.html#id17" title="Herbert Robbins and Sutton Monro. A Stochastic Approximation Method. The Annals of Mathematical Statistics, 22(3):400 – 407, 1951. URL: https://doi.org/10.1214/aoms/1177729586, doi:10.1214/aoms/1177729586.">Robbins and Monro, 1951</a>]</span>.
 It goes as follows.
@@ -843,7 +837,7 @@ Here is a very commonly used one:</p>
 <p>with <span class="math notranslate nohighlight">\(\rho\)</span> a number between <span class="math notranslate nohighlight">\(0.5\)</span> and <span class="math notranslate nohighlight">\(1\)</span> (exclusive).</p>
 </section>
 <section id="application-of-the-robbins-monro-algorithm-to-training-regression-networks">
-<h2>Application of the Robbins-Monro algorithm to training regression networks<a class="headerlink" href="#application-of-the-robbins-monro-algorithm-to-training-regression-networks" title="Link to this heading">#</a></h2>
+<h2>Application of the Robbins-Monro algorithm to training regression networks<a class="headerlink" href="#application-of-the-robbins-monro-algorithm-to-training-regression-networks" title="Permalink to this heading">#</a></h2>
 <p>The algorithm for training regression networks becomes:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -865,7 +859,7 @@ Software like <a class="reference external" href="https://pytorch.org/">PyTorch<
 In the hands-on activity, I will introduce you to PyTorch.</p>
 </section>
 <section id="advanced-variations-of-stochastic-gradient-descent">
-<h2>Advanced variations of stochastic gradient descent<a class="headerlink" href="#advanced-variations-of-stochastic-gradient-descent" title="Link to this heading">#</a></h2>
+<h2>Advanced variations of stochastic gradient descent<a class="headerlink" href="#advanced-variations-of-stochastic-gradient-descent" title="Permalink to this heading">#</a></h2>
 <p>The RM algorithm is the simplest stochastic optimization algorithm I could explain in a lecture.
 It works, but it is only one of the most commonly used.
 More powerful algorithms like <em>stochastic gradient descent with momentum</em>, <em>AdaGrad</em>, or <em>Adam</em> (adaptive moment estimation) exist.
@@ -973,7 +967,7 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>

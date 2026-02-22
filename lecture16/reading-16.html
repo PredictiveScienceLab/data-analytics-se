@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Theoretical Background on Classification &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
@@ -28,35 +29,39 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture16/reading-16';</script>
@@ -154,18 +159,7 @@
     <p class="title logo__title">Introduction to Scientific Machine Learning (Lecture Book)</p>
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -437,9 +431,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -464,14 +458,14 @@
       
       <li><a href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture16/reading-16.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch on Colab"
+   title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+    <img src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -564,9 +558,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -613,9 +607,9 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="theoretical-background-on-classification">
-<h1>Theoretical Background on Classification<a class="headerlink" href="#theoretical-background-on-classification" title="Link to this heading">#</a></h1>
+<h1>Theoretical Background on Classification<a class="headerlink" href="#theoretical-background-on-classification" title="Permalink to this heading">#</a></h1>
 <section id="logistic-regression">
-<h2>Logistic regression<a class="headerlink" href="#logistic-regression" title="Link to this heading">#</a></h2>
+<h2>Logistic regression<a class="headerlink" href="#logistic-regression" title="Permalink to this heading">#</a></h2>
 <p>Imagine that you have a bunch of observations consisting of inputs/features <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}=(\mathbf{x}_1,\dots,\mathbf{x}_n)\)</span> and the corresponding targets <span class="math notranslate nohighlight">\(y_{1:n}=(y_1,\dots,y_n)\)</span>.
 Remember that we say that we have a classification problem when the targets are discrete labels.
 In particular, if the labels are two, say 0 or 1, we say we have a <em>binary classification problem</em>.</p>
@@ -679,12 +673,12 @@ For example, we use the same loss function to train state-of-the-art deep neural
 You now know that it does not come out of the blue.
 It comes from the maximum likelihood principle.</p>
 <section id="examples">
-<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h3>
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">#</a></h3>
 <p>See <a class="reference internal" href="hands-on-16.1.html#logistic-regression-with-one-variable"><span class="std std-ref">this</span></a> and <a class="reference internal" href="hands-on-16.2.html#logistic-regression-with-many-features"><span class="std std-ref">this</span></a>.</p>
 </section>
 </section>
 <section id="making-decisions">
-<h2>Making-decisions<a class="headerlink" href="#making-decisions" title="Link to this heading">#</a></h2>
+<h2>Making-decisions<a class="headerlink" href="#making-decisions" title="Permalink to this heading">#</a></h2>
 <p>Based on the data, suppose you have found a point estimate for the weights <span class="math notranslate nohighlight">\(\mathbf{w}\)</span>.
 Let’s call that point estimate <span class="math notranslate nohighlight">\(\mathbf{w}^*\)</span>.
 You can predict the probability of <span class="math notranslate nohighlight">\(y\)</span> taking any value by evaluating <span class="math notranslate nohighlight">\(p(y|\mathbf{x},\mathbf{w}=\mathbf{w}^*)\)</span>.
@@ -711,12 +705,12 @@ Therefore, the problem you need to solve to pick <span class="math notranslate n
 \]</div>
 <p>This is a different optimization problem for each possible <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> value.</p>
 <section id="id1">
-<h3>Examples<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<h3>Examples<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>See <a class="reference internal" href="hands-on-16.3.html#classification-decision-making"><span class="std std-ref">this</span></a>.</p>
 </section>
 </section>
 <section id="diagnostics-for-classification">
-<h2>Diagnostics for classification<a class="headerlink" href="#diagnostics-for-classification" title="Link to this heading">#</a></h2>
+<h2>Diagnostics for classification<a class="headerlink" href="#diagnostics-for-classification" title="Permalink to this heading">#</a></h2>
 <p>As always, you must split your dataset into training and validation subsets.
 There are many different diagnostics you can use on your validation dataset.
 The two most important ones are:</p>
@@ -727,14 +721,14 @@ The two most important ones are:</p>
 <p>See <a class="reference internal" href="hands-on-16.4.html#diagnostics-for-classification"><span class="std std-ref">this</span></a>.</p>
 </section>
 <section id="multi-class-classification">
-<h2>Multi-class classification<a class="headerlink" href="#multi-class-classification" title="Link to this heading">#</a></h2>
+<h2>Multi-class classification<a class="headerlink" href="#multi-class-classification" title="Permalink to this heading">#</a></h2>
 <p>Imagine that you have a bunch of observations consisting of inputs/features <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}=(\mathbf{x}_1,\dots,\mathbf{x}_n)\)</span> and the corresponding discrete labels <span class="math notranslate nohighlight">\(y_{1:n}=(y_1,\dots,y_n)\)</span>.
 But now, there are more than two labels.
 There are <span class="math notranslate nohighlight">\(K\)</span> possible values for the labels.
 That’s <em>multi-class classification</em>.</p>
 </section>
 <section id="multi-class-logistic-regression">
-<h2>Multi-class logistic regression<a class="headerlink" href="#multi-class-logistic-regression" title="Link to this heading">#</a></h2>
+<h2>Multi-class logistic regression<a class="headerlink" href="#multi-class-logistic-regression" title="Permalink to this heading">#</a></h2>
 <p>Like before, assume that you have a set of <span class="math notranslate nohighlight">\(m\)</span> basis function <span class="math notranslate nohighlight">\(\phi_j(\mathbf{x})\)</span>, which we will use to make generalized linear models.
 The multi-class logistic regression model is defined by:</p>
 <div class="math notranslate nohighlight">
@@ -754,11 +748,12 @@ p(y=k|\mathbf{x}, \mathbf{W}) = \operatorname{softmax}_k\left(\mathbf{w}_1^T\bol
 <p>The role of the softmax is to take the real outputs of the generalized linear models corresponding to each label and map them to a probability.
 Just like in the logistic regression case, you can train the model by putting a prior on the weights and then maximizing the logarithm of the posterior.</p>
 <section id="id2">
-<h3>Examples<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<h3>Examples<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>See <a class="reference internal" href="hands-on-16.5.html#multi-class-logistic-regression"><span class="std std-ref">this</span></a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">npimport</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span> <span class="k">as</span> <span class="n">st</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">st</span>
 </pre></div>
 </div>
 </div>
@@ -869,7 +864,7 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>

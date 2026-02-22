@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>State Space Models - Filtering Basics &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
@@ -28,35 +29,39 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture19/reading-19';</script>
@@ -154,18 +159,7 @@
     <p class="title logo__title">Introduction to Scientific Machine Learning (Lecture Book)</p>
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -437,9 +431,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -464,14 +458,14 @@
       
       <li><a href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture19/reading-19.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch on Colab"
+   title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+    <img src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -564,9 +558,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -609,9 +603,9 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="state-space-models-filtering-basics">
-<h1>State Space Models - Filtering Basics<a class="headerlink" href="#state-space-models-filtering-basics" title="Link to this heading">#</a></h1>
+<h1>State Space Models - Filtering Basics<a class="headerlink" href="#state-space-models-filtering-basics" title="Permalink to this heading">#</a></h1>
 <section id="filtering-problems">
-<h2>Filtering problems<a class="headerlink" href="#filtering-problems" title="Link to this heading">#</a></h2>
+<h2>Filtering problems<a class="headerlink" href="#filtering-problems" title="Permalink to this heading">#</a></h2>
 <p>Filtering problems are as follows:</p>
 <ul class="simple">
 <li><p>You have some dynamical system (physical or engineered).</p></li>
@@ -639,7 +633,7 @@ document.write(`
 To achieve this, we first need to explain the Markov property.</p>
 </section>
 <section id="markov-model-without-external-disturbances">
-<h2>Markov model without external disturbances<a class="headerlink" href="#markov-model-without-external-disturbances" title="Link to this heading">#</a></h2>
+<h2>Markov model without external disturbances<a class="headerlink" href="#markov-model-without-external-disturbances" title="Permalink to this heading">#</a></h2>
 <p>Assume you have a stochastic dynamical system with state variables <span class="math notranslate nohighlight">\(\mathbf{x}_t\)</span>.
 For simplicity, assume that the time runs in discrete steps <span class="math notranslate nohighlight">\(t=0,1,2,\dots,n\)</span>.
 If the system doesn’t have any external disturbances, i.e., if the system is closed, then the following property is valid:</p>
@@ -680,7 +674,7 @@ Similarly, you can prove this for an arbitrary <span class="math notranslate noh
 Then, the proof is complete.</p>
 </section>
 <section id="markov-model-with-observations">
-<h2>Markov model with observations<a class="headerlink" href="#markov-model-with-observations" title="Link to this heading">#</a></h2>
+<h2>Markov model with observations<a class="headerlink" href="#markov-model-with-observations" title="Permalink to this heading">#</a></h2>
 <p>Let’s now add some observations to our system.
 We assume that we have some sensors that measure something on every timestep.
 Say that they measure the variables <span class="math notranslate nohighlight">\(\mathbf{y}_t\)</span>.
@@ -698,7 +692,7 @@ This is an essential formula that you should spend some time on.
 You can prove it by induction.</p>
 </section>
 <section id="markov-model-with-observations-and-controls">
-<h2>Markov model with observations and controls<a class="headerlink" href="#markov-model-with-observations-and-controls" title="Link to this heading">#</a></h2>
+<h2>Markov model with observations and controls<a class="headerlink" href="#markov-model-with-observations-and-controls" title="Permalink to this heading">#</a></h2>
 <p>Now assume that at every timestep <span class="math notranslate nohighlight">\(t\)</span>, we can pass a control command to the system <span class="math notranslate nohighlight">\(\mathbf{u}_t\)</span>.
 For example, if we are dealing with a rocket, we can decide which thrusters to activate.
 The control command will affect where the system state goes in the next time step.
@@ -717,7 +711,7 @@ p(\mathbf{x}_{0:n}, \mathbf{y}_{1:n}|\mathbf{u}_{0:n-1}) = p(\mathbf{x}_0)\prod_
 <p>The proof is similar to the case without any controls.</p>
 </section>
 <section id="mathematical-definition-of-the-filtering-problem">
-<h2>Mathematical definition of the filtering problem<a class="headerlink" href="#mathematical-definition-of-the-filtering-problem" title="Link to this heading">#</a></h2>
+<h2>Mathematical definition of the filtering problem<a class="headerlink" href="#mathematical-definition-of-the-filtering-problem" title="Permalink to this heading">#</a></h2>
 <p>We have all the ingredients to define the filtering problem mathematically.
 The problem is to characterize the states <span class="math notranslate nohighlight">\(\mathbf{x}_{0:n}\)</span> given the available observations <span class="math notranslate nohighlight">\(\mathbf{y}_{1:n}\)</span> and the applied controls <span class="math notranslate nohighlight">\(\mathbf{u}_{0:n-1}\)</span>.
 The best you can say about the states comes from applying Bayes’ rule.
@@ -735,13 +729,13 @@ Estimating all states (including the past) is known as <em>smoothing</em>.</p>
 </div>
 </section>
 <section id="linear-systems-with-gaussian-probabilities">
-<h2>Linear systems with Gaussian probabilities<a class="headerlink" href="#linear-systems-with-gaussian-probabilities" title="Link to this heading">#</a></h2>
+<h2>Linear systems with Gaussian probabilities<a class="headerlink" href="#linear-systems-with-gaussian-probabilities" title="Permalink to this heading">#</a></h2>
 <p>Let’s now give a specific example of transition and emission probabilities.
 All transitions will be linear, and all probabilities will be Gaussian.
 There are two possible ways to write this down: the equations and the probabilistic way.
 We will give both of them, starting from the equations.</p>
 <section id="the-equations-way">
-<h3>The equations way<a class="headerlink" href="#the-equations-way" title="Link to this heading">#</a></h3>
+<h3>The equations way<a class="headerlink" href="#the-equations-way" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>Initial conditions:</strong></p></li>
 </ul>
@@ -768,7 +762,7 @@ We will give both of them, starting from the equations.</p>
 <p>where <span class="math notranslate nohighlight">\(\mathbf{C}\)</span> is a matrix and <span class="math notranslate nohighlight">\(\mathbf{w}_t\sim N(\mathbf{0},\mathbf{R})\)</span> with <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> an appropriately sized covariance matrix (known as process covariance).</p>
 </section>
 <section id="the-probabilistic-way">
-<h3>The probabilistic way<a class="headerlink" href="#the-probabilistic-way" title="Link to this heading">#</a></h3>
+<h3>The probabilistic way<a class="headerlink" href="#the-probabilistic-way" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>Initial conditions:</strong></p></li>
 </ul>
@@ -797,7 +791,8 @@ We say we have a <em>parameter estimation and filtering problem</em>.
 These are much harder.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">npimport</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span> <span class="k">as</span> <span class="n">st</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">st</span>
 </pre></div>
 </div>
 </div>
@@ -904,7 +899,7 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>

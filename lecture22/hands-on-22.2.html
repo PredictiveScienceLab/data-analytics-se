@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Gaussian Process Regression with Noise &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
@@ -28,35 +29,39 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture22/hands-on-22.2';</script>
@@ -154,18 +159,7 @@
     <p class="title logo__title">Introduction to Scientific Machine Learning (Lecture Book)</p>
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -437,9 +431,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -464,14 +458,14 @@
       
       <li><a href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture22/hands-on-22.2.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch on Colab"
+   title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+    <img src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -564,9 +558,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -614,19 +608,19 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAKE_BOOK_FIGURES</span><span class="o">=</span><span class="kc">False</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">st</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib_inline</span>
 <span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">set_book_style</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_book_style</span><span class="p">():</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span> 
     <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
@@ -667,7 +661,7 @@ document.write(`
         <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>   <span class="c1"># Small padding to ensure nothing gets cut off</span>
     <span class="p">})</span>
 
-<span class="k">def</span> <span class="nf">set_notebook_style</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_notebook_style</span><span class="p">():</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-white&#39;</span><span class="p">)</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;deep&quot;</span><span class="p">)</span>
@@ -703,7 +697,7 @@ document.write(`
         <span class="s1">&#39;savefig.pad_inches&#39;</span><span class="p">:</span> <span class="mf">0.1</span>
     <span class="p">})</span>
 
-<span class="k">def</span> <span class="nf">save_for_book</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">is_vector</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">save_for_book</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">is_vector</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Save a figure with book-optimized settings.</span>
 <span class="sd">    </span>
@@ -729,10 +723,10 @@ document.write(`
     <span class="c1"># Save the figure with book settings</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">make_full_width_fig</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_full_width_fig</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.7</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">make_half_width_fig</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_half_width_fig</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">2.35</span><span class="p">,</span> <span class="mf">1.45</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="n">MAKE_BOOK_FIGURES</span><span class="p">:</span>
@@ -748,10 +742,10 @@ document.write(`
 </details>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="gaussian-process-regression-with-noise">
-<h1>Gaussian Process Regression with Noise<a class="headerlink" href="#gaussian-process-regression-with-noise" title="Link to this heading">#</a></h1>
+<h1>Gaussian Process Regression with Noise<a class="headerlink" href="#gaussian-process-regression-with-noise" title="Permalink to this heading">#</a></h1>
 <p>We perform Gaussian process regression with measurement noise. The noise is assumed to be Gaussian with a known variance. The hyper-parameters of the Gaussian process are assumed to be known. See Chapter 3 of <span id="id1">[<a class="reference internal" href="../bibliography.html#id12" title="Carl Edward Rasmussen and Christopher K. I. Williams. Gaussian Processes for Machine Learning. The MIT Press, 11 2005. ISBN 9780262256834. URL: https://doi.org/10.7551/mitpress/3206.001.0001, doi:10.7551/mitpress/3206.001.0001.">Rasmussen and Williams, 2005</a>]</span> for details.</p>
 <section id="example-gaussian-process-regression-in-1d-with-fixed-hyper-parameters-and-noise">
-<h2>Example: Gaussian process regression in 1D with fixed hyper-parameters and noise<a class="headerlink" href="#example-gaussian-process-regression-in-1d-with-fixed-hyper-parameters-and-noise" title="Link to this heading">#</a></h2>
+<h2>Example: Gaussian process regression in 1D with fixed hyper-parameters and noise<a class="headerlink" href="#example-gaussian-process-regression-in-1d-with-fixed-hyper-parameters-and-noise" title="Permalink to this heading">#</a></h2>
 <p>Let’s generate some synthetic 1D data to work with:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -778,8 +772,7 @@ document.write(`
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/ec8f58100f3dacfb802719e03baf67c5e00480115a787bab0cbcce105e3475d4.svg" src="../_images/ec8f58100f3dacfb802719e03baf67c5e00480115a787bab0cbcce105e3475d4.svg" />
-</div>
+<img alt="../_images/ec8f58100f3dacfb802719e03baf67c5e00480115a787bab0cbcce105e3475d4.svg" src="../_images/ec8f58100f3dacfb802719e03baf67c5e00480115a787bab0cbcce105e3475d4.svg" /></div>
 </div>
 <p>Again, you may want to install GPyTorch to run this example:</p>
 <div class="cell tag_hide-output docutils container">
@@ -822,17 +815,17 @@ Requirement already satisfied: threadpoolctl&gt;=3.1.0 in /Users/ibilion/.pyenv/
 The only difference is that add noise to the likelihood:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">gpytorch</span>
-<span class="kn">from</span> <span class="nn">gpytorch.kernels</span> <span class="kn">import</span> <span class="n">RBFKernel</span><span class="p">,</span> <span class="n">ScaleKernel</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gpytorch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gpytorch.kernels</span><span class="w"> </span><span class="kn">import</span> <span class="n">RBFKernel</span><span class="p">,</span> <span class="n">ScaleKernel</span>
 
-<span class="k">class</span> <span class="nc">ExactGP</span><span class="p">(</span><span class="n">gpytorch</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">ExactGP</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ExactGP</span><span class="p">(</span><span class="n">gpytorch</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">ExactGP</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mean_module</span> <span class="o">=</span> <span class="n">gpytorch</span><span class="o">.</span><span class="n">means</span><span class="o">.</span><span class="n">ConstantMean</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">covar_module</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span><span class="n">RBFKernel</span><span class="p">())</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="n">mean_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_module</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="n">covar_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">covar_module</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">gpytorch</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">MultivariateNormal</span><span class="p">(</span><span class="n">mean_x</span><span class="p">,</span> <span class="n">covar_x</span><span class="p">)</span>
@@ -878,8 +871,7 @@ Where is the posterior mean <span class="math notranslate nohighlight">\(m_n(x)\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d264abaf884b527edb5bcb15eda9fb97cf4818424bfb29e642519df7e7c46c64.svg" src="../_images/d264abaf884b527edb5bcb15eda9fb97cf4818424bfb29e642519df7e7c46c64.svg" />
-</div>
+<img alt="../_images/d264abaf884b527edb5bcb15eda9fb97cf4818424bfb29e642519df7e7c46c64.svg" src="../_images/d264abaf884b527edb5bcb15eda9fb97cf4818424bfb29e642519df7e7c46c64.svg" /></div>
 </div>
 <p>Extracting the variance is a bit more involved.
 Just a tiny bit though.
@@ -908,8 +900,7 @@ Here, see it:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/71e7b4838e4f3c4f4c2df19cda9f4ea11c997cc8601419c7fb689cfb76dea554.svg" src="../_images/71e7b4838e4f3c4f4c2df19cda9f4ea11c997cc8601419c7fb689cfb76dea554.svg" />
-</div>
+<img alt="../_images/71e7b4838e4f3c4f4c2df19cda9f4ea11c997cc8601419c7fb689cfb76dea554.svg" src="../_images/71e7b4838e4f3c4f4c2df19cda9f4ea11c997cc8601419c7fb689cfb76dea554.svg" /></div>
 </div>
 <p>Notice that the variance is small wherever we have an observation.
 It is not, however, exactly, <span class="math notranslate nohighlight">\(\sigma^2\)</span>.
@@ -944,8 +935,7 @@ Let’s plot this:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/173576ee9c6f85c25a3450e7555b5fad30982119363e767828b1e45343076418.svg" src="../_images/173576ee9c6f85c25a3450e7555b5fad30982119363e767828b1e45343076418.svg" />
-</div>
+<img alt="../_images/173576ee9c6f85c25a3450e7555b5fad30982119363e767828b1e45343076418.svg" src="../_images/173576ee9c6f85c25a3450e7555b5fad30982119363e767828b1e45343076418.svg" /></div>
 </div>
 <p>Now, on the same plot, let’s superimpose our predictive error bar about <span class="math notranslate nohighlight">\(y^*\)</span>.
 This is:
@@ -992,8 +982,7 @@ Let’s use red color for this:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/46ec37d126d1c2cb92661e78088192bfbd1e2bc9741bac436ebdc8f7fd7317ad.svg" src="../_images/46ec37d126d1c2cb92661e78088192bfbd1e2bc9741bac436ebdc8f7fd7317ad.svg" />
-</div>
+<img alt="../_images/46ec37d126d1c2cb92661e78088192bfbd1e2bc9741bac436ebdc8f7fd7317ad.svg" src="../_images/46ec37d126d1c2cb92661e78088192bfbd1e2bc9741bac436ebdc8f7fd7317ad.svg" /></div>
 </div>
 <p>Let’s also put the correct function there for comparison:</p>
 <div class="cell docutils container">
@@ -1048,8 +1037,7 @@ Let’s use red color for this:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/932d340f2d4104e9126ebe1cdbee7288b246900ef44ab729f8d6cf4e83465894.svg" src="../_images/932d340f2d4104e9126ebe1cdbee7288b246900ef44ab729f8d6cf4e83465894.svg" />
-</div>
+<img alt="../_images/932d340f2d4104e9126ebe1cdbee7288b246900ef44ab729f8d6cf4e83465894.svg" src="../_images/932d340f2d4104e9126ebe1cdbee7288b246900ef44ab729f8d6cf4e83465894.svg" /></div>
 </div>
 <p>You see that the true function is almost entirely within the blue bounds.
 It is ok that it is a bit off because these are 95% prediction intervals.
@@ -1086,13 +1074,12 @@ About 5% of the function can be off.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8ddbeabc637b36991e41bbdffd45c9e9b99fbbe0b623b8d2883e62ff0e6e0cf0.svg" src="../_images/8ddbeabc637b36991e41bbdffd45c9e9b99fbbe0b623b8d2883e62ff0e6e0cf0.svg" />
-</div>
+<img alt="../_images/8ddbeabc637b36991e41bbdffd45c9e9b99fbbe0b623b8d2883e62ff0e6e0cf0.svg" src="../_images/8ddbeabc637b36991e41bbdffd45c9e9b99fbbe0b623b8d2883e62ff0e6e0cf0.svg" /></div>
 </div>
 <p>As before, let’s organize the code into a function:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_1d_regression</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_1d_regression</span><span class="p">(</span>
     <span class="n">x_star</span><span class="p">,</span>
     <span class="n">model</span><span class="p">,</span>
     <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1216,12 +1203,11 @@ About 5% of the function can be off.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/fe9e5754a21e45826562edd92188a932647f2f1d91f86f3345b3653f8a5eac4b.svg" src="../_images/fe9e5754a21e45826562edd92188a932647f2f1d91f86f3345b3653f8a5eac4b.svg" />
-</div>
+<img alt="../_images/fe9e5754a21e45826562edd92188a932647f2f1d91f86f3345b3653f8a5eac4b.svg" src="../_images/fe9e5754a21e45826562edd92188a932647f2f1d91f86f3345b3653f8a5eac4b.svg" /></div>
 </div>
 </section>
 <section id="diagnostics-how-do-you-know-if-the-fit-is-good">
-<h2>Diagnostics: How do you know if the fit is good?<a class="headerlink" href="#diagnostics-how-do-you-know-if-the-fit-is-good" title="Link to this heading">#</a></h2>
+<h2>Diagnostics: How do you know if the fit is good?<a class="headerlink" href="#diagnostics-how-do-you-know-if-the-fit-is-good" title="Permalink to this heading">#</a></h2>
 <p>To objective test the resulting model, we need a <em>validation dataset</em> consisting of the inputs:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1247,7 +1233,7 @@ First, we generate some validation data:</p>
 </div>
 </div>
 <section id="point-predictions">
-<h3>Point-predictions<a class="headerlink" href="#point-predictions" title="Link to this heading">#</a></h3>
+<h3>Point-predictions<a class="headerlink" href="#point-predictions" title="Permalink to this heading">#</a></h3>
 <p>Point-predictions only use <span class="math notranslate nohighlight">\(m_n\left(\mathbf{x}^v_i\right)\)</span>.
 Of course, when there is a lot of noise, they are not very useful.
 But let’s look at what we get anyway.
@@ -1317,12 +1303,11 @@ In our data, we get:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1d61aae3182b5bbf060aa9b7449f925043052d6c514e42cb9556d1cc493cf217.svg" src="../_images/1d61aae3182b5bbf060aa9b7449f925043052d6c514e42cb9556d1cc493cf217.svg" />
-</div>
+<img alt="../_images/1d61aae3182b5bbf060aa9b7449f925043052d6c514e42cb9556d1cc493cf217.svg" src="../_images/1d61aae3182b5bbf060aa9b7449f925043052d6c514e42cb9556d1cc493cf217.svg" /></div>
 </div>
 </section>
 <section id="statistical-diagnostics">
-<h3>Statistical diagnostics<a class="headerlink" href="#statistical-diagnostics" title="Link to this heading">#</a></h3>
+<h3>Statistical diagnostics<a class="headerlink" href="#statistical-diagnostics" title="Permalink to this heading">#</a></h3>
 <p>Statistical diagnostics compare the predictive distribution to the distribution of the validation dataset.
 The way to start are the standardized errors defined by:</p>
 <div class="math notranslate nohighlight">
@@ -1334,7 +1319,7 @@ There are various plots that you can do to test that.
 First, the histogram of the standardized errors:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">st</span>
 
 <span class="n">s_v</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_v</span><span class="p">)</span>
 <span class="n">e</span> <span class="o">=</span> <span class="p">(</span><span class="n">Y_v</span> <span class="o">-</span> <span class="n">m_v</span><span class="p">)</span> <span class="o">/</span> <span class="n">s_v</span>
@@ -1348,8 +1333,7 @@ First, the histogram of the standardized errors:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/bb576c38a7134533ef2780264ddf4a432d76733e7ea1746b76eb0f4432100e66.svg" src="../_images/bb576c38a7134533ef2780264ddf4a432d76733e7ea1746b76eb0f4432100e66.svg" />
-</div>
+<img alt="../_images/bb576c38a7134533ef2780264ddf4a432d76733e7ea1746b76eb0f4432100e66.svg" src="../_images/bb576c38a7134533ef2780264ddf4a432d76733e7ea1746b76eb0f4432100e66.svg" /></div>
 </div>
 <p>Close, but not perfect.
 Another common plot is this:</p>
@@ -1366,8 +1350,7 @@ Another common plot is this:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ad4b6bb48535d167a21c01f118a9374db0428b5e48bee057bcd2c26e7cb50815.svg" src="../_images/ad4b6bb48535d167a21c01f118a9374db0428b5e48bee057bcd2c26e7cb50815.svg" />
-</div>
+<img alt="../_images/ad4b6bb48535d167a21c01f118a9374db0428b5e48bee057bcd2c26e7cb50815.svg" src="../_images/ad4b6bb48535d167a21c01f118a9374db0428b5e48bee057bcd2c26e7cb50815.svg" /></div>
 </div>
 <p>Where the red lines indicate the 95% quantiles of the standard normal.
 This means that if 5% % of the errors are inside, we are good to go.</p>
@@ -1380,16 +1363,15 @@ This means that if 5% % of the errors are inside, we are good to go.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/976d0939b119ccd1fe0e01baa82b59b5d77dc8025affc5691f8157b14f5bdf2f.svg" src="../_images/976d0939b119ccd1fe0e01baa82b59b5d77dc8025affc5691f8157b14f5bdf2f.svg" />
-</div>
+<img alt="../_images/976d0939b119ccd1fe0e01baa82b59b5d77dc8025affc5691f8157b14f5bdf2f.svg" src="../_images/976d0939b119ccd1fe0e01baa82b59b5d77dc8025affc5691f8157b14f5bdf2f.svg" /></div>
 </div>
 </section>
 <section id="note-on-gaussian-process-diagnostics">
-<h3>Note on Gaussian process diagnostics<a class="headerlink" href="#note-on-gaussian-process-diagnostics" title="Link to this heading">#</a></h3>
+<h3>Note on Gaussian process diagnostics<a class="headerlink" href="#note-on-gaussian-process-diagnostics" title="Permalink to this heading">#</a></h3>
 <p>For a more detailed description of GP regression diagnostics, please see <span id="id2">[<a class="reference internal" href="../bibliography.html#id14" title="Leonardo S. Bastos and Anthony O'Hagan. Diagnostics for gaussian process emulators. Technometrics, 51(4):425–438, 2009. URL: http://www.jstor.org/stable/40586652 (visited on 2023-10-15).">Bastos and O'Hagan, 2009</a>]</span>.</p>
 </section>
 <section id="questions">
-<h3>Questions<a class="headerlink" href="#questions" title="Link to this heading">#</a></h3>
+<h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Experiment with different lengthscales for the kernel.
 What happens to the posterior mean and the 95% predictive error bar as the length scale increases (decreases)?</p></li>
@@ -1498,7 +1480,7 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>

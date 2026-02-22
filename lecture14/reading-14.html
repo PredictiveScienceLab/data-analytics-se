@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Bayesian Linear Regression &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
@@ -28,35 +29,39 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture14/reading-14';</script>
@@ -154,18 +159,7 @@
     <p class="title logo__title">Introduction to Scientific Machine Learning (Lecture Book)</p>
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -437,9 +431,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -464,14 +458,14 @@
       
       <li><a href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture14/reading-14.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch on Colab"
+   title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+    <img src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -564,9 +558,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -616,9 +610,9 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="bayesian-linear-regression">
-<h1>Bayesian Linear Regression<a class="headerlink" href="#bayesian-linear-regression" title="Link to this heading">#</a></h1>
+<h1>Bayesian Linear Regression<a class="headerlink" href="#bayesian-linear-regression" title="Permalink to this heading">#</a></h1>
 <section id="probabilistic-regression-i-maximum-likelihood">
-<h2>Probabilistic regression I (maximum likelihood)<a class="headerlink" href="#probabilistic-regression-i-maximum-likelihood" title="Link to this heading">#</a></h2>
+<h2>Probabilistic regression I (maximum likelihood)<a class="headerlink" href="#probabilistic-regression-i-maximum-likelihood" title="Permalink to this heading">#</a></h2>
 <p>I will show you how to derive least squares from the <a class="reference internal" href="../lecture12/reading-12.html#maximum-likelihood-principle"><span class="std std-ref">maximum likelihood principle</span></a>.
 Recall that the maximum likelihood principle states that you should pick the model parameters that maximize the probability of the data conditioned on the parameters.</p>
 <p>Just like before assume that we have <span class="math notranslate nohighlight">\(n\)</span> observations of inputs <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}\)</span> and outputs <span class="math notranslate nohighlight">\(\mathbf{y}_{1:n}\)</span>.
@@ -702,12 +696,12 @@ p(y|\mathbf{x}, \mathbf{w}, \sigma^2) = N\left(y\middle|\mathbf{w}^T\mathbf{\phi
 <p>In other words, your prediction about the measured output <span class="math notranslate nohighlight">\(y\)</span> is that it is Normally distributed around your model prediction with a variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.
 You can use this to find a 95% credible interval.</p>
 <section id="examples">
-<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h3>
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">#</a></h3>
 <p>See <a class="reference internal" href="hands-on-14.1.html#max-like-example"><span class="std std-ref">this example</span></a>.</p>
 </section>
 </section>
 <section id="probabilistic-regression-ii-maximum-a-posteriori-estimates">
-<h2>Probabilistic regression II (maximum a posteriori estimates)<a class="headerlink" href="#probabilistic-regression-ii-maximum-a-posteriori-estimates" title="Link to this heading">#</a></h2>
+<h2>Probabilistic regression II (maximum a posteriori estimates)<a class="headerlink" href="#probabilistic-regression-ii-maximum-a-posteriori-estimates" title="Permalink to this heading">#</a></h2>
 <p>This version of probabilistic regression is similar to maximum likelihood in that you maximize the log probability of something (the posterior instead of the likelihood) and has the benefit that it can help you avoid overfitting.</p>
 <p>Just like before, we wish to model the data using some <strong>fixed</strong> basis/features:</p>
 <div class="math notranslate nohighlight">
@@ -727,7 +721,7 @@ y(\mathbf{x};\mathbf{w}) = \sum_{j=1}^{m} w_{j}\phi_{j}(\mathbf{x}) = \mathbf{w^
 \mathbf{w} \sim p(\mathbf{w}).
 \]</div>
 <section id="gaussian-prior-on-the-weights">
-<h3>Gaussian Prior on the Weights<a class="headerlink" href="#gaussian-prior-on-the-weights" title="Link to this heading">#</a></h3>
+<h3>Gaussian Prior on the Weights<a class="headerlink" href="#gaussian-prior-on-the-weights" title="Permalink to this heading">#</a></h3>
 <p>The Gaussian prior is the most straightforward possible choice for the weights.
 It is:</p>
 <div class="math notranslate nohighlight">
@@ -740,7 +734,7 @@ This push for the weights to be towards zero helps us avoid overfitting.
 The bigger the precision parameter <span class="math notranslate nohighlight">\(\alpha\)</span>, the more the weights are pushed towards zero.</p>
 </section>
 <section id="graphical-representation-of-the-model">
-<h3>Graphical representation of the model<a class="headerlink" href="#graphical-representation-of-the-model" title="Link to this heading">#</a></h3>
+<h3>Graphical representation of the model<a class="headerlink" href="#graphical-representation-of-the-model" title="Permalink to this heading">#</a></h3>
 <p>Let’s visualize the regression model as a graph.
 Remember that the shaded nodes are assumed to be observed (so below, we assume that we know <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>).
 Another thing to observe is that the nodes inside the box are repeated as many times as indicated.
@@ -752,18 +746,34 @@ Recall that we are using the <a class="reference external" href="https://en.wiki
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">npimport</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span> <span class="k">as</span> <span class="n">stfrom</span> <span class="n">graphviz</span> <span class="kn">import</span> <span class="nn">Digraphg</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">(</span><span class="s1">&#39;bayes_regression&#39;</span><span class="p">)</span><span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;alpha;&gt;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span><span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&lt;b&gt;w&lt;/b&gt;&gt;&#39;</span><span class="p">)</span><span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;sigma&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;sigma;&gt;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span><span class="k">with</span> <span class="n">g</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;cluster_0&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">sg</span><span class="p">:</span>    <span class="n">sg</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;xj&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&lt;b&gt;x&lt;/b&gt;&lt;sub&gt;j&lt;/sub&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>    <span class="n">sg</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;yj&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;y&lt;sub&gt;j&lt;/sub&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>    <span class="n">sg</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;j=1,...,n&#39;</span><span class="p">)</span>    <span class="n">sg</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="n">labelloc</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span><span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;sigma&#39;</span><span class="p">,</span> <span class="s1">&#39;yj&#39;</span><span class="p">)</span><span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="s1">&#39;yj&#39;</span><span class="p">)</span><span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;xj&#39;</span><span class="p">,</span> <span class="s1">&#39;yj&#39;</span><span class="p">)</span><span class="n">g</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s1">&#39;bayes_regression&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">)</span><span class="n">g</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">st</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">graphviz</span><span class="w"> </span><span class="kn">import</span> <span class="n">Digraph</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">(</span><span class="s1">&#39;bayes_regression&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;alpha;&gt;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&lt;b&gt;w&lt;/b&gt;&gt;&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;sigma&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;sigma;&gt;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">g</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;cluster_0&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">sg</span><span class="p">:</span>
+    <span class="n">sg</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;xj&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&lt;b&gt;x&lt;/b&gt;&lt;sub&gt;j&lt;/sub&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
+    <span class="n">sg</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;yj&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;y&lt;sub&gt;j&lt;/sub&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
+    <span class="n">sg</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;j=1,...,n&#39;</span><span class="p">)</span>
+    <span class="n">sg</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="n">labelloc</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;sigma&#39;</span><span class="p">,</span> <span class="s1">&#39;yj&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="s1">&#39;yj&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;xj&#39;</span><span class="p">,</span> <span class="s1">&#39;yj&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s1">&#39;bayes_regression&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">)</span>
+<span class="n">g</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/918d16a6f6c849c72b02915bc6e5089375b7d354a2f7b02b1360b8bdf16c2508.svg" src="../_images/918d16a6f6c849c72b02915bc6e5089375b7d354a2f7b02b1360b8bdf16c2508.svg" />
-</div>
+<img alt="../_images/918d16a6f6c849c72b02915bc6e5089375b7d354a2f7b02b1360b8bdf16c2508.svg" src="../_images/918d16a6f6c849c72b02915bc6e5089375b7d354a2f7b02b1360b8bdf16c2508.svg" /></div>
 </div>
 </section>
 <section id="the-posterior-of-the-weights">
-<h3>The Posterior of the Weights<a class="headerlink" href="#the-posterior-of-the-weights" title="Link to this heading">#</a></h3>
+<h3>The Posterior of the Weights<a class="headerlink" href="#the-posterior-of-the-weights" title="Permalink to this heading">#</a></h3>
 <p>Combining the likelihood and the prior, we get using Bayes’ rule:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -775,7 +785,7 @@ p(\mathbf{w}|\mathbf{x}_{1:n},\mathbf{y}_{1:n}, \sigma,\alpha) =
 if we know <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
 </section>
 <section id="maximum-posterior-estimate">
-<h3>Maximum Posterior Estimate<a class="headerlink" href="#maximum-posterior-estimate" title="Link to this heading">#</a></h3>
+<h3>Maximum Posterior Estimate<a class="headerlink" href="#maximum-posterior-estimate" title="Permalink to this heading">#</a></h3>
 <p>We can find a point estimate of <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> by solving:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -795,12 +805,12 @@ if we know <span class="math notranslate nohighlight">\(\alpha\)</span> and <spa
 <p>Unfortunately, we no longer have an analytic formula for <span class="math notranslate nohighlight">\(\sigma\)</span> (we will fix that later).</p>
 </section>
 <section id="id1">
-<h3>Examples<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<h3>Examples<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>See <a class="reference internal" href="hands-on-14.2.html#max-post-example"><span class="std std-ref">this example</span></a>.</p>
 </section>
 </section>
 <section id="probabilistic-regression-iii-bayesian-linear-regression">
-<h2>Probabilistic regression III (Bayesian linear regression)<a class="headerlink" href="#probabilistic-regression-iii-bayesian-linear-regression" title="Link to this heading">#</a></h2>
+<h2>Probabilistic regression III (Bayesian linear regression)<a class="headerlink" href="#probabilistic-regression-iii-bayesian-linear-regression" title="Permalink to this heading">#</a></h2>
 <p>This type of regression has the same setup as version III of probabilistic regression, but we do not get a point estimate for the weights.
 We retain the posterior of the weights in its full complexity.
 The benefit is that we can now quantify the epistemic uncertainty induced by the limited number of observations used to estimate the weights.</p>
@@ -821,7 +831,7 @@ p(\mathbf{w}|\mathbf{x}_{1:n},\mathbf{y}_{1:n}, \sigma, \alpha) = N\left(\mathbf
 \]</div>
 <p>The posterior will not be analytically available in the general case of non-Gaussian likelihood (and non-linear models). We will learn how to deal with these cases in Lectures 27 and 28 when discussing generic ways to characterize posteriors.</p>
 <section id="posterior-predictive-distribution">
-<span id="posterior-predictive"></span><h3>Posterior Predictive Distribution<a class="headerlink" href="#posterior-predictive-distribution" title="Link to this heading">#</a></h3>
+<span id="posterior-predictive"></span><h3>Posterior Predictive Distribution<a class="headerlink" href="#posterior-predictive-distribution" title="Permalink to this heading">#</a></h3>
 <p>Using probability theory, we ask: What do we know about <span class="math notranslate nohighlight">\(y\)</span> at a new <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> after seeing the data?
 To answer this question, we use the sum rule:</p>
 <div class="math notranslate nohighlight">
@@ -851,7 +861,7 @@ s^2(\mathbf{x}) = \boldsymbol{\phi}(\mathbf{x})^T\mathbf{S}\boldsymbol{\phi}(\ma
 </ul>
 </section>
 <section id="id2">
-<h3>Examples<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<h3>Examples<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>See <a class="reference internal" href="hands-on-14.3.html#bayesian-linear-regression-example"><span class="std std-ref">this example</span></a>.</p>
 </section>
 </section>
@@ -962,7 +972,7 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>

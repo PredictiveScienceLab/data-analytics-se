@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Gaussian Process Regression - Theory &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
@@ -28,35 +29,39 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture22/reading-22';</script>
@@ -154,18 +159,7 @@
     <p class="title logo__title">Introduction to Scientific Machine Learning (Lecture Book)</p>
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -437,9 +431,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -464,14 +458,14 @@
       
       <li><a href="https://colab.research.google.com/github/PredictiveScienceLab/data-analytics-se/blob/master/lecturebook/lecture22/reading-22.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch on Colab"
+   title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+    <img src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -564,9 +558,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -610,11 +604,11 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="gaussian-process-regression-theory">
-<h1>Gaussian Process Regression - Theory<a class="headerlink" href="#gaussian-process-regression-theory" title="Link to this heading">#</a></h1>
+<h1>Gaussian Process Regression - Theory<a class="headerlink" href="#gaussian-process-regression-theory" title="Permalink to this heading">#</a></h1>
 <p>We discuss how to perform Gaussian process regression without and with measurement noise, tune the hyperparameters of the covariance function, and perform automatic relevance determination.
 My exposition closely follows the Chapter 3 and Section 5.4 of <span id="id1">[<a class="reference internal" href="../bibliography.html#id12" title="Carl Edward Rasmussen and Christopher K. I. Williams. Gaussian Processes for Machine Learning. The MIT Press, 11 2005. ISBN 9780262256834. URL: https://doi.org/10.7551/mitpress/3206.001.0001, doi:10.7551/mitpress/3206.001.0001.">Rasmussen and Williams, 2005</a>]</span>.</p>
 <section id="motivation-a-fully-bayesian-paradigm-for-curve-fitting">
-<h2>Motivation: A fully Bayesian paradigm for curve fitting<a class="headerlink" href="#motivation-a-fully-bayesian-paradigm-for-curve-fitting" title="Link to this heading">#</a></h2>
+<h2>Motivation: A fully Bayesian paradigm for curve fitting<a class="headerlink" href="#motivation-a-fully-bayesian-paradigm-for-curve-fitting" title="Permalink to this heading">#</a></h2>
 <p>Remember why we are doing this:</p>
 <ul class="simple">
 <li><p>Let’s say that you have to learn some function <span class="math notranslate nohighlight">\(f(\cdot)\)</span> from some space <span class="math notranslate nohighlight">\(\mathcal{X}\)</span> to <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> (this could either be a supervised learning problem (regression or classification) or even an unsupervised learning problem.</p></li>
@@ -632,7 +626,7 @@ p(f(\cdot)|\mathcal{D}) \propto p(\mathcal{D}|f(\cdot)) p(f(\cdot)),
 Today, we will mathematically formalize the posterior <span class="math notranslate nohighlight">\(p(f(\cdot)|\mathcal{D})\)</span>.</p>
 </section>
 <section id="reminder-the-prior-p-f-cdot">
-<h2>Reminder: The prior <span class="math notranslate nohighlight">\(p(f(\cdot))\)</span><a class="headerlink" href="#reminder-the-prior-p-f-cdot" title="Link to this heading">#</a></h2>
+<h2>Reminder: The prior <span class="math notranslate nohighlight">\(p(f(\cdot))\)</span><a class="headerlink" href="#reminder-the-prior-p-f-cdot" title="Permalink to this heading">#</a></h2>
 <p>In the previous lecture, we defined <span class="math notranslate nohighlight">\(p(f(\cdot))\)</span> through the concept of a Gaussian process (GP), a generalization of a multivariate Gaussian distribution to
 <em>infinite</em> dimensions.
 We argued that it defines a probability measure on a function space.
@@ -685,7 +679,7 @@ k(\mathbf{x}_n, \mathbf{x}_1) &amp; \dots &amp; k(\mathbf{x}_n, \mathbf{x}_n)
 However, for now, we do not explicitly show this dependence.</p>
 </section>
 <section id="gaussian-process-regression">
-<h2>Gaussian process regression<a class="headerlink" href="#gaussian-process-regression" title="Link to this heading">#</a></h2>
+<h2>Gaussian process regression<a class="headerlink" href="#gaussian-process-regression" title="Permalink to this heading">#</a></h2>
 <p>Assume that the data we observe is:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -715,14 +709,27 @@ Remember that <span class="math notranslate nohighlight">\(\sigma\)</span> and t
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">npimport</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span> <span class="k">as</span> <span class="n">stfrom</span> <span class="n">graphviz</span> <span class="kn">import</span> <span class="nn">Digraphg</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">(</span><span class="s1">&#39;gp&#39;</span><span class="p">)</span><span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;sigma&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;sigma;&gt;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span><span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;theta;&gt;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span><span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;x1n&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&lt;b&gt;x&lt;/b&gt;&lt;sub&gt;1:n&lt;/sub&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span><span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&lt;b&gt;f&lt;/b&gt;&lt;sub&gt;1:n&lt;/sub&gt;&gt;&#39;</span><span class="p">)</span><span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;y1n&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&lt;b&gt;y&lt;/b&gt;&lt;sub&gt;1:n&lt;/sub&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span><span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">)</span><span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;x1n&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">)</span><span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="s1">&#39;y1n&#39;</span><span class="p">)</span><span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;sigma&#39;</span><span class="p">,</span> <span class="s1">&#39;y1n&#39;</span><span class="p">)</span><span class="n">g</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s1">&#39;gp_reg1&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">)</span><span class="n">g</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">st</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">graphviz</span><span class="w"> </span><span class="kn">import</span> <span class="n">Digraph</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">(</span><span class="s1">&#39;gp&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;sigma&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;sigma;&gt;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&amp;theta;&gt;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;x1n&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&lt;b&gt;x&lt;/b&gt;&lt;sub&gt;1:n&lt;/sub&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&lt;b&gt;f&lt;/b&gt;&lt;sub&gt;1:n&lt;/sub&gt;&gt;&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s1">&#39;y1n&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&lt;&lt;b&gt;y&lt;/b&gt;&lt;sub&gt;1:n&lt;/sub&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;x1n&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="s1">&#39;y1n&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s1">&#39;sigma&#39;</span><span class="p">,</span> <span class="s1">&#39;y1n&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s1">&#39;gp_reg1&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">)</span>
+<span class="n">g</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/be39ae119c464a02df55d6f37c25f7e4932954919321b7b8b3f6867da87373fe.svg" src="../_images/be39ae119c464a02df55d6f37c25f7e4932954919321b7b8b3f6867da87373fe.svg" />
-</div>
+<img alt="../_images/be39ae119c464a02df55d6f37c25f7e4932954919321b7b8b3f6867da87373fe.svg" src="../_images/be39ae119c464a02df55d6f37c25f7e4932954919321b7b8b3f6867da87373fe.svg" /></div>
 </div>
 <p>So far, so good, but how do we make predictions?
 How do we get <span class="math notranslate nohighlight">\(p(f(\cdot)|\mathcal{D})\)</span>.
@@ -797,8 +804,7 @@ Let’s visualize the situation again.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/a1e83cc45c3dce362e15b58d9076b13d21d587cba93c18213b7e00487a5e3b31.svg" src="../_images/a1e83cc45c3dce362e15b58d9076b13d21d587cba93c18213b7e00487a5e3b31.svg" />
-</div>
+<img alt="../_images/a1e83cc45c3dce362e15b58d9076b13d21d587cba93c18213b7e00487a5e3b31.svg" src="../_images/a1e83cc45c3dce362e15b58d9076b13d21d587cba93c18213b7e00487a5e3b31.svg" /></div>
 </div>
 <p>Okay, now we have only finite-dimensional probability densities.
 This is great. We know what to do next.
@@ -842,7 +848,7 @@ Therefore, we conclude that the posterior probability measure over the space of 
 f(\cdot)|\mathcal{D} \sim \operatorname{GP}(m_n(\cdot), k_n(\cdot, \cdot)).
 \]</div>
 <section id="the-point-predictive-distribution">
-<h3>The point predictive distribution<a class="headerlink" href="#the-point-predictive-distribution" title="Link to this heading">#</a></h3>
+<h3>The point predictive distribution<a class="headerlink" href="#the-point-predictive-distribution" title="Permalink to this heading">#</a></h3>
 <p>What if you want to predict at a single point?
 How do you do that?
 Well, this is quite simple.
@@ -867,7 +873,7 @@ p(y^*|\mathbf{x}^*, \mathcal{D}) = \int p(y^*|f(\mathbf{x}^*)) p(f(\mathbf{x}^*)
 </section>
 </section>
 <section id="calibrating-the-hyperparameters-of-a-gaussian-process">
-<h2>Calibrating the Hyperparameters of a Gaussian Process<a class="headerlink" href="#calibrating-the-hyperparameters-of-a-gaussian-process" title="Link to this heading">#</a></h2>
+<h2>Calibrating the Hyperparameters of a Gaussian Process<a class="headerlink" href="#calibrating-the-hyperparameters-of-a-gaussian-process" title="Permalink to this heading">#</a></h2>
 <p>So, we saw how GP regression works, but everything we did was conditional on knowing the hyperparameters of the covariance function; we called them <span class="math notranslate nohighlight">\(\theta\)</span> and the likelihood variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.
 But what do we do if we are not sure about them?
 We will do what we always do:</p>
@@ -886,7 +892,7 @@ p(\theta,\sigma | \mathcal{D}) &amp;\propto&amp; p(\mathcal{D}|\theta,\sigma)p(\
 <li><p>We approximate this posterior. So far, we only know of one way of approximating this posterior, and that is by a maximum a posteriori estimate.</p></li>
 </ul>
 <section id="making-a-little-bit-of-analytical-progress-in-the-posterior">
-<h3>Making a little bit of analytical progress in the posterior<a class="headerlink" href="#making-a-little-bit-of-analytical-progress-in-the-posterior" title="Link to this heading">#</a></h3>
+<h3>Making a little bit of analytical progress in the posterior<a class="headerlink" href="#making-a-little-bit-of-analytical-progress-in-the-posterior" title="Permalink to this heading">#</a></h3>
 <p>We stated without proof that the posterior of the hyperparameters is:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -920,8 +926,7 @@ So, let’s draw the graph.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/87666e6faef46b9ca0cd552392ecd784ba6f46b87a0c1878c5768d654fcb879d.svg" src="../_images/87666e6faef46b9ca0cd552392ecd784ba6f46b87a0c1878c5768d654fcb879d.svg" />
-</div>
+<img alt="../_images/87666e6faef46b9ca0cd552392ecd784ba6f46b87a0c1878c5768d654fcb879d.svg" src="../_images/87666e6faef46b9ca0cd552392ecd784ba6f46b87a0c1878c5768d654fcb879d.svg" /></div>
 </div>
 <p>The graph shows how the joint distribution of all the variables decomposes in conditional probabilities.
 You know that the parent nodes condition the children nodes.
@@ -951,7 +956,7 @@ p(\theta,\sigma | \mathcal{D}) \propto \mathcal{N}\left(\mathbf{y}_{1:n}\middle|
 \]</div>
 </section>
 <section id="maximum-a-posteriori-estimate-of-the-hyperparameters">
-<h3>Maximum a Posteriori Estimate of the Hyperparameters<a class="headerlink" href="#maximum-a-posteriori-estimate-of-the-hyperparameters" title="Link to this heading">#</a></h3>
+<h3>Maximum a Posteriori Estimate of the Hyperparameters<a class="headerlink" href="#maximum-a-posteriori-estimate-of-the-hyperparameters" title="Permalink to this heading">#</a></h3>
 <p>In the maximum a posteriori estimate (MAP), we approximate the posterior with the <span class="math notranslate nohighlight">\(\ delta\)</span> function centered at its pick.
 That is, we are approximating:</p>
 <div class="math notranslate nohighlight">
@@ -1091,7 +1096,7 @@ By Ilias Bilionis (ibilion[at]purdue.edu)
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>
