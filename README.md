@@ -16,6 +16,29 @@ The material is under the GNU General Public License. You can reuse it in any wa
 
 You can find the lecture book [here](https://predictivesciencelab.github.io/data-analytics-se/index.html).
 
+## Local development
+
+All Python environments, dependencies, and command-line tools for this
+repository are managed with [uv](https://docs.astral.sh/uv/):
+
+```bash
+uv sync --locked
+```
+
+The notebooks that draw directed graphs also require the Graphviz `dot` system
+executable. On macOS it can be installed with `brew install graphviz`; this is a
+system dependency rather than a Python package.
+
+To audit notebook execution without changing their stored outputs, run:
+
+```bash
+uv run --locked python tools/execute_notebooks.py
+```
+
+Pass `--in-place` only when the refreshed outputs should be saved. Build the
+classic Jupyter Book with `./make.sh`; maintainers can publish the validated
+build with `./make.sh --publish`.
+
 ## Older Course Versions
 
 + [Fall 2020 version](https://github.com/PredictiveScienceLab/data-analytics-se/tree/fall2020)
