@@ -389,16 +389,15 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-02.html">Homework 2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-03.html">Homework 3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-04.html">Homework 4</a></li>
-
-
-
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-05.html">Homework 5</a></li>
-
-
-
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-06.html">Homework 6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-07.html">Homework 7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-08.html">Homework 8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-09.html">Homework 9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-10.html">Homework 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-11.html">Homework 11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-12.html">Homework 12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-13.html">Homework 13</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
@@ -1148,9 +1147,35 @@ Being engineers, we are going to call the -1.96 a two.</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zs</span><span class="p">,</span> <span class="n">Z</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">zs</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z_025</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">],</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0.025 quantile&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z_975</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">],</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0.975 quantile&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">zs</span><span class="p">,</span>
+    <span class="n">Z</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">zs</span><span class="p">),</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.15&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Standard normal PDF&quot;</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">z_025</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.0</span><span class="p">],</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;v&quot;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.15&quot;</span><span class="p">,</span>
+    <span class="n">markerfacecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+    <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">1.25</span><span class="p">,</span>
+    <span class="n">markersize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0.025 quantile&quot;</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">z_975</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.0</span><span class="p">],</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;^&quot;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.15&quot;</span><span class="p">,</span>
+    <span class="n">markerfacecolor</span><span class="o">=</span><span class="s2">&quot;0.55&quot;</span><span class="p">,</span>
+    <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">1.25</span><span class="p">,</span>
+    <span class="n">markersize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0.975 quantile&quot;</span>
+<span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
@@ -1158,7 +1183,7 @@ Being engineers, we are going to call the -1.96 a two.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/ddaeb30849e958b84e55e9387a05b9ef325ed3f2855b66c2d201237f054da794.svg" src="../_images/ddaeb30849e958b84e55e9387a05b9ef325ed3f2855b66c2d201237f054da794.svg" /></div>
+<img alt="../_images/52b8069698d69d53c195b9b58b9184713835c2bcbe56ccd795bb2691fda3ded4.svg" src="../_images/52b8069698d69d53c195b9b58b9184713835c2bcbe56ccd795bb2691fda3ded4.svg" /></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1332,9 +1357,35 @@ x_q = \mu + \sigma z_q.
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xs</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_025</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0.025-quantile&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_975</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0.975-quantile&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">xs</span><span class="p">,</span>
+    <span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xs</span><span class="p">),</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.15&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Normal PDF&quot;</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">x_025</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.0</span><span class="p">],</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;v&quot;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.15&quot;</span><span class="p">,</span>
+    <span class="n">markerfacecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+    <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">1.25</span><span class="p">,</span>
+    <span class="n">markersize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0.025-quantile&quot;</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">x_975</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.0</span><span class="p">],</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;^&quot;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.15&quot;</span><span class="p">,</span>
+    <span class="n">markerfacecolor</span><span class="o">=</span><span class="s2">&quot;0.55&quot;</span><span class="p">,</span>
+    <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">1.25</span><span class="p">,</span>
+    <span class="n">markersize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0.975-quantile&quot;</span>
+<span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$p(x)$&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -1344,7 +1395,7 @@ x_q = \mu + \sigma z_q.
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/43b7532df7bfc30b696cc1c814116f984a83a747a65e42054f2c283a2d15c161.svg" src="../_images/43b7532df7bfc30b696cc1c814116f984a83a747a65e42054f2c283a2d15c161.svg" /></div>
+<img alt="../_images/c39542fb15b4d4bf35486b0645b5ed64998b9f27e289fdd4a1fa0c457302888e.svg" src="../_images/c39542fb15b4d4bf35486b0645b5ed64998b9f27e289fdd4a1fa0c457302888e.svg" /></div>
 </div>
 <p>Now, let’s find the distance between <span class="math notranslate nohighlight">\(x_{2.5}\)</span> and <span class="math notranslate nohighlight">\(x_{97.5}\)</span> in terms of the standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>.
 We have:</p>

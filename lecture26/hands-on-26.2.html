@@ -389,16 +389,15 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-02.html">Homework 2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-03.html">Homework 3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-04.html">Homework 4</a></li>
-
-
-
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-05.html">Homework 5</a></li>
-
-
-
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-06.html">Homework 6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-07.html">Homework 7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-08.html">Homework 8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-09.html">Homework 9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-10.html">Homework 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-11.html">Homework 11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-12.html">Homework 12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-13.html">Homework 13</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
@@ -936,23 +935,39 @@ L(\theta) = \int_{[0,1]^2} \left\{\frac{\partial^2}{\partial x^2}\hat{\Psi}(x,y;
             
 
 <span class="k">def</span><span class="w"> </span><span class="nf">plot_contour</span><span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="n">true_sol</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the contour of the true solution and the approximation.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot print-safe contours of the approximation and exact solution.&quot;&quot;&quot;</span>
     <span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
     <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">xx</span><span class="p">)</span>
-    <span class="n">X_flat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">Y</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[:,</span> <span class="kc">None</span><span class="p">]]))</span>
-    <span class="n">Z_flat</span> <span class="o">=</span> <span class="n">ex</span><span class="o">.</span><span class="n">solution</span><span class="p">(</span><span class="n">X_flat</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-    <span class="n">Z_t_flat</span> <span class="o">=</span> <span class="n">true_sol</span><span class="p">(</span><span class="n">X_flat</span><span class="p">)</span>
-    <span class="n">Z_t_flat</span> <span class="o">=</span> <span class="n">Z_t_flat</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-    <span class="n">Z</span> <span class="o">=</span> <span class="n">Z_flat</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
-    <span class="n">Z_t</span> <span class="o">=</span> <span class="n">Z_t_flat</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Neural network solution&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z_t</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;True solution&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+    <span class="n">X_flat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">Y</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[:,</span> <span class="kc">None</span><span class="p">]])</span>
+    <span class="p">)</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">ex</span><span class="o">.</span><span class="n">solution</span><span class="p">(</span><span class="n">X_flat</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+    <span class="n">Z_t</span> <span class="o">=</span> <span class="n">true_sol</span><span class="p">(</span><span class="n">X_flat</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+    <span class="n">lower</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">Z_t</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+    <span class="n">upper</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">Z_t</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">):</span>
+        <span class="n">upper</span> <span class="o">=</span> <span class="n">lower</span> <span class="o">+</span> <span class="mf">1.0</span>
+    <span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+        <span class="n">filled</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys&quot;</span>
+        <span class="p">)</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="p">],</span>
+            <span class="n">colors</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.6</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%.2g</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+            <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+            <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span>
+        <span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">filled</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+    <span class="n">draw</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="s2">&quot;Neural network solution&quot;</span><span class="p">)</span>
+    <span class="n">draw</span><span class="p">(</span><span class="n">Z_t</span><span class="p">,</span> <span class="s2">&quot;Exact solution&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -999,7 +1014,7 @@ tensor(4.8895e-06, grad_fn=&lt;MeanBackward0&gt;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/377b696a515fd58195e641918f8836d17df5465b2b633dc031305687298e5840.svg" src="../_images/377b696a515fd58195e641918f8836d17df5465b2b633dc031305687298e5840.svg" /><img alt="../_images/a9038f9756a2767b1bfff23ffed3e7ce12f2a6b3acc42382205acdef6c359940.svg" src="../_images/a9038f9756a2767b1bfff23ffed3e7ce12f2a6b3acc42382205acdef6c359940.svg" /></div>
+<img alt="../_images/62a194086175590531cffbcf4aba838377b77510fa534544dd50ebd51a9fcfcd.svg" src="../_images/62a194086175590531cffbcf4aba838377b77510fa534544dd50ebd51a9fcfcd.svg" /><img alt="../_images/0401faa336957fb81be06f32a6de3e850811b69127115e3c7f38b55bbd99f60b.svg" src="../_images/0401faa336957fb81be06f32a6de3e850811b69127115e3c7f38b55bbd99f60b.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1140,7 +1155,7 @@ it = 9999, loss = 2.2737367544323206e-13
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a7f6c3678e57077236e026505e47bfac842acdadc78adf997ce06e6e0d2f98b4.svg" src="../_images/a7f6c3678e57077236e026505e47bfac842acdadc78adf997ce06e6e0d2f98b4.svg" /><img alt="../_images/ffacb97fc5524dcb6e6e0fbbe5fcaae369847457bab689d86fc90fa3c4fc934a.svg" src="../_images/ffacb97fc5524dcb6e6e0fbbe5fcaae369847457bab689d86fc90fa3c4fc934a.svg" /></div>
+<img alt="../_images/6ff2a3edf561c1f12a878be481e622f7e4a8bd1cb642d95bf8f24c1f41e1118b.svg" src="../_images/6ff2a3edf561c1f12a878be481e622f7e4a8bd1cb642d95bf8f24c1f41e1118b.svg" /><img alt="../_images/4e2fbe092f2ac3d9c622fa88ad4b3ea1e1bea2335bffba56925d01175de0a9ba.svg" src="../_images/4e2fbe092f2ac3d9c622fa88ad4b3ea1e1bea2335bffba56925d01175de0a9ba.svg" /></div>
 </div>
 <section id="questions">
 <h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>

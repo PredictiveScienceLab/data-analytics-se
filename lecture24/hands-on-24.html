@@ -389,16 +389,15 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-02.html">Homework 2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-03.html">Homework 3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-04.html">Homework 4</a></li>
-
-
-
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-05.html">Homework 5</a></li>
-
-
-
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-06.html">Homework 6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-07.html">Homework 7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-08.html">Homework 8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-09.html">Homework 9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-10.html">Homework 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-11.html">Homework 11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-12.html">Homework 12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-13.html">Homework 13</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
@@ -1675,8 +1674,9 @@ This will help us demonstrate some best practices specifically:</p>
 <p>First, start by loading the dataset:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/PredictiveScienceLab/data-analytics-se/raw/master/lecturebook/data/motor.dat&quot;</span>
-<span class="o">!</span>curl<span class="w"> </span>-LO<span class="w"> </span><span class="nv">$url</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">data_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data/motor.dat&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1684,7 +1684,7 @@ This will help us demonstrate some best practices specifically:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the data</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;motor.dat&#39;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">data_path</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">][:,</span> <span class="kc">None</span><span class="p">]</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">][:,</span> <span class="kc">None</span><span class="p">]</span>
 </pre></div>

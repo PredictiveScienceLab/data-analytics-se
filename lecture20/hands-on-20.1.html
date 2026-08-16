@@ -389,16 +389,15 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-02.html">Homework 2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-03.html">Homework 3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-04.html">Homework 4</a></li>
-
-
-
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-05.html">Homework 5</a></li>
-
-
-
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-06.html">Homework 6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-07.html">Homework 7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-08.html">Homework 8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-09.html">Homework 9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-10.html">Homework 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-11.html">Homework 11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-12.html">Homework 12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-13.html">Homework 13</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
@@ -845,12 +844,11 @@ We do not repeat the theoretical details.</p>
 </div>
 <p>We are not going to implement the filter from scratch.
 We will use the Python module <a class="reference external" href="https://filterpy.readthedocs.io/en/latest/">FilterPy</a>.
-This is not included in the default version of Google Colab.
-You need to install it manually.
-Here is how:</p>
+FilterPy is included in the repository’s locked uv environment.
+Run <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">sync</span> <span class="pre">--locked</span></code> from the repository root before executing this notebook:</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input above-output-prompt docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>filterpy
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dependencies are managed by uv; run &quot;uv sync&quot; from the repository root.</span>
 </pre></div>
 </div>
 </div>
@@ -960,7 +958,29 @@ The correspondance of the notation is as follows:</p>
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_mean_and_ellipse</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="kn">import</span> <span class="n">Ellipse</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_ellipse</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">cov</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">n_std</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add an ``n_std`` covariance ellipse to ``ax``.&quot;&quot;&quot;</span>
+    <span class="n">eigenvalues</span><span class="p">,</span> <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cov</span><span class="p">)[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">eigenvalues</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">eigenvalues</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">eigenvalues</span><span class="p">[</span><span class="n">order</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">eigenvectors</span><span class="p">[:,</span> <span class="n">order</span><span class="p">]</span>
+    <span class="n">angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">eigenvectors</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">eigenvectors</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+    <span class="n">ellipse</span> <span class="o">=</span> <span class="n">Ellipse</span><span class="p">(</span>
+        <span class="n">xy</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mu</span><span class="p">)[:</span><span class="mi">2</span><span class="p">],</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">n_std</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigenvalues</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">n_std</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigenvalues</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+        <span class="n">angle</span><span class="o">=</span><span class="n">angle</span><span class="p">,</span>
+        <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">ellipse</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ellipse</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_mean_and_ellipse</span><span class="p">(</span>
     <span class="n">mu</span><span class="p">,</span>
     <span class="n">cov</span><span class="p">,</span>
     <span class="n">ax</span><span class="p">,</span>

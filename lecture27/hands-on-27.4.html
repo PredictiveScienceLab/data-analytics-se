@@ -389,16 +389,15 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-02.html">Homework 2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-03.html">Homework 3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-04.html">Homework 4</a></li>
-
-
-
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-05.html">Homework 5</a></li>
-
-
-
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-06.html">Homework 6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-07.html">Homework 7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-08.html">Homework 8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-09.html">Homework 9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-10.html">Homework 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-11.html">Homework 11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-12.html">Homework 12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-13.html">Homework 13</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
@@ -761,8 +760,7 @@ Instead it uses the following approach:</p>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Do this in Google Colab</span>
-<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pyro-ppl
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dependencies are managed by uv; run &quot;uv sync&quot; from the repository root.</span>
 </pre></div>
 </div>
 </div>
@@ -772,8 +770,9 @@ Instead it uses the following approach:</p>
 <p>We are going to work on the Coal Mining disaster dataset. Consider the following time series dataset of recorded coal mining disasters in the UK from 1851 to 1962. Let us first import this dataset and visualize it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/PredictiveScienceLab/data-analytics-se/master/lecturebook/data/coal_mining_disasters.csv&quot;</span>
-<span class="o">!</span>curl<span class="w"> </span>-LO<span class="w"> </span><span class="nv">$url</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">coal_data_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data/coal_mining_disasters.csv&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -782,7 +781,7 @@ Instead it uses the following approach:</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="n">disaster_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;coal_mining_disasters.csv&#39;</span><span class="p">)</span>
+<span class="n">disaster_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">coal_data_path</span><span class="p">)</span>
 <span class="n">disaster_data</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 <span class="n">disasters</span> <span class="o">=</span> <span class="n">disaster_data</span><span class="o">.</span><span class="n">disasters</span><span class="o">.</span><span class="n">values</span>
 <span class="n">years</span> <span class="o">=</span> <span class="n">disaster_data</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">values</span>
@@ -1014,6 +1013,8 @@ The latent variables to be inferred are <span class="math notranslate nohighligh
 
 <span class="n">nuts_kernel</span> <span class="o">=</span> <span class="n">NUTS</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">jit_compile</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ignore_jit_warnings</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">mcmc</span> <span class="o">=</span> <span class="n">MCMC</span><span class="p">(</span><span class="n">nuts_kernel</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">warmup_steps</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">pt_years</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">years</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">pt_disasters</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">disasters</span><span class="p">)</span>
 <span class="n">mcmc</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">pt_years</span><span class="p">,</span> <span class="n">pt_disasters</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1064,6 +1065,8 @@ The main difference is that we will use <code class="docutils literal notranslat
 <span class="c1"># This is also different</span>
 <span class="n">rng_key</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">PRNGKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="c1"># And you need to pass it to the run method</span>
+<span class="n">jax_years</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">years</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">jnp</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">jax_disasters</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">disasters</span><span class="p">)</span>
 <span class="n">mcmc</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">rng_key</span><span class="p">,</span> <span class="n">jax_years</span><span class="p">,</span> <span class="n">jax_disasters</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1182,15 +1185,14 @@ We can now follow a Bayesian approach to the fullest extent.</p>
 <p>On January 28, 1986, the twenty-fifth flight of the U.S. space shuttle program ended in disaster when one of the rocket boosters of the Shuttle Challenger exploded shortly after lift-off, killing all seven crew members. The presidential commission on the accident concluded that it was caused by the failure of an O-ring in a field joint on the rocket booster. This failure was due to a faulty design that made the O-ring unacceptably sensitive to several factors, including outside temperature. Of the previous 24 flights, data were available on failures of O-rings on 23 (one was lost at sea), and these data were discussed on the evening preceding the Challenger launch. Unfortunately, only the data corresponding to the seven flights on which there was a damage incident were considered important, and these were thought to show no obvious trend. The data are shown below:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/PredictiveScienceLab/data-analytics-se/master/lecturebook/data/challenger_data.csv&quot;</span>
-<span class="o">!</span>curl<span class="w"> </span>-LO<span class="w"> </span><span class="nv">$url</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">challenger_data_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data/challenger_data.csv&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">challenger_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;challenger_data.csv&quot;</span><span class="p">,</span> <span class="n">skip_header</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">challenger_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="n">challenger_data_path</span><span class="p">,</span> <span class="n">skip_header</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                                 <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">missing_values</span><span class="o">=</span><span class="s2">&quot;NA&quot;</span><span class="p">,</span>
                                 <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
 <span class="n">challenger_data</span> <span class="o">=</span> <span class="n">challenger_data</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])]</span>

@@ -389,16 +389,15 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-02.html">Homework 2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-03.html">Homework 3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-04.html">Homework 4</a></li>
-
-
-
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-05.html">Homework 5</a></li>
-
-
-
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-06.html">Homework 6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-07.html">Homework 7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-08.html">Homework 8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-09.html">Homework 9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-10.html">Homework 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-11.html">Homework 11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-12.html">Homework 12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-13.html">Homework 13</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
@@ -751,11 +750,10 @@ We implement VI from scratch in <code class="docutils literal notranslate"><span
 <li><p><a class="reference external" href="https://arxiv.org/pdf/1608.04471.pdf">Stein Variational Gradient Descent (Liu and Wang, 2016)</a>.</p></li>
 <li><p><a class="reference external" href="https://arxiv.org/pdf/1505.05770.pdf">Variational Inference with Normalizing Flows (Rezende and Mohamed, 2016)</a>.</p></li>
 </ul>
-<p><strong>Note:</strong> This notebook was originally developed by <a class="reference external" href="https://rohittripathy.netlify.com">Dr. Rohit Tripathy</a> in <code class="docutils literal notranslate"><span class="pre">PyMC</span></code>. It was modified by <span class="xref myst">Prof. Bilionis</span> using <code class="docutils literal notranslate"><span class="pre">pytorch</span></code> and <code class="docutils literal notranslate"><span class="pre">pyro</span></code>.</p>
+<p><strong>Note:</strong> This notebook was originally developed by <a class="reference external" href="https://rohittripathy.netlify.com">Dr. Rohit Tripathy</a> in <code class="docutils literal notranslate"><span class="pre">PyMC</span></code>. It was modified by <a class="reference external" href="https://www.predictivesciencelab.org">Prof. Bilionis</a> using <code class="docutils literal notranslate"><span class="pre">pytorch</span></code> and <code class="docutils literal notranslate"><span class="pre">pyro</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Do this in Google Colab</span>
-<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pyro-ppl
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dependencies are managed by uv; run &quot;uv sync&quot; from the repository root.</span>
 </pre></div>
 </div>
 </div>
@@ -1781,10 +1779,47 @@ Iteration: 19900 Loss: 124.61317443847656
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thetas</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">infer</span><span class="o">.</span><span class="n">Predictive</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">guide</span><span class="o">=</span><span class="n">auto_gaussian_guide</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">1_000</span><span class="p">)(</span><span class="n">data</span><span class="p">)[</span><span class="s2">&quot;theta&quot;</span><span class="p">]</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">thetas</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;VI Posterior (Gaussian)&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">thetaprior</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Prior&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">theta_post</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True Posterior&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thetatrue</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True $</span><span class="se">\\</span><span class="s1">theta$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+    <span class="n">thetas</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>
+    <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;0.85&#39;</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+    <span class="n">hatch</span><span class="o">=</span><span class="s1">&#39;///&#39;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;VI Posterior (Gaussian)&#39;</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">,</span>
+    <span class="n">thetaprior</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
+    <span class="n">markevery</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+    <span class="n">markerfacecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span>
+    <span class="n">markersize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Prior&#39;</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">,</span>
+    <span class="n">theta_post</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span>
+    <span class="n">markevery</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+    <span class="n">markerfacecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span>
+    <span class="n">markersize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True Posterior&#39;</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span>
+    <span class="n">thetatrue</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True $</span><span class="se">\\</span><span class="s1">theta$&#39;</span>
+<span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">theta$&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Density&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Coin Toss Bayesian Inference&#39;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
@@ -1792,7 +1827,7 @@ Iteration: 19900 Loss: 124.61317443847656
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ad31737493f5ac7e03caf761b97ded7cf238176c7d4610947a3f1a659e06a630.svg" src="../_images/ad31737493f5ac7e03caf761b97ded7cf238176c7d4610947a3f1a659e06a630.svg" /></div>
+<img alt="../_images/2bc4e11ccdf97644c21ff372dee303c7ac824502ca6c1da75364230140ed2c48.svg" src="../_images/2bc4e11ccdf97644c21ff372dee303c7ac824502ca6c1da75364230140ed2c48.svg" /></div>
 </div>
 <p>Pretty good.</p>
 </section>
@@ -1801,8 +1836,9 @@ Iteration: 19900 Loss: 124.61317443847656
 <p>Let’s revisit this example from the MCMC lecture.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/PredictiveScienceLab/data-analytics-se/master/lecturebook/data/challenger_data.csv&quot;</span>
-<span class="o">!</span>curl<span class="w"> </span>-LO<span class="w"> </span><span class="nv">$url</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">challenger_data_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data/challenger_data.csv&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1810,7 +1846,7 @@ Iteration: 19900 Loss: 124.61317443847656
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load data </span>
-<span class="n">challenger_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;challenger_data.csv&quot;</span><span class="p">,</span> <span class="n">skip_header</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="n">challenger_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="n">challenger_data_path</span><span class="p">,</span> <span class="n">skip_header</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                                 <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">missing_values</span><span class="o">=</span><span class="s2">&quot;NA&quot;</span><span class="p">,</span>
                                 <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
 <span class="n">challenger_data</span> <span class="o">=</span> <span class="n">challenger_data</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">challenger_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])]</span>
@@ -1860,7 +1896,7 @@ Iteration: 19900 Loss: 124.61317443847656
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e720eea53b9cb1914b6d48ddce1aa9605f5d6f9f195ca8205640233ae70b1906.svg" src="../_images/e720eea53b9cb1914b6d48ddce1aa9605f5d6f9f195ca8205640233ae70b1906.svg" /></div>
+<img alt="../_images/7de8d48bb0c075a9b4e68b7b6dd6e0f9cdaea04cdc534e8251d7656f15e804e4.svg" src="../_images/7de8d48bb0c075a9b4e68b7b6dd6e0f9cdaea04cdc534e8251d7656f15e804e4.svg" /></div>
 </div>
 <section id="probabilistic-model">
 <h3>Probabilistic model<a class="headerlink" href="#probabilistic-model" title="Permalink to this heading">#</a></h3>
@@ -2328,7 +2364,7 @@ Iteration: 39900 Loss: 25.219414985062468
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/49ba4d61db17a752bd5a5ae0ccaf5bf47e0ecf5475b01465d14dd5046fb73292.svg" src="../_images/49ba4d61db17a752bd5a5ae0ccaf5bf47e0ecf5475b01465d14dd5046fb73292.svg" /></div>
+<img alt="../_images/cefc3a83ac3f00b2167e6920343d81fbde820ac2ffe32f4d370097138032a2ce.svg" src="../_images/cefc3a83ac3f00b2167e6920343d81fbde820ac2ffe32f4d370097138032a2ce.svg" /></div>
 </div>
 <p>Now let’s plot the posterior of the parameters:</p>
 <div class="cell docutils container">
@@ -2357,7 +2393,7 @@ Iteration: 39900 Loss: 25.219414985062468
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e15e81a6d3e158f0e817c34f43dd344d86e5c13e038f9e0a906b34be879a26ad.svg" src="../_images/e15e81a6d3e158f0e817c34f43dd344d86e5c13e038f9e0a906b34be879a26ad.svg" /><img alt="../_images/ffc4f517c4c4d928dc13788321a25ba9a6bf50fafab31d91b36c7f940e8477e8.svg" src="../_images/ffc4f517c4c4d928dc13788321a25ba9a6bf50fafab31d91b36c7f940e8477e8.svg" /><img alt="../_images/0a8e5b4e13ca1176c4d360074e673bcdff0e06cd5459da39d8b76f3add81f394.svg" src="../_images/0a8e5b4e13ca1176c4d360074e673bcdff0e06cd5459da39d8b76f3add81f394.svg" /></div>
+<img alt="../_images/50236049f5a161bda3f4177f57a0846f684fd920101afe78cc4c28c493b5c6a0.svg" src="../_images/50236049f5a161bda3f4177f57a0846f684fd920101afe78cc4c28c493b5c6a0.svg" /><img alt="../_images/c2df9317bd55e02da63302db8b9d07a667628a17347cb32a1bfd125cd09847e6.svg" src="../_images/c2df9317bd55e02da63302db8b9d07a667628a17347cb32a1bfd125cd09847e6.svg" /><img alt="../_images/3ddcc59688169c7b8990191db06d9bf7ddfbdec7cb83a58c2a28b354b71b2fdf.svg" src="../_images/3ddcc59688169c7b8990191db06d9bf7ddfbdec7cb83a58c2a28b354b71b2fdf.svg" /></div>
 </div>
 <p>Now we would like to plot the posterior predictive distribution as a function of the temperature.</p>
 <div class="cell docutils container">
@@ -2401,7 +2437,7 @@ Iteration: 39900 Loss: 25.219414985062468
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c30a518a72e6b135a7c66c17c9ef096d6f4326afa276a481addfa954e89a6ebb.svg" src="../_images/c30a518a72e6b135a7c66c17c9ef096d6f4326afa276a481addfa954e89a6ebb.svg" /></div>
+<img alt="../_images/fc4f3a5c1185ceca5e9ccdf91b38696d84cc44bc1010a018bf15f7e8bea64e22.svg" src="../_images/fc4f3a5c1185ceca5e9ccdf91b38696d84cc44bc1010a018bf15f7e8bea64e22.svg" /></div>
 </div>
 </section>
 </section>

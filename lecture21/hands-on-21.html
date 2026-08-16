@@ -389,16 +389,15 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-02.html">Homework 2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-03.html">Homework 3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-04.html">Homework 4</a></li>
-
-
-
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-05.html">Homework 5</a></li>
-
-
-
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-06.html">Homework 6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-07.html">Homework 7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-08.html">Homework 8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-09.html">Homework 9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-10.html">Homework 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-11.html">Homework 11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-12.html">Homework 12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-13.html">Homework 13</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
@@ -774,7 +773,7 @@ document.write(`
 <p>We will use the <a class="reference external" href="https://gpytorch.ai/">GPyTorch</a> library to implement Gaussian processes. This library is built on top of PyTorch, which is a popular library for deep learning. We will learn more about PyTorch as we go and we will be more elaborate about it in <a class="reference internal" href="../lecture24/hands-on-24.html#regression-with-deep-neural-networks"><span class="std std-ref">Lecture 24</span></a>. The main purpose of PyTorch is to help us with automatic differentiation. For now, think of it as an alternative to numpy that allows us to compute gradients of functions.</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input above-output-prompt docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>gpytorch
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dependencies are managed by uv; run &quot;uv sync&quot; from the repository root.</span>
 </pre></div>
 </div>
 </div>
@@ -1287,7 +1286,14 @@ This is how we do it:</p>
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">kernel_func</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">num_test</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">nugget</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">sample_functions</span><span class="p">(</span>
+    <span class="n">mean_func</span><span class="p">,</span>
+    <span class="n">kernel_func</span><span class="p">,</span>
+    <span class="n">num_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">num_test</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">nugget</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span>
+    <span class="n">print_safe</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Sample functions from a Gaussian process.</span>
 
 <span class="sd">    Arguments:</span>
@@ -1299,17 +1305,57 @@ This is how we do it:</p>
 <span class="sd">        num_samples -- the number of samples to take. Defaults to 10.</span>
 <span class="sd">        num_test -- the number of test points. Defaults to 100.</span>
 <span class="sd">        nugget -- a small number required for stability. Defaults to 1e-5.</span>
+<span class="sd">        print_safe -- use grayscale, line styles, and markers that remain distinct</span>
+<span class="sd">            in black-and-white printing. Defaults to False.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num_test</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
     <span class="n">m</span> <span class="o">=</span> <span class="n">mean_func</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
     <span class="n">C</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="n">nugget</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="n">L</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">print_safe</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">,</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
+            <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span>
+        <span class="p">)</span>
+        <span class="n">sample_linestyles</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="s1">&#39;-.&#39;</span><span class="p">,</span>
+            <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+            <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+            <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+            <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
+            <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
+            <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="p">]</span>
+        <span class="n">sample_markers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;^&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_samples</span><span class="p">):</span>
         <span class="n">z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span> 
-        <span class="n">f</span> <span class="o">=</span> <span class="n">m</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">L</span> <span class="o">@</span> <span class="n">z</span>  
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">f</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> 
+        <span class="n">f</span> <span class="o">=</span> <span class="n">m</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">L</span> <span class="o">@</span> <span class="n">z</span>
+        <span class="k">if</span> <span class="n">print_safe</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                <span class="n">X</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+                <span class="n">color</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="mf">0.15</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.055</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                <span class="n">linestyle</span><span class="o">=</span><span class="n">sample_linestyles</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample_linestyles</span><span class="p">)],</span>
+                <span class="n">marker</span><span class="o">=</span><span class="n">sample_markers</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample_markers</span><span class="p">)],</span>
+                <span class="n">markevery</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">num_test</span> <span class="o">//</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                <span class="n">markersize</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span>
+                <span class="n">markerfacecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span>
+                <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
+                <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sample&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                <span class="n">X</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
+                <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
                 <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sample&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
             <span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -1336,7 +1382,7 @@ This is how we do it:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c78538551ef30324f16e7c6d7b6451b60f3fbeab9b7f8cf6c3b50cd6350aadff.svg" src="../_images/c78538551ef30324f16e7c6d7b6451b60f3fbeab9b7f8cf6c3b50cd6350aadff.svg" /></div>
+<img alt="../_images/b3b9414633089cc26618e8a8f011b42b02c677ed226d655f2fdc73f79dc40046.svg" src="../_images/b3b9414633089cc26618e8a8f011b42b02c677ed226d655f2fdc73f79dc40046.svg" /></div>
 </div>
 </section>
 <section id="id4">
@@ -1370,7 +1416,7 @@ m(x) = ax + b.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8a7db8f9d43d6c164a1412ec475a09d28359c98fd78fcbe14a5a66e557a0b0d1.svg" src="../_images/8a7db8f9d43d6c164a1412ec475a09d28359c98fd78fcbe14a5a66e557a0b0d1.svg" /></div>
+<img alt="../_images/8d0c1818120c25ef2a20898e6c71b73f69aaf109e1d1d16df06b4dc3a40b8081.svg" src="../_images/8d0c1818120c25ef2a20898e6c71b73f69aaf109e1d1d16df06b4dc3a40b8081.svg" /></div>
 </div>
 </section>
 <section id="id5">
@@ -1418,12 +1464,12 @@ We need to inherit from the <code class="docutils literal notranslate"><span cla
     <span class="p">)</span>
 <span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+<span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">print_safe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/bb997657287fbfb30de34e53f1b6e99d8b6e1a502a0ea45551a623abe5bcc26a.svg" src="../_images/bb997657287fbfb30de34e53f1b6e99d8b6e1a502a0ea45551a623abe5bcc26a.svg" /></div>
+<img alt="../_images/b0553958fbc680e2a012cb039aff9ef6e94e2d01dbe7036deac3329ba14bf763.svg" src="../_images/b0553958fbc680e2a012cb039aff9ef6e94e2d01dbe7036deac3329ba14bf763.svg" /></div>
 </div>
 </section>
 <section id="id6">
@@ -1461,12 +1507,18 @@ For example if <span class="math notranslate nohighlight">\(\nu=1.5\)</span>, th
     <span class="p">)</span>
 <span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="mf">0.1</span>
 <span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">num_test</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">sample_functions</span><span class="p">(</span>
+    <span class="n">mean_func</span><span class="p">,</span>
+    <span class="n">k</span><span class="p">,</span>
+    <span class="n">num_samples</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">num_test</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+    <span class="n">print_safe</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/50d88446aca77783e147020f2192e4c02cfd5d120b9389c9ffba3ca3f69b5045.svg" src="../_images/50d88446aca77783e147020f2192e4c02cfd5d120b9389c9ffba3ca3f69b5045.svg" /></div>
+<img alt="../_images/d45cf518dd0c6848587fd1b4d48165b6a9285518f35fc623428af4281dbfee3d.svg" src="../_images/d45cf518dd0c6848587fd1b4d48165b6a9285518f35fc623428af4281dbfee3d.svg" /></div>
 </div>
 </section>
 <section id="id8">
@@ -1505,7 +1557,14 @@ Let’s look at the samples:</p>
 <span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">period_length</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="mf">0.1</span>
 <span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">num_test</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">nugget</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
+<span class="n">sample_functions</span><span class="p">(</span>
+    <span class="n">mean_func</span><span class="p">,</span>
+    <span class="n">k</span><span class="p">,</span>
+    <span class="n">num_samples</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">num_test</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+    <span class="n">nugget</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span>
+    <span class="n">print_safe</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1516,7 +1575,7 @@ Let’s look at the samples:</p>
 )
 </pre></div>
 </div>
-<img alt="../_images/5d94f9ebbadce9b3a60dc6d98495f09a5462182db6dbbec22a4840a6cdeaaad8.svg" src="../_images/5d94f9ebbadce9b3a60dc6d98495f09a5462182db6dbbec22a4840a6cdeaaad8.svg" /></div>
+<img alt="../_images/b540855434f2c3bb47a8193c37e7c355b3a0dc892e593dc132a2166abd73c6c6.svg" src="../_images/b540855434f2c3bb47a8193c37e7c355b3a0dc892e593dc132a2166abd73c6c6.svg" /></div>
 </div>
 <section id="id9">
 <h3>Questions<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
@@ -1549,12 +1608,12 @@ k(x, x') = vxx',
 <span class="n">mean_func</span> <span class="o">=</span> <span class="n">ConstantMean</span><span class="p">()</span>
 <span class="n">k</span> <span class="o">=</span> <span class="n">LinearKernel</span><span class="p">()</span>
 <span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+<span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">print_safe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f74c22593350d7d4c0cfa5b9c5ee489bb44e48cd306482dcb786d3f658f19ee4.svg" src="../_images/f74c22593350d7d4c0cfa5b9c5ee489bb44e48cd306482dcb786d3f658f19ee4.svg" /></div>
+<img alt="../_images/bf9b117b5f524196281791668b8ec265418fdad76cb8d6d92b1450462f3b535a.svg" src="../_images/bf9b117b5f524196281791668b8ec265418fdad76cb8d6d92b1450462f3b535a.svg" /></div>
 </div>
 <p>They are lines starting from the origin.</p>
 <p>Another classic non-stationary covariance function is the <code class="docutils literal notranslate"><span class="pre">PolynomialKernel</span></code>:</p>
@@ -1572,12 +1631,12 @@ k(x, x') = (x^Tx' + c)^d,
 <span class="n">k</span> <span class="o">=</span> <span class="n">ScaleKernel</span><span class="p">(</span><span class="n">PolynomialKernel</span><span class="p">(</span><span class="n">power</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
 <span class="n">k</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="mf">0.0</span>
 <span class="n">k</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+<span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">print_safe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5d0a57fcbd1287999d31d49a97ca2f92508b79c541b8a9ccc7296816faed9fef.svg" src="../_images/5d0a57fcbd1287999d31d49a97ca2f92508b79c541b8a9ccc7296816faed9fef.svg" /></div>
+<img alt="../_images/9717852b0ebdb22b850e550a955f443ec1a24ed15dae5bae5978b7833974dd85.svg" src="../_images/9717852b0ebdb22b850e550a955f443ec1a24ed15dae5bae5978b7833974dd85.svg" /></div>
 </div>
 </section>
 <section id="id10">
@@ -1603,12 +1662,18 @@ Let’s see how this works.</p>
 <span class="n">kfast</span><span class="o">.</span><span class="n">base_kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="mf">0.05</span>
 <span class="n">kfast</span><span class="o">.</span><span class="n">outputscale</span> <span class="o">=</span> <span class="mf">0.4</span>
 <span class="n">k</span> <span class="o">=</span> <span class="n">kslow</span> <span class="o">+</span> <span class="n">kfast</span>
-<span class="n">sample_functions</span><span class="p">(</span><span class="n">mean_func</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">num_test</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">sample_functions</span><span class="p">(</span>
+    <span class="n">mean_func</span><span class="p">,</span>
+    <span class="n">k</span><span class="p">,</span>
+    <span class="n">num_samples</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">num_test</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+    <span class="n">print_safe</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f486fabafb088da34805f58d95ab0c89ff2402a8fa16bf33be4b42d2d1d9cc4a.svg" src="../_images/f486fabafb088da34805f58d95ab0c89ff2402a8fa16bf33be4b42d2d1d9cc4a.svg" /></div>
+<img alt="../_images/d0efa30d487f609c1292db81e27cc811f630e941808afeb6f58fa7497cfd947b.svg" src="../_images/d0efa30d487f609c1292db81e27cc811f630e941808afeb6f58fa7497cfd947b.svg" /></div>
 </div>
 </section>
 <section id="id11">

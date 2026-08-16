@@ -389,16 +389,15 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-02.html">Homework 2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-03.html">Homework 3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-04.html">Homework 4</a></li>
-
-
-
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-05.html">Homework 5</a></li>
-
-
-
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-06.html">Homework 6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-07.html">Homework 7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../homework/homework-08.html">Homework 8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-09.html">Homework 9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-10.html">Homework 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-11.html">Homework 11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-12.html">Homework 12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../homework/homework-13.html">Homework 13</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
@@ -818,28 +817,43 @@ mu_975 = 3.68
 <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
     <span class="n">y_samples</span><span class="p">,</span>
     <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
-    <span class="n">bins</span><span class="o">=</span><span class="mi">100</span>
+    <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.85&quot;</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;0.35&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Predictive density&quot;</span>
 <span class="p">)</span>
+<span class="n">marker_height</span> <span class="o">=</span> <span class="mf">0.03</span> <span class="o">*</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="p">[</span><span class="n">mu_50</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-    <span class="s2">&quot;ro&quot;</span><span class="p">,</span>
-    <span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> 
+    <span class="p">[</span><span class="n">marker_height</span><span class="p">],</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;D&quot;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.10&quot;</span><span class="p">,</span>
+    <span class="n">markerfacecolor</span><span class="o">=</span><span class="s2">&quot;0.10&quot;</span><span class="p">,</span>
+    <span class="n">markersize</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0.50-quantile (median)&quot;</span>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="p">[</span><span class="n">mu_025</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-    <span class="s2">&quot;bo&quot;</span><span class="p">,</span>
-    <span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="p">[</span><span class="n">marker_height</span><span class="p">],</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;&lt;&quot;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.10&quot;</span><span class="p">,</span>
+    <span class="n">markerfacecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+    <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">1.25</span><span class="p">,</span>
+    <span class="n">markersize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0.025-quantile&quot;</span>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="p">[</span><span class="n">mu_975</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-    <span class="s2">&quot;go&quot;</span><span class="p">,</span>
-    <span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="p">[</span><span class="n">marker_height</span><span class="p">],</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.10&quot;</span><span class="p">,</span>
+    <span class="n">markerfacecolor</span><span class="o">=</span><span class="s2">&quot;0.60&quot;</span><span class="p">,</span>
+    <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">1.25</span><span class="p">,</span>
+    <span class="n">markersize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0.975-quantile&quot;</span>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$y$&quot;</span><span class="p">)</span>
@@ -850,21 +864,39 @@ mu_975 = 3.68
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/07acc536feee7486cb0a8e3f66e19f475208cc550f531db82079a6be489de942.svg" src="../_images/07acc536feee7486cb0a8e3f66e19f475208cc550f531db82079a6be489de942.svg" /></div>
+<img alt="../_images/36c9a11213f37dc6e793d284a834495893cae6cfdbb19881c97404dde2eb48a1.svg" src="../_images/36c9a11213f37dc6e793d284a834495893cae6cfdbb19881c97404dde2eb48a1.svg" /></div>
 </div>
 <p>Very often, the predictive intervals are summarized using box plots:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="c1"># Here the input is percentiles not quantiles though</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">y_samples</span><span class="p">,</span> <span class="n">whis</span><span class="o">=</span><span class="p">[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Y&quot;</span><span class="p">]);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span>
+    <span class="n">y_samples</span><span class="p">,</span>
+    <span class="n">whis</span><span class="o">=</span><span class="p">[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">],</span>
+    <span class="n">tick_labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Y&quot;</span><span class="p">],</span>
+    <span class="n">patch_artist</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">boxprops</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;facecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;edgecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;0.15&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hatch&quot;</span><span class="p">:</span> <span class="s2">&quot;///&quot;</span>
+    <span class="p">},</span>
+    <span class="n">whiskerprops</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;0.15&quot;</span><span class="p">,</span> <span class="s2">&quot;linestyle&quot;</span><span class="p">:</span> <span class="s2">&quot;--&quot;</span><span class="p">},</span>
+    <span class="n">capprops</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;0.15&quot;</span><span class="p">},</span>
+    <span class="n">medianprops</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;0.05&quot;</span><span class="p">,</span> <span class="s2">&quot;linewidth&quot;</span><span class="p">:</span> <span class="mf">1.5</span><span class="p">},</span>
+    <span class="n">flierprops</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;marker&quot;</span><span class="p">:</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;markerfacecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;markeredgecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;0.15&quot;</span>
+    <span class="p">}</span>
+<span class="p">);</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$y$&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b7b6fe184063e576060569db71e7fb297a34914926eb0053e5bc07a130e28c92.svg" src="../_images/b7b6fe184063e576060569db71e7fb297a34914926eb0053e5bc07a130e28c92.svg" /></div>
+<img alt="../_images/f5a236e19cb171ffe4a6cba8a07f68ebc6db901d6584673ce9a10b40c12964c1.svg" src="../_images/f5a236e19cb171ffe4a6cba8a07f68ebc6db901d6584673ce9a10b40c12964c1.svg" /></div>
 </div>
 <p>In the plot above, the <span class="math notranslate nohighlight">\(y\)</span>-axis indicates possible values, the median is shown as an orange line, the box encapsulates 50% of the probability around the median, and the whiskers are extreme quantiles (here selected to be the 0.025 and 0.975 quantiles). Finally, the plot also shows the samples that fall outside the extreme quantiles.</p>
 <p>An alternative to the box plot is the violin plot, which shows the distribution of the data (essentially a smoothed histogram).
@@ -873,14 +905,28 @@ The violin plot is shown below.</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write code that makes the violin plot using y_samples</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">y_samples</span><span class="p">,</span> <span class="n">quantiles</span><span class="o">=</span><span class="p">[</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.975</span><span class="p">])</span>
+<span class="n">parts</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span>
+    <span class="n">y_samples</span><span class="p">,</span>
+    <span class="n">quantiles</span><span class="o">=</span><span class="p">[</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.975</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="k">for</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">[</span><span class="s2">&quot;bodies&quot;</span><span class="p">]:</span>
+    <span class="n">body</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s2">&quot;0.85&quot;</span><span class="p">)</span>
+    <span class="n">body</span><span class="o">.</span><span class="n">set_edgecolor</span><span class="p">(</span><span class="s2">&quot;0.15&quot;</span><span class="p">)</span>
+    <span class="n">body</span><span class="o">.</span><span class="n">set_linewidth</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">body</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">body</span><span class="o">.</span><span class="n">set_hatch</span><span class="p">(</span><span class="s2">&quot;///&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;cbars&quot;</span><span class="p">,</span> <span class="s2">&quot;cmins&quot;</span><span class="p">,</span> <span class="s2">&quot;cmaxes&quot;</span><span class="p">,</span> <span class="s2">&quot;cquantiles&quot;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span>
+        <span class="n">parts</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s2">&quot;0.15&quot;</span><span class="p">)</span>
+        <span class="n">parts</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">set_linewidth</span><span class="p">(</span><span class="mf">1.25</span><span class="p">)</span>
+<span class="n">parts</span><span class="p">[</span><span class="s2">&quot;cquantiles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_linestyle</span><span class="p">([</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;--&quot;</span><span class="p">])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$y$&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">trim</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b263972bbdfe2d10166185980e3471fbefca62e92d2254451d7c3f01f2160fd3.svg" src="../_images/b263972bbdfe2d10166185980e3471fbefca62e92d2254451d7c3f01f2160fd3.svg" /></div>
+<img alt="../_images/02aa0a75f626da2b410e8655022e7fa31b5bc9cb89272cecd96e2b6c14704ea7.svg" src="../_images/02aa0a75f626da2b410e8655022e7fa31b5bc9cb89272cecd96e2b6c14704ea7.svg" /></div>
 </div>
 <p>An alternative to</p>
 <section id="questions">
