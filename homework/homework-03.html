@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Homework 3 &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+    <title>Homework 3 — Prior Information and Bayesian Earthquake Rates &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
   
   
@@ -65,8 +65,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'homework/homework-03';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Homework 4" href="homework-04.html" />
-    <link rel="prev" title="Homework 2" href="homework-02.html" />
+    <link rel="next" title="Homework 4 — Least Squares and Bayesian Elastic-Modulus Inference" href="homework-04.html" />
+    <link rel="prev" title="Homework 2 — Random Vectors and Monte Carlo Uncertainty Propagation" href="homework-02.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -383,19 +383,16 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="intro.html">Homework</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="homework-01.html">Homework 1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-02.html">Homework 2</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Homework 3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-04.html">Homework 4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-05.html">Homework 5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-06.html">Homework 6</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-07.html">Homework 7</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-08.html">Homework 8</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-09.html">Homework 9</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-10.html">Homework 10</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-11.html">Homework 11</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-12.html">Homework 12</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-13.html">Homework 13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-01.html">Homework 1 — Probability and Mechanical Reliability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-02.html">Homework 2 — Random Vectors and Monte Carlo Uncertainty Propagation</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Homework 3 — Prior Information and Bayesian Earthquake Rates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-04.html">Homework 4 — Least Squares and Bayesian Elastic-Modulus Inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-05.html">Homework 5 — Classification, Clustering, and Dimensionality Reduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-06.html">Homework 6 — State-Space Models and Kalman Filtering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-07.html">Homework 7 — Gaussian-Process Prediction for NIST Ultrasonic Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-08.html">Homework 8 — Bayesian Optimization for Model Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-09.html">Homework 9 — Deep Neural-Network Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-10.html">Homework 10 — Physics-Informed Modeling and Posterior Characterization</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
@@ -555,7 +552,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -566,11 +565,29 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Homework 3</h1>
+    <h1>Homework 3 — Prior Information and Bayesian Earthquake Rates</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-gammapoisson-updating-25-points">Problem 1 — Gamma–Poisson updating (25 points)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-major-earthquake-rate-and-risk-75-points">Problem 2 — Major-earthquake rate and risk (75 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#audit-and-represent-the-observations-10-points">2.1 Audit and represent the observations (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prior-and-posterior-comparison-20-points">2.2 Prior and posterior comparison (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-predictive-counts-20-points">2.3 Posterior-predictive counts (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ten-and-twenty-year-risk-15-points">2.4 Ten- and twenty-year risk (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#risk-communication-10-points">2.5 Risk communication (10 points)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -580,8 +597,222 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="homework-3">
-<h1>Homework 3<a class="headerlink" href="#homework-3" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="homework-3-prior-information-and-bayesian-earthquake-rates">
+<h1>Homework 3 — Prior Information and Bayesian Earthquake Rates<a class="headerlink" href="#homework-3-prior-information-and-bayesian-earthquake-rates" title="Permalink to this heading">#</a></h1>
+<p><strong>Coverage:</strong> Lectures 11–12<br>
+<strong>Due:</strong> Sunday, September 20, 2026, 11:59 p.m. ET<br>
+<strong>Total:</strong> 100 points</p>
+<section id="instructions">
+<h2>Instructions<a class="headerlink" href="#instructions" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Complete this notebook in Google Colab.</p></li>
+<li><p>Problem 1 is a manual mathematics problem. Show every important
+step in Markdown/LaTeX, or insert one clearly legible image of
+your handwritten derivation. Code may check arithmetic only
+after the derivation is complete.</p></li>
+<li><p>Problem 2 is a scaffolded scientific-computing study. Use the
+supplied random seeds and do not delete setup, helper, or check
+cells.</p></li>
+<li><p>Your submitted notebook must run from beginning to end in a
+fresh Colab runtime without Google Drive, absolute paths, or
+additional package installation.</p></li>
+<li><p>Label plots and include documented units. If a legacy dataset
+has no documented units, label the quantity as normalized or
+unit-unspecified rather than inventing units. Unless stated
+otherwise, report numerical answers to at least four
+significant digits.</p></li>
+</ul>
+</section>
+<section id="student-details">
+<h2>Student details<a class="headerlink" href="#student-details" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>First name:</strong></p></li>
+<li><p><strong>Last name:</strong></p></li>
+<li><p><strong>Purdue email:</strong></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+
+<span class="n">SEED</span> <span class="o">=</span> <span class="mi">53903</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;ticks&quot;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># During drafting this points to master. Before release, the instructor</span>
+<span class="c1"># will replace DATA_REVISION with the immutable course release tag.</span>
+<span class="n">DATA_REVISION</span> <span class="o">=</span> <span class="s2">&quot;master&quot;</span>
+<span class="n">DATA_BASE</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;https://raw.githubusercontent.com/PredictiveScienceLab/&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;data-analytics-se/</span><span class="si">{</span><span class="n">DATA_REVISION</span><span class="si">}</span><span class="s2">/lecturebook/data/homework&quot;</span>
+<span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">course_data</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="n">local_candidates</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data/homework&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">name</span><span class="p">,</span>
+        <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;lecturebook/data/homework&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">name</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="k">for</span> <span class="n">local</span> <span class="ow">in</span> <span class="n">local_candidates</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">local</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">local</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DATA_BASE</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-1-gammapoisson-updating-25-points">
+<h2>Problem 1 — Gamma–Poisson updating (25 points)<a class="headerlink" href="#problem-1-gammapoisson-updating-25-points" title="Permalink to this heading">#</a></h2>
+<p>Use the Gamma <strong>shape-rate</strong> density
+[
+p(\lambda)=\frac{\beta^\alpha}{\Gamma(\alpha)}
+\lambda^{\alpha-1}e^{-\beta\lambda}
+]
+and independent counts
+(Y_i\mid\lambda\sim\operatorname{Poisson}(\lambda\Delta_i)).</p>
+<ol class="arabic simple">
+<li><p>Write the likelihood as a function of (\lambda) and state the
+units of (\lambda) and (\beta). <strong>(5)</strong></p></li>
+<li><p>Derive the posterior and identify its updated shape and rate. <strong>(8)</strong></p></li>
+<li><p>Derive the posterior mean and mode, including the condition for
+an interior mode. <strong>(4)</strong></p></li>
+<li><p>For a future exposure (\Delta_<em>), derive
+(P(Y_</em>=0\mid y)=[\beta_N/(\beta_N+\Delta_<em>)]^{\alpha_N}),
+obtain (P(Y_</em>\ge1\mid y)), and verify its limiting behavior
+as (\Delta_*\to0) and (\infty). <strong>(8)</strong></p></li>
+</ol>
+<blockquote>
+<div><p><strong>Response:</strong> Replace this text with your work.</p>
+</div></blockquote>
+</section>
+<section id="problem-2-major-earthquake-rate-and-risk-75-points">
+<h2>Problem 2 — Major-earthquake rate and risk (75 points)<a class="headerlink" href="#problem-2-major-earthquake-rate-and-risk-75-points" title="Permalink to this heading">#</a></h2>
+<p>The frozen USGS ComCat extract contains earthquakes of magnitude
+at least 6.5 from 1900 through 2025 in the rectangular region
+(32\le\mathrm{latitude}\le37) N and
+(-122\le\mathrm{longitude}\le-114) degrees. It was retrieved on
+August 17, 2026 through the
+<a class="reference external" href="https://earthquake.usgs.gov/fdsnws/event/1/">USGS event API</a>.
+It is a teaching dataset, not an official forecast.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">events</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="n">course_data</span><span class="p">(</span><span class="s2">&quot;hw04_southern_california_earthquakes.csv&quot;</span><span class="p">),</span>
+    <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span>
+<span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">YEARS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1900</span><span class="p">,</span> <span class="mi">2026</span><span class="p">)</span>
+<span class="n">annual_counts</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">events</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">YEARS</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="k">assert</span> <span class="n">annual_counts</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">126</span><span class="p">,)</span>
+<span class="n">events</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">PRIORS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;weak&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;beta&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">},</span>
+    <span class="s2">&quot;reference&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mf">4.0</span><span class="p">,</span> <span class="s2">&quot;beta&quot;</span><span class="p">:</span> <span class="mf">32.0</span><span class="p">},</span>
+    <span class="s2">&quot;lower_rate&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span> <span class="s2">&quot;beta&quot;</span><span class="p">:</span> <span class="mf">40.0</span><span class="p">},</span>
+<span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">gamma_poisson_update</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">counts</span><span class="p">,</span> <span class="n">exposure_years</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return posterior shape and rate after students complete it.&#39;&#39;&#39;</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sample_future_counts</span><span class="p">(</span><span class="n">alpha_post</span><span class="p">,</span> <span class="n">beta_post</span><span class="p">,</span> <span class="n">horizon_years</span><span class="p">,</span>
+                         <span class="n">n_samples</span><span class="o">=</span><span class="mi">100_000</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">SEED</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return posterior-predictive Poisson counts.&#39;&#39;&#39;</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="audit-and-represent-the-observations-10-points">
+<h3>2.1 Audit and represent the observations (10 points)<a class="headerlink" href="#audit-and-represent-the-observations-10-points" title="Permalink to this heading">#</a></h3>
+<p>Verify uniqueness, magnitude threshold, missingness, and total
+count. Plot annual or decadal counts and explain why all zero-event
+years must remain in the likelihood.</p>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Response:</strong> Replace this text with your work.</p>
+</div></blockquote>
+</section>
+<section id="prior-and-posterior-comparison-20-points">
+<h3>2.2 Prior and posterior comparison (20 points)<a class="headerlink" href="#prior-and-posterior-comparison-20-points" title="Permalink to this heading">#</a></h3>
+<p>Compare these shape-rate priors for events per year:</p>
+<ul class="simple">
+<li><p>weak: (\Gamma(0.5,0.5));</p></li>
+<li><p>reference: (\Gamma(4,32)), a hypothetical prior with mean
+0.125 events/year and 32 prior exposure-years;</p></li>
+<li><p>lower-rate sensitivity: (\Gamma(2,40)).</p></li>
+</ul>
+<p>Implement the conjugate update, report each prior/posterior mean in
+events per decade, and plot all prior and posterior densities.</p>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="posterior-predictive-counts-20-points">
+<h3>2.3 Posterior-predictive counts (20 points)<a class="headerlink" href="#posterior-predictive-counts-20-points" title="Permalink to this heading">#</a></h3>
+<p>For each prior, simulate 100,000 posterior-predictive counts over
+the next decade using a local seeded generator. Plot the PMF,
+report the mean and central 95% interval, and verify the simulated
+zero-count probability against your formula from Problem 1.</p>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ten-and-twenty-year-risk-15-points">
+<h3>2.4 Ten- and twenty-year risk (15 points)<a class="headerlink" href="#ten-and-twenty-year-risk-15-points" title="Permalink to this heading">#</a></h3>
+<p>For all three priors, calculate (P(Y_*\ge1\mid y)) over 10 and
+20 years. Compare with the plug-in calculation
+(1-\exp[-E(\lambda\mid y)T]) and explain the difference. Present
+a compact sensitivity table.</p>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="risk-communication-10-points">
+<h3>2.5 Risk communication (10 points)<a class="headerlink" href="#risk-communication-10-points" title="Permalink to this heading">#</a></h3>
+<p>Write 150–200 words that distinguish expected count from the
+probability of one or more events, report the sensitivity range,
+and identify two concrete model limitations (at least one specific
+to this catalog, threshold, or bounding box). Do not present the
+calculation as an official earthquake forecast.</p>
+<blockquote>
+<div><p><strong>Response:</strong> Replace this text with your work.</p>
+</div></blockquote>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -620,7 +851,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Homework 2</p>
+        <p class="prev-next-title">Homework 2 — Random Vectors and Monte Carlo Uncertainty Propagation</p>
       </div>
     </a>
     <a class="right-next"
@@ -628,7 +859,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Homework 4</p>
+        <p class="prev-next-title">Homework 4 — Least Squares and Bayesian Elastic-Modulus Inference</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -638,6 +869,31 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-gammapoisson-updating-25-points">Problem 1 — Gamma–Poisson updating (25 points)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-major-earthquake-rate-and-risk-75-points">Problem 2 — Major-earthquake rate and risk (75 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#audit-and-represent-the-observations-10-points">2.1 Audit and represent the observations (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prior-and-posterior-comparison-20-points">2.2 Prior and posterior comparison (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-predictive-counts-20-points">2.3 Posterior-predictive counts (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ten-and-twenty-year-risk-15-points">2.4 Ten- and twenty-year risk (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#risk-communication-10-points">2.5 Risk communication (10 points)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

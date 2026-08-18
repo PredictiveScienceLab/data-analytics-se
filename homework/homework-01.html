@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Homework 1 &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+    <title>Homework 1 — Probability and Mechanical Reliability &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
   
   
@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'homework/homework-01';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Homework 2" href="homework-02.html" />
+    <link rel="next" title="Homework 2 — Random Vectors and Monte Carlo Uncertainty Propagation" href="homework-02.html" />
     <link rel="prev" title="Homework" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -383,19 +383,16 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="intro.html">Homework</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Homework 1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-02.html">Homework 2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-03.html">Homework 3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-04.html">Homework 4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-05.html">Homework 5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-06.html">Homework 6</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-07.html">Homework 7</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-08.html">Homework 8</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-09.html">Homework 9</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-10.html">Homework 10</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-11.html">Homework 11</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-12.html">Homework 12</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-13.html">Homework 13</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Homework 1 — Probability and Mechanical Reliability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-02.html">Homework 2 — Random Vectors and Monte Carlo Uncertainty Propagation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-03.html">Homework 3 — Prior Information and Bayesian Earthquake Rates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-04.html">Homework 4 — Least Squares and Bayesian Elastic-Modulus Inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-05.html">Homework 5 — Classification, Clustering, and Dimensionality Reduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-06.html">Homework 6 — State-Space Models and Kalman Filtering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-07.html">Homework 7 — Gaussian-Process Prediction for NIST Ultrasonic Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-08.html">Homework 8 — Bayesian Optimization for Model Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-09.html">Homework 9 — Deep Neural-Network Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-10.html">Homework 10 — Physics-Informed Modeling and Posterior Characterization</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
@@ -555,7 +552,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -566,11 +565,29 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Homework 1</h1>
+    <h1>Homework 1 — Probability and Mechanical Reliability</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-bayes-rule-and-test-design-25-points">Problem 1 — Bayes’ rule and test design (25 points)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-weibull-gear-reliability-75-points">Problem 2 — Weibull gear reliability (75 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-and-fitted-survival-15-points">2.1 Empirical and fitted survival (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parameters-and-reliability-quantities-20-points">2.2 Parameters and reliability quantities (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-model-checks-15-points">2.3 Probability-model checks (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#replacement-decision-15-points">2.4 Replacement decision (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitation-10-points">2.5 Limitation (10 points)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -580,8 +597,179 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="homework-1">
-<h1>Homework 1<a class="headerlink" href="#homework-1" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="homework-1-probability-and-mechanical-reliability">
+<h1>Homework 1 — Probability and Mechanical Reliability<a class="headerlink" href="#homework-1-probability-and-mechanical-reliability" title="Permalink to this heading">#</a></h1>
+<p><strong>Coverage:</strong> Lectures 1–4<br>
+<strong>Due:</strong> Sunday, August 30, 2026, 11:59 p.m. ET<br>
+<strong>Total:</strong> 100 points</p>
+<section id="instructions">
+<h2>Instructions<a class="headerlink" href="#instructions" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Complete this notebook in Google Colab.</p></li>
+<li><p>Problem 1 is a manual mathematics problem. Show every important
+step in Markdown/LaTeX, or insert one clearly legible image of
+your handwritten derivation. Code may check arithmetic only
+after the derivation is complete.</p></li>
+<li><p>Problem 2 is a scaffolded scientific-computing study. Use the
+supplied random seeds and do not delete setup, helper, or check
+cells.</p></li>
+<li><p>Your submitted notebook must run from beginning to end in a
+fresh Colab runtime without Google Drive, absolute paths, or
+additional package installation.</p></li>
+<li><p>Label plots and include documented units. If a legacy dataset
+has no documented units, label the quantity as normalized or
+unit-unspecified rather than inventing units. Unless stated
+otherwise, report numerical answers to at least four
+significant digits.</p></li>
+</ul>
+</section>
+<section id="student-details">
+<h2>Student details<a class="headerlink" href="#student-details" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>First name:</strong></p></li>
+<li><p><strong>Last name:</strong></p></li>
+<li><p><strong>Purdue email:</strong></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">integrate</span><span class="p">,</span> <span class="n">stats</span>
+
+<span class="n">SEED</span> <span class="o">=</span> <span class="mi">53901</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn-v0_8-whitegrid&quot;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-1-bayes-rule-and-test-design-25-points">
+<h2>Problem 1 — Bayes’ rule and test design (25 points)<a class="headerlink" href="#problem-1-bayes-rule-and-test-design-25-points" title="Permalink to this heading">#</a></h2>
+<p>A disease has prevalence (P(D)=0.004). A diagnostic test has
+sensitivity (P(+\mid D)=0.80) and specificity
+(P(-\mid D^c)=0.90).</p>
+<ol class="arabic simple">
+<li><p><strong>Probability tree (5 points).</strong> Draw the complete two-stage
+probability tree. Label every branch and calculate the four
+joint probabilities at its leaves.</p></li>
+<li><p><strong>Reverse conditionals (8 points).</strong> Starting from Bayes’ rule,
+derive and calculate (P(D\mid +)) and (P(D\mid -)). Show
+the numerator and denominator in both calculations.</p></li>
+<li><p><strong>Interpretation (4 points).</strong> Explain numerically why the
+positive predictive value remains small even though a positive
+result is evidence in favor of disease.</p></li>
+<li><p><strong>Test design (8 points).</strong> Keep the prevalence fixed and raise
+sensitivity to (0.99). Let (q=P(+\mid D^c)). Derive the
+largest (q) for which (P(D\mid+)\ge0.90), and report the
+corresponding minimum specificity.</p></li>
+</ol>
+<blockquote>
+<div><p><strong>Response:</strong> Replace this text with your work.</p>
+</div></blockquote>
+</section>
+<section id="problem-2-weibull-gear-reliability-75-points">
+<h2>Problem 2 — Weibull gear reliability (75 points)<a class="headerlink" href="#problem-2-weibull-gear-reliability-75-points" title="Permalink to this heading">#</a></h2>
+<p>Eight nominally identical gears were tested to failure. Their
+lifetimes are given below in years. Model lifetime (T) with the
+two-parameter Weibull distribution</p>
+<p>[
+f(t)=\frac{k}{\lambda}\left(\frac{t}{\lambda}\right)^{k-1}
+\exp!\left[-\left(\frac{t}{\lambda}\right)^k\right],\qquad
+S(t)=\exp!\left[-\left(\frac{t}{\lambda}\right)^k\right].
+]</p>
+<p>The fitting call is supplied; maximum-likelihood theory is not
+assessed this week.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">failure_times_years</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="mf">8.1</span><span class="p">,</span> <span class="mf">8.4</span><span class="p">,</span> <span class="mf">11.2</span><span class="p">,</span> <span class="mf">9.3</span><span class="p">,</span> <span class="mf">8.9</span><span class="p">,</span> <span class="mf">12.4</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span>
+<span class="p">)</span>
+<span class="n">shape_hat</span><span class="p">,</span> <span class="n">location_hat</span><span class="p">,</span> <span class="n">scale_hat</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">weibull_min</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+    <span class="n">failure_times_years</span><span class="p">,</span> <span class="n">floc</span><span class="o">=</span><span class="mf">0.0</span>
+<span class="p">)</span>
+<span class="n">gear_model</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">weibull_min</span><span class="p">(</span><span class="n">shape_hat</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale_hat</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The two-parameter Weibull fit is ready for analysis.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="empirical-and-fitted-survival-15-points">
+<h3>2.1 Empirical and fitted survival (15 points)<a class="headerlink" href="#empirical-and-fitted-survival-15-points" title="Permalink to this heading">#</a></h3>
+<p>Make one figure containing the no-censoring empirical survival
+curve, the fitted Weibull survival curve, and a rug or marker for
+every observed lifetime. Describe where agreement is weakest.</p>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Response:</strong> Describe the most visible agreement or disagreement.</p>
+</div></blockquote>
+</section>
+<section id="parameters-and-reliability-quantities-20-points">
+<h3>2.2 Parameters and reliability quantities (20 points)<a class="headerlink" href="#parameters-and-reliability-quantities-20-points" title="Permalink to this heading">#</a></h3>
+<p>Report (k) and (\lambda), including units. Then calculate the
+mean, median, (P(8&lt;T&lt;10)), and the first-percentile lifetime
+(t_{0.01}). Explain operationally what (t_{0.01}) means.</p>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Response:</strong> Replace this text with your work.</p>
+</div></blockquote>
+</section>
+<section id="probability-model-checks-15-points">
+<h3>2.3 Probability-model checks (15 points)<a class="headerlink" href="#probability-model-checks-15-points" title="Permalink to this heading">#</a></h3>
+<p>Implement the Weibull PDF, CDF, and survival formulas yourself
+(do not call the corresponding SciPy methods). Verify numerically
+that the density integrates to one, that (F(t)+S(t)=1) at
+(t=6,9,12), and that all three functions agree with <code class="docutils literal notranslate"><span class="pre">gear_model</span></code>
+at those times. Report the largest discrepancy.</p>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="replacement-decision-15-points">
+<h3>2.4 Replacement decision (15 points)<a class="headerlink" href="#replacement-decision-15-points" title="Permalink to this heading">#</a></h3>
+<p>A proposal replaces each gear at age 8 years. The fitted
+probability of failure before replacement must not exceed 0.10.
+Calculate the risk, decide whether the proposal passes, and—if it
+fails—calculate the latest replacement age satisfying the target.</p>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Response:</strong> State the decision and the numerical evidence.</p>
+</div></blockquote>
+</section>
+<section id="limitation-10-points">
+<h3>2.5 Limitation (10 points)<a class="headerlink" href="#limitation-10-points" title="Permalink to this heading">#</a></h3>
+<p>State one specific reason why eight run-to-failure observations
+are insufficient for a high-consequence maintenance decision and
+identify additional data or experimental information that would
+address it. Use no more than four sentences.</p>
+<blockquote>
+<div><p><strong>Response:</strong> Replace this text with your work.</p>
+</div></blockquote>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -628,7 +816,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Homework 2</p>
+        <p class="prev-next-title">Homework 2 — Random Vectors and Monte Carlo Uncertainty Propagation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -638,6 +826,31 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-bayes-rule-and-test-design-25-points">Problem 1 — Bayes’ rule and test design (25 points)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-weibull-gear-reliability-75-points">Problem 2 — Weibull gear reliability (75 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-and-fitted-survival-15-points">2.1 Empirical and fitted survival (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parameters-and-reliability-quantities-20-points">2.2 Parameters and reliability quantities (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-model-checks-15-points">2.3 Probability-model checks (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#replacement-decision-15-points">2.4 Replacement decision (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitation-10-points">2.5 Limitation (10 points)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

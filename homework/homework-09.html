@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Homework 9 &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+    <title>Homework 9 — Deep Neural-Network Regression &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
   
   
@@ -65,8 +65,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'homework/homework-09';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Homework 10" href="homework-10.html" />
-    <link rel="prev" title="Homework 8" href="homework-08.html" />
+    <link rel="next" title="Homework 10 — Physics-Informed Modeling and Posterior Characterization" href="homework-10.html" />
+    <link rel="prev" title="Homework 8 — Bayesian Optimization for Model Calibration" href="homework-08.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -383,19 +383,16 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="intro.html">Homework</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="homework-01.html">Homework 1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-02.html">Homework 2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-03.html">Homework 3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-04.html">Homework 4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-05.html">Homework 5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-06.html">Homework 6</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-07.html">Homework 7</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-08.html">Homework 8</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Homework 9</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-10.html">Homework 10</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-11.html">Homework 11</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-12.html">Homework 12</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-13.html">Homework 13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-01.html">Homework 1 — Probability and Mechanical Reliability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-02.html">Homework 2 — Random Vectors and Monte Carlo Uncertainty Propagation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-03.html">Homework 3 — Prior Information and Bayesian Earthquake Rates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-04.html">Homework 4 — Least Squares and Bayesian Elastic-Modulus Inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-05.html">Homework 5 — Classification, Clustering, and Dimensionality Reduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-06.html">Homework 6 — State-Space Models and Kalman Filtering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-07.html">Homework 7 — Gaussian-Process Prediction for NIST Ultrasonic Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-08.html">Homework 8 — Bayesian Optimization for Model Calibration</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Homework 9 — Deep Neural-Network Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-10.html">Homework 10 — Physics-Informed Modeling and Posterior Characterization</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
@@ -555,7 +552,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -566,11 +565,29 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Homework 9</h1>
+    <h1>Homework 9 — Deep Neural-Network Regression</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-one-neural-network-update-25-points">Problem 1 — One neural-network update (25 points)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-airfoil-self-noise-regression-75-points">Problem 2 — Airfoil self-noise regression (75 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-split-and-transform-10-points">2.1 Inspect, split, and transform (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-baseline-15-points">2.2 Linear baseline (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-model-and-training-20-points">2.3 Neural model and training (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-final-test-evaluation-15-points">2.4 One final test evaluation (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparse-support-trust-check-15-points">2.5 Sparse-support trust check (15 points)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -580,8 +597,273 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="homework-9">
-<h1>Homework 9<a class="headerlink" href="#homework-9" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="homework-9-deep-neural-network-regression">
+<h1>Homework 9 — Deep Neural-Network Regression<a class="headerlink" href="#homework-9-deep-neural-network-regression" title="Permalink to this heading">#</a></h1>
+<p><strong>Coverage:</strong> Lectures 24–25<br>
+<strong>Due:</strong> Sunday, November 22, 2026, 11:59 p.m. ET<br>
+<strong>Total:</strong> 100 points</p>
+<section id="instructions">
+<h2>Instructions<a class="headerlink" href="#instructions" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Complete this notebook in Google Colab.</p></li>
+<li><p>Problem 1 is a manual mathematics problem. Show every important
+step in Markdown/LaTeX, or insert one clearly legible image of
+your handwritten derivation. Code may check arithmetic only
+after the derivation is complete.</p></li>
+<li><p>Problem 2 is a scaffolded scientific-computing study. Use the
+supplied random seeds and do not delete setup, helper, or check
+cells.</p></li>
+<li><p>Your submitted notebook must run from beginning to end in a
+fresh Colab runtime without Google Drive, absolute paths, or
+additional package installation.</p></li>
+<li><p>Label plots and include documented units. If a legacy dataset
+has no documented units, label the quantity as normalized or
+unit-unspecified rather than inventing units. Unless stated
+otherwise, report numerical answers to at least four
+significant digits.</p></li>
+</ul>
+</section>
+<section id="student-details">
+<h2>Student details<a class="headerlink" href="#student-details" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>First name:</strong></p></li>
+<li><p><strong>Last name:</strong></p></li>
+<li><p><strong>Purdue email:</strong></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">NearestNeighbors</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="n">SEED</span> <span class="o">=</span> <span class="mi">53909</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;ticks&quot;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># During drafting this points to master. Before release, the instructor</span>
+<span class="c1"># will replace DATA_REVISION with the immutable course release tag.</span>
+<span class="n">DATA_REVISION</span> <span class="o">=</span> <span class="s2">&quot;master&quot;</span>
+<span class="n">DATA_BASE</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;https://raw.githubusercontent.com/PredictiveScienceLab/&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;data-analytics-se/</span><span class="si">{</span><span class="n">DATA_REVISION</span><span class="si">}</span><span class="s2">/lecturebook/data/homework&quot;</span>
+<span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">course_data</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="n">local_candidates</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data/homework&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">name</span><span class="p">,</span>
+        <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;lecturebook/data/homework&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">name</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="k">for</span> <span class="n">local</span> <span class="ow">in</span> <span class="n">local_candidates</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">local</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">local</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DATA_BASE</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-1-one-neural-network-update-25-points">
+<h2>Problem 1 — One neural-network update (25 points)<a class="headerlink" href="#problem-1-one-neural-network-update-25-points" title="Permalink to this heading">#</a></h2>
+<p>For (h=\tanh(w_hx+b_h)), (\widehat y=w_oh+b_o), and
+(L=\tfrac12(\widehat y-y)^2), use
+(x=.5,y=1.2,w_h=.8,b_h=-.1,w_o=1.5,b_o=.2).</p>
+<ol class="arabic simple">
+<li><p>Calculate preactivation, activation, prediction, and loss. <strong>(7)</strong></p></li>
+<li><p>Count trainable scalar parameters. <strong>(3)</strong></p></li>
+<li><p>Derive/evaluate (\partial L/\partial\widehat y). <strong>(4)</strong></p></li>
+<li><p>Given gradient <code class="docutils literal notranslate"><span class="pre">(-.386438,-.772876,-.164018,-.563031)</span></code> in
+parameter order ((w_h,b_h,w_o,b_o)), take one SGD step with
+learning rate 0.05. <strong>(7)</strong></p></li>
+<li><p>Recompute prediction/loss and decide whether it is a descent
+step. <strong>(4)</strong></p></li>
+</ol>
+<blockquote>
+<div><p><strong>Response:</strong> Replace this text with your work.</p>
+</div></blockquote>
+</section>
+<section id="problem-2-airfoil-self-noise-regression-75-points">
+<h2>Problem 2 — Airfoil self-noise regression (75 points)<a class="headerlink" href="#problem-2-airfoil-self-noise-regression-75-points" title="Permalink to this heading">#</a></h2>
+<p>The UCI Airfoil Self-Noise dataset (DOI 10.24432/C5VW2C, CC BY
+4.0) has 1,503 observations, five inputs, and sound-pressure level
+in dB. Use PyTorch already present in Colab; install no framework.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">SEED</span><span class="p">);</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">SEED</span><span class="p">);</span> <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">use_deterministic_algorithms</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">warn_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">airfoil</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">course_data</span><span class="p">(</span><span class="s2">&quot;hw11_airfoil_self_noise.csv&quot;</span><span class="p">))</span>
+<span class="n">TARGET</span> <span class="o">=</span> <span class="s2">&quot;sound_pressure_db&quot;</span>
+<span class="n">FEATURES</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">airfoil</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">TARGET</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">airfoil</span><span class="p">[</span><span class="n">FEATURES</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">airfoil</span><span class="p">[</span><span class="n">TARGET</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">airfoil</span><span class="p">))</span>
+<span class="n">train_idx</span><span class="p">,</span> <span class="n">remainder_idx</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">idx</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.30</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">SEED</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+<span class="n">valid_idx</span><span class="p">,</span> <span class="n">test_idx</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">remainder_idx</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.50</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">SEED</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+<span class="k">assert</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_idx</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">valid_idx</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_idx</span><span class="p">))</span> <span class="o">==</span> <span class="p">(</span><span class="mi">1052</span><span class="p">,</span> <span class="mi">225</span><span class="p">,</span> <span class="mi">226</span><span class="p">)</span>
+<span class="n">airfoil</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">make_model</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Tanh</span><span class="p">(),</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Tanh</span><span class="p">(),</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">count_parameters</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">()</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">train_network</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train_scaled</span><span class="p">,</span> <span class="n">y_train_scaled</span><span class="p">,</span>
+                  <span class="n">X_valid_scaled</span><span class="p">,</span> <span class="n">y_valid_scaled</span><span class="p">,</span>
+                  <span class="n">max_epochs</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+                  <span class="n">min_delta</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">SEED</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Seeded mini-batch trainer with validation early stopping.&#39;&#39;&#39;</span>
+    <span class="n">Xtr</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">X_train_scaled</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">ytr</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">y_train_scaled</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">Xva</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">X_valid_scaled</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">yva</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">y_valid_scaled</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">Xtr</span><span class="p">,</span> <span class="n">ytr</span><span class="p">)</span>
+    <span class="n">generator</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Generator</span><span class="p">()</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span>
+        <span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">generator</span><span class="o">=</span><span class="n">generator</span>
+    <span class="p">)</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="mf">1e-5</span>
+    <span class="p">)</span>
+    <span class="n">loss_fn</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">()</span>
+    <span class="n">best_loss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="n">best_state</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
+    <span class="n">epochs_without_improvement</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">history</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;valid&quot;</span><span class="p">:</span> <span class="p">[]}</span>
+
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_epochs</span><span class="p">):</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+        <span class="n">batch_losses</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">xb</span><span class="p">,</span> <span class="n">yb</span> <span class="ow">in</span> <span class="n">loader</span><span class="p">:</span>
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">model</span><span class="p">(</span><span class="n">xb</span><span class="p">),</span> <span class="n">yb</span><span class="p">)</span>
+            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+            <span class="n">batch_losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">detach</span><span class="p">()))</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">valid_loss</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">loss_fn</span><span class="p">(</span><span class="n">model</span><span class="p">(</span><span class="n">Xva</span><span class="p">),</span> <span class="n">yva</span><span class="p">))</span>
+        <span class="n">history</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">batch_losses</span><span class="p">)))</span>
+        <span class="n">history</span><span class="p">[</span><span class="s2">&quot;valid&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">valid_loss</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">valid_loss</span> <span class="o">&lt;</span> <span class="n">best_loss</span> <span class="o">-</span> <span class="n">min_delta</span><span class="p">:</span>
+            <span class="n">best_loss</span> <span class="o">=</span> <span class="n">valid_loss</span>
+            <span class="n">best_state</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
+            <span class="n">epochs_without_improvement</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">epochs_without_improvement</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">epochs_without_improvement</span> <span class="o">&gt;=</span> <span class="n">patience</span><span class="p">:</span>
+            <span class="k">break</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">best_state</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">history</span><span class="p">,</span> <span class="n">best_loss</span>
+
+<span class="k">assert</span> <span class="n">count_parameters</span><span class="p">(</span><span class="n">make_model</span><span class="p">())</span> <span class="o">==</span> <span class="mi">385</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="inspect-split-and-transform-10-points">
+<h3>2.1 Inspect, split, and transform (10 points)<a class="headerlink" href="#inspect-split-and-transform-10-points" title="Permalink to this heading">#</a></h3>
+<p>Describe all variables and units. Verify disjoint split indices.
+Fit separate standard scalers to training predictors and training
+target only; transform validation/test without refitting.</p>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="linear-baseline-15-points">
+<h3>2.2 Linear baseline (15 points)<a class="headerlink" href="#linear-baseline-15-points" title="Permalink to this heading">#</a></h3>
+<p>Fit <code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code> on standardized training data. Report
+validation RMSE/MAE on the original dB scale and plot residuals.
+Keep the test set untouched.</p>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="neural-model-and-training-20-points">
+<h3>2.3 Neural model and training (20 points)<a class="headerlink" href="#neural-model-and-training-20-points" title="Permalink to this heading">#</a></h3>
+<p>Inspect the supplied <code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">→</span> <span class="pre">16</span> <span class="pre">→</span> <span class="pre">16</span> <span class="pre">→</span> <span class="pre">1</span></code> tanh network and verify 385
+trainable parameters. Use the supplied seeded trainer (Adam,
+learning rate <code class="docutils literal notranslate"><span class="pre">1e-3</span></code>, weight decay <code class="docutils literal notranslate"><span class="pre">1e-5</span></code>, batch size 64, MSE,
+250 epochs, patience 25, <code class="docutils literal notranslate"><span class="pre">min_delta=1e-6</span></code>). Confirm that it restores
+the best validation checkpoint. Plot training and validation loss
+and justify the stopping epoch.</p>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="one-final-test-evaluation-15-points">
+<h3>2.4 One final test evaluation (15 points)<a class="headerlink" href="#one-final-test-evaluation-15-points" title="Permalink to this heading">#</a></h3>
+<p>Freeze every decision, then evaluate both models on test data once.
+Report RMSE/MAE in dB, plot observed versus predicted and residuals
+versus prediction, and state whether the neural model materially
+improves the baseline.</p>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="sparse-support-trust-check-15-points">
+<h3>2.5 Sparse-support trust check (15 points)<a class="headerlink" href="#sparse-support-trust-check-15-points" title="Permalink to this heading">#</a></h3>
+<p>In standardized input space, compute each test point’s distance to
+its nearest training point. Compare neural-network test RMSE in the
+upper distance quartile with all remaining points. Decide whether
+sparse-support predictions are trustworthy and name one limitation
+hidden by aggregate RMSE.</p>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Response:</strong> Give your scientific conclusion in 150 words or fewer.</p>
+</div></blockquote>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -620,7 +902,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Homework 8</p>
+        <p class="prev-next-title">Homework 8 — Bayesian Optimization for Model Calibration</p>
       </div>
     </a>
     <a class="right-next"
@@ -628,7 +910,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Homework 10</p>
+        <p class="prev-next-title">Homework 10 — Physics-Informed Modeling and Posterior Characterization</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -638,6 +920,31 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-one-neural-network-update-25-points">Problem 1 — One neural-network update (25 points)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-airfoil-self-noise-regression-75-points">Problem 2 — Airfoil self-noise regression (75 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-split-and-transform-10-points">2.1 Inspect, split, and transform (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-baseline-15-points">2.2 Linear baseline (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-model-and-training-20-points">2.3 Neural model and training (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-final-test-evaluation-15-points">2.4 One final test evaluation (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparse-support-trust-check-15-points">2.5 Sparse-support trust check (15 points)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
