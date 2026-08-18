@@ -298,10 +298,3 @@
 + https://predictivesciencelab.github.io/data-analytics-se/homework/homework-09.html
 
 + https://predictivesciencelab.github.io/data-analytics-se/homework/homework-10.html
-
-+ https://predictivesciencelab.github.io/data-analytics-se/homework/homework-11.html
-
-+ https://predictivesciencelab.github.io/data-analytics-se/homework/homework-12.html
-
-+ https://predictivesciencelab.github.io/data-analytics-se/homework/homework-13.html
-

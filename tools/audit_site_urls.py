@@ -13,6 +13,9 @@ from urllib.parse import unquote, urlsplit
 
 PUBLIC_PREFIX = "/data-analytics-se/"
 PUBLIC_BASE = "https://predictivesciencelab.github.io/data-analytics-se/"
+REQUIRED_HOMEWORK_ROUTES = {
+    f"homework/homework-{number:02d}.html" for number in range(1, 11)
+}
 
 
 class LinkParser(HTMLParser):
@@ -105,6 +108,13 @@ def main() -> int:
     }
     baseline = baseline_paths(args.baseline_ref)
     missing_baseline = sorted(set(baseline) - set(candidate))
+    missing_required_homework = sorted(REQUIRED_HOMEWORK_ROUTES - set(candidate))
+    unexpected_homework = sorted(
+        route
+        for route in candidate
+        if route.startswith("homework/homework-")
+        and route not in REQUIRED_HOMEWORK_ROUTES
+    )
 
     activities = activity_paths(args.activity_links)
     missing_activities = sorted(route for route in activities if route not in candidate)
@@ -152,12 +162,16 @@ def main() -> int:
             "baseline_content_pages": len(baseline),
             "activity_links": len(activities),
             "missing_baseline_pages": len(missing_baseline),
+            "missing_required_homework_pages": len(missing_required_homework),
+            "unexpected_homework_pages": len(unexpected_homework),
             "missing_activity_pages": len(missing_activities),
             "broken_internal_files": len(broken_files),
             "broken_internal_fragments": len(broken_fragments),
             "missing_legacy_lecture_anchors": len(missing_lecture_anchors),
         },
         "missing_baseline_pages": missing_baseline,
+        "missing_required_homework_pages": missing_required_homework,
+        "unexpected_homework_pages": unexpected_homework,
         "missing_activity_pages": missing_activities,
         "broken_internal_files": broken_files,
         "broken_internal_fragments": broken_fragments,
@@ -170,6 +184,8 @@ def main() -> int:
         report["counts"][key]
         for key in (
             "missing_baseline_pages",
+            "missing_required_homework_pages",
+            "unexpected_homework_pages",
             "missing_activity_pages",
             "broken_internal_files",
             "broken_internal_fragments",

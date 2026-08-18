@@ -36,11 +36,19 @@ cd ..
 
 echo "** Homework **"
 cd lecturebook
-for f in homework/*.ipynb
-do
+
+# Only the ten active Fall 2026 assignments belong in Brightspace.
+for ((i=1; i<=10; i++)); do
+	f="homework/homework-$(printf '%02d' "$i").ipynb"
+	if [[ ! -f "$f" ]]; then
+		echo "Error: missing active homework notebook: $f" >&2
+		exit 1
+	fi
 	g=${f%.ipynb}
 	url=$base_link/$g.html
 	echo "+ $url"
-	echo ""
+	if ((i < 10)); then
+		echo ""
+	fi
 done
 cd ..
