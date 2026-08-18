@@ -270,8 +270,6 @@
 
 + https://predictivesciencelab.github.io/data-analytics-se/lecture27/hands-on-27.4.html
 
-+ https://predictivesciencelab.github.io/data-analytics-se/lecture27/hands-on-27.5.html
-
 
 ** lecture28 ** 
 
@@ -296,4 +294,14 @@
 + https://predictivesciencelab.github.io/data-analytics-se/homework/homework-07.html
 
 + https://predictivesciencelab.github.io/data-analytics-se/homework/homework-08.html
+
++ https://predictivesciencelab.github.io/data-analytics-se/homework/homework-09.html
+
++ https://predictivesciencelab.github.io/data-analytics-se/homework/homework-10.html
+
++ https://predictivesciencelab.github.io/data-analytics-se/homework/homework-11.html
+
++ https://predictivesciencelab.github.io/data-analytics-se/homework/homework-12.html
+
++ https://predictivesciencelab.github.io/data-analytics-se/homework/homework-13.html
 
