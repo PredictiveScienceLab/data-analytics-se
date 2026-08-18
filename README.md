@@ -1,20 +1,41 @@
-# ME 539 -  Introduction to Scientific Machine Learning
+# ME 539 — Introduction to Scientific Machine Learning
 
-This repository includes the source code for the course "ME 539 Introduction to Scientific Machine Learning," which is being taught during Fall 2024 by Dr. Alex Alberts at Purdue University.
-The in-person version of the course meets every Tuesday and Thursday 4:30-5:45 pm at HAMP 2118.
-Please only come to the room if registered, as there is insufficient physical space.
-There is also a Purdue online version of the class and an [EdX](https://courses.edx.org/courses/course-v1:PurdueX+ME597x+2T2020/course/) version.
+This repository contains the lecture book, Jupyter notebooks, and supporting
+materials for Purdue University's ME 539, *Introduction to Scientific Machine
+Learning*. The current offering is taught by Prof. Ilias Bilionis in Fall 2026.
 
-There are pre-recorded videos of all lectures.
-These are accessible to Purdue students through [Brightspace](https://purdue.brightspace.com/d2l/login).
-EdX students will find the same videos in EdX.
-More details about the syllabus and course evaluations are available on the corresponding websites.
+## Fall 2026 offering
 
-The material is under the GNU General Public License. You can reuse it in any way you like as soon as you include the same License and cite this repository. Please email me (ibilion@purdue.edu) if you do, as I would love to know!
+- Campus students meet Tuesdays and Thursdays, 10:30–11:15 a.m. ET, in
+  ME 2061.
+- Online/EPE and asynchronous students have no required synchronous class
+  meetings. They complete the same course modules and follow the published
+  homework and exam deadlines.
+- The course uses 28 numbered lecture modules, ten homework assignments, and
+  three noncomprehensive unit exams.
+- Registered Purdue students access lecture videos, announcements, assignment
+  links, and the official course schedule through
+  [Brightspace](https://purdue.brightspace.com/d2l/login). Homework is submitted
+  through Gradescope.
+- Google Colab is the recommended environment for course activities and
+  homework. The repository can also be run locally using the locked `uv`
+  environment described below.
+
+Course policies, deadlines, examination logistics, and accommodations are
+governed by the current syllabus and Brightspace site.
+
+The material is distributed under the GNU General Public License v3. If you
+reuse or modify it, follow the terms in [LICENSE](LICENSE) and cite this
+repository. Prof. Bilionis welcomes a note at ibilion@purdue.edu when the
+material is reused.
 
 ## Lecture Book
 
-You can find the lecture book [here](https://predictivesciencelab.github.io/data-analytics-se/index.html).
+The published lecture book is available
+[here](https://predictivesciencelab.github.io/data-analytics-se/index.html).
+It contains the reading activities, hands-on notebooks, and homework pages used
+by the course. Pre-recorded videos for the numbered lecture modules are linked
+through the Purdue course site.
 
 ## Local development
 

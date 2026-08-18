@@ -1,8 +1,11 @@
 # Tentative Homework 1 Problems
 
+> **Status:** Superseded by the student-facing draft in
+> `lecturebook/homework/homework-01.ipynb`. Retained only as an early planning
+> record.
+
 This planning draft is intentionally outside the published Jupyter Book. The
-student-facing `homework-01.ipynb` remains title-only until the assignment is
-finalized.
+student-facing notebook now contains the full review draft.
 
 The tentative problems use only Lectures 1--4 and emphasize handwritten
 reasoning. Code may be used to check arithmetic, but it would not replace the

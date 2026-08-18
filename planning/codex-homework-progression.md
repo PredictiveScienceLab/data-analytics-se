@@ -1,5 +1,9 @@
 # Codex progression across Homework 1--13
 
+> **Superseded planning record (August 18, 2026).** The Fall 2026 homework
+> sequence no longer includes Codex exercises. The active ten-assignment plan
+> is `planning/homework-redesign-blueprint.md`.
+
 This is an instructor-facing plan. The published homework notebooks remain
 title-only until each assignment is written. Each homework should contain at
 most one **Codex laboratory** problem; the remaining problems should continue
@@ -50,7 +54,7 @@ is correct.
 | HW | Due | Course material | Codex laboratory problem | Mathematical verification gate | Main artifact |
 |---:|---:|---|---|---|---|
 | 1 | Aug. 30 | Lectures 1--4: predictive modeling; probability; discrete and continuous random variables | **Codex as a fallible calculator.** After doing a small normalization/CDF/moment calculation by hand, ask Codex to write a checker. Inspect its patch and identify at least one test that had to come from the mathematics rather than the generated code. | PMF/PDF normalization, CDF endpoint and monotonicity checks, and hand-computed moments. | A small checker plus the first `verification.md`; no `AGENTS.md` authoring yet. |
-| 2 | Sept. 6 | Lectures 5--6: collections of random variables and random vectors | **Write the first `AGENTS.md`.** Specify setup/test commands, files Codex may edit, course notation, mathematical invariants, and the definition of done. Then ask Codex to implement joint-distribution, marginalization, and covariance utilities. | A hand-worked finite joint distribution; marginals must normalize; covariance must be symmetric and positive semidefinite. | Root `AGENTS.md`, implementation, and instructor-provided tests. |
+| 2 | Sept. 6 | Lectures 5--6: collections of random variables and random vectors | **Write the first layered `AGENTS.md` instructions.** Put durable course-repository rules at the root and homework-specific scope, notation, invariants, and test commands in `hw02/AGENTS.md`. Then ask Codex to implement a joint-distribution utility. | A hand-worked finite joint distribution; marginals must normalize; covariance must be symmetric and positive semidefinite. | Root and local `AGENTS.md`, implementation, and instructor-provided tests. |
 | 3 | Sept. 13 | Lectures 7--10: sampling, Monte Carlo estimation, and Monte Carlo uncertainty | **Build the first real harness.** Students write tests and analytic reference values before asking Codex to implement Monte Carlo estimators and uncertainty estimates. Include deterministic smoke tests and stochastic property tests. | For \(U\sim U(0,1)\), derive \(E[U^2]=1/3\) and \(\operatorname{Var}(U^2)=4/45\); test the \(N^{-1/2}\) error rate and repeated-trial coverage within stated tolerances. | `tests/`, seeded simulation, and `uv run pytest -q`. |
 | 4 | Sept. 20 | Lectures 11--12: prior information and analytical Bayesian inference | **First nontrivial repo task and first reusable skill.** Author `.agents/skills/conjugate-bayes-audit/SKILL.md`, then give Codex a bounded task to build and audit a multi-file conjugate Bayesian tool under the existing `AGENTS.md` and harness. Review the diff and reject at least one unsupported claim or implementation choice. | Beta\((2,3)\) with seven successes and three failures must produce Beta\((9,6)\), posterior-predictive probability \(9/15\), and correct prior- and data-dominated limits. A hidden second case prevents hard-coding. | Skill, Bayesian tool, tests, task specification, and audit. This is the first integration milestone. |
 | 5 | Sept. 27 | Lectures 13--15: least squares, Bayesian linear regression, ARD, and posterior diagnostics | **Build the first interactive dashboard.** Codex creates a local regression/prior explorer, while all numerical work remains in pure tested functions and the UI is a thin wrapper. | For \(x=(-1,0,1)\), \(y=(-1,1,3)\), verify OLS weights \((1,2)\); with a standard-normal prior and unit noise, verify posterior mean \((3/4,4/3)\) and covariance \(\operatorname{diag}(1/4,1/3)\). | Tested regression core, local dashboard, and one screenshot for smoke-checking only. |
@@ -95,6 +99,10 @@ per submission, the human pass is about two hours total for 160 students.
 
 ## Instructor preparation
 
+- Provide an ungraded Codex Setup activity before Homework 1. It should cover
+  institutional access, the cumulative private repository, `uv sync --locked`,
+  `uv run pytest`, diff inspection, the packaging command, and the support
+  route for campus and asynchronous students.
 - Confirm that every student has an institutionally acceptable route to Codex;
   provide an equivalent access path before making the strand required.
 - Use synthetic or public course data only; prohibit uploading private,
