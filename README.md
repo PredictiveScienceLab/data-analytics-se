@@ -34,8 +34,10 @@ material is reused.
 The published lecture book is available
 [here](https://predictivesciencelab.github.io/data-analytics-se/index.html).
 It contains the reading activities, hands-on notebooks, and homework pages used
-by the course. Pre-recorded videos for the numbered lecture modules are linked
-through the Purdue course site.
+by the course. Homework is reviewed and published one assignment at a time;
+unreleased homework pages contain only their assignment number. Pre-recorded
+videos for the numbered lecture modules are linked through the Purdue course
+site.
 
 ## Local development
 

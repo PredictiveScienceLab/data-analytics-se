@@ -1,0 +1,39 @@
+name: Public homework guard
+
+on:
+  push:
+    branches-ignore:
+      - gh-pages
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify current released homework boundary
+        run: PYTHONDONTWRITEBYTECODE=1 python3 tools/check_public_homework.py --ref HEAD
+      - name: Verify every newly published commit
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          zero=0000000000000000000000000000000000000000
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            range="$BASE_SHA..$GITHUB_SHA"
+          elif [ "$BEFORE_SHA" = "$zero" ]; then
+            base=$(git merge-base "$GITHUB_SHA" "origin/$DEFAULT_BRANCH")
+            range="$base..$GITHUB_SHA"
+          else
+            range="$BEFORE_SHA..$GITHUB_SHA"
+          fi
+          for commit in $(git rev-list --reverse "$range"); do
+            PYTHONDONTWRITEBYTECODE=1 python3 tools/check_public_homework.py --ref "$commit"
+          done

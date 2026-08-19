@@ -1,0 +1,30 @@
+#!/bin/sh
+set -eu
+
+zero=0000000000000000000000000000000000000000
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  if [ "$local_sha" = "$zero" ]; then
+    continue
+  fi
+  if [ "$remote_ref" = "refs/heads/gh-pages" ]; then
+    PYTHONDONTWRITEBYTECODE=1 python3 tools/check_public_homework.py --pages-ref "$local_sha"
+  else
+    PYTHONDONTWRITEBYTECODE=1 python3 tools/check_public_homework.py --ref "$local_sha"
+  fi
+  if [ "$remote_sha" = "$zero" ]; then
+    commits=$(git rev-list "$local_sha" --not --remotes)
+  else
+    commits=$(git rev-list "$remote_sha..$local_sha")
+  fi
+  for commit in $commits; do
+    if [ "$commit" = "$local_sha" ]; then
+      continue
+    fi
+    if [ "$remote_ref" = "refs/heads/gh-pages" ]; then
+      PYTHONDONTWRITEBYTECODE=1 python3 tools/check_public_homework.py --pages-ref "$commit"
+    else
+      PYTHONDONTWRITEBYTECODE=1 python3 tools/check_public_homework.py --ref "$commit"
+    fi
+  done
+done

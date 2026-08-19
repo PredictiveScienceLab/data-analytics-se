@@ -1,10 +1,9 @@
 # Notebook execution verification
 
 > **Historical snapshot:** the homework-roster portion of this report was
-> superseded on August 18, 2026. See
-> `verification/homework-roster-2026-08-18.md` for the active ten-assignment
-> roster. The lecture-notebook execution result below remains the relevant
-> full-lecture verification.
+> superseded on August 18, 2026. The current public release boundary is checked
+> by `tools/check_public_homework.py`. The lecture-notebook execution result
+> below remains the relevant full-lecture verification.
 
 This verification used Python 3.11.15 and the dependencies in `uv.lock`.
 Graphviz 15.1.1 supplied the external `dot` executable used by graph-rendering
