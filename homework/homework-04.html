@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Homework 4 — Least Squares and Bayesian Elastic-Modulus Inference &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+    <title>Homework 4 &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
   
   
@@ -65,8 +65,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'homework/homework-04';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Homework 5 — Classification, Clustering, and Dimensionality Reduction" href="homework-05.html" />
-    <link rel="prev" title="Homework 3 — Prior Information and Bayesian Earthquake Rates" href="homework-03.html" />
+    <link rel="next" title="Homework 5" href="homework-05.html" />
+    <link rel="prev" title="Homework 3" href="homework-03.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -383,16 +383,16 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="intro.html">Homework</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="homework-01.html">Homework 1 — Probability and Mechanical Reliability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-02.html">Homework 2 — Random Vectors and Monte Carlo Uncertainty Propagation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-03.html">Homework 3 — Prior Information and Bayesian Earthquake Rates</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Homework 4 — Least Squares and Bayesian Elastic-Modulus Inference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-05.html">Homework 5 — Classification, Clustering, and Dimensionality Reduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-06.html">Homework 6 — State-Space Models and Kalman Filtering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-07.html">Homework 7 — Gaussian-Process Prediction for NIST Ultrasonic Calibration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-08.html">Homework 8 — Bayesian Optimization for Model Calibration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-09.html">Homework 9 — Deep Neural-Network Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-10.html">Homework 10 — Physics-Informed Modeling and Posterior Characterization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-01.html">Homework 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-02.html">Homework 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-03.html">Homework 3</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Homework 4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-05.html">Homework 5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-06.html">Homework 6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-07.html">Homework 7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-08.html">Homework 8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-09.html">Homework 9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-10.html">Homework 10</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
@@ -552,9 +552,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -565,29 +563,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Homework 4 — Least Squares and Bayesian Elastic-Modulus Inference</h1>
+    <h1>Homework 4</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-zero-intercept-regression-25-points">Problem 1 — Zero-intercept regression (25 points)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-where-is-hooke-s-law-defensible-75-points">Problem 2 — Where is Hooke’s law defensible? (75 points)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-loading-curve-10-points">2.1 Inspect the loading curve (10 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-bayesian-fit-20-points">2.2 Initial Bayesian fit (20 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#residual-and-predictive-diagnostics-20-points">2.3 Residual and predictive diagnostics (20 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#select-the-largest-defensible-cutoff-15-points">2.4 Select the largest defensible cutoff (15 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-modulus-and-limitations-10-points">2.5 Final modulus and limitations (10 points)</a></li>
-</ul>
-</li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -597,221 +577,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="homework-4-least-squares-and-bayesian-elastic-modulus-inference">
-<h1>Homework 4 — Least Squares and Bayesian Elastic-Modulus Inference<a class="headerlink" href="#homework-4-least-squares-and-bayesian-elastic-modulus-inference" title="Permalink to this heading">#</a></h1>
-<p><strong>Coverage:</strong> Lectures 13–15<br>
-<strong>Due:</strong> Sunday, September 27, 2026, 11:59 p.m. ET<br>
-<strong>Total:</strong> 100 points</p>
-<section id="instructions">
-<h2>Instructions<a class="headerlink" href="#instructions" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Complete this notebook in Google Colab.</p></li>
-<li><p>Problem 1 is a manual mathematics problem. Show every important
-step in Markdown/LaTeX, or insert one clearly legible image of
-your handwritten derivation. Code may check arithmetic only
-after the derivation is complete.</p></li>
-<li><p>Problem 2 is a scaffolded scientific-computing study. Use the
-supplied random seeds and do not delete setup, helper, or check
-cells.</p></li>
-<li><p>Your submitted notebook must run from beginning to end in a
-fresh Colab runtime without Google Drive, absolute paths, or
-additional package installation.</p></li>
-<li><p>Label plots and include documented units. If a legacy dataset
-has no documented units, label the quantity as normalized or
-unit-unspecified rather than inventing units. Unless stated
-otherwise, report numerical answers to at least four
-significant digits.</p></li>
-</ul>
-</section>
-<section id="student-details">
-<h2>Student details<a class="headerlink" href="#student-details" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p><strong>First name:</strong></p></li>
-<li><p><strong>Last name:</strong></p></li>
-<li><p><strong>Purdue email:</strong></p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
-
-<span class="n">SEED</span> <span class="o">=</span> <span class="mi">53904</span>
-<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;ticks&quot;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">120</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># During drafting this points to master. Before release, the instructor</span>
-<span class="c1"># will replace DATA_REVISION with the immutable course release tag.</span>
-<span class="n">DATA_REVISION</span> <span class="o">=</span> <span class="s2">&quot;master&quot;</span>
-<span class="n">DATA_BASE</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s2">&quot;https://raw.githubusercontent.com/PredictiveScienceLab/&quot;</span>
-    <span class="sa">f</span><span class="s2">&quot;data-analytics-se/</span><span class="si">{</span><span class="n">DATA_REVISION</span><span class="si">}</span><span class="s2">/lecturebook/data/homework&quot;</span>
-<span class="p">)</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">course_data</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-    <span class="n">local_candidates</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data/homework&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">name</span><span class="p">,</span>
-        <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;lecturebook/data/homework&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">name</span><span class="p">,</span>
-    <span class="p">]</span>
-    <span class="k">for</span> <span class="n">local</span> <span class="ow">in</span> <span class="n">local_candidates</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">local</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-            <span class="k">return</span> <span class="n">local</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DATA_BASE</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="problem-1-zero-intercept-regression-25-points">
-<h2>Problem 1 — Zero-intercept regression (25 points)<a class="headerlink" href="#problem-1-zero-intercept-regression-25-points" title="Permalink to this heading">#</a></h2>
-<p>Assume
-[
-\sigma_i=E\epsilon_i+e_i,\quad e_i\overset{iid}{\sim}N(0,s^2),
-\qquad E\sim N(m_0,s_0^2),
-]
-with known (s^2) and (\sum_i\epsilon_i^2&gt;0).</p>
-<ol class="arabic simple">
-<li><p>Derive the least-squares estimate of (E). <strong>(6)</strong></p></li>
-<li><p>Complete the square to derive the Gaussian posterior mean and
-variance. <strong>(10)</strong></p></li>
-<li><p>Show the diffuse-prior limit and describe the zero-noise limit.
-<strong>(5)</strong></p></li>
-<li><p>State all units and explain why (\sum_i\epsilon_i^2&gt;0) is
-necessary. <strong>(4)</strong></p></li>
-</ol>
-<blockquote>
-<div><p><strong>Response:</strong> Replace this text with your work.</p>
-</div></blockquote>
-</section>
-<section id="problem-2-where-is-hooke-s-law-defensible-75-points">
-<h2>Problem 2 — Where is Hooke’s law defensible? (75 points)<a class="headerlink" href="#problem-2-where-is-hooke-s-law-defensible-75-points" title="Permalink to this heading">#</a></h2>
-<p>The supplied molecular-dynamics data are attributed in the legacy
-course assignment to Professor Alejandro Strachan’s group. Strain
-is dimensionless (multiply by 100 only when plotting percent
-strain); stress is in MPa.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">course_data</span><span class="p">(</span><span class="s2">&quot;hw05_stress_strain.csv&quot;</span><span class="p">))</span>
-<span class="n">strain</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;strain&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="n">stress</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;stress_mpa&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-
-<span class="n">NOISE_SD</span> <span class="o">=</span> <span class="mf">30.0</span>       <span class="c1"># MPa, treated as independently calibrated</span>
-<span class="n">PRIOR_MEAN</span> <span class="o">=</span> <span class="mf">7000.0</span>   <span class="c1"># MPa</span>
-<span class="n">PRIOR_SD</span> <span class="o">=</span> <span class="mf">3000.0</span>     <span class="c1"># MPa</span>
-<span class="n">INITIAL_CUTOFF</span> <span class="o">=</span> <span class="mf">0.025</span>
-<span class="n">CANDIDATE_CUTOFFS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.010</span><span class="p">,</span> <span class="mf">0.061</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">)</span>
-
-<span class="k">assert</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">1001</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">strain</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">fit_zero_intercept_bayes</span><span class="p">(</span><span class="n">epsilon</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span>
-                             <span class="n">noise_sd</span><span class="o">=</span><span class="n">NOISE_SD</span><span class="p">,</span>
-                             <span class="n">prior_mean</span><span class="o">=</span><span class="n">PRIOR_MEAN</span><span class="p">,</span>
-                             <span class="n">prior_sd</span><span class="o">=</span><span class="n">PRIOR_SD</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return LS estimate and Gaussian posterior mean/variance.&#39;&#39;&#39;</span>
-    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">predictive_summary</span><span class="p">(</span><span class="n">epsilon_new</span><span class="p">,</span> <span class="n">fit</span><span class="p">,</span> <span class="n">noise_sd</span><span class="o">=</span><span class="n">NOISE_SD</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return latent mean, epistemic SD, and predictive SD.&#39;&#39;&#39;</span>
-    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-</pre></div>
-</div>
-</div>
-</div>
-<section id="inspect-the-loading-curve-10-points">
-<h3>2.1 Inspect the loading curve (10 points)<a class="headerlink" href="#inspect-the-loading-curve-10-points" title="Permalink to this heading">#</a></h3>
-<p>Plot stress against percent strain. Describe the initial,
-nonlinear, and softening/failure regimes without selecting a
-cutoff by eye.</p>
-<div class="cell tag_student-work docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
-</pre></div>
-</div>
-</div>
-</div>
-<blockquote>
-<div><p><strong>Response:</strong> Replace this text with your work.</p>
-</div></blockquote>
-</section>
-<section id="initial-bayesian-fit-20-points">
-<h3>2.2 Initial Bayesian fit (20 points)<a class="headerlink" href="#initial-bayesian-fit-20-points" title="Permalink to this heading">#</a></h3>
-<p>Implement the zero-intercept least-squares and Gaussian posterior
-formulas for points with (\epsilon\le0.025). Report the LS
-estimate, posterior mean, posterior SD, and 95% credible interval
-for (E), in MPa and GPa.</p>
-<div class="cell tag_student-work docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="residual-and-predictive-diagnostics-20-points">
-<h3>2.3 Residual and predictive diagnostics (20 points)<a class="headerlink" href="#residual-and-predictive-diagnostics-20-points" title="Permalink to this heading">#</a></h3>
-<p>Plot residual versus strain. Derive and plot both the 95% interval
-for the latent line and the wider posterior-predictive interval,
-using variance (\epsilon_*^2s_N^2+s^2) for a new observation.
-Explain why the intervals differ.</p>
-<div class="cell tag_student-work docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
-</pre></div>
-</div>
-</div>
-</div>
-<blockquote>
-<div><p><strong>Response:</strong> Replace this text with your work.</p>
-</div></blockquote>
-</section>
-<section id="select-the-largest-defensible-cutoff-15-points">
-<h3>2.4 Select the largest defensible cutoff (15 points)<a class="headerlink" href="#select-the-largest-defensible-cutoff-15-points" title="Permalink to this heading">#</a></h3>
-<p>For every supplied cutoff, train on all observations at or below
-it and validate on the next five observations. A cutoff passes
-only if at least four of five validation stresses fall in their
-95% posterior-predictive intervals and the absolute mean signed
-residual is at most 30 MPa. Tabulate results, select the largest
-passing cutoff, and visualize both decision criteria.</p>
-<div class="cell tag_student-work docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="final-modulus-and-limitations-10-points">
-<h3>2.5 Final modulus and limitations (10 points)<a class="headerlink" href="#final-modulus-and-limitations-10-points" title="Permalink to this heading">#</a></h3>
-<p>Refit at the selected cutoff. Report the cutoff as fraction and
-percent strain, (E)’s posterior mean and 95% credible interval in
-GPa, and a posterior-predictive stress interval at strain 0.02.
-Then discuss two concrete limitations of the model or validation
-rule in 100–150 words.</p>
-<div class="cell tag_student-work docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
-</pre></div>
-</div>
-</div>
-</div>
-<blockquote>
-<div><p><strong>Response:</strong> Replace this text with your work.</p>
-</div></blockquote>
-</section>
-</section>
+  <section class="tex2jax_ignore mathjax_ignore" id="homework-4">
+<h1>Homework 4<a class="headerlink" href="#homework-4" title="Permalink to this heading">#</a></h1>
 </section>
 
     <script type="text/x-thebe-config">
@@ -850,7 +617,7 @@ rule in 100–150 words.</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Homework 3 — Prior Information and Bayesian Earthquake Rates</p>
+        <p class="prev-next-title">Homework 3</p>
       </div>
     </a>
     <a class="right-next"
@@ -858,7 +625,7 @@ rule in 100–150 words.</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Homework 5 — Classification, Clustering, and Dimensionality Reduction</p>
+        <p class="prev-next-title">Homework 5</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -868,31 +635,6 @@ rule in 100–150 words.</p>
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-zero-intercept-regression-25-points">Problem 1 — Zero-intercept regression (25 points)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-where-is-hooke-s-law-defensible-75-points">Problem 2 — Where is Hooke’s law defensible? (75 points)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-loading-curve-10-points">2.1 Inspect the loading curve (10 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-bayesian-fit-20-points">2.2 Initial Bayesian fit (20 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#residual-and-predictive-diagnostics-20-points">2.3 Residual and predictive diagnostics (20 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#select-the-largest-defensible-cutoff-15-points">2.4 Select the largest defensible cutoff (15 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-modulus-and-limitations-10-points">2.5 Final modulus and limitations (10 points)</a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>

@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Homework 6 — State-Space Models and Kalman Filtering &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+    <title>Homework 6 &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
   
   
@@ -65,8 +65,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'homework/homework-06';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Homework 7 — Gaussian-Process Prediction for NIST Ultrasonic Calibration" href="homework-07.html" />
-    <link rel="prev" title="Homework 5 — Classification, Clustering, and Dimensionality Reduction" href="homework-05.html" />
+    <link rel="next" title="Homework 7" href="homework-07.html" />
+    <link rel="prev" title="Homework 5" href="homework-05.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -383,16 +383,16 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="intro.html">Homework</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="homework-01.html">Homework 1 — Probability and Mechanical Reliability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-02.html">Homework 2 — Random Vectors and Monte Carlo Uncertainty Propagation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-03.html">Homework 3 — Prior Information and Bayesian Earthquake Rates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-04.html">Homework 4 — Least Squares and Bayesian Elastic-Modulus Inference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-05.html">Homework 5 — Classification, Clustering, and Dimensionality Reduction</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Homework 6 — State-Space Models and Kalman Filtering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-07.html">Homework 7 — Gaussian-Process Prediction for NIST Ultrasonic Calibration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-08.html">Homework 8 — Bayesian Optimization for Model Calibration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-09.html">Homework 9 — Deep Neural-Network Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-10.html">Homework 10 — Physics-Informed Modeling and Posterior Characterization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-01.html">Homework 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-02.html">Homework 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-03.html">Homework 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-04.html">Homework 4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-05.html">Homework 5</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Homework 6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-07.html">Homework 7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-08.html">Homework 8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-09.html">Homework 9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-10.html">Homework 10</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
@@ -552,9 +552,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -565,29 +563,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Homework 6 — State-Space Models and Kalman Filtering</h1>
+    <h1>Homework 6</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-one-kalman-filter-step-25-points">Problem 1 — One Kalman-filter step (25 points)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-filtering-a-hidden-forced-oscillator-75-points">Problem 2 — Filtering a hidden forced oscillator (75 points)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-and-implement-25-points">2.1 Inspect and implement (25 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-validation-15-points">2.2 Numerical validation (15 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nominal-filtering-performance-15-points">2.3 Nominal filtering performance (15 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#process-noise-misspecification-10-points">2.4 Process-noise misspecification (10 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-10-points">2.5 Interpretation (10 points)</a></li>
-</ul>
-</li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -597,248 +577,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="homework-6-state-space-models-and-kalman-filtering">
-<h1>Homework 6 — State-Space Models and Kalman Filtering<a class="headerlink" href="#homework-6-state-space-models-and-kalman-filtering" title="Permalink to this heading">#</a></h1>
-<p><strong>Coverage:</strong> Lectures 19–20<br>
-<strong>Due:</strong> Sunday, October 25, 2026, 11:59 p.m. ET<br>
-<strong>Total:</strong> 100 points</p>
-<section id="instructions">
-<h2>Instructions<a class="headerlink" href="#instructions" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Complete this notebook in Google Colab.</p></li>
-<li><p>Problem 1 is a manual mathematics problem. Show every important
-step in Markdown/LaTeX, or insert one clearly legible image of
-your handwritten derivation. Code may check arithmetic only
-after the derivation is complete.</p></li>
-<li><p>Problem 2 is a scaffolded scientific-computing study. Use the
-supplied random seeds and do not delete setup, helper, or check
-cells.</p></li>
-<li><p>Your submitted notebook must run from beginning to end in a
-fresh Colab runtime without Google Drive, absolute paths, or
-additional package installation.</p></li>
-<li><p>Label plots and include documented units. If a legacy dataset
-has no documented units, label the quantity as normalized or
-unit-unspecified rather than inventing units. Unless stated
-otherwise, report numerical answers to at least four
-significant digits.</p></li>
-</ul>
-</section>
-<section id="student-details">
-<h2>Student details<a class="headerlink" href="#student-details" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p><strong>First name:</strong></p></li>
-<li><p><strong>Last name:</strong></p></li>
-<li><p><strong>Purdue email:</strong></p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">expm</span>
-
-<span class="n">SEED</span> <span class="o">=</span> <span class="mi">53906</span>
-<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;ticks&quot;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">120</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># During drafting this points to master. Before release, the instructor</span>
-<span class="c1"># will replace DATA_REVISION with the immutable course release tag.</span>
-<span class="n">DATA_REVISION</span> <span class="o">=</span> <span class="s2">&quot;master&quot;</span>
-<span class="n">DATA_BASE</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s2">&quot;https://raw.githubusercontent.com/PredictiveScienceLab/&quot;</span>
-    <span class="sa">f</span><span class="s2">&quot;data-analytics-se/</span><span class="si">{</span><span class="n">DATA_REVISION</span><span class="si">}</span><span class="s2">/lecturebook/data/homework&quot;</span>
-<span class="p">)</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">course_data</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-    <span class="n">local_candidates</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data/homework&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">name</span><span class="p">,</span>
-        <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;lecturebook/data/homework&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">name</span><span class="p">,</span>
-    <span class="p">]</span>
-    <span class="k">for</span> <span class="n">local</span> <span class="ow">in</span> <span class="n">local_candidates</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">local</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-            <span class="k">return</span> <span class="n">local</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DATA_BASE</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="problem-1-one-kalman-filter-step-25-points">
-<h2>Problem 1 — One Kalman-filter step (25 points)<a class="headerlink" href="#problem-1-one-kalman-filter-step-25-points" title="Permalink to this heading">#</a></h2>
-<p>For (\ddot q+2\zeta\omega_0\dot q+\omega_0^2q=u(t)), let
-(x=(q,\dot q)^T), (\omega_0=2), (\zeta=0.1), and
-(\Delta t=0.1). Use forward Euler and</p>
-<p>[
-m_0=(0.5,-0.2)^T,\quad
-P_0=\begin{bmatrix}.04&amp;.01.01&amp;.09\end{bmatrix},\quad u_0=.3,
-]
-[
-Q=\operatorname{diag}(.001,.004),\quad H=[1;0],\quad
-R=.01,\quad y_1=.42.
-]</p>
-<ol class="arabic simple">
-<li><p>Derive the continuous matrix, (F=I+\Delta tA_c), and (B). <strong>(5)</strong></p></li>
-<li><p>Calculate the predicted mean and covariance. <strong>(6)</strong></p></li>
-<li><p>Calculate innovation, innovation variance, and gain. <strong>(6)</strong></p></li>
-<li><p>Calculate the updated mean and Joseph-form covariance
-(P_1=(I-KH)P_1^-(I-KH)^T+KRK^T); verify symmetry. <strong>(6)</strong></p></li>
-<li><p>Describe the (R\to0) limit and why exact position does not
-necessarily imply zero velocity variance. <strong>(2)</strong></p></li>
-</ol>
-<blockquote>
-<div><p><strong>Response:</strong> Replace this text with your work.</p>
-</div></blockquote>
-</section>
-<section id="problem-2-filtering-a-hidden-forced-oscillator-75-points">
-<h2>Problem 2 — Filtering a hidden forced oscillator (75 points)<a class="headerlink" href="#problem-2-filtering-a-hidden-forced-oscillator-75-points" title="Permalink to this heading">#</a></h2>
-<p>The cell below creates a reproducible trajectory and noisy position
-observations with separate process and measurement random streams.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">omega0</span><span class="p">,</span> <span class="n">zeta</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.15</span>
-<span class="n">dt</span><span class="p">,</span> <span class="n">final_time</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">20.0</span>
-<span class="n">force_amplitude</span><span class="p">,</span> <span class="n">force_frequency</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">1.2</span>
-<span class="n">Ac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">omega0</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">zeta</span><span class="o">*</span><span class="n">omega0</span><span class="p">]])</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">]])</span>
-<span class="n">aug</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">));</span> <span class="n">aug</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">Ac</span><span class="p">;</span> <span class="n">aug</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">:]</span> <span class="o">=</span> <span class="n">b</span>
-<span class="n">disc</span> <span class="o">=</span> <span class="n">expm</span><span class="p">(</span><span class="n">aug</span> <span class="o">*</span> <span class="n">dt</span><span class="p">)</span>
-<span class="n">F</span><span class="p">,</span> <span class="n">B</span> <span class="o">=</span> <span class="n">disc</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">],</span> <span class="n">disc</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-<span class="n">Q_TRUE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mf">2e-5</span><span class="p">,</span> <span class="mf">5e-4</span><span class="p">])</span>
-<span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]])</span>
-<span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.04</span><span class="o">**</span><span class="mi">2</span><span class="p">]])</span>
-<span class="n">FILTER_M0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
-<span class="n">FILTER_P0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">])</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">final_time</span> <span class="o">+</span> <span class="n">dt</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
-<span class="n">u</span> <span class="o">=</span> <span class="n">force_amplitude</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">force_frequency</span> <span class="o">*</span> <span class="n">t</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">process_rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">5390601</span><span class="p">)</span>
-<span class="n">measurement_rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">5390602</span><span class="p">)</span>
-<span class="n">x_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="mi">2</span><span class="p">));</span> <span class="n">x_true</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.35</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.20</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
-    <span class="n">x_true</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">F</span> <span class="o">@</span> <span class="n">x_true</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
-        <span class="o">+</span> <span class="n">B</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
-        <span class="o">+</span> <span class="n">process_rng</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">Q_TRUE</span><span class="p">)</span>
-    <span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">H</span> <span class="o">@</span> <span class="n">x_true</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="o">+</span> <span class="n">measurement_rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span>
-    <span class="mf">0.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-<span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Steps:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="s2">&quot;F[0,:] =&quot;</span><span class="p">,</span> <span class="n">F</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">kalman_filter</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">m0</span><span class="p">,</span> <span class="n">P0</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Filter y with a fixed update/predict convention.</span>
-
-<span class="sd">    First assimilate y[0] into the prior (m0, P0) at t[0] and</span>
-<span class="sd">    store that posterior at index 0. For k=0,...,len(u)-1,</span>
-<span class="sd">    predict with u[k] to t[k+1], assimilate y[k+1], and store the</span>
-<span class="sd">    posterior at index k+1.</span>
-
-<span class="sd">    Return means (n,2), covariances (n,2,2), innovations (n,),</span>
-<span class="sd">    and innovation variances (n,). Use a linear solve for the gain</span>
-<span class="sd">    and the Joseph update</span>
-<span class="sd">    P = (I-KH) @ P_minus @ (I-KH).T + K @ R @ K.T.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="c1"># YOUR IMPLEMENTATION HERE</span>
-    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">validate_filter_outputs</span><span class="p">(</span><span class="n">means</span><span class="p">,</span> <span class="n">covariances</span><span class="p">,</span> <span class="n">innovations</span><span class="p">,</span>
-                            <span class="n">innovation_variances</span><span class="p">,</span> <span class="n">n_steps</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Run deterministic structural checks on a filter result.&#39;&#39;&#39;</span>
-    <span class="n">means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">means</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
-    <span class="n">covariances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">covariances</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
-    <span class="n">innovations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">innovations</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
-    <span class="n">innovation_variances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">innovation_variances</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">means</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">n_steps</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">covariances</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">n_steps</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">innovations</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">n_steps</span><span class="p">,)</span>
-    <span class="k">assert</span> <span class="n">innovation_variances</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">n_steps</span><span class="p">,)</span>
-    <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">a</span><span class="p">))</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="p">(</span>
-        <span class="n">means</span><span class="p">,</span> <span class="n">covariances</span><span class="p">,</span> <span class="n">innovations</span><span class="p">,</span> <span class="n">innovation_variances</span>
-    <span class="p">))</span>
-    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span>
-        <span class="n">covariances</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="n">covariances</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-10</span>
-    <span class="p">)</span>
-    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvalsh</span><span class="p">(</span><span class="n">covariances</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="mf">1e-10</span>
-    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">innovation_variances</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="kc">True</span>
-</pre></div>
-</div>
-</div>
-</div>
-<section id="inspect-and-implement-25-points">
-<h3>2.1 Inspect and implement (25 points)<a class="headerlink" href="#inspect-and-implement-25-points" title="Permalink to this heading">#</a></h3>
-<p>Plot truth and measurements and explain the separate random
-streams. Complete the supplied Kalman-filter function using
-<code class="docutils literal notranslate"><span class="pre">FILTER_M0</span></code>, <code class="docutils literal notranslate"><span class="pre">FILTER_P0</span></code>, and its stated update/predict ordering.
-Run <code class="docutils literal notranslate"><span class="pre">validate_filter_outputs</span></code> on the returned arrays before
-interpreting any result.</p>
-<div class="cell tag_student-work docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="numerical-validation-15-points">
-<h3>2.2 Numerical validation (15 points)<a class="headerlink" href="#numerical-validation-15-points" title="Permalink to this heading">#</a></h3>
-<p>Verify output shapes and finiteness, covariance symmetry to
-<code class="docutils literal notranslate"><span class="pre">1e-10</span></code>, and positive semidefiniteness to numerical tolerance.
-Check the first entries of the supplied discretization against
-<code class="docutils literal notranslate"><span class="pre">F[0,0]</span> <span class="pre">=</span> <span class="pre">0.99505374</span></code> and <code class="docutils literal notranslate"><span class="pre">F[0,1]</span> <span class="pre">=</span> <span class="pre">0.04917539</span></code>.</p>
-<div class="cell tag_student-work docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="nominal-filtering-performance-15-points">
-<h3>2.3 Nominal filtering performance (15 points)<a class="headerlink" href="#nominal-filtering-performance-15-points" title="Permalink to this heading">#</a></h3>
-<p>With the correct process covariance, plot truth, observations,
-filtered position/velocity, and 95% marginal bands. Report both
-state RMSEs and the fraction of time points within each band.</p>
-<div class="cell tag_student-work docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="process-noise-misspecification-10-points">
-<h3>2.4 Process-noise misspecification (10 points)<a class="headerlink" href="#process-noise-misspecification-10-points" title="Permalink to this heading">#</a></h3>
-<p>Repeat with (Q=0.05Q_{true}) and (Q=20Q_{true}). Compare state
-RMSE, average posterior SD, and standardized-innovation mean and
-SD across all three cases.</p>
-<div class="cell tag_student-work docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="interpretation-10-points">
-<h3>2.5 Interpretation (10 points)<a class="headerlink" href="#interpretation-10-points" title="Permalink to this heading">#</a></h3>
-<p>Explain why the smoothest estimate need not be best, what the
-innovation diagnostics reveal, and why the interval fraction from
-one realized trajectory is not repeated-sampling coverage.</p>
-<blockquote>
-<div><p><strong>Response:</strong> Replace this text with your work.</p>
-</div></blockquote>
-</section>
-</section>
+  <section class="tex2jax_ignore mathjax_ignore" id="homework-6">
+<h1>Homework 6<a class="headerlink" href="#homework-6" title="Permalink to this heading">#</a></h1>
 </section>
 
     <script type="text/x-thebe-config">
@@ -877,7 +617,7 @@ one realized trajectory is not repeated-sampling coverage.</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Homework 5 — Classification, Clustering, and Dimensionality Reduction</p>
+        <p class="prev-next-title">Homework 5</p>
       </div>
     </a>
     <a class="right-next"
@@ -885,7 +625,7 @@ one realized trajectory is not repeated-sampling coverage.</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Homework 7 — Gaussian-Process Prediction for NIST Ultrasonic Calibration</p>
+        <p class="prev-next-title">Homework 7</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -895,31 +635,6 @@ one realized trajectory is not repeated-sampling coverage.</p>
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-one-kalman-filter-step-25-points">Problem 1 — One Kalman-filter step (25 points)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-filtering-a-hidden-forced-oscillator-75-points">Problem 2 — Filtering a hidden forced oscillator (75 points)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-and-implement-25-points">2.1 Inspect and implement (25 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-validation-15-points">2.2 Numerical validation (15 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nominal-filtering-performance-15-points">2.3 Nominal filtering performance (15 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#process-noise-misspecification-10-points">2.4 Process-noise misspecification (10 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-10-points">2.5 Interpretation (10 points)</a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>

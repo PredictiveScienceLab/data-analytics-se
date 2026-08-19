@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Homework 7 — Gaussian-Process Prediction for NIST Ultrasonic Calibration &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+    <title>Homework 7 &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
   
   
@@ -62,13 +62,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'homework/homework-07';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Homework 8 — Bayesian Optimization for Model Calibration" href="homework-08.html" />
-    <link rel="prev" title="Homework 6 — State-Space Models and Kalman Filtering" href="homework-06.html" />
+    <link rel="next" title="Homework 8" href="homework-08.html" />
+    <link rel="prev" title="Homework 6" href="homework-06.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -385,16 +383,16 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="intro.html">Homework</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="homework-01.html">Homework 1 — Probability and Mechanical Reliability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-02.html">Homework 2 — Random Vectors and Monte Carlo Uncertainty Propagation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-03.html">Homework 3 — Prior Information and Bayesian Earthquake Rates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-04.html">Homework 4 — Least Squares and Bayesian Elastic-Modulus Inference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-05.html">Homework 5 — Classification, Clustering, and Dimensionality Reduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-06.html">Homework 6 — State-Space Models and Kalman Filtering</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Homework 7 — Gaussian-Process Prediction for NIST Ultrasonic Calibration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-08.html">Homework 8 — Bayesian Optimization for Model Calibration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-09.html">Homework 9 — Deep Neural-Network Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-10.html">Homework 10 — Physics-Informed Modeling and Posterior Characterization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-01.html">Homework 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-02.html">Homework 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-03.html">Homework 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-04.html">Homework 4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-05.html">Homework 5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-06.html">Homework 6</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Homework 7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-08.html">Homework 8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-09.html">Homework 9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-10.html">Homework 10</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
@@ -554,9 +552,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -567,29 +563,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Homework 7 — Gaussian-Process Prediction for NIST Ultrasonic Calibration</h1>
+    <h1>Homework 7</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-gaussian-process-conditioning-25-points">Problem 1 — Gaussian-process conditioning (25 points)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-nist-ultrasonic-calibration-75-points">Problem 2 — NIST ultrasonic calibration (75 points)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#audit-the-replicated-data-and-split-12-points">2.1 Audit the replicated data and split (12 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kernels-and-exact-gp-fitting-23-points">2.2 Kernels and exact GP fitting (23 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-prediction-15-points">2.3 Posterior prediction (15 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#held-out-evaluation-15-points">2.4 Held-out evaluation (15 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scientific-interpretation-10-points">2.5 Scientific interpretation (10 points)</a></li>
-</ul>
-</li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -599,419 +577,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="homework-7-gaussian-process-prediction-for-nist-ultrasonic-calibration">
-<h1>Homework 7 — Gaussian-Process Prediction for NIST Ultrasonic Calibration<a class="headerlink" href="#homework-7-gaussian-process-prediction-for-nist-ultrasonic-calibration" title="Permalink to this heading">#</a></h1>
-<p><strong>Coverage:</strong> Lectures 21–22<br>
-<strong>Due:</strong> Sunday, November 1, 2026, 11:59 p.m. ET<br>
-<strong>Total:</strong> 100 points</p>
-<section id="instructions">
-<h2>Instructions<a class="headerlink" href="#instructions" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Complete this notebook in Google Colab.</p></li>
-<li><p>Problem 1 is a manual mathematics problem. Show every important
-step in Markdown/LaTeX, or insert one clearly legible image of
-your handwritten derivation. Code may check arithmetic only
-after the derivation is complete.</p></li>
-<li><p>Problem 2 is a scaffolded scientific-computing study. Use the
-supplied random seeds and do not delete setup, helper, or check
-cells.</p></li>
-<li><p>Your submitted notebook must run from beginning to end in a
-fresh Colab runtime without Google Drive, absolute paths, or
-additional package installation.</p></li>
-<li><p>Label plots and include documented units. If a legacy dataset
-has no documented units, label the quantity as normalized or
-unit-unspecified rather than inventing units. Unless stated
-otherwise, report numerical answers to at least four
-significant digits.</p></li>
-</ul>
-</section>
-<section id="student-details">
-<h2>Student details<a class="headerlink" href="#student-details" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p><strong>First name:</strong></p></li>
-<li><p><strong>Last name:</strong></p></li>
-<li><p><strong>Purdue email:</strong></p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span>
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">cho_factor</span><span class="p">,</span> <span class="n">cho_solve</span><span class="p">,</span> <span class="n">solve_triangular</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">minimize</span>
-
-<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;ticks&quot;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">120</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="n">NIST_DATA_URL</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s2">&quot;https://www.itl.nist.gov/div898/strd/nls/data/&quot;</span>
-    <span class="s2">&quot;LINKS/DATA/Chwirut1.dat&quot;</span>
-<span class="p">)</span>
-<span class="n">NIST_DATA_SHA256</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s2">&quot;d9a055dfe5af71a8754c00f073ef00f8&quot;</span>
-    <span class="s2">&quot;fed2e3fd1c6fd20cea8fd62d7cc3ed84&quot;</span>
-<span class="p">)</span>
-
-<span class="n">request</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span>
-    <span class="n">NIST_DATA_URL</span><span class="p">,</span>
-    <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;Purdue-ME539-course-materials/1.0&quot;</span><span class="p">},</span>
-<span class="p">)</span>
-<span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span> <span class="k">as</span> <span class="n">response</span><span class="p">:</span>
-    <span class="n">nist_payload</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-
-<span class="n">actual_sha256</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">nist_payload</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
-<span class="k">assert</span> <span class="n">actual_sha256</span> <span class="o">==</span> <span class="n">NIST_DATA_SHA256</span><span class="p">,</span> <span class="p">(</span>
-    <span class="s2">&quot;The NIST file has changed. Stop and contact the instructor.&quot;</span>
-<span class="p">)</span>
-
-<span class="n">nist_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">nist_payload</span><span class="p">),</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
-<span class="n">chwirut</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
-    <span class="p">{</span>
-        <span class="s2">&quot;ultrasonic_response&quot;</span><span class="p">:</span> <span class="n">nist_array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
-        <span class="s2">&quot;metal_distance&quot;</span><span class="p">:</span> <span class="n">nist_array</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
-    <span class="p">}</span>
-<span class="p">)</span>
-
-<span class="n">x</span> <span class="o">=</span> <span class="n">chwirut</span><span class="p">[</span><span class="s2">&quot;metal_distance&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">chwirut</span><span class="p">[</span><span class="s2">&quot;ultrasonic_response&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-
-<span class="n">interpolation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.25</span><span class="p">,</span> <span class="mf">2.50</span><span class="p">,</span> <span class="mf">2.75</span><span class="p">])</span>
-<span class="n">extrapolation</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mf">5.0</span>
-<span class="n">training</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">interpolation</span> <span class="o">|</span> <span class="n">extrapolation</span><span class="p">)</span>
-
-<span class="n">y_mean</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">training</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">y_sd</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">training</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">y_standard</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">y_mean</span><span class="p">)</span> <span class="o">/</span> <span class="n">y_sd</span>
-
-<span class="k">assert</span> <span class="n">chwirut</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">214</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">chwirut</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">22</span>
-<span class="k">assert</span> <span class="p">(</span><span class="n">training</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">interpolation</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">extrapolation</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">==</span> <span class="p">(</span>
-    <span class="mi">159</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">29</span>
-<span class="p">)</span>
-<span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">interpolation</span><span class="p">]))</span> <span class="o">==</span> <span class="p">{</span><span class="mf">2.25</span><span class="p">,</span> <span class="mf">2.50</span><span class="p">,</span> <span class="mf">2.75</span><span class="p">}</span>
-<span class="k">assert</span> <span class="n">x</span><span class="p">[</span><span class="n">extrapolation</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">==</span> <span class="mf">5.0</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NIST Chwirut1 data loaded; fixed split masks are ready.&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="problem-1-gaussian-process-conditioning-25-points">
-<h2>Problem 1 — Gaussian-process conditioning (25 points)<a class="headerlink" href="#problem-1-gaussian-process-conditioning-25-points" title="Permalink to this heading">#</a></h2>
-<p>Let observations be (x=(0,2)) days and (y=(1,-0.5)^T), where
-response is measured in an arbitrary response unit. Use a zero
-prior mean, signal standard deviation of one response unit,
-length scale of one day, and kernel
-(k(x,x’)=\exp[-(x-x’)^2/2]) when the numerical values of
-(x,x’) are expressed in days. The observation-noise variance is
-(\sigma_n^2=0.04) response-unit squared. Predict the latent
-response at (x_*=1) day.</p>
-<ol class="arabic simple">
-<li><p>Write the joint Gaussian distribution of ((y_1,y_2,f_*)). <strong>(5)</strong></p></li>
-<li><p>Construct (K_y,k_*) and solve (K_y\alpha=y). <strong>(6)</strong></p></li>
-<li><p>Calculate posterior mean, latent variance, and future noisy-
-observation variance. <strong>(6)</strong></p></li>
-<li><p>Show that the zero-noise limit interpolates at a training point
-and has zero latent variance. <strong>(5)</strong></p></li>
-<li><p>State units and verify symmetry/nonnegative variance. <strong>(3)</strong></p></li>
-</ol>
-<blockquote>
-<div><p><strong>Response:</strong> Replace this text with your work.</p>
-</div></blockquote>
-</section>
-<section id="problem-2-nist-ultrasonic-calibration-75-points">
-<h2>Problem 2 — NIST ultrasonic calibration (75 points)<a class="headerlink" href="#problem-2-nist-ultrasonic-calibration-75-points" title="Permalink to this heading">#</a></h2>
-<p>The <a class="reference external" href="https://www.itl.nist.gov/div898/strd/nls/data/chwirut1.shtml">NIST Chwirut1 dataset</a>
-contains 214 observed ultrasonic responses at 22 metal-distance
-settings. Many distance settings were measured repeatedly. NIST
-does not state units for either quantity on the dataset page, so
-label them as <strong>NIST-reported units</strong> rather than inventing units.</p>
-<p>The setup cell downloads the official NIST ASCII file at runtime
-and verifies its SHA-256 checksum; the course repository does not
-redistribute the data. We will compare GP interpolation across an
-interior gap with extrapolation beyond the largest training
-distance. Every replicate at a withheld distance is withheld, so
-an identical input cannot leak into both training and test sets.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">JITTER</span> <span class="o">=</span> <span class="mf">1e-8</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">pairwise_distance</span><span class="p">(</span><span class="n">x_left</span><span class="p">,</span> <span class="n">x_right</span><span class="p">):</span>
-    <span class="n">x_left</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_left</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">x_right</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_right</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_left</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_right</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:])</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">gp_negative_log_marginal_likelihood</span><span class="p">(</span><span class="n">log_parameters</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span>
-                                        <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
-    <span class="n">amplitude</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">,</span> <span class="n">noise_sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_parameters</span><span class="p">)</span>
-    <span class="n">K</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">)</span>
-    <span class="n">K</span> <span class="o">=</span> <span class="n">K</span> <span class="o">+</span> <span class="p">(</span><span class="n">noise_sd</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">JITTER</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_train</span><span class="p">))</span>
-    <span class="n">factor</span> <span class="o">=</span> <span class="n">cho_factor</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check_finite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">alpha</span> <span class="o">=</span> <span class="n">cho_solve</span><span class="p">(</span><span class="n">factor</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">(</span>
-        <span class="mf">0.5</span> <span class="o">*</span> <span class="n">y_train</span> <span class="o">@</span> <span class="n">alpha</span>
-        <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">factor</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-        <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
-    <span class="p">)</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">fit_gp</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
-    <span class="n">initial</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">])</span>
-    <span class="n">bounds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]])</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span>
-        <span class="n">gp_negative_log_marginal_likelihood</span><span class="p">,</span>
-        <span class="n">initial</span><span class="p">,</span>
-        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span>
-        <span class="n">method</span><span class="o">=</span><span class="s2">&quot;L-BFGS-B&quot;</span><span class="p">,</span>
-        <span class="n">bounds</span><span class="o">=</span><span class="n">bounds</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="o">.</span><span class="n">success</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">result</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">gp_posterior</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="n">fitted_log_parameters</span><span class="p">,</span>
-                 <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">):</span>
-    <span class="n">amplitude</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">,</span> <span class="n">noise_sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">fitted_log_parameters</span><span class="p">)</span>
-    <span class="n">K</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">)</span>
-    <span class="n">K</span> <span class="o">=</span> <span class="n">K</span> <span class="o">+</span> <span class="p">(</span><span class="n">noise_sd</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">JITTER</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_train</span><span class="p">))</span>
-    <span class="n">factor</span> <span class="o">=</span> <span class="n">cho_factor</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check_finite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">K_cross</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">)</span>
-    <span class="n">alpha</span> <span class="o">=</span> <span class="n">cho_solve</span><span class="p">(</span><span class="n">factor</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-    <span class="n">mean</span> <span class="o">=</span> <span class="n">K_cross</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">alpha</span>
-    <span class="n">projected</span> <span class="o">=</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">factor</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">K_cross</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">prior_variance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span>
-        <span class="n">kernel</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">raw_latent_variance</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">prior_variance</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">projected</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="p">)</span>
-    <span class="k">if</span> <span class="n">raw_latent_variance</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">1e-8</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">FloatingPointError</span><span class="p">(</span>
-            <span class="s2">&quot;A materially negative GP variance was computed.&quot;</span>
-        <span class="p">)</span>
-    <span class="c1"># Clip roundoff only after rejecting a substantive violation.</span>
-    <span class="n">latent_variance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">raw_latent_variance</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
-    <span class="n">noisy_variance</span> <span class="o">=</span> <span class="n">latent_variance</span> <span class="o">+</span> <span class="n">noise_sd</span><span class="o">**</span><span class="mi">2</span>
-    <span class="k">return</span> <span class="n">mean</span><span class="p">,</span> <span class="n">latent_variance</span><span class="p">,</span> <span class="n">noisy_variance</span>
-</pre></div>
-</div>
-</div>
-</div>
-<section id="audit-the-replicated-data-and-split-12-points">
-<h3>2.1 Audit the replicated data and split (12 points)<a class="headerlink" href="#audit-the-replicated-data-and-split-12-points" title="Permalink to this heading">#</a></h3>
-<p>Verify the row count, number and range of distinct distances,
-missingness, response range, and replicate count at every distance.
-Make one figure showing all observations, the per-distance mean,
-and a mean-plus-or-minus-one-sample-SD band or error bars. Mark the
-interpolation and extrapolation holdouts. Confirm that response
-standardization used the training rows only, and explain why a
-random row split would leak information through replicated inputs.</p>
-<div class="cell tag_student-work docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">replicate_summary</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">chwirut</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;metal_distance&quot;</span><span class="p">)[</span><span class="s2">&quot;ultrasonic_response&quot;</span><span class="p">]</span>
-    <span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="s2">&quot;std&quot;</span><span class="p">])</span>
-    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="p">)</span>
-
-<span class="c1"># YOUR CODE HERE: audit the data and construct the requested plot.</span>
-</pre></div>
-</div>
-</div>
-</div>
-<blockquote>
-<div><p><strong>Response:</strong> Report the audit and explain why the split is by distance.</p>
-</div></blockquote>
-</section>
-<section id="kernels-and-exact-gp-fitting-23-points">
-<h3>2.2 Kernels and exact GP fitting (23 points)<a class="headerlink" href="#kernels-and-exact-gp-fitting-23-points" title="Permalink to this heading">#</a></h3>
-<p>Implement
-[
-k_{RBF}(r)=a^2e^{-r^2/(2\ell^2)},\qquad
-k_{M32}(r)=a^2(1+\sqrt3r/\ell)e^{-\sqrt3r/\ell}.
-]
-where <span class="math notranslate nohighlight">\(r=|x-x'|\)</span>. Implement both kernels, then use the supplied
-Cholesky posterior and negative log marginal likelihood. Optimize
-once per kernel in log coordinates from
-<code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">ell,</span> <span class="pre">noise)=(1,1,0.15)</span></code>. The supplied bounds are in standardized
-response units and NIST-reported distance units. Report the fitted
-parameters and objective. Check kernel symmetry, the diagonal
-value <span class="math notranslate nohighlight">\(a^2\)</span>, positive semidefiniteness to numerical tolerance,
-and nonnegative predictive variances.</p>
-<div class="cell tag_student-work docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">rbf_kernel</span><span class="p">(</span><span class="n">x_left</span><span class="p">,</span> <span class="n">x_right</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">):</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">pairwise_distance</span><span class="p">(</span><span class="n">x_left</span><span class="p">,</span> <span class="n">x_right</span><span class="p">)</span>
-    <span class="c1"># YOUR CODE HERE</span>
-    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">matern32_kernel</span><span class="p">(</span><span class="n">x_left</span><span class="p">,</span> <span class="n">x_right</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">):</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">pairwise_distance</span><span class="p">(</span><span class="n">x_left</span><span class="p">,</span> <span class="n">x_right</span><span class="p">)</span>
-    <span class="c1"># YOUR CODE HERE</span>
-    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">validate_kernel</span><span class="p">(</span><span class="n">kernel</span><span class="p">):</span>
-    <span class="n">check_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.75</span><span class="p">])</span>
-    <span class="n">amplitude</span> <span class="o">=</span> <span class="mf">1.7</span>
-    <span class="n">K</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="n">check_x</span><span class="p">,</span> <span class="n">check_x</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">K</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">K</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">K</span><span class="p">),</span> <span class="n">amplitude</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvalsh</span><span class="p">(</span><span class="n">K</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="mf">1e-10</span>
-
-
-<span class="c1"># Required contract after you complete this cell:</span>
-<span class="c1"># fit_results[name] = {</span>
-<span class="c1">#     &quot;kernel&quot;: callable,</span>
-<span class="c1">#     &quot;optimization&quot;: scipy OptimizeResult,</span>
-<span class="c1">#     &quot;parameters&quot;: np.array([amplitude, length_scale, noise_sd]),</span>
-<span class="c1"># }</span>
-<span class="n">fit_results</span> <span class="o">=</span> <span class="p">{}</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">validate_fit_results</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;RBF&quot;</span><span class="p">,</span> <span class="s2">&quot;Matern-3/2&quot;</span><span class="p">}</span>
-    <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-        <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;kernel&quot;</span><span class="p">])</span>
-        <span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;optimization&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">success</span>
-        <span class="n">parameters</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">],</span> <span class="nb">float</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">parameters</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">3</span><span class="p">,)</span>
-        <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-        <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">parameters</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
-
-<span class="c1"># YOUR CODE HERE: validate both kernels, populate fit_results on</span>
-<span class="c1"># the training split, report parameters/objectives, and call</span>
-<span class="c1"># validate_fit_results(fit_results).</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="posterior-prediction-15-points">
-<h3>2.3 Posterior prediction (15 points)<a class="headerlink" href="#posterior-prediction-15-points" title="Permalink to this heading">#</a></h3>
-<p>For both kernels, predict on a dense distance grid and at every
-held-out observation. Convert standardized-response predictions
-back using
-[
-\mu_y=y_{mean}+y_{sd}\mu_{std},\qquad
-v_y=y_{sd}^2v_{std}.
-]
-Make aligned kernel panels showing training observations, both
-holdouts, posterior mean, and the 95% <strong>noisy-observation</strong> interval.
-Use common axis limits so the panels are visually comparable.</p>
-<div class="cell tag_student-work docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">prediction_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">500</span><span class="p">)</span>
-<span class="n">prediction_inputs</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;grid&quot;</span><span class="p">:</span> <span class="n">prediction_grid</span><span class="p">,</span>
-    <span class="s2">&quot;interpolation&quot;</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="n">interpolation</span><span class="p">],</span>
-    <span class="s2">&quot;extrapolation&quot;</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="n">extrapolation</span><span class="p">],</span>
-<span class="p">}</span>
-
-<span class="c1"># Required contract after you complete this cell:</span>
-<span class="c1"># predictions[kernel_name][split_name] = {</span>
-<span class="c1">#     &quot;mean&quot;: one-dimensional array,</span>
-<span class="c1">#     &quot;latent_variance&quot;: one-dimensional array,</span>
-<span class="c1">#     &quot;noisy_variance&quot;: one-dimensional array,</span>
-<span class="c1"># }</span>
-<span class="n">predictions</span> <span class="o">=</span> <span class="p">{}</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">validate_predictions</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;RBF&quot;</span><span class="p">,</span> <span class="s2">&quot;Matern-3/2&quot;</span><span class="p">}</span>
-    <span class="k">for</span> <span class="n">kernel_result</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-        <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">kernel_result</span><span class="p">)</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="n">prediction_inputs</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">split_name</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">kernel_result</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">expected_shape</span> <span class="o">=</span> <span class="n">prediction_inputs</span><span class="p">[</span><span class="n">split_name</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
-            <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">==</span> <span class="p">{</span>
-                <span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="s2">&quot;latent_variance&quot;</span><span class="p">,</span> <span class="s2">&quot;noisy_variance&quot;</span>
-            <span class="p">}</span>
-            <span class="k">for</span> <span class="n">quantity</span> <span class="ow">in</span> <span class="n">values</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                <span class="n">quantity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">quantity</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
-                <span class="k">assert</span> <span class="n">quantity</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">expected_shape</span>
-                <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">quantity</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-            <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s2">&quot;latent_variance&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
-            <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span>
-                <span class="n">values</span><span class="p">[</span><span class="s2">&quot;noisy_variance&quot;</span><span class="p">]</span>
-                <span class="o">&gt;=</span> <span class="n">values</span><span class="p">[</span><span class="s2">&quot;latent_variance&quot;</span><span class="p">]</span>
-            <span class="p">)</span>
-
-<span class="c1"># YOUR CODE HERE: populate predictions in original response units,</span>
-<span class="c1"># call validate_predictions(predictions), and make the two panels.</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="held-out-evaluation-15-points">
-<h3>2.4 Held-out evaluation (15 points)<a class="headerlink" href="#held-out-evaluation-15-points" title="Permalink to this heading">#</a></h3>
-<p>For each kernel and holdout separately, report RMSE for the
-NIST ultrasonic response and mean negative log predictive density
-from the noisy predictive Gaussian,
-[
-\frac1N\sum_i\frac12\left[\log(2\pi v_i)
-+\frac{(y_i-\mu_i)^2}{v_i}\right].
-]
-Also report the fraction inside the 95% noisy-observation interval.
-Do not combine interpolation and extrapolation into one score.</p>
-<div class="cell tag_student-work docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">held_out_metrics</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">noisy_variance</span><span class="p">):</span>
-    <span class="n">y_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
-    <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
-    <span class="n">noisy_variance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">noisy_variance</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">y_true</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">mean</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">noisy_variance</span><span class="o">.</span><span class="n">shape</span>
-    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">noisy_variance</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="c1"># YOUR CODE HERE</span>
-    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-
-
-<span class="c1"># Required final schema and ordering:</span>
-<span class="n">METRIC_COLUMNS</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;kernel&quot;</span><span class="p">,</span> <span class="s2">&quot;holdout&quot;</span><span class="p">,</span> <span class="s2">&quot;rmse&quot;</span><span class="p">,</span> <span class="s2">&quot;mean_nlpd&quot;</span><span class="p">,</span> <span class="s2">&quot;coverage_95&quot;</span>
-<span class="p">]</span>
-<span class="n">metrics</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">METRIC_COLUMNS</span><span class="p">)</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">validate_metrics</span><span class="p">(</span><span class="n">table</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="nb">list</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">==</span> <span class="n">METRIC_COLUMNS</span>
-    <span class="k">assert</span> <span class="n">table</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s2">&quot;kernel&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;RBF&quot;</span><span class="p">,</span> <span class="s2">&quot;Matern-3/2&quot;</span><span class="p">}</span>
-    <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s2">&quot;holdout&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="p">{</span>
-        <span class="s2">&quot;interpolation&quot;</span><span class="p">,</span> <span class="s2">&quot;extrapolation&quot;</span>
-    <span class="p">}</span>
-    <span class="n">numeric</span> <span class="o">=</span> <span class="n">table</span><span class="p">[[</span><span class="s2">&quot;rmse&quot;</span><span class="p">,</span> <span class="s2">&quot;mean_nlpd&quot;</span><span class="p">,</span> <span class="s2">&quot;coverage_95&quot;</span><span class="p">]]</span>
-    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">numeric</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="nb">float</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-    <span class="k">assert</span> <span class="n">table</span><span class="p">[</span><span class="s2">&quot;coverage_95&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-
-<span class="c1"># YOUR CODE HERE: calculate the four rows in the required order</span>
-<span class="c1"># (RBF interpolation, RBF extrapolation, Matern-3/2 interpolation,</span>
-<span class="c1"># Matern-3/2 extrapolation), then call validate_metrics(metrics).</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="scientific-interpretation-10-points">
-<h3>2.5 Scientific interpretation (10 points)<a class="headerlink" href="#scientific-interpretation-10-points" title="Permalink to this heading">#</a></h3>
-<p>Use your replicate summary to assess the constant-noise assumption.
-Compare the two kernels separately for interpolation and
-extrapolation, and explain why extrapolation uncertainty should not
-be read as a guarantee. Then state one concrete limitation of a
-stationary, homoscedastic GP for this calibration dataset and one
-model or experiment change that would address it. Support your
-conclusions with numerical or graphical evidence from this study.</p>
-<blockquote>
-<div><p><strong>Response:</strong> Replace this text with your work.</p>
-</div></blockquote>
-</section>
-</section>
+  <section class="tex2jax_ignore mathjax_ignore" id="homework-7">
+<h1>Homework 7<a class="headerlink" href="#homework-7" title="Permalink to this heading">#</a></h1>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1050,7 +617,7 @@ conclusions with numerical or graphical evidence from this study.</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Homework 6 — State-Space Models and Kalman Filtering</p>
+        <p class="prev-next-title">Homework 6</p>
       </div>
     </a>
     <a class="right-next"
@@ -1058,7 +625,7 @@ conclusions with numerical or graphical evidence from this study.</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Homework 8 — Bayesian Optimization for Model Calibration</p>
+        <p class="prev-next-title">Homework 8</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1068,31 +635,6 @@ conclusions with numerical or graphical evidence from this study.</p>
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-gaussian-process-conditioning-25-points">Problem 1 — Gaussian-process conditioning (25 points)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-nist-ultrasonic-calibration-75-points">Problem 2 — NIST ultrasonic calibration (75 points)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#audit-the-replicated-data-and-split-12-points">2.1 Audit the replicated data and split (12 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kernels-and-exact-gp-fitting-23-points">2.2 Kernels and exact GP fitting (23 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-prediction-15-points">2.3 Posterior prediction (15 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#held-out-evaluation-15-points">2.4 Held-out evaluation (15 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scientific-interpretation-10-points">2.5 Scientific interpretation (10 points)</a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>

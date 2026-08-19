@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Homework 1 — Probability and Mechanical Reliability &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
+    <title>Homework 1 &#8212; Introduction to Scientific Machine Learning (Lecture Book)</title>
   
   
   
@@ -62,10 +62,12 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'homework/homework-01';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Homework 2 — Random Vectors and Monte Carlo Uncertainty Propagation" href="homework-02.html" />
+    <link rel="next" title="Homework 2" href="homework-02.html" />
     <link rel="prev" title="Homework" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -383,16 +385,16 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="intro.html">Homework</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Homework 1 — Probability and Mechanical Reliability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-02.html">Homework 2 — Random Vectors and Monte Carlo Uncertainty Propagation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-03.html">Homework 3 — Prior Information and Bayesian Earthquake Rates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-04.html">Homework 4 — Least Squares and Bayesian Elastic-Modulus Inference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-05.html">Homework 5 — Classification, Clustering, and Dimensionality Reduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-06.html">Homework 6 — State-Space Models and Kalman Filtering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-07.html">Homework 7 — Gaussian-Process Prediction for NIST Ultrasonic Calibration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-08.html">Homework 8 — Bayesian Optimization for Model Calibration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-09.html">Homework 9 — Deep Neural-Network Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="homework-10.html">Homework 10 — Physics-Informed Modeling and Posterior Characterization</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Homework 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-02.html">Homework 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-03.html">Homework 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-04.html">Homework 4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-05.html">Homework 5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-06.html">Homework 6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-07.html">Homework 7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-08.html">Homework 8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-09.html">Homework 9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework-10.html">Homework 10</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
@@ -565,7 +567,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Homework 1 — Probability and Mechanical Reliability</h1>
+    <h1>Homework 1</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -577,13 +579,20 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-bayes-rule-and-test-design-25-points">Problem 1 — Bayes’ rule and test design (25 points)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-weibull-gear-reliability-75-points">Problem 2 — Weibull gear reliability (75 points)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-and-fitted-survival-15-points">2.1 Empirical and fitted survival (15 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parameters-and-reliability-quantities-20-points">2.2 Parameters and reliability quantities (20 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-model-checks-15-points">2.3 Probability-model checks (15 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#replacement-decision-15-points">2.4 Replacement decision (15 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitation-10-points">2.5 Limitation (10 points)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-diagnosing-a-pump-from-a-vibration-alarm-25-points">Problem 1 — Diagnosing a pump from a vibration alarm (25 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#joint-probabilities-6-points">1.1 Joint probabilities (6 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-diagnosis-8-points">1.2 Posterior diagnosis (8 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-4-points">1.3 Interpretation (4 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monitor-design-7-points">1.4 Monitor design (7 points)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-fatigue-life-of-an-aluminum-alloy-75-points">Problem 2 — Fatigue life of an aluminum alloy (75 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-reliability-10-points">2.1 Empirical reliability (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#candidate-lifetime-models">Candidate lifetime models</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitted-models-20-points">2.2 Fitted models (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#turning-a-model-check-into-a-uniformity-check-20-points">2.3 Turning a model check into a uniformity check (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-tail-sensitive-replacement-decision-15-points">2.4 A tail-sensitive replacement decision (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scope-of-the-conclusion-10-points">2.5 Scope of the conclusion (10 points)</a></li>
 </ul>
 </li>
 </ul>
@@ -597,30 +606,32 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="homework-1-probability-and-mechanical-reliability">
-<h1>Homework 1 — Probability and Mechanical Reliability<a class="headerlink" href="#homework-1-probability-and-mechanical-reliability" title="Permalink to this heading">#</a></h1>
-<p><strong>Coverage:</strong> Lectures 1–4<br>
-<strong>Due:</strong> Sunday, August 30, 2026, 11:59 p.m. ET<br>
+  <section class="tex2jax_ignore mathjax_ignore" id="homework-1">
+<h1>Homework 1<a class="headerlink" href="#homework-1" title="Permalink to this heading">#</a></h1>
+<p><strong>Coverage:</strong> Lectures 1–4<br />
+<strong>Due:</strong> Sunday, August 30, 2026, 11:59 p.m. ET<br />
 <strong>Total:</strong> 100 points</p>
 <section id="instructions">
 <h2>Instructions<a class="headerlink" href="#instructions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Complete this notebook in Google Colab.</p></li>
-<li><p>Problem 1 is a manual mathematics problem. Show every important
-step in Markdown/LaTeX, or insert one clearly legible image of
-your handwritten derivation. Code may check arithmetic only
-after the derivation is complete.</p></li>
-<li><p>Problem 2 is a scaffolded scientific-computing study. Use the
-supplied random seeds and do not delete setup, helper, or check
-cells.</p></li>
-<li><p>Your submitted notebook must run from beginning to end in a
-fresh Colab runtime without Google Drive, absolute paths, or
-additional package installation.</p></li>
-<li><p>Label plots and include documented units. If a legacy dataset
-has no documented units, label the quantity as normalized or
-unit-unspecified rather than inventing units. Unless stated
-otherwise, report numerical answers to at least four
-significant digits.</p></li>
+<li><p>Problem 1 is a manual mathematics problem. Show every important step in
+Markdown/LaTeX, or insert one clearly legible image of your handwritten work.
+Code may check arithmetic only after the derivation is complete.</p></li>
+<li><p>Problem 2 is a guided scientific-computing study. Do not delete supplied
+setup or helper cells.</p></li>
+<li><p>Your submitted notebook must run from beginning to end in a fresh Colab
+runtime without Google Drive, absolute paths, or additional package
+installation.</p></li>
+<li><p>Label plots and include units. Report numerical answers to at least four
+significant digits unless a question states otherwise.</p></li>
+</ul>
+<p>The course material needed for this assignment is collected here:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture02/reading-02.html">Probability rules and reverse conditioning</a></p></li>
+<li><p><a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture04/reading-04.html">Continuous random variables, CDFs, PDFs, and expectations</a></p></li>
+<li><p><a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture04/hands-on-04.1.html">The uniform distribution</a></p></li>
+<li><p><a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture04/hands-on-04.2.html">The Gaussian distribution and its quantiles</a></p></li>
 </ul>
 </section>
 <section id="student-details">
@@ -630,14 +641,15 @@ significant digits.</p></li>
 <li><p><strong>Last name:</strong></p></li>
 <li><p><strong>Purdue email:</strong></p></li>
 </ul>
-<div class="cell docutils container">
+<div class="cell tag_instructor-provided docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">integrate</span><span class="p">,</span> <span class="n">stats</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 
-<span class="n">SEED</span> <span class="o">=</span> <span class="mi">53901</span>
-<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;matplotlib.font_manager&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn-v0_8-whitegrid&quot;</span><span class="p">)</span>
 <span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
@@ -645,77 +657,176 @@ significant digits.</p></li>
 </div>
 </div>
 </section>
-<section id="problem-1-bayes-rule-and-test-design-25-points">
-<h2>Problem 1 — Bayes’ rule and test design (25 points)<a class="headerlink" href="#problem-1-bayes-rule-and-test-design-25-points" title="Permalink to this heading">#</a></h2>
-<p>A disease has prevalence (P(D)=0.004). A diagnostic test has
-sensitivity (P(+\mid D)=0.80) and specificity
-(P(-\mid D^c)=0.90).</p>
+<section id="problem-1-diagnosing-a-pump-from-a-vibration-alarm-25-points">
+<h2>Problem 1 — Diagnosing a pump from a vibration alarm (25 points)<a class="headerlink" href="#problem-1-diagnosing-a-pump-from-a-vibration-alarm-25-points" title="Permalink to this heading">#</a></h2>
+<p>A centrifugal pump operates under a fixed regime. Its unknown condition is
+modeled as exactly one of three states:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(H\)</span>: the pump is healthy;</p></li>
+<li><p><span class="math notranslate nohighlight">\(M\)</span>: the pump is misaligned;</p></li>
+<li><p><span class="math notranslate nohighlight">\(C\)</span>: the pump is cavitating.</p></li>
+</ul>
+<p>The three states are mutually exclusive and exhaustive under this simplified
+model. Historical operating records give</p>
+<div class="math notranslate nohighlight">
+\[
+P(H)=0.96, \qquad P(M)=0.03, \qquad P(C)=0.01.
+\]</div>
+<p>A vibration monitor returns either an alarm <span class="math notranslate nohighlight">\(A\)</span> or no alarm <span class="math notranslate nohighlight">\(A^c\)</span>. Its
+alarm probabilities are</p>
+<div class="math notranslate nohighlight">
+\[
+P(A\mid H)=0.05, \qquad
+P(A\mid M)=0.80, \qquad
+P(A\mid C)=0.95.
+\]</div>
+<p>The probability <span class="math notranslate nohighlight">\(P(A\mid H)\)</span> is the <strong>false-alarm probability</strong>: the monitor
+alarms even though the pump is healthy. The corresponding quantity
+<span class="math notranslate nohighlight">\(P(A^c\mid H)=1-P(A\mid H)\)</span> is the monitor’s <strong>specificity</strong>. A probability
+conditioned on an observed alarm, such as <span class="math notranslate nohighlight">\(P(M\mid A)\)</span>, is a <strong>posterior
+probability</strong> because it describes the state of knowledge after observing the
+alarm. Use the <a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture02/reading-02.html">sum and product rules</a> throughout.</p>
+<section id="joint-probabilities-6-points">
+<h3>1.1 Joint probabilities (6 points)<a class="headerlink" href="#joint-probabilities-6-points" title="Permalink to this heading">#</a></h3>
+<p>Construct a table containing all six state-and-monitor outcomes. Calculate
+the joint probabilities <span class="math notranslate nohighlight">\(P(A,H)\)</span>, <span class="math notranslate nohighlight">\(P(A,M)\)</span>, <span class="math notranslate nohighlight">\(P(A,C)\)</span>, <span class="math notranslate nohighlight">\(P(A^c,H)\)</span>,
+<span class="math notranslate nohighlight">\(P(A^c,M)\)</span>, and <span class="math notranslate nohighlight">\(P(A^c,C)\)</span>, and verify that they sum to one. Here
+<span class="math notranslate nohighlight">\(P(A,H)\)</span> means <span class="math notranslate nohighlight">\(P(A\cap H)\)</span>.</p>
+<blockquote>
+<div><p><strong>Response:</strong> Replace this text with your work.</p>
+</div></blockquote>
+</section>
+<section id="posterior-diagnosis-8-points">
+<h3>1.2 Posterior diagnosis (8 points)<a class="headerlink" href="#posterior-diagnosis-8-points" title="Permalink to this heading">#</a></h3>
+<p>Calculate <span class="math notranslate nohighlight">\(P(H\mid A)\)</span>, <span class="math notranslate nohighlight">\(P(M\mid A)\)</span>, <span class="math notranslate nohighlight">\(P(C\mid A)\)</span>, and
+<span class="math notranslate nohighlight">\(P(M\text{ or }C\mid A)\)</span>. Show the symbolic numerator and denominator before
+substituting numerical values.</p>
+<blockquote>
+<div><p><strong>Response:</strong> Replace this text with your work.</p>
+</div></blockquote>
+</section>
+<section id="interpretation-4-points">
+<h3>1.3 Interpretation (4 points)<a class="headerlink" href="#interpretation-4-points" title="Permalink to this heading">#</a></h3>
+<p>Compare the prior probability of a fault, <span class="math notranslate nohighlight">\(P(M\text{ or }C)\)</span>, with its
+posterior probability after an alarm. Then explain why <span class="math notranslate nohighlight">\(H\)</span> is still the most
+probable individual state after an alarm.</p>
+<blockquote>
+<div><p><strong>Response:</strong> Replace this text with your work.</p>
+</div></blockquote>
+</section>
+<section id="monitor-design-7-points">
+<h3>1.4 Monitor design (7 points)<a class="headerlink" href="#monitor-design-7-points" title="Permalink to this heading">#</a></h3>
+<p>A redesigned monitor keeps <span class="math notranslate nohighlight">\(P(A\mid M)=0.80\)</span> and <span class="math notranslate nohighlight">\(P(A\mid C)=0.95\)</span>, while
+its false-alarm probability is <span class="math notranslate nohighlight">\(q=P(A\mid H)\)</span>. Derive the largest <span class="math notranslate nohighlight">\(q\)</span> for
+which <span class="math notranslate nohighlight">\(P(M\text{ or }C\mid A)\geq0.90\)</span>. Report the corresponding minimum
+specificity, and explain the practical significance of the requirement.</p>
+<blockquote>
+<div><p><strong>Response:</strong> Replace this text with your work.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="problem-2-fatigue-life-of-an-aluminum-alloy-75-points">
+<h2>Problem 2 — Fatigue life of an aluminum alloy (75 points)<a class="headerlink" href="#problem-2-fatigue-life-of-an-aluminum-alloy-75-points" title="Permalink to this heading">#</a></h2>
+<p>Rectangular specimens of 6061-T6 aluminum were subjected to repeated loading
+with a maximum stress of <span class="math notranslate nohighlight">\(21{,}000\)</span> psi. The recorded quantity is the number
+of cycles until rupture, measured in thousands of cycles. The 101 observations
+come from the NIST fatigue-life case study and were originally reported by
+Birnbaum and Saunders.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.itl.nist.gov/div898/handbook/eda/section4/eda4291.htm">NIST description and complete data</a></p></li>
+<li><p><a class="reference external" href="https://doi.org/10.1080/01621459.1958.10501433">Original study</a></p></li>
+</ul>
+<p>We will compare three probability models and use them to answer a replacement
+question. No model is declared correct in advance.</p>
+<p>Let <span class="math notranslate nohighlight">\(T&gt;0\)</span> denote fatigue life. Its cumulative distribution function (CDF) is</p>
+<div class="math notranslate nohighlight">
+\[
+F(t)=P(T\leq t).
+\]</div>
+<p>The <strong>survival function</strong> is</p>
+<div class="math notranslate nohighlight">
+\[
+S(t)=P(T&gt;t)=1-F(t).
+\]</div>
+<p>Thus, <span class="math notranslate nohighlight">\(S(t)\)</span> is the probability that a specimen has not ruptured after <span class="math notranslate nohighlight">\(t\)</span>
+thousand loading cycles.</p>
+<p>For observed fatigue lives <span class="math notranslate nohighlight">\(t_1,\ldots,t_n\)</span>, the <strong>empirical CDF</strong> is</p>
+<div class="math notranslate nohighlight">
+\[
+\widehat F_n(t)=\frac{1}{n}\sum_{i=1}^n
+\mathbf{1}(t_i\leq t),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{1}(t_i\leq t)\)</span> equals one when <span class="math notranslate nohighlight">\(t_i\leq t\)</span> and zero
+otherwise. Thus, <span class="math notranslate nohighlight">\(\widehat F_n(t)\)</span> is the observed fraction that failed by
+age <span class="math notranslate nohighlight">\(t\)</span>. The empirical survival function is
+<span class="math notranslate nohighlight">\(\widehat S_n(t)=1-\widehat F_n(t)\)</span>.</p>
+<div class="cell tag_instructor-provided docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fatigue life in thousands of cycles. The values are embedded so that the</span>
+<span class="c1"># notebook remains reproducible if the external source is unavailable.</span>
+<span class="n">fatigue_life</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+     <span class="mi">370</span><span class="p">,</span> <span class="mi">1016</span><span class="p">,</span> <span class="mi">1235</span><span class="p">,</span> <span class="mi">1419</span><span class="p">,</span> <span class="mi">1567</span><span class="p">,</span> <span class="mi">1820</span><span class="p">,</span>
+     <span class="mi">706</span><span class="p">,</span> <span class="mi">1018</span><span class="p">,</span> <span class="mi">1238</span><span class="p">,</span> <span class="mi">1420</span><span class="p">,</span> <span class="mi">1578</span><span class="p">,</span> <span class="mi">1868</span><span class="p">,</span>
+     <span class="mi">716</span><span class="p">,</span> <span class="mi">1020</span><span class="p">,</span> <span class="mi">1252</span><span class="p">,</span> <span class="mi">1420</span><span class="p">,</span> <span class="mi">1594</span><span class="p">,</span> <span class="mi">1881</span><span class="p">,</span>
+     <span class="mi">746</span><span class="p">,</span> <span class="mi">1055</span><span class="p">,</span> <span class="mi">1258</span><span class="p">,</span> <span class="mi">1450</span><span class="p">,</span> <span class="mi">1602</span><span class="p">,</span> <span class="mi">1890</span><span class="p">,</span>
+     <span class="mi">785</span><span class="p">,</span> <span class="mi">1085</span><span class="p">,</span> <span class="mi">1262</span><span class="p">,</span> <span class="mi">1452</span><span class="p">,</span> <span class="mi">1604</span><span class="p">,</span> <span class="mi">1893</span><span class="p">,</span>
+     <span class="mi">797</span><span class="p">,</span> <span class="mi">1102</span><span class="p">,</span> <span class="mi">1269</span><span class="p">,</span> <span class="mi">1475</span><span class="p">,</span> <span class="mi">1608</span><span class="p">,</span> <span class="mi">1895</span><span class="p">,</span>
+     <span class="mi">844</span><span class="p">,</span> <span class="mi">1102</span><span class="p">,</span> <span class="mi">1270</span><span class="p">,</span> <span class="mi">1478</span><span class="p">,</span> <span class="mi">1630</span><span class="p">,</span> <span class="mi">1910</span><span class="p">,</span>
+     <span class="mi">855</span><span class="p">,</span> <span class="mi">1108</span><span class="p">,</span> <span class="mi">1290</span><span class="p">,</span> <span class="mi">1481</span><span class="p">,</span> <span class="mi">1642</span><span class="p">,</span> <span class="mi">1923</span><span class="p">,</span>
+     <span class="mi">858</span><span class="p">,</span> <span class="mi">1115</span><span class="p">,</span> <span class="mi">1293</span><span class="p">,</span> <span class="mi">1485</span><span class="p">,</span> <span class="mi">1674</span><span class="p">,</span> <span class="mi">1940</span><span class="p">,</span>
+     <span class="mi">886</span><span class="p">,</span> <span class="mi">1120</span><span class="p">,</span> <span class="mi">1300</span><span class="p">,</span> <span class="mi">1502</span><span class="p">,</span> <span class="mi">1730</span><span class="p">,</span> <span class="mi">1945</span><span class="p">,</span>
+     <span class="mi">886</span><span class="p">,</span> <span class="mi">1134</span><span class="p">,</span> <span class="mi">1310</span><span class="p">,</span> <span class="mi">1505</span><span class="p">,</span> <span class="mi">1750</span><span class="p">,</span> <span class="mi">2023</span><span class="p">,</span>
+     <span class="mi">930</span><span class="p">,</span> <span class="mi">1140</span><span class="p">,</span> <span class="mi">1313</span><span class="p">,</span> <span class="mi">1513</span><span class="p">,</span> <span class="mi">1750</span><span class="p">,</span> <span class="mi">2100</span><span class="p">,</span>
+     <span class="mi">960</span><span class="p">,</span> <span class="mi">1199</span><span class="p">,</span> <span class="mi">1315</span><span class="p">,</span> <span class="mi">1522</span><span class="p">,</span> <span class="mi">1763</span><span class="p">,</span> <span class="mi">2130</span><span class="p">,</span>
+     <span class="mi">988</span><span class="p">,</span> <span class="mi">1200</span><span class="p">,</span> <span class="mi">1330</span><span class="p">,</span> <span class="mi">1522</span><span class="p">,</span> <span class="mi">1768</span><span class="p">,</span> <span class="mi">2215</span><span class="p">,</span>
+     <span class="mi">990</span><span class="p">,</span> <span class="mi">1200</span><span class="p">,</span> <span class="mi">1355</span><span class="p">,</span> <span class="mi">1530</span><span class="p">,</span> <span class="mi">1781</span><span class="p">,</span> <span class="mi">2268</span><span class="p">,</span>
+    <span class="mi">1000</span><span class="p">,</span> <span class="mi">1203</span><span class="p">,</span> <span class="mi">1390</span><span class="p">,</span> <span class="mi">1540</span><span class="p">,</span> <span class="mi">1782</span><span class="p">,</span> <span class="mi">2440</span><span class="p">,</span>
+    <span class="mi">1010</span><span class="p">,</span> <span class="mi">1222</span><span class="p">,</span> <span class="mi">1416</span><span class="p">,</span> <span class="mi">1560</span><span class="p">,</span> <span class="mi">1792</span><span class="p">,</span>
+<span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">empirical_cdf</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">grid</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluate the empirical CDF of a one-dimensional sample on a grid.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">    sample -- The observed data values.</span>
+<span class="sd">    grid   -- The values at which to evaluate the empirical CDF.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sample</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">grid</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">uniform_discrepancy</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the maximum vertical gap from the uniform CDF on [0, 1].</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">    values -- The transformed observations to compare with the uniform CDF.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ordered</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">))</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">ordered</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">gap_above</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span> <span class="o">-</span> <span class="n">ordered</span>
+    <span class="n">gap_below</span> <span class="o">=</span> <span class="n">ordered</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">gap_above</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">gap_below</span><span class="p">))</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded </span><span class="si">{</span><span class="n">fatigue_life</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2"> observed fatigue lives.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="empirical-reliability-10-points">
+<h3>2.1 Empirical reliability (10 points)<a class="headerlink" href="#empirical-reliability-10-points" title="Permalink to this heading">#</a></h3>
 <ol class="arabic simple">
-<li><p><strong>Probability tree (5 points).</strong> Draw the complete two-stage
-probability tree. Label every branch and calculate the four
-joint probabilities at its leaves.</p></li>
-<li><p><strong>Reverse conditionals (8 points).</strong> Starting from Bayes’ rule,
-derive and calculate (P(D\mid +)) and (P(D\mid -)). Show
-the numerator and denominator in both calculations.</p></li>
-<li><p><strong>Interpretation (4 points).</strong> Explain numerically why the
-positive predictive value remains small even though a positive
-result is evidence in favor of disease.</p></li>
-<li><p><strong>Test design (8 points).</strong> Keep the prevalence fixed and raise
-sensitivity to (0.99). Let (q=P(+\mid D^c)). Derive the
-largest (q) for which (P(D\mid+)\ge0.90), and report the
-corresponding minimum specificity.</p></li>
+<li><p><strong>Summary (2 points).</strong> Report the number, minimum, median, and maximum of
+the observed fatigue lives.</p></li>
+<li><p><strong>Empirical survival (5 points).</strong> Plot the empirical survival function for
+the observed fatigue-life data. Mark every observed fatigue life along the
+horizontal axis.</p></li>
+<li><p><strong>Interpretation (3 points).</strong> Calculate the observed fraction that
+survived beyond one million cycles and explain why the empirical survival
+function decreases in steps.</p></li>
 </ol>
-<blockquote>
-<div><p><strong>Response:</strong> Replace this text with your work.</p>
-</div></blockquote>
-</section>
-<section id="problem-2-weibull-gear-reliability-75-points">
-<h2>Problem 2 — Weibull gear reliability (75 points)<a class="headerlink" href="#problem-2-weibull-gear-reliability-75-points" title="Permalink to this heading">#</a></h2>
-<p>Eight nominally identical gears were tested to failure. Their
-lifetimes are given below in years. Model lifetime (T) with the
-two-parameter Weibull distribution</p>
-<p>[
-f(t)=\frac{k}{\lambda}\left(\frac{t}{\lambda}\right)^{k-1}
-\exp!\left[-\left(\frac{t}{\lambda}\right)^k\right],\qquad
-S(t)=\exp!\left[-\left(\frac{t}{\lambda}\right)^k\right].
-]</p>
-<p>The fitting call is supplied; maximum-likelihood theory is not
-assessed this week.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">failure_times_years</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-    <span class="p">[</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="mf">8.1</span><span class="p">,</span> <span class="mf">8.4</span><span class="p">,</span> <span class="mf">11.2</span><span class="p">,</span> <span class="mf">9.3</span><span class="p">,</span> <span class="mf">8.9</span><span class="p">,</span> <span class="mf">12.4</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span>
-<span class="p">)</span>
-<span class="n">shape_hat</span><span class="p">,</span> <span class="n">location_hat</span><span class="p">,</span> <span class="n">scale_hat</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">weibull_min</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
-    <span class="n">failure_times_years</span><span class="p">,</span> <span class="n">floc</span><span class="o">=</span><span class="mf">0.0</span>
-<span class="p">)</span>
-<span class="n">gear_model</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">weibull_min</span><span class="p">(</span><span class="n">shape_hat</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale_hat</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The two-parameter Weibull fit is ready for analysis.&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<section id="empirical-and-fitted-survival-15-points">
-<h3>2.1 Empirical and fitted survival (15 points)<a class="headerlink" href="#empirical-and-fitted-survival-15-points" title="Permalink to this heading">#</a></h3>
-<p>Make one figure containing the no-censoring empirical survival
-curve, the fitted Weibull survival curve, and a rug or marker for
-every observed lifetime. Describe where agreement is weakest.</p>
-<div class="cell tag_student-work docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
-</pre></div>
-</div>
-</div>
-</div>
-<blockquote>
-<div><p><strong>Response:</strong> Describe the most visible agreement or disagreement.</p>
-</div></blockquote>
-</section>
-<section id="parameters-and-reliability-quantities-20-points">
-<h3>2.2 Parameters and reliability quantities (20 points)<a class="headerlink" href="#parameters-and-reliability-quantities-20-points" title="Permalink to this heading">#</a></h3>
-<p>Report (k) and (\lambda), including units. Then calculate the
-mean, median, (P(8&lt;T&lt;10)), and the first-percentile lifetime
-(t_{0.01}). Explain operationally what (t_{0.01}) means.</p>
 <div class="cell tag_student-work docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
@@ -727,27 +838,91 @@ mean, median, (P(8&lt;T&lt;10)), and the first-percentile lifetime
 <div><p><strong>Response:</strong> Replace this text with your work.</p>
 </div></blockquote>
 </section>
-<section id="probability-model-checks-15-points">
-<h3>2.3 Probability-model checks (15 points)<a class="headerlink" href="#probability-model-checks-15-points" title="Permalink to this heading">#</a></h3>
-<p>Implement the Weibull PDF, CDF, and survival formulas yourself
-(do not call the corresponding SciPy methods). Verify numerically
-that the density integrates to one, that (F(t)+S(t)=1) at
-(t=6,9,12), and that all three functions agree with <code class="docutils literal notranslate"><span class="pre">gear_model</span></code>
-at those times. Report the largest discrepancy.</p>
-<div class="cell tag_student-work docutils container">
+<section id="candidate-lifetime-models">
+<h3>Candidate lifetime models<a class="headerlink" href="#candidate-lifetime-models" title="Permalink to this heading">#</a></h3>
+<p>The first candidate is a two-parameter
+<a class="reference external" href="https://en.wikipedia.org/wiki/Weibull_distribution">Weibull distribution</a>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+F_W(t)=
+\begin{cases}
+0, &amp; t&lt;0,\\[2mm]
+1-\exp\!\left[-\left(\dfrac{t}{\lambda}\right)^k\right], &amp; t\geq0,
+\end{cases}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(k&gt;0\)</span> is a dimensionless shape parameter and <span class="math notranslate nohighlight">\(\lambda&gt;0\)</span> is a scale
+parameter with the same units as <span class="math notranslate nohighlight">\(T\)</span>.</p>
+<p>The second candidate is a two-parameter lognormal model. For <span class="math notranslate nohighlight">\(t\)</span> expressed in
+thousands of cycles, its CDF is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+F_L(t)=
+\begin{cases}
+0, &amp; t\leq0,\\[2mm]
+\Phi\!\left(\dfrac{\log t-\mu_L}{\sigma_L}\right), &amp; t&gt;0,
+\end{cases}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\log\)</span> is the natural logarithm, <span class="math notranslate nohighlight">\(\mu_L\)</span> is the mean of <span class="math notranslate nohighlight">\(\log T\)</span>,
+<span class="math notranslate nohighlight">\(\sigma_L&gt;0\)</span> is its standard deviation, and <span class="math notranslate nohighlight">\(\Phi\)</span> is the standard Gaussian
+CDF introduced in <a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture04/hands-on-04.2.html">Lecture 4</a>. The quantity
+<span class="math notranslate nohighlight">\(\eta=\exp(\mu_L)\)</span> is the lognormal scale parameter and has the same units as
+<span class="math notranslate nohighlight">\(T\)</span>.</p>
+<p>The third candidate is an exponential model:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+F_E(t)=
+\begin{cases}
+0, &amp; t&lt;0,\\[2mm]
+1-\exp\!\left(-\dfrac{t}{\beta}\right), &amp; t\geq0,
+\end{cases}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\beta&gt;0\)</span> is both the scale parameter and the mean lifetime. The
+exponential model is the special case <span class="math notranslate nohighlight">\(k=1\)</span> of the Weibull model. All three
+models assign probability only to nonnegative lifetimes.</p>
+<p>The models contain unknown parameters. Assuming the observations are
+independent draws from one distribution, <strong>maximum-likelihood fitting</strong> chooses
+the parameter values under which the observed sample has the largest joint
+probability density. The fitting calls below are supplied; the theory of
+maximum likelihood is not assessed in this assignment. Fixing <code class="docutils literal notranslate"><span class="pre">floc=0.0</span></code>
+enforces the stated nonnegative support and gives the parameterizations above.</p>
+<div class="cell tag_instructor-provided docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weibull_shape_hat</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">weibull_scale_hat</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">weibull_min</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+    <span class="n">fatigue_life</span><span class="p">,</span> <span class="n">floc</span><span class="o">=</span><span class="mf">0.0</span>
+<span class="p">)</span>
+<span class="n">lognormal_shape_hat</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">lognormal_scale_hat</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">lognorm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+    <span class="n">fatigue_life</span><span class="p">,</span> <span class="n">floc</span><span class="o">=</span><span class="mf">0.0</span>
+<span class="p">)</span>
+<span class="n">lognormal_mu_hat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">lognormal_scale_hat</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">exponential_scale_hat</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">expon</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">fatigue_life</span><span class="p">,</span> <span class="n">floc</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+
+<span class="n">weibull_model</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">weibull_min</span><span class="p">(</span>
+    <span class="n">weibull_shape_hat</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">weibull_scale_hat</span>
+<span class="p">)</span>
+<span class="n">lognormal_model</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">lognorm</span><span class="p">(</span>
+    <span class="n">lognormal_shape_hat</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">lognormal_scale_hat</span>
+<span class="p">)</span>
+<span class="n">exponential_model</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">expon</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">exponential_scale_hat</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The three candidate models are fitted and ready for analysis.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="replacement-decision-15-points">
-<h3>2.4 Replacement decision (15 points)<a class="headerlink" href="#replacement-decision-15-points" title="Permalink to this heading">#</a></h3>
-<p>A proposal replaces each gear at age 8 years. The fitted
-probability of failure before replacement must not exceed 0.10.
-Calculate the risk, decide whether the proposal passes, and—if it
-fails—calculate the latest replacement age satisfying the target.</p>
+<section id="fitted-models-20-points">
+<h3>2.2 Fitted models (20 points)<a class="headerlink" href="#fitted-models-20-points" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Parameters and probabilities (8 points).</strong> Report the fitted parameters
+with units. For each model, calculate the mean, median, and
+<span class="math notranslate nohighlight">\(P(1000&lt;T&lt;1800)\)</span>.</p></li>
+<li><p><strong>Survival comparison (12 points).</strong> Re-create the empirical-survival plot
+from Part 2.1 and overlay all three fitted survival functions. Identify any
+model that is visibly inconsistent with the data. For the Weibull and
+lognormal models, calculate the largest absolute difference in survival
+probability over 0 to 2600 thousand cycles and report approximately where
+it occurs.</p></li>
+</ol>
 <div class="cell tag_student-work docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
@@ -756,15 +931,109 @@ fails—calculate the latest replacement age satisfying the target.</p>
 </div>
 </div>
 <blockquote>
-<div><p><strong>Response:</strong> State the decision and the numerical evidence.</p>
+<div><p><strong>Response:</strong> Replace this text with your work.</p>
 </div></blockquote>
 </section>
-<section id="limitation-10-points">
-<h3>2.5 Limitation (10 points)<a class="headerlink" href="#limitation-10-points" title="Permalink to this heading">#</a></h3>
-<p>State one specific reason why eight run-to-failure observations
-are insufficient for a high-consequence maintenance decision and
-identify additional data or experimental information that would
-address it. Use no more than four sentences.</p>
+<section id="turning-a-model-check-into-a-uniformity-check-20-points">
+<h3>2.3 Turning a model check into a uniformity check (20 points)<a class="headerlink" href="#turning-a-model-check-into-a-uniformity-check-20-points" title="Permalink to this heading">#</a></h3>
+<p>A CDF provides a useful model diagnostic. Suppose <span class="math notranslate nohighlight">\(T\)</span> truly has a continuous
+CDF <span class="math notranslate nohighlight">\(F\)</span> that is strictly increasing over the values <span class="math notranslate nohighlight">\(T\)</span> can take. Let
+<span class="math notranslate nohighlight">\(F^{-1}\)</span> denote its inverse, also called its quantile function, and define
+<span class="math notranslate nohighlight">\(U=F(T)\)</span>. For <span class="math notranslate nohighlight">\(0&lt;u&lt;1\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+P(U\leq u)
+=P\!\left(T\leq F^{-1}(u)\right)
+=F\!\left(F^{-1}(u)\right)
+=u.
+\]</div>
+<p>The endpoint cases <span class="math notranslate nohighlight">\(u=0\)</span> and <span class="math notranslate nohighlight">\(u=1\)</span> follow directly. Thus, <span class="math notranslate nohighlight">\(U\)</span> follows the
+<a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture04/hands-on-04.1.html">uniform distribution on <span class="math notranslate nohighlight">\([0,1]\)</span></a>. This calculation is called the
+<strong>probability-integral transform</strong>.</p>
+<p>For each fitted model, transform every observed fatigue life using its fitted CDF.
+If a model describes the data well, the transformed values should be spread
+approximately uniformly between zero and one. We will make a descriptive
+comparison; the parameters were fitted using the same observations, so the
+calculation below is not a formal hypothesis test. Fitting on these observations
+tends to make the discrepancy smaller, so we use it only as a descriptive
+distance and do not compare it with a standard cutoff.</p>
+<ol class="arabic simple">
+<li><p><strong>CDF implementation (8 points).</strong> Implement the Weibull, lognormal, and
+exponential CDF formulas yourself. Each function must accept a NumPy array,
+return an array of the same shape, and include a docstring following the
+course convention. You may call <code class="docutils literal notranslate"><span class="pre">stats.norm.cdf</span></code> only for the standard
+Gaussian CDF <span class="math notranslate nohighlight">\(\Phi\)</span> appearing inside the lognormal CDF. Verify your
+implementations against the supplied fitted SciPy objects at
+<span class="math notranslate nohighlight">\(t=-100,500,1000,1500,2000\)</span>, and report the largest absolute discrepancy
+for each model.</p></li>
+<li><p><strong>Transformed histograms (6 points).</strong> Transform the 101 observations with
+each fitted CDF. Make three count histograms with ten equal-width bins on
+<span class="math notranslate nohighlight">\([0,1]\)</span>. Under exact uniformity, the expected count is
+<span class="math notranslate nohighlight">\(101/10=10.1\)</span> observations per bin.</p></li>
+<li><p><strong>Descriptive comparison (6 points).</strong> Apply the supplied
+<code class="docutils literal notranslate"><span class="pre">uniform_discrepancy</span></code> function. It returns the maximum
+vertical distance <span class="math notranslate nohighlight">\(D\)</span> between the empirical CDF of the transformed values
+and the uniform CDF. A smaller <span class="math notranslate nohighlight">\(D\)</span> indicates closer descriptive agreement.
+Compare the three models, identify any model that is clearly inconsistent
+with the data, and state which models you would carry into the replacement
+calculation. Do not attach a <span class="math notranslate nohighlight">\(p\)</span>-value or declare any model true.</p></li>
+</ol>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Response:</strong> Replace this text with your work.</p>
+</div></blockquote>
+</section>
+<section id="a-tail-sensitive-replacement-decision-15-points">
+<h3>2.4 A tail-sensitive replacement decision (15 points)<a class="headerlink" href="#a-tail-sensitive-replacement-decision-15-points" title="Permalink to this heading">#</a></h3>
+<p>A design team provisionally treats the specimen lifetimes as representative of a
+component operating under the same loading condition. The proposed policy
+replaces the component after 300 thousand cycles. Within a fitted model, the
+policy meets its target when the probability of rupture before replacement is
+at most <span class="math notranslate nohighlight">\(0.001\)</span>, or <span class="math notranslate nohighlight">\(0.1\%\)</span>. Based on your Part 2.3 comparison, use the two
+models with the smaller <span class="math notranslate nohighlight">\(D\)</span> scores as the decision candidates. Analyze the
+remaining model separately in item 3 below.</p>
+<ol class="arabic simple">
+<li><p><strong>Proposed policy (4 points).</strong> Calculate the predicted risk at 300 thousand
+cycles under each decision candidate, and decide whether the proposal
+passes under each model.</p></li>
+<li><p><strong>Model-based ages (4 points).</strong> Calculate the latest replacement age
+satisfying the target under each decision candidate. If the policy must
+satisfy both candidates, state the resulting replacement age. Compare both
+model-based ages with the smallest observed fatigue life.</p></li>
+<li><p><strong>The remaining model (3 points).</strong> Calculate the remaining model’s
+predicted risk at 300 thousand cycles and its latest age satisfying the
+target. Explain how the model check in Part 2.3 should affect the use of
+these numbers in the policy decision.</p></li>
+<li><p><strong>Strength of the conclusion (4 points).</strong> State whether the calculations
+provide a 99.9% reliability guarantee. In your explanation, compare the
+target probability <span class="math notranslate nohighlight">\(0.001\)</span> with <span class="math notranslate nohighlight">\(1/101\)</span>, the empirical-probability change
+contributed by one observation.</p></li>
+</ol>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Response:</strong> Replace this text with your work.</p>
+</div></blockquote>
+</section>
+<section id="scope-of-the-conclusion-10-points">
+<h3>2.5 Scope of the conclusion (10 points)<a class="headerlink" href="#scope-of-the-conclusion-10-points" title="Permalink to this heading">#</a></h3>
+<p>In no more than four sentences, state one specific limitation of using these
+specimen experiments to set a replacement policy for an actual component.
+Identify additional data or experimental information that would address the
+limitation. Your answer must refer to the experimental setting or the
+model-based tail calculation rather than merely saying that more data are
+needed.</p>
 <blockquote>
 <div><p><strong>Response:</strong> Replace this text with your work.</p>
 </div></blockquote>
@@ -816,7 +1085,7 @@ address it. Use no more than four sentences.</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Homework 2 — Random Vectors and Monte Carlo Uncertainty Propagation</p>
+        <p class="prev-next-title">Homework 2</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -838,13 +1107,20 @@ address it. Use no more than four sentences.</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-bayes-rule-and-test-design-25-points">Problem 1 — Bayes’ rule and test design (25 points)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-weibull-gear-reliability-75-points">Problem 2 — Weibull gear reliability (75 points)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-and-fitted-survival-15-points">2.1 Empirical and fitted survival (15 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parameters-and-reliability-quantities-20-points">2.2 Parameters and reliability quantities (20 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-model-checks-15-points">2.3 Probability-model checks (15 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#replacement-decision-15-points">2.4 Replacement decision (15 points)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitation-10-points">2.5 Limitation (10 points)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-diagnosing-a-pump-from-a-vibration-alarm-25-points">Problem 1 — Diagnosing a pump from a vibration alarm (25 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#joint-probabilities-6-points">1.1 Joint probabilities (6 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-diagnosis-8-points">1.2 Posterior diagnosis (8 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-4-points">1.3 Interpretation (4 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monitor-design-7-points">1.4 Monitor design (7 points)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-fatigue-life-of-an-aluminum-alloy-75-points">Problem 2 — Fatigue life of an aluminum alloy (75 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-reliability-10-points">2.1 Empirical reliability (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#candidate-lifetime-models">Candidate lifetime models</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitted-models-20-points">2.2 Fitted models (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#turning-a-model-check-into-a-uniformity-check-20-points">2.3 Turning a model check into a uniformity check (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-tail-sensitive-replacement-decision-15-points">2.4 A tail-sensitive replacement decision (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scope-of-the-conclusion-10-points">2.5 Scope of the conclusion (10 points)</a></li>
 </ul>
 </li>
 </ul>
