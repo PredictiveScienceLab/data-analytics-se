@@ -14,9 +14,31 @@ import subprocess
 import sys
 
 
-APPROVED_HOMEWORK = {1}
+APPROVED_HOMEWORK = {1, 2}
 APPROVED_SHA256 = {
     1: "c010bfb755c693dd6058b900e27ddf45364afc7954bcf7b5622da3a77c1ffac3",
+    2: "c5d85eb4cb2e51c81cc39c9341aded1131e2ecf0db507d214de4498b3c4a681b",
+}
+PUBLIC_HOMEWORK_ASSETS = {
+    2: {
+        "source": "lecturebook/data/homework/hw02_noaa_45007_2023_hourly.csv",
+        "pages": (
+            "_downloads/2747cd8e6187fc0555eae6d9570930fa/"
+            "hw02_noaa_45007_2023_hourly.csv"
+        ),
+        "sha256": (
+            "bfbe16098966b9c368e59e8c690f6b52"
+            "fa38b97331cfe253b6a8d3c9fd66fe43"
+        ),
+    },
+}
+PUBLIC_HOMEWORK_DATA = {
+    asset["source"]: asset["sha256"]
+    for asset in PUBLIC_HOMEWORK_ASSETS.values()
+}
+PUBLIC_HOMEWORK_PAGES_DATA = {
+    asset["pages"]: asset["sha256"]
+    for asset in PUBLIC_HOMEWORK_ASSETS.values()
 }
 EXPECTED_HOMEWORK = set(range(1, 11))
 HOMEWORK_PATH = re.compile(
@@ -71,6 +93,9 @@ ALLOWED_HOMEWORK_DIRECTORY_PATHS = {
         for number in EXPECTED_HOMEWORK
     },
 }
+ALLOWED_NUMBERED_SOURCE_PATHS = (
+    ALLOWED_HOMEWORK_DIRECTORY_PATHS | set(PUBLIC_HOMEWORK_DATA)
+)
 PAGES_HOMEWORK_SOURCE_PATH = re.compile(
     r"^_sources/homework/homework-(?P<number>\d{2})\.ipynb$"
 )
@@ -316,6 +341,8 @@ def audit_source_view(view: RepositoryView) -> list[str]:
         errors.append("approved homework numbers must belong to the public roster")
     if set(APPROVED_SHA256) != APPROVED_HOMEWORK:
         errors.append("every approved homework must have exactly one pinned SHA-256")
+    if not set(PUBLIC_HOMEWORK_ASSETS) <= APPROVED_HOMEWORK:
+        errors.append("public homework data must belong to an approved homework")
 
     for path in paths:
         if PRIVATE_PATH_TOKEN.search(path):
@@ -323,8 +350,9 @@ def audit_source_view(view: RepositoryView) -> list[str]:
         path_components = {component.lower() for component in Path(path).parts}
         if FORBIDDEN_PRIVATE_COMPONENTS.intersection(path_components):
             errors.append(f"private homework directory is present: {path}")
-        if path in FORBIDDEN_AUTHORING_PATHS or path.startswith(
-            FORBIDDEN_AUTHORING_PREFIXES
+        if path in FORBIDDEN_AUTHORING_PATHS or (
+            path.startswith(FORBIDDEN_AUTHORING_PREFIXES)
+            and path not in PUBLIC_HOMEWORK_DATA
         ):
             errors.append(f"private homework authoring path is present: {path}")
         if (
@@ -334,9 +362,17 @@ def audit_source_view(view: RepositoryView) -> list[str]:
             errors.append(f"unexpected public homework-directory path: {path}")
         if (
             NUMBERED_HOMEWORK_ARTIFACT.search(path)
-            and path not in ALLOWED_HOMEWORK_DIRECTORY_PATHS
+            and path not in ALLOWED_NUMBERED_SOURCE_PATHS
         ):
             errors.append(f"numbered homework artifact is outside its public path: {path}")
+
+    for path, expected_digest in PUBLIC_HOMEWORK_DATA.items():
+        if path not in paths:
+            errors.append(f"missing approved homework data file: {path}")
+            continue
+        actual_digest = hashlib.sha256(view.read(path)).hexdigest()
+        if actual_digest != expected_digest:
+            errors.append(f"approved homework data SHA-256 changed: {path}")
 
     for path in paths:
         if Path(path).suffix.lower() in {".ipynb", ".md"}:
@@ -515,6 +551,8 @@ def audit_pages_view(view: RepositoryView | DirectoryView) -> list[str]:
         errors.append("approved homework numbers must belong to the public roster")
     if set(APPROVED_SHA256) != APPROVED_HOMEWORK:
         errors.append("every approved homework must have exactly one pinned SHA-256")
+    if not set(PUBLIC_HOMEWORK_ASSETS) <= APPROVED_HOMEWORK:
+        errors.append("public homework data must belong to an approved homework")
 
     for path in paths:
         if PRIVATE_PATH_TOKEN.search(path):
@@ -532,10 +570,23 @@ def audit_pages_view(view: RepositoryView | DirectoryView) -> list[str]:
             and path not in ALLOWED_PAGES_HOMEWORK_HTML_PATHS
         ):
             errors.append(f"unexpected rendered homework path: {path}")
-        if NUMBERED_HOMEWORK_ARTIFACT.search(path) and path not in (
-            ALLOWED_PAGES_HOMEWORK_SOURCE_PATHS | ALLOWED_PAGES_HOMEWORK_HTML_PATHS
+        if (
+            NUMBERED_HOMEWORK_ARTIFACT.search(path)
+            and path not in (
+                ALLOWED_PAGES_HOMEWORK_SOURCE_PATHS
+                | ALLOWED_PAGES_HOMEWORK_HTML_PATHS
+                | set(PUBLIC_HOMEWORK_PAGES_DATA)
+            )
         ):
             errors.append(f"numbered homework artifact is outside its Pages path: {path}")
+
+    for path, expected_digest in PUBLIC_HOMEWORK_PAGES_DATA.items():
+        if path not in paths:
+            errors.append(f"missing approved Pages data file: {path}")
+            continue
+        actual_digest = hashlib.sha256(view.read(path)).hexdigest()
+        if actual_digest != expected_digest:
+            errors.append(f"approved Pages data SHA-256 changed: {path}")
 
     for path in paths:
         if Path(path).suffix.lower() in {".ipynb", ".md"}:
@@ -611,9 +662,12 @@ def main() -> int:
         return 1
 
     approved = ", ".join(str(number) for number in sorted(APPROVED_HOMEWORK))
+    unreleased = ", ".join(
+        str(number) for number in sorted(EXPECTED_HOMEWORK - APPROVED_HOMEWORK)
+    )
     print(
         f"{audit_label} passed: approved={{{approved}}}; "
-        "Homework 2-10 are title-only; no solution or private-authoring "
+        f"unreleased={{{unreleased}}} are title-only; no solution or private-authoring "
         "paths are present."
     )
     return 0
