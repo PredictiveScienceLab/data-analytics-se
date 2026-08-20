@@ -62,6 +62,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'homework/homework-02';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -552,7 +554,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -568,6 +572,42 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-notes-for-this-assignment">NumPy notes for this assignment</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-clearance-in-a-matched-shaftbore-assembly-25-points">Problem 1 — Clearance in a matched shaft–bore assembly (25 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marginals-and-dependence-5-points">1.1 Marginals and dependence (5 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unconditional-clearance-7-points">1.2 Unconditional clearance (7 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-measured-shaft-7-points">1.3 A measured shaft (7 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#an-independence-assumption-6-points">1.4 An independence assumption (6 points)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-dependence-in-measured-lake-michigan-sea-states-30-points">Problem 2 — Dependence in measured Lake Michigan sea states (30 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-observed-sea-state-vector-8-points">2.1 The observed sea-state vector (8 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-finite-empirical-input-model-10-points">2.2 A finite empirical input model (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-uncertainty-clt-and-bootstrap-12-points">2.3 Monte Carlo uncertainty: CLT and bootstrap (12 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-clt-calculation-for-the-mean-6-points">2.3.1 A CLT calculation for the mean (6 points)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bootstrap-uncertainty-for-the-mean-6-points">2.3.2 Bootstrap uncertainty for the mean (6 points)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-uncertainty-propagation-through-a-bistable-oscillator-45-points">Problem 3 — Uncertainty propagation through a bistable oscillator (45 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-the-deterministic-simulator-6-points">3.1 Explore the deterministic simulator (6 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimate-the-propagated-mean-with-monitored-monte-carlo-error-14-points">3.2 Estimate the propagated mean with monitored Monte Carlo error (14 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construct-and-interpret-a-predictive-interval-19-points">3.3 Construct and interpret a predictive interval (19 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bootstrap-the-mean-without-rerunning-the-simulator-6-points">3.4 Bootstrap the mean without rerunning the simulator (6 points)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -579,6 +619,1008 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="homework-2">
 <h1>Homework 2<a class="headerlink" href="#homework-2" title="Permalink to this heading">#</a></h1>
+<p><strong>Coverage:</strong> Lectures 5–10<br />
+<strong>Due:</strong> Sunday, September 13, 2026, 11:59 p.m. ET<br />
+<strong>Total:</strong> 100 points</p>
+<section id="instructions">
+<h2>Instructions<a class="headerlink" href="#instructions" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Complete this notebook in Google Colab.</p></li>
+<li><p>Problem 1 is a manual mathematics problem. Show every important step in
+Markdown/LaTeX, or insert one clearly legible image of your handwritten work.
+Code may check arithmetic only after the derivation is complete.</p></li>
+<li><p>Problems 2 and 3 are guided scientific-computing studies. Do not delete
+supplied setup, data-loading, simulator, or helper cells.</p></li>
+<li><p>Use the supplied random seeds. Your submitted notebook must run from
+beginning to end in a fresh Colab runtime without Google Drive, absolute
+paths, or additional package installation.</p></li>
+<li><p>Label plots and include units. Report numerical answers to at least four
+significant digits unless a question states otherwise.</p></li>
+</ul>
+<p>The relevant course material is collected here:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture05/reading-05.html">Joint distributions, covariance, correlation, and independence</a></p></li>
+<li><p><a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture06/reading-06.html">Random vectors and covariance matrices</a></p></li>
+<li><p><a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture06/hands-on-06.4.html">Conditioning a multivariate Gaussian</a></p></li>
+<li><p><a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture07/hands-on-07.3.html">Sampling a finite categorical distribution</a></p></li>
+<li><p><a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture08/hands-on-08.3.html">Monte Carlo estimation of expectations</a></p></li>
+<li><p><a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture09/hands-on-09.1.html">Empirical CDFs</a> and <a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture09/hands-on-09.3.html">predictive quantiles</a></p></li>
+<li><p><a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture10/hands-on-10.3.html">Uncertainty in Monte Carlo estimates</a></p></li>
+<li><p><a class="reference external" href="https://purduemechanicalengineering.github.io/me-239-intro-to-data-science/lecture07/estimating-probabilities-from-data.html">Bootstrap estimation</a> (defined again where used)</p></li>
+</ul>
+<section id="numpy-notes-for-this-assignment">
+<h3>NumPy notes for this assignment<a class="headerlink" href="#numpy-notes-for-this-assignment" title="Permalink to this heading">#</a></h3>
+<p>The statistical reasoning is the point of the assignment; recalling an array
+method name is not. These are the main interfaces you may need:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rng.integers(low,</span> <span class="pre">high,</span> <span class="pre">size=...)</span></code> draws integer indices from <code class="docutils literal notranslate"><span class="pre">low</span></code> through
+<code class="docutils literal notranslate"><span class="pre">high</span> <span class="pre">-</span> <span class="pre">1</span></code>; an array <code class="docutils literal notranslate"><span class="pre">values[indices]</span></code> selects those rows.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">np.cov(values,</span> <span class="pre">rowvar=False,</span> <span class="pre">ddof=0)</span></code> uses the observations as rows and
+denominator <span class="math notranslate nohighlight">\(n\)</span>; <code class="docutils literal notranslate"><span class="pre">np.corrcoef(values,</span> <span class="pre">rowvar=False)</span></code> returns correlations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">np.std(values,</span> <span class="pre">ddof=1)</span></code> calculates a sample standard deviation with
+denominator <span class="math notranslate nohighlight">\(M-1\)</span>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rng.choice(values,</span> <span class="pre">size=...,</span> <span class="pre">replace=True)</span></code> samples values with replacement.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">np.quantile(values,</span> <span class="pre">probabilities,</span> <span class="pre">method=&quot;inverted_cdf&quot;)</span></code> returns the
+empirical quantiles defined in Problem 2.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stats.norm.cdf(z)</span></code> evaluates the standard Gaussian CDF <span class="math notranslate nohighlight">\(\Phi(z)\)</span> after the
+requested derivation in Problem 1 is complete.</p></li>
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ecdf.html"><code class="docutils literal notranslate"><span class="pre">stats.ecdf(values)</span></code></a> constructs an empirical distribution;
+its <code class="docutils literal notranslate"><span class="pre">.cdf</span></code> object stores the CDF coordinates and has a <code class="docutils literal notranslate"><span class="pre">.plot(ax)</span></code> method.</p></li>
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html"><code class="docutils literal notranslate"><span class="pre">solve_ivp</span></code></a> numerically solves an initial-value problem;
+the nonlinear simulator in Problem 3 supplies the complete solver call.</p></li>
+</ul>
+</section>
+</section>
+<section id="student-details">
+<h2>Student details<a class="headerlink" href="#student-details" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>First name:</strong></p></li>
+<li><p><strong>Last name:</strong></p></li>
+<li><p><strong>Purdue email:</strong></p></li>
+</ul>
+<div class="cell tag_instructor-provided docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;matplotlib.font_manager&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn-v0_8-whitegrid&quot;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-1-clearance-in-a-matched-shaftbore-assembly-25-points">
+<h2>Problem 1 — Clearance in a matched shaft–bore assembly (25 points)<a class="headerlink" href="#problem-1-clearance-in-a-matched-shaftbore-assembly-25-points" title="Permalink to this heading">#</a></h2>
+<p>A manufacturer produces a shaft and its mating bore as a matched pair. Let
+<span class="math notranslate nohighlight">\(S\)</span> and <span class="math notranslate nohighlight">\(B\)</span> denote their signed diameter deviations, in micrometers
+(<span class="math notranslate nohighlight">\(\mu\mathrm{m}\)</span>), from the reference diameter <span class="math notranslate nohighlight">\(20.000\ \mathrm{mm}\)</span>.
+For example, <span class="math notranslate nohighlight">\(S=20\ \mu\mathrm{m}\)</span> corresponds to a shaft diameter of
+<span class="math notranslate nohighlight">\(20.020\ \mathrm{mm}\)</span>.</p>
+<p>The random vector of deviations is modeled as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf X=
+\begin{bmatrix}S\\B\end{bmatrix}
+\sim
+\mathcal N_2\!\left(
+\begin{bmatrix}0\\20\end{bmatrix},
+\begin{bmatrix}100&amp;90\\90&amp;225\end{bmatrix}
+\right).
+\end{split}\]</div>
+<p>The mean entries have units <span class="math notranslate nohighlight">\(\mu\mathrm{m}\)</span>, and the covariance entries
+have units <span class="math notranslate nohighlight">\((\mu\mathrm{m})^2\)</span>. The notation
+<span class="math notranslate nohighlight">\(\mathcal N_2(\boldsymbol\mu,\boldsymbol\Sigma)\)</span> denotes a bivariate
+Gaussian with mean vector <span class="math notranslate nohighlight">\(\boldsymbol\mu\)</span> and covariance matrix
+<span class="math notranslate nohighlight">\(\boldsymbol\Sigma\)</span>. For a univariate Gaussian
+<span class="math notranslate nohighlight">\(\mathcal N(\mu,\sigma^2)\)</span>, the second parameter is the variance.</p>
+<p>The <strong>diametral clearance</strong> is the bore diameter minus the shaft diameter.
+The reference diameter cancels, so</p>
+<div class="math notranslate nohighlight">
+\[
+C=B-S.
+\]</div>
+<p>An <strong>interference event</strong> occurs when <span class="math notranslate nohighlight">\(C&lt;0\)</span>, meaning that the shaft is larger
+than the bore. Use <span class="math notranslate nohighlight">\(\Phi\)</span> for the standard Gaussian CDF. You may use the fact
+that, for a fixed vector <span class="math notranslate nohighlight">\(\mathbf a\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf a^\mathsf{T}\mathbf X
+\sim
+\mathcal N\!\left(
+\mathbf a^\mathsf{T}\boldsymbol\mu,
+\mathbf a^\mathsf{T}\boldsymbol\Sigma\mathbf a
+\right).
+\]</div>
+<p><em>This problem has been modified and extended from
+<a class="reference external" href="https://books.google.com/books/about/An_Introduction_to_Stochastic_Modeling.html?id=UtPgVrVthF8C">Problem 4.4 in Howard M. Taylor and Samuel Karlin, <strong>An Introduction to
+Stochastic Modeling</strong>, 3rd ed. (1998)</a>. The original problem
+assumes independent shaft and bearing diameters. The correlated matched-pair
+model, conditioning on an inspected shaft, and independence comparison below
+are new.</em></p>
+<section id="marginals-and-dependence-5-points">
+<h3>1.1 Marginals and dependence (5 points)<a class="headerlink" href="#marginals-and-dependence-5-points" title="Permalink to this heading">#</a></h3>
+<p>State the marginal distributions of <span class="math notranslate nohighlight">\(S\)</span> and <span class="math notranslate nohighlight">\(B\)</span>. Report their means, standard
+deviations, covariance, and correlation coefficient with appropriate units.
+Interpret the sign of the correlation in one sentence.</p>
+<p>Recall that the correlation coefficient is the unitless normalized covariance,</p>
+<div class="math notranslate nohighlight">
+\[
+\rho_{S,B}
+=\frac{\operatorname{Cov}(S,B)}
+{\operatorname{sd}(S)\operatorname{sd}(B)}.
+\]</div>
+<blockquote>
+<div><p><strong>Response:</strong> Show the requested derivation, or report your results and interpretation, as appropriate.</p>
+</div></blockquote>
+</section>
+<section id="unconditional-clearance-7-points">
+<h3>1.2 Unconditional clearance (7 points)<a class="headerlink" href="#unconditional-clearance-7-points" title="Permalink to this heading">#</a></h3>
+<p>Express <span class="math notranslate nohighlight">\(C\)</span> as a linear combination of <span class="math notranslate nohighlight">\(\mathbf X\)</span>. Derive the Gaussian
+distribution of <span class="math notranslate nohighlight">\(C\)</span> and calculate <span class="math notranslate nohighlight">\(P(C&lt;0)\)</span>.</p>
+<blockquote>
+<div><p><strong>Response:</strong> Show the requested derivation, or report your results and interpretation, as appropriate.</p>
+</div></blockquote>
+</section>
+<section id="a-measured-shaft-7-points">
+<h3>1.3 A measured shaft (7 points)<a class="headerlink" href="#a-measured-shaft-7-points" title="Permalink to this heading">#</a></h3>
+<p>Final inspection measures <span class="math notranslate nohighlight">\(S=20\ \mu\mathrm{m}\)</span>. Treat measurement error as
+negligible. Use Bayes’ rule to write <span class="math notranslate nohighlight">\(p(b\mid s)\propto p(s,b)\)</span>, complete the
+square in <span class="math notranslate nohighlight">\(b\)</span>, and derive the scalar distribution <span class="math notranslate nohighlight">\(B\mid S=s\)</span>. Then state the
+generic conditional-Gaussian formula and verify that it gives the same result.
+Find <span class="math notranslate nohighlight">\(B\mid S=20\)</span> and <span class="math notranslate nohighlight">\(C\mid S=20\)</span>, and calculate <span class="math notranslate nohighlight">\(P(C&lt;0\mid S=20)\)</span>.
+Explain why this probability remains far below <span class="math notranslate nohighlight">\(50\%\)</span>, even though the measured
+shaft diameter equals the unconditional mean bore diameter.</p>
+<blockquote>
+<div><p><strong>Response:</strong> Show the requested derivation, or report your results and interpretation, as appropriate.</p>
+</div></blockquote>
+</section>
+<section id="an-independence-assumption-6-points">
+<h3>1.4 An independence assumption (6 points)<a class="headerlink" href="#an-independence-assumption-6-points" title="Permalink to this heading">#</a></h3>
+<p>Another analyst retains the same two marginal Gaussian distributions but
+assumes that <span class="math notranslate nohighlight">\(S\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are independent. For a bivariate Gaussian, this
+replaces both off-diagonal covariance entries by zero. Recalculate <span class="math notranslate nohighlight">\(P(C&lt;0)\)</span>
+and <span class="math notranslate nohighlight">\(P(C&lt;0\mid S=20)\)</span>. State whether the independence assumption overstates
+or understates each risk and explain why.</p>
+<blockquote>
+<div><p><strong>Response:</strong> Show the requested derivation, or report your results and interpretation, as appropriate.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="problem-2-dependence-in-measured-lake-michigan-sea-states-30-points">
+<h2>Problem 2 — Dependence in measured Lake Michigan sea states (30 points)<a class="headerlink" href="#problem-2-dependence-in-measured-lake-michigan-sea-states-30-points" title="Permalink to this heading">#</a></h2>
+<p>The <a class="reference external" href="https://www.ndbc.noaa.gov/station_history.php?station=45007">NOAA National Data Buoy Center</a> operates Station 45007 in
+southern Lake Michigan. The supplied data are a fixed, course-provided
+processed version of its
+<a class="reference external" href="https://www.ndbc.noaa.gov/data/historical/stdmet/45007h2023.txt.gz">2023 standard meteorological record</a>. NOAA defines</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(H_s\)</span>, reported as <code class="docutils literal notranslate"><span class="pre">WVHT</span></code>, as the significant wave height in meters; and</p></li>
+<li><p><span class="math notranslate nohighlight">\(T_a\)</span>, reported as <code class="docutils literal notranslate"><span class="pre">APD</span></code>, as the average wave period in seconds.</p></li>
+</ul>
+<p>Both quantities are derived from a 20-minute wave record; the precise
+definitions appear in the <a class="reference external" href="https://www.ndbc.noaa.gov/obsdes.shtml">NDBC observation documentation</a>.
+The source reports wave quantities near minutes 10 and 40 of each hour. The
+course file removes the NDBC missing-value code, retains positive paired
+measurements, and averages the valid reports within each UTC hour. Missing
+hours are not interpolated.</p>
+<p>The fixed course CSV is
+<a class="reference download internal" download="" href="../_downloads/2747cd8e6187fc0555eae6d9570930fa/hw02_noaa_45007_2023_hourly.csv"><span class="xref download myst">provided with the assignment</span></a>.
+The supplied loading cell first looks for that file beside the notebook or in
+the course-data directory and otherwise downloads and verifies the NOAA
+archive. If the download is unavailable in Colab, upload
+<code class="docutils literal notranslate"><span class="pre">hw02_noaa_45007_2023_hourly.csv</span></code> to the current session and rerun the cell.</p>
+<p>For this problem, regard a uniformly selected retained hour from the buoy’s
+2023 deployment season as one draw from an empirical sea-state distribution.
+The record is a time series. The empirical model does not assert that
+consecutive hours are independent or that one deployment season represents
+every future season.</p>
+<div class="cell tag_instructor-provided docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">io</span><span class="w"> </span><span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span>
+
+<span class="n">DATA_FILENAME</span> <span class="o">=</span> <span class="s2">&quot;hw02_noaa_45007_2023_hourly.csv&quot;</span>
+<span class="n">RAW_URL</span> <span class="o">=</span> <span class="s2">&quot;https://www.ndbc.noaa.gov/data/historical/stdmet/45007h2023.txt.gz&quot;</span>
+<span class="n">RAW_SHA256</span> <span class="o">=</span> <span class="s2">&quot;5e68dd08274ac5d48b46dbacfeefbeb71da6156c7283f67ebc16466a3d9c1baf&quot;</span>
+<span class="n">CLEAN_SHA256</span> <span class="o">=</span> <span class="s2">&quot;bfbe16098966b9c368e59e8c690f6b52fa38b97331cfe253b6a8d3c9fd66fe43&quot;</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sha256_bytes</span><span class="p">(</span><span class="n">payload</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the SHA-256 digest of a byte sequence.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        payload -- bytes to hash</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The hexadecimal SHA-256 digest.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">clean_raw_ndbc</span><span class="p">(</span><span class="n">payload</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert the verified raw NDBC archive to the fixed hourly table.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        payload -- gzip-compressed NDBC standard-meteorological data</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A data frame containing timestamp, wave height, and average period.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+        <span class="n">BytesIO</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="s2">&quot;gzip&quot;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">complete</span> <span class="o">=</span> <span class="n">raw</span><span class="p">[</span>
+        <span class="n">raw</span><span class="p">[</span><span class="s2">&quot;WVHT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">99.0</span><span class="p">,</span> <span class="n">inclusive</span><span class="o">=</span><span class="s2">&quot;neither&quot;</span><span class="p">)</span>
+        <span class="o">&amp;</span> <span class="n">raw</span><span class="p">[</span><span class="s2">&quot;APD&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">99.0</span><span class="p">,</span> <span class="n">inclusive</span><span class="o">=</span><span class="s2">&quot;neither&quot;</span><span class="p">)</span>
+    <span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">complete</span><span class="p">[</span><span class="s2">&quot;#YY&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;month&quot;</span><span class="p">:</span> <span class="n">complete</span><span class="p">[</span><span class="s2">&quot;MM&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;day&quot;</span><span class="p">:</span> <span class="n">complete</span><span class="p">[</span><span class="s2">&quot;DD&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;hour&quot;</span><span class="p">:</span> <span class="n">complete</span><span class="p">[</span><span class="s2">&quot;hh&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;minute&quot;</span><span class="p">:</span> <span class="n">complete</span><span class="p">[</span><span class="s2">&quot;mm&quot;</span><span class="p">],</span>
+        <span class="p">},</span>
+        <span class="n">utc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">complete</span><span class="p">[</span><span class="s2">&quot;hour_utc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">timestamp</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="s2">&quot;h&quot;</span><span class="p">)</span>
+    <span class="n">cleaned</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">complete</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;hour_utc&quot;</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)[[</span><span class="s2">&quot;WVHT&quot;</span><span class="p">,</span> <span class="s2">&quot;APD&quot;</span><span class="p">]]</span>
+        <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;hour_utc&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+            <span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;hour_utc&quot;</span><span class="p">:</span> <span class="s2">&quot;timestamp_utc&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;WVHT&quot;</span><span class="p">:</span> <span class="s2">&quot;Hs_m&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;APD&quot;</span><span class="p">:</span> <span class="s2">&quot;Tavg_s&quot;</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">cleaned</span><span class="p">[</span><span class="s2">&quot;timestamp_utc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cleaned</span><span class="p">[</span><span class="s2">&quot;timestamp_utc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span>
+        <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:00:00Z&quot;</span>
+    <span class="p">)</span>
+    <span class="n">csv_payload</span> <span class="o">=</span> <span class="n">cleaned</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+        <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">float_format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%.3f</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">lineterminator</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">sha256_bytes</span><span class="p">(</span><span class="n">csv_payload</span><span class="p">)</span> <span class="o">!=</span> <span class="n">CLEAN_SHA256</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The cleaned NOAA data do not match the fixed course data.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">csv_payload</span><span class="p">))</span>
+
+<span class="n">local_candidates</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Path</span><span class="p">(</span><span class="n">DATA_FILENAME</span><span class="p">),</span>
+    <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data/homework&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">DATA_FILENAME</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">local_path</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">path</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">local_candidates</span> <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">()),</span> <span class="kc">None</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">local_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="n">local_path</span><span class="o">.</span><span class="n">read_bytes</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">sha256_bytes</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span> <span class="o">!=</span> <span class="n">CLEAN_SHA256</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The local NOAA course file has an unexpected checksum.&quot;</span><span class="p">)</span>
+    <span class="n">sea_state_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+    <span class="n">data_source</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;fixed course file: </span><span class="si">{</span><span class="n">local_path</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span>
+        <span class="n">RAW_URL</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;ME539-course-data/2026&quot;</span><span class="p">}</span>
+    <span class="p">)</span>
+    <span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="k">as</span> <span class="n">response</span><span class="p">:</span>
+        <span class="n">raw_payload</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">sha256_bytes</span><span class="p">(</span><span class="n">raw_payload</span><span class="p">)</span> <span class="o">!=</span> <span class="n">RAW_SHA256</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The downloaded NOAA archive has an unexpected checksum.&quot;</span><span class="p">)</span>
+    <span class="n">sea_state_data</span> <span class="o">=</span> <span class="n">clean_raw_ndbc</span><span class="p">(</span><span class="n">raw_payload</span><span class="p">)</span>
+    <span class="n">data_source</span> <span class="o">=</span> <span class="s2">&quot;verified NOAA historical archive&quot;</span>
+
+<span class="n">timestamps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">sea_state_data</span><span class="p">[</span><span class="s2">&quot;timestamp_utc&quot;</span><span class="p">],</span> <span class="n">utc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sea_states</span> <span class="o">=</span> <span class="n">sea_state_data</span><span class="p">[[</span><span class="s2">&quot;Hs_m&quot;</span><span class="p">,</span> <span class="s2">&quot;Tavg_s&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">sea_states</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">5046</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">timestamps</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;2023-05-10T07:00:00+00:00&quot;</span>
+<span class="k">assert</span> <span class="n">timestamps</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;2023-12-06T17:00:00+00:00&quot;</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">sea_states</span><span class="p">))</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">sea_states</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded </span><span class="si">{</span><span class="n">sea_states</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> hourly sea states from </span><span class="si">{</span><span class="n">data_source</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Date range: </span><span class="si">{</span><span class="n">timestamps</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> through </span><span class="si">{</span><span class="n">timestamps</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The study uses the output quantity</p>
+<div class="math notranslate nohighlight">
+\[
+Q(H_s,T_a)=\frac{\rho g^2}{64\pi}H_s^2T_a,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\rho=1000\ \mathrm{kg/m^3}\)</span> is the freshwater density and
+<span class="math notranslate nohighlight">\(g=9.81\ \mathrm{m/s^2}\)</span>. The function below reports <span class="math notranslate nohighlight">\(Q\)</span> in
+<span class="math notranslate nohighlight">\(\mathrm{kW/m}\)</span>, power per unit wave-crest length.</p>
+<p>The corresponding deep-water relation uses the energy period <span class="math notranslate nohighlight">\(T_e\)</span>. NDBC
+reports the different quantity <span class="math notranslate nohighlight">\(T_a\)</span>. We substitute <span class="math notranslate nohighlight">\(T_a\)</span> to obtain an
+<strong>available wave-energy-flux screening proxy</strong>. The result is a simplified
+quantity intended for preliminary comparison. It is not exact wave power,
+harvested device power, or a structural load.</p>
+<p><strong>Data and physical-model credit.</strong> This problem uses a course-processed
+version of NOAA NDBC Station 45007’s 2023 standard meteorological record. The
+deep-water relation is adapted from <a class="reference external" href="https://doi.org/10.2172/1060943">P. T. Jacobson, G. Hagerman, and G. Scott,
+<strong>Mapping and Assessment of the United States Ocean Wave Energy Resource</strong>,
+EPRI Report 1024637 (2011), Appendix A, Equation A-7</a>. That
+relation uses seawater density and <span class="math notranslate nohighlight">\(T_e\)</span>; here we use freshwater density and
+substitute <span class="math notranslate nohighlight">\(T_a\)</span>, which is why <span class="math notranslate nohighlight">\(Q\)</span> is only a screening proxy. The statistical
+questions in this problem were written for ME 539.</p>
+<p>The empirical quantile used below is the smallest sample value whose empirical
+CDF is at least the requested probability. NumPy implements this definition
+with <code class="docutils literal notranslate"><span class="pre">method=&quot;inverted_cdf&quot;</span></code>. SciPy’s <code class="docutils literal notranslate"><span class="pre">stats.ecdf</span></code> constructs the empirical CDF.</p>
+<div class="cell tag_instructor-provided docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">FRESHWATER_DENSITY</span> <span class="o">=</span> <span class="mf">1000.0</span>  <span class="c1"># kg/m^3</span>
+<span class="n">GRAVITY</span> <span class="o">=</span> <span class="mf">9.81</span>               <span class="c1"># m/s^2</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">wave_flux_proxy</span><span class="p">(</span><span class="n">states</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluate the wave-energy-flux screening proxy.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        states -- array whose final axis contains H_s in m and T_a in s</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Screening-proxy values in kW/m.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">hs</span> <span class="o">=</span> <span class="n">states</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">average_period</span> <span class="o">=</span> <span class="n">states</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">watts_per_meter</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">FRESHWATER_DENSITY</span> <span class="o">*</span> <span class="n">GRAVITY</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">64.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        <span class="o">*</span> <span class="n">hs</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">average_period</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">watts_per_meter</span> <span class="o">/</span> <span class="mf">1000.0</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Screening-proxy coefficient = &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">FRESHWATER_DENSITY</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">GRAVITY</span><span class="o">**</span><span class="mi">2</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mf">64.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1000.0</span><span class="si">:</span><span class="s2">.12f</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="the-observed-sea-state-vector-8-points">
+<h3>2.1 The observed sea-state vector (8 points)<a class="headerlink" href="#the-observed-sea-state-vector-8-points" title="Permalink to this heading">#</a></h3>
+<p>Each retained row is the random-vector observation</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf x_i=(h_i,t_i)^\mathsf{T},\qquad i=1,\ldots,n,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(h_i\)</span> is significant wave height and <span class="math notranslate nohighlight">\(t_i\)</span> is average wave period.</p>
+<ol class="arabic simple">
+<li><p>Verify and report <span class="math notranslate nohighlight">\(n\)</span>, the date range, and the observed range of each component.
+<strong>(1 point)</strong></p></li>
+<li><p>Make a labeled scatter plot with <span class="math notranslate nohighlight">\(H_s\)</span> on the horizontal axis and <span class="math notranslate nohighlight">\(T_a\)</span> on
+the vertical axis. <strong>(2 points)</strong></p></li>
+<li><p>Calculate the empirical mean vector, covariance matrix using denominator
+<span class="math notranslate nohighlight">\(n\)</span>, and correlation coefficient. Include the units of the mean and
+covariance entries. <strong>(3 points)</strong></p></li>
+<li><p>Interpret the sign and magnitude of the correlation for measurements made
+during the same hour. <strong>(2 points)</strong></p></li>
+</ol>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the requested summaries and make the scatter plot.</span>
+<span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Response:</strong> Show the requested derivation, or report your results and interpretation, as appropriate.</p>
+</div></blockquote>
+</section>
+<section id="a-finite-empirical-input-model-10-points">
+<h3>2.2 A finite empirical input model (10 points)<a class="headerlink" href="#a-finite-empirical-input-model-10-points" title="Permalink to this heading">#</a></h3>
+<p>This is sampling from the empirical distribution. In plain words, choose one
+observed hour uniformly at random, with replacement, and keep its measured
+wave height and average period together. Repeating the draw creates synthetic
+sea states made only from observed pairs.</p>
+<p>The <strong>paired empirical model</strong> selects an index <span class="math notranslate nohighlight">\(I\)</span> uniformly from
+<span class="math notranslate nohighlight">\(\{1,\ldots,n\}\)</span> and sets <span class="math notranslate nohighlight">\(\mathbf X^*=\mathbf x_I\)</span>. Each retained row index
+receives probability <span class="math notranslate nohighlight">\(1/n\)</span>. If identical values occur in several rows, their
+probabilities add. Independent selections of <span class="math notranslate nohighlight">\(I\)</span> produce independent draws from
+this finite model, even though the source observations form a time series.</p>
+<ol class="arabic simple">
+<li><p>Complete <code class="docutils literal notranslate"><span class="pre">sample_paired</span></code> by drawing uniformly distributed integer row
+indices. It must return an array with shape <code class="docutils literal notranslate"><span class="pre">(M,</span> <span class="pre">2)</span></code>. <strong>(3 points)</strong></p></li>
+<li><p>Evaluate the screening proxy for all <span class="math notranslate nohighlight">\(n\)</span> retained rows. Report its exact
+empirical-model mean, variance with denominator <span class="math notranslate nohighlight">\(n\)</span>, median, and 0.025 and
+0.975 quantiles. Explain why these are exact calculations under the finite
+model rather than Monte Carlo estimates. <strong>(3 points)</strong></p></li>
+<li><p>Plot the empirical CDF. Interpret the interval between the 0.025 and 0.975
+quantiles for a new draw from the paired empirical model. <strong>(4 points)</strong></p></li>
+</ol>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">sample_paired</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span> <span class="n">M</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw complete observed rows from the paired empirical model.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        rng -- NumPy random-number generator</span>
+<span class="sd">        M -- number of rows to draw</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An array with shape (M, 2), with H_s and T_a kept paired.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># YOUR CODE HERE</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+<span class="c1"># Calculate the exact finite-model summaries and plot the empirical CDF.</span>
+<span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Response:</strong> Show the requested derivation, or report your results and interpretation, as appropriate.</p>
+</div></blockquote>
+</section>
+<section id="monte-carlo-uncertainty-clt-and-bootstrap-12-points">
+<h3>2.3 Monte Carlo uncertainty: CLT and bootstrap (12 points)<a class="headerlink" href="#monte-carlo-uncertainty-clt-and-bootstrap-12-points" title="Permalink to this heading">#</a></h3>
+<p>Draw one independent Monte Carlo sample
+<span class="math notranslate nohighlight">\(Q_1^*,\ldots,Q_M^*\)</span> from the fixed paired empirical model. Its mean and
+sample standard deviation are</p>
+<div class="math notranslate nohighlight">
+\[
+\widehat\mu_M=\frac{1}{M}\sum_{m=1}^M Q_m^*,
+\qquad
+s_Q=\left[
+\frac{1}{M-1}\sum_{m=1}^M(Q_m^*-\widehat\mu_M)^2
+\right]^{1/2}.
+\]</div>
+<p>Independence of the Monte Carlo draws makes
+<span class="math notranslate nohighlight">\(s_Q/\sqrt{M}\)</span> an estimate of the <strong>Monte Carlo standard error</strong> of
+<span class="math notranslate nohighlight">\(\widehat\mu_M\)</span>. The central limit theorem (CLT) motivates an approximate
+normal interval for the finite-model mean.</p>
+<p>The <strong>bootstrap</strong> estimates Monte Carlo sampling uncertainty by repeatedly
+resampling the available Monte Carlo outputs. One bootstrap replicate draws
+<span class="math notranslate nohighlight">\(M\)</span> values with replacement from <span class="math notranslate nohighlight">\(\{Q_1^*,\ldots,Q_M^*\}\)</span> and recalculates the
+statistic. The standard deviation of the replicate statistics estimates its
+standard error; their 0.025 and 0.975 quantiles form a 95% bootstrap percentile
+interval.</p>
+<p>This bootstrap describes numerical sampling uncertainty under the fixed
+empirical input model. It does not create new buoy observations or quantify
+uncertainty about other seasons. A bootstrap analysis of the original buoy
+time series would require a method that accounts for its temporal dependence.</p>
+<section id="a-clt-calculation-for-the-mean-6-points">
+<h4>2.3.1 A CLT calculation for the mean (6 points)<a class="headerlink" href="#a-clt-calculation-for-the-mean-6-points" title="Permalink to this heading">#</a></h4>
+<p>Create <code class="docutils literal notranslate"><span class="pre">rng_mean</span> <span class="pre">=</span> <span class="pre">np.random.default_rng(53921)</span></code>, set <span class="math notranslate nohighlight">\(M=2000\)</span>, and draw one
+paired Monte Carlo sample. Store the output values as <code class="docutils literal notranslate"><span class="pre">q_mc</span></code>. Report
+<span class="math notranslate nohighlight">\(\widehat\mu_M\)</span>, <span class="math notranslate nohighlight">\(s_Q\)</span>, the estimated Monte Carlo standard error, and the
+approximate 95% normal interval
+<span class="math notranslate nohighlight">\(\widehat\mu_M\pm1.96s_Q/\sqrt{M}\)</span>. Compare the interval with the exact
+finite-model mean from Section 2.2.</p>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rng_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">53921</span><span class="p">)</span>
+<span class="n">M</span> <span class="o">=</span> <span class="mi">2000</span>
+
+<span class="c1"># Draw one paired sample and calculate the requested CLT quantities.</span>
+<span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Response:</strong> Show the requested derivation, or report your results and interpretation, as appropriate.</p>
+</div></blockquote>
+</section>
+<section id="bootstrap-uncertainty-for-the-mean-6-points">
+<h4>2.3.2 Bootstrap uncertainty for the mean (6 points)<a class="headerlink" href="#bootstrap-uncertainty-for-the-mean-6-points" title="Permalink to this heading">#</a></h4>
+<p>Create a fresh generator with seed <code class="docutils literal notranslate"><span class="pre">53922</span></code>. Make <span class="math notranslate nohighlight">\(R=2000\)</span> bootstrap resamples
+of the <span class="math notranslate nohighlight">\(M\)</span> output values and calculate the mean of each. Report the bootstrap
+standard error using denominator <span class="math notranslate nohighlight">\(R-1\)</span> and the 95% bootstrap percentile
+interval. Use the assignment’s <code class="docutils literal notranslate"><span class="pre">method=&quot;inverted_cdf&quot;</span></code> quantile convention for
+the interval endpoints. Compare the bootstrap standard error and interval with
+the CLT results.</p>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rng_bootstrap</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">53922</span><span class="p">)</span>
+<span class="n">R</span> <span class="o">=</span> <span class="mi">2000</span>
+<span class="n">bootstrap_means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">replicate</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">R</span><span class="p">):</span>
+    <span class="c1"># Resample q_mc and store the mean.</span>
+    <span class="c1"># YOUR CODE HERE</span>
+    <span class="k">pass</span>
+
+<span class="c1"># Calculate the bootstrap standard error and percentile interval for the mean.</span>
+<span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Response:</strong> Show the requested derivation, or report your results and interpretation, as appropriate.</p>
+</div></blockquote>
+</section>
+</section>
+</section>
+<section id="problem-3-uncertainty-propagation-through-a-bistable-oscillator-45-points">
+<h2>Problem 3 — Uncertainty propagation through a bistable oscillator (45 points)<a class="headerlink" href="#problem-3-uncertainty-propagation-through-a-bistable-oscillator-45-points" title="Permalink to this heading">#</a></h2>
+<p>A shallow buckled element can rest in either of two stable configurations. We
+model its nondimensional displacement with the damped, bistable Duffing
+oscillator</p>
+<div class="math notranslate nohighlight">
+\[
+\ddot{x}(t)+0.4\dot{x}(t)-x(t)+x^3(t)=F,
+\qquad
+x(0)=0,
+\qquad
+\dot{x}(0)=0,
+\]</div>
+<p>for <span class="math notranslate nohighlight">\(0\leq t\leq20\)</span>. The signed quantity <span class="math notranslate nohighlight">\(F\)</span> represents a small static load or
+manufacturing imperfection. Conditional on a specified value of <span class="math notranslate nohighlight">\(F\)</span>, the
+simulator is deterministic.</p>
+<p>When <span class="math notranslate nohighlight">\(F=0\)</span>, the potential energy is</p>
+<div class="math notranslate nohighlight">
+\[
+V(x)=-\frac{x^2}{2}+\frac{x^4}{4}.
+\]</div>
+<p>It has stable minima at <span class="math notranslate nohighlight">\(x=-1\)</span> and <span class="math notranslate nohighlight">\(x=1\)</span>, separated by the unstable
+configuration <span class="math notranslate nohighlight">\(x=0\)</span>. Damping removes energy, so a trajectory generally settles
+near one of the stable configurations. The perfectly symmetric case <span class="math notranslate nohighlight">\(F=0\)</span>
+with the exact zero initial state is exceptional: the ideal simulator remains
+at the unstable equilibrium <span class="math notranslate nohighlight">\(x=0\)</span>. Any nonzero signed perturbation breaks that
+symmetry and sends the response toward one of the wells.</p>
+<p>The engineer regards the actual value of <span class="math notranslate nohighlight">\(F\)</span> as fixed but unknown and
+summarizes current knowledge by</p>
+<div class="math notranslate nohighlight">
+\[
+F\sim\mathcal N(0.001,0.005^2).
+\]</div>
+<p>This is <strong>epistemic uncertainty</strong>: the Gaussian distribution represents what
+the engineer does not know about a fixed system property. It is not a random
+force that fluctuates while the system operates. Sampling values of <span class="math notranslate nohighlight">\(F\)</span> and
+running the deterministic simulator propagates that uncertainty to <span class="math notranslate nohighlight">\(x(t;F)\)</span>.
+All quantities in this problem are nondimensional, and all numerical values
+are hypothetical.</p>
+<p><strong>Model and problem credit.</strong> The physical model is a double-well Duffing
+oscillator; see Ivana Kovacic and Michael J. Brennan, eds.,
+<a class="reference external" href="https://doi.org/10.1002/9780470977859"><strong>The Duffing Equation: Nonlinear Oscillators and Their
+Behaviour</strong></a> (2011). Its use as an archetype for
+bistable and buckled mechanical systems is discussed by Chunlin Zhang,
+Ryan L. Harne, Bing Li, and K. W. Wang in
+<a class="reference external" href="https://doi.org/10.1016/j.ijnonlinmec.2015.11.002"><strong>Reconstructing the Transient, Dissipative Dynamics of a Bistable Duffing
+Oscillator with an Enhanced Averaging Method and Jacobian Elliptic
+Functions</strong></a> (2016). The signed-imperfection model,
+numerical values, Monte Carlo stopping rule, predictive-interval analysis, and
+bootstrap comparison were developed for this course.</p>
+<div class="cell tag_instructor-provided docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.integrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">solve_ivp</span>
+
+<span class="n">BISTABLE_DAMPING</span> <span class="o">=</span> <span class="mf">0.4</span>
+<span class="n">BISTABLE_TIMES</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">simulate_bistable</span><span class="p">(</span><span class="n">loads</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">BISTABLE_TIMES</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Simulate the bistable oscillator for several fixed loads.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        loads -- one-dimensional array of signed static loads</span>
+<span class="sd">        times -- increasing one-dimensional array of output times</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An array with one displacement trajectory per row and one time per</span>
+<span class="sd">        column.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">loads</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">loads</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">number_of_loads</span> <span class="o">=</span> <span class="n">loads</span><span class="o">.</span><span class="n">size</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">right_hand_side</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Evaluate the first-order Duffing state equations.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            time -- current solver time</span>
+<span class="sd">            state -- stacked displacement and velocity vectors</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The stacked displacement and velocity derivatives.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">displacement</span> <span class="o">=</span> <span class="n">state</span><span class="p">[:</span><span class="n">number_of_loads</span><span class="p">]</span>
+        <span class="n">velocity</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="n">number_of_loads</span><span class="p">:]</span>
+        <span class="n">acceleration</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="o">-</span><span class="n">BISTABLE_DAMPING</span> <span class="o">*</span> <span class="n">velocity</span>
+            <span class="o">+</span> <span class="n">displacement</span>
+            <span class="o">-</span> <span class="n">displacement</span><span class="o">**</span><span class="mi">3</span>
+            <span class="o">+</span> <span class="n">loads</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">velocity</span><span class="p">,</span> <span class="n">acceleration</span><span class="p">))</span>
+
+    <span class="n">initial_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">number_of_loads</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">solve_ivp</span><span class="p">(</span>
+        <span class="n">right_hand_side</span><span class="p">,</span>
+        <span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">times</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
+        <span class="n">initial_state</span><span class="p">,</span>
+        <span class="n">t_eval</span><span class="o">=</span><span class="n">times</span><span class="p">,</span>
+        <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span>
+        <span class="n">atol</span><span class="o">=</span><span class="mf">1e-9</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="o">.</span><span class="n">success</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">y</span><span class="p">[:</span><span class="n">number_of_loads</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="explore-the-deterministic-simulator-6-points">
+<h3>3.1 Explore the deterministic simulator (6 points)<a class="headerlink" href="#explore-the-deterministic-simulator-6-points" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Use the supplied simulator for <span class="math notranslate nohighlight">\(F=-0.005\)</span>, <span class="math notranslate nohighlight">\(F=0\)</span>, and <span class="math notranslate nohighlight">\(F=0.005\)</span>. Plot all
+three displacement histories on one labeled set of axes and report their
+final displacements. <strong>(3 points)</strong></p></li>
+<li><p>Explain why each run is deterministic, identify what will be random in the
+uncertainty-propagation calculation, and use the potential to explain why a
+Gaussian distribution concentrated near <span class="math notranslate nohighlight">\(F=0\)</span> can produce two
+qualitatively different responses. <strong>(3 points)</strong></p></li>
+</ol>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">test_loads</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">])</span>
+<span class="n">test_trajectories</span> <span class="o">=</span> <span class="n">simulate_bistable</span><span class="p">(</span><span class="n">test_loads</span><span class="p">)</span>
+
+<span class="c1"># Plot the three trajectories and report their final displacements.</span>
+<span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Response:</strong> Show the requested derivation, or report your results and interpretation, as appropriate.</p>
+</div></blockquote>
+</section>
+<section id="estimate-the-propagated-mean-with-monitored-monte-carlo-error-14-points">
+<h3>3.2 Estimate the propagated mean with monitored Monte Carlo error (14 points)<a class="headerlink" href="#estimate-the-propagated-mean-with-monitored-monte-carlo-error-14-points" title="Permalink to this heading">#</a></h3>
+<p>Define the final-time quantity of interest</p>
+<div class="math notranslate nohighlight">
+\[
+Y=x(20;F).
+\]</div>
+<p>The supplied function advances uncoupled trajectories together for speed.
+Each returned row still represents one sampled parameter case and one
+trajectory. For <span class="math notranslate nohighlight">\(M\)</span> cases, the stored loads have shape <code class="docutils literal notranslate"><span class="pre">(M,)</span></code>, the trajectories
+have shape <code class="docutils literal notranslate"><span class="pre">(M,</span> <span class="pre">201)</span></code>, and their final displacements have shape <code class="docutils literal notranslate"><span class="pre">(M,)</span></code>.
+Batching is a computational shortcut for this supplied simulator. In a general
+engineering workflow, the <span class="math notranslate nohighlight">\(M\)</span> cases may require <span class="math notranslate nohighlight">\(M\)</span> separate black-box solver
+runs.</p>
+<p>Draw loads in batches of 500 using
+<code class="docutils literal notranslate"><span class="pre">rng_duffing</span> <span class="pre">=</span> <span class="pre">np.random.default_rng(53903)</span></code>. After each batch, retain every
+load and complete trajectory and calculate</p>
+<div class="math notranslate nohighlight">
+\[
+\widehat\mu_M=\frac{1}{M}\sum_{m=1}^M Y_m,
+\qquad
+s_M=
+\left[
+\frac{1}{M-1}\sum_{m=1}^M(Y_m-\widehat\mu_M)^2
+\right]^{1/2},
+\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[
+\widehat{\operatorname{MCSE}}_M=\frac{s_M}{\sqrt{M}}.
+\]</div>
+<p>After at least 1,000 simulations, stop at the first batch endpoint satisfying</p>
+<div class="math notranslate nohighlight">
+\[
+1.96\,\widehat{\operatorname{MCSE}}_M\leq0.03.
+\]</div>
+<p>Use 10,000 simulations as a safety cap.</p>
+<ol class="arabic simple">
+<li><p>Implement the sequential calculation and report a table containing <span class="math notranslate nohighlight">\(M\)</span>,
+<span class="math notranslate nohighlight">\(\widehat\mu_M\)</span>, <span class="math notranslate nohighlight">\(s_M\)</span>, the estimated MCSE, and the 95% CLT half-width after
+every batch. <strong>(7 points)</strong></p></li>
+<li><p>Plot the running mean and its approximate 95% CLT interval. Report the
+stopping value of <span class="math notranslate nohighlight">\(M\)</span> and the final interval for <span class="math notranslate nohighlight">\(E[Y]\)</span>. <strong>(4 points)</strong></p></li>
+<li><p>Explain why the CLT can apply to the mean even when <span class="math notranslate nohighlight">\(Y\)</span> is not Gaussian.
+State precisely what the stopping rule controls and at least two things it
+does not control. <strong>(3 points)</strong></p></li>
+</ol>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rng_duffing</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">53903</span><span class="p">)</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">minimum_samples</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">maximum_samples</span> <span class="o">=</span> <span class="mi">10_000</span>
+<span class="n">target_half_width</span> <span class="o">=</span> <span class="mf">0.03</span>
+
+<span class="n">load_batches</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">trajectory_batches</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">history_records</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">while</span> <span class="nb">sum</span><span class="p">(</span><span class="n">batch</span><span class="o">.</span><span class="n">size</span> <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">load_batches</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">maximum_samples</span><span class="p">:</span>
+    <span class="n">load_batch</span> <span class="o">=</span> <span class="n">rng_duffing</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
+    <span class="n">trajectory_batch</span> <span class="o">=</span> <span class="n">simulate_bistable</span><span class="p">(</span><span class="n">load_batch</span><span class="p">)</span>
+    <span class="n">load_batches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">load_batch</span><span class="p">)</span>
+    <span class="n">trajectory_batches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">trajectory_batch</span><span class="p">)</span>
+
+    <span class="n">terminal_values_so_far</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">batch</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">trajectory_batches</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">sample_count</span> <span class="o">=</span> <span class="n">terminal_values_so_far</span><span class="o">.</span><span class="n">size</span>
+
+    <span class="c1"># Calculate the mean, sample standard deviation, estimated MCSE, and</span>
+    <span class="c1"># nominal 95% CLT half-width from terminal_values_so_far.</span>
+    <span class="c1"># YOUR CODE HERE</span>
+
+    <span class="n">history_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="n">sample_count</span><span class="p">,</span>
+            <span class="n">mean_estimate</span><span class="p">,</span>
+            <span class="n">sample_sd</span><span class="p">,</span>
+            <span class="n">mcse_estimate</span><span class="p">,</span>
+            <span class="n">clt_half_width</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="n">sample_count</span> <span class="o">&gt;=</span> <span class="n">minimum_samples</span>
+        <span class="ow">and</span> <span class="n">clt_half_width</span> <span class="o">&lt;=</span> <span class="n">target_half_width</span>
+    <span class="p">):</span>
+        <span class="k">break</span>
+
+<span class="n">duffing_loads</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">load_batches</span><span class="p">)</span>
+<span class="n">duffing_trajectories</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">trajectory_batches</span><span class="p">)</span>
+<span class="n">terminal_displacements</span> <span class="o">=</span> <span class="n">duffing_trajectories</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">mc_history</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">history_records</span><span class="p">,</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;M&quot;</span><span class="p">,</span> <span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_sd&quot;</span><span class="p">,</span> <span class="s2">&quot;MCSE&quot;</span><span class="p">,</span> <span class="s2">&quot;CLT_half_width&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">mc_history</span><span class="p">)</span>
+
+<span class="c1"># Calculate the final mean, sample standard deviation, MCSE, and CLT interval.</span>
+<span class="c1"># YOUR CODE HERE</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">7.0</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mc_history</span><span class="p">[</span><span class="s2">&quot;M&quot;</span><span class="p">],</span> <span class="n">mc_history</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Running mean&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
+    <span class="n">mc_history</span><span class="p">[</span><span class="s2">&quot;M&quot;</span><span class="p">],</span>
+    <span class="n">mc_history</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">mc_history</span><span class="p">[</span><span class="s2">&quot;CLT_half_width&quot;</span><span class="p">],</span>
+    <span class="n">mc_history</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">mc_history</span><span class="p">[</span><span class="s2">&quot;CLT_half_width&quot;</span><span class="p">],</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Approximate 95% CLT interval&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Number of parameter cases $M$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Estimate of $E[x(20;F)]$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Monitoring Monte Carlo error in the propagated mean&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;stopping M = </span><span class="si">{</span><span class="n">terminal_displacements</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mean estimate = </span><span class="si">{</span><span class="n">final_mean</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sample standard deviation = </span><span class="si">{</span><span class="n">final_sd</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;estimated MCSE = </span><span class="si">{</span><span class="n">final_mcse</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;95% CLT interval for the mean = &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">final_clt_interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">final_clt_interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">]&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Response:</strong> Show the requested derivation, or report your results and interpretation, as appropriate.</p>
+</div></blockquote>
+</section>
+<section id="construct-and-interpret-a-predictive-interval-19-points">
+<h3>3.3 Construct and interpret a predictive interval (19 points)<a class="headerlink" href="#construct-and-interpret-a-predictive-interval-19-points" title="Permalink to this heading">#</a></h3>
+<p>At each output time <span class="math notranslate nohighlight">\(t_j\)</span>, estimate the pointwise central 95% <strong>epistemic
+predictive interval</strong> induced by the engineer’s distribution for <span class="math notranslate nohighlight">\(F\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\left[
+\widehat q_{0.025}(t_j),
+\widehat q_{0.975}(t_j)
+\right].
+\]</div>
+<p>The <strong>plug-in trajectory</strong> is the single deterministic run obtained by setting
+<span class="math notranslate nohighlight">\(F=E[F]=0.001\)</span>. The three intervals used in this problem answer different
+questions:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Interval</p></th>
+<th class="head"><p>Target</p></th>
+<th class="head"><p>Source of variation</p></th>
+<th class="head"><p>Effect of increasing <span class="math notranslate nohighlight">\(M\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CLT interval for the mean</p></td>
+<td><p><span class="math notranslate nohighlight">\(E_F[Y]\)</span></p></td>
+<td><p>Monte Carlo sampling</p></td>
+<td><p>Narrows</p></td>
+</tr>
+<tr class="row-odd"><td><p>Bootstrap interval for the mean</p></td>
+<td><p><span class="math notranslate nohighlight">\(E_F[Y]\)</span></p></td>
+<td><p>Resampling stored Monte Carlo outputs</p></td>
+<td><p>Narrows</p></td>
+</tr>
+<tr class="row-even"><td><p>Epistemic predictive interval</p></td>
+<td><p>Plausible <span class="math notranslate nohighlight">\(Y=x(20;F)\)</span></p></td>
+<td><p>Variation across plausible fixed values of <span class="math notranslate nohighlight">\(F\)</span></p></td>
+<td><p>Physical width does not collapse; estimated endpoints stabilize</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol class="arabic simple">
+<li><p>Using all retained trajectories, calculate the pointwise mean, median, and
+0.025 and 0.975 quantiles with <code class="docutils literal notranslate"><span class="pre">axis=0</span></code>. Plot the 30 trajectories selected
+by the evenly spaced retained-row indices supplied in the starter cell, the
+propagated mean and median, the plug-in trajectory <span class="math notranslate nohighlight">\(x(t;E[F])\)</span>, and the
+pointwise predictive band. <strong>(7 points)</strong></p></li>
+<li><p>Make a histogram of <span class="math notranslate nohighlight">\(Y=x(20;F)\)</span> and mark the propagated mean, median, and
+plug-in result. Report the final predictive interval, <span class="math notranslate nohighlight">\(\widehat P(Y&gt;0)\)</span>,
+and <span class="math notranslate nohighlight">\(x(20;E[F])\)</span>. Compare <span class="math notranslate nohighlight">\(\widehat P(Y&gt;0)\)</span> with
+<span class="math notranslate nohighlight">\(P(F&gt;0)=\Phi(0.2)\)</span>. Compare the final interval endpoints obtained separately
+from the first and second halves of the retained sample with those from the
+full sample. <strong>(6 points)</strong></p></li>
+<li><p>Address each of the following points. <strong>(6 points)</strong></p>
+<ul class="simple">
+<li><p>Explain the meaning of the predictive interval in terms of the engineer’s
+epistemic uncertainty.</p></li>
+<li><p>State whether the propagated mean is a typical final response and explain
+why the Gaussian input becomes bimodal after propagation.</p></li>
+<li><p>Explain why the CLT stopping rule does not certify the interval endpoints.</p></li>
+<li><p>Distinguish a pointwise band from a simultaneous whole-trajectory
+statement.</p></li>
+<li><p>If the same noiseless physical unit were operated repeatedly, state
+whether its responses would sample this interval and explain why.</p></li>
+</ul>
+</li>
+</ol>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate mean_trajectory and the three rows lower_trajectory,</span>
+<span class="c1"># median_trajectory, and upper_trajectory. Use axis=0 for every pointwise</span>
+<span class="c1"># calculation.</span>
+<span class="c1"># YOUR CODE HERE</span>
+
+<span class="n">plug_in_trajectory</span> <span class="o">=</span> <span class="n">simulate_bistable</span><span class="p">([</span><span class="mf">0.001</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">representative_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
+    <span class="mi">0</span><span class="p">,</span> <span class="n">terminal_displacements</span><span class="o">.</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
+    <span class="n">BISTABLE_TIMES</span><span class="p">,</span>
+    <span class="n">lower_trajectory</span><span class="p">,</span>
+    <span class="n">upper_trajectory</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.22</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Pointwise central 95% predictive interval&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">BISTABLE_TIMES</span><span class="p">,</span>
+    <span class="n">duffing_trajectories</span><span class="p">[</span><span class="n">representative_indices</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.20</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">BISTABLE_TIMES</span><span class="p">,</span> <span class="n">mean_trajectory</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Propagated mean&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">BISTABLE_TIMES</span><span class="p">,</span>
+    <span class="n">median_trajectory</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Propagated median&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">BISTABLE_TIMES</span><span class="p">,</span>
+    <span class="n">plug_in_trajectory</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;Plug-in trajectory $x(t;E[F])$&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Nondimensional time&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Displacement $x(t;F)$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Epistemic uncertainty propagated through the oscillator&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Calculate the requested terminal summaries and the two half-sample</span>
+<span class="c1"># intervals. Use method=&quot;inverted_cdf&quot; for every empirical quantile.</span>
+<span class="c1"># YOUR CODE HERE</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">7.0</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">terminal_displacements</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">final_mean</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Propagated mean&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span>
+    <span class="n">terminal_median</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Propagated median&quot;</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span>
+    <span class="n">plug_in_final</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Plug-in result&quot;</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Final displacement $Y=x(20;F)$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Empirical density&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;The propagated final-time distribution is bimodal&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;final 95% predictive interval = &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">terminal_predictive_interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">, &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">terminal_predictive_interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">]&quot;</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;final median = </span><span class="si">{</span><span class="n">terminal_median</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P(Y &gt; 0) estimate = </span><span class="si">{</span><span class="n">right_well_probability</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P(F &gt; 0) = Phi(0.2) = </span><span class="si">{</span><span class="n">positive_load_probability</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;plug-in x(20; E[F]) = </span><span class="si">{</span><span class="n">plug_in_final</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;first-half predictive interval = &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">first_half_interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">first_half_interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">]&quot;</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;second-half predictive interval = &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">second_half_interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">second_half_interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">]&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Response:</strong> Show the requested derivation, or report your results and interpretation, as appropriate.</p>
+</div></blockquote>
+</section>
+<section id="bootstrap-the-mean-without-rerunning-the-simulator-6-points">
+<h3>3.4 Bootstrap the mean without rerunning the simulator (6 points)<a class="headerlink" href="#bootstrap-the-mean-without-rerunning-the-simulator-6-points" title="Permalink to this heading">#</a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">rng_duffing_bootstrap</span> <span class="pre">=</span> <span class="pre">np.random.default_rng(53904)</span></code> and <span class="math notranslate nohighlight">\(R=2000\)</span>.
+Resample the stored terminal values <span class="math notranslate nohighlight">\(Y_1,\ldots,Y_M\)</span> with replacement and
+calculate the mean of every bootstrap resample.</p>
+<ol class="arabic simple">
+<li><p>Report the bootstrap standard error using denominator <span class="math notranslate nohighlight">\(R-1\)</span> and the 95%
+bootstrap percentile interval. Compare both with the CLT results.
+<strong>(2 points)</strong></p></li>
+<li><p>Explain why the bootstrap requires no new simulator calls. If the entire
+predictive band were bootstrapped, state what should be resampled to
+preserve the time dependence within a trajectory. <strong>(1 point)</strong></p></li>
+<li><p>Suppose one parameter case required several hours of black-box simulator
+time. Address each of the following points. <strong>(3 points)</strong></p>
+<ul class="simple">
+<li><p>Compare the simulator cost, additional arithmetic, and storage required
+by the CLT and bootstrap approaches.</p></li>
+<li><p>State which approach you would use for the mean and when the bootstrap
+would be more useful.</p></li>
+<li><p>Explain why the bootstrap interval for the mean is not the predictive
+interval for one plausible system response.</p></li>
+<li><p>State whether resampling the stored outputs at the realized <span class="math notranslate nohighlight">\(M\)</span> reproduces
+the sequential stopping rule or repairs the repeated-look limitation of
+the ordinary CLT interval.</p></li>
+</ul>
+</li>
+</ol>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rng_duffing_bootstrap</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">53904</span><span class="p">)</span>
+<span class="n">R_duffing</span> <span class="o">=</span> <span class="mi">2000</span>
+<span class="n">bootstrap_duffing_means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">R_duffing</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">replicate</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">R_duffing</span><span class="p">):</span>
+    <span class="n">bootstrap_sample</span> <span class="o">=</span> <span class="n">rng_duffing_bootstrap</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span>
+        <span class="n">terminal_displacements</span><span class="p">,</span>
+        <span class="n">size</span><span class="o">=</span><span class="n">terminal_displacements</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+        <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">bootstrap_duffing_means</span><span class="p">[</span><span class="n">replicate</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">bootstrap_sample</span><span class="p">)</span>
+
+<span class="c1"># Calculate the bootstrap standard error and percentile interval.</span>
+<span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Response:</strong> Show the requested derivation, or report your results and interpretation, as appropriate.</p>
+</div></blockquote>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -635,6 +1677,49 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-notes-for-this-assignment">NumPy notes for this assignment</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-clearance-in-a-matched-shaftbore-assembly-25-points">Problem 1 — Clearance in a matched shaft–bore assembly (25 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marginals-and-dependence-5-points">1.1 Marginals and dependence (5 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unconditional-clearance-7-points">1.2 Unconditional clearance (7 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-measured-shaft-7-points">1.3 A measured shaft (7 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#an-independence-assumption-6-points">1.4 An independence assumption (6 points)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-dependence-in-measured-lake-michigan-sea-states-30-points">Problem 2 — Dependence in measured Lake Michigan sea states (30 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-observed-sea-state-vector-8-points">2.1 The observed sea-state vector (8 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-finite-empirical-input-model-10-points">2.2 A finite empirical input model (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-uncertainty-clt-and-bootstrap-12-points">2.3 Monte Carlo uncertainty: CLT and bootstrap (12 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-clt-calculation-for-the-mean-6-points">2.3.1 A CLT calculation for the mean (6 points)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bootstrap-uncertainty-for-the-mean-6-points">2.3.2 Bootstrap uncertainty for the mean (6 points)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-uncertainty-propagation-through-a-bistable-oscillator-45-points">Problem 3 — Uncertainty propagation through a bistable oscillator (45 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-the-deterministic-simulator-6-points">3.1 Explore the deterministic simulator (6 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimate-the-propagated-mean-with-monitored-monte-carlo-error-14-points">3.2 Estimate the propagated mean with monitored Monte Carlo error (14 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construct-and-interpret-a-predictive-interval-19-points">3.3 Construct and interpret a predictive interval (19 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bootstrap-the-mean-without-rerunning-the-simulator-6-points">3.4 Bootstrap the mean without rerunning the simulator (6 points)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
