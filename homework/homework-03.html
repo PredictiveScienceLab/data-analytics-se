@@ -62,6 +62,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'homework/homework-03';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -552,7 +554,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -568,6 +572,33 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-this-homework-practices">What this homework practices</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-maximum-entropy-and-bayesian-sensor-calibration-25-points">Problem 1 — Maximum entropy and Bayesian sensor calibration (25 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derive-the-maximum-entropy-prior-7-points">1.1 Derive the maximum-entropy prior (7 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derive-the-analytical-posterior-10-points">1.2 Derive the analytical posterior (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#design-the-calibration-sample-size-5-points">1.3 Design the calibration sample size (5 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-a-future-calibration-residual-3-points">1.4 Predict a future calibration residual (3 points)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-bayesian-earthquake-rate-study-75-points">Problem 2 — Bayesian earthquake-rate study (75 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#audit-and-represent-the-observations-10-points">2.1 Audit and represent the observations (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prior-information-and-sensitivity-15-points">2.2 Prior information and sensitivity (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-inference-credible-intervals-and-bayes-actions-20-points">2.3 Posterior inference, credible intervals, and Bayes actions (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-predictive-model-check-15-points">2.4 Posterior-predictive model check (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ten-and-twenty-year-probabilities-sensitivity-and-communication-15-points">2.5 Ten- and twenty-year probabilities, sensitivity, and communication (15 points)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-data-source-and-credit">Problem 2 data source and credit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-checklist">Submission checklist</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -579,6 +610,681 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="homework-3">
 <h1>Homework 3<a class="headerlink" href="#homework-3" title="Permalink to this heading">#</a></h1>
+<p><strong>Coverage:</strong> Lectures 11–12<br />
+<strong>Due:</strong> Sunday, September 20, 2026, 11:59 p.m. ET<br />
+<strong>Total:</strong> 100 points</p>
+<section id="what-this-homework-practices">
+<h2>What this homework practices<a class="headerlink" href="#what-this-homework-practices" title="Permalink to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Lecture</p></th>
+<th class="head text-left"><p>Assessed ideas</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>11 — Selecting prior information</p></td>
+<td class="text-left"><p>Translate support, mean, and variance information into a maximum-entropy Gaussian prior; distinguish prior location from prior concentration; test sensitivity to alternative prior information.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>12 — Analytical Bayesian inference</p></td>
+<td class="text-left"><p>Derive an analytical posterior, quantify posterior uncertainty, design a sample size, form posterior-predictive distributions, simulate replicated data, and make a probability-based decision.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Useful course-book pages are <a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture11/reading-11.html">Lecture 11: selecting prior
+information</a>,
+<a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture11/hands-on-11.3.html">continuous maximum-entropy
+examples</a>,
+<a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture12/reading-12.html">Lecture 12: analytical Bayesian
+inference</a>,
+<a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture12/hands-on-12.2.html">credible
+intervals</a>,
+and <a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture12/hands-on-12.4.html">posterior-predictive
+distributions</a>.</p>
+<p>Normal–Normal and Gamma–Poisson conjugacy are used as guided extensions of
+Lecture 12. Every required definition and parameterization is supplied
+below.</p>
+</section>
+<section id="instructions">
+<h2>Instructions<a class="headerlink" href="#instructions" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Complete this notebook in Google Colab or another fresh Python environment.</p></li>
+<li><p>Problem 1 is a short hand-calculation problem. Show the important
+derivation and interpretation steps in Markdown/LaTeX, or insert one clearly
+legible image of your handwritten work. If you insert an image, accompany it
+with a descriptive alternative-text summary in the response cell and type
+all final mathematical results there. No code is needed.</p></li>
+<li><p>Problem 2 is a scaffolded scientific-computing study. Use the supplied
+random seeds and do not delete setup, helper, or data-credit cells.</p></li>
+<li><p>The setup cell downloads and verifies the frozen course data automatically.
+Do not upload or replace the CSV, and do not query the live USGS catalog.</p></li>
+<li><p>Do not mount Google Drive or use Drive/absolute data paths. Saving your
+Colab notebook copy in Drive is fine. Do not install additional packages.</p></li>
+<li><p>Label plots and include units. Report numerical answers to at least four
+significant digits unless instructed otherwise.</p></li>
+<li><p>Follow the current course and Brightspace submission policies.</p></li>
+</ul>
+</section>
+<section id="student-details">
+<h2>Student details<a class="headerlink" href="#student-details" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>First name:</strong></p></li>
+<li><p><strong>Last name:</strong></p></li>
+<li><p><strong>Purdue email:</strong></p></li>
+</ul>
+<div class="cell tag_locked docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">io</span><span class="w"> </span><span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">urllib.error</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+
+<span class="n">SEED</span> <span class="o">=</span> <span class="mi">53903</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;ticks&quot;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.constrained_layout.use&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">DATA_NAME</span> <span class="o">=</span> <span class="s2">&quot;southern-california-baja-earthquakes-1900-2025.csv&quot;</span>
+<span class="n">EXPECTED_DATA_SHA256</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;a4e7fb0d2a99fc81cf0f309e13a853b6025413e84d61ab82f18cc8c43ec37072&quot;</span>
+<span class="p">)</span>
+<span class="n">COURSE_DATA_URL</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;https://predictivesciencelab.github.io/data-analytics-se/_downloads/&quot;</span>
+    <span class="s2">&quot;0df04c34eed724ea5eaaf5e918b4496c/&quot;</span>
+    <span class="s2">&quot;southern-california-baja-earthquakes-1900-2025.csv&quot;</span>
+<span class="p">)</span>
+<span class="n">LOCAL_DATA_CANDIDATES</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Path</span><span class="p">(</span><span class="n">DATA_NAME</span><span class="p">),</span>
+    <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data/homework&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">DATA_NAME</span><span class="p">,</span>
+    <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;lecturebook/data/homework&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">DATA_NAME</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sha256_bytes</span><span class="p">(</span><span class="n">payload</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return the hexadecimal SHA-256 digest of a byte string.&#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">load_frozen_course_data</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Load the hash-verified snapshot locally or from the course repository.&#39;&#39;&#39;</span>
+    <span class="n">rejected</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">candidate</span> <span class="ow">in</span> <span class="n">LOCAL_DATA_CANDIDATES</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">candidate</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+            <span class="n">payload</span> <span class="o">=</span> <span class="n">candidate</span><span class="o">.</span><span class="n">read_bytes</span><span class="p">()</span>
+            <span class="n">digest</span> <span class="o">=</span> <span class="n">sha256_bytes</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">digest</span> <span class="o">==</span> <span class="n">EXPECTED_DATA_SHA256</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">payload</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;verified local course file: </span><span class="si">{</span><span class="n">candidate</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">rejected</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">candidate</span><span class="si">}</span><span class="s2"> (SHA-256 </span><span class="si">{</span><span class="n">digest</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+    <span class="n">request</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span>
+        <span class="n">COURSE_DATA_URL</span><span class="p">,</span>
+        <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;ME539-course-data/2026&quot;</span><span class="p">},</span>
+    <span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="k">as</span> <span class="n">response</span><span class="p">:</span>
+            <span class="n">payload</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">except</span> <span class="p">(</span><span class="n">urllib</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">URLError</span><span class="p">,</span> <span class="ne">TimeoutError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="n">rejected_text</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot; Rejected local files: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rejected</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="k">if</span> <span class="n">rejected</span>
+            <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s2">&quot;Could not download the frozen Homework 3 course data. &quot;</span>
+            <span class="s2">&quot;Check the internet connection and rerun this cell.&quot;</span>
+            <span class="o">+</span> <span class="n">rejected_text</span>
+        <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+
+    <span class="n">digest</span> <span class="o">=</span> <span class="n">sha256_bytes</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">digest</span> <span class="o">!=</span> <span class="n">EXPECTED_DATA_SHA256</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Downloaded bytes do not match the frozen course snapshot: &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;expected </span><span class="si">{</span><span class="n">EXPECTED_DATA_SHA256</span><span class="si">}</span><span class="s2">, received </span><span class="si">{</span><span class="n">digest</span><span class="si">}</span><span class="s2">.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">payload</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;verified published course file: </span><span class="si">{</span><span class="n">COURSE_DATA_URL</span><span class="si">}</span><span class="s2">&quot;</span>
+
+
+<span class="n">DATA_BYTES</span><span class="p">,</span> <span class="n">DATA_SOURCE</span> <span class="o">=</span> <span class="n">load_frozen_course_data</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">DATA_BYTES</span><span class="p">)</span><span class="si">}</span><span class="s2"> verified bytes from </span><span class="si">{</span><span class="n">DATA_SOURCE</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-1-maximum-entropy-and-bayesian-sensor-calibration-25-points">
+<h2>Problem 1 — Maximum entropy and Bayesian sensor calibration (25 points)<a class="headerlink" href="#problem-1-maximum-entropy-and-bayesian-sensor-calibration-25-points" title="Permalink to this heading">#</a></h2>
+<p>A sensor’s <strong>calibration residual</strong> is its reported value minus a known
+reference value. Let <span class="math notranslate nohighlight">\(b\)</span>, measured in millivolts (mV), denote the sensor’s
+unknown but fixed signed zero offset. Before collecting calibration
+measurements, the available engineering information is</p>
+<div class="math notranslate nohighlight">
+\[
+b\in\mathbb{R},
+\qquad
+\mathbb{E}[b]=b_0,
+\qquad
+\mathbb{V}[b]=\tau_0^2.
+\]</div>
+<p>Assume <span class="math notranslate nohighlight">\(\tau_0&gt;0\)</span>.</p>
+<p>Support and moments do not uniquely determine a prior distribution. Once
+the variable and reference density are specified, the maximum-entropy
+principle selects the feasible distribution that introduces the least
+additional structure beyond the stated information.</p>
+<section id="derive-the-maximum-entropy-prior-7-points">
+<h3>1.1 Derive the maximum-entropy prior (7 points)<a class="headerlink" href="#derive-the-maximum-entropy-prior-7-points" title="Permalink to this heading">#</a></h3>
+<p>Take the reference density to be <span class="math notranslate nohighlight">\(q(b)=1\)</span> relative to Lebesgue measure—that
+is, ordinary integration with respect to <span class="math notranslate nohighlight">\(db\)</span>—in the stated mV coordinate.
+Equivalently, write the variance constraint as the second-moment constraint</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{E}[b^2]=b_0^2+\tau_0^2.
+\]</div>
+<p>Lecture 11’s maximum-entropy result gives a density of the form</p>
+<div class="math notranslate nohighlight">
+\[
+\pi(b)
+=
+\frac{1}{Z}
+\exp\left(\eta_1b+\eta_2b^2\right),
+\qquad b\in\mathbb{R},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(Z\)</span> is the normalization constant.</p>
+<ol class="arabic simple">
+<li><p>Explain why <span class="math notranslate nohighlight">\(\eta_2&lt;0\)</span> is required. <strong>(1 point)</strong></p></li>
+<li><p>Complete the square and use the two moment constraints to determine
+<span class="math notranslate nohighlight">\(\eta_1\)</span> and <span class="math notranslate nohighlight">\(\eta_2\)</span>. <strong>(4 points)</strong></p></li>
+<li><p>Determine <span class="math notranslate nohighlight">\(Z\)</span> and identify the resulting named prior distribution.
+<strong>(2 points)</strong></p></li>
+</ol>
+<p>You may use</p>
+<div class="math notranslate nohighlight">
+\[
+\int_{-\infty}^{\infty}
+\exp\left[-\frac{a}{2}(x-c)^2\right]\,dx
+=
+\sqrt{\frac{2\pi}{a}},
+\qquad a&gt;0.
+\]</div>
+<blockquote>
+<div><p><strong>Response:</strong> Replace this text with your derivation.</p>
+</div></blockquote>
+</section>
+<section id="derive-the-analytical-posterior-10-points">
+<h3>1.2 Derive the analytical posterior (10 points)<a class="headerlink" href="#derive-the-analytical-posterior-10-points" title="Permalink to this heading">#</a></h3>
+<p>Suppose the calibration residuals <span class="math notranslate nohighlight">\(Y_1,\ldots,Y_N\)</span> are conditionally
+independent given <span class="math notranslate nohighlight">\(b\)</span> and satisfy</p>
+<div class="math notranslate nohighlight">
+\[
+Y_i\mid b\sim N(b,\sigma^2),
+\qquad i=1,\ldots,N,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma&gt;0\)</span>, <span class="math notranslate nohighlight">\(N\geq1\)</span>, and the measurement-noise variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> is
+known. Let <span class="math notranslate nohighlight">\(y_{1:N}=(y_1,\ldots,y_N)\)</span> denote the observed residuals, and
+define</p>
+<div class="math notranslate nohighlight">
+\[
+\bar y=\frac{1}{N}\sum_{i=1}^N y_i.
+\]</div>
+<ol class="arabic">
+<li><p>Write the likelihood as a function of <span class="math notranslate nohighlight">\(b\)</span>, retaining all factors that
+depend on <span class="math notranslate nohighlight">\(b\)</span>. <strong>(2 points)</strong></p></li>
+<li><p>Starting from Bayes’ rule,</p>
+<div class="math notranslate nohighlight">
+\[
+   p(b\mid y_{1:N})
+   \propto
+   p(y_{1:N}\mid b)\pi(b),
+   \]</div>
+<p>complete the square and show that</p>
+<div class="math notranslate nohighlight">
+\[
+   b\mid y_{1:N}\sim N(b_N,v_N).
+   \]</div>
+<p>Derive explicit expressions for <span class="math notranslate nohighlight">\(b_N\)</span> and <span class="math notranslate nohighlight">\(v_N\)</span>. <strong>(5 points)</strong></p>
+</li>
+<li><p><strong>Precision</strong> means reciprocal variance. Rewrite <span class="math notranslate nohighlight">\(b_N\)</span> as a weighted
+average of <span class="math notranslate nohighlight">\(b_0\)</span> and <span class="math notranslate nohighlight">\(\bar y\)</span> whose weights are determined by prior
+precision and data precision. Verify that the weights sum to one and
+interpret them. <strong>(2 points)</strong></p></li>
+<li><p>A prior family is <strong>conjugate</strong> to a likelihood when the posterior belongs
+to the same distribution family as the prior. Explain why this update is
+conjugate. <strong>(1 point)</strong></p></li>
+</ol>
+<p>You may use</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^N(y_i-b)^2
+=
+\sum_{i=1}^N(y_i-\bar y)^2
++
+N(b-\bar y)^2.
+\]</div>
+<p>Leave the posterior in terms of <span class="math notranslate nohighlight">\(N\)</span> and <span class="math notranslate nohighlight">\(\bar y\)</span>; no numerical observations
+are required.</p>
+<blockquote>
+<div><p><strong>Response:</strong> Replace this text with your posterior derivation and interpretation.</p>
+</div></blockquote>
+</section>
+<section id="design-the-calibration-sample-size-5-points">
+<h3>1.3 Design the calibration sample size (5 points)<a class="headerlink" href="#design-the-calibration-sample-size-5-points" title="Permalink to this heading">#</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(v_*&gt;0\)</span> be a target upper bound for the posterior variance.
+When <span class="math notranslate nohighlight">\(N=0\)</span>, define <span class="math notranslate nohighlight">\(v_0=\tau_0^2\)</span>, the prior variance.</p>
+<ol class="arabic">
+<li><p>Derive the minimum number <span class="math notranslate nohighlight">\(N_{\min}\)</span> of calibration measurements required
+to ensure</p>
+<div class="math notranslate nohighlight">
+\[
+   v_N\leq v_*.
+   \]</div>
+<p>Allow <span class="math notranslate nohighlight">\(N_{\min}=0\)</span> when the prior already satisfies the target. You may
+use <span class="math notranslate nohighlight">\(\lceil x\rceil\)</span>, the smallest integer greater than or equal to <span class="math notranslate nohighlight">\(x\)</span>.
+<strong>(3 points)</strong></p>
+</li>
+<li><p>Evaluate <span class="math notranslate nohighlight">\(N_{\min}\)</span> when</p>
+<div class="math notranslate nohighlight">
+\[
+   \tau_0=1.00\ \text{mV},
+   \qquad
+   \sigma=1.00\ \text{mV},
+   \qquad
+   v_*=0.0625\ \text{mV}^2.
+   \]</div>
+<p>Verify that one fewer measurement fails to meet the target. <strong>(1 point)</strong></p>
+</li>
+<li><p>Explain why <span class="math notranslate nohighlight">\(N_{\min}\)</span> does not depend on the observed residual values.
+<strong>(1 point)</strong></p></li>
+</ol>
+<blockquote>
+<div><p><strong>Response:</strong> Replace this text with your sample-size calculation and explanation.</p>
+</div></blockquote>
+</section>
+<section id="predict-a-future-calibration-residual-3-points">
+<h3>1.4 Predict a future calibration residual (3 points)<a class="headerlink" href="#predict-a-future-calibration-residual-3-points" title="Permalink to this heading">#</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(Y_*\)</span> denote a future residual from the same sensor, with</p>
+<div class="math notranslate nohighlight">
+\[
+Y_*\mid b\sim N(b,\sigma^2),
+\]</div>
+<p>independently of the calibration data given <span class="math notranslate nohighlight">\(b\)</span>. The <strong>posterior predictive
+distribution</strong> describes an unobserved future measurement after averaging
+over posterior uncertainty in <span class="math notranslate nohighlight">\(b\)</span>.</p>
+<ol class="arabic simple">
+<li><p>Derive the posterior predictive distribution of <span class="math notranslate nohighlight">\(Y_*\)</span> and its central 95%
+predictive interval. You may use
+<span class="math notranslate nohighlight">\(P(-1.96\leq Z\leq1.96)\approx0.95\)</span> for <span class="math notranslate nohighlight">\(Z\sim N(0,1)\)</span>.
+For the numerical design at <span class="math notranslate nohighlight">\(N=15\)</span>, also report the predictive variance
+and the 95% predictive half-width. Because no numerical value of
+<span class="math notranslate nohighlight">\(\bar y\)</span> is supplied, leave this numerical interval centered at the
+symbolic posterior mean <span class="math notranslate nohighlight">\(b_{15}\)</span>.
+<strong>(2 points)</strong></p></li>
+<li><p>Interpret the two contributions to its variance. State which contribution
+can be reduced by collecting more calibration measurements and identify
+the limiting predictive variance as <span class="math notranslate nohighlight">\(N\to\infty\)</span>. <strong>(1 point)</strong></p></li>
+</ol>
+<p><strong>Problem 1 credit.</strong> The maximum-entropy construction follows
+<a class="reference external" href="https://doi.org/10.1103/PhysRev.106.620">Jaynes (1957)</a> and Lecture 11. The
+Normal–Normal update is standard conjugate Bayesian analysis. The sensor
+calibration setting, sample-size design question, and numerical values were
+developed for this course.</p>
+<blockquote>
+<div><p><strong>Response:</strong> Replace this text with your posterior-predictive derivation and interpretation.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="problem-2-bayesian-earthquake-rate-study-75-points">
+<h2>Problem 2 — Bayesian earthquake-rate study (75 points)<a class="headerlink" href="#problem-2-bayesian-earthquake-rate-study-75-points" title="Permalink to this heading">#</a></h2>
+<p>The course’s frozen <a class="reference external" href="https://earthquake.usgs.gov/data/comcat/">USGS ComCat</a>
+snapshot contains catalog events with magnitude at least 6.5 from January
+1, 1900 through December 31, 2025 in the rectangular study region
+<span class="math notranslate nohighlight">\(32\le\text{latitude}\le37\)</span> degrees N and
+<span class="math notranslate nohighlight">\(-122\le\text{longitude}\le-114\)</span> degrees. This rectangle includes parts of
+California and Baja California; it is not a Southern-California boundary.</p>
+<p>Let <span class="math notranslate nohighlight">\(\Delta_t=1\)</span> year denote the known exposure for calendar year <span class="math notranslate nohighlight">\(t\)</span>.
+Model the annual counts as conditionally independent observations</p>
+<div class="math notranslate nohighlight">
+\[
+Y_t\mid\lambda,\Delta_t
+\sim\operatorname{Poisson}(\lambda\Delta_t),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\lambda\)</span> is a constant event rate in events/year. This is a compact
+teaching model, not an official seismic-hazard forecast.</p>
+<p><strong>Parameterization note.</strong> Throughout the notebook, Gamma distributions use
+shape <span class="math notranslate nohighlight">\(\alpha\)</span> and rate <span class="math notranslate nohighlight">\(\beta\)</span>. SciPy instead expects
+<code class="docutils literal notranslate"><span class="pre">stats.gamma(a=alpha,</span> <span class="pre">scale=1</span> <span class="pre">/</span> <span class="pre">beta)</span></code>.</p>
+<p>For <span class="math notranslate nohighlight">\(\lambda&gt;0\)</span>, the shape-rate density and its moments are</p>
+<div class="math notranslate nohighlight">
+\[
+f(\lambda\mid\alpha,\beta)
+=
+\frac{\beta^\alpha}{\Gamma(\alpha)}
+\lambda^{\alpha-1}e^{-\beta\lambda},
+\qquad
+\mathbb{E}[\lambda]=\frac{\alpha}{\beta},
+\qquad
+\mathbb{V}[\lambda]=\frac{\alpha}{\beta^2}.
+\]</div>
+<p><strong>Gamma–Poisson update card.</strong> If
+<span class="math notranslate nohighlight">\(\lambda\sim\operatorname{Gamma}(\alpha_0,\beta_0)\)</span>, total observed count is
+<span class="math notranslate nohighlight">\(n=\sum_t y_t\)</span>, and total known exposure is <span class="math notranslate nohighlight">\(E=\sum_t\Delta_t\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+\lambda\mid\mathbf y,\boldsymbol\Delta
+\sim\operatorname{Gamma}(\alpha_N,\beta_N),
+\qquad
+\alpha_N=\alpha_0+n,
+\quad
+\beta_N=\beta_0+E.
+\]</div>
+<p>For a future exposure of <span class="math notranslate nohighlight">\(T\)</span> years, the corresponding probability of at
+least one event is</p>
+<div class="math notranslate nohighlight">
+\[
+P(Y_*\ge1\mid\mathbf y,\boldsymbol\Delta)
+=1-\left(\frac{\beta_N}{\beta_N+T}\right)^{\alpha_N}.
+\]</div>
+<p>These formulas are supplied; you are responsible for using and interpreting
+them, not deriving them.</p>
+<div class="cell tag_locked docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">events</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">DATA_BYTES</span><span class="p">),</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;stable&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">YEARS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1900</span><span class="p">,</span> <span class="mi">2026</span><span class="p">)</span>
+<span class="n">annual_counts</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">events</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">YEARS</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">EXPOSURE_YEARS</span> <span class="o">=</span> <span class="n">YEARS</span><span class="o">.</span><span class="n">size</span>
+<span class="k">assert</span> <span class="n">annual_counts</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">126</span><span class="p">,)</span>
+<span class="n">events</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="audit-and-represent-the-observations-10-points">
+<h3>2.1 Audit and represent the observations (10 points)<a class="headerlink" href="#audit-and-represent-the-observations-10-points" title="Permalink to this heading">#</a></h3>
+<p>Verify the following without changing the frozen CSV:</p>
+<ul class="simple">
+<li><p>unique event identifiers;</p></li>
+<li><p>that every event lies inside the stated query window, magnitude threshold,
+and geographic bounds;</p></li>
+<li><p>missingness in every column; identify which missing values, if any, affect
+the annual-count likelihood or the frozen-extract audit;</p></li>
+<li><p>the total event count, number of zero-event years, and maximum annual count.</p></li>
+</ul>
+<p>Plot the 126 annual counts. Explain why the zero-event years must remain in
+the exposure and likelihood. Identify one catalog-specific limitation that
+should be considered before treating the entire 1900–2025 window as
+exchangeable. Here, <em>exchangeable</em> means that the joint model is unchanged
+if the annual observations are permuted; in this setting, it rules out a
+systematic dependence of the event rate on calendar year.</p>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Response:</strong> Replace this text with your audit findings and explanation.</p>
+</div></blockquote>
+</section>
+<section id="prior-information-and-sensitivity-15-points">
+<h3>2.2 Prior information and sensitivity (15 points)<a class="headerlink" href="#prior-information-and-sensitivity-15-points" title="Permalink to this heading">#</a></h3>
+<p>Compare these Gamma shape-rate priors for <span class="math notranslate nohighlight">\(\lambda\)</span>:</p>
+<ul class="simple">
+<li><p><strong>Maximum-entropy mean-only:</strong> <span class="math notranslate nohighlight">\(\operatorname{Gamma}(1,8)\)</span>; positive
+support, mean <span class="math notranslate nohighlight">\(0.125\)</span> events/year, and no other quantitative constraint
+relative to <span class="math notranslate nohighlight">\(q(\lambda)=1\)</span> with respect to <span class="math notranslate nohighlight">\(d\lambda\)</span> in the stated
+events/year coordinate.</p></li>
+<li><p><strong>Same-mean concentrated:</strong> <span class="math notranslate nohighlight">\(\operatorname{Gamma}(4,32)\)</span>; hypothetical
+stronger prior information with the same mean.</p></li>
+<li><p><strong>Lower-rate sensitivity:</strong> <span class="math notranslate nohighlight">\(\operatorname{Gamma}(2,40)\)</span>; hypothetical
+alternative with mean <span class="math notranslate nohighlight">\(0.05\)</span> events/year.</p></li>
+</ul>
+<p>Report each prior mean, standard deviation, and central 90% interval in
+events/year. Plot all three densities on a common, readable rate range.
+Explain why the first prior is exponential and how the first two priors can
+have the same mean but express different information.</p>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Response:</strong> Replace this text with your prior comparison.</p>
+</div></blockquote>
+</section>
+<section id="posterior-inference-credible-intervals-and-bayes-actions-20-points">
+<h3>2.3 Posterior inference, credible intervals, and Bayes actions (20 points)<a class="headerlink" href="#posterior-inference-credible-intervals-and-bayes-actions-20-points" title="Permalink to this heading">#</a></h3>
+<p>Implement the supplied Gamma–Poisson update using total count and total exposure.
+For each prior, report the posterior shape and rate, mean, median, mode, and
+central 95% credible interval for <span class="math notranslate nohighlight">\(\lambda\)</span>. Express rate summaries in both
+events/year and events/decade. Plot the three posterior densities.</p>
+<p>State which point summary is the Bayes action under squared-error loss and
+which is the Bayes action under absolute-error loss. Report the continuous
+posterior mode only as a density summary; do not use exact 0–1 loss to justify
+it for a continuous parameter.</p>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">gamma_poisson_update</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">counts</span><span class="p">,</span> <span class="n">exposure_years</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return posterior shape and rate for a Gamma–Poisson rate model.&#39;&#39;&#39;</span>
+    <span class="c1"># YOUR CODE HERE</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+
+<span class="c1"># Use the function above to build a posterior summary and density plot.</span>
+<span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Response:</strong> Replace this text with your posterior comparison and loss-based interpretation.</p>
+</div></blockquote>
+</section>
+<section id="posterior-predictive-model-check-15-points">
+<h3>2.4 Posterior-predictive model check (15 points)<a class="headerlink" href="#posterior-predictive-model-check-15-points" title="Permalink to this heading">#</a></h3>
+<p>Use the maximum-entropy prior’s posterior for this check. Generate 50,000
+replicated 126-year catalogs by repeating these two steps for each catalog:</p>
+<ol class="arabic simple">
+<li><p>draw <span class="math notranslate nohighlight">\(\lambda^{\mathrm{rep}}\)</span> from the posterior;</p></li>
+<li><p>draw 126 conditionally independent annual counts from
+<span class="math notranslate nohighlight">\(\operatorname{Poisson}(\lambda^{\mathrm{rep}})\)</span>.</p></li>
+</ol>
+<p>Each replication is a synthetic 126-year catalog generated under the
+posterior-predictive model. The sampled rate <span class="math notranslate nohighlight">\(\lambda^{\mathrm{rep}}\)</span> remains
+fixed across all 126 years within that catalog and is redrawn for the next
+catalog. Variation in <span class="math notranslate nohighlight">\(\lambda^{\mathrm{rep}}\)</span> across catalogs propagates
+posterior uncertainty about the unknown rate; the Poisson draws represent
+year-to-year count variability at a fixed rate.</p>
+<p>Define the discrepancy</p>
+<div class="math notranslate nohighlight">
+\[
+T(\mathbf y)=\frac{s_y^2}{\bar y},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(s_y^2\)</span> is the sample variance across years. The discrepancy compares
+the across-year variability of the counts with their average annual level.
+A Poisson random variable has variance equal to its mean, so <span class="math notranslate nohighlight">\(T=1\)</span> is the
+natural reference. Values above 1 indicate <strong>overdispersion</strong>, and values
+below 1 indicate <strong>underdispersion</strong>. For a finite, sparse catalog, compare
+the observed value with its posterior-predictive distribution rather than
+judging it against 1 alone.</p>
+<p>In this snapshot every observed annual count is either 0 or 1. Before
+simulating, show that if <span class="math notranslate nohighlight">\(N&gt;1\)</span> and <span class="math notranslate nohighlight">\(1\leq n\leq N\)</span> events occur across <span class="math notranslate nohighlight">\(N\)</span>
+such annual counts, then</p>
+<div class="math notranslate nohighlight">
+\[
+T(\mathbf y)=\frac{N-n}{N-1}.
+\]</div>
+<p>Explain one kind of temporal behavior that this observed statistic cannot
+detect.</p>
+<p>The statistic is undefined for a replicated catalog whose total count is
+zero. Exclude any such catalog and report how many were excluded. Report the
+observed value and, conditional on a positive replicated total, the central
+95% posterior-predictive interval for <span class="math notranslate nohighlight">\(T\)</span> and the Bayesian tail area</p>
+<div class="math notranslate nohighlight">
+\[
+P\left(
+T(\mathbf Y^{\mathrm{rep}})\geq T(\mathbf y)
+\mid
+\mathbf y,\,
+\sum_tY_t^{\mathrm{rep}}&gt;0
+\right).
+\]</div>
+<p>Plot the replicated discrepancy distribution with the observed value marked.
+Interpret what the check can and cannot establish about the homogeneous
+Poisson model.</p>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">simulate_replicated_catalogs</span><span class="p">(</span>
+    <span class="n">alpha_post</span><span class="p">,</span>
+    <span class="n">beta_post</span><span class="p">,</span>
+    <span class="n">n_years</span><span class="p">,</span>
+    <span class="n">n_replications</span><span class="o">=</span><span class="mi">50_000</span><span class="p">,</span>
+    <span class="n">seed</span><span class="o">=</span><span class="n">SEED</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Draw replicated annual-count catalogs from the posterior predictive.&#39;&#39;&#39;</span>
+    <span class="c1"># Return an array with shape (n_replications, n_years).</span>
+    <span class="c1"># YOUR CODE HERE</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">dispersion_index</span><span class="p">(</span><span class="n">count_matrix</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return sample-variance/mean along the final axis.&#39;&#39;&#39;</span>
+    <span class="c1"># For a two-dimensional input, return one discrepancy per row.</span>
+    <span class="c1"># YOUR CODE HERE</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+
+<span class="c1"># Carry out the posterior-predictive calculation. Store the retained</span>
+<span class="c1"># positive-total replicated discrepancies in finite_discrepancies and define</span>
+<span class="c1"># observed_discrepancy, excluded_discrepancies, predictive_interval, and</span>
+<span class="c1"># bayesian_tail_area. Use the same retained sample for the interval, tail</span>
+<span class="c1"># area, and plot.</span>
+<span class="c1"># YOUR CODE HERE</span>
+
+<span class="c1"># Visualization code is supplied; it uses the quantities computed above.</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.5</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+    <span class="n">finite_discrepancies</span><span class="p">,</span>
+    <span class="n">bins</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+    <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#90cdf4&quot;</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Replicated catalogs&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span>
+    <span class="n">observed_discrepancy</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#c53030&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="sa">fr</span><span class="s2">&quot;Observed $T=</span><span class="si">{</span><span class="n">observed_discrepancy</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+    <span class="n">xlabel</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;Annual-count dispersion index $T$&quot;</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Posterior-predictive density&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Posterior-predictive check of annual-count dispersion&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Response:</strong> Replace this text with your posterior-predictive interpretation.</p>
+</div></blockquote>
+</section>
+<section id="ten-and-twenty-year-probabilities-sensitivity-and-communication-15-points">
+<h3>2.5 Ten- and twenty-year probabilities, sensitivity, and communication (15 points)<a class="headerlink" href="#ten-and-twenty-year-probabilities-sensitivity-and-communication-15-points" title="Permalink to this heading">#</a></h3>
+<p>For each prior, calculate the exact posterior-predictive probabilities
+<span class="math notranslate nohighlight">\(P(Y_*\ge1\mid\mathbf y)\)</span> for <span class="math notranslate nohighlight">\(T=10\)</span> and <span class="math notranslate nohighlight">\(T=20\)</span> years. Compare each exact
+value with the plug-in approximation</p>
+<div class="math notranslate nohighlight">
+\[
+1-\exp[-\mathbb{E}(\lambda\mid\mathbf y)T].
+\]</div>
+<p>A hypothetical preparedness rule triggers an action when the exact 20-year
+probability is at least <span class="math notranslate nohighlight">\(0.90\)</span>. State the decision under each prior.</p>
+<p>Then write 150–200 words for a technically literate decision maker. Your
+explanation must distinguish expected count from probability of at least one
+event, report the prior-sensitivity ranges for both the 10- and 20-year
+horizons, state the action-rule result, and
+identify at least two concrete limitations—one catalog-specific and one
+model-specific. Do not present this calculation as an official forecast.</p>
+<div class="cell tag_student-work docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Response (150–200 words):</strong> Replace this text with your probability communication.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="problem-2-data-source-and-credit">
+<h2>Problem 2 data source and credit<a class="headerlink" href="#problem-2-data-source-and-credit" title="Permalink to this heading">#</a></h2>
+<p>The automatically loaded CSV is a frozen extract from the U.S. Geological Survey’s
+<a class="reference external" href="https://earthquake.usgs.gov/data/comcat/">ANSS Comprehensive Earthquake Catalog (ComCat)</a>
+(<a class="reference external" href="https://doi.org/10.5066/F7MS3QZH">catalog DOI 10.5066/F7MS3QZH</a>), queried
+through the official <a class="reference external" href="https://earthquake.usgs.gov/fdsnws/event/1/">FDSN event web service</a>.
+The <a class="reference external" href="https://earthquake.usgs.gov/fdsnws/event/1/query?format=csv&amp;starttime=1900-01-01&amp;endtime=2026-01-01&amp;minlatitude=32&amp;maxlatitude=37&amp;minlongitude=-122&amp;maxlongitude=-114&amp;minmagnitude=6.5&amp;orderby=time-asc">exact query</a>
+requested CSV output, start time <code class="docutils literal notranslate"><span class="pre">1900-01-01</span></code>, end time <code class="docutils literal notranslate"><span class="pre">2026-01-01</span></code>,
+latitude 32–37 degrees N, longitude −122 to −114 degrees, minimum magnitude
+6.5, and ascending event time. The snapshot was retrieved August 17, 2026;
+only <code class="docutils literal notranslate"><span class="pre">time</span></code>, <code class="docutils literal notranslate"><span class="pre">latitude</span></code>, <code class="docutils literal notranslate"><span class="pre">longitude</span></code>, <code class="docutils literal notranslate"><span class="pre">depth</span></code>, <code class="docutils literal notranslate"><span class="pre">mag</span></code>, <code class="docutils literal notranslate"><span class="pre">place</span></code>, and <code class="docutils literal notranslate"><span class="pre">id</span></code> were
+retained and sorted by time.</p>
+<p><strong>Frozen-file SHA-256:</strong>
+<code class="docutils literal notranslate"><span class="pre">a4e7fb0d2a99fc81cf0f309e13a853b6025413e84d61ab82f18cc8c43ec37072</span></code>.</p>
+<p>The Bayesian Poisson treatment of uncertain earthquake rates and future
+occurrence probabilities is informed by
+<a class="reference external" href="https://pubs.usgs.gov/publication/70045154">Love (2012)</a> and
+<a class="reference external" href="https://academic.oup.com/gji/article/195/1/381/599171">Rotondi (2013)</a>.
+The frozen California–Baja snapshot, prior-information exercise,
+posterior-predictive check, and 10/20-year comparison were assembled for
+this assignment.</p>
+<p>The setup cell first accepts a matching local course copy and otherwise
+downloads the frozen
+<a class="reference download internal" download="" href="../_downloads/0df04c34eed724ea5eaaf5e918b4496c/southern-california-baja-earthquakes-1900-2025.csv"><span class="xref download myst">Homework 3 course-data file</span></a>.
+It verifies the bytes against the checksum before parsing them. The USGS
+query above documents provenance only; this notebook never executes that
+mutable live query.</p>
+<p>USGS catalogs can be revised. This fixed file is used for reproducibility.
+The reported quantity is a <strong>model-based probability of at least one catalog
+event under the constant-rate Poisson model</strong>, not earthquake risk or an
+authoritative California forecast. For California’s scientific long-term
+forecast resources, see the
+<a class="reference external" href="https://www.conservation.ca.gov/cgs/Pages/Earthquakes/UCERF3.aspx">California Geological Survey’s UCERF page</a>.</p>
+</section>
+<section id="submission-checklist">
+<h2>Submission checklist<a class="headerlink" href="#submission-checklist" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Both numbered problems total 100 points.</p></li>
+<li><p>Every code cell runs from top to bottom and the setup reports a verified
+data source; no manual data upload is required.</p></li>
+<li><p>All figures have labels and units.</p></li>
+<li><p>The 150–200 word communication is included.</p></li>
+<li><p>No response cell still contains placeholder text.</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -635,6 +1341,40 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-this-homework-practices">What this homework practices</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-maximum-entropy-and-bayesian-sensor-calibration-25-points">Problem 1 — Maximum entropy and Bayesian sensor calibration (25 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derive-the-maximum-entropy-prior-7-points">1.1 Derive the maximum-entropy prior (7 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derive-the-analytical-posterior-10-points">1.2 Derive the analytical posterior (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#design-the-calibration-sample-size-5-points">1.3 Design the calibration sample size (5 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-a-future-calibration-residual-3-points">1.4 Predict a future calibration residual (3 points)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-bayesian-earthquake-rate-study-75-points">Problem 2 — Bayesian earthquake-rate study (75 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#audit-and-represent-the-observations-10-points">2.1 Audit and represent the observations (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prior-information-and-sensitivity-15-points">2.2 Prior information and sensitivity (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-inference-credible-intervals-and-bayes-actions-20-points">2.3 Posterior inference, credible intervals, and Bayes actions (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-predictive-model-check-15-points">2.4 Posterior-predictive model check (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ten-and-twenty-year-probabilities-sensitivity-and-communication-15-points">2.5 Ten- and twenty-year probabilities, sensitivity, and communication (15 points)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-data-source-and-credit">Problem 2 data source and credit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-checklist">Submission checklist</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
