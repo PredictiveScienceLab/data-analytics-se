@@ -14,10 +14,11 @@ import subprocess
 import sys
 
 
-APPROVED_HOMEWORK = {1, 2}
+APPROVED_HOMEWORK = {1, 2, 3}
 APPROVED_SHA256 = {
     1: "c010bfb755c693dd6058b900e27ddf45364afc7954bcf7b5622da3a77c1ffac3",
     2: "c5d85eb4cb2e51c81cc39c9341aded1131e2ecf0db507d214de4498b3c4a681b",
+    3: "e0f2f6bccc8afdf3036ec942fa081b66613e2db0c9b567a63a077ad174d2cd3c",
 }
 PUBLIC_HOMEWORK_ASSETS = {
     2: {
@@ -29,6 +30,20 @@ PUBLIC_HOMEWORK_ASSETS = {
         "sha256": (
             "bfbe16098966b9c368e59e8c690f6b52"
             "fa38b97331cfe253b6a8d3c9fd66fe43"
+        ),
+    },
+    3: {
+        "source": (
+            "lecturebook/data/homework/"
+            "southern-california-baja-earthquakes-1900-2025.csv"
+        ),
+        "pages": (
+            "_downloads/0df04c34eed724ea5eaaf5e918b4496c/"
+            "southern-california-baja-earthquakes-1900-2025.csv"
+        ),
+        "sha256": (
+            "a4e7fb0d2a99fc81cf0f309e13a853b6"
+            "025413e84d61ab82f18cc8c43ec37072"
         ),
     },
 }
