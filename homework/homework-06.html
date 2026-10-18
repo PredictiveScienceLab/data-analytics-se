@@ -62,6 +62,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'homework/homework-06';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -552,7 +554,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -568,6 +572,32 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-what-does-one-measurement-change-20-points">Problem 1: What does one measurement change? (20 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-one-update-10-points">(a) One update (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-a-less-precise-sensor-10-points">(b) A less precise sensor (10 points)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-can-a-position-sensor-tell-us-the-velocity-45-points">Problem 2: Can a position sensor tell us the velocity? (45 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-two-kinds-of-noise-10-points">(a) Two kinds of noise (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-experiment">Run the experiment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-estimating-an-unmeasured-quantity-20-points">(b) Estimating an unmeasured quantity (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-what-is-inside-the-shaded-band-15-points">(c) What is inside the shaded band? (15 points)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-a-confident-filter-is-not-always-a-good-filter-35-points">Problem 3: A confident filter is not always a good filter (35 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-error-versus-reported-uncertainty-20-points">(a) Error versus reported uncertainty (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-back-in-the-laboratory-15-points">(b) Back in the laboratory (15 points)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -579,6 +609,271 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="homework-6">
 <h1>Homework 6<a class="headerlink" href="#homework-6" title="Permalink to this heading">#</a></h1>
+<p><strong>Coverage:</strong> Lectures 19–20: state-space models and Kalman filtering.</p>
+<p><strong>Due:</strong> Sunday, October 25, 2026, at 11:59 p.m. Eastern Time.</p>
+<p><strong>Total:</strong> 100 points.</p>
+<section id="instructions">
+<h2>Instructions<a class="headerlink" href="#instructions" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>All simulation, filtering, and plotting code is provided. Run the code cells in order without changing their contents; enter your responses in the answer text cells. You are not expected to study the implementation or write code.</p></li>
+<li><p>Answer the seven lettered parts. Show the short calculation in 1(a); otherwise, two or three sentences or short bullet points per part are sufficient. No derivations or separate report are required.</p></li>
+<li><p>Submit a PDF of your completed notebook, including your name, answers, and the generated tables and figures.</p></li>
+<li><p>This notebook uses NumPy, SciPy, pandas, and Matplotlib, available in a standard Google Colab runtime. It does not need a data download or Google Drive access.</p></li>
+</ul>
+<p>Relevant reading: <a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture19/reading-19.html">Filtering basics</a>, <a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture20/reading-20.html">Kalman filters</a>, and the <a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture20/hands-on-20.1.html">object-tracking example</a>.</p>
+</section>
+<section id="student-details">
+<h2>Student details<a class="headerlink" href="#student-details" title="Permalink to this heading">#</a></h2>
+<p><strong>First name:</strong></p>
+<p><strong>Last name:</strong></p>
+<p><strong>Purdue email:</strong></p>
+</section>
+<section id="problem-1-what-does-one-measurement-change-20-points">
+<h2>Problem 1: What does one measurement change? (20 points)<a class="headerlink" href="#problem-1-what-does-one-measurement-change-20-points" title="Permalink to this heading">#</a></h2>
+<p><strong>Credit:</strong> Course exercise using the scalar version of the update equations in <a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture20/reading-20.html">Lecture 20</a>.</p>
+<p>Before receiving a new position measurement, our predicted position is Gaussian with mean <span class="math notranslate nohighlight">\(\mu^p=10\)</span> mm and variance <span class="math notranslate nohighlight">\(V^p=4\)</span> mm<span class="math notranslate nohighlight">\(^2\)</span>. The sensor reports <span class="math notranslate nohighlight">\(y=14\)</span> mm. Its error is independent of the predicted position, Gaussian, and has mean zero and variance <span class="math notranslate nohighlight">\(R=4\)</span> mm<span class="math notranslate nohighlight">\(^2\)</span>.</p>
+<p>The scalar Kalman update is</p>
+<div class="math notranslate nohighlight">
+\[
+K=\frac{V^p}{V^p+R},\qquad
+\mu=\mu^p+K(y-\mu^p),\qquad
+V=(1-K)V^p.
+\]</div>
+<p>Here <span class="math notranslate nohighlight">\(K\)</span> is the <strong>Kalman gain</strong>: the weight given to the difference between the new measurement and its prediction. The updated mean and variance are <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(V\)</span>.</p>
+<section id="a-one-update-10-points">
+<h3>(a) One update (10 points)<a class="headerlink" href="#a-one-update-10-points" title="Permalink to this heading">#</a></h3>
+<p>Find <span class="math notranslate nohighlight">\(K\)</span>, <span class="math notranslate nohighlight">\(\mu\)</span>, and <span class="math notranslate nohighlight">\(V\)</span>. Why does the updated mean lie halfway between the prediction and the measurement?</p>
+<p><em>Your answer:</em></p>
+</section>
+<section id="b-a-less-precise-sensor-10-points">
+<h3>(b) A less precise sensor (10 points)<a class="headerlink" href="#b-a-less-precise-sensor-10-points" title="Permalink to this heading">#</a></h3>
+<p>Keep the same prediction and reported measurement, but suppose <span class="math notranslate nohighlight">\(R=16\)</span> mm<span class="math notranslate nohighlight">\(^2\)</span>. Without doing another calculation, state whether <span class="math notranslate nohighlight">\(K\)</span> increases or decreases, whether <span class="math notranslate nohighlight">\(\mu\)</span> moves closer to 10 mm or 14 mm, and whether the updated variance is larger or smaller than in (a). Explain the connection.</p>
+<p><em>Your answer:</em></p>
+</section>
+</section>
+<section id="problem-2-can-a-position-sensor-tell-us-the-velocity-45-points">
+<h2>Problem 2: Can a position sensor tell us the velocity? (45 points)<a class="headerlink" href="#problem-2-can-a-position-sensor-tell-us-the-velocity-45-points" title="Permalink to this heading">#</a></h2>
+<p><strong>Credit:</strong> Course adaptation of the predict/update and state-uncertainty plots in the book’s <a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture20/hands-on-20.1.html">object-tracking example</a>. The physical relation is the standard forced, damped oscillator; see <a class="reference external" href="https://openstax.org/books/university-physics-volume-1/pages/15-6-forced-oscillations">OpenStax, University Physics, Section 15.6</a>. The simulated experiment and questions are constructed for this assignment. The provided discretization uses SciPy’s <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.expm.html">matrix exponential</a>; you do not need to derive or implement it.</p>
+<p>We observe a damped oscillator using a noisy position sensor. There is no velocity sensor. Ignoring disturbances for a moment, its position <span class="math notranslate nohighlight">\(q\)</span> satisfies</p>
+<div class="math notranslate nohighlight">
+\[
+\ddot q+2\zeta\omega_0\dot q+\omega_0^2 q=u,
+\qquad \omega_0=2\ \mathrm{rad/s},\quad \zeta=0.15.
+\]</div>
+<p>Here <span class="math notranslate nohighlight">\(\omega_0\)</span> is the natural angular frequency, <span class="math notranslate nohighlight">\(\zeta\)</span> is the damping ratio, and <span class="math notranslate nohighlight">\(u\)</span> is a known acceleration input (force per unit mass). The simulator samples every <span class="math notranslate nohighlight">\(\Delta t=0.05\)</span> s. The index <span class="math notranslate nohighlight">\(t\)</span> counts these sampling times; plots show elapsed time in seconds. During step <span class="math notranslate nohighlight">\(t\)</span>, the input is held at <span class="math notranslate nohighlight">\(u_t=0.6\cos(1.2t\Delta t)\)</span> m/s<span class="math notranslate nohighlight">\(^2\)</span>.</p>
+<p>The state contains position and velocity, <span class="math notranslate nohighlight">\(v=\dot q\)</span>. We use the class notation</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{x}_t=\begin{pmatrix}q_t\\v_t\end{pmatrix},\qquad
+\mathbf{x}_{t+1}=\mathbf{A}\mathbf{x}_t+\mathbf{B}u_t+\mathbf{z}_t,\qquad
+y_t=\mathbf{C}\mathbf{x}_t+w_t,\quad \mathbf{C}=\begin{pmatrix}1&amp;0\end{pmatrix}.
+\end{split}\]</div>
+<p>The supplied code computes <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> from the oscillator equation. <strong>Process noise</strong> <span class="math notranslate nohighlight">\(\mathbf{z}_t\)</span> represents disturbances to the state between measurements. <strong>Measurement noise</strong> <span class="math notranslate nohighlight">\(w_t\)</span> represents sensor error:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{z}_t\sim\mathcal{N}(\mathbf{0},\mathbf{Q}_{\mathrm{true}}),\qquad
+\mathbf{Q}_{\mathrm{true}}=\begin{pmatrix}2\times10^{-5}&amp;0\\0&amp;5\times10^{-4}\end{pmatrix},
+\qquad w_t\sim\mathcal{N}(0,R),\quad R=(0.04)^2.
+\end{split}\]</div>
+<p>Position is in meters and velocity in meters per second, so the diagonal entries of <span class="math notranslate nohighlight">\(\mathbf{Q}_{\mathrm{true}}\)</span> have units m<span class="math notranslate nohighlight">\(^2\)</span> and (m/s)<span class="math notranslate nohighlight">\(^2\)</span>, respectively; <span class="math notranslate nohighlight">\(R\)</span> has units m<span class="math notranslate nohighlight">\(^2\)</span>. These are discrete-time disturbances added once per step. All noise draws are independent across time, and the process and sensor noises are independent of one another and of the initial state.</p>
+<p><strong>These are simulated data, not measurements from a physical experiment.</strong> We fix the true initial position and velocity at <span class="math notranslate nohighlight">\((0.35\ \mathrm{m},-0.20\ \mathrm{m/s})\)</span>. The filter is not given this true state. Before the first measurement, it uses a Gaussian prior with mean <span class="math notranslate nohighlight">\(\mathbf{0}\)</span> and covariance <span class="math notranslate nohighlight">\(\operatorname{diag}(0.25,0.25)\)</span> in the corresponding squared units. It incorporates the measurement at time zero, then alternates prediction and update. It never uses future measurements or the true trajectory to compute its estimates.</p>
+<section id="a-two-kinds-of-noise-10-points">
+<h3>(a) Two kinds of noise (10 points)<a class="headerlink" href="#a-two-kinds-of-noise-10-points" title="Permalink to this heading">#</a></h3>
+<p>A physical disturbance briefly changes the oscillator’s velocity. Separately, the position sensor produces a bad reading without disturbing the oscillator. Which noise term represents each effect? Which effect can change future true positions, and why?</p>
+<p><em>Your answer:</em></p>
+</section>
+<section id="run-the-experiment">
+<h3>Run the experiment<a class="headerlink" href="#run-the-experiment" title="Permalink to this heading">#</a></h3>
+<p>Run the following supplied cells. Keep the fixed random seeds. The first plot shows the true state, measurements, and filtered estimates. The filter uses the correct process and measurement covariances in this part. The true state is revealed only for evaluating the filter.</p>
+<div class="cell tag_provided-code docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">expm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_ipython</span>
+
+<span class="c1"># Display figures inside the notebook, including in a fresh noninteractive kernel.</span>
+<span class="k">if</span> <span class="n">get_ipython</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s2">&quot;matplotlib&quot;</span><span class="p">,</span> <span class="s2">&quot;inline&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;font.size&quot;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span> <span class="mi">110</span><span class="p">})</span>
+
+<span class="n">omega0</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">dt</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.05</span>
+<span class="n">time_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">20.0</span> <span class="o">+</span> <span class="n">dt</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+<span class="n">u</span> <span class="o">=</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">1.2</span> <span class="o">*</span> <span class="n">time_s</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Exact noisefree discretization for an input held constant within each step.</span>
+<span class="n">continuous_A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">omega0</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">zeta</span><span class="o">*</span><span class="n">omega0</span><span class="p">]])</span>
+<span class="n">augmented</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">augmented</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">continuous_A</span>
+<span class="n">augmented</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">discrete</span> <span class="o">=</span> <span class="n">expm</span><span class="p">(</span><span class="n">augmented</span> <span class="o">*</span> <span class="n">dt</span><span class="p">)</span>
+<span class="n">A</span><span class="p">,</span> <span class="n">B</span> <span class="o">=</span> <span class="n">discrete</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">],</span> <span class="n">discrete</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<span class="n">Q_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mf">2e-5</span><span class="p">,</span> <span class="mf">5e-4</span><span class="p">])</span>
+<span class="n">R</span> <span class="o">=</span> <span class="mf">0.04</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">prior_mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">prior_V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">])</span>
+
+<span class="n">process_rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">5390601</span><span class="p">)</span>
+<span class="n">sensor_rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">5390602</span><span class="p">)</span>
+<span class="n">x_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">time_s</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">x_true</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.35</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.20</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">time_s</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">process_rng</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">Q_true</span><span class="p">)</span>
+    <span class="n">x_true</span><span class="p">[</span><span class="n">t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">x_true</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">B</span> <span class="o">*</span> <span class="n">u</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">z</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x_true</span> <span class="o">@</span> <span class="n">C</span> <span class="o">+</span> <span class="n">sensor_rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">R</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">time_s</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generated </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="si">}</span><span class="s2"> position measurements over 20 seconds.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_provided-code docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">kalman_filter</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">prior_mu</span><span class="p">,</span> <span class="n">prior_V</span><span class="p">):</span>
+    <span class="c1"># The function receives observations and model assumptions, never x_true.</span>
+    <span class="n">mu</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">prior_mu</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">prior_V</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">means</span><span class="p">,</span> <span class="n">covariances</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">observation</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">mu</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">mu</span> <span class="o">+</span> <span class="n">B</span> <span class="o">*</span> <span class="n">u</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">V</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">V</span> <span class="o">@</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">Q</span>
+        <span class="n">K</span> <span class="o">=</span> <span class="n">V</span> <span class="o">@</span> <span class="n">C</span> <span class="o">/</span> <span class="p">(</span><span class="n">C</span> <span class="o">@</span> <span class="n">V</span> <span class="o">@</span> <span class="n">C</span> <span class="o">+</span> <span class="n">R</span><span class="p">)</span>
+        <span class="n">mu</span> <span class="o">=</span> <span class="n">mu</span> <span class="o">+</span> <span class="n">K</span> <span class="o">*</span> <span class="p">(</span><span class="n">observation</span> <span class="o">-</span> <span class="n">C</span> <span class="o">@</span> <span class="n">mu</span><span class="p">)</span>
+        <span class="c1"># A numerically stable form of the covariance update; no derivation needed.</span>
+        <span class="n">I_minus_KC</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+        <span class="n">V</span> <span class="o">=</span> <span class="n">I_minus_KC</span> <span class="o">@</span> <span class="n">V</span> <span class="o">@</span> <span class="n">I_minus_KC</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">R</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+        <span class="n">means</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mu</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+        <span class="n">covariances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">V</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">means</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">covariances</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run_filter</span><span class="p">(</span><span class="n">Q</span><span class="p">):</span>
+    <span class="n">mu</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">kalman_filter</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">prior_mu</span><span class="p">,</span> <span class="n">prior_V</span><span class="p">)</span>
+    <span class="n">sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">axis1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">axis2</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;mu&quot;</span><span class="p">:</span> <span class="n">mu</span><span class="p">,</span> <span class="s2">&quot;V&quot;</span><span class="p">:</span> <span class="n">V</span><span class="p">,</span> <span class="s2">&quot;sd&quot;</span><span class="p">:</span> <span class="n">sd</span><span class="p">}</span>
+
+
+<span class="n">nominal</span> <span class="o">=</span> <span class="n">run_filter</span><span class="p">(</span><span class="n">Q_true</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axes</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_s</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.65&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Position sensor&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_s</span><span class="p">,</span> <span class="n">x_true</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True state&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_s</span><span class="p">,</span> <span class="n">nominal</span><span class="p">[</span><span class="s2">&quot;mu&quot;</span><span class="p">][:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Filtered mean&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">time_s</span><span class="p">,</span> <span class="n">nominal</span><span class="p">[</span><span class="s2">&quot;mu&quot;</span><span class="p">][:,</span> <span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="mf">1.96</span><span class="o">*</span><span class="n">nominal</span><span class="p">[</span><span class="s2">&quot;sd&quot;</span><span class="p">][:,</span> <span class="n">j</span><span class="p">],</span>
+                    <span class="n">nominal</span><span class="p">[</span><span class="s2">&quot;mu&quot;</span><span class="p">][:,</span> <span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.96</span><span class="o">*</span><span class="n">nominal</span><span class="p">[</span><span class="s2">&quot;sd&quot;</span><span class="p">][:,</span> <span class="n">j</span><span class="p">],</span>
+                    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Pointwise 95</span><span class="si">% s</span><span class="s2">tate interval&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">([</span><span class="s2">&quot;Position (m)&quot;</span><span class="p">,</span> <span class="s2">&quot;Velocity (m/s)&quot;</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">.2</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Elapsed time (s)&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="b-estimating-an-unmeasured-quantity-20-points">
+<h3>(b) Estimating an unmeasured quantity (20 points)<a class="headerlink" href="#b-estimating-an-unmeasured-quantity-20-points" title="Permalink to this heading">#</a></h3>
+<p>The <strong>root mean squared error (RMSE)</strong> is the square root of the average squared estimation error over the sampled times. It has the same units as the estimated quantity; smaller is better. The next cell computes it using the known simulated truth.</p>
+<p>Compare the position RMSE of the raw measurements with that of the filter. Use the velocity plot to describe whether the estimate follows the true velocity, including any initial adjustment. How can a position-only sensor help estimate velocity? Explain in terms of the connection between position and velocity over time; no matrix calculation is needed.</p>
+<div class="cell tag_provided-code docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">position_sensor_rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">x_true</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">nominal_rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">nominal</span><span class="p">[</span><span class="s2">&quot;mu&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_true</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">baseline_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;Estimate&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Raw position measurement&quot;</span><span class="p">,</span> <span class="s2">&quot;Filtered position&quot;</span><span class="p">,</span> <span class="s2">&quot;Filtered velocity&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;RMSE&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">position_sensor_rmse</span><span class="p">,</span> <span class="n">nominal_rmse</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nominal_rmse</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+    <span class="s2">&quot;Units&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="s2">&quot;m/s&quot;</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="n">display</span><span class="p">(</span><span class="n">baseline_table</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>Your answer:</em></p>
+</section>
+<section id="c-what-is-inside-the-shaded-band-15-points">
+<h3>(c) What is inside the shaded band? (15 points)<a class="headerlink" href="#c-what-is-inside-the-shaded-band-15-points" title="Permalink to this heading">#</a></h3>
+<p>At time <span class="math notranslate nohighlight">\(t\)</span>, the Kalman filter represents the state, given all position measurements observed so far, by a Gaussian with mean <span class="math notranslate nohighlight">\(\boldsymbol{\mu}_t\)</span> and covariance <span class="math notranslate nohighlight">\(\mathbf{V}_t\)</span>. For component <span class="math notranslate nohighlight">\(j\)</span> (position or velocity), the plot uses</p>
+<div class="math notranslate nohighlight">
+\[
+\mu_{t,j}\ \pm\ 1.96\sqrt{V_{t,jj}}.
+\]</div>
+<p>This is a <strong>pointwise, marginal 95% state credible interval</strong>: pointwise means one specified time; marginal means one state component considered separately. The probability statement is conditional on the assumed model, including its noise covariances and initial-state prior.</p>
+<p>Explain its meaning for position at one fixed time. Does it assign 95% probability to the entire position trajectory lying inside the band? Is it an interval for a new noisy sensor reading? Briefly explain both distinctions.</p>
+<p><em>Your answer:</em></p>
+</section>
+</section>
+<section id="problem-3-a-confident-filter-is-not-always-a-good-filter-35-points">
+<h2>Problem 3: A confident filter is not always a good filter (35 points)<a class="headerlink" href="#problem-3-a-confident-filter-is-not-always-a-good-filter-35-points" title="Permalink to this heading">#</a></h2>
+<p><strong>Credit:</strong> Course-designed noise-misspecification experiment using the Kalman-filter model in <a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture20/reading-20.html">Lecture 20</a> and the oscillator simulator in Problem 2.</p>
+<p>An engineer rarely knows the process-noise covariance exactly. Reuse the <strong>same true trajectory and the same measurements</strong>, but give the filter three different assumptions:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{Q}=0.05\mathbf{Q}_{\mathrm{true}},\qquad
+\mathbf{Q}=\mathbf{Q}_{\mathrm{true}},\qquad
+\mathbf{Q}=20\mathbf{Q}_{\mathrm{true}}.
+\]</div>
+<p>Everything else, including <span class="math notranslate nohighlight">\(R\)</span> and the initial-state prior, stays unchanged. <strong>Low</strong>, <strong>nominal</strong>, and <strong>high</strong> refer only to the filter’s assumed process noise, not to a change in the physical experiment.</p>
+<p>The table reports RMSE, the average posterior standard deviation (<strong>mean SD</strong>), and the fraction of sampled times at which the true state lies in the corresponding 95% interval (<strong>inside band</strong>). The last quantity describes this one trajectory; correlated times are not independent repetitions of an experiment. It is not a proof of calibration, meaning agreement between probability statements and repeated-experiment frequencies.</p>
+<div class="cell tag_provided-code docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">factors</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Low&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">&quot;Nominal&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;High&quot;</span><span class="p">:</span> <span class="mf">20.0</span><span class="p">}</span>
+<span class="n">runs</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">run_filter</span><span class="p">(</span><span class="n">factor</span> <span class="o">*</span> <span class="n">Q_true</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">factor</span> <span class="ow">in</span> <span class="n">factors</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">runs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;mu&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_true</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">error</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">mean_sd</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;sd&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">inside</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mf">1.96</span><span class="o">*</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;sd&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">quantity</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s2">&quot;Position (m)&quot;</span><span class="p">,</span> <span class="s2">&quot;Velocity (m/s)&quot;</span><span class="p">]):</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;Assumed Q&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;Quantity&quot;</span><span class="p">:</span> <span class="n">quantity</span><span class="p">,</span>
+                     <span class="s2">&quot;RMSE&quot;</span><span class="p">:</span> <span class="n">rmse</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="s2">&quot;Mean SD&quot;</span><span class="p">:</span> <span class="n">mean_sd</span><span class="p">[</span><span class="n">j</span><span class="p">],</span>
+                     <span class="s2">&quot;Inside band (%)&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="o">*</span><span class="n">inside</span><span class="p">[</span><span class="n">j</span><span class="p">]})</span>
+<span class="n">comparison</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">comparison</span><span class="o">.</span><span class="n">round</span><span class="p">({</span><span class="s2">&quot;RMSE&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;Mean SD&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;Inside band (%)&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">runs</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_s</span><span class="p">,</span> <span class="n">x_true</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True state&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_s</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;mu&quot;</span><span class="p">][:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Filtered mean&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">time_s</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;mu&quot;</span><span class="p">][:,</span> <span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="mf">1.96</span><span class="o">*</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;sd&quot;</span><span class="p">][:,</span> <span class="n">j</span><span class="p">],</span>
+                        <span class="n">result</span><span class="p">[</span><span class="s2">&quot;mu&quot;</span><span class="p">][:,</span> <span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.96</span><span class="o">*</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;sd&quot;</span><span class="p">][:,</span> <span class="n">j</span><span class="p">],</span>
+                        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Pointwise 95</span><span class="si">% s</span><span class="s2">tate interval&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> assumed process noise&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">([</span><span class="s2">&quot;Position (m)&quot;</span><span class="p">,</span> <span class="s2">&quot;Velocity (m/s)&quot;</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">.2</span><span class="p">)</span>
+        <span class="c1"># Hold the vertical scale fixed within each column for a fair comparison.</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.15</span><span class="p">,</span> <span class="mf">1.15</span><span class="p">)][</span><span class="n">j</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower left&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Elapsed time (s)&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="a-error-versus-reported-uncertainty-20-points">
+<h3>(a) Error versus reported uncertainty (20 points)<a class="headerlink" href="#a-error-versus-reported-uncertainty-20-points" title="Permalink to this heading">#</a></h3>
+<p>Which assumption gives the smallest RMSE for position and for velocity in this experiment? Which gives the narrowest intervals? Use one numerical comparison from the table to explain why the low-noise filter is overconfident. Why does assuming less process noise lead the filter to report less uncertainty?</p>
+<p><em>Your answer:</em></p>
+</section>
+<section id="b-back-in-the-laboratory-15-points">
+<h3>(b) Back in the laboratory (15 points)<a class="headerlink" href="#b-back-in-the-laboratory-15-points" title="Permalink to this heading">#</a></h3>
+<p>Suppose we now have only the position-sensor records from a real oscillator: there is no independent position or velocity reference. Could we compute the same true-state RMSE and inside-band fractions? An engineer proposes choosing the filter with the smoothest curve and narrowest intervals. Is that sufficient evidence that the estimates are accurate? Use the simulation to support your answer. You do not need to propose a new model-selection method.</p>
+<p><em>Your answer:</em></p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -635,6 +930,39 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-what-does-one-measurement-change-20-points">Problem 1: What does one measurement change? (20 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-one-update-10-points">(a) One update (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-a-less-precise-sensor-10-points">(b) A less precise sensor (10 points)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-can-a-position-sensor-tell-us-the-velocity-45-points">Problem 2: Can a position sensor tell us the velocity? (45 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-two-kinds-of-noise-10-points">(a) Two kinds of noise (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-experiment">Run the experiment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-estimating-an-unmeasured-quantity-20-points">(b) Estimating an unmeasured quantity (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-what-is-inside-the-shaded-band-15-points">(c) What is inside the shaded band? (15 points)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-a-confident-filter-is-not-always-a-good-filter-35-points">Problem 3: A confident filter is not always a good filter (35 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-error-versus-reported-uncertainty-20-points">(a) Error versus reported uncertainty (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-back-in-the-laboratory-15-points">(b) Back in the laboratory (15 points)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
