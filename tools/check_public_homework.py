@@ -14,7 +14,7 @@ import subprocess
 import sys
 
 
-APPROVED_HOMEWORK = {1, 2, 3, 4, 5, 6}
+APPROVED_HOMEWORK = {1, 2, 3, 4, 5, 6, 7}
 APPROVED_SHA256 = {
     1: "c010bfb755c693dd6058b900e27ddf45364afc7954bcf7b5622da3a77c1ffac3",
     2: "c5d85eb4cb2e51c81cc39c9341aded1131e2ecf0db507d214de4498b3c4a681b",
@@ -22,6 +22,7 @@ APPROVED_SHA256 = {
     4: "a400f2a36f24de5b250f939ebcfd20966dd4860a6444e8b3184ba7307bcca7d3",
     5: "1243223cebc1d7baf595761f611975b7ffe70a811f481715953b4199632899cc",
     6: "32be9cd286b6b0cece8b61369848ee1aa248150755b9fda77b38c56e1a693f1f",
+    7: "c814be91f2ad7cb04a8ad4a6f0341d5f3c0e5fec5e68b0491f42fd0af0eb136f",
 }
 PUBLIC_HOMEWORK_ASSETS = {
     2: {
