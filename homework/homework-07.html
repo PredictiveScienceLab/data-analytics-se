@@ -62,6 +62,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'homework/homework-07';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -552,7 +554,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -568,6 +572,28 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-basic-gaussian-process-mathematics-20-points">Problem 1: Basic Gaussian-process mathematics (20 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-mean-and-covariance-of-function-values-10-points">(a) Mean and covariance of function values (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-adding-gaussian-processes-10-points">(b) Adding Gaussian processes (10 points)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-learning-from-replicated-calibration-data-and-checking-the-fit-80-points">Problem 2: Learning from replicated calibration data and checking the fit (80 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-audit-the-experiment-10-points">(a) Audit the experiment (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-read-the-fitted-models-15-points">(b) Read the fitted models (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-make-a-preliminary-interpolation-comparison-20-points">(c) Make a preliminary interpolation comparison (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diagnostics-how-they-work">Diagnostics: how they work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-use-the-diagnostics-35-points">(d) Use the diagnostics (35 points)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -579,6 +605,539 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="homework-7">
 <h1>Homework 7<a class="headerlink" href="#homework-7" title="Permalink to this heading">#</a></h1>
+<p><strong>Coverage:</strong> Lectures 21–22: Gaussian-process priors and conditioning.</p>
+<p><strong>Due:</strong> Sunday, November 1, 2026, at 11:59 p.m. Eastern Time.</p>
+<p><strong>Total:</strong> 100 points.</p>
+<section id="instructions">
+<h2>Instructions<a class="headerlink" href="#instructions" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>All downloading, fitting, prediction, and plotting code is provided. Run the code cells in order without changing their contents; enter your responses in the answer text cells. You are not expected to study the implementation or write code.</p></li>
+<li><p>Answer the six lettered parts. Show the requested algebra in Problem 1; short paragraphs or bullet points are sufficient for the interpretation questions. No separate report is required.</p></li>
+<li><p>Submit a PDF of your completed notebook, including your name, answers, generated tables, and generated figures.</p></li>
+<li><p>This notebook uses NumPy, SciPy, pandas, and Matplotlib, available in a standard CPU Google Colab runtime. It normally downloads one small official NIST data file, so internet access is required when you first run it. It does not need package installation, Google Drive, or an absolute file path. If NIST is temporarily unavailable and the teaching team provides the official file, upload it to the Colab Files panel as <code class="docutils literal notranslate"><span class="pre">Chwirut1.dat</span></code> and rerun the cell.</p></li>
+<li><p>The NIST source does not document physical units for these two columns. Accordingly, report them as <strong>NIST-reported response units</strong> and <strong>NIST-reported distance units</strong>.</p></li>
+</ul>
+<p>Relevant reading: <a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture21/reading-21.html">Gaussian-process priors</a>, <a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture22/reading-22.html">Gaussian-process conditioning</a>, and the Lecture 22 material on standardized-error diagnostics.</p>
+</section>
+<section id="student-details">
+<h2>Student details<a class="headerlink" href="#student-details" title="Permalink to this heading">#</a></h2>
+<p><strong>First name:</strong></p>
+<p><strong>Last name:</strong></p>
+<p><strong>Purdue email:</strong></p>
+</section>
+<section id="problem-1-basic-gaussian-process-mathematics-20-points">
+<h2>Problem 1: Basic Gaussian-process mathematics (20 points)<a class="headerlink" href="#problem-1-basic-gaussian-process-mathematics-20-points" title="Permalink to this heading">#</a></h2>
+<p><strong>Credit:</strong> Course exercise based on the finite-dimensional definition and covariance construction in <a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture21/reading-21.html">Lecture 21</a>.</p>
+<section id="a-mean-and-covariance-of-function-values-10-points">
+<h3>(a) Mean and covariance of function values (10 points)<a class="headerlink" href="#a-mean-and-covariance-of-function-values-10-points" title="Permalink to this heading">#</a></h3>
+<p>Let</p>
+<div class="math notranslate nohighlight">
+\[
+f(\cdot)\sim\operatorname{GP}\!\left(m_f(\cdot),k_f(\cdot,\cdot)\right).
+\]</div>
+<p>For arbitrary inputs <span class="math notranslate nohighlight">\(\mathbf{x}_{1:n}=(\mathbf{x}_1,\ldots,\mathbf{x}_n)\)</span>, define</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{f}_{1:n}
+=
+\left(f(\mathbf{x}_1),\ldots,f(\mathbf{x}_n)\right)^\top.
+\]</div>
+<p>State the finite-dimensional distribution of <span class="math notranslate nohighlight">\(\mathbf{f}_{1:n}\)</span>. Then use that distribution, together with coordinate vectors, to show that for every <span class="math notranslate nohighlight">\(i,j\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{E}\!\left[f(\mathbf{x}_i)\right]=m_f(\mathbf{x}_i),
+\qquad
+\mathbb{C}\!\left[f(\mathbf{x}_i),f(\mathbf{x}_j)\right]
+=k_f(\mathbf{x}_i,\mathbf{x}_j).
+\]</div>
+<p>Your argument should make clear how the entries of the Gaussian mean vector and covariance matrix produce these scalar identities.</p>
+<p><em>Your answer:</em></p>
+</section>
+<section id="b-adding-gaussian-processes-10-points">
+<h3>(b) Adding Gaussian processes (10 points)<a class="headerlink" href="#b-adding-gaussian-processes-10-points" title="Permalink to this heading">#</a></h3>
+<p>Suppose</p>
+<div class="math notranslate nohighlight">
+\[
+g(\cdot)\sim\operatorname{GP}\!\left(m_g(\cdot),k_g(\cdot,\cdot)\right)
+\]</div>
+<p>is independent of <span class="math notranslate nohighlight">\(f(\cdot)\)</span>. For constants <span class="math notranslate nohighlight">\(a,b\in\mathbb{R}\)</span> and a deterministic function <span class="math notranslate nohighlight">\(r(\cdot)\)</span>, define</p>
+<div class="math notranslate nohighlight">
+\[
+h(\mathbf{x})=r(\mathbf{x})+a f(\mathbf{x})+b g(\mathbf{x}).
+\]</div>
+<p>Using an arbitrary finite collection of inputs, show that <span class="math notranslate nohighlight">\(h(\cdot)\)</span> is a Gaussian process and identify its mean and covariance functions. State precisely where independence is used. Then specialize your answer to <span class="math notranslate nohighlight">\(a=b=1\)</span>, <span class="math notranslate nohighlight">\(r=0\)</span>, <span class="math notranslate nohighlight">\(m_f=m_g=0\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+k_f(x,x')=\sigma_L^2xx',
+\qquad
+k_g(x,x')=\sigma_S^2\exp\!\left[-\frac{(x-x')^2}{2\ell^2}\right],
+\]</div>
+<p>and briefly interpret the two contributions to the covariance of <span class="math notranslate nohighlight">\(h\)</span>.</p>
+<p><em>Your answer:</em></p>
+</section>
+</section>
+<section id="problem-2-learning-from-replicated-calibration-data-and-checking-the-fit-80-points">
+<h2>Problem 2: Learning from replicated calibration data and checking the fit (80 points)<a class="headerlink" href="#problem-2-learning-from-replicated-calibration-data-and-checking-the-fit-80-points" title="Permalink to this heading">#</a></h2>
+<p><strong>Credit:</strong> Data come directly from the U.S. National Institute of Standards and Technology (NIST), <a class="reference external" href="https://www.itl.nist.gov/div898/strd/nls/data/chwirut1.shtml">Chwirut1 nonlinear-regression test data</a>, accessed October 23, 2026. NIST describes an ultrasonic response measured at different metal distances. This assignment uses those observations for a Gaussian-process exercise; the split, models, diagnostics, and questions were constructed for this course. The code downloads the <a class="reference external" href="https://www.itl.nist.gov/div898/strd/nls/data/LINKS/DATA/Chwirut1.dat">official data file</a> and checks its SHA-256 digest before using it.</p>
+<p>The data contain replicated responses at the same distance settings. We hold out all observations at distances <span class="math notranslate nohighlight">\(2.25\)</span>, <span class="math notranslate nohighlight">\(2.50\)</span>, and <span class="math notranslate nohighlight">\(2.75\)</span> to test <strong>interpolation</strong>. We also hold out all observations at distances at least <span class="math notranslate nohighlight">\(5.00\)</span> to test <strong>extrapolation</strong>. All other observations form the training set. The response is standardized using the training observations only; reported predictions and metrics are converted back to NIST-reported response units.</p>
+<p>Run the supplied cell. The left panel shows the split. The right panel shows the response standard deviation among replicates at each distance; it is a descriptive summary, not a fitted noise model.</p>
+<div class="cell tag_provided-code docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">urllib.request</span><span class="w"> </span><span class="kn">import</span> <span class="n">Request</span><span class="p">,</span> <span class="n">urlopen</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_ipython</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">cho_factor</span><span class="p">,</span> <span class="n">cho_solve</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">minimize</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">chi2</span><span class="p">,</span> <span class="n">probplot</span>
+
+<span class="k">if</span> <span class="n">get_ipython</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s2">&quot;matplotlib&quot;</span><span class="p">,</span> <span class="s2">&quot;inline&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;font.size&quot;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span> <span class="mi">110</span><span class="p">})</span>
+
+<span class="n">DATA_URL</span> <span class="o">=</span> <span class="s2">&quot;https://www.itl.nist.gov/div898/strd/nls/data/LINKS/DATA/Chwirut1.dat&quot;</span>
+<span class="n">EXPECTED_SHA256</span> <span class="o">=</span> <span class="s2">&quot;d9a055dfe5af71a8754c00f073ef00f8fed2e3fd1c6fd20cea8fd62d7cc3ed84&quot;</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">DATA_URL</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;ME539 educational notebook&quot;</span><span class="p">})</span>
+<span class="n">local_data_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;Chwirut1.dat&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">local_data_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="n">raw</span> <span class="o">=</span> <span class="n">local_data_path</span><span class="o">.</span><span class="n">read_bytes</span><span class="p">()</span>
+    <span class="n">data_origin</span> <span class="o">=</span> <span class="s2">&quot;uploaded local Chwirut1.dat&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">raw</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">data_origin</span> <span class="o">=</span> <span class="s2">&quot;official NIST URL&quot;</span>
+<span class="n">observed_digest</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">observed_digest</span> <span class="o">!=</span> <span class="n">EXPECTED_SHA256</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;The downloaded NIST file did not match the expected SHA-256 digest.&quot;</span><span class="p">)</span>
+
+<span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)),</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">values</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="n">values</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="n">interpolation_levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.25</span><span class="p">,</span> <span class="mf">2.50</span><span class="p">,</span> <span class="mf">2.75</span><span class="p">])</span>
+<span class="n">interpolation_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">distance</span><span class="p">,</span> <span class="n">interpolation_levels</span><span class="p">)</span>
+<span class="n">extrapolation_mask</span> <span class="o">=</span> <span class="n">distance</span> <span class="o">&gt;=</span> <span class="mf">5.0</span>
+<span class="n">training_mask</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">interpolation_mask</span> <span class="o">|</span> <span class="n">extrapolation_mask</span><span class="p">)</span>
+<span class="n">split_masks</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Training&quot;</span><span class="p">:</span> <span class="n">training_mask</span><span class="p">,</span>
+    <span class="s2">&quot;Interpolation&quot;</span><span class="p">:</span> <span class="n">interpolation_mask</span><span class="p">,</span>
+    <span class="s2">&quot;Extrapolation&quot;</span><span class="p">:</span> <span class="n">extrapolation_mask</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">training_mean</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="n">training_mask</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">training_sd</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="n">training_mask</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">standardized_response</span> <span class="o">=</span> <span class="p">(</span><span class="n">response</span> <span class="o">-</span> <span class="n">training_mean</span><span class="p">)</span> <span class="o">/</span> <span class="n">training_sd</span>
+
+<span class="n">audit_rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">split_name</span><span class="p">,</span> <span class="n">mask</span> <span class="ow">in</span> <span class="n">split_masks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">audit_rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s2">&quot;Split&quot;</span><span class="p">:</span> <span class="n">split_name</span><span class="p">,</span>
+        <span class="s2">&quot;Observations&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+        <span class="s2">&quot;Distance levels&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">distance</span><span class="p">[</span><span class="n">mask</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">),</span>
+        <span class="s2">&quot;Minimum distance&quot;</span><span class="p">:</span> <span class="n">distance</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
+        <span class="s2">&quot;Maximum distance&quot;</span><span class="p">:</span> <span class="n">distance</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+    <span class="p">})</span>
+<span class="n">split_audit</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">audit_rows</span><span class="p">)</span>
+
+<span class="n">level_summary</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;Distance&quot;</span><span class="p">:</span> <span class="n">distance</span><span class="p">,</span> <span class="s2">&quot;Response&quot;</span><span class="p">:</span> <span class="n">response</span><span class="p">})</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Distance&quot;</span><span class="p">)[</span><span class="s2">&quot;Response&quot;</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="s2">&quot;std&quot;</span><span class="p">])</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="s2">&quot;Replicates&quot;</span><span class="p">,</span> <span class="s2">&quot;mean&quot;</span><span class="p">:</span> <span class="s2">&quot;Mean response&quot;</span><span class="p">,</span> <span class="s2">&quot;std&quot;</span><span class="p">:</span> <span class="s2">&quot;Replicate SD&quot;</span><span class="p">})</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data source used: </span><span class="si">{</span><span class="n">data_origin</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Verified NIST file: </span><span class="si">{</span><span class="n">observed_digest</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Training response mean = </span><span class="si">{</span><span class="n">training_mean</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">; SD = </span><span class="si">{</span><span class="n">training_sd</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">split_audit</span><span class="p">)</span>
+
+<span class="n">colors</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Training&quot;</span><span class="p">:</span> <span class="s2">&quot;0.45&quot;</span><span class="p">,</span> <span class="s2">&quot;Interpolation&quot;</span><span class="p">:</span> <span class="s2">&quot;tab:orange&quot;</span><span class="p">,</span> <span class="s2">&quot;Extrapolation&quot;</span><span class="p">:</span> <span class="s2">&quot;tab:red&quot;</span><span class="p">}</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">split_name</span><span class="p">,</span> <span class="n">mask</span> <span class="ow">in</span> <span class="n">split_masks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">distance</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">response</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
+                    <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">split_name</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">split_name</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Metal distance (NIST-reported units)&quot;</span><span class="p">,</span>
+            <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Ultrasonic response (NIST-reported units)&quot;</span><span class="p">,</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Whole-distance-level split&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">level_summary</span><span class="p">[</span><span class="s2">&quot;Distance&quot;</span><span class="p">],</span> <span class="n">level_summary</span><span class="p">[</span><span class="s2">&quot;Replicate SD&quot;</span><span class="p">],</span> <span class="s2">&quot;o-&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Metal distance (NIST-reported units)&quot;</span><span class="p">,</span>
+            <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Response SD among replicates&quot;</span><span class="p">,</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Observed replicate variability&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">replicate_extremes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
+    <span class="n">level_summary</span><span class="o">.</span><span class="n">nsmallest</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Replicate SD&quot;</span><span class="p">),</span>
+    <span class="n">level_summary</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Replicate SD&quot;</span><span class="p">),</span>
+<span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">replicate_extremes</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="a-audit-the-experiment-10-points">
+<h3>(a) Audit the experiment (10 points)<a class="headerlink" href="#a-audit-the-experiment-10-points" title="Permalink to this heading">#</a></h3>
+<p>Report the total number of observations and distance levels, then report the observation and distance-level counts in each split. Why do we withhold entire distance levels instead of randomly withholding individual observations? Why is the response standardized using the training set only?</p>
+<p><em>Your answer:</em></p>
+<p>We compare two stationary covariance functions. With amplitude <span class="math notranslate nohighlight">\(a\)</span> and length scale <span class="math notranslate nohighlight">\(\ell\)</span>, they are</p>
+<div class="math notranslate nohighlight">
+\[
+k_{\mathrm{RBF}}(x,x')=a^2\exp\left[-\frac{(x-x')^2}{2\ell^2}\right]
+\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[
+k_{3/2}(x,x')=a^2\left(1+\frac{\sqrt{3}|x-x'|}{\ell}\right)
+\exp\left[-\frac{\sqrt{3}|x-x'|}{\ell}\right].
+\]</div>
+<p>The Gaussian-process mean is zero in standardized-response space; after conversion back to the original scale, this corresponds to the training-response mean before conditioning. A constant observation-noise standard deviation <span class="math notranslate nohighlight">\(\sigma_n\)</span> is included. The supplied code fits <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(\ell\)</span>, and <span class="math notranslate nohighlight">\(\sigma_n\)</span> by minimizing the negative log marginal likelihood on the training observations. In the table, <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(\sigma_n\)</span> are in standardized-response units, while <span class="math notranslate nohighlight">\(\ell\)</span> is in NIST-reported distance units. The optimizer uses one fixed starting point and fixed bounds; you do not need to modify or rerun it from other starts.</p>
+<div class="cell tag_provided-code docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">rbf_kernel</span><span class="p">(</span><span class="n">xa</span><span class="p">,</span> <span class="n">xb</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">):</span>
+    <span class="n">scaled_distance</span> <span class="o">=</span> <span class="p">(</span><span class="n">xa</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">-</span> <span class="n">xb</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:])</span> <span class="o">/</span> <span class="n">length_scale</span>
+    <span class="k">return</span> <span class="n">amplitude</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">scaled_distance</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">matern32_kernel</span><span class="p">(</span><span class="n">xa</span><span class="p">,</span> <span class="n">xb</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">):</span>
+    <span class="n">scaled_distance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">xa</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">-</span> <span class="n">xb</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:])</span> <span class="o">/</span> <span class="n">length_scale</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">scaled_distance</span>
+    <span class="k">return</span> <span class="n">amplitude</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">z</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="p">)</span>
+
+
+<span class="n">training_distance</span> <span class="o">=</span> <span class="n">distance</span><span class="p">[</span><span class="n">training_mask</span><span class="p">]</span>
+<span class="n">training_response</span> <span class="o">=</span> <span class="n">standardized_response</span><span class="p">[</span><span class="n">training_mask</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">negative_log_marginal_likelihood</span><span class="p">(</span><span class="n">log_parameters</span><span class="p">,</span> <span class="n">kernel</span><span class="p">):</span>
+    <span class="n">amplitude</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">,</span> <span class="n">noise_sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_parameters</span><span class="p">)</span>
+    <span class="n">covariance</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="n">training_distance</span><span class="p">,</span> <span class="n">training_distance</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">)</span>
+    <span class="n">covariance</span><span class="o">.</span><span class="n">flat</span><span class="p">[::</span> <span class="n">covariance</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">noise_sd</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">1e-8</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">factor</span><span class="p">,</span> <span class="n">lower</span> <span class="o">=</span> <span class="n">cho_factor</span><span class="p">(</span><span class="n">covariance</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check_finite</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">1e30</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">cho_solve</span><span class="p">((</span><span class="n">factor</span><span class="p">,</span> <span class="n">lower</span><span class="p">),</span> <span class="n">training_response</span><span class="p">,</span> <span class="n">check_finite</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="mf">0.5</span> <span class="o">*</span> <span class="n">training_response</span> <span class="o">@</span> <span class="n">alpha</span>
+        <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">factor</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">training_response</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+    <span class="p">)</span>
+
+
+<span class="n">parameter_bounds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]])</span>
+<span class="n">kernels</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;RBF&quot;</span><span class="p">:</span> <span class="n">rbf_kernel</span><span class="p">,</span> <span class="s2">&quot;Matérn-3/2&quot;</span><span class="p">:</span> <span class="n">matern32_kernel</span><span class="p">}</span>
+<span class="n">fits</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">fit_rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">kernel</span> <span class="ow">in</span> <span class="n">kernels</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span>
+        <span class="n">negative_log_marginal_likelihood</span><span class="p">,</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">]),</span>
+        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">kernel</span><span class="p">,),</span>
+        <span class="n">method</span><span class="o">=</span><span class="s2">&quot;L-BFGS-B&quot;</span><span class="p">,</span>
+        <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">parameter_bounds</span><span class="p">[</span><span class="n">index</span><span class="p">])</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)],</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="o">.</span><span class="n">success</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2"> optimization failed: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">fits</span><span class="p">[</span><span class="n">model_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;kernel&quot;</span><span class="p">:</span> <span class="n">kernel</span><span class="p">,</span> <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="n">parameters</span><span class="p">,</span> <span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">}</span>
+    <span class="n">fit_rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s2">&quot;Model&quot;</span><span class="p">:</span> <span class="n">model_name</span><span class="p">,</span>
+        <span class="s2">&quot;Amplitude a (standardized)&quot;</span><span class="p">:</span> <span class="n">parameters</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="s2">&quot;Length scale ell (distance units)&quot;</span><span class="p">:</span> <span class="n">parameters</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="s2">&quot;Noise SD sigma_n (standardized)&quot;</span><span class="p">:</span> <span class="n">parameters</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+        <span class="s2">&quot;Negative log marginal likelihood&quot;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">fun</span><span class="p">,</span>
+    <span class="p">})</span>
+
+<span class="n">fit_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">fit_rows</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">fit_table</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="b-read-the-fitted-models-15-points">
+<h3>(b) Read the fitted models (15 points)<a class="headerlink" href="#b-read-the-fitted-models-15-points" title="Permalink to this heading">#</a></h3>
+<p>Which kernel encodes smoother latent functions before seeing the data? Compare the fitted noise scales and length scales, but explain why the numerical length scales are not directly equivalent across the two kernel families. Which fit has the better training marginal likelihood? Is that result alone enough to select a predictive model? Explain briefly.</p>
+<p><em>Your answer:</em></p>
+<p>The next cell computes Gaussian-process posterior predictions. The shaded regions are pointwise 95% intervals for <strong>future noisy observations</strong>, not simultaneous confidence bands. It also reports three held-out metrics:</p>
+<ul class="simple">
+<li><p><strong>RMSE:</strong> typical point-prediction error in NIST-reported response units; smaller is better.</p></li>
+<li><p><strong>Mean NLPD:</strong> mean negative log predictive density, which rewards accurate means and appropriate predictive variances; smaller is better.</p></li>
+<li><p><strong>95% coverage:</strong> fraction of held-out observations inside their pointwise 95% predictive intervals.</p></li>
+<li><p><strong>Mean 95% interval width:</strong> average width of those intervals in NIST-reported response units; narrower intervals are sharper.</p></li>
+</ul>
+<div class="cell tag_provided-code docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">gp_predict</span><span class="p">(</span><span class="n">fit</span><span class="p">,</span> <span class="n">prediction_distance</span><span class="p">):</span>
+    <span class="n">kernel</span> <span class="o">=</span> <span class="n">fit</span><span class="p">[</span><span class="s2">&quot;kernel&quot;</span><span class="p">]</span>
+    <span class="n">amplitude</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">,</span> <span class="n">noise_sd</span> <span class="o">=</span> <span class="n">fit</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">]</span>
+    <span class="n">covariance</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="n">training_distance</span><span class="p">,</span> <span class="n">training_distance</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">)</span>
+    <span class="n">covariance</span><span class="o">.</span><span class="n">flat</span><span class="p">[::</span> <span class="n">covariance</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">noise_sd</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">1e-8</span>
+    <span class="n">factor</span><span class="p">,</span> <span class="n">lower</span> <span class="o">=</span> <span class="n">cho_factor</span><span class="p">(</span><span class="n">covariance</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check_finite</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">cross_covariance</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="n">training_distance</span><span class="p">,</span> <span class="n">prediction_distance</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">)</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">cho_solve</span><span class="p">((</span><span class="n">factor</span><span class="p">,</span> <span class="n">lower</span><span class="p">),</span> <span class="n">training_response</span><span class="p">,</span> <span class="n">check_finite</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">standardized_mean</span> <span class="o">=</span> <span class="n">cross_covariance</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">alpha</span>
+    <span class="n">solved_cross</span> <span class="o">=</span> <span class="n">cho_solve</span><span class="p">((</span><span class="n">factor</span><span class="p">,</span> <span class="n">lower</span><span class="p">),</span> <span class="n">cross_covariance</span><span class="p">,</span> <span class="n">check_finite</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">standardized_latent_covariance</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">kernel</span><span class="p">(</span><span class="n">prediction_distance</span><span class="p">,</span> <span class="n">prediction_distance</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">)</span>
+        <span class="o">-</span> <span class="n">cross_covariance</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">solved_cross</span>
+    <span class="p">)</span>
+    <span class="n">standardized_latent_covariance</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span>
+        <span class="n">standardized_latent_covariance</span> <span class="o">+</span> <span class="n">standardized_latent_covariance</span><span class="o">.</span><span class="n">T</span>
+    <span class="p">)</span>
+    <span class="n">standardized_observation_covariance</span> <span class="o">=</span> <span class="n">standardized_latent_covariance</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">standardized_observation_covariance</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span>
+        <span class="p">::</span> <span class="n">standardized_observation_covariance</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="p">]</span> <span class="o">+=</span> <span class="n">noise_sd</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">training_mean</span> <span class="o">+</span> <span class="n">training_sd</span> <span class="o">*</span> <span class="n">standardized_mean</span>
+    <span class="n">latent_covariance</span> <span class="o">=</span> <span class="n">training_sd</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">standardized_latent_covariance</span>
+    <span class="n">observation_covariance</span> <span class="o">=</span> <span class="n">training_sd</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">standardized_observation_covariance</span>
+    <span class="k">return</span> <span class="n">mean</span><span class="p">,</span> <span class="n">latent_covariance</span><span class="p">,</span> <span class="n">observation_covariance</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">predictive_metrics</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">observation_variance</span><span class="p">):</span>
+    <span class="n">truth</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">truth</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">mean_nlpd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
+        <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">observation_variance</span><span class="p">)</span>
+        <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">truth</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">observation_variance</span>
+    <span class="p">)</span>
+    <span class="n">predictive_sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">observation_variance</span><span class="p">)</span>
+    <span class="n">coverage</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">truth</span> <span class="o">&gt;=</span> <span class="n">mean</span> <span class="o">-</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">predictive_sd</span><span class="p">)</span>
+        <span class="o">&amp;</span> <span class="p">(</span><span class="n">truth</span> <span class="o">&lt;=</span> <span class="n">mean</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">predictive_sd</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">mean_interval_width</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">predictive_sd</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rmse</span><span class="p">,</span> <span class="n">mean_nlpd</span><span class="p">,</span> <span class="n">coverage</span><span class="p">,</span> <span class="n">mean_interval_width</span>
+
+
+<span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">distance</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">distance</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">figure</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">metric_rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">held_out</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Interpolation&quot;</span><span class="p">:</span> <span class="n">interpolation_mask</span><span class="p">,</span> <span class="s2">&quot;Extrapolation&quot;</span><span class="p">:</span> <span class="n">extrapolation_mask</span><span class="p">}</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">axis</span><span class="p">,</span> <span class="p">(</span><span class="n">model_name</span><span class="p">,</span> <span class="n">fit</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">fits</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">grid_mean</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">grid_observation_covariance</span> <span class="o">=</span> <span class="n">gp_predict</span><span class="p">(</span><span class="n">fit</span><span class="p">,</span> <span class="n">grid</span><span class="p">)</span>
+    <span class="n">grid_observation_variance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">grid_observation_covariance</span><span class="p">)</span>
+    <span class="n">grid_sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">grid_observation_variance</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">distance</span><span class="p">[</span><span class="n">training_mask</span><span class="p">],</span> <span class="n">response</span><span class="p">[</span><span class="n">training_mask</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.65&quot;</span><span class="p">,</span>
+                 <span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training&quot;</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">distance</span><span class="p">[</span><span class="n">interpolation_mask</span><span class="p">],</span> <span class="n">response</span><span class="p">[</span><span class="n">interpolation_mask</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:orange&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Interpolation holdout&quot;</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">distance</span><span class="p">[</span><span class="n">extrapolation_mask</span><span class="p">],</span> <span class="n">response</span><span class="p">[</span><span class="n">extrapolation_mask</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:red&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Extrapolation holdout&quot;</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">grid_mean</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Posterior mean&quot;</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">grid_mean</span> <span class="o">-</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">grid_sd</span><span class="p">,</span> <span class="n">grid_mean</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">grid_sd</span><span class="p">,</span>
+                      <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.18</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;95</span><span class="si">% f</span><span class="s2">uture-observation interval&quot;</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="mf">2.25</span><span class="p">,</span> <span class="mf">2.75</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:orange&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.07</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:red&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Metal distance (NIST-reported units)&quot;</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+    <span class="n">predictions</span><span class="p">[</span><span class="n">model_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">split_name</span><span class="p">,</span> <span class="n">mask</span> <span class="ow">in</span> <span class="n">held_out</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">mean</span><span class="p">,</span> <span class="n">latent_covariance</span><span class="p">,</span> <span class="n">observation_covariance</span> <span class="o">=</span> <span class="n">gp_predict</span><span class="p">(</span>
+            <span class="n">fit</span><span class="p">,</span> <span class="n">distance</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">latent_variance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">latent_covariance</span><span class="p">)</span>
+        <span class="n">observation_variance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">observation_covariance</span><span class="p">)</span>
+        <span class="n">predictions</span><span class="p">[</span><span class="n">model_name</span><span class="p">][</span><span class="n">split_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;mean&quot;</span><span class="p">:</span> <span class="n">mean</span><span class="p">,</span>
+            <span class="s2">&quot;latent_covariance&quot;</span><span class="p">:</span> <span class="n">latent_covariance</span><span class="p">,</span>
+            <span class="s2">&quot;observation_covariance&quot;</span><span class="p">:</span> <span class="n">observation_covariance</span><span class="p">,</span>
+            <span class="s2">&quot;latent_variance&quot;</span><span class="p">:</span> <span class="n">latent_variance</span><span class="p">,</span>
+            <span class="s2">&quot;observation_variance&quot;</span><span class="p">:</span> <span class="n">observation_variance</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">rmse</span><span class="p">,</span> <span class="n">mean_nlpd</span><span class="p">,</span> <span class="n">coverage</span><span class="p">,</span> <span class="n">mean_interval_width</span> <span class="o">=</span> <span class="n">predictive_metrics</span><span class="p">(</span>
+            <span class="n">mask</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">observation_variance</span>
+        <span class="p">)</span>
+        <span class="n">metric_rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;Model&quot;</span><span class="p">:</span> <span class="n">model_name</span><span class="p">,</span>
+            <span class="s2">&quot;Split&quot;</span><span class="p">:</span> <span class="n">split_name</span><span class="p">,</span>
+            <span class="s2">&quot;RMSE&quot;</span><span class="p">:</span> <span class="n">rmse</span><span class="p">,</span>
+            <span class="s2">&quot;Mean NLPD&quot;</span><span class="p">:</span> <span class="n">mean_nlpd</span><span class="p">,</span>
+            <span class="s2">&quot;95</span><span class="si">% c</span><span class="s2">overage&quot;</span><span class="p">:</span> <span class="n">coverage</span><span class="p">,</span>
+            <span class="s2">&quot;Mean 95</span><span class="si">% i</span><span class="s2">nterval width&quot;</span><span class="p">:</span> <span class="n">mean_interval_width</span><span class="p">,</span>
+        <span class="p">})</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Ultrasonic response (NIST-reported units)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mf">7.5</span><span class="p">)</span>
+<span class="n">figure</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">metric_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">metric_rows</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">metric_table</span><span class="o">.</span><span class="n">round</span><span class="p">({</span>
+    <span class="s2">&quot;RMSE&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">&quot;Mean NLPD&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">&quot;95</span><span class="si">% c</span><span class="s2">overage&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">&quot;Mean 95</span><span class="si">% i</span><span class="s2">nterval width&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+<span class="p">}))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="c-make-a-preliminary-interpolation-comparison-20-points">
+<h3>(c) Make a preliminary interpolation comparison (20 points)<a class="headerlink" href="#c-make-a-preliminary-interpolation-comparison-20-points" title="Permalink to this heading">#</a></h3>
+<p>Using the <strong>interpolation</strong> rows of the metrics table, which model has the better preliminary predictive performance? Support your answer with the RMSE, mean NLPD, and mean 95% interval width. Briefly explain what each quantity contributes to the comparison. Treat this as a preliminary judgment; part (d) will check calibration more directly.</p>
+<p><em>Your answer:</em></p>
+</section>
+<section id="diagnostics-how-they-work">
+<h3>Diagnostics: how they work<a class="headerlink" href="#diagnostics-how-they-work" title="Permalink to this heading">#</a></h3>
+<p><strong>Credit:</strong> Course adaptation of the standardized-error diagnostics in Lecture 22 and Leonardo S. Bastos and Anthony O’Hagan, <a class="reference external" href="https://doi.org/10.1198/TECH.2009.08019">“Diagnostics for Gaussian Process Emulators,”</a> <em>Technometrics</em> 51 (2009), 425–438. The idea used here is that diagnostics for several validation values should account for their predictive correlation. We use the Gaussian reference distribution conditional on the fitted hyperparameters.</p>
+<p>For the <span class="math notranslate nohighlight">\(n_v=26\)</span> interpolation observations, the <strong>joint posterior predictive distribution for future noisy observations</strong> is</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{Y}^v\mid\mathcal{D}
+\sim
+\mathcal{N}\!\left(\mathbf{m}^v,\boldsymbol{\Sigma}^v\right).
+\]</div>
+<p>The full matrix <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}^v\)</span> includes observation noise and correlations among the validation predictions.</p>
+<p>Start with the marginal standardized prediction errors</p>
+<div class="math notranslate nohighlight">
+\[
+e_i
+=
+\frac{y_i^v-m_i^v}{\sqrt{\Sigma^v_{ii}}}.
+\]</div>
+<p>If the predictive model is appropriate, each <span class="math notranslate nohighlight">\(e_i\)</span> is marginally standard normal. We therefore look for a mean near <span class="math notranslate nohighlight">\(0\)</span>, a sample standard deviation near <span class="math notranslate nohighlight">\(1\)</span>, no visible pattern in the error plot, and roughly 95% of the values between <span class="math notranslate nohighlight">\(-1.96\)</span> and <span class="math notranslate nohighlight">\(1.96\)</span>. These errors are generally correlated, so their ordinary sum of squares does not provide the correct joint check.</p>
+<p>To account for the correlation, factor the predictive covariance as <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}^v=\mathbf{L}\mathbf{L}^\top\)</span> and form the whitened errors</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{z}
+=
+\mathbf{L}^{-1}(\mathbf{y}^v-\mathbf{m}^v).
+\]</div>
+<p>Under the fitted Gaussian model, the components of <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> are independent standard-normal variables. Their Q–Q plot should therefore be close to the reference line. Their squared length is the Mahalanobis diagnostic</p>
+<div class="math notranslate nohighlight">
+\[
+D_M^2
+=
+(\mathbf{y}^v-\mathbf{m}^v)^\top
+(\boldsymbol{\Sigma}^v)^{-1}
+(\mathbf{y}^v-\mathbf{m}^v)
+=\mathbf{z}^\top\mathbf{z}.
+\]</div>
+<p>Conditional on the fitted model, <span class="math notranslate nohighlight">\(D_M^2\)</span> has a <span class="math notranslate nohighlight">\(\chi^2_{n_v}\)</span> reference distribution. A value above the central reference interval means that the joint errors are larger than the model predicts. A value below the interval means that they are smaller than predicted, which may indicate intervals that are too wide or an unusually easy validation set.</p>
+<p>Run the supplied cell. In the left panels, the horizontal lines are <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(\pm1.96\)</span>. In the right panels, the Q–Q plots use the Cholesky-whitened errors with the fixed validation-observation ordering.</p>
+<div class="cell tag_provided-code docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">validation_mask</span> <span class="o">=</span> <span class="n">interpolation_mask</span>
+<span class="n">validation_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">validation_mask</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="n">chi_square_interval</span> <span class="o">=</span> <span class="n">chi2</span><span class="o">.</span><span class="n">ppf</span><span class="p">([</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.975</span><span class="p">],</span> <span class="n">df</span><span class="o">=</span><span class="n">validation_size</span><span class="p">)</span>
+<span class="n">marginal_rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">joint_rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">diagnostic_values</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="n">figure</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">row_index</span><span class="p">,</span> <span class="p">(</span><span class="n">model_name</span><span class="p">,</span> <span class="n">fit</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">fits</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">prediction</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="n">model_name</span><span class="p">][</span><span class="s2">&quot;Interpolation&quot;</span><span class="p">]</span>
+    <span class="n">residual</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="n">validation_mask</span><span class="p">]</span> <span class="o">-</span> <span class="n">prediction</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">]</span>
+    <span class="n">predictive_covariance</span> <span class="o">=</span> <span class="n">prediction</span><span class="p">[</span><span class="s2">&quot;observation_covariance&quot;</span><span class="p">]</span>
+    <span class="n">marginal_sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">predictive_covariance</span><span class="p">))</span>
+    <span class="n">standardized_error</span> <span class="o">=</span> <span class="n">residual</span> <span class="o">/</span> <span class="n">marginal_sd</span>
+
+    <span class="n">cholesky_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">predictive_covariance</span><span class="p">)</span>
+    <span class="n">whitened_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">cholesky_factor</span><span class="p">,</span> <span class="n">residual</span><span class="p">)</span>
+    <span class="n">mahalanobis_squared</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">whitened_error</span> <span class="o">@</span> <span class="n">whitened_error</span><span class="p">)</span>
+    <span class="n">reference_percentile</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span>
+        <span class="n">chi2</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">mahalanobis_squared</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">validation_size</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">diagnostic_values</span><span class="p">[</span><span class="n">model_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;standardized_error&quot;</span><span class="p">:</span> <span class="n">standardized_error</span><span class="p">,</span>
+        <span class="s2">&quot;whitened_error&quot;</span><span class="p">:</span> <span class="n">whitened_error</span><span class="p">,</span>
+        <span class="s2">&quot;mahalanobis_squared&quot;</span><span class="p">:</span> <span class="n">mahalanobis_squared</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">marginal_rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s2">&quot;Model&quot;</span><span class="p">:</span> <span class="n">model_name</span><span class="p">,</span>
+        <span class="s2">&quot;Mean of e_i&quot;</span><span class="p">:</span> <span class="n">standardized_error</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+        <span class="s2">&quot;Sample SD of e_i&quot;</span><span class="p">:</span> <span class="n">standardized_error</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="s2">&quot;Fraction with |e_i| &lt;= 1.96&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">standardized_error</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mf">1.96</span><span class="p">),</span>
+    <span class="p">})</span>
+    <span class="n">joint_rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s2">&quot;Model&quot;</span><span class="p">:</span> <span class="n">model_name</span><span class="p">,</span>
+        <span class="s2">&quot;n_v&quot;</span><span class="p">:</span> <span class="n">validation_size</span><span class="p">,</span>
+        <span class="s2">&quot;Mahalanobis D^2&quot;</span><span class="p">:</span> <span class="n">mahalanobis_squared</span><span class="p">,</span>
+        <span class="s2">&quot;D^2 / n_v&quot;</span><span class="p">:</span> <span class="n">mahalanobis_squared</span> <span class="o">/</span> <span class="n">validation_size</span><span class="p">,</span>
+        <span class="s2">&quot;Chi-square reference percentile&quot;</span><span class="p">:</span> <span class="n">reference_percentile</span><span class="p">,</span>
+        <span class="s2">&quot;Central 95</span><span class="si">% lo</span><span class="s2">wer&quot;</span><span class="p">:</span> <span class="n">chi_square_interval</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="s2">&quot;Central 95</span><span class="si">% u</span><span class="s2">pper&quot;</span><span class="p">:</span> <span class="n">chi_square_interval</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="p">})</span>
+
+    <span class="n">error_axis</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">row_index</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">error_axis</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">validation_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">standardized_error</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mf">4.5</span>
+    <span class="p">)</span>
+    <span class="n">error_axis</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.25&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">error_axis</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mf">1.96</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:red&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">error_axis</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="o">-</span><span class="mf">1.96</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:red&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">error_axis</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">: marginal standardized errors&quot;</span><span class="p">,</span>
+        <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Validation-observation index&quot;</span><span class="p">,</span>
+        <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$e_i$&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">error_axis</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+    <span class="n">theoretical_quantiles</span><span class="p">,</span> <span class="n">ordered_errors</span> <span class="o">=</span> <span class="n">probplot</span><span class="p">(</span>
+        <span class="n">whitened_error</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="s2">&quot;norm&quot;</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="n">qq_axis</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">row_index</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">qq_axis</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theoretical_quantiles</span><span class="p">,</span> <span class="n">ordered_errors</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mf">4.5</span><span class="p">)</span>
+    <span class="n">lower</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">theoretical_quantiles</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">ordered_errors</span><span class="p">))</span>
+    <span class="n">upper</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">theoretical_quantiles</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">ordered_errors</span><span class="p">))</span>
+    <span class="n">qq_axis</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">],</span> <span class="p">[</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:red&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+    <span class="n">qq_axis</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">: Q–Q plot of whitened errors&quot;</span><span class="p">,</span>
+        <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Standard-normal quantiles&quot;</span><span class="p">,</span>
+        <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Ordered whitened errors&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">qq_axis</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">figure</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">marginal_diagnostic_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">marginal_rows</span><span class="p">)</span>
+<span class="n">joint_diagnostic_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">joint_rows</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Marginal diagnostics&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">marginal_diagnostic_table</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Correlation-aware joint diagnostics&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">joint_diagnostic_table</span><span class="o">.</span><span class="n">round</span><span class="p">({</span>
+    <span class="s2">&quot;Mahalanobis D^2&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">&quot;D^2 / n_v&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">&quot;Chi-square reference percentile&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="s2">&quot;Central 95</span><span class="si">% lo</span><span class="s2">wer&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">&quot;Central 95</span><span class="si">% u</span><span class="s2">pper&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+<span class="p">}))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="d-use-the-diagnostics-35-points">
+<h3>(d) Use the diagnostics (35 points)<a class="headerlink" href="#d-use-the-diagnostics-35-points" title="Permalink to this heading">#</a></h3>
+<p>You do not need to derive any of the diagnostic formulas. Use the two diagnostic tables and the plots to assess the RBF and Matérn-<span class="math notranslate nohighlight">\(3/2\)</span> predictive distributions on the interpolation holdout.</p>
+<p>For each model:</p>
+<ol class="arabic simple">
+<li><p>Report the mean and sample standard deviation of the marginal standardized errors and the fraction inside <span class="math notranslate nohighlight">\([-1.96,1.96]\)</span>.</p></li>
+<li><p>Describe what the standardized-error and whitened-error Q–Q plots show.</p></li>
+<li><p>Compare the Mahalanobis distance with the central 95% <span class="math notranslate nohighlight">\(\chi^2_{26}\)</span> reference interval.</p></li>
+</ol>
+<p>Conclude whether the predictive uncertainty appears too narrow, about right, or too wide. Explain why 100% empirical coverage does not by itself demonstrate good calibration. State whether these diagnostics change your preliminary model preference from part (c), and give one plausible explanation other than excessive predictive variance for an unusually small Mahalanobis distance.</p>
+<p><em>Your answer:</em></p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -635,6 +1194,35 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-basic-gaussian-process-mathematics-20-points">Problem 1: Basic Gaussian-process mathematics (20 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-mean-and-covariance-of-function-values-10-points">(a) Mean and covariance of function values (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-adding-gaussian-processes-10-points">(b) Adding Gaussian processes (10 points)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-learning-from-replicated-calibration-data-and-checking-the-fit-80-points">Problem 2: Learning from replicated calibration data and checking the fit (80 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-audit-the-experiment-10-points">(a) Audit the experiment (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-read-the-fitted-models-15-points">(b) Read the fitted models (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-make-a-preliminary-interpolation-comparison-20-points">(c) Make a preliminary interpolation comparison (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diagnostics-how-they-work">Diagnostics: how they work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-use-the-diagnostics-35-points">(d) Use the diagnostics (35 points)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
