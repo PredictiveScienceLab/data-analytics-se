@@ -62,6 +62,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'homework/homework-08';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -552,7 +554,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -568,6 +572,27 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-calibration-loss-and-expected-improvement-20-points">Problem 1: Calibration loss and expected improvement (20 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-from-observations-to-an-objective-10-points">(a) From observations to an objective (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-an-acquisition-decision-10-points">(b) An acquisition decision (10 points)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-a-reaction-calibration-study-with-a-fixed-simulation-budget-80-points">Problem 2: A reaction-calibration study with a fixed simulation budget (80 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-identify-the-calibration-problem-15-points">(a) Identify the calibration problem (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-read-the-first-acquisition-decision-20-points">(b) Read the first acquisition decision (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-compare-the-searches-fairly-25-points">(c) Compare the searches fairly (25 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-state-what-was-calibrated-20-points">(d) State what was calibrated (20 points)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -579,6 +604,288 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="homework-8">
 <h1>Homework 8<a class="headerlink" href="#homework-8" title="Permalink to this heading">#</a></h1>
+<p><strong>Bayesian Optimization for Model Calibration</strong></p>
+<p><strong>Coverage:</strong> Lecture 23 and the model-calibration application.</p>
+<p><strong>Due:</strong> Sunday, November 15, 2026, at 11:59 p.m. Eastern Time.</p>
+<p><strong>Total:</strong> 100 points.</p>
+<section id="instructions">
+<h2>Instructions<a class="headerlink" href="#instructions" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Answer the six lettered parts. Show the requested mathematical steps in Problem 1. Short paragraphs or bullet points are sufficient in Problem 2; no separate report is required.</p></li>
+<li><p>All computational code is supplied. Run its cells in order without editing them, and enter responses in the answer text cells. You are not expected to study the implementation or write code.</p></li>
+<li><p>Submit a PDF of your completed notebook, including your name, answers, generated tables, and figures, through Gradescope. Check that equations and figures are legible in the PDF.</p></li>
+<li><p>This self-contained notebook uses NumPy, SciPy, pandas, Matplotlib, and scikit-learn. The observations are generated in the notebook; no data download is required. Use a standard <strong>CPU</strong> Google Colab runtime. No package installation, Google Drive, or absolute file paths are needed.</p></li>
+<li><p>Report approximately four significant digits. Small numerical differences between software versions are acceptable; base your interpretations on your own generated results.</p></li>
+</ul>
+<p>Relevant course material: <a class="reference external" href="https://predictivesciencelab.github.io/data-analytics-se/lecture23/reading-23.html">Bayesian global optimization</a> and the assigned model-calibration application.</p>
+</section>
+<section id="student-details">
+<h2>Student details<a class="headerlink" href="#student-details" title="Permalink to this heading">#</a></h2>
+<p><strong>First name:</strong></p>
+<p><strong>Last name:</strong></p>
+<p><strong>Purdue email:</strong></p>
+</section>
+<section id="problem-1-calibration-loss-and-expected-improvement-20-points">
+<h2>Problem 1: Calibration loss and expected improvement (20 points)<a class="headerlink" href="#problem-1-calibration-loss-and-expected-improvement-20-points" title="Permalink to this heading">#</a></h2>
+<p><strong>Credit:</strong> Course exercise using the Gaussian likelihood and the expected-improvement acquisition rule from Lecture 23. We use <strong>minimization</strong> throughout.</p>
+<section id="a-from-observations-to-an-objective-10-points">
+<h3>(a) From observations to an objective (10 points)<a class="headerlink" href="#a-from-observations-to-an-objective-10-points" title="Permalink to this heading">#</a></h3>
+<p>Suppose <span class="math notranslate nohighlight">\(n\)</span> measurements satisfy <span class="math notranslate nohighlight">\(y_i=f_i(\mathbf{k})+\epsilon_i\)</span>, where the measurement errors are independent <span class="math notranslate nohighlight">\(N(0,\sigma^2)\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> is known. Define</p>
+<div class="math notranslate nohighlight">
+\[
+J(\mathbf{k})=\frac{1}{n}\sum_{i=1}^n
+\left(\frac{y_i-f_i(\mathbf{k})}{\sigma}\right)^2.
+\]</div>
+<p>Write the likelihood and show that minimizing <span class="math notranslate nohighlight">\(J\)</span> gives a maximum-likelihood estimate of <span class="math notranslate nohighlight">\(\mathbf{k}\)</span>. Is this necessarily a maximum-a-posteriori estimate under a nonuniform prior? Once the observed <span class="math notranslate nohighlight">\(y_i\)</span> are fixed, is <span class="math notranslate nohighlight">\(J(\mathbf{k})\)</span> random each time a deterministic simulator evaluates it? Explain.</p>
+<p><em>Your answer:</em></p>
+</section>
+<section id="b-an-acquisition-decision-10-points">
+<h3>(b) An acquisition decision (10 points)<a class="headerlink" href="#b-an-acquisition-decision-10-points" title="Permalink to this heading">#</a></h3>
+<p>For a loss <span class="math notranslate nohighlight">\(g\)</span> to be minimized, the smallest observed value is <span class="math notranslate nohighlight">\(g_{\min}=1\)</span>. The GP’s <strong>latent</strong> predictive distribution at a candidate is <span class="math notranslate nohighlight">\(G\sim N(\mu,s^2)\)</span>. Its expected improvement is</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{EI}=(g_{\min}-\mu)\Phi(z)+s\phi(z),
+\qquad z=\frac{g_{\min}-\mu}{s},\quad s&gt;0,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Phi\)</span> and <span class="math notranslate nohighlight">\(\phi\)</span> are the standard normal CDF and density. The formula is supplied; do not derive it.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Candidate</p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\(\mu\)</span></p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\(s\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td class="text-right"><p>0.90</p></td>
+<td class="text-right"><p>0.05</p></td>
+</tr>
+<tr class="row-odd"><td><p>B</p></td>
+<td class="text-right"><p>1.10</p></td>
+<td class="text-right"><p>0.40</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Use <span class="math notranslate nohighlight">\(\Phi(2)=0.97725\)</span>, <span class="math notranslate nohighlight">\(\phi(2)=0.053991\)</span>, <span class="math notranslate nohighlight">\(\Phi(-0.25)=0.401294\)</span>, and <span class="math notranslate nohighlight">\(\phi(-0.25)=0.386668\)</span>. Calculate both EIs and select the next candidate. Explain how uncertainty can favor a candidate with a worse mean prediction. Also give the EI limit as <span class="math notranslate nohighlight">\(s\to0\)</span>.</p>
+<p><em>Your answer:</em></p>
+</section>
+</section>
+<section id="problem-2-a-reaction-calibration-study-with-a-fixed-simulation-budget-80-points">
+<h2>Problem 2: A reaction-calibration study with a fixed simulation budget (80 points)<a class="headerlink" href="#problem-2-a-reaction-calibration-study-with-a-fixed-simulation-budget-80-points" title="Permalink to this heading">#</a></h2>
+<p><strong>Credit:</strong> This synthetic teaching study was constructed for ME 539. It uses a simplified consecutive first-order reaction to illustrate the calibration workflow; the measurements are simulated, not laboratory data or the measurements in the in-class catalysis case.</p>
+<p>Consider <span class="math notranslate nohighlight">\(A\rightarrow B\rightarrow C\)</span> in a well-mixed batch reactor:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{dA}{dt}=-k_1A,\qquad
+\frac{dB}{dt}=k_1A-k_2B,\qquad
+\frac{dC}{dt}=k_2B,
+\qquad (A(0),B(0),C(0))=(1,0,0).
+\]</div>
+<p>Time is in minutes, the rates are in <span class="math notranslate nohighlight">\(\mathrm{min}^{-1}\)</span>, and concentrations are normalized by the initial concentration of A. We observe A and B at ten times, with independent Gaussian errors of standard deviation <span class="math notranslate nohighlight">\(\sigma=0.025\)</span>. The data-generating rates are <span class="math notranslate nohighlight">\((0.7,0.35)\,\mathrm{min}^{-1}\)</span>; they provide a teaching reference and are <strong>not used to choose search evaluations</strong>. Both rates are restricted to <span class="math notranslate nohighlight">\([0.1,1.5]\,\mathrm{min}^{-1}\)</span>.</p>
+<p>The supplied differential-equation solver predicts A and B. The objective <span class="math notranslate nohighlight">\(J\)</span> is the mean squared standardized residual over the <strong>20 scalar observations</strong>. One objective evaluation means running that solver for one rate pair at all observation times. This small solver is fast; we impose a budget to model the decision faced when simulations are expensive.</p>
+<div class="cell tag_provided-code docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">IPython</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_ipython</span>
+<span class="k">if</span> <span class="n">get_ipython</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s2">&quot;matplotlib&quot;</span><span class="p">,</span> <span class="s2">&quot;inline&quot;</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.integrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">solve_ivp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">norm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.gaussian_process</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianProcessRegressor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.gaussian_process.kernels</span><span class="w"> </span><span class="kn">import</span> <span class="n">Matern</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="s1">&#39;figure.dpi&#39;</span><span class="p">:</span> <span class="mi">110</span><span class="p">})</span>
+<span class="n">SEED</span> <span class="o">=</span> <span class="mi">53908</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mf">0.025</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">reaction</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="n">k1</span><span class="p">,</span> <span class="n">k2</span> <span class="o">=</span> <span class="n">k</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rhs</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c_product</span> <span class="o">=</span> <span class="n">c</span>
+        <span class="k">return</span> <span class="p">[</span><span class="o">-</span><span class="n">k1</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="n">k1</span><span class="o">*</span><span class="n">a</span><span class="o">-</span><span class="n">k2</span><span class="o">*</span><span class="n">b</span><span class="p">,</span> <span class="n">k2</span><span class="o">*</span><span class="n">b</span><span class="p">]</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">solve_ivp</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">t</span><span class="p">))],</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span>
+                       <span class="n">t_eval</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="o">.</span><span class="n">success</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># Synthetic observations: the same measurements are used in every search.</span>
+<span class="n">true_rates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">])</span>
+<span class="n">observations</span> <span class="o">=</span> <span class="n">reaction</span><span class="p">(</span><span class="n">true_rates</span><span class="p">,</span> <span class="n">times</span><span class="p">)[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">observations</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">observations</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">data_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Time (min)&#39;</span><span class="p">:</span> <span class="n">times</span><span class="p">,</span> <span class="s1">&#39;A observed&#39;</span><span class="p">:</span> <span class="n">observations</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+                           <span class="s1">&#39;B observed&#39;</span><span class="p">:</span> <span class="n">observations</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]})</span>
+<span class="n">display</span><span class="p">(</span><span class="n">data_table</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">]):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">observations</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">yerr</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">sigma</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
+                <span class="n">capsize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">: observation ± 2σ&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Time (min)&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Concentration / initial A concentration&#39;</span><span class="p">,</span>
+       <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Fixed synthetic reaction measurements&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">.2</span><span class="p">);</span> <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="a-identify-the-calibration-problem-15-points">
+<h3>(a) Identify the calibration problem (15 points)<a class="headerlink" href="#a-identify-the-calibration-problem-15-points" title="Permalink to this heading">#</a></h3>
+<p>Identify the unknown parameters, measured quantities, supplied physical assumptions, and the quantity being minimized. Explain why the 20 observations remain fixed while Bayesian optimization collects new information. What kind of information does one new objective evaluation add, and what would require a new physical experiment?</p>
+<p><em>Your answer:</em></p>
+<p>The search uses a fixed <span class="math notranslate nohighlight">\(31\times31\)</span> candidate grid, uniformly spaced in the <strong>logarithms</strong> of the rates. Each plotted coordinate is</p>
+<div class="math notranslate nohighlight">
+\[
+x_j=\frac{\log(k_j/0.1)}{\log(1.5/0.1)}\in[0,1].
+\]</div>
+<p>The GP models <span class="math notranslate nohighlight">\(g(\mathbf{x})=\log[1+J(\mathbf{k}(\mathbf{x}))]\)</span>. This monotone transformation preserves the minimizer but changes the acquisition decisions; EI is computed in <strong>g units</strong>. The GP uses a fixed Matérn-<span class="math notranslate nohighlight">\(5/2\)</span> kernel with length scale 0.28 in these coordinates. Its training outputs are centered and scaled using only the evaluated losses, then predictions are returned in g units. A small numerical diagonal term is added for stability; no measurement-noise term is added to this deterministic loss surrogate.</p>
+<p>Six randomly selected initial evaluations fit the first GP. In the plots, white circles are evaluated candidates and the red star is the next candidate chosen by EI. Evaluating GP predictions on the grid does <strong>not</strong> call the reaction solver.</p>
+<div class="cell tag_provided-code docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">indexing</span><span class="o">=</span><span class="s1">&#39;ij&#39;</span><span class="p">)</span>
+<span class="n">candidates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">a</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">mesh</span><span class="p">])</span>
+<span class="n">LOW</span><span class="p">,</span> <span class="n">HIGH</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.5</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">rates_from_unit</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">LOW</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">HIGH</span><span class="o">/</span><span class="n">LOW</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">objective</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">residual</span> <span class="o">=</span> <span class="p">(</span><span class="n">reaction</span><span class="p">(</span><span class="n">rates_from_unit</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">times</span><span class="p">)[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">observations</span><span class="p">)</span><span class="o">/</span><span class="n">sigma</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residual</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">fit_surrogate</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">losses</span><span class="p">):</span>
+    <span class="c1"># The kernel is fixed; the output is centered/scaled using observed losses only.</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">GaussianProcessRegressor</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">Matern</span><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">.28</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mf">2.5</span><span class="p">),</span>
+                                     <span class="n">alpha</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">normalize_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">candidates</span><span class="p">[</span><span class="n">indices</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">losses</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">expected_improvement</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sd</span><span class="p">,</span> <span class="n">best</span><span class="p">):</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="n">best</span><span class="o">-</span><span class="n">mu</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">sd</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">delta</span><span class="p">),</span> <span class="n">where</span><span class="o">=</span><span class="n">sd</span><span class="o">&gt;</span><span class="mf">1e-12</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">sd</span><span class="o">&gt;</span><span class="mf">1e-12</span><span class="p">,</span> <span class="n">delta</span><span class="o">*</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">+</span><span class="n">sd</span><span class="o">*</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">z</span><span class="p">),</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+<span class="n">N_INITIAL</span><span class="p">,</span> <span class="n">BUDGET</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">24</span>
+<span class="n">initial</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">),</span> <span class="n">N_INITIAL</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">initial_losses</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">objective</span><span class="p">(</span><span class="n">candidates</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">initial</span><span class="p">])</span>
+<span class="n">gp</span> <span class="o">=</span> <span class="n">fit_surrogate</span><span class="p">(</span><span class="n">initial</span><span class="p">,</span> <span class="n">initial_losses</span><span class="p">)</span>
+<span class="n">mu</span><span class="p">,</span> <span class="n">sd</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">candidates</span><span class="p">,</span> <span class="n">return_std</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ei</span> <span class="o">=</span> <span class="n">expected_improvement</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sd</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">initial_losses</span><span class="o">.</span><span class="n">min</span><span class="p">()))</span>
+<span class="n">ei</span><span class="p">[</span><span class="n">initial</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+<span class="n">next_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">ei</span><span class="p">))</span>
+<span class="n">snapshot</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([{</span><span class="s1">&#39;k1 (1/min)&#39;</span><span class="p">:</span> <span class="n">rates_from_unit</span><span class="p">(</span><span class="n">candidates</span><span class="p">[</span><span class="n">next_index</span><span class="p">])[</span><span class="mi">0</span><span class="p">],</span>
+                          <span class="s1">&#39;k2 (1/min)&#39;</span><span class="p">:</span> <span class="n">rates_from_unit</span><span class="p">(</span><span class="n">candidates</span><span class="p">[</span><span class="n">next_index</span><span class="p">])[</span><span class="mi">1</span><span class="p">],</span>
+                          <span class="s1">&#39;GP mean of g&#39;</span><span class="p">:</span> <span class="n">mu</span><span class="p">[</span><span class="n">next_index</span><span class="p">],</span> <span class="s1">&#39;GP SD of g&#39;</span><span class="p">:</span> <span class="n">sd</span><span class="p">[</span><span class="n">next_index</span><span class="p">],</span>
+                          <span class="s1">&#39;Expected improvement&#39;</span><span class="p">:</span> <span class="n">ei</span><span class="p">[</span><span class="n">next_index</span><span class="p">]}])</span>
+<span class="n">display</span><span class="p">(</span><span class="n">snapshot</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">title</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="p">[</span><span class="n">mu</span><span class="p">,</span> <span class="n">sd</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">ei</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+                            <span class="p">[</span><span class="s1">&#39;GP mean of g&#39;</span><span class="p">,</span> <span class="s1">&#39;GP standard deviation of g&#39;</span><span class="p">,</span> <span class="s1">&#39;Expected improvement&#39;</span><span class="p">]):</span>
+    <span class="n">artist</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">31</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">shading</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="o">*</span><span class="n">candidates</span><span class="p">[</span><span class="n">initial</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="o">*</span><span class="n">candidates</span><span class="p">[</span><span class="n">next_index</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Scaled log k₁&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Scaled log k₂&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">artist</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">.8</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="b-read-the-first-acquisition-decision-20-points">
+<h3>(b) Read the first acquisition decision (20 points)<a class="headerlink" href="#b-read-the-first-acquisition-decision-20-points" title="Permalink to this heading">#</a></h3>
+<p>Report the selected rate pair, predicted g mean, predicted g standard deviation, and EI. Use the three panels to explain the choice. Why need the selected point minimize neither the GP mean nor the uncertainty? Explain why the GP standard deviation in this figure is not a posterior standard deviation for either reaction rate.</p>
+<p><em>Your answer:</em></p>
+<p>Each search now receives <strong>24 total objective evaluations, including the six initial ones</strong>. The EI and random-search methods share the same initial six candidates within each seed. Neither method revisits an evaluated candidate. Five seed pairs use the same measurements and candidate grid, so they test sensitivity to search initialization and choices, not repeated measurement experiments. Shading shows the minimum-to-maximum range of the five best-so-far curves; it is not a credible interval or confidence interval.</p>
+<div class="cell tag_provided-code docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">run_search</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+    <span class="n">random</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">chosen</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">),</span> <span class="n">N_INITIAL</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="n">losses</span> <span class="o">=</span> <span class="p">[</span><span class="n">objective</span><span class="p">(</span><span class="n">candidates</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">chosen</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_INITIAL</span><span class="p">,</span> <span class="n">BUDGET</span><span class="p">):</span>
+        <span class="n">available</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">setdiff1d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">)),</span> <span class="n">chosen</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;EI&#39;</span><span class="p">:</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">fit_surrogate</span><span class="p">(</span><span class="n">chosen</span><span class="p">,</span> <span class="n">losses</span><span class="p">)</span>
+            <span class="n">mean</span><span class="p">,</span> <span class="n">std</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">candidates</span><span class="p">[</span><span class="n">available</span><span class="p">],</span> <span class="n">return_std</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">scores</span> <span class="o">=</span> <span class="n">expected_improvement</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">losses</span><span class="p">)))</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">available</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">scores</span><span class="p">)])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">available</span><span class="p">))</span>
+        <span class="n">chosen</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">objective</span><span class="p">(</span><span class="n">candidates</span><span class="p">[</span><span class="n">index</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;indices&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">chosen</span><span class="p">),</span> <span class="s1">&#39;losses&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">losses</span><span class="p">),</span>
+            <span class="s1">&#39;best&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="o">.</span><span class="n">accumulate</span><span class="p">(</span><span class="n">losses</span><span class="p">)}</span>
+
+<span class="n">runs</span> <span class="o">=</span> <span class="p">{(</span><span class="n">seed</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span> <span class="n">run_search</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">seed</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SEED</span><span class="p">,</span> <span class="n">SEED</span><span class="o">+</span><span class="mi">5</span><span class="p">)</span> <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;EI&#39;</span><span class="p">,</span> <span class="s1">&#39;Random&#39;</span><span class="p">]}</span>
+<span class="n">comparison</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([{</span><span class="s1">&#39;Seed&#39;</span><span class="p">:</span> <span class="n">seed</span><span class="p">,</span>
+                            <span class="s1">&#39;EI final J&#39;</span><span class="p">:</span> <span class="n">runs</span><span class="p">[</span><span class="n">seed</span><span class="p">,</span> <span class="s1">&#39;EI&#39;</span><span class="p">][</span><span class="s1">&#39;best&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                            <span class="s1">&#39;Random final J&#39;</span><span class="p">:</span> <span class="n">runs</span><span class="p">[</span><span class="n">seed</span><span class="p">,</span> <span class="s1">&#39;Random&#39;</span><span class="p">][</span><span class="s1">&#39;best&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]}</span>
+                           <span class="k">for</span> <span class="n">seed</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SEED</span><span class="p">,</span> <span class="n">SEED</span><span class="o">+</span><span class="mi">5</span><span class="p">)])</span>
+<span class="n">display</span><span class="p">(</span><span class="n">comparison</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Median final J:&#39;</span><span class="p">,</span> <span class="n">comparison</span><span class="p">[[</span><span class="s1">&#39;EI final J&#39;</span><span class="p">,</span> <span class="s1">&#39;Random final J&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mf">3.7</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">method</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="p">[(</span><span class="s1">&#39;EI&#39;</span><span class="p">,</span> <span class="s1">&#39;tab:blue&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Random&#39;</span><span class="p">,</span> <span class="s1">&#39;tab:orange&#39;</span><span class="p">)]:</span>
+    <span class="n">histories</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">runs</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">method</span><span class="p">][</span><span class="s1">&#39;best&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SEED</span><span class="p">,</span> <span class="n">SEED</span><span class="o">+</span><span class="mi">5</span><span class="p">)])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">BUDGET</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">histories</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">BUDGET</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">histories</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">histories</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+                    <span class="n">alpha</span><span class="o">=</span><span class="mf">.15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">N_INITIAL</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;End of shared initialization&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Number of objective evaluations&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Best observed J&#39;</span><span class="p">,</span>
+       <span class="n">yscale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Median and range across five paired searches&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">.2</span><span class="p">);</span> <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="c-compare-the-searches-fairly-25-points">
+<h3>(c) Compare the searches fairly (25 points)<a class="headerlink" href="#c-compare-the-searches-fairly-25-points" title="Permalink to this heading">#</a></h3>
+<p>Report the median final J for each method and how many of the five pairs favor EI. How many new evaluations follow initialization in each search? Explain why counting the six initial evaluations and using the same initial points makes the comparison fairer. State one supported conclusion and two limitations of this comparison. Does a flat best-so-far curve prove that the global minimum has been found?</p>
+<p><em>Your answer:</em></p>
+<p>For the final check, use the first seed’s EI run, chosen in advance. The smallest evaluated loss selects one rate pair. The following curve and residual plots are <strong>post-search diagnostics</strong>; they do not supply any additional search candidates. Standardized residuals are <span class="math notranslate nohighlight">\((y-f)/\sigma\)</span>. Their RMS equals <span class="math notranslate nohighlight">\(\sqrt{J}\)</span> at this pair.</p>
+<div class="cell tag_provided-code docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selected_run</span> <span class="o">=</span> <span class="n">runs</span><span class="p">[</span><span class="n">SEED</span><span class="p">,</span> <span class="s1">&#39;EI&#39;</span><span class="p">]</span>
+<span class="n">winner</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">selected_run</span><span class="p">[</span><span class="s1">&#39;losses&#39;</span><span class="p">]))</span>
+<span class="n">best_rates</span> <span class="o">=</span> <span class="n">rates_from_unit</span><span class="p">(</span><span class="n">candidates</span><span class="p">[</span><span class="n">selected_run</span><span class="p">[</span><span class="s1">&#39;indices&#39;</span><span class="p">][</span><span class="n">winner</span><span class="p">]])</span>
+<span class="n">fitted_at_data</span> <span class="o">=</span> <span class="n">reaction</span><span class="p">(</span><span class="n">best_rates</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+<span class="n">standardized_residuals</span> <span class="o">=</span> <span class="p">(</span><span class="n">observations</span><span class="o">-</span><span class="n">fitted_at_data</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">])</span><span class="o">/</span><span class="n">sigma</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Rate&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;k1&#39;</span><span class="p">,</span> <span class="s1">&#39;k2&#39;</span><span class="p">],</span> <span class="s1">&#39;Generating value (1/min)&#39;</span><span class="p">:</span> <span class="n">true_rates</span><span class="p">,</span>
+                      <span class="s1">&#39;Selected value (1/min)&#39;</span><span class="p">:</span> <span class="n">best_rates</span><span class="p">})</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Selected J = </span><span class="si">{</span><span class="n">selected_run</span><span class="p">[</span><span class="s1">&#39;losses&#39;</span><span class="p">][</span><span class="n">winner</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mean standardized residual = </span><span class="si">{</span><span class="n">standardized_residuals</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;RMS standardized residual = </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">standardized_residuals</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">fine_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+<span class="n">fitted_curves</span> <span class="o">=</span> <span class="n">reaction</span><span class="p">(</span><span class="n">best_rates</span><span class="p">,</span> <span class="n">fine_time</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.7</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">]):</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fine_time</span><span class="p">,</span> <span class="n">fitted_curves</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">: selected model&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">observations</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">standardized_residuals</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Time (min)&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Normalized concentration&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Selected point calibration&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Time (min)&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;(Observation − prediction) / σ&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Residual check&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">:</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">.2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">audit</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;comparison&#39;</span><span class="p">:</span> <span class="n">comparison</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;records&#39;</span><span class="p">),</span> <span class="s1">&#39;best_rates&#39;</span><span class="p">:</span> <span class="n">best_rates</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+         <span class="s1">&#39;best_J&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">selected_run</span><span class="p">[</span><span class="s1">&#39;losses&#39;</span><span class="p">][</span><span class="n">winner</span><span class="p">]),</span> <span class="s1">&#39;next&#39;</span><span class="p">:</span> <span class="n">snapshot</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;records&#39;</span><span class="p">)}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="d-state-what-was-calibrated-20-points">
+<h3>(d) State what was calibrated (20 points)<a class="headerlink" href="#d-state-what-was-calibrated-20-points" title="Permalink to this heading">#</a></h3>
+<p>Report the selected rates, J, and RMS standardized residual. Compare the rates with the generating values and use the residual plot to describe the fit. Does a low loss identify the rates without uncertainty? Explain what additional inference would be needed for a credible interval on <span class="math notranslate nohighlight">\(k_1\)</span>, and give one reason that successful recovery on these synthetic data might not transfer to a real reaction.</p>
+<p><em>Your answer:</em></p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -635,6 +942,34 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#student-details">Student details</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-calibration-loss-and-expected-improvement-20-points">Problem 1: Calibration loss and expected improvement (20 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-from-observations-to-an-objective-10-points">(a) From observations to an objective (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-an-acquisition-decision-10-points">(b) An acquisition decision (10 points)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-a-reaction-calibration-study-with-a-fixed-simulation-budget-80-points">Problem 2: A reaction-calibration study with a fixed simulation budget (80 points)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-identify-the-calibration-problem-15-points">(a) Identify the calibration problem (15 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-read-the-first-acquisition-decision-20-points">(b) Read the first acquisition decision (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-compare-the-searches-fairly-25-points">(c) Compare the searches fairly (25 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-state-what-was-calibrated-20-points">(d) State what was calibrated (20 points)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
